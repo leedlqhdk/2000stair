@@ -17,7 +17,7 @@ const blogPosts: BlogPost[] = [
     date: "2025.10.03",
     summary: "빌라 계단청소 비용과 효율적 관리법, 이천계단지기의 전문 서비스를 소개합니다.",
     category: "서비스 소개",
-    thumbnail: "/manus-storage/stair-clean3_7d8b7d17.jpg",
+    thumbnail: "https://postfiles.pstatic.net/MjAyNTEwMDFfMTM4/MDAxNzU5MzAwMjEyODA4.y3lIm_GLjoXcgoyLTp7JYQg0DyA67EaNBGMk2gzhwy0g.qJwO9CruC127nTuLnlnlvVi81Kr6_0ZsX6MfFkJAYkog.PNG/%EC%A0%9C%EB%AA%A9%EC%9D%84_%EC%9E%85%EB%A0%A5%ED%95%B4%EC%A3%BC%EC%84%B8%EC%9A%94._(4).png?type=w96",
   },
   {
     title: "계단청소 구독 견적표",
