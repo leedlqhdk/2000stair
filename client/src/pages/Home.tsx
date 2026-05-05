@@ -2,6 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BoxPreview from "@/components/BoxPreview";
+import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
 import QuoteForm from "@/components/QuoteForm";
 import BlogReviews from "@/components/BlogReviews";
@@ -22,6 +23,7 @@ export default function Home() {
         <HeroSection isAuthenticated={isAuthenticated} />
         <HowItWorks />
         <BoxPreview />
+        <BeforeAfterGallery />
         <PricingSection isAuthenticated={isAuthenticated} />
         <QuoteForm />
         <BlogReviews />

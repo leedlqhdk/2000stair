@@ -33,3 +33,5 @@
 - [x] 견적 신청 폼의 플랜 선택 옵션 업데이트
 - [x] products.ts 서비스 플랜 데이터 업데이트
 - [x] 카카오톡 채널 상담 버튼 추가 (https://pf.kakao.com/_IiNfn)
+- [x] 실제 청소 전/후 비교 사진 갤러리 섹션 추가 (6세트: 창틀, 계단바닥, 계단바닥2, 창문레일, 난간, 유리)
+- [x] server/_core/storageProxy.ts TypeScript 오류 수정 (req.params[0] 타입 캐스팅)
