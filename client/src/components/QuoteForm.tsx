@@ -15,7 +15,7 @@ export default function QuoteForm() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [serviceType, setServiceType] = useState<"in_person" | "non_contact">("in_person");
-  const [planId, setPlanId] = useState("standard");
+  const [planId, setPlanId] = useState("stair_4");
   const [message, setMessage] = useState("");
 
   const submitQuote = trpc.quote.submit.useMutation();
@@ -66,7 +66,7 @@ export default function QuoteForm() {
       setEmail("");
       setAddress("");
       setServiceType("in_person");
-      setPlanId("standard");
+      setPlanId("stair_4");
       setMessage("");
     } catch (error: any) {
       toast.error(error.message || "오류가 발생했습니다. 다시 시도해주세요.");
@@ -189,15 +189,18 @@ export default function QuoteForm() {
 
                 {/* Plan Selection */}
                 <div className="space-y-2">
-                  <Label htmlFor="plan">희망 플랜</Label>
+                  <Label htmlFor="plan">희망 서비스</Label>
                   <Select value={planId} onValueChange={setPlanId}>
                     <SelectTrigger>
-                      <SelectValue placeholder="플랜을 선택하세요" />
+                      <SelectValue placeholder="서비스를 선택하세요" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="basic">Basic - 기본 청소 구독</SelectItem>
-                      <SelectItem value="standard">Standard - 인기 정기 청소</SelectItem>
-                      <SelectItem value="premium">Premium - 프리미엄 관리</SelectItem>
+                      <SelectItem value="stair_2_3">2-3층 계단 (66,000원~)</SelectItem>
+                      <SelectItem value="stair_4">4층 계단 (77,000원~)</SelectItem>
+                      <SelectItem value="stair_5_6">5-6층 계단 (88,000원~)</SelectItem>
+                      <SelectItem value="bathroom">화장실 청소 (별도 문의)</SelectItem>
+                      <SelectItem value="office">사무실 청소 (별도 문의)</SelectItem>
+                      <SelectItem value="glass">상가 유리창 청소 (별도 문의)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

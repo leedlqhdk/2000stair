@@ -1,59 +1,57 @@
 /**
- * PeanutCrate 청소 구독 서비스 플랜 정의
- * 대면/비대면 2년 청소 구독 서비스
+ * 이천계단지기 서비스 메뉴 정의
+ * 실제 견적표 기반 서비스 항목
  */
 
-export interface Plan {
+export interface ServicePlan {
   id: string;
   name: string;
+  price: string;
   description: string;
-  features: string[];
   popular: boolean;
 }
 
-export const PLANS: Plan[] = [
+export const PLANS: ServicePlan[] = [
   {
-    id: "basic",
-    name: "Basic",
-    description: "소규모 건물을 위한 기본 청소 구독",
-    features: [
-      "월 2회 정기 계단 청소",
-      "공동현관 바닥 청소",
-      "우편함 주변 정리",
-      "청소 완료 사진 보고",
-      "2년 약정 할인 적용",
-    ],
+    id: "stair_2_3",
+    name: "2-3층 계단",
+    price: "66,000원~",
+    description: "이천지역 밀착 관리 · 친환경 수입세제로 매달 같은 손이 관리합니다",
     popular: false,
   },
   {
-    id: "standard",
-    name: "Standard",
-    description: "가장 인기 있는 정기 청소 구독",
-    features: [
-      "주 1회 정기 계단 청소",
-      "복도 + 계단 + 현관 전체 관리",
-      "엘리베이터 내부 청소",
-      "화장실 청소 포함",
-      "분기별 특수 청소 1회",
-      "청소 완료 사진 보고",
-      "2년 약정 할인 적용",
-    ],
+    id: "stair_4",
+    name: "4층 계단",
+    price: "77,000원~",
+    description: "부부 직영, 외주 없이, 처음 온 날과 같은 품질로 유지합니다",
     popular: true,
   },
   {
-    id: "premium",
-    name: "Premium",
-    description: "완벽한 건물 관리를 위한 프리미엄 구독",
-    features: [
-      "주 2회 정기 청소 (계단+복도+현관)",
-      "엘리베이터 + 화장실 + 주차장",
-      "외부 유리창 청소 포함",
-      "월 1회 특수 청소 (왁스코팅 등)",
-      "비둘기/해충 방제 관리",
-      "전담 매니저 배정",
-      "24시간 긴급 청소 대응",
-      "2년 약정 최대 할인 적용",
-    ],
+    id: "stair_5_6",
+    name: "5-6층 계단",
+    price: "88,000원~",
+    description: "건물당 걸레 1장 원칙, 위층 아래층 동일한 기준으로 호텔급 관리",
+    popular: false,
+  },
+  {
+    id: "bathroom",
+    name: "화장실 청소",
+    price: "별도 문의",
+    description: "청소계획표 기반, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
+    popular: false,
+  },
+  {
+    id: "office",
+    name: "사무실 청소",
+    price: "별도 문의",
+    description: "세금계산서 발행 가능, 정기계약 기준으로 체계적으로 운영합니다",
+    popular: false,
+  },
+  {
+    id: "glass",
+    name: "상가 유리창 청소",
+    price: "별도 문의",
+    description: "친환경 수입세제와 전문도구로 흔적 없이 마감합니다",
     popular: false,
   },
 ];

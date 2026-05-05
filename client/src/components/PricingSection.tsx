@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Check, ArrowRight } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 interface PricingSectionProps {
@@ -14,34 +14,57 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     const quoteSection = document.getElementById("quote-form");
     if (quoteSection) {
       quoteSection.scrollIntoView({ behavior: "smooth" });
-      // Set plan selection via custom event
       window.dispatchEvent(new CustomEvent("selectPlan", { detail: { planId } }));
     }
   };
 
   const displayPlans = plans || [
     {
-      id: "basic",
-      name: "Basic",
-      description: "소규모 건물을 위한 기본 청소 구독",
-      features: ["월 2회 정기 계단 청소", "공동현관 바닥 청소", "우편함 주변 정리", "청소 완료 사진 보고", "2년 약정 할인 적용"],
+      id: "stair_2_3",
+      name: "2-3층 계단",
+      price: "66,000원~",
+      description: "이천지역 밀착 관리 · 친환경 수입세제로 매달 같은 손이 관리합니다",
       popular: false,
     },
     {
-      id: "standard",
-      name: "Standard",
-      description: "가장 인기 있는 정기 청소 구독",
-      features: ["주 1회 정기 계단 청소", "복도 + 계단 + 현관 전체 관리", "엘리베이터 내부 청소", "화장실 청소 포함", "분기별 특수 청소 1회", "청소 완료 사진 보고", "2년 약정 할인 적용"],
+      id: "stair_4",
+      name: "4층 계단",
+      price: "77,000원~",
+      description: "부부 직영, 외주 없이, 처음 온 날과 같은 품질로 유지합니다",
       popular: true,
     },
     {
-      id: "premium",
-      name: "Premium",
-      description: "완벽한 건물 관리를 위한 프리미엄 구독",
-      features: ["주 2회 정기 청소 (계단+복도+현관)", "엘리베이터 + 화장실 + 주차장", "외부 유리창 청소 포함", "월 1회 특수 청소 (왁스코팅 등)", "비둘기/해충 방제 관리", "전담 매니저 배정", "24시간 긴급 청소 대응", "2년 약정 최대 할인 적용"],
+      id: "stair_5_6",
+      name: "5-6층 계단",
+      price: "88,000원~",
+      description: "건물당 걸레 1장 원칙, 위층 아래층 동일한 기준으로 호텔급 관리",
+      popular: false,
+    },
+    {
+      id: "bathroom",
+      name: "화장실 청소",
+      price: "별도 문의",
+      description: "청소계획표 기반, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
+      popular: false,
+    },
+    {
+      id: "office",
+      name: "사무실 청소",
+      price: "별도 문의",
+      description: "세금계산서 발행 가능, 정기계약 기준으로 체계적으로 운영합니다",
+      popular: false,
+    },
+    {
+      id: "glass",
+      name: "상가 유리창 청소",
+      price: "별도 문의",
+      description: "친환경 수입세제와 전문도구로 흔적 없이 마감합니다",
       popular: false,
     },
   ];
+
+  const stairPlans = displayPlans.filter((p) => p.id.startsWith("stair"));
+  const otherPlans = displayPlans.filter((p) => !p.id.startsWith("stair"));
 
   return (
     <section id="pricing" className="py-20 md:py-28 bg-secondary/30">
@@ -49,55 +72,41 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            나에게 맞는 플랜 선택
+            서비스 요금 안내
           </h2>
-          <p className="text-muted-foreground text-lg mb-4">
-            2년 정기 구독으로 합리적인 가격에 깨끗한 건물을 유지하세요.
+          <p className="text-muted-foreground text-lg mb-2">
+            처음처럼, 언제나 같은 품질
           </p>
           <p className="text-sm text-muted-foreground">
-            대면 / 비대면 서비스 모두 가능 | 무료 방문 견적 후 정확한 금액을 안내해 드립니다.
+            무료 방문 견적 후 정확한 금액을 안내해 드립니다 · 대면 / 비대면 모두 가능
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {displayPlans.map((plan) => (
+        {/* Stair Plans - Main Cards */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
+          {stairPlans.map((plan) => (
             <Card
               key={plan.id}
-              className={`relative overflow-hidden transition-all duration-300 hover:shadow-lg ${
+              className={`relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
                 plan.popular
-                  ? "border-primary shadow-md scale-[1.02] md:scale-105"
+                  ? "border-primary shadow-md ring-2 ring-primary/20"
                   : "border-border"
               }`}
             >
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-bl-lg">
-                  인기
-                </div>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
               )}
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl">{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
-                <div className="pt-4">
-                  <span className="text-lg font-semibold text-primary">
-                    무료 방문 견적
-                  </span>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    건물 규모에 따라 맞춤 견적을 제공합니다
-                  </p>
+              <CardContent className="pt-8 pb-6 px-6 flex flex-col h-full">
+                <h3 className="text-xl font-bold text-foreground mb-2">{plan.name}</h3>
+                <div className="mb-4">
+                  <span className="text-2xl font-extrabold text-primary">{plan.price}</span>
+                  <span className="text-xs text-muted-foreground ml-1">/월</span>
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-2.5">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm">
-                      <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <span className="text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                  {plan.description}
+                </p>
                 <Button
-                  className="w-full mt-4"
+                  className="w-full"
                   variant={plan.popular ? "default" : "outline"}
                   onClick={() => handleQuoteRequest(plan.id)}
                 >
@@ -107,6 +116,45 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Other Services - Compact Grid */}
+        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+          {otherPlans.map((plan) => (
+            <Card
+              key={plan.id}
+              className="border-border hover:border-primary/30 transition-all duration-300 hover:shadow-sm"
+            >
+              <CardContent className="py-5 px-5">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-semibold text-foreground">{plan.name}</h3>
+                  <span className="text-sm font-bold text-primary">{plan.price}</span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+                  {plan.description}
+                </p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-primary hover:text-primary hover:bg-primary/5"
+                  onClick={() => handleQuoteRequest(plan.id)}
+                >
+                  문의하기
+                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center mt-12">
+          <p className="text-sm text-muted-foreground">
+            문의 및 예약 환영 · 전화{" "}
+            <a href="tel:010-8180-6895" className="text-primary font-medium hover:underline">
+              010-8180-6895
+            </a>
+          </p>
         </div>
       </div>
     </section>

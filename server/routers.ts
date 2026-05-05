@@ -26,8 +26,8 @@ export const appRouter = router({
       return PLANS.map((p) => ({
         id: p.id,
         name: p.name,
+        price: p.price,
         description: p.description,
-        features: p.features,
         popular: p.popular,
       }));
     }),

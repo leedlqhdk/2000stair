@@ -27,3 +27,8 @@
 - [x] PeanutCrate 브랜드명을 이천계단지기로 변경
 - [x] 이천계단지기 로고 이미지를 Navbar에 적용
 - [x] VITE_APP_TITLE을 이천계단지기로 변경 (index.html title 직접 변경)
+- [x] Basic/Standard/Premium 플랜 제거 (badge 필드 완전 제거 포함)
+- [x] 실제 서비스 메뉴로 교체 (2-3층 66,000원~, 4층 77,000원~, 5-6층 88,000원~, 화장실/사무실/유리창 별도문의)
+- [x] PricingSection UI를 새 서비스 메뉴에 맞게 재설계
+- [x] 견적 신청 폼의 플랜 선택 옵션 업데이트
+- [x] products.ts 서비스 플랜 데이터 업데이트

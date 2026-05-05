@@ -40,20 +40,40 @@ function createAuthContext(): TrpcContext {
 }
 
 describe("products", () => {
-  it("should have exactly 3 plans: basic, standard, premium", () => {
-    expect(PLANS).toHaveLength(3);
-    expect(PLANS.map((p) => p.id)).toEqual(["basic", "standard", "premium"]);
+  it("should have exactly 6 service plans", () => {
+    expect(PLANS).toHaveLength(6);
   });
 
-  it("should mark standard as popular", () => {
-    const standard = getPlanById("standard");
-    expect(standard).toBeDefined();
-    expect(standard!.popular).toBe(true);
+  it("should have correct plan IDs", () => {
+    expect(PLANS.map((p) => p.id)).toEqual([
+      "stair_2_3",
+      "stair_4",
+      "stair_5_6",
+      "bathroom",
+      "office",
+      "glass",
+    ]);
   });
 
-  it("each plan should have features array with at least 3 items", () => {
-    for (const plan of PLANS) {
-      expect(plan.features.length).toBeGreaterThanOrEqual(3);
+  it("should mark stair_4 as popular", () => {
+    const stair4 = getPlanById("stair_4");
+    expect(stair4).toBeDefined();
+    expect(stair4!.popular).toBe(true);
+  });
+
+  it("stair plans should have price with 원~", () => {
+    const stairPlans = PLANS.filter((p) => p.id.startsWith("stair"));
+    expect(stairPlans).toHaveLength(3);
+    for (const plan of stairPlans) {
+      expect(plan.price).toMatch(/\d+,\d+원~/);
+    }
+  });
+
+  it("non-stair plans should have 별도 문의 as price", () => {
+    const otherPlans = PLANS.filter((p) => !p.id.startsWith("stair"));
+    expect(otherPlans).toHaveLength(3);
+    for (const plan of otherPlans) {
+      expect(plan.price).toBe("별도 문의");
     }
   });
 
@@ -61,29 +81,33 @@ describe("products", () => {
     expect(getPlanById("nonexistent")).toBeUndefined();
   });
 
-  it("all plans have required fields", () => {
+  it("all plans have required fields (no badge field)", () => {
     PLANS.forEach((plan) => {
       expect(plan.id).toBeDefined();
       expect(plan.name).toBeDefined();
+      expect(plan.price).toBeDefined();
       expect(plan.description).toBeDefined();
-      expect(plan.features.length).toBeGreaterThan(0);
       expect(typeof plan.popular).toBe("boolean");
+      // Ensure no badge field exists
+      expect((plan as any).badge).toBeUndefined();
     });
   });
 });
 
 describe("quote.plans procedure", () => {
-  it("should return all plans via tRPC", async () => {
+  it("should return all 6 plans via tRPC", async () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
     const plans = await caller.quote.plans();
 
-    expect(plans).toHaveLength(3);
+    expect(plans).toHaveLength(6);
     expect(plans[0]).toHaveProperty("id");
     expect(plans[0]).toHaveProperty("name");
+    expect(plans[0]).toHaveProperty("price");
     expect(plans[0]).toHaveProperty("description");
-    expect(plans[0]).toHaveProperty("features");
     expect(plans[0]).toHaveProperty("popular");
+    // No badge field should be returned
+    expect((plans[0] as any).badge).toBeUndefined();
   });
 
   it("plans should have correct IDs in order", async () => {
@@ -91,9 +115,12 @@ describe("quote.plans procedure", () => {
     const caller = appRouter.createCaller(ctx);
     const plans = await caller.quote.plans();
 
-    expect(plans[0].id).toBe("basic");
-    expect(plans[1].id).toBe("standard");
-    expect(plans[2].id).toBe("premium");
+    expect(plans[0].id).toBe("stair_2_3");
+    expect(plans[1].id).toBe("stair_4");
+    expect(plans[2].id).toBe("stair_5_6");
+    expect(plans[3].id).toBe("bathroom");
+    expect(plans[4].id).toBe("office");
+    expect(plans[5].id).toBe("glass");
   });
 });
 
@@ -108,7 +135,7 @@ describe("quote.submit procedure", () => {
         phone: "010-1234-5678",
         address: "경기도 이천시",
         serviceType: "in_person",
-        planId: "basic",
+        planId: "stair_4",
       })
     ).rejects.toThrow();
   });
@@ -123,7 +150,7 @@ describe("quote.submit procedure", () => {
         phone: "",
         address: "경기도 이천시",
         serviceType: "in_person",
-        planId: "basic",
+        planId: "stair_4",
       })
     ).rejects.toThrow();
   });
@@ -138,7 +165,7 @@ describe("quote.submit procedure", () => {
         phone: "010-1234-5678",
         address: "",
         serviceType: "in_person",
-        planId: "basic",
+        planId: "stair_4",
       })
     ).rejects.toThrow();
   });
@@ -153,7 +180,7 @@ describe("quote.submit procedure", () => {
         phone: "010-1234-5678",
         address: "경기도 이천시",
         serviceType: "invalid" as any,
-        planId: "basic",
+        planId: "stair_4",
       })
     ).rejects.toThrow();
   });
