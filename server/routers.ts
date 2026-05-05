@@ -3,11 +3,11 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { stripe } from "./stripe";
 import { PLANS } from "./products";
 import { getDb } from "./db";
-import { subscriptions, users } from "../drizzle/schema";
+import { quoteRequests } from "../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
+import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
   system: systemRouter,
@@ -20,7 +20,7 @@ export const appRouter = router({
     }),
   }),
 
-  subscription: router({
+  quote: router({
     // Get available plans (public)
     plans: publicProcedure.query(() => {
       return PLANS.map((p) => ({
@@ -28,104 +28,69 @@ export const appRouter = router({
         name: p.name,
         description: p.description,
         features: p.features,
-        monthlyPrice: p.monthlyPrice,
-        yearlyPrice: p.yearlyPrice,
-        popular: p.popular || false,
+        popular: p.popular,
       }));
     }),
 
-    // Get current user's subscription
-    current: protectedProcedure.query(async ({ ctx }) => {
-      const db = await getDb();
-      if (!db) return null;
-
-      const result = await db
-        .select()
-        .from(subscriptions)
-        .where(eq(subscriptions.userId, ctx.user.id))
-        .orderBy(desc(subscriptions.createdAt))
-        .limit(1);
-
-      return result[0] || null;
-    }),
-
-    // Create checkout session
-    createCheckout: protectedProcedure
+    // Submit a quote request (public - no login required)
+    submit: publicProcedure
       .input(
         z.object({
-          planId: z.string(),
-          interval: z.enum(["monthly", "yearly"]),
+          name: z.string().min(1, "이름을 입력해주세요"),
+          phone: z.string().min(1, "연락처를 입력해주세요"),
+          email: z.string().email("올바른 이메일을 입력해주세요").optional().or(z.literal("")),
+          address: z.string().min(1, "주소를 입력해주세요"),
+          serviceType: z.enum(["in_person", "non_contact"]),
+          planId: z.string().min(1, "플랜을 선택해주세요"),
+          message: z.string().optional(),
         })
       )
       .mutation(async ({ ctx, input }) => {
-        const plan = PLANS.find((p) => p.id === input.planId);
-        if (!plan) throw new Error("Invalid plan");
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
 
-        const price =
-          input.interval === "monthly" ? plan.monthlyPrice : plan.yearlyPrice;
-        const intervalConfig =
-          input.interval === "monthly"
-            ? { interval: "month" as const, interval_count: 1 }
-            : { interval: "year" as const, interval_count: 1 };
+        const userId = ctx.user?.id || null;
 
-        const origin = ctx.req.headers.origin || ctx.req.headers.referer || "";
-
-        const session = await stripe.checkout.sessions.create({
-          mode: "subscription",
-          payment_method_types: ["card"],
-          customer_email: ctx.user.email || undefined,
-          client_reference_id: ctx.user.id.toString(),
-          metadata: {
-            user_id: ctx.user.id.toString(),
-            customer_email: ctx.user.email || "",
-            customer_name: ctx.user.name || "",
-            plan_id: plan.id,
-          },
-          line_items: [
-            {
-              price_data: {
-                currency: "krw",
-                product_data: {
-                  name: `PeanutCrate ${plan.name}`,
-                  description: plan.description,
-                },
-                unit_amount: price,
-                recurring: intervalConfig,
-              },
-              quantity: 1,
-            },
-          ],
-          allow_promotion_codes: true,
-          success_url: `${origin}/subscription/success?session_id={CHECKOUT_SESSION_ID}`,
-          cancel_url: `${origin}/#pricing`,
+        await db.insert(quoteRequests).values({
+          userId,
+          name: input.name,
+          phone: input.phone,
+          email: input.email || null,
+          address: input.address,
+          serviceType: input.serviceType,
+          planId: input.planId,
+          message: input.message || null,
         });
 
-        return { url: session.url };
+        // Notify owner about new quote request
+        const plan = PLANS.find((p) => p.id === input.planId);
+        try {
+          const notified = await notifyOwner({
+            title: "새 견적 신청이 접수되었습니다",
+            content: `이름: ${input.name}\n연락처: ${input.phone}\n주소: ${input.address}\n서비스: ${input.serviceType === "in_person" ? "대면" : "비대면"}\n플랜: ${plan?.name || input.planId}`,
+          });
+          if (!notified) {
+            console.warn("[Quote] Owner notification failed - service may be temporarily unavailable");
+          }
+        } catch (err) {
+          console.error("[Quote] Failed to notify owner:", err);
+        }
+
+        return { success: true };
       }),
 
-    // Cancel subscription
-    cancel: protectedProcedure.mutation(async ({ ctx }) => {
+    // Get my quote requests (protected)
+    myRequests: protectedProcedure.query(async ({ ctx }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database not available");
+      if (!db) return [];
 
       const result = await db
         .select()
-        .from(subscriptions)
-        .where(eq(subscriptions.userId, ctx.user.id))
-        .orderBy(desc(subscriptions.createdAt))
-        .limit(1);
+        .from(quoteRequests)
+        .where(eq(quoteRequests.userId, ctx.user.id))
+        .orderBy(desc(quoteRequests.createdAt));
 
-      const sub = result[0];
-      if (!sub) throw new Error("No active subscription");
-
-      await stripe.subscriptions.cancel(sub.stripeSubscriptionId);
-
-      await db
-        .update(subscriptions)
-        .set({ status: "canceled" })
-        .where(eq(subscriptions.id, sub.id));
-
-      return { success: true };
+      return result;
     }),
   }),
 });

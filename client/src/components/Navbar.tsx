@@ -3,6 +3,7 @@ import { getLoginUrl } from "@/const";
 import { Package, Menu, X } from "lucide-react";
 import { useState } from "react";
 import type { User } from "../../../drizzle/schema";
+import { useLocation } from "wouter";
 
 interface NavbarProps {
   isAuthenticated: boolean;
@@ -12,11 +13,13 @@ interface NavbarProps {
 
 export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [, setLocation] = useLocation();
 
   const navLinks = [
-    { label: "작동 방식", href: "#how-it-works" },
-    { label: "박스 구성", href: "#box-preview" },
-    { label: "가격", href: "#pricing" },
+    { label: "서비스 소개", href: "#how-it-works" },
+    { label: "플랜", href: "#pricing" },
+    { label: "견적 신청", href: "#quote-form" },
+    { label: "블로그", href: "#blog-reviews" },
   ];
 
   return (
@@ -45,6 +48,13 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
         <div className="hidden md:flex items-center gap-3">
           {isAuthenticated ? (
             <>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setLocation("/my-quotes")}
+              >
+                내 견적
+              </Button>
               <span className="text-sm text-muted-foreground">
                 {user?.name || user?.email || "회원"}
               </span>
@@ -63,9 +73,9 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
               </Button>
               <Button
                 size="sm"
-                onClick={() => (window.location.href = getLoginUrl())}
+                onClick={() => document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" })}
               >
-                시작하기
+                무료 견적
               </Button>
             </>
           )}
@@ -96,9 +106,19 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
             ))}
             <div className="flex gap-2 pt-3 border-t border-border">
               {isAuthenticated ? (
-                <Button variant="outline" size="sm" className="w-full" onClick={onLogout}>
-                  로그아웃
-                </Button>
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => { setLocation("/my-quotes"); setMobileOpen(false); }}
+                  >
+                    내 견적
+                  </Button>
+                  <Button variant="outline" size="sm" className="flex-1" onClick={onLogout}>
+                    로그아웃
+                  </Button>
+                </>
               ) : (
                 <>
                   <Button
@@ -112,9 +132,12 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
                   <Button
                     size="sm"
                     className="flex-1"
-                    onClick={() => (window.location.href = getLoginUrl())}
+                    onClick={() => {
+                      document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" });
+                      setMobileOpen(false);
+                    }}
                   >
-                    시작하기
+                    무료 견적
                   </Button>
                 </>
               )}

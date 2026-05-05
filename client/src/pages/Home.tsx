@@ -3,6 +3,8 @@ import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BoxPreview from "@/components/BoxPreview";
 import PricingSection from "@/components/PricingSection";
+import QuoteForm from "@/components/QuoteForm";
+import BlogReviews from "@/components/BlogReviews";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -21,6 +23,8 @@ export default function Home() {
         <HowItWorks />
         <BoxPreview />
         <PricingSection isAuthenticated={isAuthenticated} />
+        <QuoteForm />
+        <BlogReviews />
       </main>
       <Footer />
     </div>

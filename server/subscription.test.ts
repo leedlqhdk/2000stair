@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
-import { PLANS } from "./products";
+import { PLANS, getPlanById } from "./products";
 import type { TrpcContext } from "./_core/context";
 
 function createPublicContext(): TrpcContext {
@@ -25,7 +25,6 @@ function createAuthContext(): TrpcContext {
       name: "Test User",
       loginMethod: "manus",
       role: "user",
-      stripeCustomerId: null,
       createdAt: new Date(),
       updatedAt: new Date(),
       lastSignedIn: new Date(),
@@ -40,91 +39,131 @@ function createAuthContext(): TrpcContext {
   };
 }
 
-describe("subscription.plans", () => {
-  it("returns all available plans with correct structure", async () => {
-    const ctx = createPublicContext();
-    const caller = appRouter.createCaller(ctx);
-
-    const plans = await caller.subscription.plans();
-
-    expect(plans).toHaveLength(3);
-    expect(plans[0].id).toBe("basic");
-    expect(plans[1].id).toBe("standard");
-    expect(plans[2].id).toBe("premium");
+describe("products", () => {
+  it("should have exactly 3 plans: basic, standard, premium", () => {
+    expect(PLANS).toHaveLength(3);
+    expect(PLANS.map((p) => p.id)).toEqual(["basic", "standard", "premium"]);
   });
 
-  it("plans have correct pricing data", async () => {
-    const ctx = createPublicContext();
-    const caller = appRouter.createCaller(ctx);
-
-    const plans = await caller.subscription.plans();
-
-    const basic = plans.find((p) => p.id === "basic");
-    expect(basic).toBeDefined();
-    expect(basic!.monthlyPrice).toBe(19900);
-    expect(basic!.yearlyPrice).toBe(199000);
-    expect(basic!.name).toBe("Basic");
-
-    const standard = plans.find((p) => p.id === "standard");
+  it("should mark standard as popular", () => {
+    const standard = getPlanById("standard");
     expect(standard).toBeDefined();
     expect(standard!.popular).toBe(true);
-    expect(standard!.monthlyPrice).toBe(29900);
-
-    const premium = plans.find((p) => p.id === "premium");
-    expect(premium).toBeDefined();
-    expect(premium!.monthlyPrice).toBe(49900);
   });
 
-  it("each plan has features array", async () => {
-    const ctx = createPublicContext();
-    const caller = appRouter.createCaller(ctx);
-
-    const plans = await caller.subscription.plans();
-
-    plans.forEach((plan) => {
-      expect(Array.isArray(plan.features)).toBe(true);
-      expect(plan.features.length).toBeGreaterThan(0);
-    });
+  it("each plan should have features array with at least 3 items", () => {
+    for (const plan of PLANS) {
+      expect(plan.features.length).toBeGreaterThanOrEqual(3);
+    }
   });
-});
 
-describe("subscription.current", () => {
-  it("throws UNAUTHORIZED for unauthenticated users", async () => {
-    const ctx = createPublicContext();
-    const caller = appRouter.createCaller(ctx);
-
-    await expect(caller.subscription.current()).rejects.toThrow();
+  it("getPlanById should return undefined for unknown id", () => {
+    expect(getPlanById("nonexistent")).toBeUndefined();
   });
-});
 
-describe("subscription.createCheckout", () => {
-  it("throws UNAUTHORIZED for unauthenticated users", async () => {
-    const ctx = createPublicContext();
-    const caller = appRouter.createCaller(ctx);
-
-    await expect(
-      caller.subscription.createCheckout({ planId: "basic", interval: "monthly" })
-    ).rejects.toThrow();
-  });
-});
-
-describe("products", () => {
-  it("PLANS has correct structure", () => {
-    expect(PLANS).toHaveLength(3);
-
+  it("all plans have required fields", () => {
     PLANS.forEach((plan) => {
       expect(plan.id).toBeDefined();
       expect(plan.name).toBeDefined();
       expect(plan.description).toBeDefined();
-      expect(plan.monthlyPrice).toBeGreaterThan(0);
-      expect(plan.yearlyPrice).toBeGreaterThan(0);
-      expect(plan.yearlyPrice).toBeLessThan(plan.monthlyPrice * 12);
       expect(plan.features.length).toBeGreaterThan(0);
+      expect(typeof plan.popular).toBe("boolean");
     });
   });
+});
 
-  it("plans are ordered Basic < Standard < Premium by price", () => {
-    expect(PLANS[0].monthlyPrice).toBeLessThan(PLANS[1].monthlyPrice);
-    expect(PLANS[1].monthlyPrice).toBeLessThan(PLANS[2].monthlyPrice);
+describe("quote.plans procedure", () => {
+  it("should return all plans via tRPC", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+    const plans = await caller.quote.plans();
+
+    expect(plans).toHaveLength(3);
+    expect(plans[0]).toHaveProperty("id");
+    expect(plans[0]).toHaveProperty("name");
+    expect(plans[0]).toHaveProperty("description");
+    expect(plans[0]).toHaveProperty("features");
+    expect(plans[0]).toHaveProperty("popular");
+  });
+
+  it("plans should have correct IDs in order", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+    const plans = await caller.quote.plans();
+
+    expect(plans[0].id).toBe("basic");
+    expect(plans[1].id).toBe("standard");
+    expect(plans[2].id).toBe("premium");
+  });
+});
+
+describe("quote.submit procedure", () => {
+  it("should reject empty name", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(
+      caller.quote.submit({
+        name: "",
+        phone: "010-1234-5678",
+        address: "경기도 이천시",
+        serviceType: "in_person",
+        planId: "basic",
+      })
+    ).rejects.toThrow();
+  });
+
+  it("should reject empty phone", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(
+      caller.quote.submit({
+        name: "홍길동",
+        phone: "",
+        address: "경기도 이천시",
+        serviceType: "in_person",
+        planId: "basic",
+      })
+    ).rejects.toThrow();
+  });
+
+  it("should reject empty address", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(
+      caller.quote.submit({
+        name: "홍길동",
+        phone: "010-1234-5678",
+        address: "",
+        serviceType: "in_person",
+        planId: "basic",
+      })
+    ).rejects.toThrow();
+  });
+
+  it("should reject invalid serviceType", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(
+      caller.quote.submit({
+        name: "홍길동",
+        phone: "010-1234-5678",
+        address: "경기도 이천시",
+        serviceType: "invalid" as any,
+        planId: "basic",
+      })
+    ).rejects.toThrow();
+  });
+});
+
+describe("quote.myRequests procedure", () => {
+  it("should throw UNAUTHORIZED for unauthenticated users", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(caller.quote.myRequests()).rejects.toThrow();
   });
 });

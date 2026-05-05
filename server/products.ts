@@ -1,65 +1,60 @@
 /**
- * PeanutCrate 구독 플랜 정의
- * Stripe에서 실제 Product/Price를 생성한 후 ID를 업데이트해야 합니다.
- * 현재는 동적으로 Stripe에서 생성하는 방식을 사용합니다.
+ * PeanutCrate 청소 구독 서비스 플랜 정의
+ * 대면/비대면 2년 청소 구독 서비스
  */
 
-export interface PlanDefinition {
+export interface Plan {
   id: string;
   name: string;
   description: string;
   features: string[];
-  monthlyPrice: number; // 원 단위
-  yearlyPrice: number; // 원 단위 (연간 총액)
-  popular?: boolean;
+  popular: boolean;
 }
 
-export const PLANS: PlanDefinition[] = [
+export const PLANS: Plan[] = [
   {
     id: "basic",
     name: "Basic",
-    description: "청소 입문자를 위한 기본 구성",
+    description: "소규모 건물을 위한 기본 청소 구독",
     features: [
-      "다목적 세정제 1종",
-      "극세사 타올 2장",
-      "고무장갑 1켤레",
-      "월간 청소 팁 가이드",
+      "월 2회 정기 계단 청소",
+      "공동현관 바닥 청소",
+      "우편함 주변 정리",
+      "청소 완료 사진 보고",
+      "2년 약정 할인 적용",
     ],
-    monthlyPrice: 19900,
-    yearlyPrice: 199000,
+    popular: false,
   },
   {
     id: "standard",
     name: "Standard",
-    description: "깨끗한 집을 위한 인기 구성",
+    description: "가장 인기 있는 정기 청소 구독",
     features: [
-      "다목적 세정제 2종",
-      "극세사 타올 4장",
-      "고무장갑 1켤레",
-      "스펀지 & 수세미 세트",
-      "방향제 1종",
-      "프리미엄 청소 가이드",
+      "주 1회 정기 계단 청소",
+      "복도 + 계단 + 현관 전체 관리",
+      "엘리베이터 내부 청소",
+      "화장실 청소 포함",
+      "분기별 특수 청소 1회",
+      "청소 완료 사진 보고",
+      "2년 약정 할인 적용",
     ],
-    monthlyPrice: 29900,
-    yearlyPrice: 299000,
     popular: true,
   },
   {
     id: "premium",
     name: "Premium",
-    description: "완벽한 청소를 위한 올인원 구성",
+    description: "완벽한 건물 관리를 위한 프리미엄 구독",
     features: [
-      "프리미엄 세정제 3종",
-      "극세사 타올 6장",
-      "고무장갑 2켤레",
-      "스펀지 & 수세미 프리미엄 세트",
-      "프리미엄 방향제 2종",
-      "전문가 청소 도구 1종",
-      "1:1 청소 컨설팅",
-      "우선 배송",
+      "주 2회 정기 청소 (계단+복도+현관)",
+      "엘리베이터 + 화장실 + 주차장",
+      "외부 유리창 청소 포함",
+      "월 1회 특수 청소 (왁스코팅 등)",
+      "비둘기/해충 방제 관리",
+      "전담 매니저 배정",
+      "24시간 긴급 청소 대응",
+      "2년 약정 최대 할인 적용",
     ],
-    monthlyPrice: 49900,
-    yearlyPrice: 499000,
+    popular: false,
   },
 ];
 

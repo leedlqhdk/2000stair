@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { getLoginUrl } from "@/const";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 interface HeroSectionProps {
@@ -8,11 +7,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   const handleCTA = () => {
-    if (isAuthenticated) {
-      document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.href = getLoginUrl();
-    }
+    document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -28,21 +23,21 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-medium">
               <Sparkles className="w-4 h-4" />
-              매달 새로운 청소 용품이 문 앞에
+              이천 전 지역 계단청소 전문
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground">
-              깨끗한 집,{" "}
+              깨끗한 건물,{" "}
               <span className="text-primary">구독 한 번</span>으로
               <br />
               시작하세요
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              PeanutCrate가 엄선한 프리미엄 친환경 청소 용품을 매달 배송해 드립니다.
-              더 이상 무엇을 사야 할지 고민하지 마세요.
+              이천계단지기가 직접 관리하는 2년 정기 청소 구독 서비스.
+              대면·비대면 모두 가능하며, 무료 방문 견적으로 시작하세요.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="text-base px-8" onClick={handleCTA}>
-                구독 시작하기
+                무료 견적 신청
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
               <Button
@@ -53,21 +48,21 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })
                 }
               >
-                자세히 알아보기
+                서비스 알아보기
               </Button>
             </div>
             <div className="flex items-center gap-6 pt-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-green-500 rounded-full" />
-                무료 배송
+                무료 방문 견적
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-green-500 rounded-full" />
-                언제든 해지 가능
+                하청 없는 직접 관리
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-green-500 rounded-full" />
-                친환경 제품
+                친환경 세정제
               </span>
             </div>
           </div>
@@ -77,14 +72,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/hero-box-VQJxFnnoqhhVEEG6uNWfpD.webp"
-                alt="PeanutCrate 청소 구독 박스"
+                alt="이천계단지기 청소 서비스"
                 className="w-full h-auto object-cover"
               />
             </div>
             {/* Floating badge */}
             <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 border border-border">
-              <div className="text-2xl font-bold text-primary">5,000+</div>
-              <div className="text-sm text-muted-foreground">만족한 구독자</div>
+              <div className="text-2xl font-bold text-primary">5년+</div>
+              <div className="text-sm text-muted-foreground">경력의 전문 관리</div>
             </div>
           </div>
         </div>

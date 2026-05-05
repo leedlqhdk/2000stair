@@ -1,26 +1,26 @@
-import { ShoppingCart, Truck, Sparkles } from "lucide-react";
+import { ClipboardList, Truck, Sparkles } from "lucide-react";
 
 const steps = [
   {
-    icon: ShoppingCart,
+    icon: ClipboardList,
     step: "01",
-    title: "주문",
+    title: "견적 신청",
     description:
-      "나에게 맞는 구독 플랜을 선택하고 간편하게 주문하세요. Basic, Standard, Premium 중 원하는 구성을 골라보세요.",
+      "무료 방문 견적을 신청하세요. 건물 규모와 상태를 확인 후 맞춤 견적을 제공합니다. 대면 또는 비대면(사진/영상) 상담이 가능합니다.",
   },
   {
     icon: Truck,
     step: "02",
-    title: "배송",
+    title: "서비스 시작",
     description:
-      "매달 정해진 날짜에 엄선된 청소 용품이 담긴 박스가 문 앞에 도착합니다. 무료 배송!",
+      "2년 정기 구독 계약 후 전담 매니저가 배정됩니다. 약속된 일정에 맞춰 정기적으로 방문하여 청소를 진행합니다.",
   },
   {
     icon: Sparkles,
     step: "03",
-    title: "청소",
+    title: "깨끗한 관리",
     description:
-      "프리미엄 친환경 제품으로 집안 구석구석을 깨끗하게 청소하세요. 매달 새로운 제품을 만나보세요.",
+      "계단, 복도, 현관을 친환경 세정제로 꼼꼼하게 청소합니다. 매 청소 완료 후 사진 보고로 결과를 확인하세요.",
   },
 ];
 
@@ -31,10 +31,10 @@ export default function HowItWorks() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            어떻게 작동하나요?
+            이렇게 진행됩니다
           </h2>
           <p className="text-muted-foreground text-lg">
-            간단한 3단계로 깨끗한 집을 유지하세요
+            간단한 3단계로 깨끗한 건물 관리를 시작하세요
           </p>
         </div>
 

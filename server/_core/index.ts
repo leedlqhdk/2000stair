@@ -32,7 +32,7 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
-  // Stripe webhook must be registered BEFORE body parsers
+  // Legacy: Stripe webhook placeholder (no-op)
   registerStripeWebhook(app);
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));

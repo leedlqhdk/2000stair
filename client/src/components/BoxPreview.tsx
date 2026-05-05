@@ -6,35 +6,40 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { Building2, Sparkles, Camera, ShieldCheck } from "lucide-react";
 
-const boxItems = [
+const serviceHighlights = [
   {
+    icon: Building2,
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-1-5XrF88oJpffK6enUVHSP9x.webp",
-    title: "친환경 세정제 세트",
+    title: "빌라 · 상가 계단 청소",
     description:
-      "식물 유래 성분으로 만든 다목적 세정제. 강력한 세정력과 은은한 향기를 동시에.",
+      "4~6층 빌라, 상가 건물의 계단과 복도를 전문적으로 관리합니다. 층수와 면적에 맞춘 맞춤 서비스를 제공합니다.",
   },
   {
+    icon: Sparkles,
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-2-2JpEEArmeyb42SSZECn5WJ.webp",
-    title: "프리미엄 극세사 타올",
+    title: "친환경 세정제 사용",
     description:
-      "초극세사 원단으로 먼지와 물기를 완벽하게 흡수. 세탁 후에도 부드러움 유지.",
+      "입주민의 건강을 생각하여 친환경 세정제만 사용합니다. 냄새 없이 깨끗하게, 환경까지 생각하는 청소입니다.",
   },
   {
+    icon: Camera,
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-3-STo2j3CHkqEj9EiLsBEBi7.webp",
-    title: "청소 도구 세트",
+    title: "청소 완료 사진 보고",
     description:
-      "천연 소재 브러시, 항균 스펀지, 내구성 고무장갑까지. 청소에 필요한 모든 도구.",
+      "매 청소 완료 후 사진으로 결과를 보고합니다. 직접 확인하지 않아도 깨끗해진 건물을 확인할 수 있습니다.",
   },
   {
+    icon: ShieldCheck,
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-4-mgR7WEfM7HKXA6gHeL94y3.webp",
-    title: "프리미엄 방향제",
+    title: "하청 없는 직접 관리",
     description:
-      "천연 에센셜 오일 기반 디퓨저와 룸스프레이. 청소 후 상쾌한 공간을 완성하세요.",
+      "외부 하청 없이 이천계단지기 부부가 직접 관리합니다. 일관된 품질과 책임감 있는 서비스를 보장합니다.",
   },
 ];
 
@@ -45,10 +50,10 @@ export default function BoxPreview() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            이번 달 박스 미리보기
+            서비스 특징
           </h2>
           <p className="text-muted-foreground text-lg">
-            매달 엄선된 프리미엄 청소 용품을 만나보세요
+            이천계단지기만의 차별화된 청소 서비스를 확인하세요
           </p>
         </div>
 
@@ -61,9 +66,9 @@ export default function BoxPreview() {
           className="w-full max-w-5xl mx-auto"
         >
           <CarouselContent className="-ml-4">
-            {boxItems.map((item, index) => (
+            {serviceHighlights.map((item, index) => (
               <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/2">
-                <Card className="overflow-hidden border-border hover:shadow-lg transition-shadow duration-300">
+                <Card className="overflow-hidden border-border hover:shadow-lg transition-shadow duration-300 h-full">
                   <div className="aspect-[4/3] overflow-hidden">
                     <img
                       src={item.image}
@@ -72,9 +77,14 @@ export default function BoxPreview() {
                     />
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {item.title}
-                    </h3>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <item.icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {item.title}
+                      </h3>
+                    </div>
                     <p className="text-muted-foreground text-sm leading-relaxed">
                       {item.description}
                     </p>

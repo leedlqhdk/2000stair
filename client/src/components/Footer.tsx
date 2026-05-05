@@ -1,5 +1,4 @@
-import { Package } from "lucide-react";
-import { toast } from "sonner";
+import { Package, Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -12,9 +11,24 @@ export default function Footer() {
               <Package className="w-6 h-6" />
               <span>PeanutCrate</span>
             </a>
-            <p className="text-white/60 text-sm leading-relaxed">
-              매달 엄선된 프리미엄 친환경 청소 용품을 문 앞까지 배송해 드립니다.
+            <p className="text-white/60 text-sm leading-relaxed mb-4">
+              이천 전 지역 계단청소 전문업체.
+              2년 정기 구독으로 깨끗한 건물을 유지하세요.
             </p>
+            <div className="space-y-2 text-sm text-white/60">
+              <div className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5" />
+                <span>010-8180-6895</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5" />
+                <span>rbska3308@naver.com</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5" />
+                <span>경기도 이천시 경충대로3160번길21</span>
+              </div>
+            </div>
           </div>
 
           {/* Links */}
@@ -23,17 +37,17 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
                 <a href="#how-it-works" className="hover:text-white transition-colors">
-                  작동 방식
-                </a>
-              </li>
-              <li>
-                <a href="#box-preview" className="hover:text-white transition-colors">
-                  박스 구성
+                  서비스 소개
                 </a>
               </li>
               <li>
                 <a href="#pricing" className="hover:text-white transition-colors">
-                  가격
+                  플랜 안내
+                </a>
+              </li>
+              <li>
+                <a href="#quote-form" className="hover:text-white transition-colors">
+                  무료 견적 신청
                 </a>
               </li>
             </ul>
@@ -43,24 +57,29 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-white/90">고객지원</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-                  자주 묻는 질문
-                </button>
+                <a
+                  href="https://blog.naver.com/icheonstair/224035739944"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  견적표 안내
+                </a>
               </li>
               <li>
-                <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-                  배송 안내
-                </button>
+                <a
+                  href="https://2000stair.creatorlink.net/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  공식 홈페이지
+                </a>
               </li>
               <li>
-                <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-                  환불 정책
-                </button>
-              </li>
-              <li>
-                <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-                  문의하기
-                </button>
+                <a href="tel:010-8180-6895" className="hover:text-white transition-colors">
+                  전화 문의
+                </a>
               </li>
             </ul>
           </div>
@@ -69,19 +88,34 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-white/90">SNS</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
+                <a
+                  href="https://www.instagram.com/icheon_stair/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
                   Instagram
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-                  YouTube
-                </button>
+                <a
+                  href="https://www.threads.net/@icheon_stair"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Threads
+                </a>
               </li>
               <li>
-                <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-                  Blog
-                </button>
+                <a
+                  href="https://blog.naver.com/icheonstair"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  네이버 블로그
+                </a>
               </li>
             </ul>
           </div>
@@ -90,15 +124,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/50">
-            &copy; {new Date().getFullYear()} PeanutCrate. All rights reserved.
+            &copy; {new Date().getFullYear()} 이천계단지기 (PeanutCrate). All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-white/50">
-            <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-              이용약관
-            </button>
-            <button onClick={() => toast.info("준비 중인 기능입니다.")} className="hover:text-white transition-colors">
-              개인정보처리방침
-            </button>
+            <span>사업자등록번호: 준비 중</span>
           </div>
         </div>
       </div>
