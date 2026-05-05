@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { Building2, Sparkles, Camera, ShieldCheck } from "lucide-react";
+import { Building2, Sparkles, Camera, ShieldCheck, MessageCircle } from "lucide-react";
 
 const serviceHighlights = [
   {
@@ -30,6 +30,13 @@ const serviceHighlights = [
     title: "하청 없는 직접 관리",
     description:
       "외부 하청 없이 이천계단지기 부부가 직접 관리합니다. 일관된 품질과 책임감 있는 서비스를 보장합니다.",
+  },
+  {
+    icon: MessageCircle,
+    image: "/manus-storage/stair-clean3_7d8b7d17.jpg",
+    title: "빠른 피드백",
+    description:
+      "카카오톡 채널을 통해 청소 결과를 빠르게 보고받을 수 있습니다. 엘리베이터 청결 관리와 공동 현관 유리코팅까지 꼼꼼하게 관리합니다.",
   },
 ];
 
