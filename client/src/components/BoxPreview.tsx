@@ -11,32 +11,28 @@ import { Building2, Sparkles, Camera, ShieldCheck } from "lucide-react";
 const serviceHighlights = [
   {
     icon: Building2,
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-1-5XrF88oJpffK6enUVHSP9x.webp",
+    image: "/manus-storage/stair-clean3_7d8b7d17.jpg",
     title: "빌라 · 상가 계단 청소",
     description:
       "4~6층 빌라, 상가 건물의 계단과 복도를 전문적으로 관리합니다. 층수와 면적에 맞춘 맞춤 서비스를 제공합니다.",
   },
   {
     icon: Sparkles,
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-2-2JpEEArmeyb42SSZECn5WJ.webp",
+    image: "/manus-storage/eco-truck_c63bcfce.jpg",
     title: "친환경 세정제 사용",
     description:
       "입주민의 건강을 생각하여 친환경 세정제만 사용합니다. 냄새 없이 깨끗하게, 환경까지 생각하는 청소입니다.",
   },
   {
     icon: Camera,
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-3-STo2j3CHkqEj9EiLsBEBi7.webp",
+    image: "/manus-storage/bathroom-clean_94fbf76e.jpg",
     title: "청소 완료 사진 보고",
     description:
       "매 청소 완료 후 사진으로 결과를 보고합니다. 직접 확인하지 않아도 깨끗해진 건물을 확인할 수 있습니다.",
   },
   {
     icon: ShieldCheck,
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663628169660/BuDLHDfm5bfYXthRJ4c8ks/carousel-4-mgR7WEfM7HKXA6gHeL94y3.webp",
+    image: "/manus-storage/glass-clean_454b0f7d.jpg",
     title: "하청 없는 직접 관리",
     description:
       "외부 하청 없이 이천계단지기 부부가 직접 관리합니다. 일관된 품질과 책임감 있는 서비스를 보장합니다.",
