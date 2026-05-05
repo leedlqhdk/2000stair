@@ -41,24 +41,10 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
       popular: false,
     },
     {
-      id: "bathroom",
-      name: "화장실 청소",
+      id: "other_services",
+      name: "화장실/사무실/유리 청소",
       price: "별도 문의",
-      description: "청소계획표 기반, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
-      popular: false,
-    },
-    {
-      id: "office",
-      name: "사무실 청소",
-      price: "별도 문의",
-      description: "세금계산서 발행 가능, 정기계약 기준으로 체계적으로 운영합니다",
-      popular: false,
-    },
-    {
-      id: "glass",
-      name: "상가 유리창 청소",
-      price: "별도 문의",
-      description: "친환경 수입세제와 전문도구로 흔적 없이 마감합니다",
+      description: "화장실 위생 관리, 사무실 정기청소(세금계산서 가능), 상가 유리창 청소까지 모든 공간을 전문적으로 관리합니다.",
       popular: false,
     },
   ];
@@ -118,30 +104,32 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           ))}
         </div>
 
-        {/* Other Services - Compact Grid */}
-        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {/* Other Services - Full Width Card */}
+        <div className="max-w-5xl mx-auto mb-8">
           {otherPlans.map((plan) => (
             <Card
               key={plan.id}
-              className="border-border hover:border-primary/30 transition-all duration-300 hover:shadow-sm"
+              className="border-border hover:border-primary/30 transition-all duration-300 hover:shadow-md"
             >
-              <CardContent className="py-5 px-5">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-foreground">{plan.name}</h3>
-                  <span className="text-sm font-bold text-primary">{plan.price}</span>
+              <CardContent className="py-8 px-8">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
+                    <p className="text-base text-muted-foreground leading-relaxed mb-4">
+                      {plan.description}
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <span className="text-lg font-bold text-primary">{plan.price}</span>
+                    </div>
+                  </div>
+                  <Button
+                    className="md:w-auto"
+                    onClick={() => handleQuoteRequest(plan.id)}
+                  >
+                    문의하기
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                  {plan.description}
-                </p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full text-primary hover:text-primary hover:bg-primary/5"
-                  onClick={() => handleQuoteRequest(plan.id)}
-                >
-                  문의하기
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                </Button>
               </CardContent>
             </Card>
           ))}
