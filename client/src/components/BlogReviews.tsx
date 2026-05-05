@@ -17,7 +17,7 @@ const blogPosts: BlogPost[] = [
     date: "2025.10.03",
     summary: "이천계단청소 비용과 효율적 관리법, 이천계단지기의 전문 서비스를 소개합니다.",
     category: "서비스 소개",
-    thumbnail: "/manus-storage/blog-thumbnail-1_478b13c6.png",
+    thumbnail: "/manus-storage/blog-thumbnail-2_eae12a62.png",
   },
   {
     title: "계단청소 비용 산정 기준",
@@ -25,7 +25,7 @@ const blogPosts: BlogPost[] = [
     date: "2025.10.09",
     summary: "층수별 맞춤 견적과 정기 구독 서비스의 합리적인 가격을 확인하세요.",
     category: "견적 안내",
-    thumbnail: "/manus-storage/blog-thumbnail-2_eae12a62.png",
+    thumbnail: "/manus-storage/blog-thumbnail-3_7e8ea4dc.png",
   },
   {
     title: "걸레 한 장으로 지키는 교차오염 방지 원칙",
@@ -33,7 +33,7 @@ const blogPosts: BlogPost[] = [
     date: "2026.03.17",
     summary: "빌라 한 동 한 걸레 원칙으로 교차오염 없는 위생 청소를 실천합니다.",
     category: "작업 일지",
-    thumbnail: "/manus-storage/blog-thumbnail-3_7e8ea4dc.png",
+    thumbnail:"/manus-storage/blog-thumbnail-1_478b13c6.png",
   },
 ];
 
