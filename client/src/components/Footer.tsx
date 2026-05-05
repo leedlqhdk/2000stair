@@ -120,6 +120,16 @@ export default function Footer() {
                   네이버 블로그
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://pf.kakao.com/_IiNfn/chat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  카카오톡 상담
+                </a>
+              </li>
             </ul>
           </div>
         </div>

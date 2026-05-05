@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import MyQuotes from "./pages/MySubscription";
+import KakaoChat from "./components/KakaoChat";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <KakaoChat />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

@@ -32,3 +32,4 @@
 - [x] PricingSection UI를 새 서비스 메뉴에 맞게 재설계
 - [x] 견적 신청 폼의 플랜 선택 옵션 업데이트
 - [x] products.ts 서비스 플랜 데이터 업데이트
+- [x] 카카오톡 채널 상담 버튼 추가 (https://pf.kakao.com/_IiNfn)
