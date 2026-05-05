@@ -198,9 +198,7 @@ export default function QuoteForm() {
                       <SelectItem value="stair_2_3">2-3층 계단 (66,000원~)</SelectItem>
                       <SelectItem value="stair_4">4층 계단 (77,000원~)</SelectItem>
                       <SelectItem value="stair_5_6">5-6층 계단 (88,000원~)</SelectItem>
-                      <SelectItem value="bathroom">화장실 청소 (별도 문의)</SelectItem>
-                      <SelectItem value="office">사무실 청소 (별도 문의)</SelectItem>
-                      <SelectItem value="glass">상가 유리창 청소 (별도 문의)</SelectItem>
+                      <SelectItem value="bathroom">화장실/사무실/상가 유리청소 (별도 문의)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
