@@ -23,13 +23,7 @@ const serviceHighlights = [
     description:
       "입주민의 건강을 생각하여 친환경 세정제만 사용합니다. 냄새 없이 깨끗하게, 환경까지 생각하는 청소입니다.",
   },
-  {
-    icon: Camera,
-    image: "/manus-storage/bathroom-clean_94fbf76e.jpg",
-    title: "청소 완료 사진 보고",
-    description:
-      "매 청소 완료 후 사진으로 결과를 보고합니다. 직접 확인하지 않아도 깨끗해진 건물을 확인할 수 있습니다.",
-  },
+
   {
     icon: ShieldCheck,
     image: "/manus-storage/glass-clean_454b0f7d.jpg",
