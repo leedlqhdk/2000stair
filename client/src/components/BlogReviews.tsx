@@ -7,6 +7,7 @@ interface BlogPost {
   date: string;
   summary: string;
   category: string;
+  thumbnail: string;
 }
 
 const blogPosts: BlogPost[] = [
@@ -16,6 +17,7 @@ const blogPosts: BlogPost[] = [
     date: "2025.10.03",
     summary: "빌라 계단청소 비용과 효율적 관리법, 이천계단지기의 전문 서비스를 소개합니다.",
     category: "서비스 소개",
+    thumbnail: "/manus-storage/stair-clean3_7d8b7d17.jpg",
   },
   {
     title: "계단청소 구독 견적표",
@@ -23,6 +25,7 @@ const blogPosts: BlogPost[] = [
     date: "2025.10.09",
     summary: "층수별 맞춤 견적과 정기 구독 서비스의 합리적인 가격을 확인하세요.",
     category: "견적 안내",
+    thumbnail: "/manus-storage/stair-floor-after_0e13b4f5.webp",
   },
   {
     title: "무쏘EV 출고 후기 - 청소업체 차량으로 적합할까?",
@@ -30,6 +33,7 @@ const blogPosts: BlogPost[] = [
     date: "2026.03.17",
     summary: "소음 없고 매연 없는 전기 픽업트럭으로 더 쾌적한 청소 서비스를 제공합니다.",
     category: "업체 소식",
+    thumbnail: "/manus-storage/eco-truck_c63bcfce.jpg",
   },
 ];
 
@@ -66,8 +70,16 @@ export default function BlogReviews() {
               rel="noopener noreferrer"
               className="group"
             >
-              <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/40 group-hover:-translate-y-1">
-                <CardContent className="p-6 flex flex-col h-full">
+              <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/40 group-hover:-translate-y-1 overflow-hidden">
+                {/* Thumbnail */}
+                <div className="w-full h-44 overflow-hidden">
+                  <img
+                    src={post.thumbnail}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <CardContent className="p-5 flex flex-col flex-1">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                       {post.category}
@@ -77,10 +89,10 @@ export default function BlogReviews() {
                   <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground flex-1 line-clamp-3">
+                  <p className="text-sm text-muted-foreground flex-1 line-clamp-2">
                     {post.summary}
                   </p>
-                  <div className="flex items-center gap-1 mt-4 text-xs text-primary font-medium">
+                  <div className="flex items-center gap-1 mt-3 text-xs text-primary font-medium">
                     자세히 보기
                     <ExternalLink className="w-3 h-3" />
                   </div>
