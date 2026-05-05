@@ -1,4 +1,4 @@
-import { Package, Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -7,9 +7,12 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="md:col-span-1">
-            <a href="/" className="flex items-center gap-2 font-bold text-xl mb-4">
-              <Package className="w-6 h-6" />
-              <span>PeanutCrate</span>
+            <a href="/" className="flex items-center mb-4">
+              <img
+                src="/manus-storage/icheon-stair-logo-original_ae15bcef.png"
+                alt="이천계단지기"
+                className="h-8 w-auto"
+              />
             </a>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               이천 전 지역 계단청소 전문업체.
@@ -124,7 +127,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/50">
-            &copy; {new Date().getFullYear()} 이천계단지기 (PeanutCrate). All rights reserved.
+            &copy; {new Date().getFullYear()} 이천계단지기. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-white/50">
             <span>사업자등록번호: 준비 중</span>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getLoginUrl } from "@/const";
-import { Package, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import type { User } from "../../../drizzle/schema";
 import { useLocation } from "wouter";
@@ -26,9 +26,12 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
       <div className="container flex items-center justify-between h-16">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-          <Package className="w-7 h-7" />
-          <span>PeanutCrate</span>
+        <a href="/" className="flex items-center">
+          <img
+            src="/manus-storage/icheon-stair-logo-dark_474b2a76.png"
+            alt="이천계단지기"
+            className="h-9 w-auto"
+          />
         </a>
 
         {/* Desktop Nav */}

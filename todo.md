@@ -24,3 +24,6 @@
 - [x] BoxPreview 섹션을 서비스 소개/작업 사진 섹션으로 교체
 - [x] quote.submit에서 notifyOwner 실패 시 로깅 처리 추가
 - [x] 블로그 후기 섹션에서 실제 확인된 글만 선별하여 연결
+- [x] PeanutCrate 브랜드명을 이천계단지기로 변경
+- [x] 이천계단지기 로고 이미지를 Navbar에 적용
+- [x] VITE_APP_TITLE을 이천계단지기로 변경 (index.html title 직접 변경)
