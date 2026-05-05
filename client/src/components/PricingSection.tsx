@@ -104,34 +104,30 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           ))}
         </div>
 
-        {/* Other Services - Compact Grid */}
-        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-          {otherPlans.map((plan) => (
-            <Card
-              key={plan.id}
-              className="border-border hover:border-primary/30 transition-all duration-300 hover:shadow-sm"
-            >
-              <CardContent className="py-5 px-5">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-foreground">{plan.name}</h3>
-                  <span className="text-sm font-bold text-primary">{plan.price}</span>
+        {/* Other Services - Single Card */}
+        {otherPlans.length > 0 && (
+          <div className="max-w-5xl mx-auto mt-8">
+            <Card className="border-border hover:border-primary/30 transition-all duration-300 hover:shadow-sm">
+              <CardContent className="py-6 px-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-semibold text-foreground">{otherPlans[0].name}</h3>
+                  <span className="text-sm font-bold text-primary">{otherPlans[0].price}</span>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-                  {plan.description}
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  {otherPlans[0].description}
                 </p>
                 <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full text-primary hover:text-primary hover:bg-primary/5"
-                  onClick={() => handleQuoteRequest(plan.id)}
+                  className="w-full"
+                  variant="outline"
+                  onClick={() => handleQuoteRequest(otherPlans[0].id)}
                 >
                   문의하기
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </CardContent>
             </Card>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Bottom CTA */}
         <div className="text-center mt-12">
