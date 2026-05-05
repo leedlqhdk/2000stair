@@ -67,33 +67,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Right: Hero Image Grid */}
+          {/* Right: Hero Image - 조끼 사진만 */}
           <div className="relative">
-            <div className="grid grid-cols-2 gap-3">
-              {/* Main large image - 작업조끼 (브랜드 인식) */}
-              <div className="col-span-2 rounded-2xl overflow-hidden shadow-xl border border-blue-100">
-                <img
-                  src="/manus-storage/work-vest_b3f4fbac.png"
-                  alt="이천계단지기 작업 조끼"
-                  className="w-full h-56 md:h-64 object-cover object-center"
-                />
-              </div>
-              {/* Bottom left - 계단 청소 완료 */}
-              <div className="rounded-xl overflow-hidden shadow-lg border border-blue-100">
-                <img
-                  src="/manus-storage/stair-clean3_7d8b7d17.jpg"
-                  alt="계단 청소 완료"
-                  className="w-full h-32 md:h-40 object-cover"
-                />
-              </div>
-              {/* Bottom right - 화장실 청소 */}
-              <div className="rounded-xl overflow-hidden shadow-lg border border-blue-100">
-                <img
-                  src="/manus-storage/bathroom-clean_94fbf76e.jpg"
-                  alt="화장실 청소 현장"
-                  className="w-full h-32 md:h-40 object-cover"
-                />
-              </div>
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-blue-100">
+              <img
+                src="/manus-storage/work-vest_b3f4fbac.png"
+                alt="이천계단지기 작업 조끼"
+                className="w-full h-auto object-cover"
+              />
             </div>
             {/* Floating badge */}
             <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 border border-blue-100">
