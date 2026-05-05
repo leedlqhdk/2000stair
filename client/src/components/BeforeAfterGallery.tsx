@@ -40,8 +40,8 @@ const galleryItems = [
   },
   {
     id: 6,
-    title: "유리 청소",
-    description: "지문과 먼지 제거로 투명하게 복원",
+    title: "공용공간 청소",
+    description: "엘리베이터 청결 관리와 공동 현관 유리코팅",
     before: "/manus-storage/glass-before_7c3569b7.webp",
     after: "/manus-storage/glass-after_3ef4a793.webp",
   },
