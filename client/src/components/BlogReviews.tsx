@@ -12,7 +12,7 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
-    title: "이천 계단청소, 이천에서 깔끔하게 해결하는 법",
+    title: "이천계단청소, 이천에서 깔끔하게 해결하는 법",
     url: "https://blog.naver.com/icheonstair/224028543970",
     date: "2025.10.03",
     summary: "이천계단청소 비용과 효율적 관리법, 이천계단지기의 전문 서비스를 소개합니다.",
