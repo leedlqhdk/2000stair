@@ -28,9 +28,9 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
         {/* Logo */}
         <a href="/" className="flex items-center">
           <img
-            src="/manus-storage/icheon-stair-logo-dark_474b2a76.png"
+            src="/manus-storage/logo-blue_9b03f2be.png"
             alt="이천계단지기"
-            className="h-9 w-auto"
+            className="h-10 w-auto"
           />
         </a>
 
