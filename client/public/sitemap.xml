@@ -6,7 +6,7 @@
 
   <!-- 메인 홈페이지 -->
   <url>
-    <loc>https://www.2000stair.click/</loc>
+    <loc>https://2000stair.click/</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
   <!-- 서비스 소개 (계단청소·유리청소·화장실청소) -->
   <url>
-    <loc>https://www.2000stair.click/#service</loc>
+    <loc>https://2000stair.click/#service</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -22,7 +22,7 @@
 
   <!-- 요금 안내 -->
   <url>
-    <loc>https://www.2000stair.click/#pricing</loc>
+    <loc>https://2000stair.click/#pricing</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -30,7 +30,7 @@
 
   <!-- 무료 견적 신청 -->
   <url>
-    <loc>https://www.2000stair.click/#quote</loc>
+    <loc>https://2000stair.click/#quote</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -38,7 +38,7 @@
 
   <!-- 블로그 -->
   <url>
-    <loc>https://www.2000stair.click/#blog</loc>
+    <loc>https://2000stair.click/#blog</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
