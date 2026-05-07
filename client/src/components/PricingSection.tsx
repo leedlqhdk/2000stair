@@ -42,7 +42,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     },
     {
       id: "bathroom",
-      name: "화장실/사무실/상가 유리청소",
+      name: "화장실 / 상가유리 / 사무실 청소",
       price: "별도 문의",
       description: "세금계산서 발행 가능, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
       popular: false,
