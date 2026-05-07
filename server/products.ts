@@ -35,23 +35,9 @@ export const PLANS: ServicePlan[] = [
   },
   {
     id: "bathroom",
-    name: "화장실 청소",
+    name: "화장실 / 상가유리 / 사무실 청소",
     price: "별도 문의",
     description: "청소계획표 기반, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
-    popular: false,
-  },
-  {
-    id: "office",
-    name: "사무실 청소",
-    price: "별도 문의",
-    description: "세금계산서 발행 가능, 정기계약 기준으로 체계적으로 운영합니다",
-    popular: false,
-  },
-  {
-    id: "glass",
-    name: "상가 유리창 청소",
-    price: "별도 문의",
-    description: "친환경 수입세제와 전문도구로 흔적 없이 마감합니다",
     popular: false,
   },
 ];
