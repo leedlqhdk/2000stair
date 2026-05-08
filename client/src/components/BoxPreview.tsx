@@ -12,9 +12,9 @@ const serviceHighlights = [
   {
     icon: Building2,
     image: "/manus-storage/stair-clean3_7d8b7d17.jpg",
-    title: "빌라 · 상가 계단 청소",
+    title: "이천계단청소 전문 서비스",
     description:
-      "4~6층 빌라, 상가 건물의 계단과 복도를 전문적으로 관리합니다. 층수와 면적에 맞춘 맞춤 서비스를 제공합니다.",
+      "이천 빌라·상가 계단청소 전문. 4~6층 빌라, 상가 건물의 계단과 복도를 전문적으로 관리합니다. 층수와 면적에 맞춰 맞춰 서비스를 제공합니다.",
   },
   {
     icon: Sparkles,
@@ -47,10 +47,10 @@ export default function BoxPreview() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            서비스 특징
+            이천계단청소 서비스 특징
           </h2>
           <p className="text-muted-foreground text-lg">
-            이천계단지기만의 차별화된 청소 서비스를 확인하세요
+            이천계단지기만의 차별화된 이천계단청소 서비스를 확인하세요
           </p>
         </div>
 

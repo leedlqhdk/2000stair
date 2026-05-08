@@ -23,7 +23,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-medium">
               <Sparkles className="w-4 h-4" />
-              이천 지역 계단청소 전문
+              이천계단청소 전문업체
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground">
               깨끗한 건물,{" "}
@@ -32,8 +32,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               시작하세요
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              이천계단지기가 직접 관리하는 정기 청소 구독 서비스.
-              대면·비대면 모두 가능하며, 무료 방문 견적으로 시작하세요.
+              이천계단청소 전문업체 이천계단지기가 직접 관리하는 정기 청소 구독 서비스.
+              빌라·상가 계단청소, 유리청소, 화장실청소 전문. 무료 방문 견적으로 시작하세요.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="text-base px-8" onClick={handleCTA}>

@@ -58,10 +58,10 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            서비스 요금 안내
+            이천계단청소 요금 안내
           </h2>
           <p className="text-muted-foreground text-lg mb-2">
-            처음처럼, 언제나 같은 품질
+            처음체럼, 언제나 같은 품질
           </p>
           <p className="text-sm text-muted-foreground">
             무료 방문 견적 후 정확한 금액을 안내해 드립니다 · 대면 / 비대면 모두 가능

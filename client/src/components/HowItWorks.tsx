@@ -31,10 +31,10 @@ export default function HowItWorks() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            이렇게 진행됩니다
+            이천계단청소, 이렇게 진행됩니다
           </h2>
           <p className="text-muted-foreground text-lg">
-            간단한 3단계로 깨끗한 건물 관리를 시작하세요
+            간단한 3단계로 이천계단청소 서비스를 시작하세요
           </p>
         </div>
 
