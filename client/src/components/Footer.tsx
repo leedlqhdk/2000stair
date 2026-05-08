@@ -70,16 +70,6 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="https://2000stair.creatorlink.net/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
-                >
-                  공식 홈페이지
-                </a>
-              </li>
-              <li>
                 <a href="tel:010-8180-6895" className="hover:text-white transition-colors">
                   전화 문의
                 </a>
