@@ -16,7 +16,7 @@ export default function Footer() {
             </a>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               이천 전 지역 계단청소 전문업체.
-              2년 정기 구독으로 깨끗한 건물을 유지하세요.
+              정기 구독으로 깨끗한 건물을 유지하세요.
             </p>
             <div className="space-y-2 text-sm text-white/60">
               <div className="flex items-center gap-2">
