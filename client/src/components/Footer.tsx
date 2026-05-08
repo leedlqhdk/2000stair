@@ -140,7 +140,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} 이천계단지기. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-white/50">
-            <span>사업자등록번호: 준비 중</span>
+            <span>사업자등록번호: 234-23-02318</span>
           </div>
         </div>
       </div>
