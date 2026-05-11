@@ -3,7 +3,7 @@ import { getLoginUrl } from "@/const";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import type { User } from "../../../drizzle/schema";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 
 interface NavbarProps {
   isAuthenticated: boolean;
@@ -16,10 +16,10 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
   const [, setLocation] = useLocation();
 
   const navLinks = [
-    { label: "서비스 소개", href: "#how-it-works" },
-    { label: "플랜", href: "#pricing" },
-    { label: "견적 신청", href: "#quote-form" },
-    { label: "블로그", href: "#blog-reviews" },
+    { label: "서비스 소개", href: "#how-it-works", external: true },
+    { label: "플랜", href: "#pricing", external: true },
+    { label: "견적 신청", href: "#quote-form", external: true },
+    { label: "작업일지", href: "/blog", external: false },
   ];
 
   return (
@@ -35,22 +35,42 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* Desktop Auth */}
         <div className="hidden md:flex items-center gap-3">
           {isAuthenticated ? (
             <>
+              {user?.role === "admin" && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setLocation("/admin/blog")}
+                  className="text-blue-600"
+                >
+                  관리
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 size="sm"

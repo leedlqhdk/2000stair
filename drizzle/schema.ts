@@ -32,3 +32,29 @@ export const quoteRequests = mysqlTable("quote_requests", {
 
 export type QuoteRequest = typeof quoteRequests.$inferSelect;
 export type InsertQuoteRequest = typeof quoteRequests.$inferInsert;
+
+export const postTags = mysqlTable("post_tags", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 50 }).notNull().unique(),
+  slug: varchar("slug", { length: 60 }).notNull().unique(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PostTag = typeof postTags.$inferSelect;
+export type InsertPostTag = typeof postTags.$inferInsert;
+
+export const posts = mysqlTable("posts", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 200 }).notNull(),
+  content: text("content").notNull(),
+  thumbnail: text("thumbnail"),
+  images: text("images"),  // JSON array of image URLs
+  tags: text("tags"),      // JSON array of tag ids
+  published: mysqlEnum("published", ["draft", "published"]).default("draft").notNull(),
+  authorId: int("authorId").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Post = typeof posts.$inferSelect;
+export type InsertPost = typeof posts.$inferInsert;

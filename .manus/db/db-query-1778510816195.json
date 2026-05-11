@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE `post_tags` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`name` varchar(50) NOT NULL,\n\t`slug` varchar(60) NOT NULL,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `post_tags_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `post_tags_name_unique` UNIQUE(`name`),\n\tCONSTRAINT `post_tags_slug_unique` UNIQUE(`slug`)\n);\n\nCREATE TABLE `posts` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`title` varchar(200) NOT NULL,\n\t`content` text NOT NULL,\n\t`thumbnail` text,\n\t`images` text,\n\t`tags` text,\n\t`published` enum('draft','published') NOT NULL DEFAULT 'draft',\n\t`authorId` int NOT NULL,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `posts_id` PRIMARY KEY(`id`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4ZLuuPGAFVhH1Fq.f0fbe627ff11 --database BuDLHDfm5bfYXthRJ4c8ks --execute CREATE TABLE `post_tags` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`name` varchar(50) NOT NULL,\n\t`slug` varchar(60) NOT NULL,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `post_tags_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `post_tags_name_unique` UNIQUE(`name`),\n\tCONSTRAINT `post_tags_slug_unique` UNIQUE(`slug`)\n);\n\nCREATE TABLE `posts` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`title` varchar(200) NOT NULL,\n\t`content` text NOT NULL,\n\t`thumbnail` text,\n\t`images` text,\n\t`tags` text,\n\t`published` enum('draft','published') NOT NULL DEFAULT 'draft',\n\t`authorId` int NOT NULL,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `posts_id` PRIMARY KEY(`id`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 2940
+}

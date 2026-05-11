@@ -6,6 +6,7 @@ import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
 import QuoteForm from "@/components/QuoteForm";
 import BlogReviews from "@/components/BlogReviews";
+import LatestPosts from "@/components/LatestPosts";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -26,6 +27,7 @@ export default function Home() {
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={isAuthenticated} />
         <QuoteForm />
+        <LatestPosts />
         <BlogReviews />
       </main>
       <Footer />

@@ -44,3 +44,17 @@
 - [x] 블로그 섹션 썸네일을 실제 네이버 블로그 썸네일로 교체
 - [x] 네이버 서치어드바이저 인증 파일(naver0b3b676b9d240746c49353be6e86df61.html) 배포
 - [x] 구글 서치콘솔 DNS TXT 인증 확인
+
+## 블로그/작업일지 기능
+
+- [x] DB 스키마: posts 테이블 (id, title, content, thumbnail, images, tags, published, createdAt)
+- [x] DB 스키마: post_tags 테이블 (id, name, slug)
+- [x] tRPC 프로시저: 블로그 목록/상세 조회 (publicProcedure)
+- [x] tRPC 프로시저: 블로그 작성/수정/삭제 (adminProcedure)
+- [x] tRPC 프로시저: 사진 업로드 (S3)
+- [x] tRPC 프로시저: 태그 목록/생성
+- [x] 블로그 목록 페이지 (/blog)
+- [x] 블로그 상세 페이지 (/blog/:id)
+- [x] 관리자 글 작성/수정 페이지 (/admin/blog/new, /admin/blog/:id/edit)
+- [x] 홈페이지 최신 블로그 미리보기 섹션 추가
+- [x] 네비게이션에 블로그 메뉴 등록
