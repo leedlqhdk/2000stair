@@ -8,8 +8,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, Upload, X, Plus, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeft, Upload, X, Plus, Sparkles, ChevronDown, ChevronUp, Wand2 } from "lucide-react";
 import { Link } from "wouter";
+
+// 이미지 객체 타입 - url + alt 포함
+type ImageItem = { url: string; alt: string };
 
 export default function AdminBlogEdit() {
   const { id } = useParams<{ id?: string }>();
@@ -21,13 +24,15 @@ export default function AdminBlogEdit() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [thumbnail, setThumbnail] = useState<string | null>(null);
-  const [images, setImages] = useState<string[]>([]);
+  const [thumbnailAlt, setThumbnailAlt] = useState("");
+  const [images, setImages] = useState<ImageItem[]>([]);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [published, setPublished] = useState(false);
   const [newTagName, setNewTagName] = useState("");
   const [newTagSlug, setNewTagSlug] = useState("");
   const [showTagForm, setShowTagForm] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [generatingAlt, setGeneratingAlt] = useState<string | null>(null); // url of image being processed
 
   // SEO 상태
   const [seoTitle, setSeoTitle] = useState("");
@@ -50,7 +55,12 @@ export default function AdminBlogEdit() {
       setTitle(existingPost.title);
       setContent(existingPost.content);
       setThumbnail(existingPost.thumbnail ?? null);
-      setImages(existingPost.images);
+      // 기존 images가 string[] 또는 {url,alt}[] 모두 처리
+      const parsedImages = (existingPost.images as unknown[]).map((img) => {
+        if (typeof img === "string") return { url: img, alt: "" };
+        return img as ImageItem;
+      });
+      setImages(parsedImages);
       setSelectedTags(existingPost.tags);
       setPublished(existingPost.published === "published");
       setSeoTitle(existingPost.seoTitle ?? "");
@@ -70,6 +80,7 @@ export default function AdminBlogEdit() {
     },
     onError: (e) => toast.error("SEO 생성 실패: " + e.message),
   });
+  const generateAlt = trpc.blog.generateAlt.useMutation();
   const createPost = trpc.blog.create.useMutation({
     onSuccess: () => {
       toast.success("게시글이 작성되었습니다.");
@@ -118,15 +129,40 @@ export default function AdminBlogEdit() {
         mimeType: file.type,
         base64,
       });
+
       if (target === "thumbnail") {
         setThumbnail(result.url);
+        // 썸네일 alt 자동 생성
+        handleGenerateAlt(result.url, "thumbnail");
       } else {
-        setImages((prev) => [...prev, result.url]);
+        const newItem: ImageItem = { url: result.url, alt: "" };
+        setImages((prev) => [...prev, newItem]);
+        // 추가 이미지 alt 자동 생성
+        handleGenerateAlt(result.url, "image");
       }
     } catch {
       toast.error("이미지 업로드에 실패했습니다.");
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleGenerateAlt = async (imageUrl: string, target: "thumbnail" | "image") => {
+    setGeneratingAlt(imageUrl);
+    try {
+      const result = await generateAlt.mutateAsync({ imageUrl, title: title || undefined });
+      if (target === "thumbnail") {
+        setThumbnailAlt(result.alt);
+      } else {
+        setImages((prev) =>
+          prev.map((img) => (img.url === imageUrl ? { ...img, alt: result.alt } : img))
+        );
+      }
+      toast.success("alt 태그가 자동 생성되었습니다!");
+    } catch {
+      toast.error("alt 태그 생성에 실패했습니다. 직접 입력해주세요.");
+    } finally {
+      setGeneratingAlt(null);
     }
   };
 
@@ -144,7 +180,9 @@ export default function AdminBlogEdit() {
       title,
       content,
       thumbnail: thumbnail ?? undefined,
-      images,
+      thumbnailAlt: thumbnailAlt || undefined,
+      images: images.map((img) => img.url), // 서버는 string[] 유지, alt는 별도 저장
+      imageAlts: images.map((img) => img.alt),
       tags: selectedTags,
       published: published ? ("published" as const) : ("draft" as const),
       seoTitle: seoTitle || undefined,
@@ -193,14 +231,44 @@ export default function AdminBlogEdit() {
         <div>
           <Label className="mb-1 block">대표 사진 (썸네일)</Label>
           {thumbnail ? (
-            <div className="relative inline-block">
-              <img src={thumbnail} alt="썸네일" className="h-40 rounded-lg object-cover" />
-              <button
-                onClick={() => setThumbnail(null)}
-                className="absolute top-1 right-1 bg-black/50 rounded-full p-0.5 text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
+            <div className="space-y-2">
+              <div className="relative inline-block">
+                <img src={thumbnail} alt={thumbnailAlt || "썸네일"} className="h-40 rounded-lg object-cover" />
+                <button
+                  onClick={() => { setThumbnail(null); setThumbnailAlt(""); }}
+                  className="absolute top-1 right-1 bg-black/50 rounded-full p-0.5 text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              {/* 썸네일 alt 편집 */}
+              <div className="flex gap-2 items-center max-w-md">
+                <div className="flex-1">
+                  <div className="flex items-center gap-1 mb-1">
+                    <Label className="text-xs text-gray-500">alt 태그</Label>
+                    {generatingAlt === thumbnail && (
+                      <span className="text-xs text-blue-500 animate-pulse">AI 생성 중...</span>
+                    )}
+                  </div>
+                  <Input
+                    value={thumbnailAlt}
+                    onChange={(e) => setThumbnailAlt(e.target.value)}
+                    placeholder="이미지 설명 (SEO용)"
+                    className="text-sm h-8"
+                  />
+                </div>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleGenerateAlt(thumbnail, "thumbnail")}
+                  disabled={generatingAlt === thumbnail}
+                  className="mt-5 h-8 text-blue-600 border-blue-300 hover:bg-blue-50 text-xs"
+                >
+                  <Wand2 className="w-3 h-3 mr-1" />
+                  AI 재생성
+                </Button>
+              </div>
             </div>
           ) : (
             <button
@@ -209,7 +277,7 @@ export default function AdminBlogEdit() {
               className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors"
             >
               <Upload className="w-4 h-4" />
-              {uploading ? "업로드 중..." : "사진 선택"}
+              {uploading ? "업로드 중..." : "사진 선택 (업로드 시 alt 자동 생성)"}
             </button>
           )}
           <input
@@ -239,25 +307,60 @@ export default function AdminBlogEdit() {
         {/* Extra images */}
         <div>
           <Label className="mb-1 block">추가 사진</Label>
-          <div className="flex flex-wrap gap-3 mb-3">
-            {images.map((url, i) => (
-              <div key={i} className="relative">
-                <img src={url} alt="" className="h-24 w-24 rounded-lg object-cover" />
-                <button
-                  onClick={() => setImages((prev) => prev.filter((_, idx) => idx !== i))}
-                  className="absolute top-0.5 right-0.5 bg-black/50 rounded-full p-0.5 text-white"
-                >
-                  <X className="w-3 h-3" />
-                </button>
+          <div className="space-y-3 mb-3">
+            {images.map((img, i) => (
+              <div key={i} className="flex gap-3 items-start bg-gray-50 rounded-lg p-3">
+                <div className="relative flex-shrink-0">
+                  <img src={img.url} alt={img.alt} className="h-20 w-20 rounded-lg object-cover" />
+                  <button
+                    onClick={() => setImages((prev) => prev.filter((_, idx) => idx !== i))}
+                    className="absolute top-0.5 right-0.5 bg-black/50 rounded-full p-0.5 text-white"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1 mb-1">
+                    <Label className="text-xs text-gray-500">alt 태그</Label>
+                    {generatingAlt === img.url && (
+                      <span className="text-xs text-blue-500 animate-pulse">AI 생성 중...</span>
+                    )}
+                  </div>
+                  <div className="flex gap-2">
+                    <Input
+                      value={img.alt}
+                      onChange={(e) =>
+                        setImages((prev) =>
+                          prev.map((item, idx) =>
+                            idx === i ? { ...item, alt: e.target.value } : item
+                          )
+                        )
+                      }
+                      placeholder="이미지 설명 (SEO용)"
+                      className="text-sm h-8 flex-1"
+                    />
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleGenerateAlt(img.url, "image")}
+                      disabled={generatingAlt === img.url}
+                      className="h-8 text-blue-600 border-blue-300 hover:bg-blue-50 text-xs flex-shrink-0"
+                    >
+                      <Wand2 className="w-3 h-3 mr-1" />
+                      AI 재생성
+                    </Button>
+                  </div>
+                </div>
               </div>
             ))}
             <button
               onClick={() => imgInputRef.current?.click()}
               disabled={uploading}
-              className="h-24 w-24 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors text-xs gap-1"
+              className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors w-full"
             >
               <Upload className="w-4 h-4" />
-              추가
+              {uploading ? "업로드 중..." : "사진 추가 (업로드 시 alt 자동 생성)"}
             </button>
           </div>
           <input
@@ -371,7 +474,6 @@ export default function AdminBlogEdit() {
                 제목과 내용을 입력한 후 "AI 자동 생성" 버튼을 누르면 검색 최적화된 메타 태그가 자동으로 작성됩니다.
               </p>
 
-              {/* SEO Title */}
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <Label className="text-xs text-gray-600">SEO 제목 (검색 결과 제목)</Label>
@@ -387,7 +489,6 @@ export default function AdminBlogEdit() {
                 />
               </div>
 
-              {/* SEO Description */}
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <Label className="text-xs text-gray-600">SEO 설명 (검색 결과 스니펫)</Label>
@@ -404,7 +505,6 @@ export default function AdminBlogEdit() {
                 />
               </div>
 
-              {/* SEO Keywords */}
               <div>
                 <Label className="text-xs text-gray-600 mb-1 block">키워드 (쉼표로 구분)</Label>
                 <Input
@@ -415,7 +515,6 @@ export default function AdminBlogEdit() {
                 />
               </div>
 
-              {/* 미리보기 */}
               {(seoTitle || seoDescription) && (
                 <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
                   <p className="text-xs text-gray-400 mb-2">검색 결과 미리보기</p>

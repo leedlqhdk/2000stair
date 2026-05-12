@@ -112,7 +112,7 @@ export default function BlogDetail() {
         {post.thumbnail && (
           <img
             src={post.thumbnail}
-            alt={post.title}
+            alt={(post as { thumbnailAlt?: string }).thumbnailAlt || post.title}
             className="w-full rounded-xl mb-8 object-cover max-h-96"
           />
         )}
@@ -128,14 +128,19 @@ export default function BlogDetail() {
         {/* Extra images */}
         {post.images.length > 0 && (
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {post.images.map((url, i) => (
-              <img
-                key={i}
-                src={url}
-                alt={`작업 사진 ${i + 1}`}
-                className="w-full rounded-lg object-cover"
-              />
-            ))}
+            {post.images.map((item, i) => {
+              // {url, alt} 객체 또는 string 모두 처리
+              const imgUrl = typeof item === "string" ? item : (item as { url: string }).url;
+              const imgAlt = typeof item === "string" ? `이천계단지기 작업 사진 ${i + 1}` : ((item as { alt?: string }).alt || `이천계단지기 작업 사진 ${i + 1}`);
+              return (
+                <img
+                  key={i}
+                  src={imgUrl}
+                  alt={imgAlt}
+                  className="w-full rounded-lg object-cover"
+                />
+              );
+            })}
           </div>
         )}
 

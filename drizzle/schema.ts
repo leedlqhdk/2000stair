@@ -45,7 +45,8 @@ export const posts = mysqlTable("posts", {
   title: varchar("title", { length: 200 }).notNull(),
   content: text("content").notNull(),
   thumbnail: text("thumbnail"),
-  images: text("images"),       // JSON array of image URLs
+  thumbnailAlt: varchar("thumbnail_alt", { length: 200 }),
+  images: text("images"),       // JSON array of {url, alt} objects
   tags: text("tags"),           // JSON array of tag ids
   published: mysqlEnum("published", ["draft", "published"]).default("draft").notNull(),
   authorId: int("authorId").notNull(),
