@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, Upload, X, Plus, Sparkles, ChevronDown, ChevronUp, Wand2 } from "lucide-react";
+import { ArrowLeft, Upload, X, Plus, Sparkles, ChevronDown, ChevronUp, Wand2, Zap } from "lucide-react";
 import { Link } from "wouter";
+import { optimizeImage, formatBytes, type OptimizeResult } from "@/lib/imageOptimizer";
 
 // 이미지 객체 타입 - url + alt 포함
 type ImageItem = { url: string; alt: string };
@@ -33,6 +34,7 @@ export default function AdminBlogEdit() {
   const [showTagForm, setShowTagForm] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [generatingAlt, setGeneratingAlt] = useState<string | null>(null); // url of image being processed
+  const [compressResults, setCompressResults] = useState<OptimizeResult[]>([]); // 압축 결과 목록
 
   // SEO 상태
   const [seoTitle, setSeoTitle] = useState("");
@@ -123,11 +125,27 @@ export default function AdminBlogEdit() {
     }
     setUploading(true);
     try {
-      const base64 = await fileToBase64(file);
+      // 이미지 압축 최적화
+      const optimized = await optimizeImage(file, {
+        isThumbnail: target === "thumbnail",
+        quality: 0.82,
+      });
+      setCompressResults((prev) => [...prev, optimized]);
+
+      // 압축 안내 토스트
+      if (optimized.compressionRate > 5) {
+        toast.success(
+          `이미지 압축 완료: ${formatBytes(optimized.originalSize)} → ${formatBytes(optimized.optimizedSize)} (-${optimized.compressionRate}%)`
+        );
+      }
+
+      const ext = optimized.mimeType === "image/webp" ? "webp" : "jpg";
+      const filename = file.name.replace(/\.[^.]+$/, "." + ext);
+
       const result = await uploadImage.mutateAsync({
-        filename: file.name,
-        mimeType: file.type,
-        base64,
+        filename,
+        mimeType: optimized.mimeType,
+        base64: optimized.base64,
       });
 
       if (target === "thumbnail") {
@@ -530,6 +548,32 @@ export default function AdminBlogEdit() {
             </div>
           )}
         </div>
+
+        {/* 이미지 압축 결과 요약 */}
+        {compressResults.length > 0 && (
+          <div className="border border-green-200 bg-green-50 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className="w-4 h-4 text-green-600" />
+              <span className="text-sm font-medium text-green-800">이미지 최적화 결과</span>
+            </div>
+            <div className="space-y-1">
+              {compressResults.map((r, i) => (
+                <div key={i} className="flex items-center justify-between text-xs text-green-700">
+                  <span>{i + 1}번 이미지 ({r.mimeType === "image/webp" ? "WebP" : "JPEG"} {r.width}×{r.height}px)</span>
+                  <span className="font-medium">
+                    {formatBytes(r.originalSize)} → {formatBytes(r.optimizedSize)}
+                    {r.compressionRate > 0 && (
+                      <span className="ml-1 text-green-600 font-bold">(-{r.compressionRate}%)</span>
+                    )}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-green-600 mt-2">
+              총 절감: {formatBytes(compressResults.reduce((a, r) => a + r.originalSize - r.optimizedSize, 0))}
+            </p>
+          </div>
+        )}
 
         {/* Publish toggle */}
         <div className="flex items-center gap-3">
