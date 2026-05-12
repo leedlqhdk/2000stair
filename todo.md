@@ -58,3 +58,16 @@
 - [x] 관리자 글 작성/수정 페이지 (/admin/blog/new, /admin/blog/:id/edit)
 - [x] 홈페이지 최신 블로그 미리보기 섹션 추가
 - [x] 네비게이션에 블로그 메뉴 등록
+
+## 작업일지 SEO 메타 태그 자동 생성 기능
+
+- [ ] DB: posts 테이블에 seo_title, seo_description, seo_keywords 필드 추가
+- [ ] 서버: AI SEO 자동 생성 tRPC 프로시저 추가 (invokeLLM 활용)
+- [ ] 관리자 UI: SEO 자동 생성 버튼 및 편집 패널 추가
+- [ ] 블로그 상세 페이지: 동적 SEO 메타 태그 적용 (react-helmet 또는 document.title)
+
+## 작업일지 SEO 메타 태그 자동 생성 기능
+- [ ] DB: posts 테이블에 seo_title, seo_description, seo_keywords 필드 추가
+- [ ] 서버: AI SEO 자동 생성 tRPC 프로시저 추가
+- [ ] 관리자 UI: SEO 자동 생성 버튼 및 편집 패널 추가
+- [ ] 블로그 상세 페이지: 동적 SEO 메타 태그 적용

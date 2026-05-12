@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, bigint } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -11,7 +11,6 @@ export const users = mysqlTable("users", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
 });
-
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
@@ -29,7 +28,6 @@ export const quoteRequests = mysqlTable("quote_requests", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
-
 export type QuoteRequest = typeof quoteRequests.$inferSelect;
 export type InsertQuoteRequest = typeof quoteRequests.$inferInsert;
 
@@ -39,7 +37,6 @@ export const postTags = mysqlTable("post_tags", {
   slug: varchar("slug", { length: 60 }).notNull().unique(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
-
 export type PostTag = typeof postTags.$inferSelect;
 export type InsertPostTag = typeof postTags.$inferInsert;
 
@@ -48,13 +45,15 @@ export const posts = mysqlTable("posts", {
   title: varchar("title", { length: 200 }).notNull(),
   content: text("content").notNull(),
   thumbnail: text("thumbnail"),
-  images: text("images"),  // JSON array of image URLs
-  tags: text("tags"),      // JSON array of tag ids
+  images: text("images"),       // JSON array of image URLs
+  tags: text("tags"),           // JSON array of tag ids
   published: mysqlEnum("published", ["draft", "published"]).default("draft").notNull(),
   authorId: int("authorId").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
+  seoTitle: varchar("seo_title", { length: 100 }),
+  seoDescription: varchar("seo_description", { length: 160 }),
+  seoKeywords: varchar("seo_keywords", { length: 300 }),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
-
 export type Post = typeof posts.$inferSelect;
 export type InsertPost = typeof posts.$inferInsert;

@@ -1,4 +1,5 @@
 import { Link, useParams } from "wouter";
+import { useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,40 @@ export default function BlogDetail() {
   }
 
   const matchedTags = (allTags ?? []).filter((t) => post.tags.includes(t.id));
+
+  // 동적 SEO 메타 태그 적용
+  useEffect(() => {
+    if (!post) return;
+    const seoTitle = post.seoTitle || `${post.title} | 이천계단지기`;
+    const seoDesc = post.seoDescription || `이천계단청소 전문 이천계단지기. ${post.content.slice(0, 70)}...`;
+    const seoKw = post.seoKeywords || "이천계단청소,이천계단지기,이천빌라청소";
+
+    document.title = seoTitle;
+
+    const setMeta = (name: string, content: string, prop = false) => {
+      const attr = prop ? "property" : "name";
+      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+
+    setMeta("description", seoDesc);
+    setMeta("keywords", seoKw);
+    setMeta("og:title", seoTitle, true);
+    setMeta("og:description", seoDesc, true);
+    setMeta("og:url", window.location.href, true);
+    setMeta("twitter:title", seoTitle, true);
+    setMeta("twitter:description", seoDesc, true);
+
+    return () => {
+      // 페이지 이탈 시 기본 title 복원
+      document.title = "이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소";
+    };
+  }, [post]);
 
   return (
     <div className="min-h-screen bg-white">

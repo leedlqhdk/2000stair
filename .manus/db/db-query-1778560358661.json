@@ -1,0 +1,9 @@
+{
+  "query": "\nALTER TABLE posts\n  ADD COLUMN seo_title VARCHAR(100) NULL,\n  ADD COLUMN seo_description VARCHAR(160) NULL,\n  ADD COLUMN seo_keywords VARCHAR(300) NULL;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4ZLuuPGAFVhH1Fq.f0fbe627ff11 --database BuDLHDfm5bfYXthRJ4c8ks --execute \nALTER TABLE posts\n  ADD COLUMN seo_title VARCHAR(100) NULL,\n  ADD COLUMN seo_description VARCHAR(160) NULL,\n  ADD COLUMN seo_keywords VARCHAR(300) NULL;\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 2180
+}

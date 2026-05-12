@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, Upload, X, Plus } from "lucide-react";
+import { ArrowLeft, Upload, X, Plus, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
 
 export default function AdminBlogEdit() {
@@ -29,6 +29,12 @@ export default function AdminBlogEdit() {
   const [showTagForm, setShowTagForm] = useState(false);
   const [uploading, setUploading] = useState(false);
 
+  // SEO 상태
+  const [seoTitle, setSeoTitle] = useState("");
+  const [seoDescription, setSeoDescription] = useState("");
+  const [seoKeywords, setSeoKeywords] = useState("");
+  const [showSeo, setShowSeo] = useState(false);
+
   const thumbInputRef = useRef<HTMLInputElement>(null);
   const imgInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,10 +53,23 @@ export default function AdminBlogEdit() {
       setImages(existingPost.images);
       setSelectedTags(existingPost.tags);
       setPublished(existingPost.published === "published");
+      setSeoTitle(existingPost.seoTitle ?? "");
+      setSeoDescription(existingPost.seoDescription ?? "");
+      setSeoKeywords(existingPost.seoKeywords ?? "");
     }
   }, [existingPost, isEdit]);
 
   const uploadImage = trpc.blog.uploadImage.useMutation();
+  const generateSeo = trpc.blog.generateSeo.useMutation({
+    onSuccess: (data) => {
+      setSeoTitle(data.seoTitle);
+      setSeoDescription(data.seoDescription);
+      setSeoKeywords(data.seoKeywords);
+      setShowSeo(true);
+      toast.success("SEO 메타 태그가 자동 생성되었습니다!");
+    },
+    onError: (e) => toast.error("SEO 생성 실패: " + e.message),
+  });
   const createPost = trpc.blog.create.useMutation({
     onSuccess: () => {
       toast.success("게시글이 작성되었습니다.");
@@ -86,10 +105,7 @@ export default function AdminBlogEdit() {
     );
   }
 
-  const handleFileUpload = async (
-    file: File,
-    target: "thumbnail" | "image"
-  ) => {
+  const handleFileUpload = async (file: File, target: "thumbnail" | "image") => {
     if (file.size > 16 * 1024 * 1024) {
       toast.error("파일 크기는 16MB 이하여야 합니다.");
       return;
@@ -114,6 +130,12 @@ export default function AdminBlogEdit() {
     }
   };
 
+  const handleGenerateSeo = () => {
+    if (!title.trim()) return toast.error("제목을 먼저 입력해주세요.");
+    if (!content.trim()) return toast.error("내용을 먼저 입력해주세요.");
+    generateSeo.mutate({ title, content });
+  };
+
   const handleSubmit = () => {
     if (!title.trim()) return toast.error("제목을 입력해주세요.");
     if (!content.trim()) return toast.error("내용을 입력해주세요.");
@@ -125,6 +147,9 @@ export default function AdminBlogEdit() {
       images,
       tags: selectedTags,
       published: published ? ("published" as const) : ("draft" as const),
+      seoTitle: seoTitle || undefined,
+      seoDescription: seoDescription || undefined,
+      seoKeywords: seoKeywords || undefined,
     };
 
     if (isEdit && postId) {
@@ -304,6 +329,105 @@ export default function AdminBlogEdit() {
               >
                 추가
               </Button>
+            </div>
+          )}
+        </div>
+
+        {/* SEO 자동 생성 패널 */}
+        <div className="border border-gray-200 rounded-xl overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 bg-gray-50">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-blue-500" />
+              <span className="font-medium text-sm text-gray-700">SEO 메타 태그</span>
+              {seoTitle && (
+                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">설정됨</span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={handleGenerateSeo}
+                disabled={generateSeo.isPending}
+                className="text-blue-600 border-blue-300 hover:bg-blue-50 text-xs h-7"
+              >
+                <Sparkles className="w-3 h-3 mr-1" />
+                {generateSeo.isPending ? "AI 생성 중..." : "AI 자동 생성"}
+              </Button>
+              <button
+                type="button"
+                onClick={() => setShowSeo(!showSeo)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                {showSeo ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+          {showSeo && (
+            <div className="px-4 py-4 space-y-4 bg-white">
+              <p className="text-xs text-gray-400">
+                제목과 내용을 입력한 후 "AI 자동 생성" 버튼을 누르면 검색 최적화된 메타 태그가 자동으로 작성됩니다.
+              </p>
+
+              {/* SEO Title */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs text-gray-600">SEO 제목 (검색 결과 제목)</Label>
+                  <span className={`text-xs ${seoTitle.length > 60 ? "text-red-500" : "text-gray-400"}`}>
+                    {seoTitle.length}/60자
+                  </span>
+                </div>
+                <Input
+                  value={seoTitle}
+                  onChange={(e) => setSeoTitle(e.target.value)}
+                  placeholder="이천계단청소 전문 이천계단지기 | 빌라 계단청소 완료"
+                  className="text-sm"
+                />
+              </div>
+
+              {/* SEO Description */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs text-gray-600">SEO 설명 (검색 결과 스니펫)</Label>
+                  <span className={`text-xs ${seoDescription.length > 80 ? "text-red-500" : "text-gray-400"}`}>
+                    {seoDescription.length}/80자
+                  </span>
+                </div>
+                <Textarea
+                  value={seoDescription}
+                  onChange={(e) => setSeoDescription(e.target.value)}
+                  placeholder="이천 빌라 계단청소 전문 이천계단지기. 무료 방문 견적 가능합니다."
+                  rows={2}
+                  className="text-sm resize-none"
+                />
+              </div>
+
+              {/* SEO Keywords */}
+              <div>
+                <Label className="text-xs text-gray-600 mb-1 block">키워드 (쉼표로 구분)</Label>
+                <Input
+                  value={seoKeywords}
+                  onChange={(e) => setSeoKeywords(e.target.value)}
+                  placeholder="이천계단청소, 이천빌라청소, 이천계단지기, 계단청소업체"
+                  className="text-sm"
+                />
+              </div>
+
+              {/* 미리보기 */}
+              {(seoTitle || seoDescription) && (
+                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
+                  <p className="text-xs text-gray-400 mb-2">검색 결과 미리보기</p>
+                  <p className="text-blue-600 text-sm font-medium truncate">
+                    {seoTitle || title}
+                  </p>
+                  <p className="text-green-700 text-xs">2000stair.click</p>
+                  <p className="text-gray-600 text-xs mt-0.5 line-clamp-2">
+                    {seoDescription}
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

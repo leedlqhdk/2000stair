@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server";
+import { invokeLLM } from "../_core/llm";
 import { desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { posts, postTags } from "../../drizzle/schema";
@@ -117,6 +118,9 @@ export const blogRouter = router({
         images: z.array(z.string()).default([]),
         tags: z.array(z.number()).default([]),
         published: z.enum(["draft", "published"]).default("draft"),
+        seoTitle: z.string().max(100).optional(),
+        seoDescription: z.string().max(160).optional(),
+        seoKeywords: z.string().max(300).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -131,6 +135,9 @@ export const blogRouter = router({
         tags: JSON.stringify(input.tags),
         published: input.published,
         authorId: ctx.user.id,
+        seoTitle: input.seoTitle || null,
+        seoDescription: input.seoDescription || null,
+        seoKeywords: input.seoKeywords || null,
       });
 
       const [created] = await db
@@ -152,6 +159,9 @@ export const blogRouter = router({
         images: z.array(z.string()).optional(),
         tags: z.array(z.number()).optional(),
         published: z.enum(["draft", "published"]).optional(),
+        seoTitle: z.string().max(100).nullable().optional(),
+        seoDescription: z.string().max(160).nullable().optional(),
+        seoKeywords: z.string().max(300).nullable().optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -165,6 +175,9 @@ export const blogRouter = router({
       if (input.images !== undefined) updateData.images = JSON.stringify(input.images);
       if (input.tags !== undefined) updateData.tags = JSON.stringify(input.tags);
       if (input.published !== undefined) updateData.published = input.published;
+      if (input.seoTitle !== undefined) updateData.seo_title = input.seoTitle;
+      if (input.seoDescription !== undefined) updateData.seo_description = input.seoDescription;
+      if (input.seoKeywords !== undefined) updateData.seo_keywords = input.seoKeywords;
 
       await db.update(posts).set(updateData).where(eq(posts.id, input.id));
       return { success: true };
@@ -187,6 +200,57 @@ export const blogRouter = router({
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       await db.insert(postTags).values({ name: input.name, slug: input.slug });
       return { success: true };
+    }),
+
+  // AI SEO 자동 생성
+  generateSeo: adminProcedure
+    .input(
+      z.object({
+        title: z.string().min(1),
+        content: z.string().min(1),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const prompt = `당신은 한국 청소 전문업체 "이천계단지기"의 SEO 전문가입니다.
+아래 작업일지 글을 읽고 검색 노출에 최적화된 SEO 메타 태그를 생성해주세요.
+
+글 제목: ${input.title}
+글 내용 (앞부분): ${input.content.slice(0, 500)}
+
+요구사항:
+- seoTitle: 검색 결과에 표시될 제목 (60자 이내, "이천계단청소" 또는 "이천계단지기" 키워드 포함)
+- seoDescription: 검색 결과 스니펫 (80자 이내, 핵심 내용 요약, 행동 유도 포함)
+- seoKeywords: 쉼표로 구분된 키워드 5~8개 (지역명+서비스명 조합, 예: 이천계단청소, 이천빌라청소)
+
+JSON 형식으로만 응답하세요.`;
+
+      const response = await invokeLLM({
+        messages: [
+          { role: "system", content: "You are an SEO expert. Respond only with valid JSON." },
+          { role: "user", content: prompt },
+        ],
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "seo_meta",
+            strict: true,
+            schema: {
+              type: "object",
+              properties: {
+                seoTitle: { type: "string", description: "SEO title under 60 chars" },
+                seoDescription: { type: "string", description: "SEO description under 80 chars" },
+                seoKeywords: { type: "string", description: "Comma-separated keywords" },
+              },
+              required: ["seoTitle", "seoDescription", "seoKeywords"],
+              additionalProperties: false,
+            },
+          },
+        },
+      });
+
+      const content = response.choices[0].message.content;
+      const parsed = JSON.parse(typeof content === "string" ? content : JSON.stringify(content));
+      return parsed as { seoTitle: string; seoDescription: string; seoKeywords: string };
     }),
 
   // Image upload

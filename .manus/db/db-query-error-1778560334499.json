@@ -1,0 +1,8 @@
+{
+  "query": "\nALTER TABLE posts\n  ADD COLUMN seoTitle VARCHAR(100) NULL AFTER authorId,\n  ADD COLUMN seoDescription VARCHAR(160) NULL AFTER seoTitle,\n  ADD COLUMN seoKeywords VARCHAR(300) NULL AFTER seoDescription;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4ZLuuPGAFVhH1Fq.f0fbe627ff11 --database BuDLHDfm5bfYXthRJ4c8ks --execute \nALTER TABLE posts\n  ADD COLUMN seoTitle VARCHAR(100) NULL AFTER authorId,\n  ADD COLUMN seoDescription VARCHAR(160) NULL AFTER seoTitle,\n  ADD COLUMN seoKeywords VARCHAR(300) NULL AFTER seoDescription;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 2: Unknown column 'seotitle' in 'posts'"
+  ]
+}
