@@ -88,9 +88,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <div className="text-sm text-muted-foreground">경력의 전문 관리</div>
             </div>
           </div>
-        </motion.div>
+        </div>
         
-      </div>
+      </motion.div>
     </section>
   );
 }
