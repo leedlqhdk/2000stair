@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 
@@ -20,7 +21,12 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
       <div className="container relative py-20 md:py-32">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Copy */}
-          <div className="space-y-6">
+          <motion.div
+  className="space-y-6"
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               이천계단청소 전문업체
@@ -82,7 +88,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <div className="text-sm text-muted-foreground">경력의 전문 관리</div>
             </div>
           </div>
-        </div>
+        </motion.div>
+        
       </div>
     </section>
   );
