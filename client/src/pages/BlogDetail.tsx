@@ -13,33 +13,7 @@ export default function BlogDetail() {
   const { data: post, isLoading, error } = trpc.blog.getById.useQuery({ id: postId });
   const { data: allTags } = trpc.blog.tags.useQuery();
 
-  if (isLoading) {
-    return (
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <Skeleton className="h-8 w-3/4 mb-4" />
-        <Skeleton className="h-4 w-1/4 mb-8" />
-        <Skeleton className="h-64 w-full mb-6" />
-        <Skeleton className="h-4 w-full mb-2" />
-        <Skeleton className="h-4 w-5/6 mb-2" />
-        <Skeleton className="h-4 w-4/6" />
-      </div>
-    );
-  }
-
-  if (error || !post) {
-    return (
-      <div className="max-w-3xl mx-auto px-4 py-20 text-center">
-        <p className="text-gray-400 text-lg mb-4">게시글을 찾을 수 없습니다.</p>
-        <Link href="/blog">
-          <Button variant="outline">목록으로 돌아가기</Button>
-        </Link>
-      </div>
-    );
-  }
-
-  const matchedTags = (allTags ?? []).filter((t) => post.tags.includes(t.id));
-
-  // 동적 SEO 메타 태그 적용
+  // 동적 SEO 메타 태그 적용 - Hook은 항상 최상단에 위치해야 함 (조건부 return 이전)
   useEffect(() => {
     if (!post) return;
     const seoTitle = post.seoTitle || `${post.title} | 이천계단지기`;
@@ -72,6 +46,32 @@ export default function BlogDetail() {
       document.title = "이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소";
     };
   }, [post]);
+
+  if (isLoading) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-12">
+        <Skeleton className="h-8 w-3/4 mb-4" />
+        <Skeleton className="h-4 w-1/4 mb-8" />
+        <Skeleton className="h-64 w-full mb-6" />
+        <Skeleton className="h-4 w-full mb-2" />
+        <Skeleton className="h-4 w-5/6 mb-2" />
+        <Skeleton className="h-4 w-4/6" />
+      </div>
+    );
+  }
+
+  if (error || !post) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-20 text-center">
+        <p className="text-gray-400 text-lg mb-4">게시글을 찾을 수 없습니다.</p>
+        <Link href="/blog">
+          <Button variant="outline">목록으로 돌아가기</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  const matchedTags = (allTags ?? []).filter((t) => post.tags.includes(t.id));
 
   return (
     <div className="min-h-screen bg-white">
