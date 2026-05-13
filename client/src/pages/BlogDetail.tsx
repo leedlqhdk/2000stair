@@ -4,7 +4,33 @@ import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft, CalendarDays } from "lucide-react";
+import { ArrowLeft, CalendarDays, ExternalLink } from "lucide-react";
+
+// URL을 감지하여 클릭 가능한 링크 버튼으로 변환
+function renderContentWithLinks(text: string) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+  return parts.map((part, i) => {
+    if (urlRegex.test(part)) {
+      // URL 끝의 불필요한 문장부호 제거
+      const cleanUrl = part.replace(/[.,!?;:)"']+$/, "");
+      const isNaver = cleanUrl.includes("blog.naver.com");
+      return (
+        <a
+          key={i}
+          href={cleanUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 my-1 px-3 py-1.5 rounded-lg text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 hover:border-blue-400 transition-colors no-underline"
+        >
+          <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
+          {isNaver ? "네이버 블로그 후기 보러가기" : cleanUrl.length > 50 ? cleanUrl.slice(0, 50) + "..." : cleanUrl}
+        </a>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
 
 export default function BlogDetail() {
   const { id } = useParams<{ id: string }>();
@@ -119,10 +145,10 @@ export default function BlogDetail() {
 
         {/* Content */}
         <div
-          className="prose prose-gray max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap"
-          style={{ fontSize: "1rem", lineHeight: "1.8" }}
+          className="prose prose-gray max-w-none text-gray-700 leading-relaxed"
+          style={{ fontSize: "1rem", lineHeight: "1.8", whiteSpace: "pre-wrap" }}
         >
-          {post.content}
+          {renderContentWithLinks(post.content)}
         </div>
 
         {/* Extra images */}
