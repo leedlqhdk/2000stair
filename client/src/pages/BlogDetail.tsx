@@ -21,8 +21,8 @@ function renderContentWithLinks(text: string) {
           href={cleanUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 my-1 px-3 py-1.5 rounded-lg text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 hover:border-blue-400 transition-colors no-underline"
-        >
+         className="inline-flex items-center gap-1.5 my-1 px-3 py-1.5 rounded-lg text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 no-underline"
+          >
           <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
           {isNaver ? "네이버 블로그 후기 보러가기" : cleanUrl.length > 50 ? cleanUrl.slice(0, 50) + "..." : cleanUrl}
         </a>
