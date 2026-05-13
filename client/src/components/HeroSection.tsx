@@ -22,11 +22,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Copy */}
           <motion.div
-  className="space-y-6"
-  initial={{ opacity: 0, y: 50 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
->
+            className="space-y-6"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               이천계단청소 전문업체
@@ -71,7 +71,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 친환경 세정제
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Hero Image - 조끼 사진만 */}
           <div className="relative">
@@ -89,8 +89,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
         </div>
-        
-      </motion.div>
+      </div>
     </section>
   );
 }
