@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://2000stair.click/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://2000stair.click/blog</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-</urlset>
-
 
   <!-- 메인 홈페이지 -->
   <url>
@@ -23,7 +9,14 @@
     <priority>1.0</priority>
   </url>
 
-  </urlset>
+  <!-- 블로그 목록 -->
+  <url>
+    <loc>https://2000stair.click/blog</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- 서비스 소개 (계단청소·유리청소·화장실청소) -->
   <url>
     <loc>https://2000stair.click/#service</loc>
@@ -46,14 +39,6 @@
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-
-  <!-- 블로그 -->
-  <url>
-    <loc>https://2000stair.click/#blog</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
 
   <!-- 네이버 블로그 - 이천계단청소 소개 -->
