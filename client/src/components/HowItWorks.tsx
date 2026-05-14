@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ClipboardList, Truck, Sparkles } from "lucide-react";
 
 const steps = [
@@ -39,9 +40,25 @@ export default function HowItWorks() {
         </div>
 
         {/* Steps Grid */}
-        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+        <motion.div
+  className="grid md:grid-cols-3 gap-8 md:gap-12"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.2 } } }}
+>
+          </motion.div>
+          
           {steps.map((item, index) => (
-            <div key={index} className="relative group">
+            <motion.div
+  key={index}
+  className="relative group"
+  variants={{
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  }}
+>
+           </motion.div>
               {/* Connector line (desktop) */}
               {index < steps.length - 1 && (
                 <div className="hidden md:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/30 to-primary/10" />
