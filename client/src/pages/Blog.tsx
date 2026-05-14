@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CalendarDays, Tag } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Blog() {
   const [selectedTag, setSelectedTag] = useState<string | undefined>(undefined);
@@ -57,7 +58,15 @@ export default function Blog() {
 
         {/* Post grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+>
+  </motion.div>
+
             {Array.from({ length: 6 }).map((_, i) => (
               <Card key={i} className="overflow-hidden">
                 <Skeleton className="h-48 w-full" />
@@ -75,6 +84,14 @@ export default function Blog() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (
+       key={post.id}
+    variants={{
+      hidden: { opacity: 0, y: 30 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+    }}
+  >
+    <Link href={`/blog/${post.id}`}>
+      <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full">
               <Link key={post.id} href={`/blog/${post.id}`}>
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full">
                   {post.thumbnail ? (
@@ -100,6 +117,7 @@ export default function Blog() {
                   </CardContent>
                 </Card>
               </Link>
+        </motion.div>
             ))}
           </div>
         )}
