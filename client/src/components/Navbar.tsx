@@ -17,8 +17,8 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
 
   const navLinks = [
     { label: "서비스 소개", href: "#how-it-works", external: true },
-    { label: "플랜", href: "#pricing", external: true },
-    { label: "견적 신청", href: "#quote-form", external: true },
+    { label: "요금안내", href: "#pricing", external: true },
+    { label: "견적신청", href: "#quote-form", external: true },
     { label: "작업일지", href: "/blog", external: false },
   ];
 
