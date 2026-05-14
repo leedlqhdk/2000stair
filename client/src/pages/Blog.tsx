@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarDays, Tag } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Blog() {
@@ -58,15 +58,7 @@ export default function Blog() {
 
         {/* Post grid */}
         {isLoading ? (
-          <motion.div
-  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
->
-  </motion.div>
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <Card key={i} className="overflow-hidden">
                 <Skeleton className="h-48 w-full" />
@@ -82,44 +74,52 @@ export default function Blog() {
             <p className="text-lg">아직 작업일지가 없습니다.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.1 } },
+            }}
+          >
             {posts.map((post) => (
-       key={post.id}
-    variants={{
-      hidden: { opacity: 0, y: 30 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
-    }}
-  >
-    <Link href={`/blog/${post.id}`}>
-      <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full">
-              <Link key={post.id} href={`/blog/${post.id}`}>
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full">
-                  {post.thumbnail ? (
-                    <img
-                      src={post.thumbnail}
-                      alt={post.title}
-                      className="w-full h-48 object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-48 bg-blue-50 flex items-center justify-center">
-                      <span className="text-blue-200 text-4xl">🧹</span>
-                    </div>
-                  )}
-                  <CardContent className="p-4">
-                    <h2 className="font-semibold text-gray-900 mb-2 line-clamp-2 leading-snug">
-                      {post.title}
-                    </h2>
-                    <div className="flex items-center gap-1 text-xs text-gray-400 mb-3">
-                      <CalendarDays className="w-3 h-3" />
-                      <span>{new Date(post.createdAt).toLocaleDateString("ko-KR")}</span>
-                    </div>
-                    <TagBadges tagIds={post.tags} allTags={tagsData ?? []} />
-                  </CardContent>
-                </Card>
-              </Link>
-        </motion.div>
+              <motion.div
+                key={post.id}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+                }}
+              >
+                <Link href={`/blog/${post.id}`}>
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full">
+                    {post.thumbnail ? (
+                      <img
+                        src={post.thumbnail}
+                        alt={post.title}
+                        className="w-full h-48 object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-48 bg-blue-50 flex items-center justify-center">
+                        <span className="text-blue-200 text-4xl">🧹</span>
+                      </div>
+                    )}
+                    <CardContent className="p-4">
+                      <h2 className="font-semibold text-gray-900 mb-2 line-clamp-2 leading-snug">
+                        {post.title}
+                      </h2>
+                      <div className="flex items-center gap-1 text-xs text-gray-400 mb-3">
+                        <CalendarDays className="w-3 h-3" />
+                        <span>{new Date(post.createdAt).toLocaleDateString("ko-KR")}</span>
+                      </div>
+                      <TagBadges tagIds={post.tags} allTags={tagsData ?? []} />
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

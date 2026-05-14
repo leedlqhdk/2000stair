@@ -47,7 +47,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
       price: "별도 문의",
       description: "보이는 곳보다 보이지 않는 곳까지 꼼꼼하게",
       popular: false,
-    }
+    },
   ];
 
   const stairPlans = displayPlans.filter((p) => p.id.startsWith("stair"));
@@ -57,7 +57,13 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     <section id="pricing" className="py-20 md:py-28 bg-secondary/30">
       <div className="container">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <motion.div
+          className="text-center max-w-2xl mx-auto mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             이천계단청소 요금 안내
           </h2>
@@ -67,57 +73,60 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           <p className="text-sm text-muted-foreground">
             처음 방문한 날의 깨끗함을 유지합니다 · 대면 / 비대면 모두 가능
           </p>
-        </div>
+        </motion.div>
 
         {/* Stair Plans - Main Cards */}
         <motion.div
-  className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15 } } }}
->
-</motion.div>
+          className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15 } },
+          }}
+        >
           {stairPlans.map((plan) => (
-  <motion.div
-    key={plan.id}
-    variants={{
-      hidden: { opacity: 0, y: 30 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-    }}
-  >
-    <Card
-      className={`relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-        plan.popular
-          ? "border-primary shadow-md ring-2 ring-primary/20"
-          : "border-border"
-      }`}
+            <motion.div
+              key={plan.id}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
             >
-              {plan.popular && (
-                <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
-              )}
-              <CardContent className="pt-8 pb-6 px-6 flex flex-col h-full">
-                <h3 className="text-xl font-bold text-foreground mb-2">{plan.name}</h3>
-                <div className="mb-4">
-                  <span className="text-2xl font-extrabold text-primary">{plan.price}</span>
-                  <span className="text-xs text-muted-foreground ml-1">/월</span>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
-                  {plan.description}
-                </p>
-                <Button
-                  className="w-full"
-                  variant={plan.popular ? "default" : "outline"}
-                  onClick={() => handleQuoteRequest(plan.id)}
-                >
-                  무료 견적 신청
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
+              <Card
+                className={`relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+                  plan.popular
+                    ? "border-primary shadow-md ring-2 ring-primary/20"
+                    : "border-border"
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
+                )}
+                <CardContent className="pt-8 pb-6 px-6 flex flex-col h-full">
+                  <h3 className="text-xl font-bold text-foreground mb-2">{plan.name}</h3>
+                  <div className="mb-4">
+                    <span className="text-2xl font-extrabold text-primary">{plan.price}</span>
+                    <span className="text-xs text-muted-foreground ml-1">/월</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                    {plan.description}
+                  </p>
+                  <Button
+                    className="w-full"
+                    variant={plan.popular ? "default" : "outline"}
+                    onClick={() => handleQuoteRequest(plan.id)}
+                  >
+                    무료 견적 신청
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        
+        </motion.div>
+
         {/* Other Services - Single Card */}
         {otherPlans.length > 0 && (
           <div className="max-w-5xl mx-auto mt-8">

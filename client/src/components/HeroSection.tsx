@@ -73,29 +73,30 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Right: Hero Image - 조끼 사진만 */}
+          {/* Right: Hero Image */}
           <motion.div
             className="space-y-6"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-          <div className="relative">
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-blue-100">
-              <img
-                src="/manus-storage/work-vest_b3f4fbac.png"
-                alt="이천계단지기 작업 조끼"
-                className="w-full h-auto object-cover"
-              />
+            <div className="relative">
+              <div className="rounded-2xl overflow-hidden shadow-2xl border border-blue-100">
+                <img
+                  src="/manus-storage/work-vest_b3f4fbac.png"
+                  alt="이천계단지기 작업 조끼"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              {/* Floating badge */}
+              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 border border-blue-100">
+                <div className="text-2xl font-bold text-primary">4년+</div>
+                <div className="text-sm text-muted-foreground">경력의 전문 관리</div>
+              </div>
             </div>
-            {/* Floating badge */}
-            <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 border border-blue-100">
-              <div className="text-2xl font-bold text-primary">4년+</div>
-              <div className="text-sm text-muted-foreground">경력의 전문 관리</div>
-            </div>
-          </div>
+          </motion.div>
         </div>
-      <motion.div>
+      </div>
     </section>
   );
 }
