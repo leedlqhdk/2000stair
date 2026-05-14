@@ -35,7 +35,7 @@ export default function HowItWorks() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             이천계단청소, 이렇게 진행됩니다
@@ -53,7 +53,7 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.2 } },
+            visible: { transition: { staggerChildren: 0.3 } },
           }}
         >
           {steps.map((item, index) => (
@@ -62,7 +62,7 @@ export default function HowItWorks() {
               className="relative group"
               variants={{
                 hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                visible: { opacity: 1, y: 0, transition: { duration: 1 } },
               }}
             >
               {/* Connector line (desktop) */}
