@@ -173,7 +173,7 @@ export default function BlogDetail() {
         {/* CTA */}
         <div className="mt-12 p-6 bg-blue-50 rounded-xl text-center">
           <p className="font-semibold text-blue-900 mb-2">이천계단지기에 문의하세요</p>
-          <p className="text-sm text-blue-700 mb-4">무료 방문 견적 · 010-8180-6895</p>
+          <p className="text-sm text-blue-700 mb-4">무료 방문 견적 · 010-8438-1887</p>
           <Link href="/#quote">
             <Button className="bg-blue-600 hover:bg-blue-700 text-white">무료 견적 신청하기</Button>
           </Link>

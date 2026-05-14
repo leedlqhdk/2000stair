@@ -70,7 +70,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="tel:010-8180-6895" className="hover:text-white transition-colors">
+                <a href="tel:010-8438-1887" className="hover:text-white transition-colors">
                   전화 문의
                 </a>
               </li>

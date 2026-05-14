@@ -133,8 +133,8 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         <div className="text-center mt-12">
           <p className="text-sm text-muted-foreground">
             문의 및 예약 환영 · 전화{" "}
-            <a href="tel:010-8180-6895" className="text-primary font-medium hover:underline">
-              010-8180-6895
+            <a href="tel:010-8438-1887" className="text-primary font-medium hover:underline">
+              010-8438-1887
             </a>
           </p>
         </div>
