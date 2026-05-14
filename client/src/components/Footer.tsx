@@ -1,9 +1,17 @@
 import { Phone, Mail, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
     <footer className="bg-foreground text-white py-16">
-      <div className="container">
+      <motion.div
+  className="container py-16"
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+>
+</motion.div>
         <div className="grid md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="md:col-span-1">
