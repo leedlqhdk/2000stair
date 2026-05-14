@@ -74,6 +74,12 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </motion.div>
 
           {/* Right: Hero Image - 조끼 사진만 */}
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl border border-blue-100">
               <img
@@ -89,7 +95,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
         </div>
-      </div>
+      <motion.div>
     </section>
   );
 }
