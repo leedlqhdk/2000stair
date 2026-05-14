@@ -62,7 +62,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             이천계단청소 요금 안내
@@ -83,7 +83,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           viewport={{ once: true }}
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.15 } },
+            visible: { transition: { staggerChildren: 0.3 } },
           }}
         >
           {stairPlans.map((plan) => (
@@ -91,7 +91,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
               key={plan.id}
               variants={{
                 hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                visible: { opacity: 1, y: 0, transition: { duration: 1 } },
               }}
             >
               <Card
