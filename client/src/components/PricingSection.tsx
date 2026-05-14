@@ -23,28 +23,28 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
       id: "stair_2_3",
       name: "2-3층 계단",
       price: "66,000원~",
-      description: "이천지역 밀착 관리 · 친환경 수입세제로 매달 같은 손이 관리합니다",
+      description: "이천지역 밀착 관리 · 친환경 수입세제로",
       popular: false,
     },
     {
       id: "stair_4",
       name: "4층 계단",
       price: "77,000원~",
-      description: "부부 직영, 외주 없이, 처음 온 날과 같은 품질로 유지합니다",
+      description: "외주 없이, 처음 온 날과 같은 품질로 유지",
       popular: true,
     },
     {
       id: "stair_5_6",
       name: "5-6층 계단",
       price: "88,000원~",
-      description: "건물당 걸레 1장 원칙, 위층 아래층 동일한 기준으로 호텔급 관리",
+      description: "한 번 맡기면 차이를 느끼는 계단관리",
       popular: false,
     },
     {
       id: "bathroom",
       name: "화장실 / 상가유리 / 사무실 청소",
       price: "별도 문의",
-      description: "세금계산서 발행 가능, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
+      description: "보이는 곳보다 보이지 않는 곳까지 꼼꼼하게",
       popular: false,
     }
   ];
@@ -61,10 +61,10 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
             이천계단청소 요금 안내
           </h2>
           <p className="text-muted-foreground text-lg mb-2">
-            처음체럼, 언제나 같은 품질
+            매일 오르내리는 공간, 더 깨끗하게
           </p>
           <p className="text-sm text-muted-foreground">
-            무료 방문 견적 후 정확한 금액을 안내해 드립니다 · 대면 / 비대면 모두 가능
+            처음 방문한 날의 깨끗함을 유지합니다 · 대면 / 비대면 모두 가능
           </p>
         </div>
 
