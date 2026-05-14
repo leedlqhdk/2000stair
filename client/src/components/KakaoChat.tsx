@@ -1,7 +1,7 @@
 import { MessageCircle, Phone } from "lucide-react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-const PHONE_NUMBER = "010-8180-6895";
+const PHONE_NUMBER = "010-8438-1887";
 
 export default function KakaoChat() {
   return (
