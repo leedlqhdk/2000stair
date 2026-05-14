@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, Star } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface BlogPost {
   title: string;
@@ -11,6 +12,14 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
+  <motion.div
+  className="container py-16"
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+>
+
   {
     title: "이천계단청소, 이천에서 깔끔하게 해결하는 법",
     url: "https://blog.naver.com/icheonstair/224028543970",
@@ -35,6 +44,7 @@ const blogPosts: BlogPost[] = [
     category: "작업 일지",
     thumbnail:"/manus-storage/blog-thumbnail-1_478b13c6.png",
   },
+</motion.div>
 ];
 
 export default function BlogReviews() {
