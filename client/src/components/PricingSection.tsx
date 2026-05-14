@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
@@ -69,15 +70,28 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         </div>
 
         {/* Stair Plans - Main Cards */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
+        <motion.div
+  className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15 } } }}
+>
+</motion.div>
           {stairPlans.map((plan) => (
-            <Card
-              key={plan.id}
-              className={`relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-                plan.popular
-                  ? "border-primary shadow-md ring-2 ring-primary/20"
-                  : "border-border"
-              }`}
+  <motion.div
+    key={plan.id}
+    variants={{
+      hidden: { opacity: 0, y: 30 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    }}
+  >
+    <Card
+      className={`relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+        plan.popular
+          ? "border-primary shadow-md ring-2 ring-primary/20"
+          : "border-border"
+      }`}
             >
               {plan.popular && (
                 <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
@@ -101,9 +115,9 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                 </Button>
               </CardContent>
             </Card>
+          </motion.div>
           ))}
-        </div>
-
+        
         {/* Other Services - Single Card */}
         {otherPlans.length > 0 && (
           <div className="max-w-5xl mx-auto mt-8">
