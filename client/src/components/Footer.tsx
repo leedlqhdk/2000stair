@@ -9,7 +9,7 @@ export default function Footer() {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 1 }}
       >
         <div className="grid md:grid-cols-4 gap-10">
           {/* Brand */}
