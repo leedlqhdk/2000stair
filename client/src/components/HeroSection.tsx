@@ -84,7 +84,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
             {/* Floating badge */}
             <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 border border-blue-100">
-              <div className="text-2xl font-bold text-primary">5년+</div>
+              <div className="text-2xl font-bold text-primary">4년+</div>
               <div className="text-sm text-muted-foreground">경력의 전문 관리</div>
             </div>
           </div>
