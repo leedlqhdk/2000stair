@@ -21,7 +21,7 @@ export default function Footer() {
             <div className="space-y-2 text-sm text-white/60">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5" />
-                <span>010-8180-6895</span>
+                <span>010-8438-1887</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5" />
@@ -45,7 +45,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#pricing" className="hover:text-white transition-colors">
-                  플랜 안내
+                  요금 안내
                 </a>
               </li>
               <li>
