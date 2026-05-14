@@ -3,19 +3,19 @@ import { useState, useRef, useCallback } from "react";
 const galleryItems = [
   {
     id: 1,
-    title: "계단 바닥 청소",
+    title: "계단 공용공간",
     before: "/manus-storage/stair-floor-before_563fabe7.webp",
     after: "/manus-storage/stair-floor-after_0e13b4f5.webp",
   },
   {
     id: 2,
-    title: "계단 바닥 얼룩 제거",
+    title: "바닥 얼룩 제거",
     before: "/manus-storage/stair-floor2-before_58c9ba6f.webp",
     after: "/manus-storage/stair-floor2-after_264662fb.webp",
   },
   {
     id: 3,
-    title: "창틀 청소",
+    title: "꽃가루 청소",
     before: "/manus-storage/window-frame-before_f2743b1d.webp",
     after: "/manus-storage/window-frame-after_9c733b21.webp",
   },
@@ -33,7 +33,7 @@ const galleryItems = [
   },
   {
     id: 6,
-    title: "공용공간 청소",
+    title: "엘리베이터 얼룩",
     before: "/manus-storage/glass-before_7c3569b7.webp",
     after: "/manus-storage/glass-after_3ef4a793.webp",
   },
