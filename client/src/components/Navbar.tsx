@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -50,12 +49,7 @@ export default function Navbar() {
           )}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <Button size="sm" className="rounded-full px-5" onClick={openKakao}>
-            <MessageCircle className="w-4 h-4 mr-1.5" />
-            카톡 상담
-          </Button>
-        </div>
+    
 
         <button
           className="md:hidden w-10 h-10 rounded-full border border-blue-100 bg-white flex items-center justify-center"
