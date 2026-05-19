@@ -150,16 +150,24 @@ export default function HeroSection({
             </div>
 
             <div className="relative overflow-hidden">
+<<<<<<< Updated upstream
               <div className="flex gap-3 md:gap-4 animate-[slideLeft_24s_linear_infinite] hover:[animation-play-state:paused] w-max">
+=======
+              <div className="flex gap-3 md:gap-4 animate-[slideLeft_24s_linear_infinite] hover:[animation-play-state:paused]">
+>>>>>>> Stashed changes
                 {[...proofImages, ...proofImages].map((src, index) => (
                   <button
                     key={`${src}-${index}`}
                     type="button"
                     onClick={() =>
+<<<<<<< Updated upstream
                       window.open(
                         "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
                         "_blank"
                       )
+=======
+                      window.open("https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU", "_blank")
+>>>>>>> Stashed changes
                     }
                     className="relative shrink-0 w-36 md:w-52 aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
                   >
@@ -179,7 +187,10 @@ export default function HeroSection({
                 ))}
               </div>
             </div>
+<<<<<<< Updated upstream
           </div>
+=======
+>>>>>>> Stashed changes
         </div>
       </div>
     </section>
