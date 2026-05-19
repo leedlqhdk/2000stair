@@ -84,7 +84,7 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[4/3] rounded-xl overflow-hidden cursor-col-resize select-none shadow-md border border-border"
+      className="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden cursor-col-resize select-none shadow-xl border border-border"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -141,7 +141,7 @@ export default function BeforeAfterGallery() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <section id="gallery" className="py-20 bg-gradient-to-b from-white to-blue-50/30">
+    <section id="gallery" className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/30">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-10">
@@ -152,12 +152,12 @@ export default function BeforeAfterGallery() {
             청소 전/후 비교
           </h2>
           <p className="text-muted-foreground text-sm">
-            좌우로 드래그하여 청소 전/후를 비교해보세요
+            실제 작업 현장입니다. 좌우로 드래그해 청소 전/후 차이를 확인해보세요.
           </p>
         </div>
 
         {/* Main content - compact layout */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Thumbnail selector */}
           <div className="flex gap-2 mb-4 overflow-x-auto pb-2 justify-center">
             {galleryItems.map((item, idx) => (
