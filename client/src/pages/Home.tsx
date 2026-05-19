@@ -9,6 +9,7 @@ import BlogReviews from "@/components/BlogReviews";
 import LatestPosts from "@/components/LatestPosts";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import OwnerStory from "@/components/OwnerStory";
 
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -25,6 +26,7 @@ export default function Home() {
         <HowItWorks />
         <BoxPreview />
         <BeforeAfterGallery />
+        <OwnerStory />
         <PricingSection isAuthenticated={isAuthenticated} />
         <QuoteForm />
         <LatestPosts />
