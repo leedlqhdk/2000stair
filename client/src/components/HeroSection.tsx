@@ -114,13 +114,13 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-6 md:gap-8 items-center">
             <div>
               <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-3 md:mb-4">
-                SHORTS
+                2000stair
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-2 md:mb-3">
-                실제 관리 현장
+                실제 관리 현장을
               </h2>
               <p className="text-sm md:text-base text-gray-600">
-                짧은 영상으로 확인해보세요
+                확인해보세요
               </p>
             </div>
 
