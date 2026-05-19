@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useParams, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,10 @@ import { CalendarDays } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Blog() {
-  const [selectedTag, setSelectedTag] = useState<string | undefined>(undefined);
+  const params = useParams();
+const [, setLocation] = useLocation();
+
+const selectedTag = params.slug;
 
   const { data: tagsData } = trpc.blog.tags.useQuery();
   const { data, isLoading } = trpc.blog.list.useQuery({
@@ -37,7 +39,7 @@ export default function Blog() {
             <Button
               variant={selectedTag === undefined ? "default" : "outline"}
               size="sm"
-              onClick={() => setSelectedTag(undefined)}
+             onClick={() => setLocation("/blog")}
               className="rounded-full"
             >
               전체
@@ -47,7 +49,7 @@ export default function Blog() {
                 key={tag.id}
                 variant={selectedTag === tag.slug ? "default" : "outline"}
                 size="sm"
-                onClick={() => setSelectedTag(tag.slug)}
+                onClick={() => setLocation(`/blog/category/${tag.slug}`)}
                 className="rounded-full"
               >
                 {tag.name}
