@@ -1,4 +1,3 @@
-import { useAuth } from "@/_core/hooks/useAuth";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import AreaCoverage from "@/components/AreaCoverage";
@@ -13,14 +12,11 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
-  const { user, isAuthenticated, logout } = useAuth();
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar
-        isAuthenticated={isAuthenticated}
-        user={user}
-        onLogout={logout}
+      
       />
       <main className="flex-1">
         <HeroSection isAuthenticated={isAuthenticated} />
