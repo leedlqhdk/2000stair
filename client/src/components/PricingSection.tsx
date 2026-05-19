@@ -109,13 +109,13 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                   </div>
                 )}
 
-                <CardContent className="p-8 md:p-9 flex flex-col h-full">
-                  <h3 className="text-xl font-extrabold text-foreground mb-4 pr-20">
+                <CardContent className="p-6 md:p-9 flex flex-col h-full">
+                  <h3 className="text-lg md:text-xl font-extrabold text-foreground mb-4 pr-20">
                     {plan.name}
                   </h3>
 
                   <div className="mb-6">
-                    <span className="text-3xl font-extrabold text-primary">
+                    <span className="text-2xl md:text-3xl font-extrabold text-primary">
                       {plan.price}
                     </span>
                     <span className="text-xs text-muted-foreground ml-1">
@@ -123,7 +123,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                     </span>
                   </div>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-8 flex-1">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 md:mb-8 flex-1">
                     {plan.description}
                   </p>
 
