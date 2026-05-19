@@ -1,40 +1,27 @@
-import {
-  MapPin,
-  Users,
-  ClipboardCheck,
-  MessageCircle,
-} from "lucide-react";
+import { MapPin, Users, ClipboardCheck, MessageCircle } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
-const areas = [
-  "신둔면",
-  "마장면",
-  "부발읍",
-  "증포동",
-  "중리동",
-];
+const areas = ["신둔면", "마장면", "부발읍", "증포동", "중리동"];
 
 const proofImages = [
   "/manus-storage/stair-floor-after_0e13b4f5.webp",
   "/manus-storage/railing-after_004e4850.webp",
   "/manus-storage/stair-floor2-after_264662fb.webp",
-  "/manus-storage/window-frame-after_f2743b1d.webp",
+  "/manus-storage/window-frame-after_9c733b21.webp",
   "/manus-storage/glass-after_3ef4a793.webp",
   "/manus-storage/window-rail-after_60e8ed20.webp",
 ];
 
-export default function HeroSection({
-  isAuthenticated,
-}: HeroSectionProps) {
+export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
+  void isAuthenticated;
+
   return (
     <section className="relative overflow-hidden bg-white">
-      {/* TOP */}
       <div className="container max-w-7xl pt-14 md:pt-28">
         <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-16 items-center">
-          {/* LEFT */}
           <div>
             <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
               SERVICE AREA
@@ -65,7 +52,6 @@ export default function HeroSection({
             </div>
           </div>
 
-          {/* RIGHT */}
           <div className="relative mt-6 lg:mt-0">
             <div className="overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-blue-100 shadow-xl">
               <img
@@ -79,7 +65,6 @@ export default function HeroSection({
               <p className="text-xs md:text-sm font-bold text-primary mb-1 md:mb-2">
                 부부직영
               </p>
-
               <p className="text-xl md:text-3xl font-extrabold leading-tight text-foreground">
                 하청 없이
                 <br />
@@ -90,15 +75,12 @@ export default function HeroSection({
         </div>
       </div>
 
-      {/* INFO BAR */}
       <div className="mt-10 md:mt-14 bg-blue-50/60 border-y border-blue-100">
         <div className="container max-w-7xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-blue-100">
           <div className="flex items-center gap-4 md:gap-5 py-6 md:py-10">
             <Users className="w-9 h-9 md:w-11 md:h-11 text-primary" />
-
             <div>
               <p className="text-sm text-gray-600">부부직영</p>
-
               <p className="text-lg md:text-xl font-extrabold text-foreground">
                 하청 NO
               </p>
@@ -107,10 +89,8 @@ export default function HeroSection({
 
           <div className="flex items-center gap-4 md:gap-5 py-6 md:py-10 md:pl-12">
             <ClipboardCheck className="w-9 h-9 md:w-11 md:h-11 text-primary" />
-
             <div>
               <p className="text-sm text-gray-600">관리 기준</p>
-
               <p className="text-lg md:text-xl font-extrabold text-foreground">
                 정기관리
               </p>
@@ -119,10 +99,8 @@ export default function HeroSection({
 
           <div className="flex items-center gap-4 md:gap-5 py-6 md:py-10 md:pl-12">
             <MessageCircle className="w-9 h-9 md:w-11 md:h-11 text-primary" />
-
             <div>
               <p className="text-sm text-gray-600">상담 방식</p>
-
               <p className="text-lg md:text-xl font-extrabold text-foreground">
                 카톡 상담
               </p>
@@ -131,7 +109,6 @@ export default function HeroSection({
         </div>
       </div>
 
-      {/* SHORTS */}
       <div className="bg-blue-50/40 py-10 md:py-16 overflow-hidden">
         <div className="container max-w-7xl">
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-6 md:gap-8 items-center">
@@ -139,35 +116,28 @@ export default function HeroSection({
               <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-3 md:mb-4">
                 SHORTS
               </p>
-
               <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-2 md:mb-3">
                 실제 관리 현장
               </h2>
-
               <p className="text-sm md:text-base text-gray-600">
                 짧은 영상으로 확인해보세요
               </p>
             </div>
 
             <div className="relative overflow-hidden">
-<<<<<<< Updated upstream
-              <div className="flex gap-3 md:gap-4 animate-[slideLeft_24s_linear_infinite] hover:[animation-play-state:paused] w-max">
-=======
-              <div className="flex gap-3 md:gap-4 animate-[slideLeft_24s_linear_infinite] hover:[animation-play-state:paused]">
->>>>>>> Stashed changes
+              <div
+                className="flex w-max gap-3 md:gap-4"
+                style={{ animation: "slideLeft 24s linear infinite" }}
+              >
                 {[...proofImages, ...proofImages].map((src, index) => (
                   <button
                     key={`${src}-${index}`}
                     type="button"
                     onClick={() =>
-<<<<<<< Updated upstream
                       window.open(
                         "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
                         "_blank"
                       )
-=======
-                      window.open("https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU", "_blank")
->>>>>>> Stashed changes
                     }
                     className="relative shrink-0 w-36 md:w-52 aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
                   >
@@ -178,8 +148,6 @@ export default function HeroSection({
                       loading="lazy"
                     />
 
-                    <div className="absolute inset-0 bg-black/0 hover:bg-black/15 transition-colors" />
-
                     <div className="absolute left-3 bottom-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-primary shadow-sm">
                       영상 보기
                     </div>
@@ -187,10 +155,7 @@ export default function HeroSection({
                 ))}
               </div>
             </div>
-<<<<<<< Updated upstream
           </div>
-=======
->>>>>>> Stashed changes
         </div>
       </div>
     </section>
