@@ -1,4 +1,5 @@
 import { MapPin, Users, ClipboardCheck, MessageCircle } from "lucide-react";
+import heroImage from "@/main-stair-hero.png.png";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -55,7 +56,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="relative mt-6 lg:mt-0">
             <div className="overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-blue-100 shadow-xl">
               <img
-                src="/manus-storage/stair-clean3_7d8b7d17.jpg"
+                src={heroImage}
                 alt="이천계단지기 계단청소 관리 현장"
                 className="w-full aspect-[16/11] md:aspect-[16/10] object-cover"
               />
