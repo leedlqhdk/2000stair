@@ -27,27 +27,26 @@ export default function HowItWorks() {
     <section id="how-it-works" className="py-16 md:py-32 bg-white">
       <div className="container max-w-6xl">
         <motion.div
-          className="mb-14"
+          className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
+          <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
             PROCESS
           </p>
 
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
-              상담부터 관리까지
-              <br />
-              간단하게 진행합니다
-            </h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold leading-[1.12] text-foreground mb-4">
+            상담부터 관리까지
+            <br />
+            간단하게 진행합니다
+          </h2>
 
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-              복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리 범위를 안내드립니다.
-            </p>
-          </div>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            복잡한 신청서 없이 카카오톡으로 문의하고,
+            건물 상태에 맞는 관리 범위를 안내드립니다.
+          </p>
         </motion.div>
 
         <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-5 overflow-x-auto pb-3 snap-x snap-mandatory">
