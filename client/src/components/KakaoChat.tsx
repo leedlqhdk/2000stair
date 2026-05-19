@@ -1,49 +1,34 @@
-import { MessageCircle, Phone, ClipboardList } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
 
 export default function KakaoChat() {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
-      {/* 전화 문의 버튼 */}
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col gap-2 md:gap-3 items-end">
       <a
         href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-        className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
+        className="flex items-center justify-center w-12 h-12 md:w-auto md:h-auto md:px-4 md:py-3 rounded-full bg-white/95 text-primary border border-blue-100 shadow-md backdrop-blur hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group"
         aria-label="전화 문의하기"
       >
         <Phone className="w-5 h-5" />
-        <span className="font-semibold text-sm hidden sm:inline group-hover:inline">
+        <span className="font-semibold text-sm hidden md:inline md:ml-2">
           전화 문의
         </span>
       </a>
-      {/* 카카오톡 상담 버튼 */}
+
       <a
         href={KAKAO_CHANNEL_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 bg-[#FEE500] text-[#191919] px-4 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
+        className="flex items-center justify-center w-12 h-12 md:w-auto md:h-auto md:px-4 md:py-3 rounded-full bg-[#FEE500] text-[#191919] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 group"
         aria-label="카카오톡 상담하기"
       >
         <MessageCircle className="w-5 h-5 fill-current" />
-        <span className="font-semibold text-sm hidden sm:inline group-hover:inline">
+        <span className="font-semibold text-sm hidden md:inline md:ml-2">
           카톡 상담
         </span>
       </a>
-      {/* 견적 신청 버튼 */}
-<button
-  type="button"
-  onClick={() =>
-    document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" })
-  }
-  className="flex items-center gap-2 bg-white text-primary border border-primary/20 px-4 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
-  aria-label="무료 견적 신청하기"
->
-  <ClipboardList className="w-5 h-5" />
-  <span className="font-semibold text-sm hidden sm:inline group-hover:inline">
-    견적 신청
-  </span>
-</button>
     </div>
   );
 }
