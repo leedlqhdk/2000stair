@@ -19,8 +19,9 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path="/my-quotes" component={MyQuotes} />
       <Route path="/blog" component={Blog} />
-      <Route path="/area/:slug" component={LocationLanding} />
+      <Route path="/blog/category/:slug" component={Blog} />
       <Route path="/blog/:id" component={BlogDetail} />
+      <Route path="/area/:slug" component={LocationLanding} />
       <Route path="/admin/blog" component={AdminBlog} />
       <Route path="/admin/blog/new" component={AdminBlogEdit} />
       <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
