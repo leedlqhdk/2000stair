@@ -1,5 +1,4 @@
-import { MapPin, Users, ClipboardCheck, MessageCircle } from "lucide-react";
-import heroImage from "@/main-stair-hero.png.png";
+import { MapPin } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -56,7 +55,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="relative mt-6 lg:mt-0">
             <div className="overflow-hidden rounded-[1.75rem] md:rounded-[2rem] border border-blue-100 shadow-xl">
               <img
-                src={heroImage}
+                src="/manus-storage/work-vest_b3f4fbac.png"
                 alt="이천계단지기 계단청소 관리 현장"
                 className="w-full aspect-[16/11] md:aspect-[16/10] object-cover"
               />
@@ -75,40 +74,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </div>
         </div>
       </div>
-      
-        <div className="container max-w-7xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-blue-100">
-          <div className="flex items-center justify-center text-center gap-4 md:gap-5 py-6 md:py-10">
-            <Users className="w-9 h-9 md:w-11 md:h-11 text-primary" />
-            <div>
-              <p className="text-sm text-gray-600">부부직영</p>
-              <p className="text-lg md:text-lg font-extrabold text-foreground">
-                하청 NO
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center text-center gap-4 md:gap-5 py-6 md:py-10">
-            <ClipboardCheck className="w-9 h-9 md:w-11 md:h-11 text-primary" />
-            <div>
-              <p className="text-sm text-gray-600">관리 기준</p>
-              <p className="text-lg md:text-lg font-extrabold text-foreground">
-                정기관리
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center text-center gap-4 md:gap-5 py-6 md:py-10">
-            <MessageCircle className="w-9 h-9 md:w-11 md:h-11 text-primary" />
-            <div>
-              <p className="text-sm text-gray-600">상담 방식</p>
-              <p className="text-lg md:text-lg font-extrabold text-foreground">
-                카톡 상담
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+ 
       <div className="bg-blue-50/40 py-10 md:py-16 overflow-hidden">
         <div className="container max-w-7xl">
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-6 md:gap-8 items-center">
@@ -116,11 +82,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-3 md:mb-4">
                 Shorts
               </p>
-              <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-2 md:mb-3">
-                실제 관리 현장을
+              <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-2">
+                실제 작업 현장을
               </h2>
               <p className="text-sm md:text-base text-gray-600">
-               영상으로 확인해보세요
+               쇼츠로 확인해보세요
               </p>
             </div>
 
@@ -148,9 +114,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                       loading="lazy"
                     />
 
-                    <div className="absolute left-3 bottom-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-primary shadow-sm">
-                    
-                    </div>
+
                   </button>
                 ))}
               </div>
