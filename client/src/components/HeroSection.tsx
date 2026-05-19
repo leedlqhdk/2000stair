@@ -4,7 +4,7 @@ interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
-const areas = ["신둔면", "마장면", "부발읍", "증포동", "중리동"];
+const areas = ["신둔면", "마장면", "대월면"];
 
 const proofImages = [
   "/manus-storage/stair-floor-after_0e13b4f5.webp",
