@@ -24,7 +24,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-16 md:py-32 bg-white">
+    <section id="how-it-works" className="py-16 md:py-28 bg-white">
       <div className="container max-w-6xl">
         <motion.div
           className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
