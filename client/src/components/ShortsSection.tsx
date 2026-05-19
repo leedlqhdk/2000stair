@@ -21,7 +21,7 @@ const shorts = [
 
 export default function ShortsSection() {
   return (
-    <section className="py-24 md:py-32 bg-black text-white">
+    <section id="shorts" className="py-24 md:py-32 bg-black text-white">
       <div className="container max-w-6xl">
         {/* Header */}
         <div className="text-center mb-14">
