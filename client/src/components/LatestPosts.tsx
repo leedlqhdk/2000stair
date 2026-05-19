@@ -14,7 +14,7 @@ export default function LatestPosts() {
   if (!posts.length) return null;
 
   return (
-    <section id="latest-posts" className="py-24 md:py-32 bg-white">
+    <section id="latest-posts" className="py-16 md:py-32 bg-white">
       <div className="container max-w-6xl">
         <motion.div
           className="mb-14"
