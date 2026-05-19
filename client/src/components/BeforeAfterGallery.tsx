@@ -1,4 +1,6 @@
 import { useState, useRef, useCallback } from "react";
+import { motion } from "framer-motion";
+import { ArrowLeftRight } from "lucide-react";
 
 const galleryItems = [
   {
@@ -27,7 +29,7 @@ const galleryItems = [
   },
   {
     id: 5,
-   title: "계단 난간 손때 제거",
+    title: "계단 난간 손때 제거",
     before: "/manus-storage/railing-before_9d98104f.webp",
     after: "/manus-storage/railing-after_004e4850.webp",
   },
@@ -39,7 +41,7 @@ const galleryItems = [
   },
 ];
 
-function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
+function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
   const [sliderPos, setSliderPos] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -52,30 +54,42 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
     setSliderPos(percent);
   }, []);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    isDragging.current = true;
-    updatePosition(e.clientX);
-  }, [updatePosition]);
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      isDragging.current = true;
+      updatePosition(e.clientX);
+    },
+    [updatePosition]
+  );
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging.current) return;
-    e.preventDefault();
-    updatePosition(e.clientX);
-  }, [updatePosition]);
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      updatePosition(e.clientX);
+    },
+    [updatePosition]
+  );
 
   const handleMouseUp = useCallback(() => {
     isDragging.current = false;
   }, []);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    isDragging.current = true;
-    updatePosition(e.touches[0].clientX);
-  }, [updatePosition]);
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      isDragging.current = true;
+      updatePosition(e.touches[0].clientX);
+    },
+    [updatePosition]
+  );
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isDragging.current) return;
-    updatePosition(e.touches[0].clientX);
-  }, [updatePosition]);
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!isDragging.current) return;
+      updatePosition(e.touches[0].clientX);
+    },
+    [updatePosition]
+  );
 
   const handleTouchEnd = useCallback(() => {
     isDragging.current = false;
@@ -84,7 +98,7 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden cursor-col-resize select-none shadow-2xl border border-border"
+      className="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-[2rem] overflow-hidden cursor-col-resize select-none shadow-2xl border border-blue-100 bg-white"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -93,14 +107,13 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* After image (full background) */}
       <img
         src={item.after}
         alt={`${item.title} - 청소 후`}
         className="absolute inset-0 w-full h-full object-cover"
         draggable={false}
       />
-      {/* Before image (clipped) */}
+
       <div
         className="absolute inset-0 overflow-hidden"
         style={{ width: `${sliderPos}%` }}
@@ -109,29 +122,40 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
           src={item.before}
           alt={`${item.title} - 청소 전`}
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ width: containerRef.current ? `${containerRef.current.offsetWidth}px` : '100%', maxWidth: 'none' }}
+          style={{
+            width: containerRef.current
+              ? `${containerRef.current.offsetWidth}px`
+              : "100%",
+            maxWidth: "none",
+          }}
           draggable={false}
         />
       </div>
-      {/* Slider line */}
+
       <div
-        className="absolute top-0 bottom-0 w-0.5 bg-white shadow-2xl z-10"
-        style={{ left: `${sliderPos}%`, transform: 'translateX(-50%)' }}
+        className="absolute top-0 bottom-0 w-px bg-white/90 shadow-2xl z-10"
+        style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
       >
-        {/* Slider handle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-primary">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-primary">
-            <path d="M4 8L1 8M1 8L3 6M1 8L3 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 8L15 8M15 8L13 6M15 8L13 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 rounded-full shadow-xl flex items-center justify-center border border-white/40 backdrop-blur">
+          <ArrowLeftRight className="w-4 h-4 text-primary" />
         </div>
       </div>
-      {/* Labels */}
-      <div className="absolute top-4 left-4 px-3 py-1 bg-red-500/90 text-white text-xs font-bold rounded-full z-20">
+
+      <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/70 backdrop-blur text-white text-xs font-semibold tracking-wide z-20">
         BEFORE
       </div>
-      <div className="absolute top-4 right-4 px-3 py-1 bg-green-500/90 text-white text-xs font-bold rounded-full z-20">
+
+      <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/70 backdrop-blur text-white text-xs font-semibold tracking-wide z-20">
         AFTER
+      </div>
+
+      <div className="absolute left-5 bottom-5 right-5 flex items-center justify-between gap-3">
+        <div className="rounded-full bg-white/90 backdrop-blur px-4 py-2 text-sm font-semibold text-foreground shadow-sm">
+          {item.title}
+        </div>
+        <div className="hidden sm:block rounded-full bg-black/55 backdrop-blur px-4 py-2 text-xs font-medium text-white">
+          좌우로 드래그
+        </div>
       </div>
     </div>
   );
@@ -142,32 +166,42 @@ export default function BeforeAfterGallery() {
 
   return (
     <section id="gallery" className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/30">
-      <div className="container px-3 md:px-6">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
-            실제 작업 사례
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            청소 전/후 비교
-          </h2>
-          <p className="text-muted-foreground text-sm">
-            실제 작업 현장입니다. 좌우로 드래그해 청소 전/후 차이를 확인해보세요.
+      <div className="container max-w-6xl">
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 34 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
+            PROOF
           </p>
-        </div>
 
-        {/* Main content - compact layout */}
-        <div className="max-w-6xl mx-auto">
-          {/* Thumbnail selector */}
-          <div className="flex gap-2 mb-4 overflow-x-auto pb-2 justify-center">
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
+            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
+              눈으로 확인하는
+              <br />
+              관리 결과
+            </h2>
+
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
+              실제 작업 현장을 기반으로 촬영한 사진입니다.
+              좌우로 드래그해 관리 전후의 차이를 확인해보세요.
+            </p>
+          </div>
+        </motion.div>
+
+        <div className="space-y-5">
+          <div className="flex gap-2 overflow-x-auto pb-2">
             {galleryItems.map((item, idx) => (
               <button
                 key={item.id}
                 onClick={() => setSelectedIndex(idx)}
-                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                className={`flex-shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-all ${
                   idx === selectedIndex
-                    ? "bg-primary text-white shadow-md"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    ? "bg-primary text-white border-primary shadow-sm"
+                    : "bg-white text-muted-foreground border-blue-100 hover:text-primary hover:border-primary/30"
                 }`}
               >
                 {item.title}
@@ -175,8 +209,14 @@ export default function BeforeAfterGallery() {
             ))}
           </div>
 
-          {/* Slider */}
-          <BeforeAfterSlider item={galleryItems[selectedIndex]} />
+          <motion.div
+            key={galleryItems[selectedIndex].id}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            <BeforeAfterSlider item={galleryItems[selectedIndex]} />
+          </motion.div>
         </div>
       </div>
     </section>
