@@ -75,8 +75,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </div>
         </div>
       </div>
-
-      <div className="mt-10 md:mt-14 bg-blue-50/60 border-y border-blue-100">
+      
         <div className="container max-w-7xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-blue-100">
           <div className="flex items-center justify-center text-center gap-4 md:gap-5 py-6 md:py-10">
             <Users className="w-9 h-9 md:w-11 md:h-11 text-primary" />
