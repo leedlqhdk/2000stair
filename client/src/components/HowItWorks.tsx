@@ -5,26 +5,25 @@ const steps = [
   {
     icon: ClipboardList,
     step: "01",
-    title: "견적 상담",
+    title: "건물 상태 확인",
     description:
-      "이천 계단청소가 필요한 건물 규모와 현재 상태를 확인한 뒤, 현장에 맞는 청소 범위와 요금을 안내드립니다. 사진이나 영상으로도 간편 상담이 가능합니다.",
+      "계단 수, 공용현관, 유리, 화장실 상태를 먼저 확인합니다. 사진 상담도 가능하지만, 정기청소는 현장 상태를 보고 정확히 안내드립니다.",
   },
   {
     icon: Truck,
     step: "02",
-    title: "정기청소 시작",
+    title: "부부직영 정기관리",
     description:
-      "계약 일정에 맞춰 부부가 직접 방문해 계단, 복도, 현관 등 공용공간을 꾸준히 관리합니다. 외주 없이 약속한 품질을 지키는 것을 중요하게 생각합니다.",
+      "하청 없이 부부가 직접 방문합니다. 담당자가 자주 바뀌지 않아 건물 특성과 오염 패턴을 기억하고 꾸준히 관리할 수 있습니다.",
   },
   {
     icon: Sparkles,
     step: "03",
-    title: "피드백 관리",
+    title: "사진 보고 · 피드백",
     description:
-      "카카오톡으로 빠른 피드백이 가능합니다. 이천 원룸, 빌라, 상가 건물의 첫인상이 깔끔하게 유지되도록 꼼꼼히 관리합니다.",
+      "작업 후 필요한 부분은 사진과 메시지로 공유합니다. 건물주님이 직접 매번 확인하지 않아도 상태를 파악할 수 있게 돕습니다.",
   },
 ];
-
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className="py-20 md:py-28 bg-secondary/30">
@@ -38,10 +37,10 @@ export default function HowItWorks() {
           transition={{ duration: 1 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            이천계단청소, 이렇게 진행됩니다
+            정기청소는 이렇게 관리됩니다
           </h2>
           <p className="text-muted-foreground text-lg">
-            간단한 3단계로 이천계단청소 서비스를 시작하세요
+            상담부터 정기관리, 피드백까지 외주 없이 직접 챙깁니다
           </p>
         </motion.div>
 
