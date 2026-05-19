@@ -54,7 +54,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
   const otherPlans = displayPlans.filter((p) => !p.id.startsWith("stair"));
 
   return (
-    <section id="pricing" className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/40">
+    <section id="pricing" className="py-16 md:py-32 bg-gradient-to-b from-white to-blue-50/40">
       <div className="container">
         <motion.div
           className="text-center max-w-2xl mx-auto mb-14"
