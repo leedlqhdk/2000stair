@@ -3,37 +3,37 @@ import { useState, useRef, useCallback } from "react";
 const galleryItems = [
   {
     id: 1,
-    title: "계단 공용공간",
+    title: "빌라 계단 바닥 오염",
     before: "/manus-storage/stair-floor-before_563fabe7.webp",
     after: "/manus-storage/stair-floor-after_0e13b4f5.webp",
   },
   {
     id: 2,
-    title: "바닥 얼룩 제거",
+    title: "공용계단 묵은 얼룩",
     before: "/manus-storage/stair-floor2-before_58c9ba6f.webp",
     after: "/manus-storage/stair-floor2-after_264662fb.webp",
   },
   {
     id: 3,
-    title: "꽃가루 청소",
+    title: "공동현관 꽃가루 제거",
     before: "/manus-storage/window-frame-before_f2743b1d.webp",
     after: "/manus-storage/window-frame-after_9c733b21.webp",
   },
   {
     id: 4,
-    title: "창문 레일 청소",
+    title: "창틀·레일 먼지 제거",
     before: "/manus-storage/window-rail-before_92ea563a.webp",
     after: "/manus-storage/window-rail-after_60e8ed20.webp",
   },
   {
     id: 5,
-    title: "난간 청소",
+   title: "계단 난간 손때 제거",
     before: "/manus-storage/railing-before_9d98104f.webp",
     after: "/manus-storage/railing-after_004e4850.webp",
   },
   {
     id: 6,
-    title: "엘리베이터 얼룩",
+    title: "엘리베이터 손자국",
     before: "/manus-storage/glass-before_7c3569b7.webp",
     after: "/manus-storage/glass-after_3ef4a793.webp",
   },
@@ -84,7 +84,7 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden cursor-col-resize select-none shadow-xl border border-border"
+      className="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-2xl overflow-hidden cursor-col-resize select-none shadow-2xl border border-border"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -115,11 +115,11 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
       </div>
       {/* Slider line */}
       <div
-        className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg z-10"
+        className="absolute top-0 bottom-0 w-0.5 bg-white shadow-2xl z-10"
         style={{ left: `${sliderPos}%`, transform: 'translateX(-50%)' }}
       >
         {/* Slider handle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-primary">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-primary">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-primary">
             <path d="M4 8L1 8M1 8L3 6M1 8L3 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M12 8L15 8M15 8L13 6M15 8L13 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -127,10 +127,10 @@ function BeforeAfterSlider({ item }: { item: typeof galleryItems[0] }) {
         </div>
       </div>
       {/* Labels */}
-      <div className="absolute top-3 left-3 px-2 py-0.5 bg-red-500/90 text-white text-xs font-bold rounded-full z-20">
+      <div className="absolute top-4 left-4 px-3 py-1 bg-red-500/90 text-white text-xs font-bold rounded-full z-20">
         BEFORE
       </div>
-      <div className="absolute top-3 right-3 px-2 py-0.5 bg-green-500/90 text-white text-xs font-bold rounded-full z-20">
+      <div className="absolute top-4 right-4 px-3 py-1 bg-green-500/90 text-white text-xs font-bold rounded-full z-20">
         AFTER
       </div>
     </div>
@@ -142,7 +142,7 @@ export default function BeforeAfterGallery() {
 
   return (
     <section id="gallery" className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/30">
-      <div className="container">
+      <div className="container px-3 md:px-6">
         {/* Header */}
         <div className="text-center mb-10">
           <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
