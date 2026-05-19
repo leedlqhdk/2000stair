@@ -2,18 +2,18 @@ import { Link, useParams, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CalendarDays } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Blog() {
   const params = useParams();
-const [, setLocation] = useLocation();
+  const [, setLocation] = useLocation();
 
-const selectedTag = params.slug;
+  const selectedTag = params.slug;
 
   const { data: tagsData } = trpc.blog.tags.useQuery();
+
   const { data, isLoading } = trpc.blog.list.useQuery({
     tag: selectedTag,
     limit: 20,
@@ -23,34 +23,49 @@ const selectedTag = params.slug;
   const posts = data?.posts ?? [];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-5xl mx-auto px-4 py-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">작업일지</h1>
-          <p className="text-gray-500">이천계단지기의 실제 청소 작업 현장을 확인하세요.</p>
-        </div>
-      </div>
+    <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
+      <section className="container max-w-6xl py-14 md:py-20">
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 34 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65 }}
+        >
+          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
+            FIELD ARCHIVE
+          </p>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Tag filter */}
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-foreground">
+              이천계단지기의
+              <br />
+              작업 기록
+            </h1>
+
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
+              실제 이천 지역 빌라·상가·원룸 공용공간 관리 현장을 기록하고 있습니다.
+            </p>
+          </div>
+        </motion.div>
+
         {tagsData && tagsData.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-10">
             <Button
               variant={selectedTag === undefined ? "default" : "outline"}
               size="sm"
-             onClick={() => setLocation("/blog")}
-              className="rounded-full"
+              onClick={() => setLocation("/blog")}
+              className="rounded-full h-11 px-5 text-sm"
             >
               전체
             </Button>
+
             {tagsData.map((tag) => (
               <Button
                 key={tag.id}
                 variant={selectedTag === tag.slug ? "default" : "outline"}
                 size="sm"
                 onClick={() => setLocation(`/blog/category/${tag.slug}`)}
-                className="rounded-full"
+                className="rounded-full h-11 px-5 text-sm"
               >
                 {tag.name}
               </Button>
@@ -58,73 +73,106 @@ const selectedTag = params.slug;
           </div>
         )}
 
-        {/* Post grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
-              <Card key={i} className="overflow-hidden">
-                <Skeleton className="h-48 w-full" />
-                <CardContent className="p-4">
-                  <Skeleton className="h-5 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-1/2" />
-                </CardContent>
-              </Card>
+              <div
+                key={i}
+                className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white"
+              >
+                <Skeleton className="h-64 w-full" />
+
+                <div className="p-5">
+                  <Skeleton className="h-6 w-3/4 mb-3" />
+                  <Skeleton className="h-4 w-1/3" />
+                </div>
+              </div>
             ))}
           </div>
         ) : posts.length === 0 ? (
-          <div className="text-center py-20 text-gray-400">
-            <p className="text-lg">아직 작업일지가 없습니다.</p>
+          <div className="py-24 text-center">
+            <p className="text-muted-foreground text-lg">
+              아직 작업 기록이 없습니다.
+            </p>
           </div>
         ) : (
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.1 } },
+              visible: {
+                transition: {
+                  staggerChildren: 0.08,
+                },
+              },
             }}
           >
             {posts.map((post) => (
               <motion.div
                 key={post.id}
                 variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+                  hidden: { opacity: 0, y: 28 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.45 },
+                  },
                 }}
               >
                 <Link href={`/blog/${post.id}`}>
-                  <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full">
-                    {post.thumbnail ? (
-                      <img
-                        src={post.thumbnail}
-                        alt={post.title}
-                        className="w-full h-48 object-cover"
+                  <article className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full">
+                    <div className="relative h-72 overflow-hidden bg-blue-50">
+                      {post.thumbnail ? (
+                        <img
+                          src={post.thumbnail}
+                          alt={post.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-5xl">
+                          🧹
+                        </div>
+                      )}
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+
+                      <div className="absolute left-5 bottom-5 right-5">
+                        <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
+                          <CalendarDays className="w-3 h-3" />
+
+                          <span>
+                            {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                          </span>
+                        </div>
+
+                        <h2 className="text-white text-2xl font-extrabold leading-snug line-clamp-2">
+                          {post.title}
+                        </h2>
+                      </div>
+                    </div>
+
+                    <div className="p-5">
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        실제 이천 지역 계단청소 현장 기록입니다.
+                      </p>
+
+                      <TagBadges
+                        tagIds={post.tags}
+                        allTags={tagsData ?? []}
                       />
-                    ) : (
-                      <div className="w-full h-48 bg-blue-50 flex items-center justify-center">
-                        <span className="text-blue-200 text-4xl">🧹</span>
-                      </div>
-                    )}
-                    <CardContent className="p-4">
-                      <h2 className="font-semibold text-gray-900 mb-2 line-clamp-2 leading-snug">
-                        {post.title}
-                      </h2>
-                      <div className="flex items-center gap-1 text-xs text-gray-400 mb-3">
-                        <CalendarDays className="w-3 h-3" />
-                        <span>{new Date(post.createdAt).toLocaleDateString("ko-KR")}</span>
-                      </div>
-                      <TagBadges tagIds={post.tags} allTags={tagsData ?? []} />
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </article>
                 </Link>
               </motion.div>
             ))}
           </motion.div>
         )}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 
@@ -136,11 +184,17 @@ function TagBadges({
   allTags: { id: number; name: string; slug: string }[];
 }) {
   if (!tagIds.length) return null;
+
   const matched = allTags.filter((t) => tagIds.includes(t.id));
+
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex flex-wrap gap-1.5">
       {matched.map((t) => (
-        <Badge key={t.id} variant="secondary" className="text-xs">
+        <Badge
+          key={t.id}
+          variant="secondary"
+          className="rounded-full text-xs"
+        >
           {t.name}
         </Badge>
       ))}
