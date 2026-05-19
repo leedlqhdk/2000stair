@@ -6,12 +6,12 @@ import { Link } from "wouter";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navLinks = [
-    { label: "청소전후", href: "#gallery", external: true },
-    { label: "작업영상", href: "#shorts", external: true },
-    { label: "가격안내", href: "#pricing", external: true },
-    { label: "작업일지", href: "/blog", external: false },
-  ];
+const navLinks = [
+  { label: "서비스 소개", href: "#how-it-works", external: true },
+  { label: "작업 사례", href: "#gallery", external: true },
+  { label: "작업 기록", href: "/blog", external: false },
+  { label: "청소 비용", href: "#pricing", external: true },
+];
 
   const openKakao = () => {
     window.open("https://pf.kakao.com/_IiNfn", "_blank");
