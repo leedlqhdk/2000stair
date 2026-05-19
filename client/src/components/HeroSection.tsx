@@ -24,20 +24,20 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               SERVICE AREA
             </p>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] text-foreground mb-8">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02] text-foreground mb-8">
               이천 곳곳의
               <br />
               건물을 관리합니다
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
               이천 빌라·원룸·상가 공용공간을
               <br className="hidden sm:block" />
               부부가 직접 관리합니다.
             </p>
 
             <div className="flex flex-wrap gap-3">
-              {areas.map((area) => (
+              {areas.slice(0, 5).map((area) => (
                 <span
                   key={area}
                   className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-3 text-sm font-bold text-foreground shadow-sm"
@@ -58,7 +58,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               />
             </div>
 
-            <div className="absolute right-5 bottom-5 rounded-[1.5rem] bg-white px-7 py-6 shadow-xl border border-blue-100">
+            <div className="absolute right-4 bottom-4 rounded-[1.5rem] bg-white px-7 py-6 shadow-xl border border-blue-100">
               <p className="text-sm font-bold text-primary mb-2">부부직영</p>
               <p className="text-2xl md:text-3xl font-extrabold leading-tight text-foreground">
                 하청 없이
@@ -75,7 +75,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="flex items-center gap-5 py-8 md:py-10">
             <Users className="w-11 h-11 text-primary" />
             <div>
-              <p className="text-sm text-muted-foreground">부부직영</p>
+              <p className="text-sm text-gray-600">부부직영</p>
               <p className="text-xl font-extrabold text-foreground">하청 NO</p>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="flex items-center gap-5 py-8 md:py-10 md:pl-12">
             <ClipboardCheck className="w-11 h-11 text-primary" />
             <div>
-              <p className="text-sm text-muted-foreground">관리 기준</p>
+              <p className="text-sm text-gray-600">관리 기준</p>
               <p className="text-xl font-extrabold text-foreground">정기관리</p>
             </div>
           </div>
@@ -91,7 +91,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="flex items-center gap-5 py-8 md:py-10 md:pl-12">
             <MessageCircle className="w-11 h-11 text-primary" />
             <div>
-              <p className="text-sm text-muted-foreground">상담 방식</p>
+              <p className="text-sm text-gray-600">상담 방식</p>
               <p className="text-xl font-extrabold text-foreground">카톡 상담</p>
             </div>
           </div>
