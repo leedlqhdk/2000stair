@@ -7,9 +7,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { label: "작업사례", href: "#gallery", external: true },
+    { label: "청소전후", href: "#gallery", external: true },
     { label: "작업영상", href: "#shorts", external: true },
-    { label: "요금안내", href: "#pricing", external: true },
+    { label: "가격안내", href: "#pricing", external: true },
     { label: "작업일지", href: "/blog", external: false },
   ];
 
