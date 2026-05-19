@@ -1,4 +1,5 @@
 import { MapPin, Building2, Home, Store } from "lucide-react";
+import { motion } from "framer-motion";
 
 const areas = [
   "신둔면",
@@ -13,67 +14,93 @@ const areas = [
 const buildingTypes = [
   {
     icon: Home,
+    label: "HOUSE",
     title: "빌라 · 원룸",
-    text: "계단, 복도, 공동현관 등 공용공간 정기관리",
+    text: "계단, 복도, 공동현관 등 입주민이 매일 오가는 공용공간을 정기관리합니다.",
   },
   {
     icon: Store,
+    label: "STORE",
     title: "상가 · 사무실",
-    text: "방문객이 오가는 입구, 유리, 화장실 관리",
+    text: "방문객이 마주하는 입구, 유리, 화장실까지 첫인상이 무너지지 않게 관리합니다.",
   },
   {
     icon: Building2,
+    label: "BUILDING",
     title: "소형 건물",
-    text: "건물 상태에 맞춘 맞춤형 청소 범위 안내",
+    text: "건물 규모와 오염 패턴에 맞춰 필요한 청소 범위부터 현실적으로 안내드립니다.",
   },
 ];
 
 export default function AreaCoverage() {
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/40">
       <div className="container max-w-6xl">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-            <MapPin className="w-4 h-4" />
-            작업 가능 지역
-          </span>
+        <motion.div
+          className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start"
+          initial={{ opacity: 0, y: 34 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div>
+            <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
+              SERVICE AREA
+            </p>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            이천 전 지역 계단청소 관리
-          </h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground mb-6">
+              이천 곳곳의
+              <br />
+              건물을 관리합니다
+            </h2>
 
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            이천계단지기는 이천시를 중심으로 빌라, 원룸, 상가 공용공간을 직접 관리합니다.
-          </p>
-        </div>
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl mb-8">
+              이천계단지기는 신둔면, 마장면, 부발읍, 대월면 등 이천 생활권의
+              빌라·원룸·상가 공용공간을 직접 관리합니다.
+            </p>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {areas.map((area) => (
-            <span
-              key={area}
-              className="px-4 py-2 rounded-full bg-secondary text-sm font-medium text-foreground border border-border"
-            >
-              {area}
-            </span>
-          ))}
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {buildingTypes.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-2xl border border-border bg-secondary/30 p-6 hover:shadow-md transition-all"
-            >
-              <item.icon className="w-8 h-8 text-primary mb-4" />
-              <h3 className="text-lg font-bold text-foreground mb-2">
-                {item.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {item.text}
-              </p>
+            <div className="flex flex-wrap gap-2">
+              {areas.map((area) => (
+                <span
+                  key={area}
+                  className="px-4 py-2 rounded-full bg-white text-sm font-semibold text-foreground border border-blue-100 shadow-sm"
+                >
+                  <MapPin className="inline-block w-3.5 h-3.5 mr-1 text-primary" />
+                  {area}
+                </span>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+
+          <div className="grid gap-4">
+            {buildingTypes.map((item) => (
+              <div
+                key={item.title}
+                className="group rounded-[2rem] border border-blue-100 bg-white p-6 md:p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="flex items-start gap-5">
+                  <div className="w-13 h-13 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <item.icon className="w-6 h-6" />
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-bold tracking-[0.25em] text-primary mb-2">
+                      {item.label}
+                    </p>
+
+                    <h3 className="text-xl font-extrabold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                      {item.text}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
