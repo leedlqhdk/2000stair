@@ -23,7 +23,7 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
 ];
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
-      <div className="container flex items-center justify-between h-16">
+      <div className="container max-w-7xl flex items-center justify-between h-16">
         {/* Logo */}
         <a href="/" className="flex items-center">
           <img
@@ -87,18 +87,17 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
           ) : (
             <>
               <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => (window.location.href = getLoginUrl())}
-              >
-                로그인
-              </Button>
+  size="sm"
+  onClick={() => window.open("https://pf.kakao.com/_IiNfn", "_blank")}
+>
+  카톡 상담
+</Button>
               <Button
-                size="sm"
-                onClick={() => document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                무료 견적
-              </Button>
+  size="sm"
+  onClick={() => window.open("https://pf.kakao.com/_IiNfn", "_blank")}
+>
+  카톡 상담
+</Button>
             </>
           )}
         </div>
@@ -155,11 +154,11 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
                     size="sm"
                     className="flex-1"
                     onClick={() => {
-                      document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" });
+                      document.getElementById("window.open("https://pf.kakao.com/_IiNfn", "_blank");")?.scrollIntoView({ behavior: "smooth" });
                       setMobileOpen(false);
                     }}
                   >
-                    무료 견적
+                    카톡 상담
                   </Button>
                 </>
               )}
