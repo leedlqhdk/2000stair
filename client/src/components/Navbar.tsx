@@ -1,6 +1,8 @@
 import { Menu, X, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
