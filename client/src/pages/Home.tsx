@@ -15,9 +15,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navbar
-      
-      />
+      <Navbar />
       <main className="flex-1">
         <HeroSection isAuthenticated={isAuthenticated} />
         <HowItWorks />
