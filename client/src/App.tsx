@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import MyQuotes from "./pages/MySubscription";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
+import LocationLanding from "./pages/LocationLanding";
 import AdminBlog from "./pages/AdminBlog";
 import AdminBlogEdit from "./pages/AdminBlogEdit";
 import KakaoChat from "./components/KakaoChat";
@@ -18,6 +19,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path="/my-quotes" component={MyQuotes} />
       <Route path="/blog" component={Blog} />
+      <Route path="/area/:slug" component={LocationLanding} />
       <Route path="/blog/:id" component={BlogDetail} />
       <Route path="/admin/blog" component={AdminBlog} />
       <Route path="/admin/blog/new" component={AdminBlogEdit} />
