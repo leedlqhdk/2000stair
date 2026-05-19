@@ -17,14 +17,16 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       <main className="flex-1">
-        <HeroSection isAuthenticated={isAuthenticated} />
-        <HowItWorks />
-        <BoxPreview />
-        <BeforeAfterGallery />
-        <OwnerStory />
-        <PricingSection isAuthenticated={isAuthenticated} />
-        <LatestPosts />
-        <BlogReviews />
+       <HeroSection isAuthenticated={false} />
+<HowItWorks />
+<AreaCoverage />
+<BoxPreview />
+<BeforeAfterGallery />
+<ShortsSection />
+<OwnerStory />
+<PricingSection isAuthenticated={false} />
+<LatestPosts />
+<BlogReviews />
       </main>
       <Footer />
     </div>
