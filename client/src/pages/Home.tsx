@@ -3,7 +3,6 @@ import HowItWorks from "@/components/HowItWorks";
 import BoxPreview from "@/components/BoxPreview";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
-import LatestPosts from "@/components/LatestPosts";
 import BlogReviews from "@/components/BlogReviews";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -19,7 +18,6 @@ export default function Home() {
         <BoxPreview />
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={false} />
-        <LatestPosts />
         <BlogReviews />
       </main>
 
