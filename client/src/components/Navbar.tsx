@@ -16,12 +16,11 @@ export default function Navbar({ isAuthenticated, user, onLogout }: NavbarProps)
   const [, setLocation] = useLocation();
 
   const navLinks = [
-    { label: "서비스 소개", href: "#how-it-works", external: true },
-    { label: "요금안내", href: "#pricing", external: true },
-    { label: "견적신청", href: "#quote-form", external: true },
-    { label: "작업일지", href: "/blog", external: false },
-  ];
-
+  { label: "작업사례", href: "#gallery", external: true },
+  { label: "작업영상", href: "#shorts", external: true },
+  { label: "요금안내", href: "#pricing", external: true },
+  { label: "블로그", href: "/blog", external: false },
+];
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
       <div className="container flex items-center justify-between h-16">
