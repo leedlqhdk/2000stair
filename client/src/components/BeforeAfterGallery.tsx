@@ -165,7 +165,7 @@ export default function BeforeAfterGallery() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <section id="gallery" className="py-16 md:py-32 bg-gradient-to-b from-white to-blue-50/30">
+    <section id="gallery" className="py-16 md:py-28 bg-gradient-to-b from-white to-blue-50/30">
       <div className="container max-w-6xl">
         <motion.div
           className="mb-12"
