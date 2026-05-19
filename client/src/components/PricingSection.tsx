@@ -20,36 +20,35 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
   };
 
   const displayPlans = plans || [
-    {
-      id: "stair_2_3",
-      name: "2-3층 계단",
-      price: "66,000원~",
-      description: "이천지역 밀착 관리 · 친환경 수입세제로",
-      popular: false,
-    },
-    {
-      id: "stair_4",
-      name: "4층 계단",
-      price: "77,000원~",
-      description: "외주 없이, 처음 온 날과 같은 품질로 유지",
-      popular: true,
-    },
-    {
-      id: "stair_5_6",
-      name: "5-6층 계단",
-      price: "88,000원~",
-      description: "한 번 맡기면 차이를 느끼는 계단관리",
-      popular: false,
-    },
-    {
-      id: "bathroom",
-      name: "화장실 / 상가유리 / 사무실 청소",
-      price: "별도 문의",
-      description: "보이는 곳보다 보이지 않는 곳까지 꼼꼼하게",
-      popular: false,
-    },
-  ];
-
+  {
+    id: "stair_2_3",
+    name: "2~3층 계단 정기관리",
+    price: "66,000원~",
+    description: "소형 빌라·원룸 공용계단 관리에 적합합니다. 계단, 복도, 공동현관 상태에 따라 범위를 조정합니다.",
+    popular: false,
+  },
+  {
+    id: "stair_4",
+    name: "4층 계단 정기관리",
+    price: "77,000원~",
+    description: "이천 지역 빌라에서 가장 많이 문의되는 기본 관리형입니다. 하청 없이 부부가 직접 방문합니다.",
+    popular: true,
+  },
+  {
+    id: "stair_5_6",
+    name: "5~6층 계단 정기관리",
+    price: "88,000원~",
+    description: "층수가 높거나 오염이 반복되는 건물에 맞춘 관리입니다. 정기 방문으로 깔끔한 상태를 유지합니다.",
+    popular: false,
+  },
+  {
+    id: "bathroom",
+    name: "화장실 · 상가유리 · 사무실 청소",
+    price: "별도 문의",
+    description: "공용화장실, 공동현관 유리, 사무실 청소는 현장 상태와 면적에 따라 별도 안내드립니다.",
+    popular: false,
+  },
+];
   const stairPlans = displayPlans.filter((p) => p.id.startsWith("stair"));
   const otherPlans = displayPlans.filter((p) => !p.id.startsWith("stair"));
 
@@ -68,10 +67,10 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
             이천계단청소 요금 안내
           </h2>
           <p className="text-muted-foreground text-lg mb-2">
-            매일 오르내리는 공간, 더 깨끗하게
+            건물 규모와 오염 상태에 따라 합리적으로 안내드립니다
           </p>
           <p className="text-sm text-muted-foreground">
-            처음 방문한 날의 깨끗함을 유지합니다 · 대면 / 비대면 모두 가능
+            기본 요금은 월 정기관리 기준이며, 현장 확인 후 최종 견적이 달라질 수 있습니다
           </p>
         </motion.div>
 
@@ -118,7 +117,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                     variant={plan.popular ? "default" : "outline"}
                     onClick={() => handleQuoteRequest(plan.id)}
                   >
-                    무료 견적 신청
+                    이 요금으로 상담하기
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </CardContent>
@@ -155,7 +154,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         {/* Bottom CTA */}
         <div className="text-center mt-12">
           <p className="text-sm text-muted-foreground">
-            문의 및 예약 환영 · 전화{" "}
+            정확한 견적은 건물 사진 또는 현장 확인 후 안내드립니다 · 전화{" "}
             <a href="tel:010-8438-1887" className="text-primary font-medium hover:underline">
               010-8438-1887
             </a>
