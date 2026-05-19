@@ -1,97 +1,120 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
+const stats = [
+  { label: "부부직영", value: "하청 NO" },
+  { label: "관리 기준", value: "정기관리" },
+  { label: "상담 방식", value: "카톡 상담" },
+];
+
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   const handleCTA = () => {
-  window.open("https://pf.kakao.com/_IiNfn", "_blank");
-};
+    window.open("https://pf.kakao.com/_IiNfn", "_blank");
+  };
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Background gradient - cobalt blue tones */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-blue-50/50" />
-      <div className="absolute top-20 right-0 w-96 h-96 bg-primary/8 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
+      <div className="absolute top-0 right-0 w-[34rem] h-[34rem] bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 left-0 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl" />
 
-      <div className="container relative py-20 md:py-32">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left: Copy */}
+      <div className="container relative py-24 md:py-36">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
           <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, y: 50 }}
+            className="space-y-8"
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-medium">
-              <Sparkles className="w-4 h-4" />
-              이천계단청소 전문업체
+            <div className="space-y-5">
+              <p className="text-sm font-bold tracking-[0.35em] text-primary">
+                ICHEON STAIR KEEPER
+              </p>
+
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] text-foreground">
+                건물을
+                <br />
+                꾸준히 보는 관리
+              </h1>
+
+              <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+                이천 빌라·원룸·상가 공용공간을 하청 없이 부부가 직접 관리합니다.
+                계단, 공동현관, 유리, 화장실까지 건물 상태에 맞춰 안내드립니다.
+              </p>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground">
-             이천 빌라·상가 계단청소
-<br />
-<span className="text-primary">부부가 직접 관리합니다</span>
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-lg">
-              하청 없이 부부가 직접 방문해 관리합니다.
-계단·공동현관·유리·화장실까지 건물 상태에 맞춰 정기적으로 관리해드립니다.
-            </p>
+
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="text-base px-8" onClick={handleCTA}>
-                카카오톡으로 상담하기
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <MessageCircle className="w-4 h-4 mr-2" />
+                카톡으로 상담하기
               </Button>
+
               <Button
                 variant="outline"
                 size="lg"
-                className="text-base px-8"
+                className="text-base px-8 bg-white"
                 onClick={() =>
-                  document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })
+                  document
+                    .getElementById("gallery")
+                    ?.scrollIntoView({ behavior: "smooth" })
                 }
               >
-                서비스 알아보기
+                작업사례 보기
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
-            <div className="flex items-center gap-6 pt-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-500 rounded-full" />
-                무료 방문 견적
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-500 rounded-full" />
-                하청 없는 직접 관리
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-500 rounded-full" />
-                친환경 세정제
-              </span>
+
+            <div className="grid grid-cols-3 gap-3 max-w-xl pt-2">
+              {stats.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm"
+                >
+                  <p className="text-xs text-muted-foreground mb-1">
+                    {item.label}
+                  </p>
+                  <p className="text-base md:text-lg font-extrabold text-primary">
+                    {item.value}
+                  </p>
+                </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Right: Hero Image */}
           <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="relative"
           >
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-2xl border border-blue-100">
-                <img
-                  src="/manus-storage/work-vest_b3f4fbac.png"
+            <div className="relative rounded-[2rem] overflow-hidden border border-blue-100 bg-white shadow-2xl">
+              <img
+                src="/manus-storage/work-vest_b3f4fbac.png"
                 alt="이천계단청소 부부직영 정기관리 현장"
-                  className="w-full h-auto object-cover"
-                />
+                className="w-full h-auto object-cover"
+              />
+
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent p-6">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
+                  <Sparkles className="w-4 h-4" />
+                  실제 현장 기반 관리
+                </div>
               </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 border border-blue-100">
-                <div className="text-2xl font-bold text-primary">4년+</div>
-                <div className="text-sm text-muted-foreground">경력의 전문 관리</div>
-              </div>
+            </div>
+
+            <div className="absolute -bottom-6 -left-4 md:-left-8 rounded-3xl bg-white border border-blue-100 shadow-xl p-5">
+              <p className="text-sm text-muted-foreground mb-1">
+                DIRECT CARE
+              </p>
+              <p className="text-2xl font-extrabold text-foreground">
+                부부가 직접
+              </p>
             </div>
           </motion.div>
         </div>
