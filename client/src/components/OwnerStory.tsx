@@ -24,7 +24,7 @@ const standards = [
 
 export default function OwnerStory() {
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/40">
+    <section className="py-16 md:py-32 bg-gradient-to-b from-white to-blue-50/40">
       <div className="container max-w-6xl">
         <motion.div
           className="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-16 items-start"
