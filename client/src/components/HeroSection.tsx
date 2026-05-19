@@ -20,7 +20,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-7xl pt-14 md:pt-28">
+      <div className="container max-w-7xl pt-12 md:pt-24">
         <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-16 items-center">
           <div>
             <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
