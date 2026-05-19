@@ -1,92 +1,85 @@
 import { motion } from "framer-motion";
-import { ClipboardList, Truck, Sparkles } from "lucide-react";
+import { MessageCircle, MapPinned, Sparkles } from "lucide-react";
 
 const steps = [
   {
-    icon: ClipboardList,
-    step: "01",
-    title: "건물 상태 확인",
-    description:
-      "계단 수, 공용현관, 유리, 화장실 상태를 먼저 확인합니다. 사진 상담도 가능하지만, 정기청소는 현장 상태를 보고 정확히 안내드립니다.",
+    number: "01",
+    icon: MessageCircle,
+    title: "카톡 문의",
+    text: "건물 사진이나 주소를 보내주시면 상담을 시작합니다.",
   },
   {
-    icon: Truck,
-    step: "02",
-    title: "부부직영 정기관리",
-    description:
-      "하청 없이 부부가 직접 방문합니다. 담당자가 자주 바뀌지 않아 건물 특성과 오염 패턴을 기억하고 꾸준히 관리할 수 있습니다.",
+    number: "02",
+    icon: MapPinned,
+    title: "현장 확인",
+    text: "층수, 오염 상태, 관리 범위를 확인해 안내드립니다.",
   },
   {
+    number: "03",
     icon: Sparkles,
-    step: "03",
-    title: "사진 보고 · 피드백",
-    description:
-      "작업 후 필요한 부분은 사진과 메시지로 공유합니다. 건물주님이 직접 매번 확인하지 않아도 상태를 파악할 수 있게 돕습니다.",
+    title: "정기관리",
+    text: "하청 없이 부부가 직접 방문해 꾸준히 관리합니다.",
   },
 ];
+
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-20 md:py-28 bg-secondary/30">
-      <div className="container">
-        {/* Section Header */}
+    <section id="how-it-works" className="py-24 md:py-32 bg-white">
+      <div className="container max-w-6xl">
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="mb-14"
+          initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.7 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            정기청소는 이렇게 관리됩니다
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            상담부터 정기관리, 피드백까지 외주 없이 직접 챙깁니다
+          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
+            PROCESS
           </p>
+
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
+            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
+              상담부터 관리까지
+              <br />
+              간단하게 진행합니다
+            </h2>
+
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
+              복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리 범위를 안내드립니다.
+            </p>
+          </div>
         </motion.div>
 
-        {/* Steps Grid */}
-        <motion.div
-          className="grid md:grid-cols-3 gap-8 md:gap-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.3 } },
-          }}
-        >
-          {steps.map((item, index) => (
+        <div className="grid md:grid-cols-3 gap-5">
+          {steps.map((step, index) => (
             <motion.div
-              key={index}
-              className="relative group"
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-              }}
+              key={step.number}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white to-blue-50/30 p-7 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Connector line (desktop) */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/30 to-primary/10" />
-              )}
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-border hover:shadow-md hover:border-primary/20 transition-all duration-300 relative">
-                {/* Step number */}
-                <div className="absolute -top-3 -right-3 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">
-                  {item.step}
-                </div>
-                {/* Icon */}
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                  <item.icon className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {item.description}
+              <div className="flex items-center justify-between mb-8">
+                <p className="text-5xl font-extrabold text-primary/15">
+                  {step.number}
                 </p>
+
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                  <step.icon className="w-6 h-6" />
+                </div>
               </div>
+
+              <h3 className="text-2xl font-extrabold text-foreground mb-3">
+                {step.title}
+              </h3>
+
+              <p className="text-muted-foreground leading-relaxed">
+                {step.text}
+              </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
