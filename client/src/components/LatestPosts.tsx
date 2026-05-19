@@ -18,10 +18,10 @@ export default function LatestPosts() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-1">
-              이천계단청소 작업일지
+              이천 빌라 · 상가 계단청소 작업일지
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              최근 작업 현장
+              최근 이천 계단청소 현장
             </h2>
           </div>
           <Link href="/blog">
@@ -38,12 +38,12 @@ export default function LatestPosts() {
             );
             return (
               <Link key={post.id} href={`/blog/${post.id}`}>
-                <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer h-full flex flex-col">
+                <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-shadow cursor-pointer h-full flex flex-col">
                   {post.thumbnail ? (
                     <img
                       src={post.thumbnail}
                       alt={post.title}
-                      className="w-full h-44 object-cover"
+                      className="w-full h-52 object-cover"
                     />
                   ) : (
                     <div className="w-full h-44 bg-blue-50 flex items-center justify-center text-4xl">
@@ -51,7 +51,7 @@ export default function LatestPosts() {
                     </div>
                   )}
                   <div className="p-4 flex flex-col flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 leading-snug flex-1">
+                    <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 leading-relaxed flex-1">
                       {post.title}
                     </h3>
                     <div className="flex items-center gap-1 text-xs text-gray-400 mb-2">
@@ -60,6 +60,9 @@ export default function LatestPosts() {
                         {new Date(post.createdAt).toLocaleDateString("ko-KR")}
                       </span>
                     </div>
+                    <p className="text-sm text-gray-500 line-clamp-2 mb-3">
+  실제 이천 지역 계단청소 현장 기록입니다.
+</p>
                     {matchedTags.length > 0 && (
                       <div className="flex flex-wrap gap-1">
                         {matchedTags.slice(0, 2).map((t) => (
