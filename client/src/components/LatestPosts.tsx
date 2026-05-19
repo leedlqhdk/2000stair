@@ -14,10 +14,10 @@ export default function LatestPosts() {
   if (!posts.length) return null;
 
   return (
-    <section id="latest-posts" className="py-16 md:py-32 bg-white">
+    <section id="latest-posts" className="py-16 md:py-32 bg-blue-50/30">
       <div className="container max-w-6xl">
         <motion.div
-          className="mb-14"
+  className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -27,7 +27,7 @@ export default function LatestPosts() {
             ARCHIVE
           </p>
 
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
+          <div className="space-y-5">
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
               이천계단지기의
               <br />
@@ -65,7 +65,7 @@ export default function LatestPosts() {
                 transition={{ duration: 0.55, delay: index * 0.08 }}
               >
                 <Link href={`/blog/${post.id}`}>
-                  <div className="group h-full overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                  <div className="group h-full overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
                     <div className="relative h-64 overflow-hidden bg-blue-50">
                       {post.thumbnail ? (
                         <img
