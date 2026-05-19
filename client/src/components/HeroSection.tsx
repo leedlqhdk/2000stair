@@ -78,7 +78,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
       <div className="mt-10 md:mt-14 bg-blue-50/60 border-y border-blue-100">
         <div className="container max-w-7xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-blue-100">
-          <div className="flex items-center gap-4 md:gap-5 py-6 md:py-10">
+          <div className="flex items-center justify-center text-center gap-4 md:gap-5 py-6 md:py-10">
             <Users className="w-9 h-9 md:w-11 md:h-11 text-primary" />
             <div>
               <p className="text-sm text-gray-600">부부직영</p>
@@ -88,7 +88,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 md:gap-5 py-6 md:py-10 md:pl-12">
+          <div className="flex items-center justify-center text-center gap-4 md:gap-5 py-6 md:py-10">
             <ClipboardCheck className="w-9 h-9 md:w-11 md:h-11 text-primary" />
             <div>
               <p className="text-sm text-gray-600">관리 기준</p>
@@ -98,7 +98,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 md:gap-5 py-6 md:py-10 md:pl-12">
+          <div className="flex items-center justify-center text-center gap-4 md:gap-5 py-6 md:py-10">
             <MessageCircle className="w-9 h-9 md:w-11 md:h-11 text-primary" />
             <div>
               <p className="text-sm text-gray-600">상담 방식</p>
@@ -115,13 +115,13 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-6 md:gap-8 items-center">
             <div>
               <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-3 md:mb-4">
-                2000stair
+                Shorts
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-2 md:mb-3">
                 실제 관리 현장을
               </h2>
               <p className="text-sm md:text-base text-gray-600">
-                확인해보세요
+               영상으로 확인해보세요
               </p>
             </div>
 
@@ -150,7 +150,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     />
 
                     <div className="absolute left-3 bottom-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-primary shadow-sm">
-                      영상 보기
+                    
                     </div>
                   </button>
                 ))}
