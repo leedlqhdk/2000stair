@@ -8,8 +8,8 @@ interface HeroSectionProps {
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   const handleCTA = () => {
-    document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" });
-  };
+  window.open("https://pf.kakao.com/_IiNfn", "_blank");
+};
 
   return (
     <section className="relative overflow-hidden">
@@ -42,7 +42,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="text-base px-8" onClick={handleCTA}>
-                무료 방문견적 신청
+                카카오톡으로 상담하기
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
               <Button
