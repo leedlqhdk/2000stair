@@ -1,10 +1,8 @@
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
-import AreaCoverage from "@/components/AreaCoverage";
 import OwnerStory from "@/components/OwnerStory";
 import BoxPreview from "@/components/BoxPreview";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import ShortsSection from "@/components/ShortsSection";
 import PricingSection from "@/components/PricingSection";
 import LatestPosts from "@/components/LatestPosts";
 import BlogReviews from "@/components/BlogReviews";
@@ -19,11 +17,9 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection isAuthenticated={false} />
         <HowItWorks />
-        <AreaCoverage />
         <OwnerStory />
         <BoxPreview />
         <BeforeAfterGallery />
-        <ShortsSection />
         <PricingSection isAuthenticated={false} />
         <LatestPosts />
         <BlogReviews />
