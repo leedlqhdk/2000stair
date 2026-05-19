@@ -53,7 +53,7 @@ export default function OwnerStory() {
           viewport={{ once: true }}
           transition={{ duration: 0.65 }}
         >
-          <div className="rounded-[1.5rem] md:rounded-[2rem] bg-white border border-blue-100 shadow-sm p-6 md:p-8">
+          <div className="rounded-[1.75rem] md:rounded-[2rem] bg-white border border-blue-100 shadow-sm p-6 md:p-8">
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4">
               건물마다 자주 더러워지는 곳은 다릅니다. 계단 바닥, 공동현관 유리,
               난간 손때처럼 반복되는 오염을 기억하고 관리하는 것이 중요합니다.
@@ -65,7 +65,7 @@ export default function OwnerStory() {
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] md:rounded-[2rem] bg-white border border-blue-100 shadow-sm p-5 md:p-7">
+          <div className="rounded-[1.75rem] md:rounded-[2rem] bg-white border border-blue-100 shadow-sm p-5 md:p-7">
             <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-primary mb-5">
               PROFESSIONALISM
             </p>
