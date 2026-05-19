@@ -11,13 +11,9 @@ interface PricingSectionProps {
 export default function PricingSection({ isAuthenticated }: PricingSectionProps) {
   const { data: plans } = trpc.quote.plans.useQuery();
 
-  const handleQuoteRequest = (planId: string) => {
-    const quoteSection = document.getElementById("quote-form");
-    if (quoteSection) {
-      quoteSection.scrollIntoView({ behavior: "smooth" });
-      window.dispatchEvent(new CustomEvent("selectPlan", { detail: { planId } }));
-    }
-  };
+  const handleQuoteRequest = () => {
+  window.open("https://pf.kakao.com/_IiNfn", "_blank");
+};
 
   const displayPlans = plans || [
   {
@@ -115,9 +111,9 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                   <Button
                     className="w-full"
                     variant={plan.popular ? "default" : "outline"}
-                    onClick={() => handleQuoteRequest(plan.id)}
+                    onClick={handleQuoteRequest}
                   >
-                    이 요금으로 상담하기
+                    카톡으로 요금 문의
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </CardContent>
@@ -141,7 +137,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                 <Button
                   className="w-full"
                   variant="outline"
-                  onClick={() => handleQuoteRequest(otherPlans[0].id)}
+                  onClick={handleQuoteRequest}
                 >
                   문의하기
                   <ArrowRight className="w-4 h-4 ml-2" />
