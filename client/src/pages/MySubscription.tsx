@@ -45,7 +45,7 @@ export default function MyQuotes() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Navbar isAuthenticated={isAuthenticated} user={user} onLogout={logout} />
+      <Navbar />
       <main className="flex-1 container py-12">
         <Button
           variant="ghost"
