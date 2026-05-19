@@ -10,7 +10,7 @@ export default function Navbar() {
     { label: "작업사례", href: "#gallery", external: true },
     { label: "작업영상", href: "#shorts", external: true },
     { label: "요금안내", href: "#pricing", external: true },
-    { label: "블로그", href: "/blog", external: false },
+    { label: "작업일지", href: "/blog", external: false },
   ];
 
   const openKakao = () => {
