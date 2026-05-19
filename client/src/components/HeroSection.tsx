@@ -32,14 +32,13 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               이천계단청소 전문업체
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground">
-              깨끗한 건물,{" "}
-              <span className="text-primary">구독 한 번</span>으로
-              <br />
-              시작하세요
+             이천 빌라·상가 계단청소
+<br />
+<span className="text-primary">부부가 직접 관리합니다</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              이천계단청소 전문업체 이천계단지기가 직접 관리하는 정기 청소 구독 서비스.
-              빌라·상가 계단청소, 유리청소, 화장실청소 전문. 무료 방문 견적으로 시작하세요.
+              하청 없이 부부가 직접 방문해 관리합니다.
+계단·공동현관·유리·화장실까지 건물 상태에 맞춰 정기적으로 관리해드립니다.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="text-base px-8" onClick={handleCTA}>
@@ -84,7 +83,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <div className="rounded-2xl overflow-hidden shadow-2xl border border-blue-100">
                 <img
                   src="/manus-storage/work-vest_b3f4fbac.png"
-                  alt="이천계단지기 작업 조끼"
+                alt="이천계단청소 부부직영 정기관리 현장"
                   className="w-full h-auto object-cover"
                 />
               </div>
