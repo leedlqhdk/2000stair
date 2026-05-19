@@ -1,4 +1,4 @@
-import { MessageCircle, Phone } from "lucide-react";
+import { MessageCircle, Phone, ClipboardList } from "lucide-react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -30,6 +30,20 @@ export default function KakaoChat() {
           카톡 상담
         </span>
       </a>
+      {/* 견적 신청 버튼 */}
+<button
+  type="button"
+  onClick={() =>
+    document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth" })
+  }
+  className="flex items-center gap-2 bg-white text-primary border border-primary/20 px-4 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+  aria-label="무료 견적 신청하기"
+>
+  <ClipboardList className="w-5 h-5" />
+  <span className="font-semibold text-sm hidden sm:inline group-hover:inline">
+    견적 신청
+  </span>
+</button>
     </div>
   );
 }
