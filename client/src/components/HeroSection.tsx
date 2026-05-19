@@ -54,7 +54,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </div>
 
           <div className="relative mt-6 lg:mt-0">
-            <div className="overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-blue-100 shadow-xl">
+            <div className="overflow-hidden rounded-[1.75rem] md:rounded-[2rem] border border-blue-100 shadow-xl">
               <img
                 src={heroImage}
                 alt="이천계단지기 계단청소 관리 현장"
@@ -62,7 +62,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               />
             </div>
 
-            <div className="absolute right-4 bottom-4 rounded-[1.25rem] md:rounded-[1.5rem] bg-white px-5 md:px-7 py-4 md:py-6 shadow-xl border border-blue-100">
+            <div className="absolute right-4 bottom-4 rounded-[1.25rem] md:rounded-[1.75rem] bg-white px-5 md:px-7 py-4 md:py-6 shadow-xl border border-blue-100">
               <p className="text-xs md:text-sm font-bold text-primary mb-1 md:mb-2">
                 부부직영
               </p>
