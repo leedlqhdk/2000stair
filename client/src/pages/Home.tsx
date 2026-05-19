@@ -1,6 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
+import AreaCoverage from "@/components/AreaCoverage";
 import BoxPreview from "@/components/BoxPreview";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import ShortsSection from "@/components/ShortsSection";
