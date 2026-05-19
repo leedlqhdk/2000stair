@@ -28,13 +28,13 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               SERVICE AREA
             </p>
 
-            <h1 className="text-[2.65rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.03] text-foreground mb-6 md:mb-8">
+            <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.03] text-foreground mb-6 md:mb-8">
               이천 곳곳의
               <br />
               건물을 관리합니다
             </h1>
 
-            <p className="text-base md:text-xl text-gray-600 leading-relaxed mb-6 md:mb-8">
+            <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8">
               이천 빌라·원룸·상가 공용공간을
               <br className="hidden sm:block" />
               부부가 직접 관리합니다.
@@ -66,7 +66,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <p className="text-xs md:text-sm font-bold text-primary mb-1 md:mb-2">
                 부부직영
               </p>
-              <p className="text-xl md:text-3xl font-extrabold leading-tight text-foreground">
+              <p className="text-lg md:text-3xl font-extrabold leading-[1.1] text-foreground">
                 하청 없이
                 <br />
                 직접 관리
@@ -82,7 +82,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <Users className="w-9 h-9 md:w-11 md:h-11 text-primary" />
             <div>
               <p className="text-sm text-gray-600">부부직영</p>
-              <p className="text-lg md:text-xl font-extrabold text-foreground">
+              <p className="text-lg md:text-lg font-extrabold text-foreground">
                 하청 NO
               </p>
             </div>
@@ -92,7 +92,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <ClipboardCheck className="w-9 h-9 md:w-11 md:h-11 text-primary" />
             <div>
               <p className="text-sm text-gray-600">관리 기준</p>
-              <p className="text-lg md:text-xl font-extrabold text-foreground">
+              <p className="text-lg md:text-lg font-extrabold text-foreground">
                 정기관리
               </p>
             </div>
@@ -102,7 +102,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <MessageCircle className="w-9 h-9 md:w-11 md:h-11 text-primary" />
             <div>
               <p className="text-sm text-gray-600">상담 방식</p>
-              <p className="text-lg md:text-xl font-extrabold text-foreground">
+              <p className="text-lg md:text-lg font-extrabold text-foreground">
                 카톡 상담
               </p>
             </div>
