@@ -38,7 +38,7 @@ const managementSystem = [
 
 export default function BoxPreview() {
   return (
-    <section id="box-preview" className="py-24 md:py-32 bg-white">
+    <section id="box-preview" className="py-16 md:py-32 bg-white">
       <div className="container max-w-6xl">
         <motion.div
           className="mb-14"
