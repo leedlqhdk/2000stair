@@ -8,34 +8,46 @@ import { motion } from "framer-motion";
 
 const areaCards = [
   {
-    name: "신둔면",
-    slug: "sindun",
-    count: "최근 작업 18건",
-    position: "top-[32%] left-[18%]",
-  },
-  {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
+    status: "active",
     position: "top-[28%] left-[43%]",
   },
   {
     name: "대월면",
     slug: "daewol",
     count: "최근 작업 12건",
+    status: "active",
     position: "top-[36%] right-[17%]",
   },
   {
     name: "부발읍",
     slug: "bubal",
-    count: "문의 가능",
+    count: "최근 작업 있음",
+    status: "active",
     position: "bottom-[28%] left-[23%]",
+  },
+  {
+    name: "창전동",
+    slug: "changjeon",
+    count: "최근 작업 있음",
+    status: "active",
+    position: "bottom-[25%] right-[30%]",
+  },
+  {
+    name: "신둔면",
+    slug: "sindun",
+    count: "문의 가능 지역",
+    status: "inactive",
+    position: "top-[32%] left-[18%]",
   },
   {
     name: "증포동",
     slug: "jeungpo",
-    count: "문의 가능",
-    position: "bottom-[25%] right-[30%]",
+    count: "준비중",
+    status: "inactive",
+    position: "bottom-[12%] right-[18%]",
   },
 ];
 
