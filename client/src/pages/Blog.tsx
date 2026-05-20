@@ -41,19 +41,22 @@ const areaCards = [
 
 const reviews = [
   {
-    source: "네이버 리뷰",
-    area: "신둔면",
-    text: "정기적으로 관리받고 있는데 항상 깔끔하게 해주셔서 만족합니다.",
-  },
-  {
     source: "당근 후기",
-    area: "마장면",
-    text: "친절하고 꼼꼼하게 작업해주셔서 주변에 추천했어요.",
+    area: "동네 주민 후기",
+    text: "동네 주민분들이 남겨주신 실제 후기를 확인해보세요.",
+    href: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
   },
   {
-    source: "문자 후기",
-    area: "대월면",
-    text: "계단청소 후 공용공간 분위기가 훨씬 밝아졌습니다.",
+    source: "숨고 리뷰",
+    area: "전문 서비스 리뷰",
+    text: "계단·화장실·건물 내부 청소 후기를 확인해보세요.",
+    href: "https://soomgo.com/profile/users/3729049",
+  },
+  {
+    source: "네이버 플레이스",
+    area: "방문자 리뷰",
+    text: "네이버 플레이스에 등록된 실제 리뷰를 확인해보세요.",
+    href: "https://map.naver.com/p/entry/place/2097250452?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202605201835&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4030091&lat=37.3088922&c=15.00,0,0,0,dh",
   },
 ];
 
@@ -180,10 +183,39 @@ export default function Blog() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {reviews.map((review) => (
-              <div
-                key={review.source}
-                className="rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm"
-              >
+  <a
+    key={review.source}
+    href={review.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+  >
+    <div className="mb-3 flex items-center gap-1 text-yellow-400">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Star key={index} className="h-4 w-4 fill-current" />
+      ))}
+    </div>
+
+    <p className="text-sm font-bold text-primary mb-2">
+      {review.source}
+    </p>
+
+    <p className="text-sm leading-relaxed text-foreground">
+      {review.text}
+    </p>
+
+    <div className="mt-4 flex items-center justify-between gap-3">
+      <p className="text-xs text-muted-foreground">
+        {review.area}
+      </p>
+
+      <span className="inline-flex items-center text-xs font-bold text-primary">
+        후기 보기
+        <ArrowRight className="ml-1 h-3.5 w-3.5" />
+      </span>
+    </div>
+  </a>
+))}
                 <div className="mb-3 flex items-center gap-1 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className="h-4 w-4 fill-current" />
