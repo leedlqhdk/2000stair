@@ -1,10 +1,30 @@
+import { Link } from "wouter";
 import { MapPin } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
-const areas = ["신둔면", "마장면", "대월면"];
+const areas = [
+  {
+    name: "신둔면",
+    active: false,
+    desc: "문의 가능",
+    href: "",
+  },
+  {
+    name: "마장면",
+    active: true,
+    desc: "최근 작업 15건",
+    href: "/area/majang",
+  },
+  {
+    name: "대월면",
+    active: true,
+    desc: "최근 작업 12건",
+    href: "/area/daewol",
+  },
+];
 
 const proofImages = [
   "/manus-storage/stair-floor-after_0e13b4f5.webp",
@@ -39,16 +59,41 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               부부가 직접 관리합니다.
             </p>
 
-            <div className="flex flex-wrap gap-2.5 md:gap-3">
-              {areas.map((area) => (
-                <span
-                  key={area}
-                  className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 md:px-5 py-2.5 md:py-3 text-sm font-bold text-foreground shadow-sm"
-                >
-                  <MapPin className="w-4 h-4 text-primary" />
-                  {area}
-                </span>
-              ))}
+            <div className="flex flex-wrap gap-3">
+              {areas.map((area) =>
+                area.active ? (
+                  <Link key={area.name} href={area.href}>
+                    <a className="group rounded-2xl border border-blue-100 bg-white px-5 py-4 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center gap-2 mb-1">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        <span className="font-extrabold text-foreground">
+                          {area.name}
+                        </span>
+                      </div>
+
+                      <p className="text-xs text-muted-foreground">
+                        {area.desc}
+                      </p>
+                    </a>
+                  </Link>
+                ) : (
+                  <div
+                    key={area.name}
+                    className="rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 opacity-70"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <MapPin className="w-4 h-4 text-gray-400" />
+                      <span className="font-extrabold text-gray-500">
+                        {area.name}
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-gray-400">
+                      {area.desc}
+                    </p>
+                  </div>
+                )
+              )}
             </div>
           </div>
 
@@ -113,8 +158,6 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-
-
                   </button>
                 ))}
               </div>
