@@ -1,75 +1,204 @@
+import { Link } from "wouter";
+import { ArrowLeft, ArrowRight, CalendarDays, MessageCircle, Phone, Star } from "lucide-react";
+import { motion } from "framer-motion";
+
+const posts = [
+  {
+    title: "마장면 빌라 계단청소",
+    date: "2026.05.20",
+    image: "/manus-storage/stair-floor-after_0e13b4f5.webp",
+  },
+  {
+    title: "마장면 상가 공용공간 관리",
+    date: "2026.05.18",
+    image: "/manus-storage/glass-after_3ef4a793.webp",
+  },
+  {
+    title: "마장면 공동현관 유리관리",
+    date: "2026.05.15",
+    image: "/manus-storage/window-frame-after_9c733b21.webp",
+  },
+  {
+    title: "마장면 원룸 계단 정기관리",
+    date: "2026.05.12",
+    image: "/manus-storage/railing-after_004e4850.webp",
+  },
+];
+
+const reviews = [
+  "꼼꼼하게 관리해주셔서 공용공간이 훨씬 밝아졌습니다.",
+  "요청사항을 빠르게 확인해주셔서 믿고 맡기고 있습니다.",
+];
+
 export default function MajangAreaPage() {
   return (
-    <main className="min-h-screen bg-white">
-      <section className="container max-w-6xl pt-24 pb-20">
-        
-        {/* 상단 */}
-        <div className="mb-12">
-          <p className="text-sm font-bold tracking-[0.3em] text-primary mb-4">
-            AREA ARCHIVE
-          </p>
+    <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+      <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
+        <motion.div
+          className="mb-8 md:mb-12"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65 }}
+        >
+          <Link href="/blog">
+            <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
+              <ArrowLeft className="h-4 w-4" />
+              작업일지로 돌아가기
+            </a>
+          </Link>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground mb-4">
-            마장면 작업일지
-          </h1>
+          <div className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm">
+            <div className="grid md:grid-cols-[0.95fr_1.05fr] items-stretch">
+              <div className="p-7 md:p-12">
+                <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
+                  AREA ARCHIVE
+                </p>
 
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            마장면 빌라·원룸 공동공간 관리 사례
-          </p>
+                <h1 className="text-3xl md:text-5xl font-extrabold leading-[1.12] text-foreground mb-5">
+                  마장면의
+                  <br />
+                  깨끗한 일상을 만들고 있습니다
+                </h1>
 
-          <p className="mt-3 text-sm text-muted-foreground">
-            최근 작업 지역을 기준으로 업데이트됩니다.
-          </p>
-        </div>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+                  부부가 직접, 마장면 빌라·원룸·상가 공용공간을 관리합니다.
+                </p>
 
-        {/* 작업 카드 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="inline-flex items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
+                  최근 작업 15건
+                </div>
+              </div>
 
-          <article className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl transition-all duration-500">
-            
-            <div className="overflow-hidden">
-              <img
-                src="/manus-storage/example.webp"
-                alt="마장면 원룸 계단청소"
-                className="w-full h-72 object-cover hover:scale-105 transition-transform duration-500"
-              />
+              <div className="relative min-h-[300px] md:min-h-[430px] overflow-hidden bg-blue-50">
+                <img
+                  src="/manus-storage/work-vest_b3f4fbac.png"
+                  alt="마장면 계단청소 관리 현장"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-blue-900/10" />
+              </div>
             </div>
+          </div>
+        </motion.div>
 
-            <div className="p-5">
-              <h2 className="text-xl font-extrabold text-foreground leading-snug mb-3">
-                마장면 원룸 계단청소 작업일지
+        <section className="mb-12 md:mb-16">
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+                마장면 작업 기록
               </h2>
-
-              <p className="text-sm text-muted-foreground">
-                2026.05.20
+              <p className="mt-1 text-sm text-muted-foreground">
+                최근 작업 지역을 기준으로 업데이트됩니다.
               </p>
             </div>
 
-          </article>
+            <Link href="/blog">
+              <a className="hidden md:inline-flex items-center text-sm font-bold text-primary hover:opacity-80 transition">
+                전체 보기
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </a>
+            </Link>
+          </div>
 
-        </div>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {posts.map((post, index) => (
+              <motion.article
+                key={post.title}
+                className="group overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+              >
+                <div className="overflow-hidden bg-blue-50">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
 
-        {/* 문의 CTA */}
-        <div className="mt-20 rounded-[2rem] border border-blue-100 bg-blue-50/40 p-8 md:p-12 text-center">
+                <div className="p-5">
+                  <h3 className="text-lg font-extrabold leading-snug text-foreground mb-3">
+                    {post.title}
+                  </h3>
 
-          <h2 className="text-3xl font-extrabold text-foreground mb-4">
-            마장면 관리 문의
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                    <CalendarDays className="h-4 w-4" />
+                    {post.date}
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12 md:mb-16">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+                고객 후기
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                마장면 관리 현장에서 받은 실제 피드백입니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {reviews.map((review) => (
+              <div
+                key={review}
+                className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
+              >
+                <div className="mb-3 flex items-center gap-1 text-yellow-400">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star key={index} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+
+                <p className="text-base leading-relaxed text-foreground">
+                  “{review}”
+                </p>
+
+                <p className="mt-4 text-sm text-muted-foreground">
+                  마장면 건물주 후기
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">
+            마장면 청소 관리가 필요하신가요?
           </h2>
 
           <p className="text-muted-foreground mb-8">
-            정기관리·계단청소·공동현관 관리 문의 가능합니다.
+            정기관리·일회성 청소 모두 문의 가능합니다.
           </p>
 
-          <a
-            href="https://pf.kakao.com/_IiNfn"
-            target="_blank"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-white font-bold hover:opacity-90 transition"
-          >
-            카카오톡 문의하기
-          </a>
+          <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
+            <a
+              href="https://pf.kakao.com/_IiNfn/chat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
+            >
+              <MessageCircle className="mr-2 h-4 w-4" />
+              카카오톡 문의하기
+            </a>
 
-        </div>
-
+            <a
+              href="tel:01084381887"
+              className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50"
+            >
+              <Phone className="mr-2 h-4 w-4" />
+              전화 문의하기
+            </a>
+          </div>
+        </section>
       </section>
     </main>
   );
