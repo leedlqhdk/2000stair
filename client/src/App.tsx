@@ -22,6 +22,7 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/category/:slug" component={Blog} />
       <Route path="/blog/:id" component={BlogDetail} />
+      <Route path="/area/majang" component={Majang} />
       <Route path="/area/:slug" component={LocationLanding} />
       <Route path="/admin/blog" component={AdminBlog} />
       <Route path="/admin/blog/new" component={AdminBlogEdit} />
@@ -29,7 +30,6 @@ function Router() {
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
-      <Route path="/area/majang" component={Majang} />
     </Switch>
   );
 }
@@ -37,9 +37,7 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
           <Router />
