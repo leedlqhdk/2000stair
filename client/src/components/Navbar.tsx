@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -21,12 +20,18 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/85 backdrop-blur-xl">
       <div className="container max-w-7xl flex items-center justify-between h-16">
-        <a href="/" className="flex items-center">
-          <img
-            src="/manus-storage/icheon-stair-logo-dark_474b2a76.png"
-            alt="이천계단지기"
-            className="h-8 md:h-9 w-auto"
-          />
+        <a href="/" className="flex items-center gap-2" aria-label="이천계단지기 홈으로 이동">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white font-black shadow-sm">
+            계
+          </div>
+          <div className="leading-tight">
+            <p className="text-base md:text-lg font-extrabold tracking-tight text-foreground">
+              이천계단지기
+            </p>
+            <p className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] text-primary">
+              BUILDING CARE
+            </p>
+          </div>
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -50,8 +55,6 @@ export default function Navbar() {
             )
           )}
         </nav>
-
-    
 
         <button
           className="md:hidden w-10 h-10 rounded-full border border-blue-100 bg-white flex items-center justify-center"
