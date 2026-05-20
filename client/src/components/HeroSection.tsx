@@ -27,12 +27,12 @@ const areas = [
 ];
 
 const proofImages = [
-  "/images/stair-floor-after-1.webp",
-  "/images/railing-after.webp",
-  "/images/stair-floor-after-2.webp",
-  "/images/window-frame-after.webp",
-  "/images/glass-after.webp",
-  "/images/window-rail-after.webp",
+  "/images/villa-cleaning-1.jpg",
+  "/images/villa-entrance-glass.jpg",
+  "/images/bathroom-cleaning-1.jpg",
+  "/images/stair-floor-after-1.jpg",
+  "/images/stair-floor-after-2.jpg",
+  "/images/icheon-bathroom-cleaning.jpg",
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
