@@ -3,8 +3,41 @@ import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarDays } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+
+const areaCards = [
+  {
+    name: "신둔면",
+    slug: "sindun",
+    count: "최근 작업 18건",
+    position: "top-[24%] left-[14%]",
+  },
+  {
+    name: "마장면",
+    slug: "majang",
+    count: "최근 작업 15건",
+    position: "top-[34%] left-[42%]",
+  },
+  {
+    name: "대월면",
+    slug: "daewol",
+    count: "최근 작업 12건",
+    position: "top-[42%] right-[14%]",
+  },
+  {
+    name: "부발읍",
+    slug: "bubal",
+    count: "문의 가능",
+    position: "bottom-[24%] left-[20%]",
+  },
+  {
+    name: "증포동",
+    slug: "jeungpo",
+    count: "문의 가능",
+    position: "bottom-[24%] right-[26%]",
+  },
+];
 
 export default function Blog() {
   const params = useParams();
@@ -26,25 +59,88 @@ export default function Blog() {
     <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
       <section className="container max-w-6xl py-14 md:py-20">
         <motion.div
-          className="mb-12"
+          className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
           initial={{ opacity: 0, y: 34 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
+          <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
             FIELD ARCHIVE
           </p>
 
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-foreground">
-              이천계단지기의
-              <br />
-              작업 기록
-            </h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold leading-[1.12] text-foreground mb-4">
+            이천 지역 관리 기록
+          </h1>
 
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-              실제 이천 지역 빌라·상가·원룸 공용공간 관리 현장을 기록하고 있습니다.
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            원하는 지역을 선택하면 해당 지역의 작업 기록을 확인할 수 있습니다.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="mb-12 md:mb-16 overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.08 }}
+        >
+          <div className="p-6 md:p-10 text-center border-b border-blue-50">
+            <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-primary mb-3">
+              AREA MAP
             </p>
+
+            <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">
+              이천 지역 관리 현황
+            </h2>
+
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+              지역별 작업일지를 모아볼 수 있도록 준비했습니다.
+            </p>
+          </div>
+
+          <div className="relative bg-gradient-to-b from-blue-50/40 to-white px-4 py-8 md:px-10 md:py-12">
+            <img
+              src="/manus-storage/icheon-map.png"
+              alt="이천 지역 지도"
+              className="mx-auto w-full max-w-4xl opacity-95"
+            />
+
+            <div className="hidden md:block absolute inset-0">
+              {areaCards.map((area) => (
+                <Link key={area.slug} href={`/area/${area.slug}`}>
+                  <div
+                    className={`absolute ${area.position} cursor-pointer rounded-2xl border border-blue-100 bg-white/95 px-5 py-4 shadow-md backdrop-blur transition-all hover:-translate-y-1 hover:shadow-lg`}
+                  >
+                    <div className="flex items-center gap-2 text-foreground">
+                      <MapPin className="h-4 w-4 text-primary" />
+                      <p className="font-extrabold">{area.name}</p>
+                    </div>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {area.count}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-6 grid grid-cols-2 gap-3 md:hidden">
+              {areaCards.map((area) => (
+                <Link key={area.slug} href={`/area/${area.slug}`}>
+                  <div className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all active:scale-[0.98]">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <p className="font-extrabold text-foreground">
+                          {area.name}
+                        </p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {area.count}
+                        </p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-primary" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </motion.div>
 
@@ -78,7 +174,7 @@ export default function Blog() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white"
+                className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white"
               >
                 <Skeleton className="h-64 w-full" />
 
@@ -123,7 +219,7 @@ export default function Blog() {
                 }}
               >
                 <Link href={`/blog/${post.id}`}>
-                  <article className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full">
+                  <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full">
                     <div className="relative h-72 overflow-hidden bg-blue-50">
                       {post.thumbnail ? (
                         <img
@@ -149,7 +245,7 @@ export default function Blog() {
                           </span>
                         </div>
 
-                        <h2 className="text-white text-2xl font-extrabold leading-snug line-clamp-2">
+                        <h2 className="text-white text-xl font-extrabold leading-snug line-clamp-2">
                           {post.title}
                         </h2>
                       </div>
