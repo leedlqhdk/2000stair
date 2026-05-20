@@ -12,6 +12,7 @@ import LocationLanding from "./pages/LocationLanding";
 import AdminBlog from "./pages/AdminBlog";
 import AdminBlogEdit from "./pages/AdminBlogEdit";
 import KakaoChat from "./components/KakaoChat";
+import Majang from "@/pages/Majang";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
+      <Route path="/area/majang" component={Majang} />
     </Switch>
   );
 }
