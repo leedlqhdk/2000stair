@@ -150,6 +150,7 @@ export default function Blog() {
                         <p className="font-extrabold">{area.name}</p>
                         <ArrowRight className="h-4 w-4 text-primary" />
                       </div>
+
                       <p className="mt-1 text-sm text-muted-foreground">
                         {area.count}
                       </p>
@@ -168,10 +169,12 @@ export default function Blog() {
                         <p className="font-extrabold text-foreground">
                           {area.name}
                         </p>
+
                         <p className="mt-1 text-xs text-muted-foreground">
                           {area.count}
                         </p>
                       </div>
+
                       <ArrowRight className="h-4 w-4 text-primary" />
                     </div>
                   </div>
@@ -187,6 +190,7 @@ export default function Blog() {
               <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
                 고객님들의 실제 후기
               </h2>
+
               <p className="mt-1 text-sm text-muted-foreground">
                 실제 관리 경험을 바탕으로 남겨주신 후기입니다.
               </p>
@@ -195,56 +199,40 @@ export default function Blog() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {reviews.map((review) => (
-  <a
-    key={review.source}
-    href={review.href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-  >
-    <div className="mb-3 flex items-center gap-1 text-yellow-400">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <Star key={index} className="h-4 w-4 fill-current" />
-      ))}
-    </div>
-
-    <p className="text-sm font-bold text-primary mb-2">
-      {review.source}
-    </p>
-
-    <p className="text-sm leading-relaxed text-foreground">
-      {review.text}
-    </p>
-
-    <div className="mt-4 flex items-center justify-between gap-3">
-      <p className="text-xs text-muted-foreground">
-        {review.area}
-      </p>
-
-      <span className="inline-flex items-center text-xs font-bold text-primary">
-        후기 보기
-        <ArrowRight className="ml-1 h-3.5 w-3.5" />
-      </span>
-    </div>
-  </a>
-))}
+              <a
+                key={review.source}
+                href={review.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
                 <div className="mb-3 flex items-center gap-1 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
+
                 <p className="text-sm font-bold text-primary mb-2">
                   {review.source}
                 </p>
+
                 <p className="text-sm leading-relaxed text-foreground">
-                  “{review.text}”
+                  {review.text}
                 </p>
-                <p className="mt-3 text-xs text-muted-foreground">
-                  {review.area} · 건물주 후기
-                </p>
-              </div>
+
+                <div className="mt-4 flex items-center justify-between gap-3">
+                  <p className="text-xs text-muted-foreground">
+                    {review.area}
+                  </p>
+
+                  <span className="inline-flex items-center text-xs font-bold text-primary">
+                    후기 보기
+                    <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                  </span>
+                </div>
+              </a>
             ))}
-      
+          </div>
         </section>
 
         {tagsData && tagsData.length > 0 && (
@@ -277,6 +265,7 @@ export default function Blog() {
             <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
               최근 작업일지
             </h2>
+
             <p className="mt-1 text-sm text-muted-foreground">
               이천 지역 공용공간 관리 기록입니다.
             </p>
