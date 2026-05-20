@@ -3,7 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 const areaCards = [
@@ -11,31 +11,49 @@ const areaCards = [
     name: "신둔면",
     slug: "sindun",
     count: "최근 작업 18건",
-    position: "top-[24%] left-[14%]",
+    position: "top-[32%] left-[18%]",
   },
   {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
-    position: "top-[34%] left-[42%]",
+    position: "top-[28%] left-[43%]",
   },
   {
     name: "대월면",
     slug: "daewol",
     count: "최근 작업 12건",
-    position: "top-[42%] right-[14%]",
+    position: "top-[36%] right-[17%]",
   },
   {
     name: "부발읍",
     slug: "bubal",
     count: "문의 가능",
-    position: "bottom-[24%] left-[20%]",
+    position: "bottom-[28%] left-[23%]",
   },
   {
     name: "증포동",
     slug: "jeungpo",
     count: "문의 가능",
-    position: "bottom-[24%] right-[26%]",
+    position: "bottom-[25%] right-[30%]",
+  },
+];
+
+const reviews = [
+  {
+    source: "네이버 리뷰",
+    area: "신둔면",
+    text: "정기적으로 관리받고 있는데 항상 깔끔하게 해주셔서 만족합니다.",
+  },
+  {
+    source: "당근 후기",
+    area: "마장면",
+    text: "친절하고 꼼꼼하게 작업해주셔서 주변에 추천했어요.",
+  },
+  {
+    source: "문자 후기",
+    area: "대월면",
+    text: "계단청소 후 공용공간 분위기가 훨씬 밝아졌습니다.",
   },
 ];
 
@@ -56,10 +74,10 @@ export default function Blog() {
   const posts = data?.posts ?? [];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
+    <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-14 md:pt-32 md:pb-20">
         <motion.div
-          className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
+          className="mb-10 md:mb-14 text-center"
           initial={{ opacity: 0, y: 34 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
@@ -69,11 +87,11 @@ export default function Blog() {
           </p>
 
           <h1 className="text-3xl md:text-4xl font-extrabold leading-[1.12] text-foreground mb-4">
-            이천 지역 관리 기록
+            작업일지
           </h1>
 
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            원하는 지역을 선택하면 해당 지역의 작업 기록을 확인할 수 있습니다.
+            이천 전 지역을 깨끗하게 관리합니다. 원하는 지역을 선택해 작업 기록을 확인하세요.
           </p>
         </motion.div>
 
@@ -83,46 +101,50 @@ export default function Blog() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.08 }}
         >
-          <div className="p-6 md:p-10 text-center border-b border-blue-50">
-            <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-primary mb-3">
-              AREA MAP
-            </p>
+          <div className="relative bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 px-4 py-8 md:px-10 md:py-12">
+            <div className="mb-6 md:mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-sm font-bold text-foreground">
+                  이천 지역 관리 현황
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  원하는 지역을 선택해주세요.
+                </p>
+              </div>
 
-            <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">
-              이천 지역 관리 현황
-            </h2>
-
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              지역별 작업일지를 모아볼 수 있도록 준비했습니다.
-            </p>
-          </div>
-
-          <div className="relative bg-gradient-to-b from-blue-50/40 to-white px-4 py-8 md:px-10 md:py-12">
-            <img
-              src="/manus-storage/icheon-map.png"
-              alt="이천 지역 지도"
-              className="mx-auto w-full max-w-4xl opacity-95"
-            />
-
-            <div className="hidden md:block absolute inset-0">
-              {areaCards.map((area) => (
-                <Link key={area.slug} href={`/area/${area.slug}`}>
-                  <div
-                    className={`absolute ${area.position} cursor-pointer rounded-2xl border border-blue-100 bg-white/95 px-5 py-4 shadow-md backdrop-blur transition-all hover:-translate-y-1 hover:shadow-lg`}
-                  >
-                    <div className="flex items-center gap-2 text-foreground">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <p className="font-extrabold">{area.name}</p>
-                    </div>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {area.count}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+              <p className="hidden md:block text-sm font-medium text-primary">
+                지역을 클릭하면 해당 작업일지로 이동합니다
+              </p>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-3 md:hidden">
+            <div className="relative mx-auto max-w-5xl">
+              <img
+                src="/manus-storage/icheon-map.png"
+                alt="이천 지역 지도"
+                className="mx-auto w-full max-w-4xl opacity-95"
+              />
+
+              <div className="hidden md:block absolute inset-0">
+                {areaCards.map((area) => (
+                  <Link key={area.slug} href={`/area/${area.slug}`}>
+                    <div
+                      className={`absolute ${area.position} cursor-pointer rounded-2xl border border-blue-100 bg-white/95 px-5 py-4 shadow-md backdrop-blur transition-all hover:-translate-y-1 hover:shadow-lg`}
+                    >
+                      <div className="flex items-center gap-2 text-foreground">
+                        <MapPin className="h-4 w-4 text-primary" />
+                        <p className="font-extrabold">{area.name}</p>
+                        <ArrowRight className="h-4 w-4 text-primary" />
+                      </div>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {area.count}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:hidden">
               {areaCards.map((area) => (
                 <Link key={area.slug} href={`/area/${area.slug}`}>
                   <div className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all active:scale-[0.98]">
@@ -143,6 +165,43 @@ export default function Blog() {
             </div>
           </div>
         </motion.div>
+
+        <section className="mb-12 md:mb-16">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+                고객님들의 실제 후기
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                실제 관리 경험을 바탕으로 남겨주신 후기입니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {reviews.map((review) => (
+              <div
+                key={review.source}
+                className="rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm"
+              >
+                <div className="mb-3 flex items-center gap-1 text-yellow-400">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star key={index} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm font-bold text-primary mb-2">
+                  {review.source}
+                </p>
+                <p className="text-sm leading-relaxed text-foreground">
+                  “{review.text}”
+                </p>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  {review.area} · 건물주 후기
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {tagsData && tagsData.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-10">
@@ -168,6 +227,17 @@ export default function Blog() {
             ))}
           </div>
         )}
+
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+              최근 작업일지
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              이천 지역 공용공간 관리 기록입니다.
+            </p>
+          </div>
+        </div>
 
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -209,6 +279,7 @@ export default function Blog() {
             {posts.map((post) => (
               <motion.div
                 key={post.id}
+                className="h-full"
                 variants={{
                   hidden: { opacity: 0, y: 28 },
                   visible: {
@@ -219,7 +290,7 @@ export default function Blog() {
                 }}
               >
                 <Link href={`/blog/${post.id}`}>
-                  <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full">
+                  <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
                     <div className="relative h-72 overflow-hidden bg-blue-50">
                       {post.thumbnail ? (
                         <img
