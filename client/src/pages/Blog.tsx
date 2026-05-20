@@ -57,7 +57,7 @@ export default function Blog() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
-      <section className="container max-w-6xl py-14 md:py-20">
+      <section className="container max-w-6xl pt-24 pb-14 md:pt-32 md:pb-20">
         <motion.div
           className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
           initial={{ opacity: 0, y: 34 }}
