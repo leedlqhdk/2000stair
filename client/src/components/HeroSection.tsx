@@ -27,12 +27,12 @@ const areas = [
 ];
 
 const proofImages = [
-  "/manus-storage/stair-floor-after_0e13b4f5.webp",
-  "/manus-storage/railing-after_004e4850.webp",
-  "/manus-storage/stair-floor2-after_264662fb.webp",
-  "/manus-storage/window-frame-after_9c733b21.webp",
-  "/manus-storage/glass-after_3ef4a793.webp",
-  "/manus-storage/window-rail-after_60e8ed20.webp",
+  "/images/stair-floor-after-1.webp",
+  "/images/railing-after.webp",
+  "/images/stair-floor-after-2.webp",
+  "/images/window-frame-after.webp",
+  "/images/glass-after.webp",
+  "/images/window-rail-after.webp",
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -100,7 +100,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="relative mt-6 lg:mt-0">
             <div className="overflow-hidden rounded-[1.75rem] md:rounded-[2rem] border border-blue-100 shadow-xl">
               <img
-                src="/manus-storage/work-vest_b3f4fbac.png"
+                src="//images/hero-main.jpg"
                 alt="이천계단지기 계단청소 관리 현장"
                 className="w-full aspect-[16/11] md:aspect-[16/10] object-cover"
               />
