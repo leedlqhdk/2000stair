@@ -244,7 +244,7 @@ export default function Blog() {
                 </p>
               </div>
             ))}
-          </div>
+      
         </section>
 
         {tagsData && tagsData.length > 0 && (
