@@ -11,31 +11,31 @@ const areaCards = [
     name: "신둔면",
     slug: "sindun",
     count: "문의 가능 지역",
-    position: "top-[24%] left-[24%]",
+    position: "top-[23%] left-[27%]",
   },
   {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
-    position: "top-[49%] left-[18%]",
+    position: "top-[49%] left-[21%]",
   },
   {
     name: "시내권",
     slug: "city",
     count: "창전동·증포동·관고동·중리동",
-    position: "top-[37%] left-[45%]",
+    position: "top-[38%] left-[48%]",
   },
   {
     name: "부발읍",
     slug: "bubal",
     count: "최근 작업 있음",
-    position: "top-[44%] right-[27%]",
+    position: "top-[45%] left-[67%]",
   },
   {
     name: "대월면",
     slug: "daewol",
     count: "최근 작업 12건",
-    position: "bottom-[27%] right-[31%]",
+    position: "top-[66%] left-[64%]",
   },
 ];
 
@@ -95,7 +95,7 @@ export default function Blog() {
           </h1>
 
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            이천 전 지역을 깨끗하게 관리합니다. 원하는 지역을 선택해 작업 기록을 확인하세요.
+            이천 북부 지역을 깨끗하게 관리합니다. 원하는 지역을 선택해 작업 기록을 확인하세요.
           </p>
         </motion.div>
 
@@ -105,11 +105,11 @@ export default function Blog() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.08 }}
         >
-          <div className="relative bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 px-4 py-8 md:px-10 md:py-12">
-            <div className="mb-6 md:mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div className="relative bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 px-3 py-6 md:px-10 md:py-12">
+            <div className="mb-5 md:mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-sm font-bold text-foreground">
-                  이천 지역 관리 현황
+                  이천 북부 지역 관리 현황
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
                   원하는 지역을 선택해주세요.
@@ -122,26 +122,6 @@ export default function Blog() {
             </div>
 
             <IcheonAreaMap />
-
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:hidden">
-              {areaCards.map((area) => (
-                <Link key={area.slug} href={`/area/${area.slug}`}>
-                  <div className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all active:scale-[0.98]">
-                    <div className="flex items-center justify-between gap-2">
-                      <div>
-                        <p className="font-extrabold text-foreground">
-                          {area.name}
-                        </p>
-                        <p className="mt-1 text-xs text-muted-foreground">
-                          {area.count}
-                        </p>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-primary" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
           </div>
         </motion.div>
 
@@ -226,7 +206,7 @@ export default function Blog() {
               최근 작업일지
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              이천 지역 공용공간 관리 기록입니다.
+              이천 북부 지역 공용공간 관리 기록입니다.
             </p>
           </div>
         </div>
@@ -314,7 +294,7 @@ export default function Blog() {
 
                     <div className="p-5">
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        실제 이천 지역 계단청소 현장 기록입니다.
+                        실제 이천 북부 지역 계단청소 현장 기록입니다.
                       </p>
                       <TagBadges tagIds={post.tags} allTags={tagsData ?? []} />
                     </div>
@@ -331,25 +311,27 @@ export default function Blog() {
 
 function IcheonAreaMap() {
   return (
-    <div className="relative mx-auto hidden max-w-5xl md:block">
-      <img
-        src="/images/2000map.png"
-        alt="이천 지역 지도"
-        className="mx-auto h-auto w-full max-w-4xl opacity-95"
-      />
+    <div className="relative mx-auto w-full max-w-5xl overflow-x-auto md:overflow-visible">
+      <div className="relative mx-auto min-w-[520px] max-w-4xl md:min-w-0">
+        <img
+          src="/images/2000map.png"
+          alt="이천 북부 지역 지도"
+          className="mx-auto h-auto w-full opacity-95"
+        />
 
-      <div className="absolute inset-0 mx-auto max-w-4xl">
-        {areaCards.map((area) => (
-          <Link key={area.slug} href={`/area/${area.slug}`}>
-            <div
-              className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center gap-1 rounded-md border border-primary bg-white/95 px-2.5 py-1.5 text-xs font-extrabold text-primary shadow-sm backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-md`}
-              title={area.count}
-            >
-              <span>{area.name}</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </div>
-          </Link>
-        ))}
+        <div className="absolute inset-0">
+          {areaCards.map((area) => (
+            <Link key={area.slug} href={`/area/${area.slug}`}>
+              <div
+                className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center gap-1.5 rounded-lg border border-primary bg-white/95 px-3 py-2 text-sm font-extrabold text-primary shadow-md backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg md:px-4 md:py-2.5 md:text-base`}
+                title={area.count}
+              >
+                <span>{area.name}</span>
+                <ArrowRight className="h-4 w-4" />
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
