@@ -8,24 +8,27 @@ const galleryItems = [
     title: "빌라 계단 바닥 오염",
     before: "/images/stair-before.jpg",
     after: "/images/stair-after.jpg",
+    imageClassName: "rotate-90 scale-[1.42]",
   },
   {
     id: 2,
     title: "소화전 먼지 제거",
-before: "/images/fire-extinguisher-before.jpg",
-after: "/images/fire-extinguisher-after.jpg",
+    before: "/images/fire-extinguisher-before.jpg",
+    after: "/images/fire-extinguisher-after.jpg",
   },
   {
     id: 3,
     title: "난간 아래 먼지 제거",
     before: "/images/stair-railing-before2.jpg",
     after: "/images/stair-railing-after2.jpg",
+    imageClassName: "rotate-90 scale-[1.42]",
   },
   {
     id: 4,
     title: "창틀 오염 제거",
     before: "/images/window-frame-before.jpg",
     after: "/images/window-frame-after.jpg",
+    imageClassName: "rotate-90 scale-[1.42]",
   },
 ];
 
@@ -98,7 +101,7 @@ function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
       <img
         src={item.after}
         alt={`${item.title} - 청소 후`}
-        className="absolute inset-0 w-full h-full object-cover"
+        className={`absolute inset-0 w-full h-full object-cover ${item.imageClassName ?? ""}`}
         draggable={false}
       />
 
@@ -109,7 +112,7 @@ function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
         <img
           src={item.before}
           alt={`${item.title} - 청소 전`}
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 h-full object-cover ${item.imageClassName ?? ""}`}
           style={{
             width: containerRef.current
               ? `${containerRef.current.offsetWidth}px`
