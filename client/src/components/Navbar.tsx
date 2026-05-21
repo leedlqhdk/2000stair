@@ -20,20 +20,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/85 backdrop-blur-xl">
       <div className="container max-w-7xl flex items-center justify-between h-16">
-        <a href="/" className="flex items-center gap-2" aria-label="이천계단지기 홈으로 이동">
+        <a href="/" className="flex items-center" aria-label="이천계단지기 홈으로 이동">
           <img
             src="/images/icheon-logo-main.png"
             alt="이천계단지기"
             className="h-10 md:h-11 w-auto max-w-[190px] object-contain"
           />
-          <div className="leading-tight">
-            <p className="text-base md:text-lg font-extrabold tracking-tight text-foreground">
-              이천계단지기
-            </p>
-            <p className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] text-primary">
-              BUILDING CARE
-            </p>
-          </div>
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
