@@ -7,6 +7,10 @@ interface HeroSectionProps {
 
 const areas = [
   {
+    name: "시내권",
+    href: "/area/downtown",
+  },
+  {
     name: "신둔면",
     href: "/area/sindun",
   },
@@ -17,10 +21,6 @@ const areas = [
   {
     name: "대월면",
     href: "/area/daewol",
-  },
-  {
-    name: "시내권",
-    href: "/area/downtown",
   },
 ];
 
@@ -63,7 +63,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               SERVICE AREA
             </p>
 
-            <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.03] text-foreground mb-5 md:mb-6">
+            <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.12] text-foreground mb-5 md:mb-6">
               이천 빌라·상가
               <br />
               공용공간,
