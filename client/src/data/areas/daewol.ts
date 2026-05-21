@@ -2,26 +2,36 @@ export const daewolPosts = [
   {
     title: "대월면 빌라 계단청소",
     date: "2026.05.20",
-    image: "/manus-storage/stair-floor-after_0e13b4f5.webp",
+    image: "/images/areas/daewol/daewol-1",
   },
   {
-    title: "대월면 공동현관 유리관리",
+    title: "대월면 창틀 먼지 제거",
     date: "2026.05.18",
-    image: "/manus-storage/glass-after_3ef4a793.webp",
+    image: "/images/areas/daewol/daewol-2",
   },
   {
-    title: "대월면 원룸 공용공간 관리",
+    title: "대월면 공동 현관 유리관리",
     date: "2026.05.15",
-    image: "/manus-storage/window-frame-after_9c733b21.webp",
+    image: "/images/areas/daewol/daewol-3",
   },
   {
-    title: "대월면 계단 난간 정기관리",
-    date: "2026.05.12",
-    image: "/manus-storage/railing-after_004e4850.webp",
+    title: "대월면 계단 바닥 정기관리",
+    date: "2026.05.02",
+    image: "/images/areas/daewol/daewol-4",
+  },
+   {
+    title: "대월면 빌라 계단 정기관리",
+    date: "2026.04.19",
+    image: "/images/areas/daewol/daewol-5",
+  },
+   {
+    title: "대월면 빌라 거미줄 제거",
+    date: "2026.04.10",
+    image: "/images/areas/daewol/daewol-6",
   },
 ];
 
 export const daewolReviews = [
-  "공용공간이 눈에 띄게 깔끔해져서 만족스럽습니다.",
-  "요청사항을 빠르게 확인해주셔서 편하게 맡겼습니다.",
+  "청소계획표도 챙겨주셔서 믿음이 가요.",
+  "피드백이 빨라서 좋아요.",
 ];
