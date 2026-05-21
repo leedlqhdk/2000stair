@@ -13,22 +13,22 @@ const posts = [
   {
     title: "대월면 빌라 계단청소",
     date: "2026.05.20",
-    image: "/manus-storage/stair-floor-after_0e13b4f5.webp",
+    image: "/images/areas/daewol/daewol-2.jpg",
   },
   {
     title: "대월면 공동현관 유리관리",
     date: "2026.05.18",
-    image: "/manus-storage/glass-after_3ef4a793.webp",
+    image: "/images/areas/daewol/daewol-6.jpg",
   },
   {
     title: "대월면 원룸 공용공간 관리",
     date: "2026.05.15",
-    image: "/manus-storage/window-frame-after_9c733b21.webp",
+    image: "/images/areas/daewol/daewol-2.jpg",
   },
   {
     title: "대월면 계단 난간 정기관리",
     date: "2026.05.12",
-    image: "/manus-storage/railing-after_004e4850.webp",
+    image: "/images/areas/daewol/daewol-6.jpg",
   },
 ];
 
@@ -78,7 +78,7 @@ export default function DaewolAreaPage() {
 
               <div className="relative min-h-[300px] md:min-h-[430px] overflow-hidden bg-blue-50">
                 <img
-                  src="/manus-storage/work-vest_b3f4fbac.png"
+                  src="/images/areas/daewol/daewol-2.jpg"
                   alt="대월면 계단청소 관리 현장"
                   className="h-full w-full object-cover"
                 />
