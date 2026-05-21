@@ -15,7 +15,7 @@ const reviewCards = [
   {
     platform: "숨고 리뷰",
     mark: "S",
-    logoClass: "rounded-xl bg-[#2f9b98] text-white",
+    logoClass: "rounded-xl bg-[#6b4eff] text-white",
     quote: "오랜 빌라 청소도 결과물 완성도가 높았어요.",
     detail: "마장면 · 숨고",
     button: "리뷰 보러가기",
