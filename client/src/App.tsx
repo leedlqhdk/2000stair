@@ -14,6 +14,7 @@ import AdminBlogEdit from "./pages/AdminBlogEdit";
 import KakaoChat from "./components/KakaoChat";
 import Majang from "@/pages/Majang";
 import Daewol from "@/pages/Daewol";
+import Sindun from "@/pages/Sindun";
 
 function Router() {
   return (
@@ -26,11 +27,11 @@ function Router() {
       <Route path="/area/majang" component={Majang} />
       <Route path={"/area/Majang"} component={Majang} />
       <Route path="/area/daewol" component={Daewol} />
+      <Route path="/area/sindun" component={Sindun} />
       <Route path="/area/:slug" component={LocationLanding} />
       <Route path="/admin/blog" component={AdminBlog} />
       <Route path="/admin/blog/new" component={AdminBlogEdit} />
       <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
-      {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
   );
