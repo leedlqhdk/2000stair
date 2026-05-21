@@ -119,7 +119,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </div>
         </div>
       </div>
- 
+
       <div className="bg-blue-50/40 py-10 md:py-16 overflow-hidden">
         <div className="container max-w-7xl">
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-6 md:gap-8 items-center">
@@ -128,3 +128,43 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 Shorts
               </p>
               <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-2">
+                실제 작업 현장을
+              </h2>
+              <p className="text-sm md:text-base text-gray-600">
+                쇼츠로 확인해보세요
+              </p>
+            </div>
+
+            <div className="relative overflow-hidden">
+              <div
+                className="flex w-max gap-3 md:gap-4"
+                style={{ animation: "slideLeft 24s linear infinite" }}
+              >
+                {[...proofImages, ...proofImages].map((src, index) => (
+                  <button
+                    key={`${src}-${index}`}
+                    type="button"
+                    onClick={() =>
+                      window.open(
+                        "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
+                        "_blank"
+                      )
+                    }
+                    className="relative shrink-0 w-36 md:w-52 aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
+                  >
+                    <img
+                      src={src}
+                      alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
