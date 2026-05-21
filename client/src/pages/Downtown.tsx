@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 
 const posts = [
   {
-    title: "창전동 빌라 계단청소",
+    title: "송정동 빌라 계단청소",
     date: "2026.05.20",
     image: "/images/areas/downtown/downtown-1.jpg",
   },
@@ -27,7 +27,7 @@ const posts = [
     image: "/images/areas/downtown/downtown-3.jpg",
   },
   {
-    title: "중리동 빌라 계단 바닥 정기관리",
+    title: "송정동 빌라 계단 바닥 정기관리",
     date: "2026.05.12",
     image: "/images/areas/downtown/downtown-4.jpg",
   },
