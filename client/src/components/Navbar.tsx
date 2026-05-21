@@ -21,8 +21,11 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/85 backdrop-blur-xl">
       <div className="container max-w-7xl flex items-center justify-between h-16">
         <a href="/" className="flex items-center gap-2" aria-label="이천계단지기 홈으로 이동">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white font-black shadow-sm">
-            계
+          <img
+  src="/images/icheon-logo-main.png"
+  alt="이천계단지기"
+  className="h-10 md:h-11 w-auto max-w-[190px] object-contain"
+/>
           </div>
           <div className="leading-tight">
             <p className="text-base md:text-lg font-extrabold tracking-tight text-foreground">
