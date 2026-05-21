@@ -24,12 +24,12 @@ function Router() {
       <Route path="/blog/category/:slug" component={Blog} />
       <Route path="/blog/:id" component={BlogDetail} />
       <Route path="/area/majang" component={Majang} />
+      <Route path={"/area/Majang"} component={Majang} />
+      <Route path="/area/daewol" component={Daewol} />
       <Route path="/area/:slug" component={LocationLanding} />
       <Route path="/admin/blog" component={AdminBlog} />
       <Route path="/admin/blog/new" component={AdminBlogEdit} />
       <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
-      <Route path={"/area/Majang"} component={Majang} />
-      <Route path="/area/daewol" component={Daewol} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
