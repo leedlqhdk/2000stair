@@ -43,12 +43,12 @@ const trustPoints = [
 ];
 
 const proofImages = [
-  "/images/villa-cleaning-1.jpg",
-  "/images/villa-entrance-glass.jpg",
-  "/images/bathroom-cleaning-1.jpg",
-  "/images/stair-floor-after-1.jpg",
-  "/images/stair-floor-after-2.jpg",
-  "/images/icheon-bathroom-cleaning.jpg",
+  { src: "/images/villa-cleaning-1.jpg" },
+  { src: "/images/villa-entrance-glass.jpg" },
+  { src: "/images/bathroom-cleaning-1.jpg", imageClassName: "rotate-90 scale-[1.4]" },
+  { src: "/images/stair-floor-after-1.jpg", imageClassName: "rotate-90 scale-[1.4]" },
+  { src: "/images/stair-floor-after-2.jpg", imageClassName: "rotate-90 scale-[1.4]" },
+  { src: "/images/icheon-bathroom-cleaning.jpg", imageClassName: "rotate-90 scale-[1.4]" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -162,9 +162,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 className="flex w-max gap-3 md:gap-4"
                 style={{ animation: "slideLeft 24s linear infinite" }}
               >
-                {[...proofImages, ...proofImages].map((src, index) => (
+                {[...proofImages, ...proofImages].map((image, index) => (
                   <button
-                    key={`${src}-${index}`}
+                    key={`${image.src}-${index}`}
                     type="button"
                     onClick={() =>
                       window.open(
@@ -175,9 +175,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     className="relative shrink-0 w-36 md:w-52 aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
                   >
                     <img
-                      src={src}
+                      src={image.src}
                       alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className={`h-full w-full object-cover ${image.imageClassName ?? ""}`}
                       loading="lazy"
                     />
                   </button>
