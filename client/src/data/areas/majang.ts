@@ -2,7 +2,7 @@ export const majangPosts = [
   {
     title: "마장면 원룸 복도 정기관리",
     date: "2026.05.20",
-    image: "/images/areas/majang/majang-1.jpg",
+    image: "/images/areas/majang/majang-4.jpg",
   },
 
   {
@@ -14,7 +14,7 @@ export const majangPosts = [
   {
     title: "마장면 공동현관 계단 관리",
     date: "2026.05.15",
-    image: "/images/areas/majang/majang-5.jpg",
+    image: "/images/areas/majang/majang-4.jpg",
   },
 
   {
@@ -26,7 +26,7 @@ export const majangPosts = [
   {
     title: "마장면 창틀 및 유리 관리",
     date: "2026.05.10",
-    image: "/images/areas/majang/majang-5.jpg",
+    image: "/images/areas/majang/majang-6.jpg",
   },
 
   {
