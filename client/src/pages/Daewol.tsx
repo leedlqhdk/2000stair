@@ -1,48 +1,14 @@
 import { Link } from "wouter";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CalendarDays,
-  MessageCircle,
-  Phone,
-  Star,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
-
-const posts = [
-  {
-    title: "대월면 빌라 계단청소",
-    date: "2026.05.20",
-    image: "/images/areas/daewol/daewol-2.jpg",
-  },
-  {
-    title: "대월면 공동현관 유리관리",
-    date: "2026.05.18",
-    image: "/images/areas/daewol/daewol-6.jpg",
-  },
-  {
-    title: "대월면 원룸 공용공간 관리",
-    date: "2026.05.15",
-    image: "/images/areas/daewol/daewol-2.jpg",
-  },
-  {
-    title: "대월면 계단 난간 정기관리",
-    date: "2026.05.12",
-    image: "/images/areas/daewol/daewol-6.jpg",
-  },
-];
-
-const reviews = [
-  "공용공간이 눈에 띄게 깔끔해져서 만족스럽습니다.",
-  "요청사항을 빠르게 확인해주셔서 편하게 맡겼습니다.",
-];
+import { daewolPosts, daewolReviews } from "@/data/areas/daewol";
 
 export default function DaewolAreaPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
         <motion.div
-          className="mb-8 md:mb-12"
+          className="mb-8 md:mb-10"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
@@ -54,35 +20,24 @@ export default function DaewolAreaPage() {
             </a>
           </Link>
 
-          <div className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm">
-            <div className="grid md:grid-cols-[0.95fr_1.05fr] items-stretch">
-              <div className="p-7 md:p-12">
-                <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
-                  AREA ARCHIVE
-                </p>
+          <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
+              AREA ARCHIVE
+            </p>
 
-                <h1 className="text-3xl md:text-5xl font-extrabold leading-[1.12] text-foreground mb-5">
-                  대월면의
-                  <br />
-                  공용공간을 꾸준히 관리합니다
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h1 className="text-3xl md:text-4xl font-extrabold leading-[1.18] text-foreground mb-4">
+                  대월면의 공용공간을 꾸준히 관리합니다
                 </h1>
 
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+                <p className="max-w-2xl text-base text-muted-foreground leading-relaxed">
                   부부가 직접, 대월면 빌라·원룸·상가 공용공간을 관리합니다.
                 </p>
-
-                <div className="inline-flex items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
-                  최근 작업 12건
-                </div>
               </div>
 
-              <div className="relative min-h-[300px] md:min-h-[430px] overflow-hidden bg-blue-50">
-                <img
-                  src="/images/areas/daewol/daewol-2.jpg"
-                  alt="대월면 계단청소 관리 현장"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-blue-900/10" />
+              <div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
+                최근 작업 12건
               </div>
             </div>
           </div>
@@ -108,7 +63,7 @@ export default function DaewolAreaPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {posts.map((post, index) => (
+            {daewolPosts.map((post, index) => (
               <motion.article
                 key={post.title}
                 className="group overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
@@ -154,7 +109,7 @@ export default function DaewolAreaPage() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            {reviews.map((review) => (
+            {daewolReviews.map((review) => (
               <div
                 key={review}
                 className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
