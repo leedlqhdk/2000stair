@@ -59,19 +59,19 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               부부가 직접 관리합니다.
             </p>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 sm:flex gap-3 max-w-[420px]">
               {areas.map((area) =>
                 area.active ? (
                   <Link key={area.name} href={area.href}>
-                    <a className="group rounded-2xl border border-blue-100 bg-white px-5 py-4 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                    <a className="group rounded-2xl border border-blue-100 bg-white px-4 py-3 md:px-5 md:py-4 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <MapPin className="w-4 h-4 text-primary" />
-                        <span className="font-extrabold text-foreground">
+                        <MapPin className="w-4 h-4 text-primary shrink-0" />
+                        <span className="font-extrabold text-sm md:text-base text-foreground truncate">
                           {area.name}
                         </span>
                       </div>
 
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-[11px] md:text-xs text-muted-foreground leading-snug">
                         {area.desc}
                       </p>
                     </a>
@@ -79,16 +79,16 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 ) : (
                   <div
                     key={area.name}
-                    className="rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 opacity-70"
+                    className="rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 md:px-5 md:py-4 opacity-70 min-w-0"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <MapPin className="w-4 h-4 text-gray-400" />
-                      <span className="font-extrabold text-gray-500">
+                      <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
+                      <span className="font-extrabold text-sm md:text-base text-gray-500 truncate">
                         {area.name}
                       </span>
                     </div>
 
-                    <p className="text-xs text-gray-400">
+                    <p className="text-[11px] md:text-xs text-gray-400 leading-snug">
                       {area.desc}
                     </p>
                   </div>
@@ -128,43 +128,3 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 Shorts
               </p>
               <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-2">
-                실제 작업 현장을
-              </h2>
-              <p className="text-sm md:text-base text-gray-600">
-               쇼츠로 확인해보세요
-              </p>
-            </div>
-
-            <div className="relative overflow-hidden">
-              <div
-                className="flex w-max gap-3 md:gap-4"
-                style={{ animation: "slideLeft 24s linear infinite" }}
-              >
-                {[...proofImages, ...proofImages].map((src, index) => (
-                  <button
-                    key={`${src}-${index}`}
-                    type="button"
-                    onClick={() =>
-                      window.open(
-                        "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
-                        "_blank"
-                      )
-                    }
-                    className="relative shrink-0 w-36 md:w-52 aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
-                  >
-                    <img
-                      src={src}
-                      alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
