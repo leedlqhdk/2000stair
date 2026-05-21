@@ -8,7 +8,7 @@ const galleryItems = [
     title: "빌라 계단 바닥 오염",
     before: "/images/stair-before.jpg",
     after: "/images/stair-after.jpg",
-    imageClassName: "rotate-90 scale-[1.42]",
+    imageClassName: "rotate-90 scale-[1.8]",
   },
   {
     id: 2,
@@ -21,14 +21,14 @@ const galleryItems = [
     title: "난간 아래 먼지 제거",
     before: "/images/stair-railing-before2.jpg",
     after: "/images/stair-railing-after2.jpg",
-    imageClassName: "rotate-90 scale-[1.42]",
+    imageClassName: "rotate-90 scale-[1.8]",
   },
   {
     id: 4,
     title: "창틀 오염 제거",
     before: "/images/window-frame-before.jpg",
     after: "/images/window-frame-after.jpg",
-    imageClassName: "rotate-90 scale-[1.42]",
+    imageClassName: "rotate-90 scale-[1.8]",
   },
 ];
 
@@ -45,42 +45,30 @@ function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
     setSliderPos(percent);
   }, []);
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      isDragging.current = true;
-      updatePosition(e.clientX);
-    },
-    [updatePosition]
-  );
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    isDragging.current = true;
+    updatePosition(e.clientX);
+  }, [updatePosition]);
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      if (!isDragging.current) return;
-      e.preventDefault();
-      updatePosition(e.clientX);
-    },
-    [updatePosition]
-  );
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging.current) return;
+    e.preventDefault();
+    updatePosition(e.clientX);
+  }, [updatePosition]);
 
   const handleMouseUp = useCallback(() => {
     isDragging.current = false;
   }, []);
 
-  const handleTouchStart = useCallback(
-    (e: React.TouchEvent) => {
-      isDragging.current = true;
-      updatePosition(e.touches[0].clientX);
-    },
-    [updatePosition]
-  );
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    isDragging.current = true;
+    updatePosition(e.touches[0].clientX);
+  }, [updatePosition]);
 
-  const handleTouchMove = useCallback(
-    (e: React.TouchEvent) => {
-      if (!isDragging.current) return;
-      updatePosition(e.touches[0].clientX);
-    },
-    [updatePosition]
-  );
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    updatePosition(e.touches[0].clientX);
+  }, [updatePosition]);
 
   const handleTouchEnd = useCallback(() => {
     isDragging.current = false;
@@ -105,18 +93,13 @@ function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
         draggable={false}
       />
 
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{ width: `${sliderPos}%` }}
-      >
+      <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
         <img
           src={item.before}
           alt={`${item.title} - 청소 전`}
           className={`absolute inset-0 h-full object-cover ${item.imageClassName ?? ""}`}
           style={{
-            width: containerRef.current
-              ? `${containerRef.current.offsetWidth}px`
-              : "100%",
+            width: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100%",
             maxWidth: "none",
           }}
           draggable={false}
@@ -135,7 +118,6 @@ function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
       <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/70 backdrop-blur text-white text-xs font-semibold tracking-wide z-20">
         BEFORE
       </div>
-
       <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/70 backdrop-blur text-white text-xs font-semibold tracking-wide z-20">
         AFTER
       </div>
@@ -165,17 +147,13 @@ export default function BeforeAfterGallery() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
-            PROOF
-          </p>
-
+          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">PROOF</p>
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
               눈으로 확인하는
               <br />
               관리 결과
             </h2>
-
             <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
               실제 작업 현장을 기반으로 촬영한 사진입니다.
               좌우로 드래그해 관리 전후의 차이를 확인해보세요.
