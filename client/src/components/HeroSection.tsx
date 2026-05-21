@@ -60,9 +60,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </p>
 
             <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.03] text-foreground mb-5 md:mb-6">
-              계단
+              이천지역의
               <br />
-              지기
+              계단을 청소합니다
             </h1>
 
             <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-5 md:mb-6">
