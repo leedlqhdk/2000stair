@@ -13,6 +13,7 @@ import LocationLanding from "./pages/LocationLanding";
 import AdminBlog from "./pages/AdminBlog";
 import AdminBlogEdit from "./pages/AdminBlogEdit";
 import KakaoChat from "./components/KakaoChat";
+import Navbar from "./components/Navbar";
 import Majang from "@/pages/Majang";
 import Daewol from "@/pages/Daewol";
 import Sindun from "@/pages/Sindun";
@@ -28,10 +29,19 @@ function ScrollToTop() {
   return null;
 }
 
+function AreaNavbar() {
+  const [location] = useLocation();
+
+  if (!location.startsWith("/area")) return null;
+
+  return <Navbar />;
+}
+
 function Router() {
   return (
     <>
       <ScrollToTop />
+      <AreaNavbar />
       <Switch>
         <Route path={"/"} component={Home} />
         <Route path="/my-quotes" component={MyQuotes} />
