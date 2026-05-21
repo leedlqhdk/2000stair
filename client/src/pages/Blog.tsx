@@ -6,6 +6,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft, ArrowRight, CalendarDays, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { daewolPosts } from "@/data/areas/daewol";
+import { majangPosts } from "@/data/areas/majang";
 
 const areaCards = [
   {
@@ -63,6 +65,13 @@ const reviews = [
     href: "https://map.naver.com/p/entry/place/2097250452?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202605201835&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4030091&lat=37.3088922&c=15.00,0,0,0,dh",
   },
 ];
+
+const fallbackRecentPosts = [
+  ...majangPosts.map((post) => ({ ...post, area: "마장면", href: "/area/majang" })),
+  ...daewolPosts.map((post) => ({ ...post, area: "대월면", href: "/area/daewol" })),
+]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 3);
 
 export default function Blog() {
   const params = useParams();
@@ -238,11 +247,70 @@ export default function Blog() {
               ))}
             </div>
           ) : posts.length === 0 ? (
-            <div className="py-24 text-center">
-              <p className="text-muted-foreground text-lg">
-                아직 관리 기록이 없습니다.
-              </p>
-            </div>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
+            >
+              {fallbackRecentPosts.map((post) => (
+                <motion.div
+                  key={`${post.area}-${post.title}`}
+                  className="h-full"
+                  variants={{
+                    hidden: { opacity: 0, y: 28 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.45 },
+                    },
+                  }}
+                >
+                  <Link href={post.href}>
+                    <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
+                      <div className="relative h-72 overflow-hidden bg-blue-50">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+
+                        <div className="absolute left-5 bottom-5 right-5">
+                          <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
+                            <CalendarDays className="w-3 h-3" />
+                            <span>{post.date}</span>
+                          </div>
+
+                          <h2 className="text-white text-xl font-extrabold leading-snug line-clamp-2">
+                            {post.title}
+                          </h2>
+                        </div>
+                      </div>
+
+                      <div className="p-5">
+                        <p className="text-sm font-bold text-primary mb-2">
+                          {post.area}
+                        </p>
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          실제 이천 지역 계단청소 현장 기록입니다.
+                        </p>
+                      </div>
+                    </article>
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
           ) : (
             <motion.div
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
