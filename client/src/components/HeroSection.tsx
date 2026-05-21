@@ -9,19 +9,19 @@ const areas = [
   {
     name: "신둔면",
     active: false,
-    desc: "문의 가능",
+    desc: "",
     href: "",
   },
   {
     name: "마장면",
     active: true,
-    desc: "최근 작업 15건",
+    desc: "",
     href: "/area/majang",
   },
   {
     name: "대월면",
     active: true,
-    desc: "최근 작업 12건",
+    desc: "",
     href: "/area/daewol",
   },
 ];
@@ -48,9 +48,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </p>
 
             <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.03] text-foreground mb-6 md:mb-8">
-              이천 곳곳의
+              계단
               <br />
-              건물을 관리합니다
+              지기
             </h1>
 
             <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8">
@@ -128,10 +128,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 Shorts
               </p>
               <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-2">
-                실제 작업 현장을
+                실제 관리 현장
               </h2>
               <p className="text-sm md:text-base text-gray-600">
-                쇼츠로 확인해보세요
+                영상으로 확인해보세요
               </p>
             </div>
 
