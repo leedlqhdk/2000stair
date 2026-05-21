@@ -8,7 +8,7 @@ interface HeroSectionProps {
 const areas = [
   {
     name: "신둔면",
-    href: "",
+    href: "/area/sindun",
   },
   {
     name: "마장면",
@@ -17,6 +17,10 @@ const areas = [
   {
     name: "대월면",
     href: "/area/daewol",
+  },
+  {
+    name: "시내권",
+    href: "/area/downtown",
   },
 ];
 
@@ -71,23 +75,18 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               부부가 직접 관리합니다.
             </p>
 
-            <div className="flex flex-wrap gap-2.5 max-w-[440px]">
+            <div className="flex flex-wrap gap-2.5 max-w-[520px]">
               {areas.map((area) => {
                 const className =
                   "inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3.5 py-2 text-sm font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary";
 
-                return area.href ? (
+                return (
                   <Link key={area.name} href={area.href}>
                     <a className={className}>
                       <MapPin className="h-4 w-4 text-primary shrink-0" />
                       {area.name}
                     </a>
                   </Link>
-                ) : (
-                  <span key={area.name} className={className}>
-                    <MapPin className="h-4 w-4 text-primary shrink-0" />
-                    {area.name}
-                  </span>
                 );
               })}
             </div>
