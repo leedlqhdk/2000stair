@@ -3,7 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, CalendarDays, MapPin, Star } from "lucide-react";
+import { ArrowRight, CalendarDays, ChevronRight, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 const areaCards = [
@@ -53,22 +53,31 @@ const areaCards = [
 
 const reviews = [
   {
-    source: "당근 후기",
-    area: "동네 주민 후기",
-    text: "동네 주민분들이 남겨주신 실제 후기를 확인해보세요.",
-    href: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
+    source: "네이버 리뷰",
+    mark: "N",
+    logoClass: "rounded-[10px] bg-[#35b957] text-white shadow-[0_6px_14px_rgba(53,185,87,0.24)]",
+    titleClass: "text-[#3b9f4e]",
+    area: "방문자 리뷰",
+    text: "네이버 플레이스에 등록된 실제 리뷰를 확인해보세요.",
+    href: "https://map.naver.com/p/entry/place/2097250452?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202605201835&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4030091&lat=37.3088922&c=15.00,0,0,0,dh",
   },
   {
     source: "숨고 리뷰",
+    mark: "S",
+    logoClass: "rounded-[14px] bg-[#2f9b98] text-white shadow-[0_6px_14px_rgba(47,155,152,0.24)]",
+    titleClass: "text-[#2f7f82]",
     area: "전문 서비스 리뷰",
     text: "계단·화장실·건물 내부 청소 후기를 확인해보세요.",
     href: "https://soomgo.com/profile/users/3729049",
   },
   {
-    source: "네이버 플레이스",
-    area: "방문자 리뷰",
-    text: "네이버 플레이스에 등록된 실제 리뷰를 확인해보세요.",
-    href: "https://map.naver.com/p/entry/place/2097250452?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202605201835&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4030091&lat=37.3088922&c=15.00,0,0,0,dh",
+    source: "당근 후기",
+    mark: "d",
+    logoClass: "rounded-full bg-[#f47a22] text-white shadow-[0_6px_14px_rgba(244,122,34,0.24)]",
+    titleClass: "text-[#e67828]",
+    area: "동네 주민 후기",
+    text: "동네 주민분들이 남겨주신 실제 후기를 확인해보세요.",
+    href: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
   },
 ];
 
@@ -185,50 +194,60 @@ export default function Blog() {
         </motion.div>
 
         <section className="mb-12 md:mb-16">
-          <div className="mb-5 flex items-center justify-between gap-4">
+          <div className="mb-7 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+              <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-extrabold text-foreground">
                 고객님들의 실제 후기
+                <Star className="h-6 w-6 fill-[#ffd978] text-[#ffd978] drop-shadow-sm" />
               </h2>
 
-              <p className="mt-1 text-sm text-muted-foreground">
-                실제 관리 경험을 바탕으로 남겨주신 후기입니다.
+              <p className="mt-2 text-sm md:text-base text-muted-foreground">
+                네이버 플레이스·숨고·당근에 남겨주신 실제 후기를 바탕으로 정리했습니다.
               </p>
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-3">
             {reviews.map((review) => (
               <a
                 key={review.source}
                 href={review.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group block h-full rounded-[1.35rem] border border-[#eee7dc] bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#ded3c3] hover:shadow-xl md:p-8"
               >
-                <div className="mb-3 flex items-center gap-1 text-yellow-400">
+                <div className="mb-7 flex items-center gap-3">
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center text-xl font-black leading-none ${review.logoClass}`}
+                  >
+                    {review.mark}
+                  </span>
+
+                  <p className={`text-xl md:text-2xl font-extrabold ${review.titleClass}`}>
+                    {review.source}
+                  </p>
+                </div>
+
+                <div className="mb-8 flex items-center justify-center gap-2 text-[#ffc64a]">
+                  <span className="mr-1 text-2xl font-semibold text-[#4b4b4b]">
+                    5.0
+                  </span>
                   {Array.from({ length: 5 }).map((_, index) => (
-                    <Star key={index} className="h-4 w-4 fill-current" />
+                    <Star key={index} className="h-6 w-6 fill-current" />
                   ))}
                 </div>
 
-                <p className="text-sm font-bold text-primary mb-2">
-                  {review.source}
+                <p className="text-xl font-extrabold leading-relaxed text-[#252525] md:text-2xl">
+                  “{review.text}”
                 </p>
 
-                <p className="text-sm leading-relaxed text-foreground">
-                  {review.text}
+                <p className="mt-8 text-base font-medium text-[#8a8178]">
+                  {review.area}
                 </p>
 
-                <div className="mt-4 flex items-center justify-between gap-3">
-                  <p className="text-xs text-muted-foreground">
-                    {review.area}
-                  </p>
-
-                  <span className="inline-flex items-center text-xs font-bold text-primary">
-                    후기 보기
-                    <ArrowRight className="ml-1 h-3.5 w-3.5" />
-                  </span>
+                <div className="mt-8 flex items-center justify-center gap-2 rounded-md border border-[#e5e0d8] bg-[#fffdf8] px-4 py-3.5 text-lg font-extrabold text-[#315a35] transition-colors group-hover:bg-[#f6fbf4] group-hover:border-[#cfdcc9]">
+                  후기 보러가기
+                  <ChevronRight className="h-5 w-5 stroke-[3]" />
                 </div>
               </a>
             ))}
