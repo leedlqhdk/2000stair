@@ -44,7 +44,7 @@ export default function MajangAreaPage() {
 
               <div className="relative min-h-[300px] md:min-h-[430px] overflow-hidden bg-blue-50">
                 <img
-                  src="/manus-storage/work-vest_b3f4fbac.png"
+                  src="/images/areas/majang/majang-6.jpg"
                   alt="마장면 계단청소 관리 현장"
                   className="h-full w-full object-cover"
                 />
