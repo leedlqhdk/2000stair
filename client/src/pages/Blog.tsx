@@ -54,18 +54,21 @@ const areaCards = [
 const reviews = [
   {
     source: "당근 후기",
+    sourceClass: "text-[#f47a22]",
     area: "동네 주민 후기",
     text: "동네 주민분들이 남겨주신 실제 후기를 확인해보세요.",
     href: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
   },
   {
     source: "숨고 리뷰",
+    sourceClass: "text-[#6b4eff]",
     area: "전문 서비스 리뷰",
     text: "계단·화장실·건물 내부 청소 후기를 확인해보세요.",
     href: "https://soomgo.com/profile/users/3729049",
   },
   {
     source: "네이버 플레이스",
+    sourceClass: "text-[#35b957]",
     area: "방문자 리뷰",
     text: "네이버 플레이스에 등록된 실제 리뷰를 확인해보세요.",
     href: "https://map.naver.com/p/entry/place/2097250452?placePath=/home?entry=plt&from=map&fromPanelNum=1&additionalHeight=76&timestamp=202605201835&locale=ko&svcName=map_pcv5&searchType=place&lng=127.4030091&lat=37.3088922&c=15.00,0,0,0,dh",
@@ -212,7 +215,7 @@ export default function Blog() {
                   ))}
                 </div>
 
-                <p className="text-sm font-bold text-primary mb-2">
+                <p className={`text-sm font-bold mb-2 ${review.sourceClass}`}>
                   {review.source}
                 </p>
 
