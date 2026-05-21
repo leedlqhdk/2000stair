@@ -26,10 +26,10 @@ const systems = [
 
 export default function BoxPreview() {
   return (
-    <section id="box-preview" className="py-16 md:py-28 bg-white">
+    <section id="box-preview" className="pt-4 pb-12 md:pt-6 md:pb-16 bg-white">
       <div className="container max-w-6xl">
         <motion.div
-          className="max-w-3xl mx-auto text-center mb-12 md:mb-16"
+          className="max-w-3xl mx-auto text-center mb-6 md:mb-8"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
