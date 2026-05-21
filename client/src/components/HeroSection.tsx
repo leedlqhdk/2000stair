@@ -64,15 +64,17 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </p>
 
             <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.03] text-foreground mb-5 md:mb-6">
-              이천지역의
+              이천 빌라·상가
               <br />
-              계단을 청소합니다
+              공용공간,
+              <br />
+              부부가 직접 관리합니다
             </h1>
 
             <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-5 md:mb-6">
-              이천 빌라·원룸·상가 공용공간을
+              계단·복도·공동현관 유리·화장실까지
               <br className="hidden sm:block" />
-              부부가 직접 관리합니다.
+              하청 없이 정기적으로 관리합니다.
             </p>
 
             <div className="flex flex-wrap gap-2.5 max-w-[520px]">
