@@ -10,12 +10,12 @@ export default function Navbar() {
   const navLinks = [
     { label: "서비스 소개", href: "/#how-it-works", sectionId: "how-it-works" },
     { label: "청소 전후", href: "/#gallery", sectionId: "gallery" },
-    { label: "관리 지역", href: "/blog" },
+    { label: "작업 기록", href: "/blog" },
     { label: "청소 비용", href: "/#pricing", sectionId: "pricing" },
   ];
 
   const openKakao = () => {
-    window.open("https://pf.kakao.com/_IiNfn", "_blank");
+    window.open("https://pf.kakao.com/_IiNfn/chat", "_blank");
   };
 
   const scrollToSection = (sectionId: string) => {
