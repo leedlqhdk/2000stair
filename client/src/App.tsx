@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -17,25 +18,38 @@ import Daewol from "@/pages/Daewol";
 import Sindun from "@/pages/Sindun";
 import Downtown from "@/pages/Downtown";
 
+function ScrollToTop() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location]);
+
+  return null;
+}
+
 function Router() {
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path="/my-quotes" component={MyQuotes} />
-      <Route path="/blog" component={Blog} />
-      <Route path="/blog/category/:slug" component={Blog} />
-      <Route path="/blog/:id" component={BlogDetail} />
-      <Route path="/area/majang" component={Majang} />
-      <Route path={"/area/Majang"} component={Majang} />
-      <Route path="/area/daewol" component={Daewol} />
-      <Route path="/area/sindun" component={Sindun} />
-      <Route path="/area/downtown" component={Downtown} />
-      <Route path="/area/:slug" component={LocationLanding} />
-      <Route path="/admin/blog" component={AdminBlog} />
-      <Route path="/admin/blog/new" component={AdminBlogEdit} />
-      <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
+        <Route path={"/"} component={Home} />
+        <Route path="/my-quotes" component={MyQuotes} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/category/:slug" component={Blog} />
+        <Route path="/blog/:id" component={BlogDetail} />
+        <Route path="/area/majang" component={Majang} />
+        <Route path={"/area/Majang"} component={Majang} />
+        <Route path="/area/daewol" component={Daewol} />
+        <Route path="/area/sindun" component={Sindun} />
+        <Route path="/area/downtown" component={Downtown} />
+        <Route path="/area/:slug" component={LocationLanding} />
+        <Route path="/admin/blog" component={AdminBlog} />
+        <Route path="/admin/blog/new" component={AdminBlogEdit} />
+        <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 
