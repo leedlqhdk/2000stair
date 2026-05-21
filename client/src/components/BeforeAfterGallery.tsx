@@ -30,8 +30,8 @@ after: "/images/mailbox-after.jpg",
   {
     id: 5,
     title: "창틀 오염 제거",
-    before: "/images/railing-before.jpg",
-    after: "/images/railing-after.jpg",
+    before: "/images/window-frame-before.jpg",
+    after: "/images/window-frame-after.jpg",
   },
 ];
 
