@@ -1,71 +1,41 @@
-import { Link, useParams, useLocation } from "wouter";
+import { Link, useParams } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, CalendarDays, MapPin, Star } from "lucide-react";
+import { ArrowRight, CalendarDays, Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 const areaCards = [
   {
+    name: "신둔면",
+    slug: "sindun",
+    count: "문의 가능 지역",
+    position: "top-[24%] left-[24%]",
+  },
+  {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
-    status: "active",
-    mapPath:
-      "M390 44L442 14L505 34L548 92L616 108L694 157L705 224L646 284L568 300L511 270L466 210L407 176L372 111Z",
-    labelX: 430,
-    labelY: 185,
+    position: "top-[49%] left-[18%]",
   },
   {
-    name: "대월면",
-    slug: "daewol",
-    count: "최근 작업 12건",
-    status: "active",
-    mapPath:
-      "M568 300L646 284L705 224L780 246L825 332L795 427L720 492L630 462L586 394Z",
-    labelX: 682,
-    labelY: 300,
+    name: "시내권",
+    slug: "city",
+    count: "창전동·증포동·관고동·중리동",
+    position: "top-[37%] left-[45%]",
   },
   {
     name: "부발읍",
     slug: "bubal",
     count: "최근 작업 있음",
-    status: "active",
-    mapPath:
-      "M166 456L294 406L400 462L414 560L354 654L218 660L128 578Z",
-    labelX: 245,
-    labelY: 480,
+    position: "top-[44%] right-[27%]",
   },
   {
-    name: "창전동",
-    slug: "changjeon",
-    count: "최근 작업 있음",
-    status: "active",
-    mapPath:
-      "M512 482L586 394L630 462L720 492L688 584L592 628L520 586Z",
-    labelX: 565,
-    labelY: 505,
-  },
-  {
-    name: "신둔면",
-    slug: "sindun",
-    count: "문의 가능 지역",
-    status: "inactive",
-    mapPath:
-      "M132 188L250 142L358 188L407 176L466 210L410 304L292 342L190 310L118 252Z",
-    labelX: 160,
-    labelY: 255,
-  },
-  {
-    name: "증포동",
-    slug: "jeungpo",
-    count: "준비중",
-    status: "inactive",
-    mapPath:
-      "M688 584L782 544L840 594L814 690L704 704L650 650Z",
-    labelX: 690,
-    labelY: 610,
+    name: "대월면",
+    slug: "daewol",
+    count: "최근 작업 12건",
+    position: "bottom-[27%] right-[31%]",
   },
 ];
 
@@ -95,8 +65,6 @@ const reviews = [
 
 export default function Blog() {
   const params = useParams();
-  const [, setLocation] = useLocation();
-
   const selectedTag = params.slug;
 
   const { data: tagsData } = trpc.blog.tags.useQuery();
@@ -149,11 +117,11 @@ export default function Blog() {
               </div>
 
               <p className="hidden md:block text-sm font-medium text-primary">
-                지역을 클릭하면 해당 작업일지로 이동합니다
+                지역 버튼을 클릭하면 해당 작업일지로 이동합니다
               </p>
             </div>
 
-            <IcheonAreaMap onSelect={(slug) => setLocation(`/area/${slug}`)} />
+            <IcheonAreaMap />
 
             <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:hidden">
               {areaCards.map((area) => (
@@ -164,12 +132,10 @@ export default function Blog() {
                         <p className="font-extrabold text-foreground">
                           {area.name}
                         </p>
-
                         <p className="mt-1 text-xs text-muted-foreground">
                           {area.count}
                         </p>
                       </div>
-
                       <ArrowRight className="h-4 w-4 text-primary" />
                     </div>
                   </div>
@@ -185,7 +151,6 @@ export default function Blog() {
               <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
                 고객님들의 실제 후기
               </h2>
-
               <p className="mt-1 text-sm text-muted-foreground">
                 실제 관리 경험을 바탕으로 남겨주신 후기입니다.
               </p>
@@ -219,7 +184,6 @@ export default function Blog() {
                   <p className="text-xs text-muted-foreground">
                     {review.area}
                   </p>
-
                   <span className="inline-flex items-center text-xs font-bold text-primary">
                     후기 보기
                     <ArrowRight className="ml-1 h-3.5 w-3.5" />
@@ -232,25 +196,26 @@ export default function Blog() {
 
         {tagsData && tagsData.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-10">
-            <Button
-              variant={selectedTag === undefined ? "default" : "outline"}
-              size="sm"
-              onClick={() => setLocation("/blog")}
-              className="rounded-full h-11 px-5 text-sm"
-            >
-              전체
-            </Button>
-
-            {tagsData.map((tag) => (
+            <Link href="/blog">
               <Button
-                key={tag.id}
-                variant={selectedTag === tag.slug ? "default" : "outline"}
+                variant={selectedTag === undefined ? "default" : "outline"}
                 size="sm"
-                onClick={() => setLocation(`/blog/category/${tag.slug}`)}
                 className="rounded-full h-11 px-5 text-sm"
               >
-                {tag.name}
+                전체
               </Button>
+            </Link>
+
+            {tagsData.map((tag) => (
+              <Link key={tag.id} href={`/blog/category/${tag.slug}`}>
+                <Button
+                  variant={selectedTag === tag.slug ? "default" : "outline"}
+                  size="sm"
+                  className="rounded-full h-11 px-5 text-sm"
+                >
+                  {tag.name}
+                </Button>
+              </Link>
             ))}
           </div>
         )}
@@ -260,7 +225,6 @@ export default function Blog() {
             <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
               최근 작업일지
             </h2>
-
             <p className="mt-1 text-sm text-muted-foreground">
               이천 지역 공용공간 관리 기록입니다.
             </p>
@@ -275,7 +239,6 @@ export default function Blog() {
                 className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white"
               >
                 <Skeleton className="h-64 w-full" />
-
                 <div className="p-5">
                   <Skeleton className="h-6 w-3/4 mb-3" />
                   <Skeleton className="h-4 w-1/3" />
@@ -338,7 +301,6 @@ export default function Blog() {
                       <div className="absolute left-5 bottom-5 right-5">
                         <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
                           <CalendarDays className="w-3 h-3" />
-
                           <span>
                             {new Date(post.createdAt).toLocaleDateString("ko-KR")}
                           </span>
@@ -354,11 +316,7 @@ export default function Blog() {
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                         실제 이천 지역 계단청소 현장 기록입니다.
                       </p>
-
-                      <TagBadges
-                        tagIds={post.tags}
-                        allTags={tagsData ?? []}
-                      />
+                      <TagBadges tagIds={post.tags} allTags={tagsData ?? []} />
                     </div>
                   </article>
                 </Link>
@@ -371,73 +329,28 @@ export default function Blog() {
   );
 }
 
-function IcheonAreaMap({ onSelect }: { onSelect: (slug: string) => void }) {
+function IcheonAreaMap() {
   return (
     <div className="relative mx-auto hidden max-w-5xl md:block">
-      <svg
-        viewBox="0 0 900 760"
-        role="img"
-        aria-label="이천 지역 선택 지도"
-        className="mx-auto h-auto w-full max-w-4xl drop-shadow-sm"
-      >
-        <defs>
-          <filter id="mapShadow" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="0" dy="10" stdDeviation="12" floodColor="#0f3f7a" floodOpacity="0.12" />
-          </filter>
-        </defs>
+      <img
+        src="/images/2000map.png"
+        alt="이천 지역 지도"
+        className="mx-auto h-auto w-full max-w-4xl opacity-95"
+      />
 
-        <path
-          d="M390 44L442 14L505 34L548 92L616 108L694 157L705 224L780 246L825 332L795 427L720 492L782 544L840 594L814 690L704 704L650 650L592 628L520 586L414 560L354 654L218 660L128 578L166 456L118 252L132 188L250 142L358 188Z"
-          fill="#eaf3fc"
-          stroke="#d7e8f8"
-          strokeWidth="18"
-          strokeLinejoin="round"
-          filter="url(#mapShadow)"
-        />
-
+      <div className="absolute inset-0 mx-auto max-w-4xl">
         {areaCards.map((area) => (
-          <g
-            key={area.slug}
-            role="button"
-            tabIndex={0}
-            aria-label={`${area.name} 작업일지 보기`}
-            className="group cursor-pointer outline-none"
-            onClick={() => onSelect(area.slug)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                onSelect(area.slug);
-              }
-            }}
-          >
-            <path
-              d={area.mapPath}
-              className="fill-[#dceaf8] stroke-white transition-all duration-300 group-hover:fill-[#bcd9f3] group-focus:fill-[#bcd9f3]"
-              strokeWidth="4"
-              strokeLinejoin="round"
-            />
-
-            <foreignObject
-              x={area.labelX}
-              y={area.labelY}
-              width="150"
-              height="88"
-              className="pointer-events-none overflow-visible"
+          <Link key={area.slug} href={`/area/${area.slug}`}>
+            <div
+              className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center gap-1 rounded-md border border-primary bg-white/95 px-2.5 py-1.5 text-xs font-extrabold text-primary shadow-sm backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-md`}
+              title={area.count}
             >
-              <div className="w-[138px] rounded-2xl border border-blue-100 bg-white/95 px-4 py-3 text-left shadow-md backdrop-blur transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
-                <div className="flex items-center gap-2 text-sm font-extrabold text-foreground">
-                  <MapPin className="h-4 w-4 shrink-0 text-primary" />
-                  <span>{area.name}</span>
-                  <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-primary" />
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {area.count}
-                </p>
-              </div>
-            </foreignObject>
-          </g>
+              <span>{area.name}</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </div>
+          </Link>
         ))}
-      </svg>
+      </div>
     </div>
   );
 }
