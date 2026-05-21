@@ -8,20 +8,14 @@ interface HeroSectionProps {
 const areas = [
   {
     name: "신둔면",
-    active: false,
-    desc: "",
     href: "",
   },
   {
     name: "마장면",
-    active: true,
-    desc: "",
     href: "/area/majang",
   },
   {
     name: "대월면",
-    active: true,
-    desc: "",
     href: "/area/daewol",
   },
 ];
@@ -58,8 +52,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-7xl pt-12 md:pt-24 pb-8 md:pb-10">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-16 items-center">
+      <div className="container max-w-7xl pt-12 md:pt-24 pb-8 md:pb-12">
+        <div className="grid lg:grid-cols-[0.95fr_0.85fr] gap-8 lg:gap-16 items-center">
           <div>
             <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
               SERVICE AREA
@@ -77,50 +71,34 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               부부가 직접 관리합니다.
             </p>
 
-            <div className="grid grid-cols-2 sm:flex gap-3 max-w-[420px]">
-              {areas.map((area) =>
-                area.active ? (
-                  <Link key={area.name} href={area.href}>
-                    <a className="group rounded-2xl border border-blue-100 bg-white px-4 py-3 md:px-5 md:py-4 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <MapPin className="w-4 h-4 text-primary shrink-0" />
-                        <span className="font-extrabold text-sm md:text-base text-foreground truncate">
-                          {area.name}
-                        </span>
-                      </div>
+            <div className="flex flex-wrap gap-2.5 max-w-[440px]">
+              {areas.map((area) => {
+                const className =
+                  "inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3.5 py-2 text-sm font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary";
 
-                      <p className="text-[11px] md:text-xs text-muted-foreground leading-snug">
-                        {area.desc}
-                      </p>
+                return area.href ? (
+                  <Link key={area.name} href={area.href}>
+                    <a className={className}>
+                      <MapPin className="h-4 w-4 text-primary shrink-0" />
+                      {area.name}
                     </a>
                   </Link>
                 ) : (
-                  <div
-                    key={area.name}
-                    className="rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 md:px-5 md:py-4 opacity-70 min-w-0"
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
-                      <span className="font-extrabold text-sm md:text-base text-gray-500 truncate">
-                        {area.name}
-                      </span>
-                    </div>
-
-                    <p className="text-[11px] md:text-xs text-gray-400 leading-snug">
-                      {area.desc}
-                    </p>
-                  </div>
-                )
-              )}
+                  <span key={area.name} className={className}>
+                    <MapPin className="h-4 w-4 text-primary shrink-0" />
+                    {area.name}
+                  </span>
+                );
+              })}
             </div>
           </div>
 
-          <div className="relative mt-6 lg:mt-0">
+          <div className="relative mx-auto w-full max-w-[480px] mt-6 lg:mt-0">
             <div className="overflow-hidden rounded-[1.75rem] md:rounded-[2rem] border border-blue-100 shadow-xl bg-blue-50">
               <img
                 src="/images/hero-main.png"
                 alt="이천계단지기 계단청소 관리 현장"
-                className="w-full aspect-[16/11] md:aspect-[16/10] object-cover"
+                className="w-full aspect-[3/4] md:aspect-[4/5] object-cover"
               />
             </div>
 
@@ -136,35 +114,35 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
         </div>
-
-        <div className="mt-8 md:mt-10 mx-auto max-w-5xl rounded-2xl border border-blue-100 bg-blue-50/40 px-5 py-5 md:px-8 md:py-6">
-          <div className="grid gap-4 sm:grid-cols-3 sm:divide-x sm:divide-blue-100">
-            {trustPoints.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.label}
-                  className="flex items-center justify-center gap-3 text-center sm:px-5"
-                >
-                  <Icon className="h-8 w-8 md:h-9 md:w-9 text-primary shrink-0" />
-                  <div className="text-left">
-                    <p className="text-xs md:text-sm font-semibold text-gray-600 leading-tight">
-                      {item.label}
-                    </p>
-                    <p className="text-sm md:text-base font-extrabold text-foreground leading-tight">
-                      {item.value}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </div>
 
-      <div className="bg-blue-50/40 py-10 md:py-16 overflow-hidden">
+      <div className="bg-blue-50/40 pt-8 pb-10 md:pt-10 md:pb-16 overflow-hidden">
         <div className="container max-w-7xl">
+          <div className="mx-auto mb-9 md:mb-12 max-w-5xl">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8">
+              {trustPoints.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.label}
+                    className="flex min-w-0 flex-col items-center justify-center gap-2 text-center md:flex-row md:gap-3 md:text-left"
+                  >
+                    <Icon className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 text-primary shrink-0" />
+                    <div className="min-w-0">
+                      <p className="text-[11px] sm:text-xs md:text-sm font-semibold text-gray-600 leading-tight">
+                        {item.label}
+                      </p>
+                      <p className="text-xs sm:text-sm md:text-base font-extrabold text-foreground leading-tight whitespace-nowrap">
+                        {item.value}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-6 md:gap-8 items-center">
             <div>
               <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-3 md:mb-4">
