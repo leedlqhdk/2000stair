@@ -12,32 +12,32 @@ import { motion } from "framer-motion";
 
 const posts = [
   {
-    title: "관고동 빌라 계단청소",
+    title: "창전동 빌라 계단청소",
     date: "2026.05.20",
     image: "/images/areas/downtown/downtown-1.jpg",
   },
   {
-    title: "창전동 공동현관 유리관리",
+    title: "관고동 상가건물 관리",
     date: "2026.05.18",
     image: "/images/areas/downtown/downtown-2.jpg",
   },
   {
-    title: "증포동 원룸 공용공간 관리",
+    title: "관고동 상가 계단 정기청소",
     date: "2026.05.15",
     image: "/images/areas/downtown/downtown-3.jpg",
   },
   {
-    title: "중리동 계단 바닥 정기관리",
+    title: "중리동 빌라 계단 바닥 정기관리",
     date: "2026.05.12",
     image: "/images/areas/downtown/downtown-4.jpg",
   },
   {
-    title: "갈산동 빌라 계단 정기관리",
+    title: "창전동 연립빌라 공동현관 유리코팅",
     date: "2026.04.19",
     image: "/images/areas/downtown/downtown-5.jpg",
   },
   {
-    title: "안흥동 공용공간 거미줄 제거",
+    title: "안흥동 빌라 정기관리",
     date: "2026.04.10",
     image: "/images/areas/downtown/downtown-6.jpg",
   },
@@ -46,8 +46,8 @@ const posts = [
 const serviceAreas = ["관고동", "창전동", "증포동", "중리동", "갈산동", "안흥동", "송정동", "사음동"];
 
 const reviews = [
-  "시내권이라 방문 일정 조율이 빨라서 좋았습니다.",
-  "공동현관과 계단 상태를 사진으로 확인할 수 있어 믿음이 갔습니다.",
+  "관리 전후 사진을 보내주셔서 확인하기 편했습니다. 연락도 빨라서 좋았어요.",
+  "정기적으로 관리받으니까 건물이 덜 낡아 보입니다.",
 ];
 
 export default function DowntownAreaPage() {
