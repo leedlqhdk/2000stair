@@ -44,11 +44,28 @@ const trustPoints = [
 
 const proofImages = [
   { src: "/images/villa-cleaning-1.jpg" },
-  { src: "/images/villa-entrance-glass.jpg" },
-  { src: "/images/bathroom-cleaning-1.jpg" },
+
+  { 
+    src: "/images/villa-entrance-glass.jpg",
+    imageClassName: "-rotate-90 scale-[1.35]"
+  },
+
+  { 
+    src: "/images/bathroom-cleaning-1.jpg",
+    imageClassName: "-rotate-90 scale-[1.35]"
+  },
+
   { src: "/images/stair-floor-after-1.jpg" },
-  { src: "/images/stair-floor-after-2.jpg" },
-  { src: "/images/icheon-bathroom-cleaning.jpg" },
+
+  {
+    src: "/images/stair-floor-after-2.jpg",
+    imageClassName: "-rotate-90 scale-[1.35]"
+  },
+
+  {
+    src: "/images/icheon-bathroom-cleaning.jpg",
+    imageClassName: "-rotate-90 scale-[1.35]"
+  },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -175,12 +192,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     className="relative shrink-0 w-36 md:w-52 aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
                   >
                     <img
-                      src={image.src}
-                      alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
-                      className="h-full w-full object-cover"
-                      style={{ imageOrientation: "from-image" }}
-                      loading="lazy"
-                    />
+  src={image.src}
+  alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
+  className={`h-full w-full object-cover ${image.imageClassName ?? ""}`}
+  loading="lazy"
+/>
                   </button>
                 ))}
               </div>
