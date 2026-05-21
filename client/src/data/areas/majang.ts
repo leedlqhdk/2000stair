@@ -8,13 +8,13 @@ export const majangPosts = [
   {
     title: "마장면 빌라 계단청소",
     date: "2026.05.18",
-    image: "/images/areas/majang/majang-2.jpg",
+    image: "/images/areas/majang/majang-6.jpg",
   },
 
   {
     title: "마장면 공동현관 계단 관리",
     date: "2026.05.15",
-    image: "/images/areas/majang/majang-3.jpg",
+    image: "/images/areas/majang/majang-5.jpg",
   },
 
   {
