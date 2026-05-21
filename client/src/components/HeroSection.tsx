@@ -100,7 +100,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="relative mt-6 lg:mt-0">
             <div className="overflow-hidden rounded-[1.75rem] md:rounded-[2rem] border border-blue-100 shadow-xl">
               <img
-                src="/images/hero-main.jpg"
+                src="/images/hero-main.png"
                 alt="이천계단지기 계단청소 관리 현장"
                 className="w-full aspect-[16/11] md:aspect-[16/10] object-cover"
               />
