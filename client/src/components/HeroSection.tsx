@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { MapPin } from "lucide-react";
+import { ClipboardCheck, MapPin, MessageCircle, Users } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -26,6 +26,24 @@ const areas = [
   },
 ];
 
+const trustPoints = [
+  {
+    icon: Users,
+    label: "부부직영",
+    value: "하청 NO",
+  },
+  {
+    icon: ClipboardCheck,
+    label: "관리 기준",
+    value: "정기관리",
+  },
+  {
+    icon: MessageCircle,
+    label: "상담 방식",
+    value: "카톡 상담",
+  },
+];
+
 const proofImages = [
   "/images/villa-cleaning-1.jpg",
   "/images/villa-entrance-glass.jpg",
@@ -40,7 +58,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-7xl pt-12 md:pt-24">
+      <div className="container max-w-7xl pt-12 md:pt-24 pb-8 md:pb-10">
         <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-16 items-center">
           <div>
             <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
@@ -116,6 +134,31 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 직접 관리
               </p>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-8 md:mt-10 mx-auto max-w-5xl rounded-2xl border border-blue-100 bg-blue-50/40 px-5 py-5 md:px-8 md:py-6">
+          <div className="grid gap-4 sm:grid-cols-3 sm:divide-x sm:divide-blue-100">
+            {trustPoints.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.label}
+                  className="flex items-center justify-center gap-3 text-center sm:px-5"
+                >
+                  <Icon className="h-8 w-8 md:h-9 md:w-9 text-primary shrink-0" />
+                  <div className="text-left">
+                    <p className="text-xs md:text-sm font-semibold text-gray-600 leading-tight">
+                      {item.label}
+                    </p>
+                    <p className="text-sm md:text-base font-extrabold text-foreground leading-tight">
+                      {item.value}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
