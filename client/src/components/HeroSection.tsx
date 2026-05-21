@@ -52,20 +52,20 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-7xl pt-12 md:pt-24 pb-8 md:pb-12">
-        <div className="grid lg:grid-cols-[0.95fr_0.85fr] gap-8 lg:gap-16 items-center">
-          <div>
-            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
+      <div className="container max-w-7xl pt-8 md:pt-12 pb-7 md:pb-9">
+        <div className="grid lg:grid-cols-[0.9fr_0.72fr] gap-7 lg:gap-12 items-start">
+          <div className="lg:pt-5">
+            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
               SERVICE AREA
             </p>
 
-            <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.03] text-foreground mb-6 md:mb-8">
+            <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.03] text-foreground mb-5 md:mb-6">
               계단
               <br />
               지기
             </h1>
 
-            <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8">
+            <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-5 md:mb-6">
               이천 빌라·원룸·상가 공용공간을
               <br className="hidden sm:block" />
               부부가 직접 관리합니다.
@@ -93,8 +93,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[480px] mt-6 lg:mt-0">
-            <div className="overflow-hidden rounded-[1.75rem] md:rounded-[2rem] border border-blue-100 shadow-xl bg-blue-50">
+          <div className="relative mx-auto w-full max-w-[430px] mt-3 lg:mt-0">
+            <div className="overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-blue-100 shadow-xl bg-blue-50">
               <img
                 src="/images/hero-main.png"
                 alt="이천계단지기 계단청소 관리 현장"
@@ -102,11 +102,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               />
             </div>
 
-            <div className="absolute right-4 bottom-4 rounded-[1.25rem] md:rounded-[1.75rem] bg-white px-5 md:px-7 py-4 md:py-6 shadow-xl border border-blue-100">
+            <div className="absolute right-3 bottom-3 rounded-[1.1rem] md:rounded-[1.35rem] bg-white px-4 md:px-6 py-3.5 md:py-5 shadow-xl border border-blue-100">
               <p className="text-xs md:text-sm font-bold text-primary mb-1 md:mb-2">
                 부부직영
               </p>
-              <p className="text-lg md:text-3xl font-extrabold leading-[1.1] text-foreground">
+              <p className="text-lg md:text-2xl font-extrabold leading-[1.1] text-foreground">
                 하청 없이
                 <br />
                 직접 관리
@@ -116,9 +116,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="bg-blue-50/40 pt-8 pb-10 md:pt-10 md:pb-16 overflow-hidden">
+      <div className="bg-blue-50/40 pt-7 pb-10 md:pt-9 md:pb-16 overflow-hidden">
         <div className="container max-w-7xl">
-          <div className="mx-auto mb-9 md:mb-12 max-w-5xl">
+          <div className="mx-auto mb-8 md:mb-11 max-w-5xl">
             <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8">
               {trustPoints.map((item) => {
                 const Icon = item.icon;
