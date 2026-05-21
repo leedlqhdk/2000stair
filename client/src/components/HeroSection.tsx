@@ -102,7 +102,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <img
                 src="/images/hero-main.png"
                 alt="이천계단지기 계단청소 관리 현장"
-                className="w-full aspect-[16/11] md:aspect-[16/10] object-cover [filter:saturate(0.88)_contrast(1.04)_brightness(1.03)_hue-rotate(350deg)]"
+                className="w-full aspect-[16/11] md:aspect-[16/10] object-cover"
               />
             </div>
 
