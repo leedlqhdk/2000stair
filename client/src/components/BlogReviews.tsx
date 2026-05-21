@@ -1,4 +1,4 @@
-import { ExternalLink, Star } from "lucide-react";
+import { ChevronRight, ExternalLink, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -6,7 +6,9 @@ const reviewCards = [
   {
     platform: "네이버 리뷰",
     mark: "N",
-    accent: "text-emerald-600 bg-emerald-50 border-emerald-100",
+    logoClass: "rounded-[10px] bg-[#35b957] text-white shadow-[0_6px_14px_rgba(53,185,87,0.24)]",
+    titleClass: "text-[#3b9f4e]",
+    buttonClass: "text-[#315a35] group-hover:bg-[#f6fbf4] group-hover:border-[#cfdcc9]",
     quote: "꼼꼼하게 해주셔서 감사해요.",
     detail: "신둔면 · 네이버 플레이스",
     button: "리뷰 보러가기",
@@ -15,7 +17,9 @@ const reviewCards = [
   {
     platform: "숨고 리뷰",
     mark: "S",
-    accent: "text-teal-600 bg-teal-50 border-teal-100",
+    logoClass: "rounded-[14px] bg-[#2f9b98] text-white shadow-[0_6px_14px_rgba(47,155,152,0.24)]",
+    titleClass: "text-[#2f7f82]",
+    buttonClass: "text-[#315a35] group-hover:bg-[#f6fbf4] group-hover:border-[#cfdcc9]",
     quote: "오랜 빌라 청소도 결과물 완성도가 높았어요.",
     detail: "마장면 · 숨고",
     button: "리뷰 보러가기",
@@ -23,8 +27,10 @@ const reviewCards = [
   },
   {
     platform: "당근 후기",
-    mark: "D",
-    accent: "text-orange-600 bg-orange-50 border-orange-100",
+    mark: "d",
+    logoClass: "rounded-full bg-[#f47a22] text-white shadow-[0_6px_14px_rgba(244,122,34,0.24)]",
+    titleClass: "text-[#e67828]",
+    buttonClass: "text-[#315a35] group-hover:bg-[#fff9f2] group-hover:border-[#ead7c4]",
     quote: "너무 꼼꼼하게 해주셨습니다.",
     detail: "동네 주민 후기 · 당근",
     button: "후기 보러가기",
@@ -84,10 +90,10 @@ export default function BlogReviews() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="mb-7">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-foreground flex items-center gap-2">
+          <div className="mb-8">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-foreground flex items-center gap-3">
               고객님들의 실제 후기
-              <Star className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+              <Star className="w-7 h-7 fill-[#ffd978] text-[#ffd978] drop-shadow-sm" />
             </h3>
             <p className="mt-2 text-sm md:text-base text-muted-foreground">
               네이버 플레이스·숨고·당근에 남겨주신 실제 후기를 바탕으로 정리했습니다.
@@ -95,7 +101,7 @@ export default function BlogReviews() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
-            {reviewCards.map((review, index) => (
+            {reviewCards.map((review) => (
               <a
                 key={review.platform}
                 href={review.url}
@@ -103,45 +109,41 @@ export default function BlogReviews() {
                 rel="noopener noreferrer"
                 className="group block h-full"
               >
-                <Card className="h-full border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/30">
-                  <CardContent className="p-6 md:p-7 h-full flex flex-col">
-                    <div className="flex items-center justify-between gap-3 mb-5">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={`w-10 h-10 rounded-xl border flex items-center justify-center text-base font-extrabold ${review.accent}`}
-                        >
-                          {review.mark}
-                        </span>
-                        <div>
-                          <p className="font-extrabold text-lg text-foreground">
-                            {review.platform}
-                          </p>
-                          <div className="flex items-center gap-1 text-yellow-400 mt-1">
-                            <span className="text-sm font-bold text-muted-foreground mr-1">
-                              5.0
-                            </span>
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="w-4 h-4 fill-current" />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      <span className="text-xs text-muted-foreground">
-                        0{index + 1}
+                <Card className="h-full rounded-[1.35rem] border-[#eee7dc] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#ded3c3]">
+                  <CardContent className="p-7 md:p-8 h-full flex flex-col">
+                    <div className="mb-7 flex items-center gap-3">
+                      <span
+                        className={`relative flex h-10 w-10 shrink-0 items-center justify-center text-xl font-black leading-none ${review.logoClass}`}
+                      >
+                        {review.mark}
                       </span>
+                      <p className={`text-xl md:text-2xl font-extrabold ${review.titleClass}`}>
+                        {review.platform}
+                      </p>
                     </div>
 
-                    <p className="text-lg md:text-xl font-bold leading-relaxed text-foreground flex-1">
+                    <div className="mb-8 flex items-center justify-center gap-2 text-[#ffc64a]">
+                      <span className="mr-1 text-2xl font-semibold text-[#4b4b4b]">
+                        5.0
+                      </span>
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-6 w-6 fill-current" />
+                      ))}
+                    </div>
+
+                    <p className="text-xl md:text-2xl font-extrabold leading-relaxed text-[#252525] flex-1">
                       “{review.quote}”
                     </p>
 
-                    <p className="mt-6 text-sm text-muted-foreground">
+                    <p className="mt-8 text-base font-medium text-[#8a8178]">
                       {review.detail}
                     </p>
 
-                    <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/40 px-4 py-3 text-sm font-bold text-primary flex items-center justify-between transition-colors group-hover:bg-primary group-hover:text-white group-hover:border-primary">
+                    <div
+                      className={`mt-8 flex items-center justify-center gap-2 rounded-md border border-[#e5e0d8] bg-[#fffdf8] px-4 py-3.5 text-lg font-extrabold transition-colors ${review.buttonClass}`}
+                    >
                       {review.button}
-                      <ExternalLink className="w-4 h-4" />
+                      <ChevronRight className="h-5 w-5 stroke-[3]" />
                     </div>
                   </CardContent>
                 </Card>
