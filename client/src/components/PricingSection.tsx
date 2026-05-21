@@ -12,7 +12,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
   const { data: plans } = trpc.quote.plans.useQuery();
 
   const handleQuoteRequest = () => {
-    window.open("https://pf.kakao.com/_IiNfn", "_blank");
+    window.open("https://pf.kakao.com/_IiNfn/chat", "_blank");
   };
 
   const displayPlans = plans || [
