@@ -13,18 +13,12 @@ export default function Footer() {
       >
         <div className="grid lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr] gap-10 lg:gap-14">
           <div>
-            <a href="/" className="inline-flex items-center gap-3 mb-5 group">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-white text-lg font-extrabold shadow-sm">
-                계
-              </span>
-              <span className="leading-none">
-                <span className="block text-lg font-extrabold tracking-[-0.02em] text-white">
-                  이천계단지기
-                </span>
-                <span className="mt-1 block text-[11px] font-bold tracking-[0.28em] text-primary">
-                  BUILDING CARE
-                </span>
-              </span>
+            <a href="/" className="inline-flex items-center mb-5 group" aria-label="이천계단지기 홈으로 이동">
+              <img
+                src="/images/icheon-logo-white.png"
+                alt="이천계단지기"
+                className="h-10 md:h-11 w-auto max-w-[220px] object-contain"
+              />
             </a>
 
             <p className="text-white/65 text-sm leading-relaxed max-w-sm mb-6">
