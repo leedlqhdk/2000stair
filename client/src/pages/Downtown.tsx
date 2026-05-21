@@ -55,7 +55,7 @@ export default function DowntownAreaPage() {
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
         <motion.div
-          className="mb-8 md:mb-12"
+          className="mb-8 md:mb-10"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
@@ -67,35 +67,24 @@ export default function DowntownAreaPage() {
             </a>
           </Link>
 
-          <div className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm">
-            <div className="grid md:grid-cols-[0.95fr_1.05fr] items-stretch">
-              <div className="p-7 md:p-12">
-                <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5">
-                  AREA ARCHIVE
-                </p>
+          <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
+            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
+              AREA ARCHIVE
+            </p>
 
-                <h1 className="text-3xl md:text-5xl font-extrabold leading-[1.12] text-foreground mb-5">
-                  이천 시내권의
-                  <br />
-                  공용공간을 꾸준히 관리합니다
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h1 className="text-3xl md:text-4xl font-extrabold leading-[1.18] text-foreground mb-4">
+                  이천 시내권의 공용공간을 꾸준히 관리합니다
                 </h1>
 
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
+                <p className="max-w-2xl text-base text-muted-foreground leading-relaxed">
                   관고동·창전동·증포동을 중심으로 빌라·원룸·상가 공용공간을 직접 관리합니다.
                 </p>
-
-                <div className="inline-flex items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
-                  관고동 · 창전동 · 증포동 중심 관리
-                </div>
               </div>
 
-              <div className="relative min-h-[300px] md:min-h-[430px] overflow-hidden bg-blue-50">
-                <img
-                  src="/images/areas/downtown/downtown-1.jpg"
-                  alt="이천 시내권 계단청소 관리 현장"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-blue-900/10" />
+              <div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
+                관고동 · 창전동 · 증포동 중심 관리
               </div>
             </div>
           </div>
