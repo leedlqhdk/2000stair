@@ -137,7 +137,7 @@ export default function Blog() {
 
             <div className="relative mx-auto max-w-5xl">
               <img
-                src="/manus-storage/icheon-map.png"
+                src="/images/2000map.png"
                 alt="이천 지역 지도"
                 className="mx-auto w-full max-w-4xl opacity-95"
               />
