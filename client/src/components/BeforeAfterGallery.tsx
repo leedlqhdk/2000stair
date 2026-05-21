@@ -6,8 +6,8 @@ const galleryItems = [
   {
     id: 1,
     title: "빌라 계단 바닥 오염",
-    before: "/images/stair before_1.jpg",
-    after: "/images/stair after_1.jpg",
+    before: "/images/stair-before1.jpg",
+    after: "/images/stair-after1.jpg",
   },
   {
     id: 2,
