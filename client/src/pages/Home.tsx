@@ -16,8 +16,8 @@ export default function Home() {
         <HeroSection isAuthenticated={false} />
         <HowItWorks />
         <BeforeAfterGallery />
-        <BoxPreview />
         <PricingSection isAuthenticated={false} />
+        <BoxPreview />
         <BlogReviews />
       </main>
 
