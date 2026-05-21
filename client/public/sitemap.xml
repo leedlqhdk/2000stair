@@ -1,68 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- 메인 홈페이지 -->
   <url>
     <loc>https://2000stair.click/</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- 블로그 목록 -->
   <url>
     <loc>https://2000stair.click/blog</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- 서비스 소개 (계단청소·유리청소·화장실청소) -->
   <url>
-    <loc>https://2000stair.click/#service</loc>
-    <lastmod>2026-05-07</lastmod>
+    <loc>https://2000stair.click/area/sindun</loc>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
   </url>
-
-  <!-- 요금 안내 -->
   <url>
-    <loc>https://2000stair.click/#pricing</loc>
-    <lastmod>2026-05-07</lastmod>
+    <loc>https://2000stair.click/area/majang</loc>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
   </url>
-
-  <!-- 무료 견적 신청 -->
   <url>
-    <loc>https://2000stair.click/#quote</loc>
-    <lastmod>2026-05-07</lastmod>
+    <loc>https://2000stair.click/area/daewol</loc>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
-
-  <!-- 네이버 블로그 - 이천계단청소 소개 -->
   <url>
-    <loc>https://blog.naver.com/icheonstair/224028543970</loc>
-    <lastmod>2025-10-03</lastmod>
-    <changefreq>never</changefreq>
+    <loc>https://2000stair.click/area/downtown</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://2000stair.click/area/bubal</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- 네이버 블로그 - 계단청소 구독 견적표 -->
-  <url>
-    <loc>https://blog.naver.com/icheonstair/224035739944</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- 네이버 블로그 - 무쏘EV 출고 후기 -->
-  <url>
-    <loc>https://blog.naver.com/icheonstair/224219555417</loc>
-    <lastmod>2026-03-17</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.5</priority>
-  </url>
-
 </urlset>
