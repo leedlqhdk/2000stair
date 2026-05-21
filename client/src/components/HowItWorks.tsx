@@ -49,7 +49,7 @@ export default function HowItWorks() {
           </p>
         </motion.div>
 
-        <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-5 overflow-x-auto pb-3 snap-x snap-mandatory">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -57,7 +57,7 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
-              className="min-w-[82%] sm:min-w-[48%] md:min-w-0 snap-start rounded-[1.5rem] md:rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white to-blue-50/30 p-5 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="rounded-3xl border border-blue-100 bg-gradient-to-br from-white to-blue-50/30 p-5 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-center justify-between mb-8">
                 <p className="text-4xl md:text-5xl font-extrabold text-primary/15">
