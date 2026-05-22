@@ -35,10 +35,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-6xl pt-8 md:pt-12 pb-7 md:pb-9">
-        <div className="grid lg:grid-cols-[1fr_0.78fr] gap-5 md:gap-6 lg:gap-5 items-start">
-          <div className="lg:pt-5">
-            <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-foreground mb-5 md:mb-6">
+      <div className="container max-w-5xl pt-8 md:pt-10 pb-7 md:pb-8">
+        <div className="grid lg:grid-cols-[0.62fr_0.38fr] gap-4 md:gap-5 lg:gap-3 items-start">
+          <div className="lg:pt-4">
+            <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-extrabold leading-[1.08] text-foreground mb-4 md:mb-5">
               아직도
               <br />
               <span className="text-primary">직접 청소</span>하고
@@ -86,7 +86,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[390px] mt-3 lg:mt-0 lg:mx-0 lg:-ml-2">
+          <div className="relative mx-auto w-full max-w-[230px] sm:max-w-[250px] md:max-w-[270px] mt-1 lg:mx-0 lg:mt-0 lg:-ml-1">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -97,18 +97,21 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute left-[30%] right-[30%] bottom-[7.2%] flex h-[5.1%] items-center gap-[2%] rounded-full bg-white/95 px-[1.4%] transition-transform hover:-translate-y-0.5"
+                className="absolute right-[0%] bottom-[27%] flex w-[37%] items-center justify-center rounded-[0.6rem] bg-[#FEE500] px-[4%] py-[3.5%] text-center text-[clamp(8px,1vw,11px)] font-extrabold leading-[1.12] text-[#191919] transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
-                <span className="flex aspect-square h-[70%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
-                  <Camera className="h-[58%] w-[58%]" />
-                </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.35vw,11px)] font-extrabold leading-none text-foreground">
-                  4층 빌라 계단사진 보내드려요
-                </span>
-                <span className="flex aspect-square h-[82%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                  <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
-                </span>
+                계단 사진
+                <br />
+                보내드려요!
+              </a>
+              <a
+                href={KAKAO_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute right-[-3%] bottom-[18%] flex aspect-square w-[18%] items-center justify-center rounded-full border border-blue-100 bg-white text-primary transition-transform hover:-translate-y-0.5"
+                aria-label="카카오톡 사진 보내기"
+              >
+                <Camera className="h-[52%] w-[52%]" />
               </a>
             </div>
           </div>
