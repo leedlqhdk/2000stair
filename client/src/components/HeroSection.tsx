@@ -97,21 +97,18 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute right-[0%] bottom-[27%] flex w-[37%] items-center justify-center rounded-[0.6rem] bg-[#FEE500] px-[4%] py-[3.5%] text-center text-[clamp(8px,1vw,11px)] font-extrabold leading-[1.12] text-[#191919] transition-transform hover:-translate-y-0.5"
+                className="absolute left-[28%] right-[22%] bottom-[8.5%] flex h-[5.8%] items-center gap-[2%] rounded-full bg-white/96 px-[1.7%] transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
-                계단 사진
-                <br />
-                보내드려요!
-              </a>
-              <a
-                href={KAKAO_CHANNEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute right-[-3%] bottom-[18%] flex aspect-square w-[18%] items-center justify-center rounded-full border border-blue-100 bg-white text-primary transition-transform hover:-translate-y-0.5"
-                aria-label="카카오톡 사진 보내기"
-              >
-                <Camera className="h-[52%] w-[52%]" />
+                <span className="flex aspect-square h-[72%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                  <Camera className="h-[56%] w-[56%]" />
+                </span>
+                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.05vw,10px)] font-extrabold leading-none text-foreground">
+                  4층 빌라 계단사진 보내드려요
+                </span>
+                <span className="flex aspect-square h-[82%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <ArrowRight className="h-[54%] w-[54%] -rotate-45 stroke-[3]" />
+                </span>
               </a>
             </div>
           </div>
