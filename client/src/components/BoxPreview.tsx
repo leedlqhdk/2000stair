@@ -26,10 +26,10 @@ const systems = [
 
 export default function BoxPreview() {
   return (
-    <section id="box-preview" className="pt-4 pb-12 md:pt-6 md:pb-16 bg-white">
+    <section id="box-preview" className="pt-0 pb-9 md:pb-12 bg-white">
       <div className="container max-w-6xl">
         <motion.div
-          className="max-w-3xl mx-auto text-center mb-6 md:mb-8"
+          className="max-w-3xl mx-auto text-center mb-3 md:mb-4"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -38,7 +38,7 @@ export default function BoxPreview() {
       
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-4 gap-3 sm:gap-5 md:gap-8">
           {systems.map((item, index) => (
             <motion.div
               key={item.title}
@@ -48,15 +48,15 @@ export default function BoxPreview() {
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
             >
-              <div className="mx-auto mb-5 flex h-20 w-20 md:h-24 md:w-24 items-center justify-center rounded-[1.75rem] border border-blue-100 bg-blue-50/50 text-primary">
-                <item.icon className="h-9 w-9 md:h-10 md:w-10" />
+              <div className="mx-auto mb-2.5 flex h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50/50 text-primary">
+                <item.icon className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
               </div>
 
-              <h3 className="text-lg md:text-xl font-extrabold text-foreground mb-1">
+              <h3 className="text-[0.65rem] sm:text-xs md:text-sm font-extrabold text-foreground mb-0.5">
                 {item.title}
               </h3>
 
-              <p className="text-sm font-semibold text-muted-foreground">
+              <p className="text-[0.5rem] sm:text-[0.6rem] md:text-xs font-semibold text-muted-foreground">
                 {item.label}
               </p>
             </motion.div>
