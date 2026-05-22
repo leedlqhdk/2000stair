@@ -1,9 +1,12 @@
 import { Link } from "wouter";
-import { ClipboardCheck, MapPin, MessageCircle, Users } from "lucide-react";
+import { ArrowRight, ClipboardCheck, MapPin, MessageCircle, Phone, Users } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
 }
+
+const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
+const PHONE_NUMBER = "010-8438-1887";
 
 const areas = [
   { name: "시내권", href: "/area/downtown" },
@@ -14,8 +17,8 @@ const areas = [
 
 const trustPoints = [
   { icon: Users, label: "부부직영", value: "하청 NO" },
-  { icon: ClipboardCheck, label: "관리 기준", value: "정기관리" },
-  { icon: MessageCircle, label: "상담 방식", value: "카톡 상담" },
+  { icon: ClipboardCheck, label: "상담 기준", value: "사진 안내" },
+  { icon: MessageCircle, label: "문의 방식", value: "카톡 상담" },
 ];
 
 const proofImages = [
@@ -36,19 +39,43 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         <div className="grid lg:grid-cols-[0.9fr_0.72fr] gap-7 lg:gap-12 items-start">
           <div className="lg:pt-5">
             <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
-              SERVICE AREA
+              ICHEON STAIR CLEANING
             </p>
-            <h1 className="text-[2.2rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.12] text-foreground mb-5 md:mb-6">
-              이천 빌라·상가
+            <h1 className="text-[2.15rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.12] text-foreground mb-5 md:mb-6">
+              이천 빌라 계단청소,
               <br />
-              공용공간,
+              사진 보내주시면
               <br />
-              부부가 직접 관리합니다
+              빠르게 안내드립니다
             </h1>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-5 md:mb-6">
               계단·복도·공동현관 유리·화장실까지
               <br className="hidden sm:block" />
-              하청 없이 정기적으로 관리합니다.
+              부부가 직접 방문해 정기적으로 관리합니다.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-2.5 mb-5 md:mb-6 max-w-[520px]">
+              <a
+                href={KAKAO_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-primary px-5 text-base font-extrabold text-white shadow-lg shadow-primary/15 transition-colors hover:bg-primary/90"
+              >
+                <MessageCircle className="h-5 w-5 stroke-[2.8]" />
+                카톡으로 사진 보내기
+                <ArrowRight className="h-4 w-4 stroke-[2.8]" />
+              </a>
+              <a
+                href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full border-2 border-primary/20 bg-white px-5 text-base font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
+              >
+                <Phone className="h-5 w-5 stroke-[2.8]" />
+                전화 바로 상담
+              </a>
+            </div>
+
+            <p className="mb-4 text-sm font-semibold text-gray-500">
+              관리 희망 지역을 먼저 확인해보세요
             </p>
             <div className="flex flex-wrap gap-2.5 max-w-[520px]">
               {areas.map((area) => (
@@ -71,7 +98,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               />
             </div>
             <div className="absolute right-3 bottom-3 rounded-[1.1rem] md:rounded-[1.35rem] bg-white px-4 md:px-6 py-3.5 md:py-5 shadow-xl border border-blue-100">
-              <p className="text-xs md:text-sm font-bold text-primary mb-1 md:mb-2">부부직영</p>
+              <p className="text-xs md:text-sm font-bold text-primary mb-1 md:mb-2">사진 상담 가능</p>
               <p className="text-lg md:text-2xl font-extrabold leading-[1.1] text-foreground">
                 하청 없이
                 <br />
