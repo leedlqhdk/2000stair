@@ -22,7 +22,7 @@ export default function Footer() {
             </a>
 
             <p className="text-white/65 text-sm leading-relaxed max-w-sm mb-6">
-              이천 빌라·원룸·상가 공용공간을 부부가 직접 관리합니다.
+              이천 빌라·상가 공용공간을 부부가 직접 관리합니다.
             </p>
 
             <div className="space-y-2.5 text-sm text-white/60">
@@ -80,7 +80,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
                 <a
-                  href="/blog"
+                  href="/areas"
                   className="hover:text-white transition-colors"
                 >
                   관리 가능 지역
