@@ -14,10 +14,10 @@ export default function Home() {
 
       <main className="flex-1">
         <HeroSection isAuthenticated={false} />
+        <BoxPreview />
         <HowItWorks />
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={false} />
-        <BoxPreview />
         <BlogReviews />
       </main>
 
