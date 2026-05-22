@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, Camera, ClipboardCheck, MapPin, MessageCircle, Phone, Users } from "lucide-react";
+import { ArrowRight, ClipboardCheck, MapPin, MessageCircle, Phone, Users } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -97,14 +97,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute left-[28%] right-[22%] bottom-[8.5%] flex h-[5.8%] items-center gap-[2%] rounded-full bg-white/96 px-[1.7%] transition-transform hover:-translate-y-0.5"
+                className="absolute left-[31%] right-[23%] bottom-[8.8%] flex h-[5.2%] items-center gap-[2%] rounded-full bg-white/96 px-[2.2%] transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
-                <span className="flex aspect-square h-[72%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
-                  <Camera className="h-[56%] w-[56%]" />
-                </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.05vw,10px)] font-extrabold leading-none text-foreground">
-                  4층 빌라 계단사진 보내드려요
+                <span className="min-w-0 flex-1 truncate text-center text-[clamp(7px,1vw,10px)] font-extrabold leading-none text-foreground">
+                  계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[82%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
                   <ArrowRight className="h-[54%] w-[54%] -rotate-45 stroke-[3]" />
