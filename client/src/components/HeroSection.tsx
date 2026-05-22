@@ -63,7 +63,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   <Camera className="h-[54%] w-[54%]" />
                 </span>
                 <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.85vw,14px)] font-extrabold leading-none text-foreground">
-                  4층 빌라 계단사진 보내드려요
+                  4층 빌라 계단사진 보내요
                 </span>
                 <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
                   <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
