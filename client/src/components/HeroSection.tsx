@@ -123,7 +123,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     key={`${image.src}-${index}`}
                     type="button"
                     onClick={() => window.open("https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU", "_blank")}
-                    className="relative shrink-0 w-36 md:w-52 aspect-[2/3] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
+                    className="relative shrink-0 w-36 md:w-52 aspect-square overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
                   >
                     <img
                       src={image.src}
