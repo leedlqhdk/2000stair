@@ -63,8 +63,9 @@ function Router() {
       <Switch>
         <Route path={"/"} component={Home} />
         <Route path="/my-quotes" component={MyQuotes} />
-        <Route path="/blog" component={Blog} />
+        <Route path="/blog" component={Records} />
         <Route path="/records" component={Records} />
+        <Route path="/areas" component={Blog} />
         <Route path="/blog/category/:slug" component={Blog} />
         <Route path="/blog/:id" component={BlogDetail} />
         <Route path="/area/majang" component={Majang} />
