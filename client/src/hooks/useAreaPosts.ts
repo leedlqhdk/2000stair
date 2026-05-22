@@ -2,9 +2,11 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 export type AreaPost = {
+  id?: string;
   title: string;
   date: string;
   image: string;
+  images?: string[];
 };
 
 export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
