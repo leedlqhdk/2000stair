@@ -1,6 +1,7 @@
 import { Link } from "wouter";
-import { ArrowLeft, ArrowRight, CalendarDays, MessageCircle, Phone, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import AreaPostCard from "@/components/AreaPostCard";
 import { daewolPosts, daewolReviews } from "@/data/areas/daewol";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
@@ -67,34 +68,7 @@ export default function DaewolAreaPage() {
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
             {posts.map((post, index) => (
-              <motion.article
-                key={post.title}
-                className="group overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: index * 0.06 }}
-              >
-                <div className="overflow-hidden bg-blue-50">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="p-5">
-                  <h3 className="text-lg font-extrabold leading-snug text-foreground mb-3">
-                    {post.title}
-                  </h3>
-
-                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                    <CalendarDays className="h-4 w-4" />
-                    {post.date}
-                  </div>
-                </div>
-              </motion.article>
+              <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} />
             ))}
           </div>
         </section>
