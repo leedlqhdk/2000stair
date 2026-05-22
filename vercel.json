@@ -4,8 +4,8 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/api/trpc/(.*)",
-      "destination": "/api/trpc/$1"
+      "source": "/api/trpc/:path*",
+      "destination": "/api/trpc/[...trpc]"
     },
     {
       "source": "/(.*)",
