@@ -50,7 +50,7 @@ function ScrollToTop() {
 function AreaNavbar() {
   const [location] = useLocation();
 
-  if (!location.startsWith("/area")) return null;
+  if (!location.startsWith("/area/")) return null;
 
   return <Navbar />;
 }
