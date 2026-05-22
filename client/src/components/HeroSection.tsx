@@ -28,10 +28,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-7 md:pb-10">
+      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-4 md:pb-5">
         <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-0">
           <div className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8">
-            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.04] text-foreground mb-3 sm:mb-4 md:mb-5">
+            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.018em] text-foreground mb-3 sm:mb-4 md:mb-5">
               아직도
               <br />
               <span className="text-primary">직접 청소</span>하고
