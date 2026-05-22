@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, ClipboardCheck, MapPin, MessageCircle, Phone, Users } from "lucide-react";
+import { ArrowRight, Camera, MapPin, MessageCircle, Phone } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -13,12 +13,6 @@ const areas = [
   { name: "신둔면", href: "/area/sindun" },
   { name: "마장면", href: "/area/majang" },
   { name: "대월면", href: "/area/daewol" },
-];
-
-const trustPoints = [
-  { icon: Users, label: "부부직영", value: "하청 NO" },
-  { icon: ClipboardCheck, label: "상담 기준", value: "사진 안내" },
-  { icon: MessageCircle, label: "문의 방식", value: "카톡 상담" },
 ];
 
 const proofImages = [
@@ -35,28 +29,36 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-5xl pt-8 md:pt-10 pb-7 md:pb-8">
-        <div className="grid lg:grid-cols-[0.62fr_0.38fr] gap-4 md:gap-5 lg:gap-3 items-start">
-          <div className="lg:pt-4">
-            <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-extrabold leading-[1.08] text-foreground mb-4 md:mb-5">
+      <div className="container max-w-5xl pt-7 md:pt-9 pb-8 md:pb-10">
+        <div className="grid lg:grid-cols-[0.58fr_0.42fr] gap-3 md:gap-4 lg:gap-2 items-start">
+          <div className="lg:pt-2">
+            <a href="/" className="mb-4 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
+              <img
+                src="/images/icheon-logo-main.png"
+                alt="이천계단지기"
+                className="h-7 w-auto object-contain"
+              />
+            </a>
+
+            <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold leading-[1.08] text-foreground mb-4 md:mb-5">
               아직도
               <br />
               <span className="text-primary">직접 청소</span>하고
               <br />
               계신가요?
             </h1>
-            <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-5 md:mb-6">
-              이천 빌라 · 상가 계단청소
+            <p className="text-base md:text-lg text-gray-700 font-semibold leading-relaxed mb-5 md:mb-6">
+              이천 빌라 · 원룸 계단청소
               <br className="hidden sm:block" />
-              사진 한 장이면 바로 안내드립니다.
+              사진 한 장이면 빠르게 안내드립니다.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-2.5 mb-5 md:mb-6 max-w-[520px]">
+            <div className="flex flex-col sm:flex-row gap-2.5 max-w-[520px]">
               <a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-lg shadow-yellow-300/20 ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
+                className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
               >
                 <MessageCircle className="h-5 w-5 stroke-[2.8]" />
                 카톡으로 사진 보내기
@@ -64,29 +66,15 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </a>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-full border-2 border-primary/20 bg-white px-5 text-base font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
+                className="inline-flex h-13 items-center justify-center gap-2 rounded-full border-2 border-primary/20 bg-white px-7 text-base font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
               >
                 <Phone className="h-5 w-5 stroke-[2.8]" />
                 전화 상담
               </a>
             </div>
-
-            <p className="mb-4 text-sm font-semibold text-gray-500">
-              관리 희망 지역을 먼저 확인해보세요
-            </p>
-            <div className="flex flex-wrap gap-2.5 max-w-[520px]">
-              {areas.map((area) => (
-                <Link key={area.name} href={area.href}>
-                  <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3.5 py-2 text-sm font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary">
-                    <MapPin className="h-4 w-4 text-primary shrink-0" />
-                    {area.name}
-                  </a>
-                </Link>
-              ))}
-            </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[230px] sm:max-w-[250px] md:max-w-[270px] mt-1 lg:mx-0 lg:mt-0 lg:-ml-1">
+          <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] lg:max-w-[285px] mt-1 lg:mx-0 lg:-ml-3">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -97,47 +85,42 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute left-[31%] right-[23%] bottom-[8.8%] flex h-[5.2%] items-center gap-[2%] rounded-full bg-white/96 px-[2.2%] transition-transform hover:-translate-y-0.5"
+                className="absolute left-[13%] right-[4%] bottom-[5.8%] flex h-[6.3%] items-center gap-[2.5%] rounded-full bg-white/96 px-[2.1%] shadow-sm transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
-                <span className="min-w-0 flex-1 truncate text-center text-[clamp(7px,1vw,10px)] font-extrabold leading-none text-foreground">
-                  계단사진 보내드려요
+                <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                  <Camera className="h-[55%] w-[55%]" />
                 </span>
-                <span className="flex aspect-square h-[82%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                  <ArrowRight className="h-[54%] w-[54%] -rotate-45 stroke-[3]" />
+                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.02vw,10px)] font-extrabold leading-none text-foreground">
+                  4층 빌라 계단사진 보내드려요
+                </span>
+                <span className="flex aspect-square h-[84%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
                 </span>
               </a>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-8 border-t border-blue-100 pt-5 md:mt-10 md:pt-6">
+          <p className="mb-3 text-sm font-semibold text-gray-500">
+            관리 희망 지역을 먼저 확인해보세요
+          </p>
+          <div className="flex flex-wrap gap-2.5">
+            {areas.map((area) => (
+              <Link key={area.name} href={area.href}>
+                <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary">
+                  <MapPin className="h-4 w-4 text-primary shrink-0" />
+                  {area.name}
+                </a>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="bg-blue-50/40 pt-7 pb-10 md:pt-9 md:pb-16 overflow-hidden">
         <div className="container max-w-7xl">
-          <div className="mx-auto mb-8 md:mb-11 max-w-5xl">
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8">
-              {trustPoints.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.label}
-                    className="flex min-w-0 flex-col items-center justify-center gap-2 text-center md:flex-row md:gap-3 md:text-left"
-                  >
-                    <Icon className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 text-primary shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-[11px] sm:text-xs md:text-sm font-semibold text-gray-600 leading-tight">
-                        {item.label}
-                      </p>
-                      <p className="text-xs sm:text-sm md:text-base font-extrabold text-foreground leading-tight whitespace-nowrap">
-                        {item.value}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-6 md:gap-8 items-center">
             <div>
               <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-3 md:mb-4">
