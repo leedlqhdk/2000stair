@@ -4,10 +4,6 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/api/trpc/:path*",
-      "destination": "/api/trpc/[...trpc]"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
