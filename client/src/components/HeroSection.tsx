@@ -56,17 +56,17 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute left-[13%] right-[4%] bottom-[5.8%] flex h-[6.3%] items-center gap-[2.5%] rounded-full bg-white/96 px-[2.1%] shadow-sm transition-transform hover:-translate-y-0.5"
+                className="absolute left-[6%] right-[1%] bottom-[4.7%] flex h-[8.6%] items-center gap-[2.4%] rounded-full bg-white/98 px-[2.6%] shadow-sm transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
-                <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
-                  <Camera className="h-[55%] w-[55%]" />
+                <span className="flex aspect-square h-[76%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                  <Camera className="h-[56%] w-[56%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.6vw,12px)] font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[clamp(8px,2.05vw,15px)] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
-                <span className="flex aspect-square h-[84%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                  <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
+                <span className="flex aspect-square h-[86%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <ArrowRight className="h-[56%] w-[56%] -rotate-45 stroke-[3]" />
                 </span>
               </a>
             </div>
