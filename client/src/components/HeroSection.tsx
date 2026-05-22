@@ -35,8 +35,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-7xl pt-8 md:pt-12 pb-7 md:pb-9">
-        <div className="grid lg:grid-cols-[0.9fr_0.72fr] gap-7 lg:gap-12 items-start">
+      <div className="container max-w-6xl pt-8 md:pt-12 pb-7 md:pb-9">
+        <div className="grid lg:grid-cols-[1fr_0.78fr] gap-5 md:gap-6 lg:gap-5 items-start">
           <div className="lg:pt-5">
             <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-foreground mb-5 md:mb-6">
               아직도
@@ -86,7 +86,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[390px] mt-3 lg:mt-0">
+          <div className="relative mx-auto w-full max-w-[390px] mt-3 lg:mt-0 lg:mx-0 lg:-ml-2">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
