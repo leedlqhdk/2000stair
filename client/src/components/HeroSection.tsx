@@ -90,14 +90,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="bg-blue-50/40 pt-10 pb-14 md:pt-9 md:pb-16 overflow-hidden">
+      <div className="bg-blue-50/40 pt-20 pb-24 md:pt-24 md:pb-28 overflow-hidden">
         <div className="container max-w-7xl">
-          <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-8 md:gap-8 items-center">
+          <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-10 md:gap-10 items-center">
             <div>
-              <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4 md:mb-4">
+              <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5 md:mb-4">
                 Shorts
               </p>
-              <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-2">실제 관리 현장</h2>
+              <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-3">실제 관리 현장</h2>
               <p className="text-sm md:text-base text-gray-600">영상으로 확인해보세요</p>
             </div>
             <div className="relative overflow-hidden">
