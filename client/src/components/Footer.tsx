@@ -64,7 +64,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#gallery" className="hover:text-white transition-colors">
-                  작업 사례
+                  청소 전후
                 </a>
               </li>
               <li>
@@ -83,7 +83,7 @@ export default function Footer() {
                   href="/blog"
                   className="hover:text-white transition-colors"
                 >
-                  작업 기록
+                  관리 가능 지역
                 </a>
               </li>
               <li>
