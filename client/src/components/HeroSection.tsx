@@ -29,52 +29,52 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-6xl pt-7 md:pt-9 pb-8 md:pb-10">
-        <div className="grid lg:grid-cols-[0.52fr_0.48fr] gap-5 md:gap-5 lg:gap-1 items-start">
-          <div className="lg:pt-2">
-            <a href="/" className="mb-4 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
+      <div className="container max-w-5xl pt-4 sm:pt-6 md:pt-9 pb-7 md:pb-10">
+        <div className="grid grid-cols-[0.57fr_0.43fr] items-start gap-2 sm:gap-3 md:gap-4 lg:gap-2">
+          <div className="min-w-0 pt-1 lg:pt-2">
+            <a href="/" className="mb-3 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
               <img
                 src="/images/icheon-logo-main.png"
                 alt="이천계단지기"
-                className="h-7 w-auto object-contain"
+                className="h-[clamp(16px,3.8vw,28px)] w-auto object-contain"
               />
             </a>
 
-            <h1 className="text-[2.65rem] sm:text-[3.25rem] md:text-[3.65rem] lg:text-[3.2rem] font-extrabold leading-[1.06] text-foreground mb-4 md:mb-5">
+            <h1 className="text-[clamp(1.85rem,7.5vw,3.2rem)] font-extrabold leading-[1.08] text-foreground mb-3 sm:mb-4 md:mb-5">
               아직도
               <br />
               <span className="text-primary">직접 청소</span>하고
               <br />
               계신가요?
             </h1>
-            <p className="text-lg sm:text-xl lg:text-lg text-gray-700 font-semibold leading-relaxed mb-5 md:mb-6">
+            <p className="text-[clamp(0.78rem,3vw,1.1rem)] text-gray-700 font-semibold leading-relaxed mb-4 sm:mb-5 md:mb-6">
               이천 빌라 · 상가 계단청소
-              <br className="hidden sm:block" />
+              <br />
               사진 한 장이면 빠르게 안내드립니다.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-2.5 max-w-[520px]">
+            <div className="flex flex-col min-[420px]:flex-row gap-2 sm:gap-2.5 max-w-[520px]">
               <a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
+                className="inline-flex h-[clamp(42px,10vw,52px)] items-center justify-center gap-1.5 sm:gap-2 rounded-full bg-[#FEE500] px-3 sm:px-5 text-[clamp(0.78rem,3vw,1rem)] font-extrabold text-[#191919] shadow-sm ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
               >
-                <MessageCircle className="h-5 w-5 stroke-[2.8]" />
+                <MessageCircle className="h-[1.1em] w-[1.1em] stroke-[2.8]" />
                 카톡으로 사진 보내기
-                <ArrowRight className="h-4 w-4 stroke-[2.8]" />
+                <ArrowRight className="h-[1em] w-[1em] stroke-[2.8]" />
               </a>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full border-2 border-primary/20 bg-white px-7 text-base font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
+                className="inline-flex h-[clamp(42px,10vw,52px)] items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-primary/20 bg-white px-4 sm:px-7 text-[clamp(0.78rem,3vw,1rem)] font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
               >
-                <Phone className="h-5 w-5 stroke-[2.8]" />
+                <Phone className="h-[1.1em] w-[1.1em] stroke-[2.8]" />
                 전화 상담
               </a>
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[430px] sm:max-w-[470px] md:max-w-[500px] lg:max-w-[420px] mt-2 lg:mx-0 lg:-ml-6 lg:mt-0">
+          <div className="relative ml-auto w-full max-w-[clamp(180px,43vw,420px)] pt-1 md:pt-0 lg:-ml-4">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -91,7 +91,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
                   <Camera className="h-[55%] w-[55%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[10px] sm:text-xs lg:text-xs font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[clamp(6px,1.55vw,12px)] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[84%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
@@ -102,15 +102,15 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-blue-100 pt-5 md:mt-10 md:pt-6">
-          <p className="mb-3 text-sm font-semibold text-gray-500">
+        <div className="mt-6 sm:mt-8 border-t border-blue-100 pt-4 sm:pt-5 md:mt-10 md:pt-6">
+          <p className="mb-3 text-[clamp(0.75rem,2.5vw,0.9rem)] font-semibold text-gray-500">
             관리 희망 지역을 먼저 확인해보세요
           </p>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-2 sm:gap-2.5">
             {areas.map((area) => (
               <Link key={area.name} href={area.href}>
-                <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary">
-                  <MapPin className="h-4 w-4 text-primary shrink-0" />
+                <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 sm:px-4 py-2 text-[clamp(0.75rem,2.5vw,0.9rem)] font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary">
+                  <MapPin className="h-[1em] w-[1em] text-primary shrink-0" />
                   {area.name}
                 </a>
               </Link>
