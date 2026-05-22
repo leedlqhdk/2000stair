@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import MyQuotes from "./pages/MySubscription";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
+import Records from "./pages/Records";
 import LocationLanding from "./pages/LocationLanding";
 import AdminBlog from "./pages/AdminBlog";
 import AdminBlogEdit from "./pages/AdminBlogEdit";
@@ -63,6 +64,7 @@ function Router() {
         <Route path={"/"} component={Home} />
         <Route path="/my-quotes" component={MyQuotes} />
         <Route path="/blog" component={Blog} />
+        <Route path="/records" component={Records} />
         <Route path="/blog/category/:slug" component={Blog} />
         <Route path="/blog/:id" component={BlogDetail} />
         <Route path="/area/majang" component={Majang} />
