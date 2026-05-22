@@ -42,7 +42,7 @@ export default function Navbar() {
     }
 
     scrollToSection(sectionId);
-    window.history.replaceState(null, "", `/#${sectionId}`);
+    window.history.replaceState(null, "", "/");
   };
 
   return (
