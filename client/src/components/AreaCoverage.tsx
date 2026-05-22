@@ -15,8 +15,8 @@ const buildingTypes = [
   {
     icon: Home,
     label: "HOUSE",
-    title: "빌라 · 원룸",
-    text: "계단, 복도, 공동현관 등 입주민이 매일 오가는 공용공간을 정기관리합니다.",
+    title: "빌라 · 상가",
+    text: "계단, 복도, 공동현관 등 매일 오가는 공용공간을 정기관리합니다.",
   },
   {
     icon: Store,
@@ -56,7 +56,7 @@ export default function AreaCoverage() {
 
             <p className="text-muted-foreground text-lg leading-relaxed max-w-xl mb-8">
               이천계단지기는 신둔면, 마장면, 부발읍, 대월면 등 이천 생활권의
-              빌라·원룸·상가 공용공간을 직접 관리합니다.
+              빌라·상가 공용공간을 직접 관리합니다.
             </p>
 
             <div className="flex flex-wrap gap-2">
