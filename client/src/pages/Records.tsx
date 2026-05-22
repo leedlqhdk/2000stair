@@ -74,7 +74,7 @@ export default function Records() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
           >
-            <Link href="/blog">
+            <Link href="/areas">
               <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
                 <ArrowLeft className="h-4 w-4" />
                 관리지역으로 돌아가기
