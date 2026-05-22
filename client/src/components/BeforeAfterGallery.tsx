@@ -138,28 +138,26 @@ export default function BeforeAfterGallery() {
     <section id="gallery" className="py-16 md:py-28 bg-gradient-to-b from-white to-blue-50/30">
       <div className="container max-w-6xl">
         <motion.div
-          className="mb-12"
+          className="mx-auto mb-12 max-w-3xl text-center"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">PROOF</p>
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-16 items-end">
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
-              눈으로 확인하는
-              <br />
-              관리 결과
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-              실제 작업 현장을 기반으로 촬영한 사진입니다.
-              좌우로 드래그해 관리 전후의 차이를 확인해보세요.
-            </p>
-          </div>
+          <p className="mb-5 text-center text-sm font-bold tracking-[0.35em] text-primary">PROOF</p>
+          <h2 className="text-center text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
+            눈으로 확인하는
+            <br />
+            관리 결과
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-center text-muted-foreground text-lg leading-relaxed">
+            실제 작업 현장을 기반으로 촬영한 사진입니다.
+            좌우로 드래그해 관리 전후의 차이를 확인해보세요.
+          </p>
         </motion.div>
 
         <div className="space-y-5">
-          <div className="flex gap-2 overflow-x-auto pb-2">
+          <div className="flex justify-center gap-2 overflow-x-auto pb-2">
             {galleryItems.map((item, idx) => (
               <button
                 key={item.id}
