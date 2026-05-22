@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, Camera, MapPin } from "lucide-react";
 
@@ -30,7 +31,12 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
     <section className="relative overflow-hidden bg-white">
       <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-4 md:pb-5">
         <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-0">
-          <div className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8">
+          <motion.div
+            className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8"
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          >
             <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.018em] text-foreground mb-3 sm:mb-4 md:mb-5">
               아직도
               <br />
@@ -38,42 +44,64 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <br />
               계신가요?
             </h1>
-            <p className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed">
+            <motion.p
+              className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            >
               이천 빌라 · 상가 계단청소
               <br />
               사진 한 장이면 빠르게 안내드립니다.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          <div className="relative ml-[-2%] w-[108%] max-w-[clamp(230px,44vw,470px)] pt-0 -mr-[1%] md:ml-[-5%] md:-mr-[2%] lg:ml-[-10%]">
-            <div className="relative mx-auto w-full">
+          <motion.div
+            className="relative ml-[-2%] w-[108%] max-w-[clamp(230px,44vw,470px)] pt-0 -mr-[1%] md:ml-[-5%] md:-mr-[2%] lg:ml-[-10%]"
+            initial={{ opacity: 0, y: 34, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              className="relative mx-auto w-full"
+              animate={{ y: [0, -7, 0] }}
+              transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+            >
               <img
                 src="/images/main-phone.webp"
                 alt="카카오톡으로 계단 사진을 보내는 상담 화면"
                 className="w-full object-contain"
               />
-              <a
+              <motion.a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute left-[11%] right-[7%] bottom-[7.2%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
+                initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
               >
                 <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
                   <Camera className="h-[54%] w-[54%]" />
                 </span>
                 <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.85vw,14px)] font-extrabold leading-none text-foreground">
-                  4층 빌라 계단사진 보내요
+                  4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
                   <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
                 </span>
-              </a>
-            </div>
-          </div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
         </div>
 
-        <div className="mt-6 sm:mt-8 border-t border-blue-100 pt-4 text-right sm:pt-5 md:mt-10 md:pt-6">
+        <motion.div
+          className="mt-6 sm:mt-8 border-t border-blue-100 pt-4 text-right sm:pt-5 md:mt-10 md:pt-6"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        >
           <p className="mb-3 text-[clamp(0.75rem,2.5vw,0.9rem)] font-semibold text-gray-500">
             관리 희망 지역을 먼저 확인해보세요
           </p>
@@ -87,7 +115,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </Link>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="bg-blue-50/40 pt-20 pb-24 md:pt-24 md:pb-28 overflow-hidden">
