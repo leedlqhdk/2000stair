@@ -56,13 +56,13 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute left-[6%] right-[0.7%] bottom-[4.7%] flex h-[11.2%] items-center gap-[1.5%] rounded-full bg-white px-[2.1%] shadow-sm transition-transform hover:-translate-y-0.5"
+                className="absolute left-[11%] right-[7%] bottom-[7.2%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
                 <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
                   <Camera className="h-[54%] w-[54%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(9.5px,2.2vw,16px)] font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.85vw,14px)] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
