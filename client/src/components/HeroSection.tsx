@@ -19,12 +19,12 @@ const trustPoints = [
 ];
 
 const proofImages = [
-  { src: "/images/villa-cleaning-1.jpg" },
-  { src: "/images/villa-entrance-glass.jpg" },
-  { src: "/images/bathroom-cleaning-1.jpg" },
-  { src: "/images/stair-floor-after-1.jpg" },
-  { src: "/images/stair-floor-after-2.jpg" },
-  { src: "/images/icheon-bathroom-cleaning.jpg" },
+  { src: "/images/shorts-1.webp" },
+  { src: "/images/shorts-2.webp" },
+  { src: "/images/shorts-3.webp" },
+  { src: "/images/shorts-4.webp" },
+  { src: "/images/shorts-5.webp" },
+  { src: "/images/shorts-6.webp" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -123,7 +123,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     key={`${image.src}-${index}`}
                     type="button"
                     onClick={() => window.open("https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU", "_blank")}
-                    className="relative shrink-0 w-36 md:w-52 aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
+                    className="relative shrink-0 w-36 md:w-52 aspect-[2/3] overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
                   >
                     <img
                       src={image.src}
