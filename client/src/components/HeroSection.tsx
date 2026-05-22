@@ -41,17 +41,17 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
               ICHEON STAIR CLEANING
             </p>
-            <h1 className="text-[2.15rem] sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-[1.12] text-foreground mb-5 md:mb-6">
-              이천 빌라 계단청소,
+            <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-foreground mb-5 md:mb-6">
+              아직도
               <br />
-              사진 보내주시면
+              직접 청소하고
               <br />
-              빠르게 안내드립니다
+              계신가요?
             </h1>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-5 md:mb-6">
-              계단·복도·공동현관 유리·화장실까지
+              이천 빌라 · 상가 계단청소
               <br className="hidden sm:block" />
-              부부가 직접 방문해 정기적으로 관리합니다.
+              사진 한 장이면 바로 안내드립니다.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-2.5 mb-5 md:mb-6 max-w-[520px]">
@@ -59,7 +59,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-primary px-5 text-base font-extrabold text-white shadow-lg shadow-primary/15 transition-colors hover:bg-primary/90"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-lg shadow-yellow-300/20 ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
               >
                 <MessageCircle className="h-5 w-5 stroke-[2.8]" />
                 카톡으로 사진 보내기
@@ -70,7 +70,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 className="inline-flex h-14 items-center justify-center gap-2 rounded-full border-2 border-primary/20 bg-white px-5 text-base font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
               >
                 <Phone className="h-5 w-5 stroke-[2.8]" />
-                전화 바로 상담
+                전화 상담
               </a>
             </div>
 
@@ -97,13 +97,15 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 className="w-full aspect-[3/4] md:aspect-[4/5] object-cover"
               />
             </div>
-            <div className="absolute right-3 bottom-3 rounded-[1.1rem] md:rounded-[1.35rem] bg-white px-4 md:px-6 py-3.5 md:py-5 shadow-xl border border-blue-100">
-              <p className="text-xs md:text-sm font-bold text-primary mb-1 md:mb-2">사진 상담 가능</p>
-              <p className="text-lg md:text-2xl font-extrabold leading-[1.1] text-foreground">
-                하청 없이
+            <div className="absolute right-3 bottom-16 rounded-[1rem] bg-[#FEE500] px-4 py-3 shadow-xl text-[#191919]">
+              <p className="text-sm md:text-base font-extrabold leading-tight">
+                계단 사진
                 <br />
-                직접 관리
+                보내주세요!
               </p>
+            </div>
+            <div className="absolute right-3 bottom-3 rounded-full bg-white p-3 shadow-xl border border-blue-100">
+              <MessageCircle className="h-5 w-5 text-primary" />
             </div>
           </div>
         </div>
