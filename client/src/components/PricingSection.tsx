@@ -21,7 +21,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
       name: "2~3층 계단 정기관리",
       price: "66,000원~",
       description:
-        "소형 빌라·원룸 공용계단 관리에 적합합니다. 계단, 복도, 공동현관 상태에 따라 범위를 조정합니다.",
+        "소형 빌라·상가 공용계단 관리에 적합합니다. 계단, 복도, 공동현관 상태에 따라 범위를 조정합니다.",
       popular: false,
     },
     {
@@ -74,7 +74,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           </h2>
 
           <p className="text-muted-foreground text-lg leading-relaxed max-w-xl mx-auto">
-            빌라·원룸·상가의 층수와 오염 상태에 맞춰 정기관리 기준으로 안내드립니다.
+            빌라·상가의 층수와 오염 상태에 맞춰 정기관리 기준으로 안내드립니다.
           </p>
         </motion.div>
 
