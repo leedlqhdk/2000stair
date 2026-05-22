@@ -2,8 +2,11 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight, CalendarDays, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts, daewolReviews } from "@/data/areas/daewol";
+import { useAreaPosts } from "@/hooks/useAreaPosts";
 
 export default function DaewolAreaPage() {
+  const { posts } = useAreaPosts("daewol", daewolPosts);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
@@ -63,7 +66,7 @@ export default function DaewolAreaPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {daewolPosts.map((post, index) => (
+            {posts.map((post, index) => (
               <motion.article
                 key={post.title}
                 className="group overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
