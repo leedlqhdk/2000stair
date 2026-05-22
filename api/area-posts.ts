@@ -28,6 +28,7 @@ type AreaPost = {
   area: string;
   date: string;
   image: string;
+  images: string[];
 };
 
 const PROPERTY_NAMES = {
@@ -70,14 +71,17 @@ function propertyToText(property: NotionProperty | undefined) {
   return "";
 }
 
-function propertyToImage(property: NotionProperty | undefined) {
-  if (!property) return "";
+function propertyToImages(property: NotionProperty | undefined) {
+  if (!property) return [];
 
-  const fileUrl = property.files
+  const fileUrls = property.files
     ?.map((file) => file.external?.url || file.file?.url)
-    .find(Boolean);
+    .filter((url): url is string => Boolean(url)) ?? [];
 
-  return fileUrl || property.url || "";
+  if (fileUrls.length > 0) return fileUrls;
+  if (property.url) return [property.url];
+
+  return [];
 }
 
 function normalizeArea(value: string) {
@@ -118,17 +122,18 @@ function parsePage(page: NotionPage): AreaPost | null {
   const title = propertyToText(getProperty(page.properties, PROPERTY_NAMES.title));
   const areaText = propertyToText(getProperty(page.properties, PROPERTY_NAMES.area));
   const date = propertyToText(getProperty(page.properties, PROPERTY_NAMES.date));
-  const image = propertyToImage(getProperty(page.properties, PROPERTY_NAMES.image));
+  const images = propertyToImages(getProperty(page.properties, PROPERTY_NAMES.image));
   const area = normalizeArea(areaText);
 
-  if (!area || !image || !isPublished(page.properties)) return null;
+  if (!area || images.length === 0 || !isPublished(page.properties)) return null;
 
   return {
     id: page.id,
     title: title || `${AREA_LABELS[area] ?? areaText} 작업 기록`,
     area,
     date: formatDate(date),
-    image,
+    image: images[0],
+    images,
   };
 }
 
