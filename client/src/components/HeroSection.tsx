@@ -29,8 +29,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="container max-w-5xl pt-6 sm:pt-7 md:pt-9 pb-7 md:pb-10">
-        <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-2 sm:gap-3 md:gap-4 lg:gap-2">
-          <div className="min-w-0 pt-1 lg:pt-2">
+        <div className="grid grid-cols-[0.58fr_0.42fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-0">
+          <div className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8">
             <h1 className="text-[clamp(1.85rem,7.5vw,3.2rem)] font-extrabold leading-[1.08] text-foreground mb-3 sm:mb-4 md:mb-5">
               아직도
               <br />
@@ -45,7 +45,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </p>
           </div>
 
-          <div className="relative ml-auto w-[102%] max-w-[clamp(220px,48vw,440px)] pt-0 -mr-[1%] md:-mr-[2%] lg:-ml-3">
+          <div className="relative ml-[-2%] w-[108%] max-w-[clamp(230px,46vw,440px)] pt-0 -mr-[1%] md:ml-[-4%] md:-mr-[2%] lg:ml-[-8%]">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -56,17 +56,17 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute left-[6%] right-[1%] bottom-[4.7%] flex h-[8.6%] items-center gap-[2.4%] rounded-full bg-white/98 px-[2.6%] shadow-sm transition-transform hover:-translate-y-0.5"
+                className="absolute left-[6%] right-[0.8%] bottom-[4.8%] flex h-[10.4%] items-center gap-[2%] rounded-full bg-white px-[2.7%] shadow-sm transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
-                <span className="flex aspect-square h-[76%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
-                  <Camera className="h-[56%] w-[56%]" />
+                <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                  <Camera className="h-[55%] w-[55%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(8px,2.05vw,15px)] font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.85vw,14px)] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
-                <span className="flex aspect-square h-[86%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                  <ArrowRight className="h-[56%] w-[56%] -rotate-45 stroke-[3]" />
+                <span className="flex aspect-square h-[82%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
                 </span>
               </a>
             </div>
