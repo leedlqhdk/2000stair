@@ -9,8 +9,9 @@ import {
   Star,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAreaPosts } from "@/hooks/useAreaPosts";
 
-const posts = [
+const fallbackPosts = [
   {
     title: "송정동 빌라 계단청소",
     date: "2026.05.20",
@@ -51,6 +52,8 @@ const reviews = [
 ];
 
 export default function DowntownAreaPage() {
+  const { posts } = useAreaPosts("downtown", fallbackPosts);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
