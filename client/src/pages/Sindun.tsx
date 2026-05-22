@@ -8,8 +8,9 @@ import {
   Star,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAreaPosts } from "@/hooks/useAreaPosts";
 
-const posts = [
+const fallbackPosts = [
   {
     title: "신둔면 빌라 계단청소",
     date: "2026.05.20",
@@ -48,6 +49,8 @@ const reviews = [
 ];
 
 export default function SindunAreaPage() {
+  const { posts } = useAreaPosts("sindun", fallbackPosts);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
