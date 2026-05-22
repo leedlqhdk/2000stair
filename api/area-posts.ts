@@ -25,6 +25,7 @@ type NotionPage = {
 type AreaPost = {
   id: string;
   title: string;
+  description: string;
   area: string;
   date: string;
   image: string;
@@ -33,6 +34,7 @@ type AreaPost = {
 
 const PROPERTY_NAMES = {
   title: ["제목", "작업명", "이름", "Name", "Title"],
+  description: ["설명", "내용", "메모", "한줄설명", "Description", "Content", "Memo"],
   area: ["지역", "관리지역", "Area", "Region"],
   date: ["작업일", "날짜", "Date", "Work Date"],
   image: ["사진", "대표사진", "작업사진", "Image", "Images", "Photo"],
@@ -120,6 +122,7 @@ function isPublished(properties: Record<string, NotionProperty | undefined>) {
 
 function parsePage(page: NotionPage): AreaPost | null {
   const title = propertyToText(getProperty(page.properties, PROPERTY_NAMES.title));
+  const description = propertyToText(getProperty(page.properties, PROPERTY_NAMES.description));
   const areaText = propertyToText(getProperty(page.properties, PROPERTY_NAMES.area));
   const date = propertyToText(getProperty(page.properties, PROPERTY_NAMES.date));
   const images = propertyToImages(getProperty(page.properties, PROPERTY_NAMES.image));
@@ -130,6 +133,7 @@ function parsePage(page: NotionPage): AreaPost | null {
   return {
     id: page.id,
     title: title || `${AREA_LABELS[area] ?? areaText} 작업 기록`,
+    description,
     area,
     date: formatDate(date),
     image: images[0],
