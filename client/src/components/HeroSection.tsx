@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, ClipboardCheck, MapPin, MessageCircle, Phone, Users } from "lucide-react";
+import { ArrowRight, Camera, ClipboardCheck, MapPin, MessageCircle, Phone, Users } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -87,22 +87,29 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </div>
 
           <div className="relative mx-auto w-full max-w-[430px] mt-3 lg:mt-0">
-            <div className="overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-blue-100 shadow-xl bg-blue-50">
+            <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-[1.75rem] border border-blue-100 shadow-xl bg-blue-50">
               <img
-                src="/images/hero-main.png"
-                alt="이천계단지기 계단청소 관리 현장"
+                src="/images/main-phone.webp"
+                alt="카카오톡으로 계단 사진을 보내는 상담 화면"
                 className="w-full aspect-[3/4] md:aspect-[4/5] object-cover"
               />
-            </div>
-            <div className="absolute right-3 bottom-16 rounded-[1rem] bg-[#FEE500] px-4 py-3 shadow-xl text-[#191919]">
-              <p className="text-sm md:text-base font-extrabold leading-tight">
-                계단 사진
-                <br />
-                보내주세요!
-              </p>
-            </div>
-            <div className="absolute right-3 bottom-3 rounded-full bg-white p-3 shadow-xl border border-blue-100">
-              <MessageCircle className="h-5 w-5 text-primary" />
+              <a
+                href={KAKAO_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-x-4 bottom-4 flex h-14 items-center gap-2 rounded-full bg-white/95 p-2 shadow-xl ring-1 ring-blue-100 backdrop-blur transition-transform hover:-translate-y-0.5 md:inset-x-6 md:bottom-6"
+                aria-label="카카오톡으로 계단 사진 보내기"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                  <Camera className="h-5 w-5" />
+                </span>
+                <span className="min-w-0 flex-1 truncate rounded-full bg-white px-3 text-sm font-extrabold text-foreground md:text-base">
+                  4층 빌라 계단사진 보내드려요
+                </span>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <ArrowRight className="h-5 w-5 -rotate-45 stroke-[3]" />
+                </span>
+              </a>
             </div>
           </div>
         </div>
