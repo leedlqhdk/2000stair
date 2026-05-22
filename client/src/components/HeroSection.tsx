@@ -29,8 +29,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-5xl pt-7 md:pt-9 pb-8 md:pb-10">
-        <div className="grid lg:grid-cols-[0.58fr_0.42fr] gap-5 md:gap-5 lg:gap-2 items-start">
+      <div className="container max-w-6xl pt-7 md:pt-9 pb-8 md:pb-10">
+        <div className="grid lg:grid-cols-[0.52fr_0.48fr] gap-5 md:gap-5 lg:gap-1 items-start">
           <div className="lg:pt-2">
             <a href="/" className="mb-4 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
               <img
@@ -74,7 +74,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[365px] md:max-w-[380px] lg:max-w-[285px] mt-2 lg:mx-0 lg:-ml-3 lg:mt-0">
+          <div className="relative mx-auto w-full max-w-[430px] sm:max-w-[470px] md:max-w-[500px] lg:max-w-[420px] mt-2 lg:mx-0 lg:-ml-6 lg:mt-0">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -91,7 +91,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
                   <Camera className="h-[55%] w-[55%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[8px] sm:text-[10px] lg:text-[10px] font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[10px] sm:text-xs lg:text-xs font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[84%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
