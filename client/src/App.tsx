@@ -24,6 +24,21 @@ function ScrollToTop() {
   const [location] = useLocation();
 
   useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  useEffect(() => {
+    if (location === "/") {
+      if (window.location.hash) {
+        window.history.replaceState(null, "", "/");
+      }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      return;
+    }
+
     const hash = window.location.hash;
 
     if (hash) {
