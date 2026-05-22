@@ -38,13 +38,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
       <div className="container max-w-7xl pt-8 md:pt-12 pb-7 md:pb-9">
         <div className="grid lg:grid-cols-[0.9fr_0.72fr] gap-7 lg:gap-12 items-start">
           <div className="lg:pt-5">
-            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
-              ICHEON STAIR CLEANING
-            </p>
             <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-foreground mb-5 md:mb-6">
               아직도
               <br />
-              직접 청소하고
+              <span className="text-primary">직접 청소</span>하고
               <br />
               계신가요?
             </h1>
