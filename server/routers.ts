@@ -9,10 +9,12 @@ import { quoteRequests } from "../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { notifyOwner } from "./_core/notification";
 import { blogRouter } from "./routers/blog";
+import { areaPostsRouter } from "./routers/areaPosts";
 
 export const appRouter = router({
   system: systemRouter,
   blog: blogRouter,
+  areaPosts: areaPostsRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
