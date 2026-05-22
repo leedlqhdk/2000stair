@@ -30,7 +30,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="container max-w-5xl pt-7 md:pt-9 pb-8 md:pb-10">
-        <div className="grid lg:grid-cols-[0.58fr_0.42fr] gap-3 md:gap-4 lg:gap-2 items-start">
+        <div className="grid lg:grid-cols-[0.58fr_0.42fr] gap-5 md:gap-5 lg:gap-2 items-start">
           <div className="lg:pt-2">
             <a href="/" className="mb-4 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
               <img
@@ -40,15 +40,15 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               />
             </a>
 
-            <h1 className="text-[2.35rem] sm:text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold leading-[1.08] text-foreground mb-4 md:mb-5">
+            <h1 className="text-[2.65rem] sm:text-[3.25rem] md:text-[3.65rem] lg:text-[3.2rem] font-extrabold leading-[1.06] text-foreground mb-4 md:mb-5">
               아직도
               <br />
               <span className="text-primary">직접 청소</span>하고
               <br />
               계신가요?
             </h1>
-            <p className="text-base md:text-lg text-gray-700 font-semibold leading-relaxed mb-5 md:mb-6">
-              이천 빌라 · 원룸 계단청소
+            <p className="text-lg sm:text-xl lg:text-lg text-gray-700 font-semibold leading-relaxed mb-5 md:mb-6">
+              이천 빌라 · 상가 계단청소
               <br className="hidden sm:block" />
               사진 한 장이면 빠르게 안내드립니다.
             </p>
@@ -58,7 +58,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
               >
                 <MessageCircle className="h-5 w-5 stroke-[2.8]" />
                 카톡으로 사진 보내기
@@ -66,7 +66,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </a>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-                className="inline-flex h-13 items-center justify-center gap-2 rounded-full border-2 border-primary/20 bg-white px-7 text-base font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full border-2 border-primary/20 bg-white px-7 text-base font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
               >
                 <Phone className="h-5 w-5 stroke-[2.8]" />
                 전화 상담
@@ -74,7 +74,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] lg:max-w-[285px] mt-1 lg:mx-0 lg:-ml-3">
+          <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[365px] md:max-w-[380px] lg:max-w-[285px] mt-2 lg:mx-0 lg:-ml-3 lg:mt-0">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -91,7 +91,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
                   <Camera className="h-[55%] w-[55%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.02vw,10px)] font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[8px] sm:text-[10px] lg:text-[10px] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[84%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
