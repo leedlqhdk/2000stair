@@ -6,26 +6,26 @@ const galleryItems = [
   {
     id: 1,
     title: "빌라 계단 바닥 오염",
-    before: "/images/stair-before.jpg",
-    after: "/images/stair-after.jpg",
+    before: "/images/before-after/stair-before.webp",
+    after: "/images/before-after/stair-after.webp",
   },
   {
     id: 2,
     title: "소화전 먼지 제거",
-    before: "/images/fire-extinguisher-before.jpg",
-    after: "/images/fire-extinguisher-after.jpg",
+    before: "/images/before-after/fire-extinguisher-before.webp",
+    after: "/images/before-after/fire-extinguisher-after.webp",
   },
   {
     id: 3,
     title: "난간 아래 먼지 제거",
-    before: "/images/stair-railing-before2.jpg",
-    after: "/images/stair-railing-after2.jpg",
+    before: "/images/before-after/railing-before.webp",
+    after: "/images/before-after/railing-after.webp",
   },
   {
     id: 4,
-    title: "창틀 오염 제거",
-    before: "/images/window-frame-before.jpg",
-    after: "/images/window-frame-after.jpg",
+    title: "계단 난간 오염 제거",
+    before: "/images/before-after/stair-railing-before.webp",
+    after: "/images/before-after/stair-railing-after.webp",
   },
 ];
 
