@@ -29,17 +29,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-5xl pt-4 sm:pt-6 md:pt-9 pb-7 md:pb-10">
-        <div className="grid grid-cols-[0.55fr_0.45fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-1">
+      <div className="container max-w-5xl pt-6 sm:pt-7 md:pt-9 pb-7 md:pb-10">
+        <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-2 sm:gap-3 md:gap-4 lg:gap-2">
           <div className="min-w-0 pt-1 lg:pt-2">
-            <a href="/" className="mb-3 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
-              <img
-                src="/images/icheon-logo-main.png"
-                alt="이천계단지기"
-                className="h-[clamp(16px,3.8vw,28px)] w-auto object-contain"
-              />
-            </a>
-
             <h1 className="text-[clamp(1.85rem,7.5vw,3.2rem)] font-extrabold leading-[1.08] text-foreground mb-3 sm:mb-4 md:mb-5">
               아직도
               <br />
@@ -74,7 +66,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative ml-auto w-[118%] max-w-[clamp(240px,58vw,520px)] pt-0 -mr-[2%] md:-mr-[4%] lg:-ml-5">
+          <div className="relative ml-auto w-[102%] max-w-[clamp(220px,48vw,440px)] pt-0 -mr-[1%] md:-mr-[2%] lg:-ml-3">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -91,7 +83,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
                   <Camera className="h-[55%] w-[55%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.85vw,13px)] font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.6vw,12px)] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[84%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
