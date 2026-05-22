@@ -6,9 +6,10 @@ import type { AreaPost } from "@/hooks/useAreaPosts";
 type AreaPostCardProps = {
   post: AreaPost;
   index: number;
+  areaLabel?: string;
 };
 
-export default function AreaPostCard({ post, index }: AreaPostCardProps) {
+export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardProps) {
   const images = post.images?.length ? post.images : [post.image];
 
   return (
@@ -36,9 +37,20 @@ export default function AreaPostCard({ post, index }: AreaPostCardProps) {
           </div>
 
           <div className="p-5">
+            {areaLabel && (
+              <p className="mb-2 text-sm font-bold text-primary">
+                {areaLabel}
+              </p>
+            )}
             <h3 className="text-lg font-extrabold leading-snug text-foreground mb-3">
               {post.title}
             </h3>
+
+            {post.description && (
+              <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                {post.description}
+              </p>
+            )}
 
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <CalendarDays className="h-4 w-4" />
@@ -50,6 +62,9 @@ export default function AreaPostCard({ post, index }: AreaPostCardProps) {
 
       <DialogContent className="max-h-[92vh] overflow-y-auto p-0 sm:max-w-4xl" showCloseButton>
         <div className="p-5 md:p-6">
+          {areaLabel && (
+            <p className="mb-2 text-sm font-bold text-primary">{areaLabel}</p>
+          )}
           <DialogTitle className="text-xl md:text-2xl font-extrabold leading-snug">
             {post.title}
           </DialogTitle>
@@ -57,6 +72,11 @@ export default function AreaPostCard({ post, index }: AreaPostCardProps) {
             <CalendarDays className="h-4 w-4" />
             {post.date} · 사진 {images.length}장
           </DialogDescription>
+          {post.description && (
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              {post.description}
+            </p>
+          )}
         </div>
 
         <div className="grid gap-3 px-3 pb-3 md:grid-cols-2 md:px-6 md:pb-6">
