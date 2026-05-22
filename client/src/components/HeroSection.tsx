@@ -1,12 +1,11 @@
 import { Link } from "wouter";
-import { ArrowRight, Camera, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Camera, MapPin } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-const PHONE_NUMBER = "010-8438-1887";
 
 const areas = [
   { name: "시내권", href: "/area/downtown" },
@@ -39,31 +38,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <br />
               계신가요?
             </h1>
-            <p className="text-[clamp(0.78rem,3vw,1.1rem)] text-gray-700 font-semibold leading-relaxed mb-4 sm:mb-5 md:mb-6">
+            <p className="text-[clamp(0.78rem,3vw,1.1rem)] text-gray-700 font-semibold leading-relaxed">
               이천 빌라 · 상가 계단청소
               <br />
               사진 한 장이면 빠르게 안내드립니다.
             </p>
-
-            <div className="flex flex-col min-[420px]:flex-row gap-2 sm:gap-2.5 max-w-[520px]">
-              <a
-                href={KAKAO_CHANNEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-[clamp(42px,10vw,52px)] items-center justify-center gap-1.5 sm:gap-2 rounded-full bg-[#FEE500] px-3 sm:px-5 text-[clamp(0.78rem,3vw,1rem)] font-extrabold text-[#191919] shadow-sm ring-1 ring-black/5 transition-colors hover:bg-[#F4DC00]"
-              >
-                <MessageCircle className="h-[1.1em] w-[1.1em] stroke-[2.8]" />
-                카톡으로 사진 보내기
-                <ArrowRight className="h-[1em] w-[1em] stroke-[2.8]" />
-              </a>
-              <a
-                href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-                className="inline-flex h-[clamp(42px,10vw,52px)] items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-primary/20 bg-white px-4 sm:px-7 text-[clamp(0.78rem,3vw,1rem)] font-extrabold text-primary shadow-sm transition-colors hover:border-primary/35 hover:bg-blue-50"
-              >
-                <Phone className="h-[1.1em] w-[1.1em] stroke-[2.8]" />
-                전화 상담
-              </a>
-            </div>
           </div>
 
           <div className="relative ml-auto w-[102%] max-w-[clamp(220px,48vw,440px)] pt-0 -mr-[1%] md:-mr-[2%] lg:-ml-3">
