@@ -91,23 +91,23 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <img
                 src="/images/main-phone.webp"
                 alt="카카오톡으로 계단 사진을 보내는 상담 화면"
-                className="w-full object-contain drop-shadow-xl"
+                className="w-full object-contain"
               />
               <a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute left-[18%] right-[18%] bottom-[9%] flex h-9 items-center gap-1.5 rounded-full bg-white/96 p-1.5 shadow-lg ring-1 ring-blue-100 backdrop-blur transition-transform hover:-translate-y-0.5 sm:h-10 md:h-11"
+                className="absolute left-[30%] right-[30%] bottom-[7.2%] flex h-[5.1%] items-center gap-[2%] rounded-full bg-white/95 px-[1.4%] transition-transform hover:-translate-y-0.5"
                 aria-label="카카오톡으로 계단 사진 보내기"
               >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 sm:h-7 sm:w-7 md:h-8 md:w-8">
-                  <Camera className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                <span className="flex aspect-square h-[70%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                  <Camera className="h-[58%] w-[58%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[11px] font-extrabold text-foreground sm:text-xs md:text-sm">
+                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.35vw,11px)] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-white sm:h-8 sm:w-8 md:h-9 md:w-9">
-                  <ArrowRight className="h-4 w-4 -rotate-45 stroke-[3] md:h-4.5 md:w-4.5" />
+                <span className="flex aspect-square h-[82%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
                 </span>
               </a>
             </div>
