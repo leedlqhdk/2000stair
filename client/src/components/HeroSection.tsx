@@ -128,7 +128,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     <img
                       src={image.src}
                       alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover object-bottom"
                       loading="lazy"
                     />
                   </button>
