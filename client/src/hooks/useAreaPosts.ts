@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 export type AreaPost = {
   id?: string;
   title: string;
+  description?: string;
+  area?: string;
   date: string;
   image: string;
   images?: string[];
