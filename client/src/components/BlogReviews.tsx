@@ -19,7 +19,7 @@ const reviewCards = [
     quote: "오랜 빌라 청소도 결과물 완성도가 높았어요.",
     detail: "마장면 · 숨고",
     button: "리뷰 보러가기",
-    url: "https://soomgo.com/",
+    url: "https://soomgo.com/profile/users/3729049",
   },
   {
     platform: "당근 후기",
@@ -28,7 +28,7 @@ const reviewCards = [
     quote: "너무 꼼꼼하게 해주셨습니다.",
     detail: "동네 주민 후기 · 당근",
     button: "후기 보러가기",
-    url: "https://www.daangn.com/",
+    url: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
   },
 ];
 
