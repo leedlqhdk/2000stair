@@ -25,20 +25,10 @@ const downtownPosts: AreaPost[] = [
   { title: "안흥동 빌라 정기관리", date: "2026.04.10", image: "/images/areas/downtown/downtown-6.jpg", area: "downtown" },
 ];
 
-const sindunPosts: AreaPost[] = [
-  { title: "신둔면 빌라 계단청소", date: "2026.05.20", image: "/images/areas/sindun/sindun-1.jpg", area: "sindun" },
-  { title: "신둔면 공동현관 유리관리", date: "2026.05.18", image: "/images/areas/sindun/sindun-2.jpg", area: "sindun" },
-  { title: "신둔면 원룸 공용공간 관리", date: "2026.05.15", image: "/images/areas/sindun/sindun-3.jpg", area: "sindun" },
-  { title: "신둔면 계단 바닥 정기관리", date: "2026.05.12", image: "/images/areas/sindun/sindun-4.jpg", area: "sindun" },
-  { title: "신둔면 빌라 계단 정기관리", date: "2026.04.19", image: "/images/areas/sindun/sindun-5.jpg", area: "sindun" },
-  { title: "신둔면 공용공간 거미줄 제거", date: "2026.04.10", image: "/images/areas/sindun/sindun-6.jpg", area: "sindun" },
-];
-
 const fallbackPosts: AreaPost[] = [
   ...majangPosts.map((post) => ({ ...post, area: "majang" })),
   ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
   ...downtownPosts,
-  ...sindunPosts,
 ].sort((a, b) => b.date.localeCompare(a.date));
 
 function useAllAreaPosts() {
