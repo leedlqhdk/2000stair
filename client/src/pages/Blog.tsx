@@ -1,13 +1,12 @@
-import { Link, useParams } from "wouter";
-import { trpc } from "@/lib/trpc";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft, ArrowRight, CalendarDays, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
+import type { AreaPost } from "@/hooks/useAreaPosts";
 
 const areaCards = [
   {
@@ -66,26 +65,38 @@ const reviews = [
   },
 ];
 
+const areaLabels: Record<string, string> = {
+  majang: "마장면",
+  daewol: "대월면",
+  sindun: "신둔면",
+  downtown: "시내권",
+};
+
 const fallbackRecentPosts = [
-  ...majangPosts.map((post) => ({ ...post, area: "마장면", href: "/area/majang" })),
-  ...daewolPosts.map((post) => ({ ...post, area: "대월면", href: "/area/daewol" })),
+  ...majangPosts.map((post) => ({ ...post, area: "majang" })),
+  ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
 ]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 3);
 
-export default function Blog() {
-  const params = useParams();
-  const selectedTag = params.slug;
-
-  const { data: tagsData } = trpc.blog.tags.useQuery();
-
-  const { data, isLoading } = trpc.blog.list.useQuery({
-    tag: selectedTag,
-    limit: 20,
-    offset: 0,
+function useRecentAreaPosts() {
+  return useQuery({
+    queryKey: ["area-posts", "recent"],
+    queryFn: async () => {
+      const response = await fetch("/api/area-posts?limit=12");
+      if (!response.ok) return [];
+      return (await response.json()) as AreaPost[];
+    },
+    staleTime: 60_000,
+    retry: 1,
   });
+}
 
-  const posts = data?.posts ?? [];
+export default function Blog() {
+  const { data: notionRecentPosts, isLoading } = useRecentAreaPosts();
+  const recentPosts = notionRecentPosts && notionRecentPosts.length > 0
+    ? notionRecentPosts
+    : fallbackRecentPosts;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
@@ -194,32 +205,6 @@ export default function Blog() {
             </div>
           </section>
 
-          {tagsData && tagsData.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-10">
-              <Link href="/blog">
-                <Button
-                  variant={selectedTag === undefined ? "default" : "outline"}
-                  size="sm"
-                  className="rounded-full h-11 px-5 text-sm"
-                >
-                  전체
-                </Button>
-              </Link>
-
-              {tagsData.map((tag) => (
-                <Link key={tag.id} href={`/blog/category/${tag.slug}`}>
-                  <Button
-                    variant={selectedTag === tag.slug ? "default" : "outline"}
-                    size="sm"
-                    className="rounded-full h-11 px-5 text-sm"
-                  >
-                    {tag.name}
-                  </Button>
-                </Link>
-              ))}
-            </div>
-          )}
-
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
@@ -233,7 +218,7 @@ export default function Blog() {
 
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Array.from({ length: 6 }).map((_, i) => (
+              {Array.from({ length: 3 }).map((_, i) => (
                 <div
                   key={i}
                   className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white"
@@ -246,71 +231,6 @@ export default function Blog() {
                 </div>
               ))}
             </div>
-          ) : posts.length === 0 ? (
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.08,
-                  },
-                },
-              }}
-            >
-              {fallbackRecentPosts.map((post) => (
-                <motion.div
-                  key={`${post.area}-${post.title}`}
-                  className="h-full"
-                  variants={{
-                    hidden: { opacity: 0, y: 28 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.45 },
-                    },
-                  }}
-                >
-                  <Link href={post.href}>
-                    <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
-                      <div className="relative h-72 overflow-hidden bg-blue-50">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          loading="lazy"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-
-                        <div className="absolute left-5 bottom-5 right-5">
-                          <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
-                            <CalendarDays className="w-3 h-3" />
-                            <span>{post.date}</span>
-                          </div>
-
-                          <h2 className="text-white text-xl font-extrabold leading-snug line-clamp-2">
-                            {post.title}
-                          </h2>
-                        </div>
-                      </div>
-
-                      <div className="p-5">
-                        <p className="text-sm font-bold text-primary mb-2">
-                          {post.area}
-                        </p>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          실제 이천 지역 계단청소 현장 기록입니다.
-                        </p>
-                      </div>
-                    </article>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
           ) : (
             <motion.div
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -326,61 +246,61 @@ export default function Blog() {
                 },
               }}
             >
-              {posts.map((post) => (
-                <motion.div
-                  key={post.id}
-                  className="h-full"
-                  variants={{
-                    hidden: { opacity: 0, y: 28 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { duration: 0.45 },
-                    },
-                  }}
-                >
-                  <Link href={`/blog/${post.id}`}>
-                    <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
-                      <div className="relative h-72 overflow-hidden bg-blue-50">
-                        {post.thumbnail ? (
+              {recentPosts.slice(0, 6).map((post, index) => {
+                const areaSlug = post.area ?? "downtown";
+                const areaName = areaLabels[areaSlug] ?? areaSlug;
+                const description = post.description || "실제 이천 지역 계단청소 현장 기록입니다.";
+
+                return (
+                  <motion.div
+                    key={`${areaSlug}-${post.title}-${index}`}
+                    className="h-full"
+                    variants={{
+                      hidden: { opacity: 0, y: 28 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.45 },
+                      },
+                    }}
+                  >
+                    <Link href={`/area/${areaSlug}`}>
+                      <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
+                        <div className="relative h-72 overflow-hidden bg-blue-50">
                           <img
-                            src={post.thumbnail}
+                            src={post.image}
                             alt={post.title}
                             loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-5xl">
-                            🧹
+
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+
+                          <div className="absolute left-5 bottom-5 right-5">
+                            <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
+                              <CalendarDays className="w-3 h-3" />
+                              <span>{post.date}</span>
+                            </div>
+
+                            <h2 className="text-white text-xl font-extrabold leading-snug line-clamp-2">
+                              {post.title}
+                            </h2>
                           </div>
-                        )}
-
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-
-                        <div className="absolute left-5 bottom-5 right-5">
-                          <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
-                            <CalendarDays className="w-3 h-3" />
-                            <span>
-                              {new Date(post.createdAt).toLocaleDateString("ko-KR")}
-                            </span>
-                          </div>
-
-                          <h2 className="text-white text-xl font-extrabold leading-snug line-clamp-2">
-                            {post.title}
-                          </h2>
                         </div>
-                      </div>
 
-                      <div className="p-5">
-                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                          실제 이천 지역 계단청소 현장 기록입니다.
-                        </p>
-                        <TagBadges tagIds={post.tags} allTags={tagsData ?? []} />
-                      </div>
-                    </article>
-                  </Link>
-                </motion.div>
-              ))}
+                        <div className="p-5">
+                          <p className="text-sm font-bold text-primary mb-2">
+                            {areaName}
+                          </p>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {description}
+                          </p>
+                        </div>
+                      </article>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           )}
         </section>
@@ -413,32 +333,6 @@ function IcheonAreaMap() {
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function TagBadges({
-  tagIds,
-  allTags,
-}: {
-  tagIds: number[];
-  allTags: { id: number; name: string; slug: string }[];
-}) {
-  if (!tagIds.length) return null;
-
-  const matched = allTags.filter((t) => tagIds.includes(t.id));
-
-  return (
-    <div className="flex flex-wrap gap-1.5">
-      {matched.map((t) => (
-        <Badge
-          key={t.id}
-          variant="secondary"
-          className="rounded-full text-xs"
-        >
-          {t.name}
-        </Badge>
-      ))}
     </div>
   );
 }
