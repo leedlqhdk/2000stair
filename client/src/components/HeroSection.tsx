@@ -30,7 +30,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="container max-w-5xl pt-4 sm:pt-6 md:pt-9 pb-7 md:pb-10">
-        <div className="grid grid-cols-[0.57fr_0.43fr] items-start gap-2 sm:gap-3 md:gap-4 lg:gap-2">
+        <div className="grid grid-cols-[0.55fr_0.45fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-1">
           <div className="min-w-0 pt-1 lg:pt-2">
             <a href="/" className="mb-3 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
               <img
@@ -74,7 +74,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative ml-auto w-full max-w-[clamp(180px,43vw,420px)] pt-1 md:pt-0 lg:-ml-4">
+          <div className="relative ml-auto w-[118%] max-w-[clamp(240px,58vw,520px)] pt-0 -mr-[2%] md:-mr-[4%] lg:-ml-5">
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
@@ -91,7 +91,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <span className="flex aspect-square h-[74%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500">
                   <Camera className="h-[55%] w-[55%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(6px,1.55vw,12px)] font-extrabold leading-none text-foreground">
+                <span className="min-w-0 flex-1 truncate text-[clamp(7px,1.85vw,13px)] font-extrabold leading-none text-foreground">
                   4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[84%] shrink-0 items-center justify-center rounded-full bg-primary text-white">
