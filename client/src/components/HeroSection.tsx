@@ -73,11 +73,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </div>
         </div>
 
-        <div className="mt-6 sm:mt-8 border-t border-blue-100 pt-4 sm:pt-5 md:mt-10 md:pt-6">
+        <div className="mt-6 sm:mt-8 border-t border-blue-100 pt-4 text-right sm:pt-5 md:mt-10 md:pt-6">
           <p className="mb-3 text-[clamp(0.75rem,2.5vw,0.9rem)] font-semibold text-gray-500">
             관리 희망 지역을 먼저 확인해보세요
           </p>
-          <div className="flex flex-wrap gap-2 sm:gap-2.5">
+          <div className="flex flex-wrap justify-end gap-2 sm:gap-2.5">
             {areas.map((area) => (
               <Link key={area.name} href={area.href}>
                 <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 sm:px-4 py-2 text-[clamp(0.75rem,2.5vw,0.9rem)] font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary">
