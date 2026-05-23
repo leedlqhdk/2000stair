@@ -99,9 +99,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.12em] text-primary md:text-sm">
-                <MapPin className="h-4 w-4 fill-primary/10" />
-                관리지역
+              <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.16em] text-primary md:text-sm">
+                <MapPin className="h-4 w-4 text-primary stroke-[3]" />
+                MAP
               </p>
               <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
                 이천 전 지역을 부부가 직접 관리합니다.
