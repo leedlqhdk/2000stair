@@ -33,17 +33,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
               계단청소
               <br />
-              <span className="relative inline-block text-slate-400">
+              <motion.span
+                className="inline-block text-primary"
+                initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              >
                 직접 청소
-                <motion.span
-                  className="absolute inset-0 overflow-hidden whitespace-nowrap text-primary"
-                  initial={{ width: "0%" }}
-                  animate={{ width: ["0%", "100%", "100%", "0%"] }}
-                  transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  직접 청소
-                </motion.span>
-              </span>
+              </motion.span>
               하고
               <br />
               계신가요?
