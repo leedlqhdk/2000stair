@@ -151,9 +151,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                          <div className="mb-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-white/95 text-primary shadow-sm">
-                            <MapPin className="h-3.5 w-3.5" />
-                          </div>
+                          <MapPin className="mb-1.5 h-4 w-4 text-white drop-shadow" />
                           <h3 className="text-xs font-extrabold leading-tight md:text-sm">
                             {item.title}
                           </h3>
