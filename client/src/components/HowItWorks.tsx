@@ -1,84 +1,104 @@
 import { motion } from "framer-motion";
-import { MessageCircle, MapPinned, Sparkles } from "lucide-react";
+import { Camera, Home, MessageCircle, Sparkles } from "lucide-react";
 
 const steps = [
   {
     number: "01",
     icon: MessageCircle,
-    title: "카톡 문의",
-    text: "건물 사진이나 주소를 보내주시면 상담을 시작합니다.",
+    title: "문의하기",
+    text: "카카오톡으로 건물 사진과 주소를 보내주시면 상담을 시작합니다.",
   },
   {
     number: "02",
-    icon: MapPinned,
-    title: "현장 확인",
-    text: "층수, 오염 상태, 관리 범위를 확인해 안내드립니다.",
+    icon: Home,
+    title: "무료 방문 견적",
+    text: "현장 상황과 오염 상태를 확인해 관리 범위를 안내드립니다.",
   },
   {
     number: "03",
     icon: Sparkles,
-    title: "정기관리",
-    text: "하청 없이 부부가 직접 방문해 꾸준히 관리합니다.",
+    title: "정기 관리 시작",
+    text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다.",
+  },
+  {
+    number: "04",
+    icon: Camera,
+    title: "작업 사진 공유",
+    text: "관리 전후 사진으로 진행 내용을 확인하실 수 있습니다.",
   },
 ];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-16 md:py-28 bg-white">
-      <div className="container max-w-6xl">
+    <section id="how-it-works" className="py-16 md:py-24 bg-white">
+      <div className="container max-w-4xl">
         <motion.div
-          className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
+          className="mx-auto mb-10 max-w-2xl text-center md:mb-12"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
+          <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
             PROCESS
           </p>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold leading-[1.12] text-foreground mb-4">
+          <h2 className="mb-4 text-3xl font-extrabold leading-[1.14] text-foreground md:text-4xl">
             상담부터 관리까지
             <br />
             간단하게 진행합니다
           </h2>
 
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            복잡한 신청서 없이 카카오톡으로 문의하고,
-            건물 상태에 맞는 관리 범위를 안내드립니다.
+          <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리 범위를 안내드립니다.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: index * 0.08 }}
-              className="rounded-3xl border border-blue-100 bg-gradient-to-br from-white to-blue-50/30 p-5 md:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="flex items-center justify-between mb-8">
-                <p className="text-4xl md:text-5xl font-extrabold text-primary/15">
-                  {step.number}
-                </p>
+        <motion.div
+          className="mx-auto max-w-xl rounded-[1.5rem] border border-blue-100 bg-blue-50/30 p-4 shadow-sm sm:p-5 md:max-w-2xl md:p-6"
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.65 }}
+        >
+          <div className="relative space-y-3 md:space-y-4">
+            <div className="absolute bottom-10 left-[1.05rem] top-10 hidden w-px bg-blue-100 sm:block" />
 
-                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                  <step.icon className="w-6 h-6" />
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.number}
+                className="relative grid grid-cols-[2.5rem_1fr] items-stretch gap-3 sm:grid-cols-[3rem_1fr] md:gap-4"
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+              >
+                <div className="flex justify-center pt-5">
+                  <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-blue-100 bg-white text-[0.68rem] font-extrabold text-primary shadow-sm">
+                    {step.number}
+                  </span>
                 </div>
-              </div>
 
-              <h3 className="text-xl md:text-2xl font-extrabold text-foreground mb-2 md:mb-3">
-                {step.title}
-              </h3>
+                <div className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-5">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 sm:h-12 sm:w-12">
+                      <step.icon className="h-5 w-5 sm:h-6 sm:w-6" />
+                    </div>
 
-              <p className="text-muted-foreground leading-relaxed">
-                {step.text}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+                    <div className="min-w-0">
+                      <h3 className="mb-1.5 text-base font-extrabold text-foreground sm:text-lg">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                        {step.text}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
