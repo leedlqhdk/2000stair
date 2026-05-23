@@ -33,14 +33,16 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
               계단청소
               <br />
-              <span className="relative inline-block text-primary">
-                <span className="relative z-10">직접 청소</span>
+              <span className="relative inline-block text-slate-400">
+                직접 청소
                 <motion.span
-                  className="absolute bottom-[0.05em] left-0 z-0 h-[0.22em] w-full rounded-full bg-primary/20"
-                  style={{ transformOrigin: "left" }}
-                  animate={{ scaleX: [0, 1, 1, 0], opacity: [0, 1, 0.85, 0] }}
-                  transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
-                />
+                  className="absolute inset-0 overflow-hidden whitespace-nowrap text-primary"
+                  initial={{ width: "0%" }}
+                  animate={{ width: ["0%", "100%", "100%", "0%"] }}
+                  transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  직접 청소
+                </motion.span>
               </span>
               하고
               <br />
