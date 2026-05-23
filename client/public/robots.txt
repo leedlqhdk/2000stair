@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /my-quotes
 
-Sitemap: https://2000stair.click/sitemap.xml
+Sitemap: https://2000stair.kr/sitemap.xml
