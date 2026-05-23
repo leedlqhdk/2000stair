@@ -134,7 +134,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                         <img
                           src={item.src}
                           alt={`${item.title} 관리 현장`}
-                          className="h-full w-full scale-110 object-cover object-bottom brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.15]"
+                          className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-[#f5f9ff]/10" />
