@@ -164,9 +164,6 @@ export default function BlogReviews() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="mb-4 text-[clamp(0.75rem,2.5vw,0.9rem)] font-semibold text-gray-500">
-            관리 희망 지역을 먼저 확인해보세요
-          </p>
           <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
             {areas.map((area) => (
               <Link key={area.name} href={area.href}>
@@ -177,6 +174,9 @@ export default function BlogReviews() {
               </Link>
             ))}
           </div>
+          <p className="mt-4 text-[clamp(0.75rem,2.5vw,0.9rem)] font-semibold text-gray-500">
+            관리 희망 지역을 먼저 확인해보세요
+          </p>
         </motion.div>
       </div>
     </section>
