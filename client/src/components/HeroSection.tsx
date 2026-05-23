@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Camera, MapPin } from "lucide-react";
+import { ArrowRight, Building2, Camera, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -15,6 +15,13 @@ const areaSectionItems = [
   { src: "/images/shorts-4.webp", title: "이천 시내 빌라", subtitle: "계단 · 공동현관 관리" },
   { src: "/images/shorts-5.webp", title: "대월면 건물", subtitle: "공용부 정기관리" },
   { src: "/images/shorts-6.webp", title: "송정동 빌라", subtitle: "현관 · 복도 관리" },
+];
+
+const featureItems = [
+  { icon: Building2, title: "현장 확인" },
+  { icon: ShieldCheck, title: "직접 관리" },
+  { icon: Camera, title: "사진 기록" },
+  { icon: MessageCircle, title: "빠른 소통" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -90,16 +97,16 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="bg-white py-12 md:py-16 overflow-hidden">
+      <div className="bg-blue-50/45 py-10 md:py-14 overflow-hidden">
         <div className="container max-w-7xl">
-          <div className="grid items-center gap-7 lg:grid-cols-[0.25fr_0.75fr] lg:gap-8">
+          <div className="grid items-center gap-6 lg:grid-cols-[0.27fr_0.73fr] lg:gap-8">
             <motion.div
               initial={{ opacity: 0, x: -18 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="mb-4 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.18em] text-primary md:text-sm">
+              <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.18em] text-primary md:text-sm">
                 <MapPin className="h-4 w-4 fill-primary/10" />
                 MAP
               </p>
@@ -109,6 +116,19 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <p className="max-w-xs text-sm leading-relaxed text-gray-600 md:text-base">
                 이천 전 지역 꼼꼼하게 관리합니다. 실제 관리 현장을 확인해보세요.
               </p>
+
+              <div className="mt-5 grid max-w-xs grid-cols-2 gap-2.5 rounded-2xl border border-blue-100 bg-white/75 p-3 shadow-sm backdrop-blur">
+                {featureItems.map((item) => (
+                  <div key={item.title} className="flex items-center gap-2 rounded-xl bg-blue-50/60 px-2.5 py-2">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-primary shadow-sm">
+                      <item.icon className="h-4 w-4" />
+                    </span>
+                    <span className="text-xs font-extrabold text-foreground">
+                      {item.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
             <div className="relative overflow-hidden pb-2">
@@ -122,7 +142,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
                     <Link href="/areas">
-                      <a className="group relative block h-44 w-40 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:h-48 md:w-44">
+                      <a className="group relative block h-40 w-36 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:h-44 md:w-40">
                         <img
                           src={item.src}
                           alt={`${item.title} 관리 현장`}
@@ -130,14 +150,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
-                          <div className="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-primary shadow-sm">
-                            <MapPin className="h-4 w-4" />
+                        <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
+                          <div className="mb-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-white/95 text-primary shadow-sm">
+                            <MapPin className="h-3.5 w-3.5" />
                           </div>
-                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
+                          <h3 className="text-xs font-extrabold leading-tight md:text-sm">
                             {item.title}
                           </h3>
-                          <p className="mt-1 text-[0.68rem] font-semibold text-white/80 md:text-xs">
+                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/80 md:text-[0.68rem]">
                             {item.subtitle}
                           </p>
                         </div>
