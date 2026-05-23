@@ -1,5 +1,5 @@
 import { MessageCircle, Phone, Sparkles, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -33,7 +33,32 @@ const options = {
 
 export default function KakaoChat() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimer = useRef<number | null>(null);
   const [diagnosis, setDiagnosis] = useState<DiagnosisState>(initialDiagnosis);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true);
+
+      if (scrollTimer.current) {
+        window.clearTimeout(scrollTimer.current);
+      }
+
+      scrollTimer.current = window.setTimeout(() => {
+        setIsScrolling(false);
+      }, 650);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimer.current) {
+        window.clearTimeout(scrollTimer.current);
+      }
+    };
+  }, []);
 
   const diagnosisResult = useMemo(() => {
     const noElevator = diagnosis.elevator === "없음";
@@ -68,37 +93,47 @@ export default function KakaoChat() {
     setDiagnosis((prev) => ({ ...prev, [key]: value }));
   };
 
+  const buttonTextClass = isScrolling
+    ? "max-w-0 opacity-0 md:max-w-[80px] md:opacity-100"
+    : "max-w-[64px] opacity-100";
+
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-50 flex w-[102px] flex-col items-stretch gap-1.5 md:bottom-6 md:right-6 md:w-[168px] md:gap-3">
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3">
         <a
           href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-          className="flex h-9 items-center justify-center gap-1 rounded-full bg-primary px-2 text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-colors duration-200 hover:bg-primary/90 md:h-14 md:gap-2 md:px-5 md:text-base"
+          className={`flex h-9 items-center justify-center gap-1 overflow-hidden rounded-full bg-primary text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:gap-2 md:px-5 md:text-base ${
+            isScrolling ? "w-9 px-0 md:w-[168px]" : "w-[102px] px-2 md:w-[168px]"
+          }`}
           aria-label="전화 문의하기"
         >
-          <Phone className="h-3 w-3 stroke-[2.8] md:h-5 md:w-5" />
-          <span>전화문의</span>
+          <Phone className="h-3 w-3 shrink-0 stroke-[2.8] md:h-5 md:w-5" />
+          <span className={`whitespace-nowrap transition-all duration-300 md:max-w-[80px] md:opacity-100 ${buttonTextClass}`}>전화문의</span>
         </a>
 
         <a
           href={KAKAO_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-9 items-center justify-center gap-1 rounded-full bg-[#FEE500] px-2 text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-colors duration-200 hover:bg-[#F4DC00] md:h-14 md:gap-2 md:px-5 md:text-base"
+          className={`flex h-9 items-center justify-center gap-1 overflow-hidden rounded-full bg-[#FEE500] text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:gap-2 md:px-5 md:text-base ${
+            isScrolling ? "w-9 px-0 md:w-[168px]" : "w-[102px] px-2 md:w-[168px]"
+          }`}
           aria-label="카카오톡 상담하기"
         >
-          <MessageCircle className="h-3 w-3 stroke-[2.8] md:h-5 md:w-5" />
-          <span>카톡상담</span>
+          <MessageCircle className="h-3 w-3 shrink-0 stroke-[2.8] md:h-5 md:w-5" />
+          <span className={`whitespace-nowrap transition-all duration-300 md:max-w-[80px] md:opacity-100 ${buttonTextClass}`}>카톡상담</span>
         </a>
 
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="flex h-9 items-center justify-center gap-1 rounded-full bg-white px-2 text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:gap-2 md:px-5 md:text-base"
+          className={`flex h-9 items-center justify-center gap-1 overflow-hidden rounded-full bg-white text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:gap-2 md:px-5 md:text-base ${
+            isScrolling ? "w-9 px-0 md:w-[168px]" : "w-[102px] px-2 md:w-[168px]"
+          }`}
           aria-label="AI 관리진단 열기"
         >
-          <Sparkles className="h-3 w-3 stroke-[2.8] md:h-5 md:w-5" />
-          <span>AI진단</span>
+          <Sparkles className="h-3 w-3 shrink-0 stroke-[2.8] md:h-5 md:w-5" />
+          <span className={`whitespace-nowrap transition-all duration-300 md:max-w-[80px] md:opacity-100 ${buttonTextClass}`}>AI진단</span>
         </button>
       </div>
 
