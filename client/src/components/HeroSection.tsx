@@ -30,10 +30,25 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.018em] text-foreground mb-3 sm:mb-4 md:mb-5">
+            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
               계단청소
               <br />
-              <span className="text-primary">직접 청소</span>하고
+              <motion.span
+                className="inline-block text-primary"
+                animate={{
+                  y: [0, -3, 0],
+                  scale: [1, 1.025, 1],
+                  textShadow: [
+                    "0 0 0 rgba(0,82,204,0)",
+                    "0 10px 24px rgba(0,82,204,0.20)",
+                    "0 0 0 rgba(0,82,204,0)",
+                  ],
+                }}
+                transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                직접 청소
+              </motion.span>
+              하고
               <br />
               계신가요?
             </h1>
