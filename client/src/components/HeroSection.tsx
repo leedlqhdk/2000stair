@@ -1,19 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Camera, MapPin } from "lucide-react";
+import { ArrowRight, Camera } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-
-const areas = [
-  { name: "시내권", href: "/area/downtown" },
-  { name: "신둔면", href: "/area/sindun" },
-  { name: "마장면", href: "/area/majang" },
-  { name: "대월면", href: "/area/daewol" },
-];
 
 const proofImages = [
   { src: "/images/shorts-1.webp" },
@@ -29,7 +22,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-4 md:pb-5">
+      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-6 md:pb-8">
         <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-0">
           <motion.div
             className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8"
@@ -95,27 +88,6 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </motion.div>
           </motion.div>
         </div>
-
-        <motion.div
-          className="mt-6 sm:mt-8 border-t border-blue-100 pt-4 text-right sm:pt-5 md:mt-10 md:pt-6"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <p className="mb-3 text-[clamp(0.75rem,2.5vw,0.9rem)] font-semibold text-gray-500">
-            관리 희망 지역을 먼저 확인해보세요
-          </p>
-          <div className="flex flex-wrap justify-end gap-2 sm:gap-2.5">
-            {areas.map((area) => (
-              <Link key={area.name} href={area.href}>
-                <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 sm:px-4 py-2 text-[clamp(0.75rem,2.5vw,0.9rem)] font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary">
-                  <MapPin className="h-[1em] w-[1em] text-primary shrink-0" />
-                  {area.name}
-                </a>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
       </div>
 
       <div className="bg-blue-50/40 pt-20 pb-24 md:pt-24 md:pb-28 overflow-hidden">
