@@ -137,11 +137,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                         <img
                           src={item.src}
                           alt={`${item.title} 관리 현장`}
-                          className="h-full w-full scale-110 object-cover object-bottom brightness-[1.08] saturate-[0.78] transition-transform duration-500 group-hover:scale-[1.15]"
+                          className="h-full w-full scale-110 object-cover object-bottom brightness-[1.12] contrast-[0.88] saturate-[0.45] transition-transform duration-500 group-hover:scale-[1.15]"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-white/10 mix-blend-screen" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/68 via-black/12 to-white/12" />
+                        <div className="absolute inset-0 bg-[#f7fbff]/25" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-black/8 to-white/18" />
                         <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
                           <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
                           <h3 className="text-sm font-extrabold leading-tight md:text-base">
