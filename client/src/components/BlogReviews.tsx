@@ -1,5 +1,6 @@
-import { ChevronRight, ExternalLink, Star } from "lucide-react";
+import { ChevronRight, ExternalLink, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 
 const reviewCards = [
@@ -30,6 +31,13 @@ const reviewCards = [
     button: "후기 보러가기",
     url: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
   },
+];
+
+const areas = [
+  { name: "시내권", href: "/area/downtown" },
+  { name: "신둔면", href: "/area/sindun" },
+  { name: "마장면", href: "/area/majang" },
+  { name: "대월면", href: "/area/daewol" },
 ];
 
 export default function BlogReviews() {
@@ -140,6 +148,28 @@ export default function BlogReviews() {
                   </CardContent>
                 </Card>
               </a>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="mx-auto mt-12 max-w-6xl border-t border-blue-100 pt-7 text-center"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="mb-4 text-[clamp(0.75rem,2.5vw,0.9rem)] font-semibold text-gray-500">
+            관리 희망 지역을 먼저 확인해보세요
+          </p>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
+            {areas.map((area) => (
+              <Link key={area.name} href={area.href}>
+                <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 py-2 text-[clamp(0.75rem,2.5vw,0.9rem)] font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary sm:px-4">
+                  <MapPin className="h-[1em] w-[1em] shrink-0 text-primary" />
+                  {area.name}
+                </a>
+              </Link>
             ))}
           </div>
         </motion.div>
