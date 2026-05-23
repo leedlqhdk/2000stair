@@ -42,30 +42,42 @@ function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
     setSliderPos(percent);
   }, []);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    isDragging.current = true;
-    updatePosition(e.clientX);
-  }, [updatePosition]);
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      isDragging.current = true;
+      updatePosition(e.clientX);
+    },
+    [updatePosition]
+  );
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging.current) return;
-    e.preventDefault();
-    updatePosition(e.clientX);
-  }, [updatePosition]);
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      updatePosition(e.clientX);
+    },
+    [updatePosition]
+  );
 
   const handleMouseUp = useCallback(() => {
     isDragging.current = false;
   }, []);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    isDragging.current = true;
-    updatePosition(e.touches[0].clientX);
-  }, [updatePosition]);
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent) => {
+      isDragging.current = true;
+      updatePosition(e.touches[0].clientX);
+    },
+    [updatePosition]
+  );
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isDragging.current) return;
-    updatePosition(e.touches[0].clientX);
-  }, [updatePosition]);
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!isDragging.current) return;
+      updatePosition(e.touches[0].clientX);
+    },
+    [updatePosition]
+  );
 
   const handleTouchEnd = useCallback(() => {
     isDragging.current = false;
@@ -90,13 +102,18 @@ function BeforeAfterSlider({ item }: { item: (typeof galleryItems)[0] }) {
         draggable={false}
       />
 
-      <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
+      <div
+        className="absolute inset-0 overflow-hidden"
+        style={{ width: `${sliderPos}%` }}
+      >
         <img
           src={item.before}
           alt={`${item.title} - 청소 전`}
           className="absolute inset-0 h-full object-cover"
           style={{
-            width: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100%",
+            width: containerRef.current
+              ? `${containerRef.current.offsetWidth}px`
+              : "100%",
             maxWidth: "none",
           }}
           draggable={false}
@@ -135,7 +152,10 @@ export default function BeforeAfterGallery() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <section id="gallery" className="py-16 md:py-28 bg-gradient-to-b from-white to-blue-50/30">
+    <section
+      id="gallery"
+      className="py-16 md:py-28 bg-gradient-to-b from-white to-blue-50/30"
+    >
       <div className="container max-w-6xl">
         <motion.div
           className="mx-auto mb-12 max-w-3xl text-center"
@@ -144,15 +164,17 @@ export default function BeforeAfterGallery() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="mb-5 text-center text-sm font-bold tracking-[0.35em] text-primary">PROOF</p>
+          <p className="mb-5 text-center text-sm font-bold tracking-[0.35em] text-primary">
+            PROOF
+          </p>
           <h2 className="text-center text-4xl md:text-5xl font-extrabold leading-tight text-foreground">
             눈으로 확인하는
             <br />
             관리 결과
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-center text-muted-foreground text-lg leading-relaxed">
-            실제 작업 현장을 기반으로 촬영한 사진입니다.
-            좌우로 드래그해 관리 전후의 차이를 확인해보세요.
+            실제 작업 현장을 기반으로 촬영한 사진입니다. 좌우로 드래그해 관리
+            전후의 차이를 확인해보세요.
           </p>
         </motion.div>
 

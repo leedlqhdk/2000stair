@@ -15,7 +15,9 @@ export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
   const query = useQuery({
     queryKey: ["area-posts", area],
     queryFn: async () => {
-      const response = await fetch(`/api/area-posts?area=${encodeURIComponent(area)}&limit=24`);
+      const response = await fetch(
+        `/api/area-posts?area=${encodeURIComponent(area)}&limit=24`
+      );
       if (!response.ok) return [];
       return (await response.json()) as AreaPost[];
     },
@@ -28,11 +30,11 @@ export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
     if (notionPosts.length === 0) return fallbackPosts;
 
     const existingKeys = new Set(
-      notionPosts.map((post) => `${post.title}-${post.date}`)
+      notionPosts.map(post => `${post.title}-${post.date}`)
     );
 
     const remainingFallbackPosts = fallbackPosts.filter(
-      (post) => !existingKeys.has(`${post.title}-${post.date}`)
+      post => !existingKeys.has(`${post.title}-${post.date}`)
     );
 
     return [...notionPosts, ...remainingFallbackPosts];

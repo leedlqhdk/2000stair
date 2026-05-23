@@ -26,7 +26,10 @@ const systems = [
 
 export default function BoxPreview() {
   return (
-    <section id="box-preview" className="pt-10 pb-12 md:pt-12 md:pb-14 bg-white">
+    <section
+      id="box-preview"
+      className="pt-10 pb-12 md:pt-12 md:pb-14 bg-white"
+    >
       <div className="container max-w-6xl">
         <motion.div
           className="max-w-3xl mx-auto text-center mb-3 md:mb-4"
@@ -34,9 +37,7 @@ export default function BoxPreview() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-        >
-      
-        </motion.div>
+        ></motion.div>
 
         <div className="grid grid-cols-4 gap-3 sm:gap-5 md:gap-8">
           {systems.map((item, index) => (

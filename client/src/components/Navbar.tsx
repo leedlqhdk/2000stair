@@ -48,7 +48,11 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/85 backdrop-blur-xl">
       <div className="container max-w-7xl flex items-center justify-between h-16">
-        <a href="/" className="flex items-center" aria-label="이천계단지기 홈으로 이동">
+        <a
+          href="/"
+          className="flex items-center"
+          aria-label="이천계단지기 홈으로 이동"
+        >
           <img
             src="/images/icheon-logo-main.png"
             alt="이천계단지기"
@@ -57,13 +61,13 @@ export default function Navbar() {
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) =>
+          {navLinks.map(link =>
             link.sectionId ? (
               <a
                 key={link.href}
                 href={link.href}
                 className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
-                onClick={(event) => handleSectionClick(event, link.sectionId)}
+                onClick={event => handleSectionClick(event, link.sectionId)}
               >
                 {link.label}
               </a>
@@ -84,7 +88,11 @@ export default function Navbar() {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="메뉴 열기"
         >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileOpen ? (
+            <X className="w-5 h-5" />
+          ) : (
+            <Menu className="w-5 h-5" />
+          )}
         </button>
       </div>
 
@@ -92,13 +100,13 @@ export default function Navbar() {
         <div className="md:hidden border-t border-blue-100 bg-white/95 backdrop-blur-xl">
           <nav className="container py-4">
             <div className="rounded-3xl border border-blue-100 bg-blue-50/40 p-3">
-              {navLinks.map((link) =>
+              {navLinks.map(link =>
                 link.sectionId ? (
                   <a
                     key={link.href}
                     href={link.href}
                     className="block rounded-2xl px-4 py-3 text-base font-bold text-foreground hover:bg-white transition-colors"
-                    onClick={(event) => handleSectionClick(event, link.sectionId)}
+                    onClick={event => handleSectionClick(event, link.sectionId)}
                   >
                     {link.label}
                   </a>

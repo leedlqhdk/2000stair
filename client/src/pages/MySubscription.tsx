@@ -8,7 +8,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function MyQuotes() {
-  const { user, isAuthenticated, logout } = useAuth({ redirectOnUnauthenticated: true });
+  const { user, isAuthenticated, logout } = useAuth({
+    redirectOnUnauthenticated: true,
+  });
   const [, setLocation] = useLocation();
   const { data: requests, isLoading } = trpc.quote.myRequests.useQuery(
     undefined,
@@ -36,10 +38,14 @@ export default function MyQuotes() {
 
   const getPlanLabel = (planId: string) => {
     switch (planId) {
-      case "basic": return "Basic";
-      case "standard": return "Standard";
-      case "premium": return "Premium";
-      default: return planId;
+      case "basic":
+        return "Basic";
+      case "standard":
+        return "Standard";
+      case "premium":
+        return "Premium";
+      default:
+        return planId;
     }
   };
 
@@ -62,7 +68,7 @@ export default function MyQuotes() {
           <p className="text-muted-foreground">불러오는 중...</p>
         ) : requests && requests.length > 0 ? (
           <div className="space-y-4">
-            {requests.map((req) => {
+            {requests.map(req => {
               const status = getStatusLabel(req.status);
               return (
                 <Card key={req.id}>
@@ -70,11 +76,14 @@ export default function MyQuotes() {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="space-y-2">
                         <div className="flex items-center gap-3">
-                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${status.color}`}>
+                          <span
+                            className={`text-xs font-medium px-2 py-0.5 rounded-full ${status.color}`}
+                          >
                             {status.label}
                           </span>
                           <span className="text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">
-                            {getServiceTypeLabel(req.serviceType)} | {getPlanLabel(req.planId)}
+                            {getServiceTypeLabel(req.serviceType)} |{" "}
+                            {getPlanLabel(req.planId)}
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -83,7 +92,10 @@ export default function MyQuotes() {
                         </div>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Clock className="w-3.5 h-3.5" />
-                          {new Date(req.createdAt).toLocaleDateString("ko-KR")} 신청
+                          {new Date(req.createdAt).toLocaleDateString(
+                            "ko-KR"
+                          )}{" "}
+                          신청
                         </div>
                       </div>
                     </div>
@@ -96,7 +108,9 @@ export default function MyQuotes() {
           <Card>
             <CardContent className="p-12 text-center">
               <Phone className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">아직 견적 신청 내역이 없습니다</h3>
+              <h3 className="text-lg font-semibold mb-2">
+                아직 견적 신청 내역이 없습니다
+              </h3>
               <p className="text-muted-foreground mb-6">
                 무료 방문 견적을 신청하고 맞춤 청소 서비스를 시작하세요.
               </p>

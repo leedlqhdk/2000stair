@@ -112,7 +112,7 @@ export default function BlogReviews() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
-              {reviewCards.map((review) => (
+              {reviewCards.map(review => (
                 <a
                   key={review.platform}
                   href={review.url}
@@ -165,7 +165,7 @@ export default function BlogReviews() {
           transition={{ duration: 0.6 }}
         >
           <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
-            {areas.map((area) => (
+            {areas.map(area => (
               <Link key={area.name} href={area.href}>
                 <a className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 py-2 text-[clamp(0.75rem,2.5vw,0.9rem)] font-bold text-foreground shadow-sm whitespace-nowrap transition-colors hover:border-primary/40 hover:text-primary sm:px-4">
                   <MapPin className="h-[1em] w-[1em] shrink-0 text-primary" />

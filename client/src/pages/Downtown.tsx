@@ -44,7 +44,16 @@ const fallbackPosts = [
   },
 ];
 
-const serviceAreas = ["관고동", "창전동", "증포동", "중리동", "갈산동", "안흥동", "송정동", "사음동"];
+const serviceAreas = [
+  "관고동",
+  "창전동",
+  "증포동",
+  "중리동",
+  "갈산동",
+  "안흥동",
+  "송정동",
+  "사음동",
+];
 
 const reviews = [
   "관리 전후 사진을 보내주셔서 확인하기 편했습니다. 연락도 빨라서 좋았어요.",
@@ -82,7 +91,8 @@ export default function DowntownAreaPage() {
                 </h1>
 
                 <p className="max-w-2xl text-base text-muted-foreground leading-relaxed">
-                  관고동·창전동·증포동을 중심으로 빌라·원룸·상가 공용공간을 직접 관리합니다.
+                  관고동·창전동·증포동을 중심으로 빌라·원룸·상가 공용공간을 직접
+                  관리합니다.
                 </p>
               </div>
 
@@ -102,7 +112,7 @@ export default function DowntownAreaPage() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {serviceAreas.map((area) => (
+            {serviceAreas.map(area => (
               <span
                 key={area}
                 className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-primary"
@@ -134,7 +144,11 @@ export default function DowntownAreaPage() {
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
             {posts.map((post, index) => (
-              <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} />
+              <AreaPostCard
+                key={`${post.title}-${post.date}-${index}`}
+                post={post}
+                index={index}
+              />
             ))}
           </div>
         </section>
@@ -152,7 +166,7 @@ export default function DowntownAreaPage() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            {reviews.map((review) => (
+            {reviews.map(review => (
               <div
                 key={review}
                 className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
@@ -181,7 +195,8 @@ export default function DowntownAreaPage() {
           </h2>
 
           <p className="text-muted-foreground mb-8">
-            관고동·창전동·증포동 인근 정기관리와 일회성 청소 모두 문의 가능합니다.
+            관고동·창전동·증포동 인근 정기관리와 일회성 청소 모두 문의
+            가능합니다.
           </p>
 
           <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">

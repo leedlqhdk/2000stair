@@ -1,4 +1,11 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import {
+  int,
+  mysqlEnum,
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -24,7 +31,9 @@ export const quoteRequests = mysqlTable("quote_requests", {
   serviceType: mysqlEnum("serviceType", ["in_person", "non_contact"]).notNull(),
   planId: varchar("planId", { length: 32 }).notNull(),
   message: text("message"),
-  status: mysqlEnum("status", ["pending", "contacted", "confirmed", "canceled"]).default("pending").notNull(),
+  status: mysqlEnum("status", ["pending", "contacted", "confirmed", "canceled"])
+    .default("pending")
+    .notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -46,9 +55,11 @@ export const posts = mysqlTable("posts", {
   content: text("content").notNull(),
   thumbnail: text("thumbnail"),
   thumbnailAlt: varchar("thumbnail_alt", { length: 200 }),
-  images: text("images"),       // JSON array of {url, alt} objects
-  tags: text("tags"),           // JSON array of tag ids
-  published: mysqlEnum("published", ["draft", "published"]).default("draft").notNull(),
+  images: text("images"), // JSON array of {url, alt} objects
+  tags: text("tags"), // JSON array of tag ids
+  published: mysqlEnum("published", ["draft", "published"])
+    .default("draft")
+    .notNull(),
   authorId: int("authorId").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   seoTitle: varchar("seo_title", { length: 100 }),

@@ -8,9 +8,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, Upload, X, Plus, Sparkles, ChevronDown, ChevronUp, Wand2, Zap } from "lucide-react";
+import {
+  ArrowLeft,
+  Upload,
+  X,
+  Plus,
+  Sparkles,
+  ChevronDown,
+  ChevronUp,
+  Wand2,
+  Zap,
+} from "lucide-react";
 import { Link } from "wouter";
-import { optimizeImage, formatBytes, type OptimizeResult } from "@/lib/imageOptimizer";
+import {
+  optimizeImage,
+  formatBytes,
+  type OptimizeResult,
+} from "@/lib/imageOptimizer";
 
 // 이미지 객체 타입 - url + alt 포함
 type ImageItem = { url: string; alt: string };
@@ -58,7 +72,7 @@ export default function AdminBlogEdit() {
       setContent(existingPost.content);
       setThumbnail(existingPost.thumbnail ?? null);
       // 기존 images가 string[] 또는 {url,alt}[] 모두 처리
-      const parsedImages = (existingPost.images as unknown[]).map((img) => {
+      const parsedImages = (existingPost.images as unknown[]).map(img => {
         if (typeof img === "string") return { url: img, alt: "" };
         return img as ImageItem;
       });
@@ -73,14 +87,14 @@ export default function AdminBlogEdit() {
 
   const uploadImage = trpc.blog.uploadImage.useMutation();
   const generateSeo = trpc.blog.generateSeo.useMutation({
-    onSuccess: (data) => {
+    onSuccess: data => {
       setSeoTitle(data.seoTitle);
       setSeoDescription(data.seoDescription);
       setSeoKeywords(data.seoKeywords);
       setShowSeo(true);
       toast.success("SEO 메타 태그가 자동 생성되었습니다!");
     },
-    onError: (e) => toast.error("SEO 생성 실패: " + e.message),
+    onError: e => toast.error("SEO 생성 실패: " + e.message),
   });
   const generateAlt = trpc.blog.generateAlt.useMutation();
   const createPost = trpc.blog.create.useMutation({
@@ -89,7 +103,7 @@ export default function AdminBlogEdit() {
       utils.blog.adminList.invalidate();
       navigate("/admin/blog");
     },
-    onError: (e) => toast.error(e.message),
+    onError: e => toast.error(e.message),
   });
   const updatePost = trpc.blog.update.useMutation({
     onSuccess: () => {
@@ -97,7 +111,7 @@ export default function AdminBlogEdit() {
       utils.blog.adminList.invalidate();
       navigate("/admin/blog");
     },
-    onError: (e) => toast.error(e.message),
+    onError: e => toast.error(e.message),
   });
   const createTag = trpc.blog.createTag.useMutation({
     onSuccess: () => {
@@ -107,7 +121,7 @@ export default function AdminBlogEdit() {
       setNewTagSlug("");
       setShowTagForm(false);
     },
-    onError: (e) => toast.error(e.message),
+    onError: e => toast.error(e.message),
   });
 
   if (!user || user.role !== "admin") {
@@ -118,7 +132,10 @@ export default function AdminBlogEdit() {
     );
   }
 
-  const handleFileUpload = async (file: File, target: "thumbnail" | "image") => {
+  const handleFileUpload = async (
+    file: File,
+    target: "thumbnail" | "image"
+  ) => {
     if (file.size > 16 * 1024 * 1024) {
       toast.error("파일 크기는 16MB 이하여야 합니다.");
       return;
@@ -130,7 +147,7 @@ export default function AdminBlogEdit() {
         isThumbnail: target === "thumbnail",
         quality: 0.82,
       });
-      setCompressResults((prev) => [...prev, optimized]);
+      setCompressResults(prev => [...prev, optimized]);
 
       // 압축 안내 토스트
       if (optimized.compressionRate > 5) {
@@ -154,7 +171,7 @@ export default function AdminBlogEdit() {
         handleGenerateAlt(result.url, "thumbnail");
       } else {
         const newItem: ImageItem = { url: result.url, alt: "" };
-        setImages((prev) => [...prev, newItem]);
+        setImages(prev => [...prev, newItem]);
         // 추가 이미지 alt 자동 생성
         handleGenerateAlt(result.url, "image");
       }
@@ -165,15 +182,23 @@ export default function AdminBlogEdit() {
     }
   };
 
-  const handleGenerateAlt = async (imageUrl: string, target: "thumbnail" | "image") => {
+  const handleGenerateAlt = async (
+    imageUrl: string,
+    target: "thumbnail" | "image"
+  ) => {
     setGeneratingAlt(imageUrl);
     try {
-      const result = await generateAlt.mutateAsync({ imageUrl, title: title || undefined });
+      const result = await generateAlt.mutateAsync({
+        imageUrl,
+        title: title || undefined,
+      });
       if (target === "thumbnail") {
         setThumbnailAlt(result.alt);
       } else {
-        setImages((prev) =>
-          prev.map((img) => (img.url === imageUrl ? { ...img, alt: result.alt } : img))
+        setImages(prev =>
+          prev.map(img =>
+            img.url === imageUrl ? { ...img, alt: result.alt } : img
+          )
         );
       }
       toast.success("alt 태그가 자동 생성되었습니다!");
@@ -199,8 +224,8 @@ export default function AdminBlogEdit() {
       content,
       thumbnail: thumbnail ?? undefined,
       thumbnailAlt: thumbnailAlt || undefined,
-      images: images.map((img) => img.url), // 서버는 string[] 유지, alt는 별도 저장
-      imageAlts: images.map((img) => img.alt),
+      images: images.map(img => img.url), // 서버는 string[] 유지, alt는 별도 저장
+      imageAlts: images.map(img => img.alt),
       tags: selectedTags,
       published: published ? ("published" as const) : ("draft" as const),
       seoTitle: seoTitle || undefined,
@@ -216,8 +241,8 @@ export default function AdminBlogEdit() {
   };
 
   const toggleTag = (id: number) => {
-    setSelectedTags((prev) =>
-      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
+    setSelectedTags(prev =>
+      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
     );
   };
 
@@ -240,7 +265,7 @@ export default function AdminBlogEdit() {
           <Label className="mb-1 block">제목 *</Label>
           <Input
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
             placeholder="예: 이천 ○○빌라 계단청소 완료"
           />
         </div>
@@ -251,9 +276,16 @@ export default function AdminBlogEdit() {
           {thumbnail ? (
             <div className="space-y-2">
               <div className="relative inline-block">
-                <img src={thumbnail} alt={thumbnailAlt || "썸네일"} className="h-40 rounded-lg object-cover" />
+                <img
+                  src={thumbnail}
+                  alt={thumbnailAlt || "썸네일"}
+                  className="h-40 rounded-lg object-cover"
+                />
                 <button
-                  onClick={() => { setThumbnail(null); setThumbnailAlt(""); }}
+                  onClick={() => {
+                    setThumbnail(null);
+                    setThumbnailAlt("");
+                  }}
                   className="absolute top-1 right-1 bg-black/50 rounded-full p-0.5 text-white"
                 >
                   <X className="w-4 h-4" />
@@ -265,12 +297,14 @@ export default function AdminBlogEdit() {
                   <div className="flex items-center gap-1 mb-1">
                     <Label className="text-xs text-gray-500">alt 태그</Label>
                     {generatingAlt === thumbnail && (
-                      <span className="text-xs text-blue-500 animate-pulse">AI 생성 중...</span>
+                      <span className="text-xs text-blue-500 animate-pulse">
+                        AI 생성 중...
+                      </span>
                     )}
                   </div>
                   <Input
                     value={thumbnailAlt}
-                    onChange={(e) => setThumbnailAlt(e.target.value)}
+                    onChange={e => setThumbnailAlt(e.target.value)}
                     placeholder="이미지 설명 (SEO용)"
                     className="text-sm h-8"
                   />
@@ -295,7 +329,9 @@ export default function AdminBlogEdit() {
               className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors"
             >
               <Upload className="w-4 h-4" />
-              {uploading ? "업로드 중..." : "사진 선택 (업로드 시 alt 자동 생성)"}
+              {uploading
+                ? "업로드 중..."
+                : "사진 선택 (업로드 시 alt 자동 생성)"}
             </button>
           )}
           <input
@@ -303,7 +339,7 @@ export default function AdminBlogEdit() {
             type="file"
             accept="image/*"
             className="hidden"
-            onChange={(e) => {
+            onChange={e => {
               const f = e.target.files?.[0];
               if (f) handleFileUpload(f, "thumbnail");
               e.target.value = "";
@@ -316,7 +352,7 @@ export default function AdminBlogEdit() {
           <Label className="mb-1 block">내용 *</Label>
           <Textarea
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={e => setContent(e.target.value)}
             placeholder="작업 내용, 현장 상황, 사용한 세제 등을 자유롭게 작성해주세요."
             rows={10}
           />
@@ -327,11 +363,20 @@ export default function AdminBlogEdit() {
           <Label className="mb-1 block">추가 사진</Label>
           <div className="space-y-3 mb-3">
             {images.map((img, i) => (
-              <div key={i} className="flex gap-3 items-start bg-gray-50 rounded-lg p-3">
+              <div
+                key={i}
+                className="flex gap-3 items-start bg-gray-50 rounded-lg p-3"
+              >
                 <div className="relative flex-shrink-0">
-                  <img src={img.url} alt={img.alt} className="h-20 w-20 rounded-lg object-cover" />
+                  <img
+                    src={img.url}
+                    alt={img.alt}
+                    className="h-20 w-20 rounded-lg object-cover"
+                  />
                   <button
-                    onClick={() => setImages((prev) => prev.filter((_, idx) => idx !== i))}
+                    onClick={() =>
+                      setImages(prev => prev.filter((_, idx) => idx !== i))
+                    }
                     className="absolute top-0.5 right-0.5 bg-black/50 rounded-full p-0.5 text-white"
                   >
                     <X className="w-3 h-3" />
@@ -341,14 +386,16 @@ export default function AdminBlogEdit() {
                   <div className="flex items-center gap-1 mb-1">
                     <Label className="text-xs text-gray-500">alt 태그</Label>
                     {generatingAlt === img.url && (
-                      <span className="text-xs text-blue-500 animate-pulse">AI 생성 중...</span>
+                      <span className="text-xs text-blue-500 animate-pulse">
+                        AI 생성 중...
+                      </span>
                     )}
                   </div>
                   <div className="flex gap-2">
                     <Input
                       value={img.alt}
-                      onChange={(e) =>
-                        setImages((prev) =>
+                      onChange={e =>
+                        setImages(prev =>
                           prev.map((item, idx) =>
                             idx === i ? { ...item, alt: e.target.value } : item
                           )
@@ -378,7 +425,9 @@ export default function AdminBlogEdit() {
               className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors w-full"
             >
               <Upload className="w-4 h-4" />
-              {uploading ? "업로드 중..." : "사진 추가 (업로드 시 alt 자동 생성)"}
+              {uploading
+                ? "업로드 중..."
+                : "사진 추가 (업로드 시 alt 자동 생성)"}
             </button>
           </div>
           <input
@@ -387,9 +436,9 @@ export default function AdminBlogEdit() {
             accept="image/*"
             multiple
             className="hidden"
-            onChange={(e) => {
+            onChange={e => {
               const files = Array.from(e.target.files ?? []);
-              files.forEach((f) => handleFileUpload(f, "image"));
+              files.forEach(f => handleFileUpload(f, "image"));
               e.target.value = "";
             }}
           />
@@ -399,7 +448,7 @@ export default function AdminBlogEdit() {
         <div>
           <Label className="mb-2 block">태그</Label>
           <div className="flex flex-wrap gap-2 mb-3">
-            {(allTags ?? []).map((tag) => (
+            {(allTags ?? []).map(tag => (
               <button
                 key={tag.id}
                 onClick={() => toggleTag(tag.id)}
@@ -426,9 +475,14 @@ export default function AdminBlogEdit() {
                 <Label className="text-xs mb-1 block">태그명</Label>
                 <Input
                   value={newTagName}
-                  onChange={(e) => {
+                  onChange={e => {
                     setNewTagName(e.target.value);
-                    setNewTagSlug(e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-가-힣]/g, ""));
+                    setNewTagSlug(
+                      e.target.value
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")
+                        .replace(/[^a-z0-9-가-힣]/g, "")
+                    );
                   }}
                   placeholder="계단청소"
                   className="w-32"
@@ -438,14 +492,16 @@ export default function AdminBlogEdit() {
                 <Label className="text-xs mb-1 block">슬러그</Label>
                 <Input
                   value={newTagSlug}
-                  onChange={(e) => setNewTagSlug(e.target.value)}
+                  onChange={e => setNewTagSlug(e.target.value)}
                   placeholder="stair"
                   className="w-28"
                 />
               </div>
               <Button
                 size="sm"
-                onClick={() => createTag.mutate({ name: newTagName, slug: newTagSlug })}
+                onClick={() =>
+                  createTag.mutate({ name: newTagName, slug: newTagSlug })
+                }
                 disabled={!newTagName || !newTagSlug}
               >
                 추가
@@ -459,9 +515,13 @@ export default function AdminBlogEdit() {
           <div className="flex items-center justify-between px-4 py-3 bg-gray-50">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-blue-500" />
-              <span className="font-medium text-sm text-gray-700">SEO 메타 태그</span>
+              <span className="font-medium text-sm text-gray-700">
+                SEO 메타 태그
+              </span>
               {seoTitle && (
-                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">설정됨</span>
+                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                  설정됨
+                </span>
               )}
             </div>
             <div className="flex items-center gap-2">
@@ -481,7 +541,11 @@ export default function AdminBlogEdit() {
                 onClick={() => setShowSeo(!showSeo)}
                 className="text-gray-400 hover:text-gray-600"
               >
-                {showSeo ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                {showSeo ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>
@@ -489,19 +553,24 @@ export default function AdminBlogEdit() {
           {showSeo && (
             <div className="px-4 py-4 space-y-4 bg-white">
               <p className="text-xs text-gray-400">
-                제목과 내용을 입력한 후 "AI 자동 생성" 버튼을 누르면 검색 최적화된 메타 태그가 자동으로 작성됩니다.
+                제목과 내용을 입력한 후 "AI 자동 생성" 버튼을 누르면 검색
+                최적화된 메타 태그가 자동으로 작성됩니다.
               </p>
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <Label className="text-xs text-gray-600">SEO 제목 (검색 결과 제목)</Label>
-                  <span className={`text-xs ${seoTitle.length > 60 ? "text-red-500" : "text-gray-400"}`}>
+                  <Label className="text-xs text-gray-600">
+                    SEO 제목 (검색 결과 제목)
+                  </Label>
+                  <span
+                    className={`text-xs ${seoTitle.length > 60 ? "text-red-500" : "text-gray-400"}`}
+                  >
                     {seoTitle.length}/60자
                   </span>
                 </div>
                 <Input
                   value={seoTitle}
-                  onChange={(e) => setSeoTitle(e.target.value)}
+                  onChange={e => setSeoTitle(e.target.value)}
                   placeholder="이천계단청소 전문 이천계단지기 | 빌라 계단청소 완료"
                   className="text-sm"
                 />
@@ -509,14 +578,18 @@ export default function AdminBlogEdit() {
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <Label className="text-xs text-gray-600">SEO 설명 (검색 결과 스니펫)</Label>
-                  <span className={`text-xs ${seoDescription.length > 80 ? "text-red-500" : "text-gray-400"}`}>
+                  <Label className="text-xs text-gray-600">
+                    SEO 설명 (검색 결과 스니펫)
+                  </Label>
+                  <span
+                    className={`text-xs ${seoDescription.length > 80 ? "text-red-500" : "text-gray-400"}`}
+                  >
                     {seoDescription.length}/80자
                   </span>
                 </div>
                 <Textarea
                   value={seoDescription}
-                  onChange={(e) => setSeoDescription(e.target.value)}
+                  onChange={e => setSeoDescription(e.target.value)}
                   placeholder="이천 빌라 계단청소 전문 이천계단지기. 무료 방문 견적 가능합니다."
                   rows={2}
                   className="text-sm resize-none"
@@ -524,10 +597,12 @@ export default function AdminBlogEdit() {
               </div>
 
               <div>
-                <Label className="text-xs text-gray-600 mb-1 block">키워드 (쉼표로 구분)</Label>
+                <Label className="text-xs text-gray-600 mb-1 block">
+                  키워드 (쉼표로 구분)
+                </Label>
                 <Input
                   value={seoKeywords}
-                  onChange={(e) => setSeoKeywords(e.target.value)}
+                  onChange={e => setSeoKeywords(e.target.value)}
                   placeholder="이천계단청소, 이천빌라청소, 이천계단지기, 계단청소업체"
                   className="text-sm"
                 />
@@ -535,7 +610,9 @@ export default function AdminBlogEdit() {
 
               {(seoTitle || seoDescription) && (
                 <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p className="text-xs text-gray-400 mb-2">검색 결과 미리보기</p>
+                  <p className="text-xs text-gray-400 mb-2">
+                    검색 결과 미리보기
+                  </p>
                   <p className="text-blue-600 text-sm font-medium truncate">
                     {seoTitle || title}
                   </p>
@@ -554,23 +631,41 @@ export default function AdminBlogEdit() {
           <div className="border border-green-200 bg-green-50 rounded-xl px-4 py-3">
             <div className="flex items-center gap-2 mb-2">
               <Zap className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-medium text-green-800">이미지 최적화 결과</span>
+              <span className="text-sm font-medium text-green-800">
+                이미지 최적화 결과
+              </span>
             </div>
             <div className="space-y-1">
               {compressResults.map((r, i) => (
-                <div key={i} className="flex items-center justify-between text-xs text-green-700">
-                  <span>{i + 1}번 이미지 ({r.mimeType === "image/webp" ? "WebP" : "JPEG"} {r.width}×{r.height}px)</span>
+                <div
+                  key={i}
+                  className="flex items-center justify-between text-xs text-green-700"
+                >
+                  <span>
+                    {i + 1}번 이미지 (
+                    {r.mimeType === "image/webp" ? "WebP" : "JPEG"} {r.width}×
+                    {r.height}px)
+                  </span>
                   <span className="font-medium">
-                    {formatBytes(r.originalSize)} → {formatBytes(r.optimizedSize)}
+                    {formatBytes(r.originalSize)} →{" "}
+                    {formatBytes(r.optimizedSize)}
                     {r.compressionRate > 0 && (
-                      <span className="ml-1 text-green-600 font-bold">(-{r.compressionRate}%)</span>
+                      <span className="ml-1 text-green-600 font-bold">
+                        (-{r.compressionRate}%)
+                      </span>
                     )}
                   </span>
                 </div>
               ))}
             </div>
             <p className="text-xs text-green-600 mt-2">
-              총 절감: {formatBytes(compressResults.reduce((a, r) => a + r.originalSize - r.optimizedSize, 0))}
+              총 절감:{" "}
+              {formatBytes(
+                compressResults.reduce(
+                  (a, r) => a + r.originalSize - r.optimizedSize,
+                  0
+                )
+              )}
             </p>
           </div>
         )}

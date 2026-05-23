@@ -45,7 +45,7 @@ describe("products", () => {
   });
 
   it("should have correct plan IDs", () => {
-    expect(PLANS.map((p) => p.id)).toEqual([
+    expect(PLANS.map(p => p.id)).toEqual([
       "stair_2_3",
       "stair_4",
       "stair_5_6",
@@ -62,7 +62,7 @@ describe("products", () => {
   });
 
   it("stair plans should have price with 원~", () => {
-    const stairPlans = PLANS.filter((p) => p.id.startsWith("stair"));
+    const stairPlans = PLANS.filter(p => p.id.startsWith("stair"));
     expect(stairPlans).toHaveLength(3);
     for (const plan of stairPlans) {
       expect(plan.price).toMatch(/\d+,\d+원~/);
@@ -70,7 +70,7 @@ describe("products", () => {
   });
 
   it("non-stair plans should have 별도 문의 as price", () => {
-    const otherPlans = PLANS.filter((p) => !p.id.startsWith("stair"));
+    const otherPlans = PLANS.filter(p => !p.id.startsWith("stair"));
     expect(otherPlans).toHaveLength(3);
     for (const plan of otherPlans) {
       expect(plan.price).toBe("별도 문의");
@@ -82,7 +82,7 @@ describe("products", () => {
   });
 
   it("all plans have required fields (no badge field)", () => {
-    PLANS.forEach((plan) => {
+    PLANS.forEach(plan => {
       expect(plan.id).toBeDefined();
       expect(plan.name).toBeDefined();
       expect(plan.price).toBeDefined();

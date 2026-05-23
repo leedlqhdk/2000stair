@@ -8,7 +8,9 @@ interface PricingSectionProps {
   isAuthenticated: boolean;
 }
 
-export default function PricingSection({ isAuthenticated }: PricingSectionProps) {
+export default function PricingSection({
+  isAuthenticated,
+}: PricingSectionProps) {
   const { data: plans } = trpc.quote.plans.useQuery();
 
   const handleQuoteRequest = () => {
@@ -50,11 +52,14 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     },
   ];
 
-  const stairPlans = displayPlans.filter((p) => p.id.startsWith("stair"));
-  const otherPlans = displayPlans.filter((p) => !p.id.startsWith("stair"));
+  const stairPlans = displayPlans.filter(p => p.id.startsWith("stair"));
+  const otherPlans = displayPlans.filter(p => !p.id.startsWith("stair"));
 
   return (
-    <section id="pricing" className="py-16 md:py-28 bg-gradient-to-b from-white to-blue-50/40">
+    <section
+      id="pricing"
+      className="py-16 md:py-28 bg-gradient-to-b from-white to-blue-50/40"
+    >
       <div className="container">
         <motion.div
           className="text-center max-w-2xl mx-auto mb-14"
@@ -88,7 +93,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
             visible: { transition: { staggerChildren: 0.18 } },
           }}
         >
-          {stairPlans.map((plan) => (
+          {stairPlans.map(plan => (
             <motion.div
               key={plan.id}
               variants={{
@@ -186,7 +191,10 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         <div className="text-center mt-12">
           <p className="text-sm text-muted-foreground">
             정확한 견적은 건물 사진 또는 현장 확인 후 안내드립니다 · 전화{" "}
-            <a href="tel:010-8438-1887" className="text-primary font-semibold hover:underline">
+            <a
+              href="tel:010-8438-1887"
+              className="text-primary font-semibold hover:underline"
+            >
               010-8438-1887
             </a>
           </p>

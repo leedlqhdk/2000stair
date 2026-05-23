@@ -1,6 +1,12 @@
 import { CalendarDays, Images } from "lucide-react";
 import { motion } from "framer-motion";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 
 type AreaPostCardProps = {
@@ -9,7 +15,11 @@ type AreaPostCardProps = {
   areaLabel?: string;
 };
 
-export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardProps) {
+export default function AreaPostCard({
+  post,
+  index,
+  areaLabel,
+}: AreaPostCardProps) {
   const images = post.images?.length ? post.images : [post.image];
 
   return (
@@ -55,7 +65,10 @@ export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardPro
         </motion.button>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[92vh] overflow-y-auto p-0 sm:max-w-4xl" showCloseButton>
+      <DialogContent
+        className="max-h-[92vh] overflow-y-auto p-0 sm:max-w-4xl"
+        showCloseButton
+      >
         <div className="p-5 md:p-6">
           {areaLabel && (
             <p className="mb-2 text-sm font-bold text-primary">{areaLabel}</p>

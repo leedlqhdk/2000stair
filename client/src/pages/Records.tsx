@@ -17,17 +17,47 @@ const areaLabels: Record<string, string> = {
 };
 
 const downtownPosts: AreaPost[] = [
-  { title: "송정동 빌라 계단청소", date: "2026.05.20", image: "/images/areas/downtown/downtown-1.jpg", area: "downtown" },
-  { title: "관고동 상가건물 관리", date: "2026.05.18", image: "/images/areas/downtown/downtown-2.jpg", area: "downtown" },
-  { title: "관고동 상가 계단 정기청소", date: "2026.05.15", image: "/images/areas/downtown/downtown-3.jpg", area: "downtown" },
-  { title: "송정동 빌라 계단 바닥 정기관리", date: "2026.05.12", image: "/images/areas/downtown/downtown-4.jpg", area: "downtown" },
-  { title: "창전동 연립빌라 공동현관 유리코팅", date: "2026.04.19", image: "/images/areas/downtown/downtown-5.jpg", area: "downtown" },
-  { title: "안흥동 빌라 정기관리", date: "2026.04.10", image: "/images/areas/downtown/downtown-6.jpg", area: "downtown" },
+  {
+    title: "송정동 빌라 계단청소",
+    date: "2026.05.20",
+    image: "/images/areas/downtown/downtown-1.jpg",
+    area: "downtown",
+  },
+  {
+    title: "관고동 상가건물 관리",
+    date: "2026.05.18",
+    image: "/images/areas/downtown/downtown-2.jpg",
+    area: "downtown",
+  },
+  {
+    title: "관고동 상가 계단 정기청소",
+    date: "2026.05.15",
+    image: "/images/areas/downtown/downtown-3.jpg",
+    area: "downtown",
+  },
+  {
+    title: "송정동 빌라 계단 바닥 정기관리",
+    date: "2026.05.12",
+    image: "/images/areas/downtown/downtown-4.jpg",
+    area: "downtown",
+  },
+  {
+    title: "창전동 연립빌라 공동현관 유리코팅",
+    date: "2026.04.19",
+    image: "/images/areas/downtown/downtown-5.jpg",
+    area: "downtown",
+  },
+  {
+    title: "안흥동 빌라 정기관리",
+    date: "2026.04.10",
+    image: "/images/areas/downtown/downtown-6.jpg",
+    area: "downtown",
+  },
 ];
 
 const fallbackPosts: AreaPost[] = [
-  ...majangPosts.map((post) => ({ ...post, area: "majang" })),
-  ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
+  ...majangPosts.map(post => ({ ...post, area: "majang" })),
+  ...daewolPosts.map(post => ({ ...post, area: "daewol" })),
   ...downtownPosts,
 ].sort((a, b) => b.date.localeCompare(a.date));
 
@@ -47,10 +77,14 @@ function useAllAreaPosts() {
 export default function Records() {
   const { data, isLoading } = useAllAreaPosts();
   const notionPosts = data ?? [];
-  const notionKeys = new Set(notionPosts.map((post) => `${post.title}-${post.date}`));
+  const notionKeys = new Set(
+    notionPosts.map(post => `${post.title}-${post.date}`)
+  );
   const posts = [
     ...notionPosts,
-    ...fallbackPosts.filter((post) => !notionKeys.has(`${post.title}-${post.date}`)),
+    ...fallbackPosts.filter(
+      post => !notionKeys.has(`${post.title}-${post.date}`)
+    ),
   ];
 
   return (
@@ -78,14 +112,18 @@ export default function Records() {
               전체 작업 기록
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-              노션 작업일지와 기존 이천 지역 관리 기록을 한 번에 확인할 수 있습니다.
+              노션 작업일지와 기존 이천 지역 관리 기록을 한 번에 확인할 수
+              있습니다.
             </p>
           </motion.div>
 
           {isLoading ? (
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
-                <div key={index} className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white">
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white"
+                >
                   <Skeleton className="h-56 w-full" />
                   <div className="p-5">
                     <Skeleton className="mb-3 h-6 w-3/4" />
@@ -101,7 +139,9 @@ export default function Records() {
                   key={`${post.area}-${post.title}-${post.date}-${index}`}
                   post={post}
                   index={index}
-                  areaLabel={post.area ? areaLabels[post.area] ?? post.area : undefined}
+                  areaLabel={
+                    post.area ? (areaLabels[post.area] ?? post.area) : undefined
+                  }
                 />
               ))}
             </div>

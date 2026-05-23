@@ -17,7 +17,7 @@ export default function LatestPosts() {
     <section id="latest-posts" className="py-16 md:py-32 bg-blue-50/30">
       <div className="container max-w-6xl">
         <motion.div
-  className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
+          className="mb-10 md:mb-14 max-w-3xl mx-auto text-center"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -36,8 +36,8 @@ export default function LatestPosts() {
 
             <div>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mb-5">
-                실제 이천 지역 빌라·상가 계단청소 현장을 기록하고 있습니다.
-                작업 전후와 관리 포인트를 블로그에서 확인해보세요.
+                실제 이천 지역 빌라·상가 계단청소 현장을 기록하고 있습니다. 작업
+                전후와 관리 포인트를 블로그에서 확인해보세요.
               </p>
 
               <Link href="/blog">
@@ -52,7 +52,7 @@ export default function LatestPosts() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {posts.map((post, index) => {
-            const matchedTags = (allTags ?? []).filter((t) =>
+            const matchedTags = (allTags ?? []).filter(t =>
               post.tags.includes(t.id)
             );
 
@@ -86,7 +86,9 @@ export default function LatestPosts() {
                         <div className="flex items-center gap-1 text-xs text-white/85 mb-2">
                           <CalendarDays className="w-3 h-3" />
                           <span>
-                            {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                            {new Date(post.createdAt).toLocaleDateString(
+                              "ko-KR"
+                            )}
                           </span>
                         </div>
 
@@ -103,7 +105,7 @@ export default function LatestPosts() {
 
                       {matchedTags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5">
-                          {matchedTags.slice(0, 2).map((t) => (
+                          {matchedTags.slice(0, 2).map(t => (
                             <Badge
                               key={t.id}
                               variant="secondary"

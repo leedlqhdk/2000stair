@@ -42,7 +42,8 @@ export default function OwnerStory() {
           </h2>
 
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            이천계단지기는 부부가 직접 방문해 빌라, 원룸, 상가의 공용공간을 관리합니다.
+            이천계단지기는 부부가 직접 방문해 빌라, 원룸, 상가의 공용공간을
+            관리합니다.
           </p>
         </motion.div>
 
@@ -60,8 +61,8 @@ export default function OwnerStory() {
             </p>
 
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-              그래서 저희는 한 번의 청소보다, 같은 사람이 꾸준히 보고 관리하는 방식을
-              더 중요하게 생각합니다.
+              그래서 저희는 한 번의 청소보다, 같은 사람이 꾸준히 보고 관리하는
+              방식을 더 중요하게 생각합니다.
             </p>
           </div>
 
@@ -71,7 +72,7 @@ export default function OwnerStory() {
             </p>
 
             <div className="grid gap-3">
-              {standards.map((item) => (
+              {standards.map(item => (
                 <div
                   key={item.title}
                   className="group rounded-2xl border border-blue-100 bg-blue-50/30 p-4 md:p-5 hover:bg-white hover:shadow-md transition-all duration-300"
@@ -101,7 +102,8 @@ export default function OwnerStory() {
 
             <div className="mt-5 rounded-2xl bg-primary/5 border border-primary/10 p-4">
               <p className="text-sm text-muted-foreground leading-relaxed">
-                건물 사진을 카카오톡으로 보내주시면 현재 상태에 맞는 관리 범위부터 안내드립니다.
+                건물 사진을 카카오톡으로 보내주시면 현재 상태에 맞는 관리
+                범위부터 안내드립니다.
               </p>
             </div>
           </div>

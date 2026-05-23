@@ -1,4 +1,11 @@
-import { Phone, Mail, MapPin, MessageCircle, Youtube, Instagram } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Youtube,
+  Instagram,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Footer() {
@@ -13,7 +20,11 @@ export default function Footer() {
       >
         <div className="grid lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr] gap-10 lg:gap-14">
           <div>
-            <a href="/" className="inline-flex items-center mb-5 group" aria-label="이천계단지기 홈으로 이동">
+            <a
+              href="/"
+              className="inline-flex items-center mb-5 group"
+              aria-label="이천계단지기 홈으로 이동"
+            >
               <img
                 src="/images/icheon-logo-white.png"
                 alt="이천계단지기"
@@ -53,22 +64,34 @@ export default function Footer() {
             <h4 className="font-bold mb-4 text-white">Service</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <a href="#how-it-works" className="hover:text-white transition-colors">
+                <a
+                  href="#how-it-works"
+                  className="hover:text-white transition-colors"
+                >
                   상담 절차
                 </a>
               </li>
               <li>
-                <a href="#box-preview" className="hover:text-white transition-colors">
+                <a
+                  href="#box-preview"
+                  className="hover:text-white transition-colors"
+                >
                   관리 방식
                 </a>
               </li>
               <li>
-                <a href="#gallery" className="hover:text-white transition-colors">
+                <a
+                  href="#gallery"
+                  className="hover:text-white transition-colors"
+                >
                   청소 전후
                 </a>
               </li>
               <li>
-                <a href="#pricing" className="hover:text-white transition-colors">
+                <a
+                  href="#pricing"
+                  className="hover:text-white transition-colors"
+                >
                   청소 비용
                 </a>
               </li>
@@ -79,10 +102,7 @@ export default function Footer() {
             <h4 className="font-bold mb-4 text-white">Archive</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <a
-                  href="/areas"
-                  className="hover:text-white transition-colors"
-                >
+                <a href="/areas" className="hover:text-white transition-colors">
                   관리 가능 지역
                 </a>
               </li>

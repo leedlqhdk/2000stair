@@ -81,7 +81,11 @@ export default function SindunAreaPage() {
           {posts.length > 0 ? (
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
               {posts.map((post, index) => (
-                <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} />
+                <AreaPostCard
+                  key={`${post.title}-${post.date}-${index}`}
+                  post={post}
+                  index={index}
+                />
               ))}
             </div>
           ) : (
@@ -104,7 +108,7 @@ export default function SindunAreaPage() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            {reviews.map((review) => (
+            {reviews.map(review => (
               <div
                 key={review}
                 className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"

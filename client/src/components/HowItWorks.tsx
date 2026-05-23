@@ -1,5 +1,11 @@
 import { motion } from "framer-motion";
-import { Camera, ChevronDown, Home, MessageCircle, Sparkles } from "lucide-react";
+import {
+  Camera,
+  ChevronDown,
+  Home,
+  MessageCircle,
+  Sparkles,
+} from "lucide-react";
 
 const steps = [
   {
@@ -48,7 +54,8 @@ export default function HowItWorks() {
           </h2>
 
           <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리 범위를 안내드립니다.
+            복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리
+            범위를 안내드립니다.
           </p>
         </motion.div>
 
