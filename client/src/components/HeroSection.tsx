@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Building2, Camera, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, Camera, MapPin } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -15,13 +15,6 @@ const areaSectionItems = [
   { src: "/images/shorts-4.webp", title: "이천 시내 빌라", subtitle: "계단 · 공동현관 관리" },
   { src: "/images/shorts-5.webp", title: "대월면 건물", subtitle: "공용부 정기관리" },
   { src: "/images/shorts-6.webp", title: "송정동 빌라", subtitle: "현관 · 복도 관리" },
-];
-
-const featureItems = [
-  { icon: Building2, title: "현장 확인" },
-  { icon: ShieldCheck, title: "직접 관리" },
-  { icon: Camera, title: "사진 기록" },
-  { icon: MessageCircle, title: "빠른 소통" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -97,9 +90,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="overflow-hidden border-y border-blue-100/70 bg-[#f4f8ff] py-9 md:py-12">
+      <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
         <div className="container max-w-7xl">
-          <div className="grid items-center gap-5 lg:grid-cols-[0.26fr_0.74fr] lg:gap-7">
+          <div className="grid items-center gap-5 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
             <motion.div
               initial={{ opacity: 0, x: -18 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -116,19 +109,6 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <p className="max-w-xs text-sm leading-relaxed text-gray-600 md:text-base">
                 이천 전 지역 꼼꼼하게 관리합니다. 실제 관리 현장을 확인해보세요.
               </p>
-
-              <div className="mt-4 grid max-w-[17rem] grid-cols-2 gap-2">
-                {featureItems.map((item) => (
-                  <div key={item.title} className="flex items-center gap-2 rounded-xl border border-blue-100 bg-white/90 px-2.5 py-2 shadow-sm">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-primary">
-                      <item.icon className="h-4 w-4" />
-                    </span>
-                    <span className="text-xs font-extrabold text-foreground">
-                      {item.title}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </motion.div>
 
             <div className="relative overflow-hidden pb-2">
@@ -142,20 +122,20 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
                     <Link href="/areas">
-                      <a className="group relative block h-40 w-36 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:h-44 md:w-40">
+                      <a className="group relative block h-36 w-32 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-40 md:w-36">
                         <img
                           src={item.src}
                           alt={`${item.title} 관리 현장`}
                           className="h-full w-full object-cover object-bottom transition-transform duration-500 group-hover:scale-105"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/18 to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                          <MapPin className="mb-1.5 h-4 w-4 text-white drop-shadow" />
+                          <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
                           <h3 className="text-xs font-extrabold leading-tight md:text-sm">
                             {item.title}
                           </h3>
-                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/80 md:text-[0.68rem]">
+                          <p className="mt-0.5 text-[0.6rem] font-semibold text-white/78 md:text-[0.66rem]">
                             {item.subtitle}
                           </p>
                         </div>
