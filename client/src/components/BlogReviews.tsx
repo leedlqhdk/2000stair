@@ -92,21 +92,19 @@ export default function BlogReviews() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="grid gap-5 lg:grid-cols-[0.22fr_0.78fr] lg:items-stretch">
-            <div className="flex flex-col justify-between gap-5 py-1">
-              <div>
-                <h3 className="text-xl font-extrabold leading-tight text-foreground md:text-2xl">
-                  고객님들의 실제 후기
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  실제 고객님들이 남겨주신 후기를 만나보세요.
-                </p>
-              </div>
+          <div className="grid gap-5 lg:grid-cols-[0.22fr_0.78fr] lg:items-start">
+            <div className="flex h-full flex-col items-start justify-start py-1 lg:pt-1">
+              <h3 className="text-xl font-extrabold leading-tight text-foreground md:text-2xl">
+                고객님들의 실제 후기
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                실제 고객님들이 남겨주신 후기를 만나보세요.
+              </p>
               <a
                 href="https://naver.me/xmB4q3oq"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-md border border-primary/35 bg-white px-4 py-2.5 text-sm font-extrabold text-primary transition-colors hover:border-primary hover:bg-primary hover:text-white"
+                className="mt-9 inline-flex items-center gap-2 rounded-md border border-primary/35 bg-white px-4 py-2.5 text-sm font-extrabold text-primary transition-colors hover:border-primary hover:bg-primary hover:text-white"
               >
                 모든 후기 보기
                 <ChevronRight className="h-4 w-4 stroke-[2.5]" />
