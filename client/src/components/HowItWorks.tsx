@@ -55,7 +55,7 @@ export default function HowItWorks() {
         </motion.div>
 
         <motion.div
-          className="mx-auto max-w-xl rounded-[1.5rem] border border-blue-100 bg-blue-50/30 p-4 shadow-sm sm:p-5 md:max-w-2xl md:p-6"
+          className="mx-auto max-w-xl md:max-w-2xl"
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -79,8 +79,8 @@ export default function HowItWorks() {
                   </span>
                 </div>
 
-                <div className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-5">
-                  <div className="flex items-start gap-3 sm:gap-4">
+                <div className="flex min-h-[7.25rem] items-center rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:min-h-[7.5rem] sm:p-5">
+                  <div className="flex w-full items-start gap-3 sm:gap-4">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 sm:h-12 sm:w-12">
                       <step.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
