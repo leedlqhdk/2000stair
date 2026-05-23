@@ -68,13 +68,13 @@ export default function BlogReviews() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="이천계단지기 네이버 블로그에서 실제 작업 기록 보기"
-          className="group block max-w-6xl mx-auto mb-14 rounded-2xl border border-blue-50 bg-white/70 p-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/15 hover:shadow-[0_14px_34px_rgba(15,23,42,0.07)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 md:p-5"
+          className="group block max-w-6xl mx-auto mb-14 rounded-xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="relative overflow-hidden rounded-xl bg-blue-50/40">
+          <div className="relative overflow-hidden rounded-xl">
             <img
               src="/images/blog-banner-main.png"
               alt="이천계단지기 실제 작업 기록 보러가기"
