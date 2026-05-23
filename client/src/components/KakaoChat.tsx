@@ -70,36 +70,35 @@ export default function KakaoChat() {
 
   return (
     <>
-      <div className="fixed bottom-3 right-3 z-50 flex w-[118px] flex-col items-stretch gap-1.5 md:bottom-6 md:right-6 md:w-[168px] md:gap-3">
+      <div className="fixed bottom-4 right-4 z-50 flex w-[102px] flex-col items-stretch gap-1.5 md:bottom-6 md:right-6 md:w-[168px] md:gap-3">
         <a
           href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-          className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-primary px-2.5 text-xs font-extrabold text-white shadow-lg shadow-blue-900/15 transition-colors duration-200 hover:bg-primary/90 md:h-14 md:gap-2 md:px-5 md:text-base"
+          className="flex h-9 items-center justify-center gap-1 rounded-full bg-primary px-2 text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-colors duration-200 hover:bg-primary/90 md:h-14 md:gap-2 md:px-5 md:text-base"
           aria-label="전화 문의하기"
         >
-          <Phone className="h-3.5 w-3.5 stroke-[2.8] md:h-5 md:w-5" />
-          <span>전화 문의</span>
+          <Phone className="h-3 w-3 stroke-[2.8] md:h-5 md:w-5" />
+          <span>전화문의</span>
         </a>
 
         <a
           href={KAKAO_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-[#FEE500] px-2.5 text-xs font-extrabold text-[#191919] shadow-lg shadow-yellow-900/10 ring-1 ring-black/5 transition-colors duration-200 hover:bg-[#F4DC00] md:h-14 md:gap-2 md:px-5 md:text-base"
+          className="flex h-9 items-center justify-center gap-1 rounded-full bg-[#FEE500] px-2 text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-colors duration-200 hover:bg-[#F4DC00] md:h-14 md:gap-2 md:px-5 md:text-base"
           aria-label="카카오톡 상담하기"
         >
-          <MessageCircle className="h-3.5 w-3.5 stroke-[2.8] md:h-5 md:w-5" />
-          <span>카톡 상담</span>
+          <MessageCircle className="h-3 w-3 stroke-[2.8] md:h-5 md:w-5" />
+          <span>카톡상담</span>
         </a>
 
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="group relative flex h-10 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-white px-2.5 text-xs font-extrabold text-primary shadow-lg shadow-blue-900/10 ring-1 ring-blue-100 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl md:h-14 md:gap-2 md:px-5 md:text-base"
+          className="flex h-9 items-center justify-center gap-1 rounded-full bg-white px-2 text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:gap-2 md:px-5 md:text-base"
           aria-label="AI 관리진단 열기"
         >
-          <span className="absolute inset-y-0 -left-10 hidden w-8 rotate-12 bg-blue-50 blur-sm transition-transform duration-700 group-hover:translate-x-56 md:block" />
-          <Sparkles className="h-3.5 w-3.5 stroke-[2.8] md:h-5 md:w-5" />
-          <span>AI 진단</span>
+          <Sparkles className="h-3 w-3 stroke-[2.8] md:h-5 md:w-5" />
+          <span>AI진단</span>
         </button>
       </div>
 
@@ -130,42 +129,12 @@ export default function KakaoChat() {
             </div>
 
             <div className="grid gap-4">
-              <DiagnosisSelect
-                label="건물 유형"
-                value={diagnosis.buildingType}
-                items={options.buildingType}
-                onChange={(value) => handleChange("buildingType", value)}
-              />
-              <DiagnosisSelect
-                label="층수"
-                value={diagnosis.floors}
-                items={options.floors}
-                onChange={(value) => handleChange("floors", value)}
-              />
-              <DiagnosisSelect
-                label="엘리베이터"
-                value={diagnosis.elevator}
-                items={options.elevator}
-                onChange={(value) => handleChange("elevator", value)}
-              />
-              <DiagnosisSelect
-                label="현재 오염 상태"
-                value={diagnosis.pollution}
-                items={options.pollution}
-                onChange={(value) => handleChange("pollution", value)}
-              />
-              <DiagnosisSelect
-                label="원하는 관리 주기"
-                value={diagnosis.cycle}
-                items={options.cycle}
-                onChange={(value) => handleChange("cycle", value)}
-              />
-              <DiagnosisSelect
-                label="지역"
-                value={diagnosis.area}
-                items={options.area}
-                onChange={(value) => handleChange("area", value)}
-              />
+              <DiagnosisSelect label="건물 유형" value={diagnosis.buildingType} items={options.buildingType} onChange={(value) => handleChange("buildingType", value)} />
+              <DiagnosisSelect label="층수" value={diagnosis.floors} items={options.floors} onChange={(value) => handleChange("floors", value)} />
+              <DiagnosisSelect label="엘리베이터" value={diagnosis.elevator} items={options.elevator} onChange={(value) => handleChange("elevator", value)} />
+              <DiagnosisSelect label="현재 오염 상태" value={diagnosis.pollution} items={options.pollution} onChange={(value) => handleChange("pollution", value)} />
+              <DiagnosisSelect label="원하는 관리 주기" value={diagnosis.cycle} items={options.cycle} onChange={(value) => handleChange("cycle", value)} />
+              <DiagnosisSelect label="지역" value={diagnosis.area} items={options.area} onChange={(value) => handleChange("area", value)} />
             </div>
 
             <div className="mt-5 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-50 p-4 ring-1 ring-blue-100">
@@ -178,18 +147,10 @@ export default function KakaoChat() {
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-2">
-              <a
-                href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-                className="flex h-12 items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md hover:bg-primary/90"
-              >
+              <a href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`} className="flex h-12 items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md hover:bg-primary/90">
                 전화 상담
               </a>
-              <a
-                href={KAKAO_CHANNEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-12 items-center justify-center rounded-full bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 hover:bg-[#F4DC00]"
-              >
+              <a href={KAKAO_CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center justify-center rounded-full bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 hover:bg-[#F4DC00]">
                 카톡 문의
               </a>
             </div>
@@ -200,17 +161,7 @@ export default function KakaoChat() {
   );
 }
 
-function DiagnosisSelect({
-  label,
-  value,
-  items,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  items: string[];
-  onChange: (value: string) => void;
-}) {
+function DiagnosisSelect({ label, value, items, onChange }: { label: string; value: string; items: string[]; onChange: (value: string) => void }) {
   return (
     <label className="grid gap-1.5">
       <span className="text-sm font-bold text-slate-700">{label}</span>
