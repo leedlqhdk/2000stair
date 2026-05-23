@@ -119,18 +119,16 @@ export default function BlogReviews() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group block h-full"
+                  aria-label={review.platform}
                 >
                   <Card className="h-full rounded-lg border-blue-50 bg-white shadow-[0_8px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
                     <CardContent className="flex h-full flex-col p-5">
-                      <div className="mb-3 flex items-center gap-3">
+                      <div className="mb-3 flex items-center">
                         <span
                           className={`flex h-7 w-7 shrink-0 items-center justify-center text-xs font-black leading-none ${review.logoClass}`}
                         >
                           {review.mark}
                         </span>
-                        <p className="text-sm font-extrabold text-foreground">
-                          {review.platform}
-                        </p>
                       </div>
 
                       <div className="mb-3 flex items-center gap-1.5 text-yellow-400">
