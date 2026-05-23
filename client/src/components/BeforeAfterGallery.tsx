@@ -66,12 +66,6 @@ function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
           <ChevronRight className="h-5 w-5" strokeWidth={3} />
         </div>
       </div>
-
-      <div className="px-5 py-4 md:px-6 md:py-5">
-        <h3 className="text-lg font-extrabold leading-snug text-foreground md:text-xl">
-          {item.title}
-        </h3>
-      </div>
     </motion.article>
   );
 }
