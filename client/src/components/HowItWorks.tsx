@@ -44,9 +44,7 @@ export default function HowItWorks() {
           </p>
 
           <h2 className="mb-4 text-3xl font-extrabold leading-[1.14] text-foreground md:text-4xl">
-            상담부터 관리까지
-            <br />
-            간단하게 진행합니다
+            이렇게 진행됩니다
           </h2>
 
           <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
