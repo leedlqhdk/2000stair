@@ -104,10 +104,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 관리지역
               </p>
               <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
-                실제 관리 지역
+                이천 전 지역을 부부가 직접 관리합니다.
               </h2>
               <p className="max-w-xs text-sm leading-relaxed text-gray-600 md:text-base">
-                이천 전 지역 꼼꼼하게 관리합니다. 실제 관리 현장을 확인해보세요.
+                [ 무료 방문 견적 ]
               </p>
             </motion.div>
 
