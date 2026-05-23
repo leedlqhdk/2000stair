@@ -97,18 +97,18 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="bg-blue-50/45 py-10 md:py-14 overflow-hidden">
+      <div className="overflow-hidden border-y border-blue-100/70 bg-[#f4f8ff] py-9 md:py-12">
         <div className="container max-w-7xl">
-          <div className="grid items-center gap-6 lg:grid-cols-[0.27fr_0.73fr] lg:gap-8">
+          <div className="grid items-center gap-5 lg:grid-cols-[0.26fr_0.74fr] lg:gap-7">
             <motion.div
               initial={{ opacity: 0, x: -18 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.18em] text-primary md:text-sm">
+              <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.12em] text-primary md:text-sm">
                 <MapPin className="h-4 w-4 fill-primary/10" />
-                MAP
+                관리지역
               </p>
               <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
                 실제 관리 지역
@@ -117,10 +117,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 이천 전 지역 꼼꼼하게 관리합니다. 실제 관리 현장을 확인해보세요.
               </p>
 
-              <div className="mt-5 grid max-w-xs grid-cols-2 gap-2.5 rounded-2xl border border-blue-100 bg-white/75 p-3 shadow-sm backdrop-blur">
+              <div className="mt-4 grid max-w-[17rem] grid-cols-2 gap-2">
                 {featureItems.map((item) => (
-                  <div key={item.title} className="flex items-center gap-2 rounded-xl bg-blue-50/60 px-2.5 py-2">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-primary shadow-sm">
+                  <div key={item.title} className="flex items-center gap-2 rounded-xl border border-blue-100 bg-white/90 px-2.5 py-2 shadow-sm">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-primary">
                       <item.icon className="h-4 w-4" />
                     </span>
                     <span className="text-xs font-extrabold text-foreground">
