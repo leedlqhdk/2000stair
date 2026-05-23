@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Camera } from "lucide-react";
+import { ArrowRight, Camera, MapPin } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -8,13 +8,13 @@ interface HeroSectionProps {
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 
-const proofImages = [
-  { src: "/images/shorts-1.webp" },
-  { src: "/images/shorts-2.webp" },
-  { src: "/images/shorts-3.webp" },
-  { src: "/images/shorts-4.webp" },
-  { src: "/images/shorts-5.webp" },
-  { src: "/images/shorts-6.webp" },
+const areaSectionItems = [
+  { src: "/images/shorts-1.webp", title: "신둔면 빌라", subtitle: "계단 · 복도 정기관리" },
+  { src: "/images/shorts-2.webp", title: "부발읍 상가", subtitle: "공용공간 정기관리" },
+  { src: "/images/shorts-3.webp", title: "마장면 빌라", subtitle: "바닥 · 계단 관리" },
+  { src: "/images/shorts-4.webp", title: "이천 시내 빌라", subtitle: "계단 · 공동현관 관리" },
+  { src: "/images/shorts-5.webp", title: "대월면 건물", subtitle: "공용부 정기관리" },
+  { src: "/images/shorts-6.webp", title: "송정동 빌라", subtitle: "현관 · 복도 관리" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -90,29 +90,60 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="bg-blue-50/40 pt-20 pb-24 md:pt-24 md:pb-28 overflow-hidden">
+      <div className="bg-white py-12 md:py-16 overflow-hidden">
         <div className="container max-w-7xl">
-          <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-10 md:gap-10 items-center">
-            <div>
-              <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5 md:mb-4">
-                map
+          <div className="grid items-center gap-7 lg:grid-cols-[0.25fr_0.75fr] lg:gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -18 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="mb-4 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.18em] text-primary md:text-sm">
+                <MapPin className="h-4 w-4 fill-primary/10" />
+                MAP
               </p>
-              <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-3">실제 관리 지역</h2>
-              <p className="text-sm md:text-base text-gray-600">사진을 눌러보세요</p>
-            </div>
-            <div className="relative overflow-hidden">
-              <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 24s linear infinite" }}>
-                {[...proofImages, ...proofImages].map((image, index) => (
-                  <Link key={`${image.src}-${index}`} href="/areas">
-                    <a className="relative block shrink-0 w-36 md:w-52 aspect-square overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100 transition-transform hover:-translate-y-1">
-                      <img
-                        src={image.src}
-                        alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
-                        className="h-full w-full object-cover object-bottom"
-                        loading="lazy"
-                      />
-                    </a>
-                  </Link>
+              <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
+                실제 관리 지역
+              </h2>
+              <p className="max-w-xs text-sm leading-relaxed text-gray-600 md:text-base">
+                이천 전 지역 꼼꼼하게 관리합니다. 실제 관리 현장을 확인해보세요.
+              </p>
+            </motion.div>
+
+            <div className="overflow-x-auto pb-2">
+              <div className="flex min-w-max gap-3 md:gap-4">
+                {areaSectionItems.slice(0, 4).map((item, index) => (
+                  <motion.div
+                    key={`${item.src}-${item.title}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.06 }}
+                  >
+                    <Link href="/areas">
+                      <a className="group relative block h-44 w-40 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:h-48 md:w-44">
+                        <img
+                          src={item.src}
+                          alt={`${item.title} 관리 현장`}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
+                          <div className="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-primary shadow-sm">
+                            <MapPin className="h-4 w-4" />
+                          </div>
+                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
+                            {item.title}
+                          </h3>
+                          <p className="mt-1 text-[0.68rem] font-semibold text-white/80 md:text-xs">
+                            {item.subtitle}
+                          </p>
+                        </div>
+                      </a>
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </div>
