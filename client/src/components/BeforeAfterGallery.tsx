@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
@@ -28,16 +29,15 @@ const galleryItems = [
   },
 ];
 
-function BeforeAfterCard({ item, index }: { item: (typeof galleryItems)[0]; index: number }) {
+function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
   return (
     <motion.article
-      className="group overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.55, delay: index * 0.06 }}
+      className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm"
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
     >
-      <div className="relative grid aspect-[16/10] grid-cols-2 overflow-hidden bg-blue-50">
+      <div className="relative grid aspect-[16/9] grid-cols-2 overflow-hidden bg-blue-50">
         <div className="relative overflow-hidden">
           <img
             src={item.before}
@@ -45,7 +45,7 @@ function BeforeAfterCard({ item, index }: { item: (typeof galleryItems)[0]; inde
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
-          <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-bold tracking-wide text-white backdrop-blur">
+          <span className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
             BEFORE
           </span>
         </div>
@@ -57,18 +57,18 @@ function BeforeAfterCard({ item, index }: { item: (typeof galleryItems)[0]; inde
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
-          <span className="absolute right-3 top-3 rounded-full bg-primary/85 px-2.5 py-1 text-[11px] font-bold tracking-wide text-white backdrop-blur">
+          <span className="absolute right-4 top-4 rounded-full bg-primary/85 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
             AFTER
           </span>
         </div>
 
-        <div className="absolute left-1/2 top-1/2 z-10 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-md">
-          <ChevronRight className="h-4 w-4" strokeWidth={3} />
+        <div className="absolute left-1/2 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-md md:h-12 md:w-12">
+          <ChevronRight className="h-5 w-5" strokeWidth={3} />
         </div>
       </div>
 
-      <div className="px-5 py-4">
-        <h3 className="text-base font-extrabold leading-snug text-foreground">
+      <div className="px-5 py-4 md:px-6 md:py-5">
+        <h3 className="text-lg font-extrabold leading-snug text-foreground md:text-xl">
           {item.title}
         </h3>
       </div>
@@ -77,11 +77,14 @@ function BeforeAfterCard({ item, index }: { item: (typeof galleryItems)[0]; inde
 }
 
 export default function BeforeAfterGallery() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const selectedItem = galleryItems[selectedIndex];
+
   return (
     <section id="gallery" className="bg-gradient-to-b from-white to-blue-50/30 py-16 md:py-28">
       <div className="container max-w-6xl">
         <motion.div
-          className="mx-auto mb-10 max-w-3xl text-center md:mb-14"
+          className="mx-auto mb-10 max-w-3xl text-center md:mb-12"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -99,10 +102,25 @@ export default function BeforeAfterGallery() {
           </p>
         </motion.div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {galleryItems.map((item, index) => (
-            <BeforeAfterCard key={item.id} item={item} index={index} />
-          ))}
+        <div className="mx-auto max-w-5xl space-y-5">
+          <div className="flex gap-2 overflow-x-auto pb-2 md:justify-center">
+            {galleryItems.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setSelectedIndex(index)}
+                className={`flex-shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-all ${
+                  index === selectedIndex
+                    ? "border-primary bg-primary text-white shadow-sm"
+                    : "border-blue-100 bg-white text-muted-foreground hover:border-primary/30 hover:text-primary"
+                }`}
+              >
+                {item.title}
+              </button>
+            ))}
+          </div>
+
+          <BeforeAfterCard key={selectedItem.id} item={selectedItem} />
         </div>
       </div>
     </section>
