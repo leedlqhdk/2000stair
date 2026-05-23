@@ -9,12 +9,12 @@ interface HeroSectionProps {
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 
 const areaSectionItems = [
-  { src: "/images/shorts-1.webp", title: "신둔면 빌라", subtitle: "계단 · 복도 정기관리" },
-  { src: "/images/shorts-2.webp", title: "부발읍 상가", subtitle: "공용공간 정기관리" },
-  { src: "/images/shorts-3.webp", title: "마장면 빌라", subtitle: "바닥 · 계단 관리" },
-  { src: "/images/shorts-4.webp", title: "이천 시내 빌라", subtitle: "계단 · 공동현관 관리" },
-  { src: "/images/shorts-5.webp", title: "대월면 건물", subtitle: "공용부 정기관리" },
-  { src: "/images/shorts-6.webp", title: "송정동 빌라", subtitle: "현관 · 복도 관리" },
+  { src: "/images/shorts-1.webp", title: "신둔면", subtitle: "공동현관 관리" },
+  { src: "/images/shorts-2.webp", title: "부발읍", subtitle: "상가 공용부 관리" },
+  { src: "/images/shorts-3.webp", title: "마장면", subtitle: "계단 · 복도 관리" },
+  { src: "/images/shorts-4.webp", title: "시내권", subtitle: "빌라 정기관리" },
+  { src: "/images/shorts-5.webp", title: "대월면", subtitle: "건물 공용부 관리" },
+  { src: "/images/shorts-6.webp", title: "송정동", subtitle: "현관 · 복도 관리" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -132,10 +132,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/18 to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
                           <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
-                          <h3 className="text-xs font-extrabold leading-tight md:text-sm">
+                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
                             {item.title}
                           </h3>
-                          <p className="mt-0.5 text-[0.6rem] font-semibold text-white/78 md:text-[0.66rem]">
+                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
                             {item.subtitle}
                           </p>
                         </div>
