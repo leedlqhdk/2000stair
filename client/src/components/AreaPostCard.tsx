@@ -27,7 +27,7 @@ export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardPro
             <img
               src={post.image}
               alt={post.title}
-              className="absolute inset-0 h-full w-full scale-[1.28] object-cover object-[center_92%] transition-transform duration-500 group-hover:scale-[1.33]"
+              className="absolute inset-0 h-full w-full scale-[1.55] object-cover object-[center_96%] transition-transform duration-500 group-hover:scale-[1.6]"
               loading="lazy"
             />
             <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-bold text-white backdrop-blur">
