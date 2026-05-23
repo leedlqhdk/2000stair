@@ -131,19 +131,16 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <div className="relative overflow-hidden">
               <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 24s linear infinite" }}>
                 {[...proofImages, ...proofImages].map((image, index) => (
-                  <button
-                    key={`${image.src}-${index}`}
-                    type="button"
-                    onClick={() => window.open("https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU", "_blank")}
-                    className="relative shrink-0 w-36 md:w-52 aspect-square overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100"
-                  >
-                    <img
-                      src={image.src}
-                      alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
-                      className="h-full w-full object-cover object-bottom"
-                      loading="lazy"
-                    />
-                  </button>
+                  <Link key={`${image.src}-${index}`} href="/areas">
+                    <a className="relative block shrink-0 w-36 md:w-52 aspect-square overflow-hidden rounded-2xl bg-white shadow-sm border border-blue-100 transition-transform hover:-translate-y-1">
+                      <img
+                        src={image.src}
+                        alt={`이천계단지기 실제 관리 현장 ${index + 1}`}
+                        className="h-full w-full object-cover object-bottom"
+                        loading="lazy"
+                      />
+                    </a>
+                  </Link>
                 ))}
               </div>
             </div>
