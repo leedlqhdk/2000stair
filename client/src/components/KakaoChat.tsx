@@ -70,13 +70,13 @@ export default function KakaoChat() {
 
   return (
     <>
-      <div className="fixed bottom-3 right-3 z-50 flex w-[150px] flex-col items-stretch gap-2 rounded-[1.25rem] bg-white/88 p-1.5 shadow-xl ring-1 ring-blue-100/80 backdrop-blur md:bottom-6 md:right-6 md:w-[168px] md:bg-transparent md:p-0 md:shadow-none md:ring-0">
+      <div className="fixed bottom-3 right-3 z-50 flex w-[118px] flex-col items-stretch gap-1.5 md:bottom-6 md:right-6 md:w-[168px] md:gap-3">
         <a
           href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-          className="flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-3 text-sm font-extrabold text-white shadow-md transition-colors duration-200 hover:bg-primary/90 md:h-14 md:text-base md:shadow-lg"
+          className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-primary px-2.5 text-xs font-extrabold text-white shadow-lg shadow-blue-900/15 transition-colors duration-200 hover:bg-primary/90 md:h-14 md:gap-2 md:px-5 md:text-base"
           aria-label="전화 문의하기"
         >
-          <Phone className="h-4 w-4 stroke-[2.8] md:h-5 md:w-5" />
+          <Phone className="h-3.5 w-3.5 stroke-[2.8] md:h-5 md:w-5" />
           <span>전화 문의</span>
         </a>
 
@@ -84,22 +84,22 @@ export default function KakaoChat() {
           href={KAKAO_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-12 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-3 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 transition-colors duration-200 hover:bg-[#F4DC00] md:h-14 md:text-base md:shadow-lg"
+          className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-[#FEE500] px-2.5 text-xs font-extrabold text-[#191919] shadow-lg shadow-yellow-900/10 ring-1 ring-black/5 transition-colors duration-200 hover:bg-[#F4DC00] md:h-14 md:gap-2 md:px-5 md:text-base"
           aria-label="카카오톡 상담하기"
         >
-          <MessageCircle className="h-4 w-4 stroke-[2.8] md:h-5 md:w-5" />
+          <MessageCircle className="h-3.5 w-3.5 stroke-[2.8] md:h-5 md:w-5" />
           <span>카톡 상담</span>
         </a>
 
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="group relative flex h-12 items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-sky-50 via-white to-blue-50 px-3 text-sm font-extrabold text-primary shadow-md ring-1 ring-blue-200/80 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:text-base"
+          className="group relative flex h-10 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-white px-2.5 text-xs font-extrabold text-primary shadow-lg shadow-blue-900/10 ring-1 ring-blue-100 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl md:h-14 md:gap-2 md:px-5 md:text-base"
           aria-label="AI 관리진단 열기"
         >
-          <span className="absolute inset-y-0 -left-10 w-8 rotate-12 bg-white/70 blur-sm transition-transform duration-700 group-hover:translate-x-56" />
-          <Sparkles className="h-4 w-4 stroke-[2.8] md:h-5 md:w-5" />
-          <span>AI 관리진단</span>
+          <span className="absolute inset-y-0 -left-10 hidden w-8 rotate-12 bg-blue-50 blur-sm transition-transform duration-700 group-hover:translate-x-56 md:block" />
+          <Sparkles className="h-3.5 w-3.5 stroke-[2.8] md:h-5 md:w-5" />
+          <span>AI 진단</span>
         </button>
       </div>
 
