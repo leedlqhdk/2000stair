@@ -23,38 +23,33 @@ export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardPro
           viewport={{ once: true }}
           transition={{ duration: 0.45, delay: index * 0.06 }}
         >
-          <div className="relative aspect-[4/3] overflow-hidden bg-blue-50">
+          <div className="relative aspect-[4/5] overflow-hidden bg-blue-50">
             <img
               src={post.image}
               alt={post.title}
-              className="absolute inset-0 h-full w-full scale-[1.55] object-cover object-[center_96%] transition-transform duration-500 group-hover:scale-[1.6]"
+              className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-bold text-white backdrop-blur">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/18 to-transparent" />
+
+            <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-xs font-bold text-white backdrop-blur">
               <Images className="h-3.5 w-3.5" />
               {images.length}
             </div>
-          </div>
 
-          <div className="p-5">
-            {areaLabel && (
-              <p className="mb-2 text-sm font-bold text-primary">
-                {areaLabel}
-              </p>
-            )}
-            <h3 className="text-lg font-extrabold leading-snug text-foreground mb-3">
-              {post.title}
-            </h3>
-
-            {post.description && (
-              <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                {post.description}
-              </p>
-            )}
-
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
-              <CalendarDays className="h-4 w-4" />
-              {post.date}
+            <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+              {areaLabel && (
+                <p className="mb-2 text-sm font-bold text-white/85">
+                  {areaLabel}
+                </p>
+              )}
+              <h3 className="mb-3 text-lg font-extrabold leading-snug drop-shadow-sm">
+                {post.title}
+              </h3>
+              <div className="flex items-center gap-1 text-sm font-semibold text-white/88">
+                <CalendarDays className="h-4 w-4" />
+                {post.date}
+              </div>
             </div>
           </div>
         </motion.button>
