@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Camera, Home, MessageCircle, Sparkles } from "lucide-react";
+import { Camera, ChevronDown, Home, MessageCircle, Sparkles } from "lucide-react";
 
 const steps = [
   {
@@ -61,41 +61,44 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           transition={{ duration: 0.65 }}
         >
-          <div className="relative space-y-3 md:space-y-4">
-            <div className="absolute bottom-10 left-[1.05rem] top-10 hidden w-px bg-blue-100 sm:block" />
-
+          <div className="space-y-2.5 md:space-y-3">
             {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                className="relative grid grid-cols-[2.5rem_1fr] items-stretch gap-3 sm:grid-cols-[3rem_1fr] md:gap-4"
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-              >
-                <div className="flex justify-center pt-5">
-                  <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-blue-100 bg-white text-[0.68rem] font-extrabold text-primary shadow-sm">
-                    {step.number}
-                  </span>
-                </div>
-
-                <div className="flex min-h-[7.25rem] items-center rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:min-h-[7.5rem] sm:p-5">
-                  <div className="flex w-full items-start gap-3 sm:gap-4">
+              <div key={step.number}>
+                <motion.div
+                  className="flex min-h-[6.25rem] items-center rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:min-h-[6.5rem] sm:p-5"
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                >
+                  <div className="flex w-full items-center gap-3 sm:gap-4">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 sm:h-12 sm:w-12">
                       <step.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
 
-                    <div className="min-w-0">
-                      <h3 className="mb-1.5 text-base font-extrabold text-foreground sm:text-lg">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                        {step.text}
-                      </p>
+                    <div className="flex min-w-0 flex-1 items-start gap-3 sm:gap-4">
+                      <span className="mt-0.5 text-xs font-extrabold text-primary sm:text-sm">
+                        {step.number}
+                      </span>
+
+                      <div className="min-w-0">
+                        <h3 className="mb-1 text-base font-extrabold text-foreground sm:text-lg">
+                          {step.title}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                          {step.text}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+
+                {index < steps.length - 1 && (
+                  <div className="flex justify-center py-1 text-primary/45">
+                    <ChevronDown className="h-4 w-4 stroke-[2.5]" />
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </motion.div>
