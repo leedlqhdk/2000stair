@@ -1,4 +1,4 @@
-import { ChevronRight, ExternalLink, MapPin, Star } from "lucide-react";
+import { ChevronRight, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
@@ -177,24 +177,6 @@ export default function BlogReviews() {
               </Link>
             ))}
           </div>
-        </motion.div>
-
-        <motion.div
-          className="mt-10 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <a
-            href="https://blog.naver.com/icheonstair"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-primary text-sm font-medium hover:underline"
-          >
-            네이버 블로그에서 더 보기
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
         </motion.div>
       </div>
     </section>
