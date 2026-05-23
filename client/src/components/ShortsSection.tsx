@@ -24,7 +24,12 @@ function ShortsCard({ short }: { short: (typeof shorts)[0] }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <a href={short.url} target="_blank" rel="noopener noreferrer" className="group">
+    <a
+      href={short.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group"
+    >
       <div className="h-full rounded-3xl overflow-hidden bg-white border border-blue-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
         <div className="relative aspect-[9/16] overflow-hidden bg-blue-50">
           {!loaded && (
@@ -71,7 +76,10 @@ function ShortsCard({ short }: { short: (typeof shorts)[0] }) {
 
 export default function ShortsSection() {
   return (
-    <section id="shorts" className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/40">
+    <section
+      id="shorts"
+      className="py-24 md:py-32 bg-gradient-to-b from-white to-blue-50/40"
+    >
       <div className="container max-w-6xl">
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-5">
@@ -89,7 +97,7 @@ export default function ShortsSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {shorts.map((short) => (
+          {shorts.map(short => (
             <ShortsCard key={short.url} short={short} />
           ))}
         </div>
@@ -100,7 +108,10 @@ export default function ShortsSection() {
             variant="outline"
             className="text-base px-8 bg-white"
             onClick={() =>
-              window.open("https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU", "_blank")
+              window.open(
+                "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
+                "_blank"
+              )
             }
           >
             유튜브 채널 보기

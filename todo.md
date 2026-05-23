@@ -34,7 +34,7 @@
 - [x] products.ts 서비스 플랜 데이터 업데이트
 - [x] 카카오톡 채널 상담 버튼 추가 (https://pf.kakao.com/_IiNfn)
 - [x] 실제 청소 전/후 비교 사진 갤러리 섹션 추가 (6세트: 창틀, 계단바닥, 계단바닥2, 창문레일, 난간, 유리)
-- [x] server/_core/storageProxy.ts TypeScript 오류 수정 (req.params[0] 타입 캐스팅)
+- [x] server/\_core/storageProxy.ts TypeScript 오류 수정 (req.params[0] 타입 캐스팅)
 - [x] Hero 섹션 이미지를 실제 작업 현장 사진으로 교체 (색감 통일)
 - [x] 청소 전/후 비교 갤러리를 마우스 드래그 슬라이더 방식으로 변경 (공간 절약)
 - [x] 블로그 후기 섹션에 썸네일 이미지 표시
@@ -67,6 +67,7 @@
 - [ ] 블로그 상세 페이지: 동적 SEO 메타 태그 적용 (react-helmet 또는 document.title)
 
 ## 작업일지 SEO 메타 태그 자동 생성 기능
+
 - [ ] DB: posts 테이블에 seo_title, seo_description, seo_keywords 필드 추가
 - [ ] 서버: AI SEO 자동 생성 tRPC 프로시저 추가
 - [ ] 관리자 UI: SEO 자동 생성 버튼 및 편집 패널 추가

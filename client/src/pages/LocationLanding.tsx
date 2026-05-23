@@ -3,30 +3,37 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Sparkles, MessageCircle, Building2 } from "lucide-react";
 import { useParams } from "wouter";
 
-const locationData: Record<string, {
-  name: string;
-  title: string;
-  description: string;
-}> = {
+const locationData: Record<
+  string,
+  {
+    name: string;
+    title: string;
+    description: string;
+  }
+> = {
   "icheon-stair-cleaning": {
     name: "이천",
     title: "이천 계단청소 · 빌라청소 정기관리",
-    description: "이천 전 지역 빌라, 원룸, 상가 공용공간을 부부가 직접 관리합니다.",
+    description:
+      "이천 전 지역 빌라, 원룸, 상가 공용공간을 부부가 직접 관리합니다.",
   },
   "sindun-stair-cleaning": {
     name: "신둔면",
     title: "신둔면 계단청소 · 빌라 공용공간 관리",
-    description: "신둔면 빌라와 원룸 계단, 공동현관, 유리청소를 정기적으로 관리합니다.",
+    description:
+      "신둔면 빌라와 원룸 계단, 공동현관, 유리청소를 정기적으로 관리합니다.",
   },
   "majang-stair-cleaning": {
     name: "마장면",
     title: "마장면 계단청소 · 상가 건물 관리",
-    description: "마장면 빌라, 상가, 소형 건물 공용공간 청소를 꼼꼼하게 관리합니다.",
+    description:
+      "마장면 빌라, 상가, 소형 건물 공용공간 청소를 꼼꼼하게 관리합니다.",
   },
   "bubal-stair-cleaning": {
     name: "부발읍",
     title: "부발읍 계단청소 · 원룸 빌라 정기관리",
-    description: "부발읍 원룸, 빌라, 상가 공용계단과 현관을 정기적으로 관리합니다.",
+    description:
+      "부발읍 원룸, 빌라, 상가 공용계단과 현관을 정기적으로 관리합니다.",
   },
 };
 
@@ -53,7 +60,8 @@ export default function LocationLanding() {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mb-8">
-            {data.description} 하청 없이 부부가 직접 방문해 계단, 복도, 공동현관, 유리 등 공용공간을 관리합니다.
+            {data.description} 하청 없이 부부가 직접 방문해 계단, 복도,
+            공동현관, 유리 등 공용공간을 관리합니다.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
@@ -64,7 +72,7 @@ export default function LocationLanding() {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => window.location.href = "/#pricing"}
+              onClick={() => (window.location.href = "/#pricing")}
               className="text-base px-8"
             >
               요금 안내 보기
@@ -85,7 +93,8 @@ export default function LocationLanding() {
                 <Building2 className="w-8 h-8 text-primary mb-4" />
                 <h3 className="font-bold text-lg mb-2">빌라·원룸 계단</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  층수와 오염 상태에 맞춰 계단, 복도, 난간을 정기적으로 관리합니다.
+                  층수와 오염 상태에 맞춰 계단, 복도, 난간을 정기적으로
+                  관리합니다.
                 </p>
               </CardContent>
             </Card>
@@ -95,7 +104,8 @@ export default function LocationLanding() {
                 <Sparkles className="w-8 h-8 text-primary mb-4" />
                 <h3 className="font-bold text-lg mb-2">공동현관·유리</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  손자국, 물때, 먼지로 지저분해 보이는 공동현관 첫인상을 관리합니다.
+                  손자국, 물때, 먼지로 지저분해 보이는 공동현관 첫인상을
+                  관리합니다.
                 </p>
               </CardContent>
             </Card>

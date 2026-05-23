@@ -10,11 +10,27 @@ const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 
 const areaSectionItems = [
   { src: "/images/shorts-1.webp", title: "신둔면", subtitle: "공동현관 관리" },
-  { src: "/images/shorts-2.webp", title: "부발읍", subtitle: "상가 공용부 관리" },
-  { src: "/images/shorts-3.webp", title: "마장면", subtitle: "계단 · 복도 관리" },
+  {
+    src: "/images/shorts-2.webp",
+    title: "부발읍",
+    subtitle: "상가 공용부 관리",
+  },
+  {
+    src: "/images/shorts-3.webp",
+    title: "마장면",
+    subtitle: "계단 · 복도 관리",
+  },
   { src: "/images/shorts-4.webp", title: "시내권", subtitle: "빌라 정기관리" },
-  { src: "/images/shorts-5.webp", title: "대월면", subtitle: "건물 공용부 관리" },
-  { src: "/images/shorts-6.webp", title: "송정동", subtitle: "현관 · 복도 관리" },
+  {
+    src: "/images/shorts-5.webp",
+    title: "대월면",
+    subtitle: "건물 공용부 관리",
+  },
+  {
+    src: "/images/shorts-6.webp",
+    title: "송정동",
+    subtitle: "현관 · 복도 관리",
+  },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -37,7 +53,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 className="inline-block text-primary"
                 initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.9,
+                  delay: 0.22,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
                 직접 청소
               </motion.span>
@@ -49,7 +69,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.65,
+                delay: 0.18,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               이천 빌라 · 상가 계단청소
               <br />
@@ -61,7 +85,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             className="relative ml-[-2%] w-[108%] max-w-[clamp(230px,44vw,470px)] pt-0 -mr-[1%] md:ml-[-5%] md:-mr-[2%] lg:ml-[-10%]"
             initial={{ opacity: 0, y: 34, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.85,
+              delay: 0.12,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             <div className="relative mx-auto w-full">
               <img
@@ -78,8 +106,16 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}
                 animate={{ opacity: 1, y: [0, -5, 0], scale: 1 }}
                 transition={{
-                  opacity: { duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] },
-                  scale: { duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] },
+                  opacity: {
+                    duration: 0.55,
+                    delay: 0.55,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                  scale: {
+                    duration: 0.55,
+                    delay: 0.55,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
                   y: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
                 }}
               >
@@ -115,43 +151,51 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 실제 관리 지역
               </h2>
               <p className="max-w-xs text-sm leading-relaxed text-gray-600 md:text-base">
-               이천 북부 지역을 부부가 직접 관리합니다.
+                이천 북부 지역을 부부가 직접 관리합니다.
               </p>
             </motion.div>
 
             <div className="relative overflow-hidden pb-2">
-              <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 26s linear infinite" }}>
-                {[...areaSectionItems, ...areaSectionItems].map((item, index) => (
-                  <motion.div
-                    key={`${item.src}-${index}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
-                  >
-                    <Link href="/areas">
-                      <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
-                        <img
-                          src={item.src}
-                          alt={`${item.title} 관리 현장`}
-                          className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-[#f5f9ff]/10" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
-                        <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                          <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
-                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
-                            {item.title}
-                          </h3>
-                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
-                            {item.subtitle}
-                          </p>
-                        </div>
-                      </a>
-                    </Link>
-                  </motion.div>
-                ))}
+              <div
+                className="flex w-max gap-3 md:gap-4"
+                style={{ animation: "slideLeft 26s linear infinite" }}
+              >
+                {[...areaSectionItems, ...areaSectionItems].map(
+                  (item, index) => (
+                    <motion.div
+                      key={`${item.src}-${index}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.5,
+                        delay: (index % areaSectionItems.length) * 0.04,
+                      }}
+                    >
+                      <Link href="/areas">
+                        <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
+                          <img
+                            src={item.src}
+                            alt={`${item.title} 관리 현장`}
+                            className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-[#f5f9ff]/10" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
+                          <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
+                            <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
+                            <h3 className="text-sm font-extrabold leading-tight md:text-base">
+                              {item.title}
+                            </h3>
+                            <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
+                              {item.subtitle}
+                            </p>
+                          </div>
+                        </a>
+                      </Link>
+                    </motion.div>
+                  )
+                )}
               </div>
             </div>
           </div>

@@ -1,10 +1,22 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Send, MapPin, Phone, User, Mail } from "lucide-react";
@@ -14,7 +26,9 @@ export default function QuoteForm() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [serviceType, setServiceType] = useState<"in_person" | "non_contact">("in_person");
+  const [serviceType, setServiceType] = useState<"in_person" | "non_contact">(
+    "in_person"
+  );
   const [planId, setPlanId] = useState("stair_4");
   const [message, setMessage] = useState("");
 
@@ -59,7 +73,9 @@ export default function QuoteForm() {
         message: message.trim() || undefined,
       });
 
-      toast.success("견적 신청이 완료되었습니다! 빠른 시일 내에 연락드리겠습니다.");
+      toast.success(
+        "견적 신청이 완료되었습니다! 빠른 시일 내에 연락드리겠습니다."
+      );
       // Reset form
       setName("");
       setPhone("");
@@ -104,7 +120,7 @@ export default function QuoteForm() {
                   <Input
                     id="name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={e => setName(e.target.value)}
                     placeholder="홍길동 / OO빌라 관리사무소"
                   />
                 </div>
@@ -118,7 +134,7 @@ export default function QuoteForm() {
                   <Input
                     id="phone"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={e => setPhone(e.target.value)}
                     placeholder="010-0000-0000"
                   />
                 </div>
@@ -133,7 +149,7 @@ export default function QuoteForm() {
                     id="email"
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                     placeholder="example@email.com"
                   />
                 </div>
@@ -147,14 +163,16 @@ export default function QuoteForm() {
                   <Input
                     id="address"
                     value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    onChange={e => setAddress(e.target.value)}
                     placeholder="경기도 이천시 OO동 OO번지"
                   />
                 </div>
 
                 {/* Service Type */}
                 <div className="space-y-2">
-                  <Label>서비스 유형 <span className="text-red-500">*</span></Label>
+                  <Label>
+                    서비스 유형 <span className="text-red-500">*</span>
+                  </Label>
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
@@ -195,10 +213,18 @@ export default function QuoteForm() {
                       <SelectValue placeholder="서비스를 선택하세요" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="stair_2_3">2-3층 계단 (66,000원~)</SelectItem>
-                      <SelectItem value="stair_4">4층 계단 (77,000원~)</SelectItem>
-                      <SelectItem value="stair_5_6">5-6층 계단 (88,000원~)</SelectItem>
-                      <SelectItem value="bathroom">화장실/사무실/상가 유리청소 (별도 문의)</SelectItem>
+                      <SelectItem value="stair_2_3">
+                        2-3층 계단 (66,000원~)
+                      </SelectItem>
+                      <SelectItem value="stair_4">
+                        4층 계단 (77,000원~)
+                      </SelectItem>
+                      <SelectItem value="stair_5_6">
+                        5-6층 계단 (88,000원~)
+                      </SelectItem>
+                      <SelectItem value="bathroom">
+                        화장실/사무실/상가 유리청소 (별도 문의)
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -209,7 +235,7 @@ export default function QuoteForm() {
                   <Textarea
                     id="message"
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={e => setMessage(e.target.value)}
                     placeholder="건물 층수, 특이사항, 희망 청소 시작일 등을 자유롭게 적어주세요."
                     rows={4}
                   />
@@ -232,7 +258,8 @@ export default function QuoteForm() {
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground">
-                  신청 후 24시간 이내에 연락드립니다. 견적은 무료이며 부담 없이 상담 받으세요.
+                  신청 후 24시간 이내에 연락드립니다. 견적은 무료이며 부담 없이
+                  상담 받으세요.
                 </p>
               </form>
             </CardContent>

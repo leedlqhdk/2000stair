@@ -16,7 +16,7 @@ export const appRouter = router({
   blog: blogRouter,
   areaPosts: areaPostsRouter,
   auth: router({
-    me: publicProcedure.query((opts) => opts.ctx.user),
+    me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
@@ -27,7 +27,7 @@ export const appRouter = router({
   quote: router({
     // Get available plans (public)
     plans: publicProcedure.query(() => {
-      return PLANS.map((p) => ({
+      return PLANS.map(p => ({
         id: p.id,
         name: p.name,
         price: p.price,
@@ -42,7 +42,11 @@ export const appRouter = router({
         z.object({
           name: z.string().min(1, "이름을 입력해주세요"),
           phone: z.string().min(1, "연락처를 입력해주세요"),
-          email: z.string().email("올바른 이메일을 입력해주세요").optional().or(z.literal("")),
+          email: z
+            .string()
+            .email("올바른 이메일을 입력해주세요")
+            .optional()
+            .or(z.literal("")),
           address: z.string().min(1, "주소를 입력해주세요"),
           serviceType: z.enum(["in_person", "non_contact"]),
           planId: z.string().min(1, "플랜을 선택해주세요"),
@@ -67,14 +71,16 @@ export const appRouter = router({
         });
 
         // Notify owner about new quote request
-        const plan = PLANS.find((p) => p.id === input.planId);
+        const plan = PLANS.find(p => p.id === input.planId);
         try {
           const notified = await notifyOwner({
             title: "새 견적 신청이 접수되었습니다",
             content: `이름: ${input.name}\n연락처: ${input.phone}\n주소: ${input.address}\n서비스: ${input.serviceType === "in_person" ? "대면" : "비대면"}\n플랜: ${plan?.name || input.planId}`,
           });
           if (!notified) {
-            console.warn("[Quote] Owner notification failed - service may be temporarily unavailable");
+            console.warn(
+              "[Quote] Owner notification failed - service may be temporarily unavailable"
+            );
           }
         } catch (err) {
           console.error("[Quote] Failed to notify owner:", err);

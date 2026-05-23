@@ -48,7 +48,11 @@ export default function BlogDetail() {
   const { id } = useParams<{ id: string }>();
   const postId = parseInt(id ?? "0");
 
-  const { data: post, isLoading, error } = trpc.blog.getById.useQuery({ id: postId });
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = trpc.blog.getById.useQuery({ id: postId });
   const { data: allTags } = trpc.blog.tags.useQuery();
 
   useEffect(() => {
@@ -64,7 +68,9 @@ export default function BlogDetail() {
 
     const setMeta = (name: string, content: string, prop = false) => {
       const attr = prop ? "property" : "name";
-      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+      let el = document.querySelector(
+        `meta[${attr}="${name}"]`
+      ) as HTMLMetaElement | null;
 
       if (!el) {
         el = document.createElement("meta");
@@ -119,7 +125,7 @@ export default function BlogDetail() {
     );
   }
 
-  const matchedTags = (allTags ?? []).filter((t) => post.tags.includes(t.id));
+  const matchedTags = (allTags ?? []).filter(t => post.tags.includes(t.id));
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
@@ -156,8 +162,12 @@ export default function BlogDetail() {
 
             {matchedTags.length > 0 && (
               <div className="flex flex-wrap gap-2">
-                {matchedTags.map((t) => (
-                  <Badge key={t.id} variant="secondary" className="rounded-full">
+                {matchedTags.map(t => (
+                  <Badge
+                    key={t.id}
+                    variant="secondary"
+                    className="rounded-full"
+                  >
                     {t.name}
                   </Badge>
                 ))}
@@ -169,7 +179,9 @@ export default function BlogDetail() {
             <div className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-xl mb-12">
               <img
                 src={post.thumbnail}
-                alt={(post as { thumbnailAlt?: string }).thumbnailAlt || post.title}
+                alt={
+                  (post as { thumbnailAlt?: string }).thumbnailAlt || post.title
+                }
                 className="w-full max-h-[520px] object-cover"
               />
             </div>
@@ -192,7 +204,9 @@ export default function BlogDetail() {
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {post.images.map((item, i) => {
                 const imgUrl =
-                  typeof item === "string" ? item : (item as { url: string }).url;
+                  typeof item === "string"
+                    ? item
+                    : (item as { url: string }).url;
                 const imgAlt =
                   typeof item === "string"
                     ? `이천계단지기 작업 사진 ${i + 1}`
@@ -222,7 +236,8 @@ export default function BlogDetail() {
                   건물 사진을 보내주시면 상담이 빨라집니다.
                 </h2>
                 <p className="text-white/75 text-sm md:text-base leading-relaxed">
-                  이천 빌라·원룸·상가 공용공간 정기관리 상담은 카카오톡으로 가능합니다.
+                  이천 빌라·원룸·상가 공용공간 정기관리 상담은 카카오톡으로
+                  가능합니다.
                 </p>
               </div>
 

@@ -16,7 +16,8 @@ export const PLANS: ServicePlan[] = [
     id: "stair_2_3",
     name: "2-3층 계단",
     price: "66,000원~",
-    description: "이천지역 밀착 관리 · 친환경 수입세제로 매달 같은 손이 관리합니다",
+    description:
+      "이천지역 밀착 관리 · 친환경 수입세제로 매달 같은 손이 관리합니다",
     popular: false,
   },
   {
@@ -30,18 +31,20 @@ export const PLANS: ServicePlan[] = [
     id: "stair_5_6",
     name: "5-6층 계단",
     price: "88,000원~",
-    description: "건물당 걸레 1장 원칙, 위층 아래층 동일한 기준으로 호텔급 관리",
+    description:
+      "건물당 걸레 1장 원칙, 위층 아래층 동일한 기준으로 호텔급 관리",
     popular: false,
   },
   {
     id: "bathroom",
     name: "화장실 / 상가유리 / 사무실 청소",
     price: "별도 문의",
-    description: "청소계획표 기반, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
+    description:
+      "청소계획표 기반, 친환경 수입 세제로 위생 기준을 지켜 관리합니다",
     popular: false,
   },
 ];
 
 export function getPlanById(id: string) {
-  return PLANS.find((p) => p.id === id);
+  return PLANS.find(p => p.id === id);
 }

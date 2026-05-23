@@ -34,7 +34,15 @@ type AreaPost = {
 
 const PROPERTY_NAMES = {
   title: ["제목", "작업명", "이름", "Name", "Title"],
-  description: ["설명", "내용", "메모", "한줄설명", "Description", "Content", "Memo"],
+  description: [
+    "설명",
+    "내용",
+    "메모",
+    "한줄설명",
+    "Description",
+    "Content",
+    "Memo",
+  ],
   area: ["지역", "관리지역", "Area", "Region"],
   date: ["작업일", "날짜", "Date", "Work Date"],
   image: ["사진", "대표사진", "작업사진", "Image", "Images", "Photo"],
@@ -55,20 +63,33 @@ function getProperty(
   properties: Record<string, NotionProperty | undefined>,
   names: readonly string[]
 ) {
-  return names.map((name) => properties[name]).find(Boolean);
+  return names.map(name => properties[name]).find(Boolean);
 }
 
 function propertyToText(property: NotionProperty | undefined) {
   if (!property) return "";
 
-  if (property.title) return property.title.map((text) => text.plain_text ?? "").join("").trim();
-  if (property.rich_text) return property.rich_text.map((text) => text.plain_text ?? "").join("").trim();
+  if (property.title)
+    return property.title
+      .map(text => text.plain_text ?? "")
+      .join("")
+      .trim();
+  if (property.rich_text)
+    return property.rich_text
+      .map(text => text.plain_text ?? "")
+      .join("")
+      .trim();
   if (property.select?.name) return property.select.name;
   if (property.status?.name) return property.status.name;
-  if (property.multi_select) return property.multi_select.map((item) => item.name ?? "").filter(Boolean).join(", ");
+  if (property.multi_select)
+    return property.multi_select
+      .map(item => item.name ?? "")
+      .filter(Boolean)
+      .join(", ");
   if (property.date?.start) return property.date.start;
   if (property.url) return property.url;
-  if (property.checkbox !== undefined) return property.checkbox ? "true" : "false";
+  if (property.checkbox !== undefined)
+    return property.checkbox ? "true" : "false";
 
   return "";
 }
@@ -76,9 +97,10 @@ function propertyToText(property: NotionProperty | undefined) {
 function propertyToImages(property: NotionProperty | undefined) {
   if (!property) return [];
 
-  const fileUrls = property.files
-    ?.map((file) => file.external?.url || file.file?.url)
-    .filter((url): url is string => Boolean(url)) ?? [];
+  const fileUrls =
+    property.files
+      ?.map(file => file.external?.url || file.file?.url)
+      .filter((url): url is string => Boolean(url)) ?? [];
 
   if (fileUrls.length > 0) return fileUrls;
   if (property.url) return [property.url];
@@ -89,10 +111,34 @@ function propertyToImages(property: NotionProperty | undefined) {
 function normalizeArea(value: string) {
   const normalized = value.toLowerCase().replace(/\s+/g, "");
 
-  if (["majang", "마장", "마장면"].some((keyword) => normalized.includes(keyword))) return "majang";
-  if (["daewol", "대월", "대월면"].some((keyword) => normalized.includes(keyword))) return "daewol";
-  if (["sindun", "신둔", "신둔면"].some((keyword) => normalized.includes(keyword))) return "sindun";
-  if (["downtown", "시내", "시내권", "관고", "창전", "증포", "중리", "갈산", "안흥", "송정", "사음"].some((keyword) => normalized.includes(keyword))) return "downtown";
+  if (
+    ["majang", "마장", "마장면"].some(keyword => normalized.includes(keyword))
+  )
+    return "majang";
+  if (
+    ["daewol", "대월", "대월면"].some(keyword => normalized.includes(keyword))
+  )
+    return "daewol";
+  if (
+    ["sindun", "신둔", "신둔면"].some(keyword => normalized.includes(keyword))
+  )
+    return "sindun";
+  if (
+    [
+      "downtown",
+      "시내",
+      "시내권",
+      "관고",
+      "창전",
+      "증포",
+      "중리",
+      "갈산",
+      "안흥",
+      "송정",
+      "사음",
+    ].some(keyword => normalized.includes(keyword))
+  )
+    return "downtown";
 
   return normalized;
 }
@@ -121,14 +167,25 @@ function isPublished(properties: Record<string, NotionProperty | undefined>) {
 }
 
 function parsePage(page: NotionPage): AreaPost | null {
-  const title = propertyToText(getProperty(page.properties, PROPERTY_NAMES.title));
-  const description = propertyToText(getProperty(page.properties, PROPERTY_NAMES.description));
-  const areaText = propertyToText(getProperty(page.properties, PROPERTY_NAMES.area));
-  const date = propertyToText(getProperty(page.properties, PROPERTY_NAMES.date));
-  const images = propertyToImages(getProperty(page.properties, PROPERTY_NAMES.image));
+  const title = propertyToText(
+    getProperty(page.properties, PROPERTY_NAMES.title)
+  );
+  const description = propertyToText(
+    getProperty(page.properties, PROPERTY_NAMES.description)
+  );
+  const areaText = propertyToText(
+    getProperty(page.properties, PROPERTY_NAMES.area)
+  );
+  const date = propertyToText(
+    getProperty(page.properties, PROPERTY_NAMES.date)
+  );
+  const images = propertyToImages(
+    getProperty(page.properties, PROPERTY_NAMES.image)
+  );
   const area = normalizeArea(areaText);
 
-  if (!area || images.length === 0 || !isPublished(page.properties)) return null;
+  if (!area || images.length === 0 || !isPublished(page.properties))
+    return null;
 
   return {
     id: page.id,
@@ -148,18 +205,25 @@ async function fetchAreaPostsFromNotion() {
   if (!token || !databaseId) return [];
   if (cache && Date.now() - cache.fetchedAt < CACHE_TTL_MS) return cache.posts;
 
-  const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "Notion-Version": "2022-06-28",
-    },
-    body: JSON.stringify({ page_size: 100 }),
-  });
+  const response = await fetch(
+    `https://api.notion.com/v1/databases/${databaseId}/query`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Notion-Version": "2022-06-28",
+      },
+      body: JSON.stringify({ page_size: 100 }),
+    }
+  );
 
   if (!response.ok) {
-    console.warn("[AreaPosts] Notion request failed", response.status, await response.text());
+    console.warn(
+      "[AreaPosts] Notion request failed",
+      response.status,
+      await response.text()
+    );
     return cache?.posts ?? [];
   }
 
@@ -175,12 +239,16 @@ async function fetchAreaPostsFromNotion() {
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    const areaParam = Array.isArray(req.query.area) ? req.query.area[0] : req.query.area;
-    const limitParam = Array.isArray(req.query.limit) ? req.query.limit[0] : req.query.limit;
+    const areaParam = Array.isArray(req.query.area)
+      ? req.query.area[0]
+      : req.query.area;
+    const limitParam = Array.isArray(req.query.limit)
+      ? req.query.limit[0]
+      : req.query.limit;
     const area = areaParam ? normalizeArea(areaParam) : undefined;
     const limit = Math.min(Math.max(Number(limitParam) || 24, 1), 50);
     const posts = await fetchAreaPostsFromNotion();
-    const filtered = area ? posts.filter((post) => post.area === area) : posts;
+    const filtered = area ? posts.filter(post => post.area === area) : posts;
 
     res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
     res.status(200).json(filtered.slice(0, limit));

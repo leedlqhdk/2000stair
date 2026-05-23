@@ -20,7 +20,7 @@ export default function AdminBlog() {
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
     },
-    onError: (e) => toast.error(e.message),
+    onError: e => toast.error(e.message),
   });
 
   const updatePost = trpc.blog.update.useMutation({
@@ -28,7 +28,7 @@ export default function AdminBlog() {
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
     },
-    onError: (e) => toast.error(e.message),
+    onError: e => toast.error(e.message),
   });
 
   if (!user || user.role !== "admin") {
@@ -52,9 +52,7 @@ export default function AdminBlog() {
   };
 
   const getTagNames = (tagIds: number[]) => {
-    return (allTags ?? [])
-      .filter((t) => tagIds.includes(t.id))
-      .map((t) => t.name);
+    return (allTags ?? []).filter(t => tagIds.includes(t.id)).map(t => t.name);
   };
 
   return (
@@ -62,12 +60,13 @@ export default function AdminBlog() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold">작업일지 관리</h1>
-          <p className="text-sm text-gray-400 mt-1">총 {posts?.length ?? 0}개의 게시글</p>
+          <p className="text-sm text-gray-400 mt-1">
+            총 {posts?.length ?? 0}개의 게시글
+          </p>
         </div>
         <Link href="/admin/blog/new">
           <Button className="bg-blue-600 hover:bg-blue-700 text-white gap-1">
-            <Plus className="w-4 h-4" />
-            새 글 작성
+            <Plus className="w-4 h-4" />새 글 작성
           </Button>
         </Link>
       </div>
@@ -87,7 +86,7 @@ export default function AdminBlog() {
         </div>
       ) : (
         <div className="space-y-3">
-          {posts.map((post) => (
+          {posts.map(post => (
             <div
               key={post.id}
               className="flex items-center gap-4 p-4 bg-white border rounded-xl hover:shadow-sm transition-shadow"
@@ -106,17 +105,24 @@ export default function AdminBlog() {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-medium text-gray-900 truncate">{post.title}</span>
+                  <span className="font-medium text-gray-900 truncate">
+                    {post.title}
+                  </span>
                   <Badge
-                    variant={post.published === "published" ? "default" : "secondary"}
+                    variant={
+                      post.published === "published" ? "default" : "secondary"
+                    }
                     className="text-xs flex-shrink-0"
                   >
                     {post.published === "published" ? "공개" : "임시저장"}
                   </Badge>
                 </div>
                 <div className="flex flex-wrap gap-1 mb-1">
-                  {getTagNames(post.tags).map((name) => (
-                    <span key={name} className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                  {getTagNames(post.tags).map(name => (
+                    <span
+                      key={name}
+                      className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full"
+                    >
                       {name}
                     </span>
                   ))}
@@ -131,7 +137,11 @@ export default function AdminBlog() {
                   variant="ghost"
                   size="icon"
                   onClick={() => togglePublish(post.id, post.published)}
-                  title={post.published === "published" ? "비공개로 변경" : "공개로 변경"}
+                  title={
+                    post.published === "published"
+                      ? "비공개로 변경"
+                      : "공개로 변경"
+                  }
                   className="text-gray-400 hover:text-blue-600"
                 >
                   {post.published === "published" ? (
@@ -141,7 +151,11 @@ export default function AdminBlog() {
                   )}
                 </Button>
                 <Link href={`/admin/blog/${post.id}/edit`}>
-                  <Button variant="ghost" size="icon" className="text-gray-400 hover:text-blue-600">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-400 hover:text-blue-600"
+                  >
                     <PenLine className="w-4 h-4" />
                   </Button>
                 </Link>

@@ -73,8 +73,8 @@ const areaLabels: Record<string, string> = {
 };
 
 const fallbackRecentPosts = [
-  ...majangPosts.map((post) => ({ ...post, area: "majang" })),
-  ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
+  ...majangPosts.map(post => ({ ...post, area: "majang" })),
+  ...daewolPosts.map(post => ({ ...post, area: "daewol" })),
 ]
   .sort((a, b) => b.date.localeCompare(a.date))
   .slice(0, 3);
@@ -94,9 +94,10 @@ function useRecentAreaPosts() {
 
 export default function Blog() {
   const { data: notionRecentPosts, isLoading } = useRecentAreaPosts();
-  const recentPosts = notionRecentPosts && notionRecentPosts.length > 0
-    ? notionRecentPosts
-    : fallbackRecentPosts;
+  const recentPosts =
+    notionRecentPosts && notionRecentPosts.length > 0
+      ? notionRecentPosts
+      : fallbackRecentPosts;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
@@ -126,7 +127,8 @@ export default function Blog() {
             </h1>
 
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              이천 지역 공용공간을 깨끗하게 관리합니다. 원하는 지역을 선택해 관리 현장을 확인하세요.
+              이천 지역 공용공간을 깨끗하게 관리합니다. 원하는 지역을 선택해
+              관리 현장을 확인하세요.
             </p>
           </motion.div>
 
@@ -169,7 +171,7 @@ export default function Blog() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
-              {reviews.map((review) => (
+              {reviews.map(review => (
                 <a
                   key={review.source}
                   href={review.href}
@@ -249,7 +251,9 @@ export default function Blog() {
               {recentPosts.slice(0, 6).map((post, index) => {
                 const areaSlug = post.area ?? "downtown";
                 const areaName = areaLabels[areaSlug] ?? areaSlug;
-                const description = post.description || "실제 이천 지역 계단청소 현장 기록입니다.";
+                const description =
+                  post.description ||
+                  "실제 이천 지역 계단청소 현장 기록입니다.";
 
                 return (
                   <motion.div
@@ -320,7 +324,7 @@ function IcheonAreaMap() {
         />
 
         <div className="absolute inset-0">
-          {areaCards.map((area) => (
+          {areaCards.map(area => (
             <Link key={area.slug} href={`/area/${area.slug}`}>
               <div
                 className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center gap-1.5 rounded-lg border border-primary bg-white/95 px-3 py-2 text-sm font-extrabold text-primary shadow-md backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg md:px-4 md:py-2.5 md:text-base`}

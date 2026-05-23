@@ -10,7 +10,10 @@ import { storagePut } from "../storage";
 // Admin guard middleware
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
   if (ctx.user.role !== "admin") {
-    throw new TRPCError({ code: "FORBIDDEN", message: "관리자만 접근 가능합니다." });
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "관리자만 접근 가능합니다.",
+    });
   }
   return next({ ctx });
 });
@@ -37,7 +40,7 @@ export const blogRouter = router({
         .limit(input.limit)
         .offset(input.offset);
 
-      const parsed = rows.map((p) => ({
+      const parsed = rows.map(p => ({
         ...p,
         images: p.images ? (JSON.parse(p.images) as string[]) : [],
         tags: p.tags ? (JSON.parse(p.tags) as number[]) : [],
@@ -53,8 +56,8 @@ export const blogRouter = router({
         if (tag.length > 0) {
           const tagId = tag[0].id;
           return {
-            posts: parsed.filter((p) => p.tags.includes(tagId)),
-            total: parsed.filter((p) => p.tags.includes(tagId)).length,
+            posts: parsed.filter(p => p.tags.includes(tagId)),
+            total: parsed.filter(p => p.tags.includes(tagId)).length,
           };
         }
         return { posts: [], total: 0 };
@@ -75,7 +78,11 @@ export const blogRouter = router({
         .where(eq(posts.id, input.id))
         .limit(1);
 
-      if (!result.length) throw new TRPCError({ code: "NOT_FOUND", message: "게시글을 찾을 수 없습니다." });
+      if (!result.length)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "게시글을 찾을 수 없습니다.",
+        });
 
       const post = result[0];
       return {
@@ -97,12 +104,9 @@ export const blogRouter = router({
     const db = await getDb();
     if (!db) return [];
 
-    const rows = await db
-      .select()
-      .from(posts)
-      .orderBy(desc(posts.createdAt));
+    const rows = await db.select().from(posts).orderBy(desc(posts.createdAt));
 
-    return rows.map((p) => ({
+    return rows.map(p => ({
       ...p,
       images: p.images ? (JSON.parse(p.images) as string[]) : [],
       tags: p.tags ? (JSON.parse(p.tags) as number[]) : [],
@@ -181,12 +185,16 @@ export const blogRouter = router({
       if (input.title !== undefined) updateData.title = input.title;
       if (input.content !== undefined) updateData.content = input.content;
       if (input.thumbnail !== undefined) updateData.thumbnail = input.thumbnail;
-      if (input.images !== undefined) updateData.images = JSON.stringify(input.images);
-      if (input.tags !== undefined) updateData.tags = JSON.stringify(input.tags);
+      if (input.images !== undefined)
+        updateData.images = JSON.stringify(input.images);
+      if (input.tags !== undefined)
+        updateData.tags = JSON.stringify(input.tags);
       if (input.published !== undefined) updateData.published = input.published;
       if (input.seoTitle !== undefined) updateData.seo_title = input.seoTitle;
-      if (input.seoDescription !== undefined) updateData.seo_description = input.seoDescription;
-      if (input.seoKeywords !== undefined) updateData.seo_keywords = input.seoKeywords;
+      if (input.seoDescription !== undefined)
+        updateData.seo_description = input.seoDescription;
+      if (input.seoKeywords !== undefined)
+        updateData.seo_keywords = input.seoKeywords;
 
       await db.update(posts).set(updateData).where(eq(posts.id, input.id));
       return { success: true };
@@ -235,7 +243,10 @@ JSON 형식으로만 응답하세요.`;
 
       const response = await invokeLLM({
         messages: [
-          { role: "system", content: "You are an SEO expert. Respond only with valid JSON." },
+          {
+            role: "system",
+            content: "You are an SEO expert. Respond only with valid JSON.",
+          },
           { role: "user", content: prompt },
         ],
         response_format: {
@@ -246,9 +257,18 @@ JSON 형식으로만 응답하세요.`;
             schema: {
               type: "object",
               properties: {
-                seoTitle: { type: "string", description: "SEO title under 60 chars" },
-                seoDescription: { type: "string", description: "SEO description under 80 chars" },
-                seoKeywords: { type: "string", description: "Comma-separated keywords" },
+                seoTitle: {
+                  type: "string",
+                  description: "SEO title under 60 chars",
+                },
+                seoDescription: {
+                  type: "string",
+                  description: "SEO description under 80 chars",
+                },
+                seoKeywords: {
+                  type: "string",
+                  description: "Comma-separated keywords",
+                },
               },
               required: ["seoTitle", "seoDescription", "seoKeywords"],
               additionalProperties: false,
@@ -258,8 +278,14 @@ JSON 형식으로만 응답하세요.`;
       });
 
       const content = response.choices[0].message.content;
-      const parsed = JSON.parse(typeof content === "string" ? content : JSON.stringify(content));
-      return parsed as { seoTitle: string; seoDescription: string; seoKeywords: string };
+      const parsed = JSON.parse(
+        typeof content === "string" ? content : JSON.stringify(content)
+      );
+      return parsed as {
+        seoTitle: string;
+        seoDescription: string;
+        seoKeywords: string;
+      };
     }),
 
   // AI alt 태그 자동 생성
@@ -285,11 +311,17 @@ JSON 형식으로만 응답하세요.`;
 
       const response = await invokeLLM({
         messages: [
-          { role: "system", content: "You are an SEO expert. Respond only with valid JSON." },
+          {
+            role: "system",
+            content: "You are an SEO expert. Respond only with valid JSON.",
+          },
           {
             role: "user",
             content: [
-              { type: "image_url", image_url: { url: input.imageUrl, detail: "low" } },
+              {
+                type: "image_url",
+                image_url: { url: input.imageUrl, detail: "low" },
+              },
               { type: "text", text: prompt },
             ],
           },
@@ -302,7 +334,10 @@ JSON 형식으로만 응답하세요.`;
             schema: {
               type: "object",
               properties: {
-                alt: { type: "string", description: "SEO-optimized alt text under 50 chars" },
+                alt: {
+                  type: "string",
+                  description: "SEO-optimized alt text under 50 chars",
+                },
               },
               required: ["alt"],
               additionalProperties: false,
@@ -312,7 +347,9 @@ JSON 형식으로만 응답하세요.`;
       });
 
       const content = response.choices[0].message.content;
-      const parsed = JSON.parse(typeof content === "string" ? content : JSON.stringify(content));
+      const parsed = JSON.parse(
+        typeof content === "string" ? content : JSON.stringify(content)
+      );
       return parsed as { alt: string };
     }),
 

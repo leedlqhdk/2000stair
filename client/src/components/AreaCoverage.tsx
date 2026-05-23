@@ -60,7 +60,7 @@ export default function AreaCoverage() {
             </p>
 
             <div className="flex flex-wrap gap-2">
-              {areas.map((area) => (
+              {areas.map(area => (
                 <span
                   key={area}
                   className="px-4 py-2 rounded-full bg-white text-sm font-semibold text-foreground border border-blue-100 shadow-sm"
@@ -73,7 +73,7 @@ export default function AreaCoverage() {
           </div>
 
           <div className="grid gap-4">
-            {buildingTypes.map((item) => (
+            {buildingTypes.map(item => (
               <div
                 key={item.title}
                 className="group rounded-[2rem] border border-blue-100 bg-white p-6 md:p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
