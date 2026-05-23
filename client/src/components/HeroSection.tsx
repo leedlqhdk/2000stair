@@ -111,22 +111,22 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </p>
             </motion.div>
 
-            <div className="overflow-x-auto pb-2">
-              <div className="flex min-w-max gap-3 md:gap-4">
-                {areaSectionItems.slice(0, 4).map((item, index) => (
+            <div className="relative overflow-hidden pb-2">
+              <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 26s linear infinite" }}>
+                {[...areaSectionItems, ...areaSectionItems].map((item, index) => (
                   <motion.div
-                    key={`${item.src}-${item.title}`}
+                    key={`${item.src}-${index}`}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.06 }}
+                    transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
                     <Link href="/areas">
                       <a className="group relative block h-44 w-40 overflow-hidden rounded-xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:h-48 md:w-44">
                         <img
                           src={item.src}
                           alt={`${item.title} 관리 현장`}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="h-full w-full object-cover object-bottom transition-transform duration-500 group-hover:scale-105"
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
