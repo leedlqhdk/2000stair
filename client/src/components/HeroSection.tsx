@@ -122,7 +122,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
                     <Link href="/areas">
-                      <a className="group relative block h-36 w-32 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-40 md:w-36">
+                      <a className="group relative block h-40 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-44 md:w-44">
                         <img
                           src={item.src}
                           alt={`${item.title} 관리 현장`}
