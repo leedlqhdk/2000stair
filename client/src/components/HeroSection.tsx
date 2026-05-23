@@ -66,11 +66,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.div
-              className="relative mx-auto w-full"
-              animate={{ y: [0, -7, 0] }}
-              transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-            >
+            <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
                 alt="카카오톡으로 계단 사진을 보내는 상담 화면"
@@ -83,8 +79,12 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 className="group absolute left-[11%] right-[7%] bottom-[7.2%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
                 aria-label="카카오톡으로 계단 사진 보내기"
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                animate={{ opacity: 1, y: [0, -5, 0], scale: 1 }}
+                transition={{
+                  opacity: { duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] },
+                  scale: { duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] },
+                  y: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
+                }}
               >
                 <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors duration-300 group-hover:bg-white/95 group-hover:text-primary">
                   <Camera className="h-[54%] w-[54%]" />
@@ -96,7 +96,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
                 </span>
               </motion.a>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
