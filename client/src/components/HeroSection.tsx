@@ -38,7 +38,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.018em] text-foreground mb-3 sm:mb-4 md:mb-5">
-              아직도
+              계단청소 아직
               <br />
               <span className="text-primary">직접 청소</span>하고
               <br />
@@ -123,10 +123,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           <div className="grid lg:grid-cols-[0.22fr_0.78fr] gap-10 md:gap-10 items-center">
             <div>
               <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-5 md:mb-4">
-                Shorts
+                map
               </p>
-              <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-3">실제 관리 현장</h2>
-              <p className="text-sm md:text-base text-gray-600">영상으로 확인해보세요</p>
+              <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-3">실제 관리 지역</h2>
+              <p className="text-sm md:text-base text-gray-600">사진을 눌러보세요</p>
             </div>
             <div className="relative overflow-hidden">
               <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 24s linear infinite" }}>
