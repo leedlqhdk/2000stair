@@ -133,14 +133,15 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
                     <Link href="/areas">
-                      <a className="group relative block h-40 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-44 md:w-44">
+                      <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
                         <img
                           src={item.src}
                           alt={`${item.title} 관리 현장`}
-                          className="h-full w-full object-cover object-bottom transition-transform duration-500 group-hover:scale-105"
+                          className="h-full w-full scale-110 object-cover object-bottom brightness-[1.08] saturate-[0.78] transition-transform duration-500 group-hover:scale-[1.15]"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/18 to-transparent" />
+                        <div className="absolute inset-0 bg-white/10 mix-blend-screen" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/68 via-black/12 to-white/12" />
                         <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
                           <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
                           <h3 className="text-sm font-extrabold leading-tight md:text-base">
