@@ -10,38 +10,7 @@ import { motion } from "framer-motion";
 import AreaPostCard from "@/components/AreaPostCard";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
-const fallbackPosts = [
-  {
-    title: "신둔면 빌라 계단청소",
-    date: "2026.05.20",
-    image: "/images/areas/sindun/sindun-1.jpg",
-  },
-  {
-    title: "신둔면 공동현관 유리관리",
-    date: "2026.05.18",
-    image: "/images/areas/sindun/sindun-2.jpg",
-  },
-  {
-    title: "신둔면 원룸 공용공간 관리",
-    date: "2026.05.15",
-    image: "/images/areas/sindun/sindun-3.jpg",
-  },
-  {
-    title: "신둔면 계단 바닥 정기관리",
-    date: "2026.05.12",
-    image: "/images/areas/sindun/sindun-4.jpg",
-  },
-  {
-    title: "신둔면 빌라 계단 정기관리",
-    date: "2026.04.19",
-    image: "/images/areas/sindun/sindun-5.jpg",
-  },
-  {
-    title: "신둔면 공용공간 거미줄 제거",
-    date: "2026.04.10",
-    image: "/images/areas/sindun/sindun-6.jpg",
-  },
-];
+const fallbackPosts: never[] = [];
 
 const reviews = [
   "관리 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.",
@@ -84,7 +53,7 @@ export default function SindunAreaPage() {
               </div>
 
               <div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
-                최근 작업 12건
+                최근 작업 기록
               </div>
             </div>
           </div>
@@ -97,7 +66,7 @@ export default function SindunAreaPage() {
                 신둔면 작업 기록
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                최근 작업 지역을 기준으로 업데이트됩니다.
+                노션 작업일지 기준으로 업데이트됩니다.
               </p>
             </div>
 
@@ -109,11 +78,17 @@ export default function SindunAreaPage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {posts.map((post, index) => (
-              <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} />
-            ))}
-          </div>
+          {posts.length > 0 ? (
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {posts.map((post, index) => (
+                <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-[1.5rem] border border-blue-100 bg-white p-8 text-center text-sm font-semibold text-muted-foreground shadow-sm">
+              신둔면 작업 기록은 노션 작업일지 등록 후 표시됩니다.
+            </div>
+          )}
         </section>
 
         <section className="mb-12 md:mb-16">
