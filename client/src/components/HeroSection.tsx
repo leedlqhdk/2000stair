@@ -104,10 +104,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 MAP
               </p>
               <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
-                이천 전 지역을 부부가 직접 관리합니다.
+                실제 관리 지역
               </h2>
               <p className="max-w-xs text-sm leading-relaxed text-gray-600 md:text-base">
-                [ 무료 방문 견적 ]
+               이천 북부 지역을 부부가 직접 관리합니다.
               </p>
             </motion.div>
 
