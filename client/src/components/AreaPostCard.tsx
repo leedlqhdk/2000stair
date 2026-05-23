@@ -23,11 +23,11 @@ export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardPro
           viewport={{ once: true }}
           transition={{ duration: 0.45, delay: index * 0.06 }}
         >
-          <div className="relative h-56 overflow-hidden bg-blue-50">
+          <div className="relative aspect-[4/3] overflow-hidden bg-blue-50">
             <img
               src={post.image}
               alt={post.title}
-              className="h-full w-full scale-[1.12] object-cover object-[center_88%] transition-transform duration-500 group-hover:scale-[1.16]"
+              className="absolute inset-0 h-full w-full scale-[1.28] object-cover object-[center_92%] transition-transform duration-500 group-hover:scale-[1.33]"
               loading="lazy"
             />
             <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-bold text-white backdrop-blur">
