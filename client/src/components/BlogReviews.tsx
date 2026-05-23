@@ -68,20 +68,20 @@ export default function BlogReviews() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="이천계단지기 네이버 블로그에서 실제 작업 기록 보기"
-          className="group block max-w-6xl mx-auto mb-14 rounded-[1.5rem] overflow-hidden border border-blue-100 bg-blue-50/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+          className="group block max-w-6xl mx-auto mb-14 rounded-2xl border border-blue-50 bg-white/70 p-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/15 hover:shadow-[0_14px_34px_rgba(15,23,42,0.07)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 md:p-5"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-hidden rounded-xl bg-blue-50/40">
             <img
               src="/images/blog-banner-main.png"
               alt="이천계단지기 실제 작업 기록 보러가기"
-              className="w-full h-auto transition-transform duration-500 group-hover:scale-[1.015]"
+              className="w-full h-auto transition-transform duration-500 group-hover:scale-[1.01]"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-white/0 transition-colors duration-300 group-hover:bg-white/10" />
+            <div className="absolute inset-0 bg-white/0 transition-colors duration-300 group-hover:bg-white/8" />
           </div>
         </motion.a>
 
