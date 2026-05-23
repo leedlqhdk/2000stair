@@ -38,7 +38,7 @@ const fallbackPosts = [
     image: "/images/areas/downtown/downtown-5.jpg",
   },
   {
-    title: "안흥동 빌라 정기관리",
+    title: "안흥동 상가 화장실 정기관리",
     date: "2026.04.10",
     image: "/images/areas/downtown/downtown-6.jpg",
   },
