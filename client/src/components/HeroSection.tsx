@@ -31,7 +31,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.018em] text-foreground mb-3 sm:mb-4 md:mb-5">
-              계단청소 아직
+              계단청소
               <br />
               <span className="text-primary">직접 청소</span>하고
               <br />
