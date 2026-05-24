@@ -44,6 +44,10 @@ function useAllAreaPosts() {
   });
 }
 
+function goToRecords(area: string) {
+  window.location.href = area === "all" ? "/records" : `/records?area=${area}`;
+}
+
 export default function Records() {
   const { data, isLoading } = useAllAreaPosts();
   const selectedArea = new URLSearchParams(window.location.search).get("area") ?? "all";
@@ -57,6 +61,13 @@ export default function Records() {
   const posts = selectedArea === "all"
     ? allPosts
     : allPosts.filter((post) => post.area === selectedArea);
+
+  const filterButtonClass = (area: string) =>
+    `relative z-20 rounded-full border px-4 py-2 text-sm font-bold transition ${
+      selectedArea === area
+        ? "border-primary bg-primary text-white"
+        : "border-blue-100 bg-white text-primary hover:bg-blue-50"
+    }`;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
@@ -89,18 +100,14 @@ export default function Records() {
             </p>
           </motion.div>
 
-          <div className="mb-6 flex flex-wrap gap-2">
-            <Link href="/records">
-              <a className={`rounded-full border px-4 py-2 text-sm font-bold transition ${selectedArea === "all" ? "border-primary bg-primary text-white" : "border-blue-100 bg-white text-primary hover:bg-blue-50"}`}>
-                전체
-              </a>
-            </Link>
+          <div className="relative z-20 mb-6 flex flex-wrap gap-2">
+            <button type="button" onClick={() => goToRecords("all")} className={filterButtonClass("all")}>
+              전체
+            </button>
             {Object.entries(areaLabels).map(([slug, label]) => (
-              <Link key={slug} href={`/records?area=${slug}`}>
-                <a className={`rounded-full border px-4 py-2 text-sm font-bold transition ${selectedArea === slug ? "border-primary bg-primary text-white" : "border-blue-100 bg-white text-primary hover:bg-blue-50"}`}>
-                  {label}
-                </a>
-              </Link>
+              <button key={slug} type="button" onClick={() => goToRecords(slug)} className={filterButtonClass(slug)}>
+                {label}
+              </button>
             ))}
           </div>
 
