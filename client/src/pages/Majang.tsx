@@ -25,20 +25,18 @@ export default function MajangAreaPage() {
           </Link>
 
           <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
-            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
+            <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
               AREA ARCHIVE
             </p>
-
             <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
               <div>
-                <h1 className="text-3xl md:text-4xl font-extrabold leading-[1.18] text-foreground mb-4">
+                <h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
                   마장면의 깨끗한 일상을 만들고 있습니다
                 </h1>
-                <p className="max-w-2xl text-base text-muted-foreground leading-relaxed">
+                <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
                   부부가 직접, 마장면 빌라·원룸·상가 공용공간을 관리합니다.
                 </p>
               </div>
-
               <div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
                 최근 작업 15건
               </div>
@@ -49,39 +47,29 @@ export default function MajangAreaPage() {
         <section className="mb-12 md:mb-16">
           <div className="mb-5 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
-                마장면 작업 기록
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                최근 작업 지역을 기준으로 업데이트됩니다.
-              </p>
+              <h2 className="text-xl font-extrabold text-foreground md:text-2xl">마장면 작업 기록</h2>
+              <p className="mt-1 text-sm text-muted-foreground">최근 작업 지역을 기준으로 업데이트됩니다.</p>
             </div>
-
             <Link href="/records?area=majang">
-              <a className="hidden md:inline-flex items-center text-sm font-bold text-primary hover:opacity-80 transition">
+              <a className="hidden items-center text-sm font-bold text-primary transition hover:opacity-80 md:inline-flex">
                 전체 보기
                 <ArrowRight className="ml-1 h-4 w-4" />
               </a>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
             {posts.map((post, index) => (
-              <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} />
+              <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} compact />
             ))}
           </div>
         </section>
 
         <section className="mb-12 md:mb-16">
-          <div className="mb-5 flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">고객 후기</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                마장면 관리 현장에서 받은 실제 피드백입니다.
-              </p>
-            </div>
+          <div className="mb-5">
+            <h2 className="text-xl font-extrabold text-foreground md:text-2xl">고객 후기</h2>
+            <p className="mt-1 text-sm text-muted-foreground">마장면 관리 현장에서 받은 실제 피드백입니다.</p>
           </div>
-
           <div className="grid gap-4 md:grid-cols-2">
             {majangReviews.map((review) => (
               <div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
@@ -98,10 +86,8 @@ export default function MajangAreaPage() {
         </section>
 
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">
-            마장면 청소 관리가 필요하신가요?
-          </h2>
-          <p className="text-muted-foreground mb-8">정기관리·일회성 청소 모두 문의 가능합니다.</p>
+          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">마장면 청소 관리가 필요하신가요?</h2>
+          <p className="mb-8 text-muted-foreground">정기관리·일회성 청소 모두 문의 가능합니다.</p>
           <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
             <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
               <MessageCircle className="mr-2 h-4 w-4" />
