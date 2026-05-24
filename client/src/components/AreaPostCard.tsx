@@ -22,9 +22,34 @@ function getCardTitle(title: string, areaLabel?: string) {
     .trim();
 }
 
+function getCardDescription(post: AreaPost, areaLabel?: string) {
+  if (post.description) return post.description;
+
+  const title = post.title;
+
+  if (/견적/.test(title)) {
+    return "사진과 동선을 기준으로 관리 범위를 확인한 현장입니다.";
+  }
+
+  if (/상가|관고/.test(title)) {
+    return "출입이 많은 공용부를 중심으로 바닥 먼지와 손이 닿는 구간을 확인했습니다.";
+  }
+
+  if (/원룸|빌라/.test(title)) {
+    return "입주민 이동이 많은 계단과 공동현관 주변을 중심으로 정리했습니다.";
+  }
+
+  if (/유리|현관/.test(title)) {
+    return "공동현관과 유리 주변 얼룩까지 함께 확인한 관리 기록입니다.";
+  }
+
+  return `${areaLabel ?? "이천"} 현장 상태를 기준으로 관리 범위를 정리했습니다.`;
+}
+
 export default function AreaPostCard({ post, index, areaLabel, compact = false }: AreaPostCardProps) {
   const images = post.images?.length ? post.images : [post.image];
   const cardTitle = getCardTitle(post.title, areaLabel);
+  const cardDescription = getCardDescription(post, areaLabel);
 
   return (
     <Link href={getWorkPath(post)}>
@@ -37,14 +62,14 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: Math.min(index * 0.035, 0.28) }}
       >
-        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "aspect-[4/3] md:aspect-square" : "aspect-[4/3] md:aspect-[4/5]"}`}>
+        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[218px] sm:h-[232px] md:h-[252px] lg:h-[270px]" : "h-[286px] md:h-[420px]"}`}>
           <img
             src={post.image}
             alt={post.title}
-            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+            className="absolute inset-0 h-full w-full object-cover object-center brightness-[1.04] contrast-[1.04] saturate-[1.08] transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/76 via-black/22 to-transparent transition-colors duration-500 group-hover:from-black/82" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/24 to-transparent transition-colors duration-500 group-hover:from-black/88" />
 
           <div className={`absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/55 font-bold text-white backdrop-blur md:right-3 md:top-3 ${
             compact ? "px-1.5 py-0.5 text-[10px] md:px-2 md:text-[11px]" : "px-2 py-0.5 text-[11px] md:px-2.5 md:py-1 md:text-xs"
@@ -59,12 +84,19 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
                 {areaLabel}
               </p>
             )}
-            <h3 className={`font-extrabold leading-snug drop-shadow-sm line-clamp-2 ${
+            <h3 className={`line-clamp-2 font-extrabold leading-snug drop-shadow-sm ${
               compact ? "mb-2 text-sm md:text-base" : "mb-3 text-base md:text-lg"
             }`}>
               {cardTitle}
             </h3>
-            <div className={`mb-2 flex items-center gap-1 font-semibold text-white/88 ${compact ? "text-[11px] md:text-xs" : "text-xs md:text-sm"}`}>
+            <p className={`text-white/78 ${
+              compact
+                ? "mb-2 line-clamp-2 text-[11px] leading-4 sm:mb-3 sm:line-clamp-3 md:text-xs md:leading-5"
+                : "mb-4 line-clamp-3 text-sm leading-5"
+            }`}>
+              {cardDescription}
+            </p>
+            <div className={`mb-3 flex items-center gap-1 font-semibold text-white/88 ${compact ? "text-[11px] md:text-xs" : "text-xs md:text-sm"}`}>
               <CalendarDays className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-3.5 w-3.5 md:h-4 md:w-4"} />
               {post.date}
             </div>
