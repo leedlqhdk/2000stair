@@ -46,12 +46,17 @@ function useAllAreaPosts() {
 
 export default function Records() {
   const { data, isLoading } = useAllAreaPosts();
+  const selectedArea = new URLSearchParams(window.location.search).get("area") ?? "all";
+  const selectedAreaName = areaLabels[selectedArea] ?? "전체";
   const notionPosts = data ?? [];
   const notionKeys = new Set(notionPosts.map((post) => `${post.title}-${post.date}`));
-  const posts = [
+  const allPosts = [
     ...notionPosts,
     ...fallbackPosts.filter((post) => !notionKeys.has(`${post.title}-${post.date}`)),
   ];
+  const posts = selectedArea === "all"
+    ? allPosts
+    : allPosts.filter((post) => post.area === selectedArea);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
@@ -59,7 +64,7 @@ export default function Records() {
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
           <motion.div
-            className="mb-10 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8"
+            className="mb-8 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
@@ -75,35 +80,57 @@ export default function Records() {
               FIELD RECORDS
             </p>
             <h1 className="mb-4 text-3xl font-extrabold leading-[1.12] text-foreground md:text-4xl">
-              전체 작업 기록
+              {selectedArea === "all" ? "전체 작업 기록" : `${selectedAreaName} 작업 기록`}
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-              노션 작업일지와 기존 이천 지역 관리 기록을 한 번에 확인할 수 있습니다.
+              {selectedArea === "all"
+                ? "노션 작업일지와 기존 이천 지역 관리 기록을 한 번에 확인할 수 있습니다."
+                : `${selectedAreaName}에 등록된 작업 기록만 모아서 확인할 수 있습니다.`}
             </p>
           </motion.div>
 
+          <div className="mb-6 flex flex-wrap gap-2">
+            <Link href="/records">
+              <a className={`rounded-full border px-4 py-2 text-sm font-bold transition ${selectedArea === "all" ? "border-primary bg-primary text-white" : "border-blue-100 bg-white text-primary hover:bg-blue-50"}`}>
+                전체
+              </a>
+            </Link>
+            {Object.entries(areaLabels).map(([slug, label]) => (
+              <Link key={slug} href={`/records?area=${slug}`}>
+                <a className={`rounded-full border px-4 py-2 text-sm font-bold transition ${selectedArea === slug ? "border-primary bg-primary text-white" : "border-blue-100 bg-white text-primary hover:bg-blue-50"}`}>
+                  {label}
+                </a>
+              </Link>
+            ))}
+          </div>
+
           {isLoading ? (
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
-                <div key={index} className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white">
-                  <Skeleton className="h-56 w-full" />
-                  <div className="p-5">
-                    <Skeleton className="mb-3 h-6 w-3/4" />
+                <div key={index} className="overflow-hidden rounded-[1.1rem] border border-blue-100 bg-white">
+                  <Skeleton className="aspect-square w-full" />
+                  <div className="p-4">
+                    <Skeleton className="mb-3 h-5 w-3/4" />
                     <Skeleton className="h-4 w-1/2" />
                   </div>
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+          ) : posts.length > 0 ? (
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
               {posts.map((post, index) => (
                 <AreaPostCard
                   key={`${post.area}-${post.title}-${post.date}-${index}`}
                   post={post}
                   index={index}
                   areaLabel={post.area ? areaLabels[post.area] ?? post.area : undefined}
+                  compact
                 />
               ))}
+            </div>
+          ) : (
+            <div className="rounded-[1.5rem] border border-blue-100 bg-white p-8 text-center text-sm font-semibold text-muted-foreground shadow-sm">
+              아직 {selectedAreaName}에 등록된 작업 기록이 없습니다.
             </div>
           )}
         </section>
