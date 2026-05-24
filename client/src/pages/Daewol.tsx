@@ -17,10 +17,10 @@ export default function DaewolAreaPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <Link href="/blog">
+          <Link href="/areas">
             <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
               <ArrowLeft className="h-4 w-4" />
-              작업일지로 돌아가기
+              관리지역으로 돌아가기
             </a>
           </Link>
 
@@ -34,7 +34,6 @@ export default function DaewolAreaPage() {
                 <h1 className="text-3xl md:text-4xl font-extrabold leading-[1.18] text-foreground mb-4">
                   대월면의 공용공간을 꾸준히 관리합니다
                 </h1>
-
                 <p className="max-w-2xl text-base text-muted-foreground leading-relaxed">
                   부부가 직접, 대월면 빌라·원룸·상가 공용공간을 관리합니다.
                 </p>
@@ -58,7 +57,7 @@ export default function DaewolAreaPage() {
               </p>
             </div>
 
-            <Link href="/blog">
+            <Link href="/records?area=daewol">
               <a className="hidden md:inline-flex items-center text-sm font-bold text-primary hover:opacity-80 transition">
                 전체 보기
                 <ArrowRight className="ml-1 h-4 w-4" />
@@ -76,9 +75,7 @@ export default function DaewolAreaPage() {
         <section className="mb-12 md:mb-16">
           <div className="mb-5 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
-                고객 후기
-              </h2>
+              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">고객 후기</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 대월면 관리 현장에서 받은 실제 피드백입니다.
               </p>
@@ -87,23 +84,14 @@ export default function DaewolAreaPage() {
 
           <div className="grid gap-4 md:grid-cols-2">
             {daewolReviews.map((review) => (
-              <div
-                key={review}
-                className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
-              >
+              <div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
                 <div className="mb-3 flex items-center gap-1 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-
-                <p className="text-base leading-relaxed text-foreground">
-                  “{review}”
-                </p>
-
-                <p className="mt-4 text-sm text-muted-foreground">
-                  대월면 건물주 후기
-                </p>
+                <p className="text-base leading-relaxed text-foreground">“{review}”</p>
+                <p className="mt-4 text-sm text-muted-foreground">대월면 건물주 후기</p>
               </div>
             ))}
           </div>
@@ -113,26 +101,13 @@ export default function DaewolAreaPage() {
           <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">
             대월면 청소 관리가 필요하신가요?
           </h2>
-
-          <p className="text-muted-foreground mb-8">
-            정기관리·일회성 청소 모두 문의 가능합니다.
-          </p>
-
+          <p className="text-muted-foreground mb-8">정기관리·일회성 청소 모두 문의 가능합니다.</p>
           <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
-            <a
-              href="https://pf.kakao.com/_IiNfn/chat"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
-            >
+            <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
               <MessageCircle className="mr-2 h-4 w-4" />
               카카오톡 문의하기
             </a>
-
-            <a
-              href="tel:01084381887"
-              className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50"
-            >
+            <a href="tel:01084381887" className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50">
               <Phone className="mr-2 h-4 w-4" />
               전화 문의하기
             </a>
