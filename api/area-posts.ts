@@ -30,6 +30,9 @@ type AreaPost = {
   date: string;
   image: string;
   images: string[];
+  buildingType: string;
+  workScope: string;
+  workType: string;
 };
 
 const PROPERTY_NAMES = {
@@ -38,6 +41,9 @@ const PROPERTY_NAMES = {
   area: ["지역", "관리지역", "Area", "Region"],
   date: ["작업일", "날짜", "Date", "Work Date"],
   image: ["사진링크", "사진URL", "사진", "대표사진", "작업사진", "Image", "Images", "Photo"],
+  buildingType: ["건물 유형", "건물유형", "건물", "현장유형", "Building Type", "Building"],
+  workScope: ["작업 내용", "작업내용", "관리범위", "작업범위", "범위", "Work Scope", "Scope"],
+  workType: ["작업 형태", "작업형태", "관리형태", "청소형태", "Work Type", "Type"],
   published: ["공개", "게시", "공개여부", "Published", "Public"],
 } as const;
 
@@ -136,6 +142,9 @@ function parsePage(page: NotionPage): AreaPost | null {
   const date = propertyToText(getProperty(page.properties, PROPERTY_NAMES.date));
   const images = getImages(page.properties);
   const area = normalizeArea(areaText);
+  const buildingType = propertyToText(getProperty(page.properties, PROPERTY_NAMES.buildingType));
+  const workScope = propertyToText(getProperty(page.properties, PROPERTY_NAMES.workScope));
+  const workType = propertyToText(getProperty(page.properties, PROPERTY_NAMES.workType));
 
   if (!area || images.length === 0 || !isPublished(page.properties)) return null;
 
@@ -147,6 +156,9 @@ function parsePage(page: NotionPage): AreaPost | null {
     date: formatDate(date),
     image: images[0],
     images,
+    buildingType,
+    workScope,
+    workType,
   };
 }
 
