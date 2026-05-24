@@ -35,9 +35,9 @@ const options = {
 };
 
 const expandedButtonClass = "w-[102px] px-2 md:w-[168px] md:px-5";
-const collapsedButtonClass = "w-9 px-0 md:w-[168px] md:px-5";
-const expandedTextClass = "max-w-[64px] opacity-100 md:max-w-[80px] md:opacity-100";
-const collapsedTextClass = "max-w-0 opacity-0 md:max-w-[80px] md:opacity-100";
+const collapsedButtonClass = "w-9 px-0 md:w-14 md:px-0";
+const expandedTextClass = "max-w-[64px] opacity-100 md:max-w-[80px]";
+const collapsedTextClass = "max-w-0 opacity-0";
 
 export default function KakaoChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,6 +73,7 @@ export default function KakaoChat() {
 
   const buttonWidthClass = isScrolling ? collapsedButtonClass : expandedButtonClass;
   const buttonTextClass = isScrolling ? collapsedTextClass : expandedTextClass;
+  const buttonGapClass = isScrolling ? "gap-0" : "gap-1 md:gap-2";
 
   const handleChange = (key: keyof DiagnosisState, value: string) => {
     setDiagnosis((prev) => ({ ...prev, [key]: value }));
@@ -111,7 +112,7 @@ export default function KakaoChat() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className={`flex h-9 items-center justify-center gap-1 overflow-hidden rounded-full bg-white text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:gap-2 md:text-base ${buttonWidthClass}`}
+          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-white text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
           aria-label="AI 관리진단 열기"
         >
           <Sparkles className="h-3 w-3 shrink-0 translate-y-px stroke-[2.8] md:h-5 md:w-5" />
@@ -120,7 +121,7 @@ export default function KakaoChat() {
 
         <a
           href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-          className={`flex h-9 items-center justify-center gap-1 overflow-hidden rounded-full bg-primary text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:gap-2 md:text-base ${buttonWidthClass}`}
+          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-primary text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
           aria-label="전화 문의하기"
         >
           <Phone className="h-3 w-3 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
@@ -131,7 +132,7 @@ export default function KakaoChat() {
           href={KAKAO_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex h-9 items-center justify-center gap-1 overflow-hidden rounded-full bg-[#FEE500] text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:gap-2 md:text-base ${buttonWidthClass}`}
+          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
           aria-label="카카오톡 상담하기"
         >
           <MessageCircle className="h-3 w-3 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
