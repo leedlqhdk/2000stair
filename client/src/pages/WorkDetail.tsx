@@ -56,7 +56,7 @@ function getDefaultWorkScope(title: string) {
   if (/유리|현관/.test(title)) return "공동현관, 유리, 출입구 주변";
   if (/엘리베이터/.test(title)) return "계단, 복도, 공동현관, 엘리베이터 내부";
   if (/상가/.test(title)) return "계단, 복도, 공용현관, 상가 공용부";
-  return "계단, 난간, 벽면, 공동현관";
+  return "계단, 난간, 공동현관";
 }
 
 function getDefaultWorkType(title: string) {
