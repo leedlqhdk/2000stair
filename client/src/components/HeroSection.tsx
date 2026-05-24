@@ -73,7 +73,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group absolute left-[11%] right-[7%] bottom-[7.2%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
+                className="group absolute left-[11%] right-[7%] bottom-[5.2%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
                 aria-label="카카오톡으로 계단 사진 보내기"
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}
                 animate={{ opacity: 1, y: [0, -5, 0], scale: 1 }}
