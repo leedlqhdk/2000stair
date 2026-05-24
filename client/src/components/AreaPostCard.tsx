@@ -7,9 +7,10 @@ type AreaPostCardProps = {
   post: AreaPost;
   index: number;
   areaLabel?: string;
+  compact?: boolean;
 };
 
-export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardProps) {
+export default function AreaPostCard({ post, index, areaLabel, compact = false }: AreaPostCardProps) {
   const images = post.images?.length ? post.images : [post.image];
 
   return (
@@ -17,13 +18,15 @@ export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardPro
       <DialogTrigger asChild>
         <motion.button
           type="button"
-          className="group h-full overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white text-left shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-          initial={{ opacity: 0, y: 24 }}
+          className={`group h-full overflow-hidden border border-blue-100 bg-white text-left shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 ${
+            compact ? "rounded-[1.1rem]" : "rounded-[1.5rem]"
+          }`}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.45, delay: index * 0.06 }}
+          transition={{ duration: 0.4, delay: Math.min(index * 0.035, 0.28) }}
         >
-          <div className="relative aspect-[4/5] overflow-hidden bg-blue-50">
+          <div className={`relative overflow-hidden bg-blue-50 ${compact ? "aspect-[4/4]" : "aspect-[4/5]"}`}>
             <img
               src={post.image}
               alt={post.title}
@@ -32,22 +35,26 @@ export default function AreaPostCard({ post, index, areaLabel }: AreaPostCardPro
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/18 to-transparent" />
 
-            <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-xs font-bold text-white backdrop-blur">
-              <Images className="h-3.5 w-3.5" />
+            <div className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/55 font-bold text-white backdrop-blur ${
+              compact ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-xs"
+            }`}>
+              <Images className={compact ? "h-3 w-3" : "h-3.5 w-3.5"} />
               {images.length}
             </div>
 
-            <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+            <div className={`absolute inset-x-0 bottom-0 text-white ${compact ? "p-4" : "p-5"}`}>
               {areaLabel && (
-                <p className="mb-2 text-sm font-bold text-white/85">
+                <p className={`font-bold text-white/85 ${compact ? "mb-1.5 text-xs" : "mb-2 text-sm"}`}>
                   {areaLabel}
                 </p>
               )}
-              <h3 className="mb-3 text-lg font-extrabold leading-snug drop-shadow-sm">
+              <h3 className={`font-extrabold leading-snug drop-shadow-sm line-clamp-2 ${
+                compact ? "mb-2 text-base" : "mb-3 text-lg"
+              }`}>
                 {post.title}
               </h3>
-              <div className="flex items-center gap-1 text-sm font-semibold text-white/88">
-                <CalendarDays className="h-4 w-4" />
+              <div className={`flex items-center gap-1 font-semibold text-white/88 ${compact ? "text-xs" : "text-sm"}`}>
+                <CalendarDays className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
                 {post.date}
               </div>
             </div>
