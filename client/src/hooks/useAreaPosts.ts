@@ -9,6 +9,9 @@ export type AreaPost = {
   date: string;
   image: string;
   images?: string[];
+  buildingType?: string;
+  workScope?: string;
+  workType?: string;
 };
 
 export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
