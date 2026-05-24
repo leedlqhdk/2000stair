@@ -71,14 +71,14 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: Math.min(index * 0.035, 0.28) }}
       >
-        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[188px] sm:h-[210px] md:h-[246px] lg:h-[264px]" : "h-[286px] md:h-[420px]"}`}>
+        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[178px] sm:h-[196px] md:h-[230px] lg:h-[248px]" : "h-[286px] md:h-[420px]"}`}>
           <img
             src={post.image}
             alt={post.title}
             className="absolute inset-0 h-full w-full object-cover object-center brightness-[1.04] contrast-[1.04] saturate-[1.08] transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/24 to-transparent transition-colors duration-500 group-hover:from-black/88" />
+          <div className={`absolute inset-0 transition-colors duration-500 ${compact ? "bg-gradient-to-t from-black/76 via-black/12 to-transparent group-hover:from-black/82" : "bg-gradient-to-t from-black/82 via-black/24 to-transparent group-hover:from-black/88"}`} />
 
           <div className={`absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/55 font-bold text-white backdrop-blur md:right-3 md:top-3 ${
             compact ? "px-1.5 py-0.5 text-[10px] md:px-2 md:text-[11px]" : "px-2 py-0.5 text-[11px] md:px-2.5 md:py-1 md:text-xs"
@@ -98,14 +98,12 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
             }`}>
               {cardTitle}
             </h3>
-            <p className={`text-white/78 ${
-              compact
-                ? "mb-2 line-clamp-2 text-[11px] leading-4 md:mb-3 md:line-clamp-3 md:text-xs md:leading-5"
-                : "mb-4 line-clamp-3 text-sm leading-5"
-            }`}>
-              {cardDescription}
-            </p>
-            <div className={`mb-3 flex items-center gap-1 font-semibold text-white/88 ${compact ? "text-[11px] md:text-xs" : "text-xs md:text-sm"}`}>
+            {!compact && (
+              <p className="mb-4 line-clamp-3 text-sm leading-5 text-white/78">
+                {cardDescription}
+              </p>
+            )}
+            <div className={`flex items-center gap-1 font-semibold text-white/88 ${compact ? "mb-2 text-[11px] md:text-xs" : "mb-3 text-xs md:text-sm"}`}>
               <CalendarDays className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-3.5 w-3.5 md:h-4 md:w-4"} />
               {post.date}
             </div>
