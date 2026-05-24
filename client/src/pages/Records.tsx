@@ -63,10 +63,10 @@ export default function Records() {
     : allPosts.filter((post) => post.area === selectedArea);
 
   const filterButtonClass = (area: string) =>
-    `relative z-20 rounded-full border px-4 py-2 text-sm font-bold transition ${
+    `relative z-20 rounded-full border px-5 py-2.5 text-sm font-extrabold shadow-sm transition-all duration-300 hover:-translate-y-0.5 ${
       selectedArea === area
-        ? "border-primary bg-primary text-white"
-        : "border-blue-100 bg-white text-primary hover:bg-blue-50"
+        ? "border-primary bg-primary text-white shadow-lg shadow-primary/25"
+        : "border-blue-100 bg-white text-primary hover:border-primary/30 hover:bg-blue-50 hover:shadow-md"
     }`;
 
   return (
@@ -100,7 +100,7 @@ export default function Records() {
             </p>
           </motion.div>
 
-          <div className="relative z-20 mb-7 flex flex-wrap gap-2 md:mb-8">
+          <div className="relative z-20 mb-8 flex flex-wrap gap-2.5 md:mb-9">
             <button type="button" onClick={() => goToRecords("all")} className={filterButtonClass("all")}>
               전체
             </button>
@@ -115,7 +115,12 @@ export default function Records() {
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
                 <div key={index} className="overflow-hidden rounded-[0.95rem] border border-blue-100 bg-white md:rounded-[1.1rem]">
-                  <Skeleton className="h-[218px] w-full sm:h-[232px] md:h-[252px] lg:h-[270px]" />
+                  <Skeleton className="h-[124px] w-full sm:h-[142px] md:h-[166px] lg:h-[178px]" />
+                  <div className="p-3 md:p-4">
+                    <Skeleton className="mb-2 h-4 w-4/5" />
+                    <Skeleton className="mb-4 h-3 w-full" />
+                    <Skeleton className="h-3 w-2/3" />
+                  </div>
                 </div>
               ))}
             </div>
