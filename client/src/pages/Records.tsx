@@ -100,7 +100,7 @@ export default function Records() {
             </p>
           </motion.div>
 
-          <div className="relative z-20 mb-6 flex flex-wrap gap-2">
+          <div className="relative z-20 mb-5 flex flex-wrap gap-2 md:mb-6">
             <button type="button" onClick={() => goToRecords("all")} className={filterButtonClass("all")}>
               전체
             </button>
@@ -112,19 +112,19 @@ export default function Records() {
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
-                <div key={index} className="overflow-hidden rounded-[1.1rem] border border-blue-100 bg-white">
-                  <Skeleton className="aspect-square w-full" />
-                  <div className="p-4">
-                    <Skeleton className="mb-3 h-5 w-3/4" />
-                    <Skeleton className="h-4 w-1/2" />
+                <div key={index} className="overflow-hidden rounded-[0.95rem] border border-blue-100 bg-white md:rounded-[1.1rem]">
+                  <Skeleton className="aspect-[4/3] w-full md:aspect-square" />
+                  <div className="p-3 md:p-4">
+                    <Skeleton className="mb-2 h-4 w-3/4 md:mb-3 md:h-5" />
+                    <Skeleton className="h-3 w-1/2 md:h-4" />
                   </div>
                 </div>
               ))}
             </div>
           ) : posts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
               {posts.map((post, index) => (
                 <AreaPostCard
                   key={`${post.area}-${post.title}-${post.date}-${index}`}
