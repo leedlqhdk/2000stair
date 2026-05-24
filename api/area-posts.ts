@@ -34,10 +34,10 @@ type AreaPost = {
 
 const PROPERTY_NAMES = {
   title: ["제목", "작업명", "이름", "Name", "Title"],
-  description: ["설명", "내용", "메모", "한줄설명", "Description", "Content", "Memo"],
+  description: ["설명", "특이사항", "내용", "메모", "한줄설명", "Description", "Content", "Memo"],
   area: ["지역", "관리지역", "Area", "Region"],
   date: ["작업일", "날짜", "Date", "Work Date"],
-  image: ["사진", "대표사진", "작업사진", "Image", "Images", "Photo"],
+  image: ["사진링크", "사진URL", "사진", "대표사진", "작업사진", "Image", "Images", "Photo"],
   published: ["공개", "게시", "공개여부", "Published", "Public"],
 } as const;
 
@@ -86,6 +86,15 @@ function propertyToImages(property: NotionProperty | undefined) {
   return [];
 }
 
+function getImages(properties: Record<string, NotionProperty | undefined>) {
+  for (const name of PROPERTY_NAMES.image) {
+    const images = propertyToImages(properties[name]);
+    if (images.length > 0) return images;
+  }
+
+  return [];
+}
+
 function normalizeArea(value: string) {
   const normalized = value.toLowerCase().replace(/\s+/g, "");
 
@@ -125,7 +134,7 @@ function parsePage(page: NotionPage): AreaPost | null {
   const description = propertyToText(getProperty(page.properties, PROPERTY_NAMES.description));
   const areaText = propertyToText(getProperty(page.properties, PROPERTY_NAMES.area));
   const date = propertyToText(getProperty(page.properties, PROPERTY_NAMES.date));
-  const images = propertyToImages(getProperty(page.properties, PROPERTY_NAMES.image));
+  const images = getImages(page.properties);
   const area = normalizeArea(areaText);
 
   if (!area || images.length === 0 || !isPublished(page.properties)) return null;
