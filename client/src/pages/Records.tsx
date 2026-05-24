@@ -75,13 +75,13 @@ export default function Records() {
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
           <motion.div
-            className="mb-8 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8"
+            className="mb-9 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-10 md:p-8"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
           >
             <Link href="/areas">
-              <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
+              <a className="mb-7 inline-flex items-center gap-2 text-sm font-bold text-primary transition hover:opacity-80">
                 <ArrowLeft className="h-4 w-4" />
                 관리지역으로 돌아가기
               </a>
@@ -90,17 +90,17 @@ export default function Records() {
             <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
               FIELD RECORDS
             </p>
-            <h1 className="mb-4 text-3xl font-extrabold leading-[1.12] text-foreground md:text-4xl">
+            <h1 className="mb-5 text-3xl font-extrabold leading-[1.12] text-foreground md:text-4xl">
               {selectedArea === "all" ? "전체 작업 기록" : `${selectedAreaName} 작업 기록`}
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
+            <p className="max-w-2xl text-base leading-7 text-muted-foreground">
               {selectedArea === "all"
                 ? "노션 작업일지와 기존 이천 지역 관리 기록을 한 번에 확인할 수 있습니다."
                 : `${selectedAreaName}에 등록된 작업 기록만 모아서 확인할 수 있습니다.`}
             </p>
           </motion.div>
 
-          <div className="relative z-20 mb-5 flex flex-wrap gap-2 md:mb-6">
+          <div className="relative z-20 mb-7 flex flex-wrap gap-2 md:mb-8">
             <button type="button" onClick={() => goToRecords("all")} className={filterButtonClass("all")}>
               전체
             </button>
@@ -112,19 +112,15 @@ export default function Records() {
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
                 <div key={index} className="overflow-hidden rounded-[0.95rem] border border-blue-100 bg-white md:rounded-[1.1rem]">
-                  <Skeleton className="aspect-[4/3] w-full md:aspect-square" />
-                  <div className="p-3 md:p-4">
-                    <Skeleton className="mb-2 h-4 w-3/4 md:mb-3 md:h-5" />
-                    <Skeleton className="h-3 w-1/2 md:h-4" />
-                  </div>
+                  <Skeleton className="h-[218px] w-full sm:h-[232px] md:h-[252px] lg:h-[270px]" />
                 </div>
               ))}
             </div>
           ) : posts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
               {posts.map((post, index) => (
                 <AreaPostCard
                   key={`${post.area}-${post.title}-${post.date}-${index}`}
