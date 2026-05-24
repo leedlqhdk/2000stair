@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { Link, useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, CalendarDays, Images, MapPin, MessageCircle, Phone, Sparkles } from "lucide-react";
+import { ArrowLeft, CalendarDays, Images, MapPin, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -45,26 +45,38 @@ function useAllAreaPosts() {
   });
 }
 
-function getFieldNote(post: AreaPost, areaLabel: string) {
-  const title = post.title;
+function getDefaultBuildingType(title: string) {
+  if (/상가/.test(title)) return "상가 건물";
+  if (/원룸/.test(title)) return "원룸";
+  if (/빌라|연립/.test(title)) return "빌라";
+  return "공용 건물";
+}
 
-  if (/견적/.test(title)) {
-    return "현장 사진과 동선을 기준으로 계단 오염, 공용현관 범위, 정기관리 가능 여부를 함께 확인한 기록입니다.";
+function getDefaultWorkScope(title: string) {
+  if (/유리|현관/.test(title)) return "공동현관, 유리, 출입구 주변";
+  if (/엘리베이터/.test(title)) return "계단, 복도, 공동현관, 엘리베이터 내부";
+  if (/상가/.test(title)) return "계단, 복도, 공용현관, 상가 공용부";
+  return "계단, 난간, 벽면, 공동현관";
+}
+
+function getDefaultWorkType(title: string) {
+  if (/견적/.test(title)) return "현장 견적";
+  if (/정기/.test(title)) return "정기청소";
+  return "계단청소";
+}
+
+function getIntroText(post: AreaPost, areaLabel: string) {
+  if (post.description) return post.description;
+
+  if (/원룸|빌라/.test(post.title)) {
+    return `${areaLabel} ${post.title} 작업입니다. 비 오는 날 이후 흙먼지와 발자국 오염이 남기 쉬운 계단과 공동현관을 중심으로 관리했습니다.`;
   }
 
-  if (/상가|관고/.test(title)) {
-    return "출입과 이동이 잦은 상가 공용부라 바닥 먼지와 손이 많이 닿는 구간을 중심으로 확인했습니다.";
+  if (/상가/.test(post.title)) {
+    return `${areaLabel} ${post.title} 작업입니다. 출입이 잦은 공용부의 먼지와 손이 닿는 구간을 중심으로 확인하고 정리했습니다.`;
   }
 
-  if (/원룸|빌라/.test(title)) {
-    return "입주민 이동이 많은 계단 동선과 공동현관 주변을 중심으로 실제 사용 흔적을 확인했습니다.";
-  }
-
-  if (/유리|현관/.test(title)) {
-    return "빛이 잘 들어오는 공용현관과 유리 주변은 얼룩이 눈에 띄기 쉬워 마감 상태를 함께 확인했습니다.";
-  }
-
-  return `${areaLabel} 현장에서 직접 확인한 오염 상태와 이동 동선을 기준으로 관리 범위를 정리한 기록입니다.`;
+  return `${areaLabel} 현장에서 직접 확인한 상태를 기준으로 관리 범위를 정리한 작업 기록입니다.`;
 }
 
 export default function WorkDetail() {
@@ -84,7 +96,12 @@ export default function WorkDetail() {
   const images = post?.images?.length ? post.images : post ? [post.image] : [];
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
   const backHref = post?.area ? `/records?area=${post.area}` : "/records";
-  const fieldNote = post ? getFieldNote(post, areaLabel) : "";
+  const detailRows = post ? [
+    ["지역", areaLabel],
+    ["건물 유형", post.buildingType || getDefaultBuildingType(post.title)],
+    ["작업 내용", post.workScope || getDefaultWorkScope(post.title)],
+    ["작업 형태", post.workType || getDefaultWorkType(post.title)],
+  ] : [];
 
   useEffect(() => {
     if (!post) return;
@@ -174,7 +191,7 @@ export default function WorkDetail() {
                 <img
                   src={post.image}
                   alt={post.title}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover brightness-[1.03] contrast-[1.03] saturate-[1.06]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
               </div>
@@ -183,41 +200,38 @@ export default function WorkDetail() {
                 <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
                   WORK RECORD
                 </p>
-                <h1 className="mb-6 text-3xl font-extrabold leading-[1.15] text-foreground md:text-5xl">
+                <h1 className="mb-5 text-3xl font-extrabold leading-[1.15] text-foreground md:text-5xl">
                   {post.title}
                 </h1>
                 <div className="mb-7 flex flex-wrap gap-3 text-sm font-semibold text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-2 text-primary">
-                    <MapPin className="h-4 w-4" />
-                    {areaLabel}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-2 text-primary">
                     <CalendarDays className="h-4 w-4" />
-                    {post.date}
+                    {post.date} 작업
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-2 text-primary">
                     <Images className="h-4 w-4" />
                     사진 {images.length}장
                   </span>
                 </div>
-                <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-                  {post.description || `${areaLabel} 현장에서 직접 관리한 계단청소 작업 기록입니다. 현장 상태와 작업 사진을 기준으로 건물에 맞는 관리 범위를 안내드립니다.`}
+                <p className="mb-7 max-w-2xl text-base leading-7 text-muted-foreground">
+                  {getIntroText(post, areaLabel)}
                 </p>
 
-                <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-sm leading-6 text-slate-700">
-                  <div className="mb-2 flex items-center gap-2 font-extrabold text-primary">
-                    <Sparkles className="h-4 w-4" />
-                    현장 메모
-                  </div>
-                  {fieldNote}
+                <div className="overflow-hidden rounded-xl border border-blue-100 bg-white text-sm shadow-sm">
+                  {detailRows.map(([label, value], index) => (
+                    <div key={label} className={`grid grid-cols-[7.5rem_1fr] ${index > 0 ? "border-t border-blue-100" : ""}`}>
+                      <div className="bg-blue-50/70 px-4 py-3 font-extrabold text-slate-600">{label}</div>
+                      <div className="px-4 py-3 font-semibold leading-6 text-slate-800">{value}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </section>
 
-          <section className="mt-10">
-            <h2 className="mb-5 text-2xl font-extrabold text-foreground">현장 사진</h2>
-            <div className="grid gap-5 md:grid-cols-2">
+          <section className="mt-12">
+            <h2 className="mb-6 text-2xl font-extrabold text-foreground">현장 사진</h2>
+            <div className="grid gap-6 md:grid-cols-2">
               {images.map((image, index) => (
                 <img
                   key={`${image}-${index}`}
@@ -230,8 +244,8 @@ export default function WorkDetail() {
             </div>
           </section>
 
-          <section className="mt-12 rounded-[1.5rem] bg-primary p-7 text-white md:p-9">
-            <div className="grid gap-7 md:grid-cols-[1fr_auto] md:items-center">
+          <section className="mt-14 rounded-[1.5rem] bg-primary p-7 text-white md:p-9">
+            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
               <div>
                 <p className="mb-3 text-sm font-bold tracking-[0.25em] text-white/70">CONTACT</p>
                 <h2 className="mb-4 text-2xl font-extrabold md:text-3xl">비슷한 건물 관리가 필요하신가요?</h2>
