@@ -182,15 +182,6 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
             </Card>
           </motion.div>
         )}
-
-        <div className="text-center mt-12">
-          <p className="text-sm text-muted-foreground">
-            정확한 견적은 건물 사진 또는 현장 확인 후 안내드립니다 · 전화{" "}
-            <a href="tel:010-8438-1887" className="text-primary font-semibold hover:underline">
-              010-8438-1887
-            </a>
-          </p>
-        </div>
       </div>
     </section>
   );
