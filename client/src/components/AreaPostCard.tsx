@@ -11,6 +11,13 @@ type AreaPostCardProps = {
   compact?: boolean;
 };
 
+const areaLabels: Record<string, string> = {
+  majang: "마장면",
+  daewol: "대월면",
+  sindun: "신둔면",
+  downtown: "시내권",
+};
+
 function getCardTitle(title: string, areaLabel?: string) {
   return title
     .replace(/^이천\s*/g, "")
@@ -48,8 +55,10 @@ function getCardDescription(post: AreaPost, areaLabel?: string) {
 
 export default function AreaPostCard({ post, index, areaLabel, compact = false }: AreaPostCardProps) {
   const images = post.images?.length ? post.images : [post.image];
-  const cardTitle = getCardTitle(post.title, areaLabel);
-  const cardDescription = getCardDescription(post, areaLabel);
+  const inferredAreaLabel = post.area ? areaLabels[post.area] : undefined;
+  const displayAreaLabel = areaLabel ?? inferredAreaLabel;
+  const cardTitle = getCardTitle(post.title, displayAreaLabel);
+  const cardDescription = getCardDescription(post, displayAreaLabel);
 
   return (
     <Link href={getWorkPath(post)}>
@@ -62,7 +71,7 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: Math.min(index * 0.035, 0.28) }}
       >
-        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[218px] sm:h-[232px] md:h-[252px] lg:h-[270px]" : "h-[286px] md:h-[420px]"}`}>
+        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[188px] sm:h-[210px] md:h-[246px] lg:h-[264px]" : "h-[286px] md:h-[420px]"}`}>
           <img
             src={post.image}
             alt={post.title}
@@ -91,7 +100,7 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
             </h3>
             <p className={`text-white/78 ${
               compact
-                ? "mb-2 line-clamp-2 text-[11px] leading-4 sm:mb-3 sm:line-clamp-3 md:text-xs md:leading-5"
+                ? "mb-2 line-clamp-2 text-[11px] leading-4 md:mb-3 md:line-clamp-3 md:text-xs md:leading-5"
                 : "mb-4 line-clamp-3 text-sm leading-5"
             }`}>
               {cardDescription}
