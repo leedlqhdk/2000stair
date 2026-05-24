@@ -3,6 +3,7 @@ import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
 import BlogReviews from "@/components/BlogReviews";
+import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -17,6 +18,7 @@ export default function Home() {
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={false} />
         <BlogReviews />
+        <FaqSection />
       </main>
 
       <Footer />
