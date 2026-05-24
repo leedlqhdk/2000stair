@@ -53,17 +53,32 @@ function getCardDescription(post: AreaPost, areaLabel?: string) {
   return `${areaLabel ?? "이천"} 현장 상태를 기준으로 관리 범위를 정리했습니다.`;
 }
 
+function getWorkBadge(post: AreaPost) {
+  if (post.workType) return post.workType.split(",")[0].trim();
+  if (/견적/.test(post.title)) return "현장견적";
+  if (/정기/.test(post.title)) return "정기청소";
+  return "계단청소";
+}
+
+function getLocationBadge(title: string, areaLabel?: string) {
+  const matches = title.match(/[가-힣]+(?:리|동|면|읍|권)/g) ?? [];
+  const found = matches.find((item) => item !== "이천" && item !== areaLabel);
+  return found ?? areaLabel ?? "이천";
+}
+
 export default function AreaPostCard({ post, index, areaLabel, compact = false }: AreaPostCardProps) {
   const images = post.images?.length ? post.images : [post.image];
   const inferredAreaLabel = post.area ? areaLabels[post.area] : undefined;
   const displayAreaLabel = areaLabel ?? inferredAreaLabel;
   const cardTitle = getCardTitle(post.title, displayAreaLabel);
   const cardDescription = getCardDescription(post, displayAreaLabel);
+  const workBadge = getWorkBadge(post);
+  const locationBadge = getLocationBadge(post.title, displayAreaLabel);
 
   return (
     <Link href={getWorkPath(post)}>
       <motion.a
-        className={`group block h-full overflow-hidden border border-blue-100 bg-white text-left shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 ${
+        className={`group block h-full overflow-hidden border border-blue-100 bg-white text-left shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-primary/25 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 ${
           compact ? "rounded-[0.95rem] md:rounded-[1.1rem]" : "rounded-[1.1rem] md:rounded-[1.5rem]"
         }`}
         initial={{ opacity: 0, y: 20 }}
@@ -71,47 +86,51 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: Math.min(index * 0.035, 0.28) }}
       >
-        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[178px] sm:h-[196px] md:h-[230px] lg:h-[248px]" : "h-[286px] md:h-[420px]"}`}>
+        <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[124px] sm:h-[142px] md:h-[166px] lg:h-[178px]" : "h-[220px] md:h-[300px]"}`}>
           <img
             src={post.image}
             alt={post.title}
-            className="absolute inset-0 h-full w-full object-cover object-center brightness-[1.04] contrast-[1.04] saturate-[1.08] transition-transform duration-700 group-hover:scale-110"
+            className="absolute inset-0 h-full w-full object-cover object-center brightness-[1.04] contrast-[1.04] saturate-[1.08] transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
-          <div className={`absolute inset-0 transition-colors duration-500 ${compact ? "bg-gradient-to-t from-black/76 via-black/12 to-transparent group-hover:from-black/82" : "bg-gradient-to-t from-black/82 via-black/24 to-transparent group-hover:from-black/88"}`} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
 
-          <div className={`absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/55 font-bold text-white backdrop-blur md:right-3 md:top-3 ${
+          <div className="absolute left-2 top-2 flex flex-wrap gap-1.5 md:left-3 md:top-3">
+            <span className="rounded-full bg-white/92 px-2 py-1 text-[10px] font-extrabold text-primary shadow-sm backdrop-blur md:text-[11px]">
+              {workBadge}
+            </span>
+            <span className="rounded-full bg-black/52 px-2 py-1 text-[10px] font-extrabold text-white shadow-sm backdrop-blur md:text-[11px]">
+              {locationBadge}
+            </span>
+          </div>
+
+          <div className={`absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/50 font-bold text-white backdrop-blur md:right-3 md:top-3 ${
             compact ? "px-1.5 py-0.5 text-[10px] md:px-2 md:text-[11px]" : "px-2 py-0.5 text-[11px] md:px-2.5 md:py-1 md:text-xs"
           }`}>
             <Images className={compact ? "h-3 w-3" : "h-3 w-3 md:h-3.5 md:w-3.5"} />
             {images.length}
           </div>
+        </div>
 
-          <div className={`absolute inset-x-0 bottom-0 text-white ${compact ? "p-3 md:p-4" : "p-4 md:p-5"}`}>
-            {areaLabel && (
-              <p className={`font-bold text-white/85 ${compact ? "mb-1 text-[11px] md:mb-1.5 md:text-xs" : "mb-1.5 text-xs md:mb-2 md:text-sm"}`}>
-                {areaLabel}
-              </p>
-            )}
-            <h3 className={`line-clamp-2 font-extrabold leading-snug drop-shadow-sm ${
-              compact ? "mb-2 text-sm md:text-base" : "mb-3 text-base md:text-lg"
-            }`}>
-              {cardTitle}
-            </h3>
-            {!compact && (
-              <p className="mb-4 line-clamp-3 text-sm leading-5 text-white/78">
-                {cardDescription}
-              </p>
-            )}
-            <div className={`flex items-center gap-1 font-semibold text-white/88 ${compact ? "mb-2 text-[11px] md:text-xs" : "mb-3 text-xs md:text-sm"}`}>
-              <CalendarDays className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-3.5 w-3.5 md:h-4 md:w-4"} />
+        <div className={`flex flex-col ${compact ? "min-h-[154px] p-3 md:min-h-[170px] md:p-4" : "min-h-[210px] p-5"}`}>
+          <h3 className={`line-clamp-2 font-extrabold leading-snug text-foreground ${
+            compact ? "mb-2 text-sm md:text-base" : "mb-3 text-lg"
+          }`}>
+            {cardTitle}
+          </h3>
+          <p className={`line-clamp-2 flex-1 text-muted-foreground ${
+            compact ? "text-[11px] leading-4 md:text-xs md:leading-5" : "text-sm leading-6"
+          }`}>
+            {cardDescription}
+          </p>
+          <div className={`mt-3 flex items-center justify-between gap-2 ${compact ? "text-[11px] md:text-xs" : "text-sm"}`}>
+            <div className="inline-flex items-center gap-1 font-semibold text-slate-400">
+              <CalendarDays className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-4 w-4"} />
               {post.date}
             </div>
-            <div className={`inline-flex items-center gap-1 font-extrabold text-white transition-transform duration-300 group-hover:translate-x-1 ${
-              compact ? "text-[11px] md:text-xs" : "text-xs md:text-sm"
-            }`}>
+            <div className="inline-flex items-center gap-1 font-extrabold text-primary transition-transform duration-300 group-hover:translate-x-1">
               자세히 보기
-              <ArrowRight className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-3.5 w-3.5 md:h-4 md:w-4"} />
+              <ArrowRight className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-4 w-4"} />
             </div>
           </div>
         </div>
