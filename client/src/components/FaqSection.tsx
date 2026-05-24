@@ -8,14 +8,14 @@ import {
 
 const faqs = [
   {
-    question: "청소할 때 현장에 없어도 되나요?",
+    question: "하청 없이 직접 관리하시나요?",
     answer:
-      "네, 대부분 현장에 계시지 않아도 작업 가능합니다. 출입 방법과 관리 범위만 미리 확인되면 작업 후 사진으로 상태를 정리해서 보내드립니다.",
+      "네. 이천계단지기는 외주나 하청 없이 부부가 직접 현장을 관리하고 있습니다. 처음 상담부터 작업, 관리까지 직접 진행하기 때문에 건물 상태를 더 꼼꼼하게 확인하고 꾸준히 관리해드릴 수 있습니다.",
   },
   {
-    question: "엘리베이터 있는 건물은 비용이 다른가요?",
+    question: "엘리베이터 있는 건물도 관리 가능한가요?",
     answer:
-      "건물 구조와 관리 범위에 따라 달라질 수 있습니다. 엘리베이터 내부, 복도, 계단, 현관처럼 함께 관리할 구역을 보고 알맞게 안내드립니다.",
+      "네. 엘리베이터가 있는 건물도 관리 가능합니다. 이천계단지기는 계단뿐 아니라 공동현관, 복도, 엘리베이터 내부까지 함께 관리하는 경우가 많으며, 현장 사진을 보내주시면 포함 범위를 확인 후 빠르게 견적 안내드립니다.",
   },
   {
     question: "작업 전후 사진도 받을 수 있나요?",
@@ -53,10 +53,10 @@ export default function FaqSection() {
           <p className="mb-4 text-sm font-bold tracking-[0.32em] text-primary">
             FAQ
           </p>
-          <h2 className="text-3xl font-extrabold leading-tight text-foreground md:text-5xl">
+          <h2 className="text-[26px] font-extrabold leading-tight text-foreground md:text-[28px]">
             자주 문의주시는 내용
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
             문의 전에 많이 물어보시는 내용을 정리했습니다.
           </p>
         </motion.div>
@@ -75,10 +75,10 @@ export default function FaqSection() {
                 value={faq.question}
                 className="border-blue-100"
               >
-                <AccordionTrigger className="py-5 text-left text-base font-extrabold leading-relaxed text-foreground hover:no-underline md:py-6 md:text-lg">
+                <AccordionTrigger className="py-4 text-left text-[15px] font-extrabold leading-snug text-foreground hover:no-underline md:py-5 md:text-base">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="pb-6 pr-3 text-[15px] leading-7 text-muted-foreground md:max-w-3xl md:text-base">
+                <AccordionContent className="max-w-3xl pb-5 pr-3 text-sm leading-6 text-muted-foreground md:text-[15px] md:leading-7">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
