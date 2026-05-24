@@ -1,5 +1,5 @@
-import { MessageCircle, Phone, Sparkles, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Loader2, MessageCircle, Phone, Sparkles, X } from "lucide-react";
+import { useState } from "react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -9,6 +9,15 @@ type DiagnosisState = {
   floors: string;
   pollution: string;
   cycle: string;
+};
+
+type DiagnosisResult = {
+  title: string;
+  summary: string;
+  recommendation: string;
+  cta: string;
+  source?: "gemini" | "fallback";
+  setupRequired?: boolean;
 };
 
 const initialDiagnosis: DiagnosisState = {
@@ -28,30 +37,39 @@ const options = {
 export default function KakaoChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [diagnosis, setDiagnosis] = useState<DiagnosisState>(initialDiagnosis);
-
-  const diagnosisResult = useMemo(() => {
-    if (diagnosis.pollution === "오염 심함" || diagnosis.floors === "5층 이상") {
-      return {
-        title: "주 1~2회 정기 관리 추천",
-        description: "오염이 빠르게 쌓일 수 있는 조건이라 계단, 현관, 복도까지 짧은 주기로 관리하는 편이 좋습니다.",
-      };
-    }
-
-    if (diagnosis.pollution === "깨끗한 편" || diagnosis.cycle === "월 관리") {
-      return {
-        title: "월 1~2회 관리부터 추천",
-        description: "현재 상태가 비교적 안정적인 편이라 가볍게 정기 점검하며 관리 주기를 맞춰가면 좋습니다.",
-      };
-    }
-
-    return {
-      title: "주 1회 정기 관리 추천",
-      description: "일반적인 빌라·원룸 공용공간 기준으로 주 1회 관리가 가장 무난합니다.",
-    };
-  }, [diagnosis]);
+  const [result, setResult] = useState<DiagnosisResult | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (key: keyof DiagnosisState, value: string) => {
     setDiagnosis((prev) => ({ ...prev, [key]: value }));
+    setResult(null);
+    setErrorMessage("");
+  };
+
+  const analyzeBuilding = async () => {
+    setIsAnalyzing(true);
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/ai-diagnosis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(diagnosis),
+      });
+
+      if (!response.ok) {
+        throw new Error("AI diagnosis request failed");
+      }
+
+      const data = (await response.json()) as DiagnosisResult;
+      setResult(data);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("AI 진단을 불러오지 못했어요. 잠시 후 다시 눌러주세요.");
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   return (
@@ -95,13 +113,13 @@ export default function KakaoChat() {
               <div>
                 <p className="mb-1 inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-primary">
                   <Sparkles className="h-3.5 w-3.5 translate-y-px" />
-                  30초 무료 체크
+                  Gemini AI 진단
                 </p>
                 <h2 className="text-xl font-extrabold tracking-tight text-slate-900 md:text-2xl">
                   우리 건물 관리 진단
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-slate-600">
-                  간단히 선택하면 현재 건물에 맞는 관리 주기를 안내해드려요.
+                  조건을 선택하면 AI가 건물 상태를 분석해 맞춤 안내 문장을 만들어드려요.
                 </p>
               </div>
               <button
@@ -121,11 +139,52 @@ export default function KakaoChat() {
               <DiagnosisSelect label="원하는 관리 주기" value={diagnosis.cycle} items={options.cycle} onChange={(value) => handleChange("cycle", value)} />
             </div>
 
-            <div className="mt-5 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-50 p-4 ring-1 ring-blue-100">
-              <p className="text-xs font-bold tracking-[0.18em] text-primary">분석 결과</p>
-              <h3 className="mt-2 text-lg font-extrabold text-slate-900">{diagnosisResult.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{diagnosisResult.description}</p>
-            </div>
+            <button
+              type="button"
+              onClick={analyzeBuilding}
+              disabled={isAnalyzing}
+              className="mt-5 flex h-12 w-full items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {isAnalyzing ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  AI가 분석 중
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4 translate-y-px" />
+                  AI로 분석하기
+                </>
+              )}
+            </button>
+
+            {errorMessage && (
+              <p className="mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
+                {errorMessage}
+              </p>
+            )}
+
+            {result && (
+              <div className="mt-5 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-50 p-4 ring-1 ring-blue-100">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-xs font-bold tracking-[0.18em] text-primary">AI 분석 결과</p>
+                  {result.source === "fallback" && (
+                    <span className="rounded-full bg-white px-2 py-1 text-[10px] font-bold text-slate-500 ring-1 ring-blue-100">
+                      기본 문장
+                    </span>
+                  )}
+                </div>
+                <h3 className="mt-2 text-lg font-extrabold text-slate-900">{result.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-700">{result.summary}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-700">{result.recommendation}</p>
+                <p className="mt-3 text-sm font-bold leading-6 text-primary">{result.cta}</p>
+                {result.setupRequired && (
+                  <p className="mt-3 text-xs leading-5 text-slate-500">
+                    Gemini API 키가 연결되면 이 문장이 실시간 AI 생성 문장으로 바뀝니다.
+                  </p>
+                )}
+              </div>
+            )}
 
             <div className="mt-5 grid grid-cols-2 gap-2">
               <a href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`} className="flex h-12 items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md hover:bg-primary/90">
