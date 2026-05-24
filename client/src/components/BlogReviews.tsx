@@ -1,4 +1,4 @@
-import { ChevronRight, MapPin, Star } from "lucide-react";
+import { MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
@@ -100,15 +100,6 @@ export default function BlogReviews() {
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 실제 고객님들이 남겨주신 후기를 만나보세요.
               </p>
-              <a
-                href="https://naver.me/xmB4q3oq"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-9 inline-flex items-center gap-2 rounded-md border border-primary/35 bg-white px-4 py-2.5 text-sm font-extrabold text-primary transition-colors hover:border-primary hover:bg-primary hover:text-white"
-              >
-                모든 후기 보기
-                <ChevronRight className="h-4 w-4 stroke-[2.5]" />
-              </a>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
