@@ -27,7 +27,7 @@ export default function About() {
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
           <motion.section
-            className="mb-14 grid items-center gap-8 md:mb-20 md:grid-cols-[1fr_280px]"
+            className="mb-14 grid items-center gap-8 md:mb-20 md:grid-cols-[1fr_360px]"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
@@ -43,24 +43,22 @@ export default function About() {
               <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
                 ABOUT
               </p>
-              <h1 className="mb-5 text-3xl font-extrabold leading-[1.16] text-foreground md:text-5xl">
-                부부가 직접<br />관리합니다
+              <h1 className="mb-5 text-3xl font-extrabold leading-[1.22] text-foreground md:text-5xl">
+                부부 직영,<br />
+                함께 관리합니다
               </h1>
               <p className="max-w-xl text-sm leading-7 text-muted-foreground md:text-base">
-                상담부터 현장 관리, 작업 기록까지 직접 챙기는 이천 공용공간 관리 서비스입니다.
+                상담부터 현장 관리, 작업 기록까지 직접 관리합니다.
               </p>
             </div>
 
             <div className="flex justify-center md:justify-end">
-              <div className="w-full max-w-[240px] rounded-[1.5rem] border border-blue-100 bg-white p-5 text-center shadow-sm">
-                <img
-                  src="/booboo.webp"
-                  alt="이천계단지기 부부 캐릭터"
-                  className="mx-auto mb-3 w-28 md:w-32"
-                  loading="lazy"
-                />
-                <p className="text-sm font-extrabold text-primary">직접 상담하고 직접 방문합니다</p>
-              </div>
+              <img
+                src="/booboo.webp"
+                alt="이천계단지기 부부 캐릭터"
+                className="w-56 drop-shadow-sm md:w-64"
+                loading="lazy"
+              />
             </div>
           </motion.section>
 
