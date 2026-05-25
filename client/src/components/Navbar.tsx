@@ -8,6 +8,7 @@ export default function Navbar() {
   const [location, setLocation] = useLocation();
 
   const navLinks = [
+    { label: "소개", href: "/about" },
     { label: "서비스 소개", href: "/#how-it-works", sectionId: "how-it-works" },
     { label: "청소 전후", href: "/#gallery", sectionId: "gallery" },
     { label: "관리 지역", href: "/areas" },
@@ -56,7 +57,7 @@ export default function Navbar() {
           />
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) =>
             link.sectionId ? (
               <a
