@@ -39,7 +39,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
               >
-               아직 직접 청소
+               아직 직접 관리
               </motion.span>
               
               <br />
