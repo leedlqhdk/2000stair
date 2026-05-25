@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, CheckCircle2, MousePointerClick, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
@@ -137,22 +137,28 @@ export default function Blog() {
             transition={{ duration: 0.65, delay: 0.08 }}
           >
             <div className="relative bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 px-4 py-6 md:px-10 md:py-12">
-              <div className="mb-4 flex flex-col gap-2 md:mb-8 md:flex-row md:items-end md:justify-between">
+              <div className="mb-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
                 <div>
-                  <p className="text-base font-extrabold text-foreground md:text-sm md:font-bold">
-                    이천 지역 관리 현황
-                  </p>
-                  <p className="mt-1 text-xs leading-5 text-muted-foreground md:text-sm">
-                    원하는 지역을 선택해주세요.
-                  </p>
+                  <div className="mb-4 flex flex-col gap-2 md:mb-8 md:flex-row md:items-end md:justify-between">
+                    <div>
+                      <p className="text-base font-extrabold text-foreground md:text-sm md:font-bold">
+                        이천 지역 관리 현황
+                      </p>
+                      <p className="mt-1 text-xs leading-5 text-muted-foreground md:text-sm">
+                        원하는 지역을 선택해주세요.
+                      </p>
+                    </div>
+
+                    <p className="hidden text-sm font-medium text-primary md:block lg:hidden">
+                      지역 버튼을 클릭하면 해당 관리 현장으로 이동합니다
+                    </p>
+                  </div>
+
+                  <IcheonAreaMap />
                 </div>
 
-                <p className="hidden text-sm font-medium text-primary md:block">
-                  지역 버튼을 클릭하면 해당 관리 현장으로 이동합니다
-                </p>
+                <MapGuidePanel />
               </div>
-
-              <IcheonAreaMap />
             </div>
           </motion.div>
 
@@ -309,6 +315,35 @@ export default function Blog() {
   );
 }
 
+function MapGuidePanel() {
+  const featureItems = [
+    "지도의 각 영역을 터치하여 직관적으로 선택",
+    "터치 시 색상 하이라이트로 선택 영역 확인",
+    "하단 지역 버튼으로도 빠르게 이동 가능",
+  ];
+
+  return (
+    <aside className="space-y-5">
+      <div>
+        <p className="mb-3 text-sm font-extrabold text-foreground">특징</p>
+        <div className="space-y-3">
+          {featureItems.map((item) => (
+            <div key={item} className="flex items-start gap-2.5">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 fill-primary text-white" />
+              <p className="text-sm font-semibold leading-6 text-slate-700">{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-blue-100 bg-white p-4 shadow-sm">
+        <p className="mb-3 text-sm font-extrabold text-foreground">터치 시 인터랙션 예시</p>
+        <MiniMapExample />
+      </div>
+    </aside>
+  );
+}
+
 function IcheonAreaMap() {
   return (
     <div className="relative mx-auto w-full max-w-5xl">
@@ -346,6 +381,23 @@ function IcheonAreaMap() {
             </a>
           </Link>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function MiniMapExample() {
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[230px] rounded-lg bg-blue-50/35 p-3">
+      <img src="/images/2000map.png" alt="부발읍 터치 예시" className="h-full w-full object-contain opacity-85" />
+      <Link href="/area/bubal">
+        <a className="absolute left-[67%] top-[45%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary px-3 py-2 text-xs font-extrabold text-white shadow-lg ring-4 ring-primary/15">
+          부발읍
+        </a>
+      </Link>
+      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-md bg-slate-900 px-3 py-2 text-[10px] font-bold text-white shadow-lg">
+        부발읍 페이지로 이동합니다.
+        <MousePointerClick className="h-3.5 w-3.5" />
       </div>
     </div>
   );
