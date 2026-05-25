@@ -10,11 +10,11 @@ const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 
 const areaSectionItems = [
   { src: "/images/icheon-sindun-stair-cleaning.webp", title: "신둔면", subtitle: "공동현관 관리" },
-  { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 공용부 관리" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리" },
-  { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리" },
-  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리" },
-  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리" },
+  { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 관리" },
+  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 관리" },
+  { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 관리" },
+  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 관리" },
+  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 관리" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -30,7 +30,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
+            <h1 className="text-[clamp(1.72rem,5.5vw,4.5rem)] font-extrabold leading-[1.16] tracking-[0.035em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tracking-[0.045em]">
               계단청소
               <br />
               <motion.span
@@ -144,7 +144,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                           <h3 className="text-sm font-extrabold leading-tight md:text-base">
                             {item.title}
                           </h3>
-                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
+                          <p className="mt-0.5 text-[0.68rem] font-semibold text-white/78 md:text-xs">
                             {item.subtitle}
                           </p>
                         </div>
