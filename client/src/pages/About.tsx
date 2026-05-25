@@ -27,7 +27,7 @@ export default function About() {
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
           <motion.section
-            className="mb-14 grid items-center gap-8 md:mb-20 md:grid-cols-[1fr_360px]"
+            className="mb-14 grid items-center gap-10 md:mb-20 md:grid-cols-[1fr_360px]"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
@@ -43,11 +43,11 @@ export default function About() {
               <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
                 ABOUT
               </p>
-              <h1 className="mb-5 text-3xl font-extrabold leading-[1.22] text-foreground md:text-5xl">
+              <h1 className="mb-5 text-[2.4rem] font-extrabold leading-[1.18] text-foreground md:text-5xl">
                 부부 직영,<br />
                 함께 관리합니다
               </h1>
-              <p className="max-w-xl text-sm leading-7 text-muted-foreground md:text-base">
+              <p className="max-w-xl text-base leading-8 text-muted-foreground md:text-base">
                 상담부터 현장 관리, 작업 기록까지 직접 관리합니다.
               </p>
             </div>
@@ -56,7 +56,7 @@ export default function About() {
               <img
                 src="/booboo.webp"
                 alt="이천계단지기 부부 캐릭터"
-                className="w-56 drop-shadow-sm md:w-64"
+                className="w-[82vw] max-w-[340px] drop-shadow-sm md:w-64"
                 loading="lazy"
               />
             </div>
@@ -87,11 +87,11 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="relative min-h-[200px] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-7">
+              <div className="relative min-h-[240px] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:min-h-[200px] md:p-7">
                 <img
                   src="/character-husband.png"
                   alt="현장 관리 남편 캐릭터"
-                  className="absolute bottom-4 right-4 w-20 md:w-24"
+                  className="absolute bottom-3 right-3 w-32 md:bottom-4 md:right-4 md:w-24"
                   loading="lazy"
                 />
 
@@ -101,16 +101,16 @@ export default function About() {
                 <h3 className="mb-3 text-2xl font-extrabold text-foreground">
                   현장관리
                 </h3>
-                <p className="max-w-[66%] text-sm leading-7 text-muted-foreground">
+                <p className="max-w-[56%] text-sm leading-7 text-muted-foreground md:max-w-[66%]">
                   계단·복도·공동현관을 직접 확인합니다.
                 </p>
               </div>
 
-              <div className="relative min-h-[200px] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-7">
+              <div className="relative min-h-[240px] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:min-h-[200px] md:p-7">
                 <img
                   src="/character-wife.png"
                   alt="상담 기록 아내 캐릭터"
-                  className="absolute bottom-4 right-4 w-20 md:w-24"
+                  className="absolute bottom-3 right-3 w-32 md:bottom-4 md:right-4 md:w-24"
                   loading="lazy"
                 />
 
@@ -120,7 +120,7 @@ export default function About() {
                 <h3 className="mb-3 text-2xl font-extrabold text-foreground">
                   상담·기록
                 </h3>
-                <p className="max-w-[66%] text-sm leading-7 text-muted-foreground">
+                <p className="max-w-[56%] text-sm leading-7 text-muted-foreground md:max-w-[66%]">
                   문의·일정·작업 사진을 정리합니다.
                 </p>
               </div>
@@ -155,7 +155,7 @@ export default function About() {
             <img
               src="/booboo.webp"
               alt="이천계단지기 부부 캐릭터"
-              className="mx-auto mb-4 w-24 md:w-32"
+              className="mx-auto mb-4 w-40 md:w-32"
               loading="lazy"
             />
 
