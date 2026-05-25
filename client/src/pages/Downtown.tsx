@@ -118,9 +118,17 @@ export default function DowntownAreaPage() {
               ))}
             </div>
           ) : (
-            <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 text-center shadow-sm">
-              <p className="text-sm font-bold text-foreground">아직 등록된 작업 기록이 없습니다.</p>
-              <p className="mt-2 text-sm text-muted-foreground">해당 지역 작업 사진이 생기면 순서대로 추가할게요.</p>
+            <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 text-center shadow-sm md:p-8">
+              <img
+                src="/images/booboo.png"
+                alt="이천계단지기 부부 캐릭터"
+                className="mx-auto mb-4 w-28 md:w-36"
+                loading="lazy"
+              />
+              <p className="text-base font-extrabold text-foreground">업데이트 중입니다.</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {selectedArea} 작업 기록은 사진 정리 후 순서대로 추가할게요.
+              </p>
             </div>
           )}
         </section>
