@@ -79,7 +79,7 @@ export default function About() {
             </p>
           </section>
 
-         <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100/60 p-7 shadow-sm md:mb-20 md:p-10">
+          <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100/60 p-7 shadow-sm md:mb-20 md:p-10">
             <div className="mb-7">
               <p className="mb-2 text-sm font-extrabold text-primary">
                 WHO WE ARE
@@ -90,47 +90,43 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="relative min-h-[250px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
-                <div className="max-w-[52%]">
-                  <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
-                    FIELD
-                  </p>
-                  <h3 className="mb-4 text-2xl font-extrabold text-foreground">
-                    현장관리
-                  </h3>
-                  <p className="text-sm leading-8 text-muted-foreground">
-                    계단·복도·공동현관을 직접 확인합니다.
-                  </p>
-                </div>
+              <div className="rounded-[1.5rem] bg-white/85 p-7 backdrop-blur-sm">
+                <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
+                  FIELD
+                </p>
+                <h3 className="mb-4 text-2xl font-extrabold text-foreground">
+                  현장관리
+                </h3>
+                <p className="mb-6 text-sm leading-8 text-muted-foreground">
+                  계단·복도·공동현관을 직접 확인합니다.
+                </p>
 
-                <div className="absolute bottom-4 right-4 rounded-2xl bg-white p-2">
+                <div className="flex justify-center rounded-3xl bg-white py-4">
                   <img
                     src="/character-husband.png"
                     alt="현장 관리 남편 캐릭터"
-                    className="w-28 md:w-32"
+                    className="w-40 md:w-36"
                     loading="lazy"
                   />
                 </div>
               </div>
 
-              <div className="relative min-h-[250px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
-                <div className="max-w-[52%]">
-                  <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
-                    RECORD
-                  </p>
-                  <h3 className="mb-4 text-2xl font-extrabold text-foreground">
-                    상담·기록
-                  </h3>
-                  <p className="text-sm leading-8 text-muted-foreground">
-                    문의·일정·작업 사진을 정리합니다.
-                  </p>
-                </div>
+              <div className="rounded-[1.5rem] bg-white/85 p-7 backdrop-blur-sm">
+                <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
+                  RECORD
+                </p>
+                <h3 className="mb-4 text-2xl font-extrabold text-foreground">
+                  상담·기록
+                </h3>
+                <p className="mb-6 text-sm leading-8 text-muted-foreground">
+                  문의·일정·작업 사진을 정리합니다.
+                </p>
 
-                <div className="absolute bottom-4 right-4 rounded-2xl bg-white p-2">
+                <div className="flex justify-center rounded-3xl bg-white py-4">
                   <img
                     src="/character-wife.png"
                     alt="상담 기록 아내 캐릭터"
-                    className="w-28 md:w-32"
+                    className="w-40 md:w-36"
                     loading="lazy"
                   />
                 </div>
