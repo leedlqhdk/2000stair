@@ -30,7 +30,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-[clamp(1.72rem,5.5vw,4.5rem)] font-extrabold leading-[1.16] tracking-[0.035em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tracking-[0.045em]">
+            <h1 className="text-[clamp(1.58rem,5vw,4.5rem)] font-extrabold leading-[1.24]
+tracking-[-0.015em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tracking-[0.045em]">
               계단청소
               <br />
               <motion.span
