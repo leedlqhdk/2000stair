@@ -106,7 +106,7 @@ export default function About() {
   </div>
 
   <div className="grid gap-4 md:grid-cols-2">
-    <div className="relative min-h-[220px] overflow-hidden rounded-[1.5rem] bg-blue-50/70 p-6 md:p-7">
+    <div className="relative min-h-[220px] overflow-hidden rounded-[1.5rem] bg-white border border-blue-100 shadow-sm p-6 md:p-7">
       <img
         src="/character-husband.png"
         alt="현장 관리 남편 캐릭터"
@@ -125,7 +125,7 @@ export default function About() {
       </p>
     </div>
 
-    <div className="relative min-h-[220px] overflow-hidden rounded-[1.5rem] bg-blue-50/70 p-6 md:p-7">
+    <div className="relative min-h-[220px] overflow-hidden rounded-[1.5rem] bg-white border border-blue-100 shadow-sm p-6 md:p-7">
       <img
         src="/character-wife.png"
         alt="상담 기록 아내 캐릭터"
@@ -146,7 +146,7 @@ export default function About() {
   </div>
 </section>
 
-          <section className="rounded-[2rem] bg-blue-50/70 px-6 py-10 text-center md:px-10 md:py-14">
+          <section className="rounded-[2rem] bg-white border border-blue-100 shadow-sm px-6 py-10 text-center md:px-10 md:py-14">
   <img
     src="/booboo.webp"
     alt="이천계단지기 부부 캐릭터"
