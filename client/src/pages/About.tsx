@@ -160,11 +160,11 @@ export default function About() {
 
           <section className="rounded-[2rem] border border-blue-100 bg-white px-6 py-10 text-center shadow-sm md:px-10 md:py-14">
             <img
-              src="/booboo2.webp"
-              alt="이천계단지기 부부 캐릭터"
-              className="mx-auto mb-4 w-40 md:w-32"
-              loading="lazy"
-            />
+  src="/booboo2.webp"
+  alt="이천계단지기 부부 캐릭터"
+  className="mx-auto mb-5 w-56 md:w-48"
+  loading="lazy"
+/>
 
             <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
               사진 한 장이면 빠르게 안내드립니다
