@@ -47,27 +47,60 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": ["HomeAndConstructionBusiness", "ProfessionalService"],
+      "@id": "https://2000stair.kr/#business",
       "name": "이천계단지기",
+      "alternateName": "이천계단청소 이천계단지기",
       "description": "이천계단청소 전문업체. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 부부가 하청 없이 직접 정기관리합니다.",
       "url": "https://2000stair.kr/",
-      "telephone": "010-8438-1887",
+      "telephone": "+82-10-8438-1887",
+      "image": [
+        "https://2000stair.kr/og-image.png",
+        "https://2000stair.kr/images/icheon-logo-main.png",
+        "https://2000stair.kr/images/main-phone.webp"
+      ],
+      "logo": "https://2000stair.kr/images/icheon-logo-main.png",
+      "priceRange": "66,000원~",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "이천시",
         "addressRegion": "경기도",
         "addressCountry": "KR"
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "이천시"
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.3088922,
+        "longitude": 127.4030091
       },
-      "serviceType": ["계단청소", "유리청소", "화장실청소", "빌라청소", "상가청소"],
-      "priceRange": "66,000원~",
-      "openingHours": "Mo-Sa 09:00-18:00",
+      "hasMap": "https://map.naver.com/p/entry/place/2097250452",
+      "areaServed": [
+        { "@type": "City", "name": "이천시" },
+        { "@type": "AdministrativeArea", "name": "마장면" },
+        { "@type": "AdministrativeArea", "name": "신둔면" },
+        { "@type": "AdministrativeArea", "name": "부발읍" },
+        { "@type": "AdministrativeArea", "name": "대월면" },
+        { "@type": "AdministrativeArea", "name": "백사면" },
+        { "@type": "AdministrativeArea", "name": "관고동" },
+        { "@type": "AdministrativeArea", "name": "창전동" },
+        { "@type": "AdministrativeArea", "name": "증포동" },
+        { "@type": "AdministrativeArea", "name": "중리동" },
+        { "@type": "AdministrativeArea", "name": "송정동" }
+      ],
+      "serviceType": ["계단청소", "유리청소", "화장실청소", "빌라청소", "상가청소", "공용공간 정기관리"],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
       "sameAs": [
         "https://blog.naver.com/icheonstair",
-        "https://youtube.com/@2000stair"
+        "https://youtube.com/@2000stair",
+        "https://map.naver.com/p/entry/place/2097250452",
+        "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
+        "https://soomgo.com/profile/users/3729049"
       ]
     }
     </script>
