@@ -48,9 +48,10 @@ export default function About() {
               <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
                 ABOUT
               </p>
-              <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] text-foreground md:text-6xl">
-                부부가 직접 관리하는<br />이천 계단청소
-              </h1>
+              <h1 className="mb-5 text-3xl font-extrabold leading-[1.18] text-foreground md:text-5xl">
+  하청 없이,<br />
+  같은 사람이 꾸준히 관리합니다
+</h1>
               <p className="max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
                 이천계단지기는 상담부터 현장 관리, 작업 기록까지 부부가 직접 챙기는 공용공간 관리 서비스입니다.
               </p>
@@ -61,7 +62,7 @@ export default function About() {
                 <img
                   src="/booboo.webp"
                   alt="이천계단지기 부부 캐릭터"
-                  className="mx-auto mb-3 w-36 md:w-44"
+                  className="mx-auto mb-3 w-28 md:w-36"
                   loading="lazy"
                 />
                 <p className="text-sm font-extrabold text-primary">직접 상담하고 직접 방문합니다</p>
@@ -78,7 +79,9 @@ export default function About() {
               하청 구조의 한계를 느껴 직접 관리하기 시작했습니다.
             </h2>
             <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-              누가 오는지, 어떤 기준으로 관리되는지 알기 어려우면 건물주님도 불안하고 현장도 꾸준히 좋아지기 어렵습니다. 그래서 저희는 상담부터 작업, 기록까지 직접 챙기는 방식으로 시작했습니다.
+              누가 오는지, 어떤 기준으로 관리되는지 알기 어려우면 건물주님도 불안하고 현장도 꾸준히 좋아지기 어렵습니다.
+              <br className="hidden md:block" />
+              그래서 저희는 상담부터 작업, 기록까지 직접 챙기는 방식으로 시작했습니다.
             </p>
           </section>
 
@@ -98,7 +101,7 @@ export default function About() {
                   <img
                     src="/character-husband.png"
                     alt="현장 관리 남편 캐릭터"
-                    className="absolute right-4 top-4 w-20 md:w-24"
+                    className="absolute bottom-4 right-4 w-16 opacity-90 md:w-20"
                     loading="lazy"
                   />
                   <p className="mb-2 text-xs font-extrabold text-primary">현장관리</p>
@@ -111,7 +114,7 @@ export default function About() {
                   <img
                     src="/character-wife.png"
                     alt="상담 기록 아내 캐릭터"
-                    className="absolute right-4 top-4 w-20 md:w-24"
+                    className="absolute bottom-4 right-4 w-16 opacity-90 md:w-20"
                     loading="lazy"
                   />
                   <p className="mb-2 text-xs font-extrabold text-primary">상담·기록·운영</p>
@@ -141,6 +144,12 @@ export default function About() {
             <div className="mb-5 flex items-end justify-between gap-4">
               <div>
                 <p className="mb-2 text-sm font-extrabold text-primary">실제 작업 스타일</p>
+                <img
+  src="/booboo.webp"
+  alt="이천계단지기 부부 캐릭터"
+  className="mx-auto mb-4 w-24 md:w-32"
+  loading="lazy"
+/>
                 <h2 className="text-2xl font-extrabold text-foreground md:text-3xl">사진으로 확인되는 관리</h2>
               </div>
               <Camera className="hidden h-7 w-7 text-primary md:block" />
