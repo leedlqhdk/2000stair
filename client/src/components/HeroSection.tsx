@@ -41,9 +41,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               >
                아직 직접 청소
               </motion.span>
-              하고
+              
               <br />
-              계신가요?
+             하고 계신가요?
             </h1>
             <motion.p
               className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed"
