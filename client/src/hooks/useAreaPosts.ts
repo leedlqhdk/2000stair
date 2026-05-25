@@ -12,6 +12,8 @@ export type AreaPost = {
   buildingType?: string;
   workScope?: string;
   workType?: string;
+  blogUrl?: string;
+  blogButtonLabel?: string;
 };
 
 export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
@@ -28,17 +30,7 @@ export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
 
   const posts = useMemo(() => {
     const notionPosts = query.data ?? [];
-    if (notionPosts.length === 0) return fallbackPosts;
-
-    const existingKeys = new Set(
-      notionPosts.map((post) => `${post.title}-${post.date}`)
-    );
-
-    const remainingFallbackPosts = fallbackPosts.filter(
-      (post) => !existingKeys.has(`${post.title}-${post.date}`)
-    );
-
-    return [...notionPosts, ...remainingFallbackPosts];
+    return notionPosts.length > 0 ? notionPosts : fallbackPosts;
   }, [fallbackPosts, query.data]);
 
   return {
