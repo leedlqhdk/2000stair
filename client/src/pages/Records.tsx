@@ -53,11 +53,7 @@ export default function Records() {
   const selectedArea = new URLSearchParams(window.location.search).get("area") ?? "all";
   const selectedAreaName = areaLabels[selectedArea] ?? "전체";
   const notionPosts = data ?? [];
-  const notionKeys = new Set(notionPosts.map((post) => `${post.title}-${post.date}`));
-  const allPosts = [
-    ...notionPosts,
-    ...fallbackPosts.filter((post) => !notionKeys.has(`${post.title}-${post.date}`)),
-  ];
+  const allPosts = notionPosts.length > 0 ? notionPosts : fallbackPosts;
   const posts = selectedArea === "all"
     ? allPosts
     : allPosts.filter((post) => post.area === selectedArea);
@@ -95,7 +91,7 @@ export default function Records() {
             </h1>
             <p className="max-w-2xl text-base leading-7 text-muted-foreground">
               {selectedArea === "all"
-                ? "노션 작업일지와 기존 이천 지역 관리 기록을 한 번에 확인할 수 있습니다."
+                ? "노션 작업일지를 기준으로 등록된 이천 지역 관리 기록을 한 번에 확인할 수 있습니다."
                 : `${selectedAreaName}에 등록된 작업 기록만 모아서 확인할 수 있습니다.`}
             </p>
           </motion.div>
