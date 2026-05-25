@@ -79,8 +79,8 @@ export default function About() {
             </p>
           </section>
 
-          <section className="mb-14 md:mb-20">
-            <div className="mb-6">
+          <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 shadow-sm md:mb-20 md:p-10">
+            <div className="mb-7">
               <p className="mb-2 text-sm font-extrabold text-primary">
                 WHO WE ARE
               </p>
@@ -90,7 +90,7 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="relative min-h-[240px] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:min-h-[200px] md:p-7">
+              <div className="relative min-h-[230px] overflow-hidden rounded-[1.5rem] bg-blue-50/40 p-6 md:min-h-[200px] md:p-7">
                 <img
                   src="/character-husband.png"
                   alt="현장 관리 남편 캐릭터"
@@ -109,7 +109,7 @@ export default function About() {
                 </p>
               </div>
 
-              <div className="relative min-h-[240px] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:min-h-[200px] md:p-7">
+              <div className="relative min-h-[230px] overflow-hidden rounded-[1.5rem] bg-blue-50/40 p-6 md:min-h-[200px] md:p-7">
                 <img
                   src="/character-wife.png"
                   alt="상담 기록 아내 캐릭터"
