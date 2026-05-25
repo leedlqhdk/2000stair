@@ -119,23 +119,13 @@ export default function DowntownAreaPage() {
             </div>
           ) : (
             <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 text-center shadow-sm md:p-8">
-              <div className="mb-4 flex items-center justify-center gap-2">
-                <img
-                  src="/images/character-husband.png"
-                  alt="남편 캐릭터"
-                  className="w-16 md:w-20"
-                  loading="lazy"
-                />
-                <img
-                  src="/images/character-wife.png"
-                  alt="아내 캐릭터"
-                  className="w-16 md:w-20"
-                  loading="lazy"
-                />
-              </div>
-
+              <img
+                src="/images/booboo.webp"
+                alt="이천계단지기 부부 캐릭터"
+                className="mx-auto mb-4 w-28 md:w-36"
+                loading="lazy"
+              />
               <p className="text-base font-extrabold text-foreground">업데이트 중입니다.</p>
-
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {selectedArea} 작업 기록은 사진 정리 후 순서대로 추가할게요.
               </p>
