@@ -10,11 +10,11 @@ const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 
 const areaSectionItems = [
   { src: "/images/icheon-sindun-stair-cleaning.webp", title: "신둔면", subtitle: "공동현관 관리" },
-  { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 관리" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 관리" },
-  { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 관리" },
-  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 관리" },
-  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 관리" },
+  { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 공용부 관리" },
+  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리" },
+  { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리" },
+  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리" },
+  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -22,7 +22,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-8 md:pb-8">
+      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-6 md:pb-8">
         <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-0">
           <motion.div
             className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8"
@@ -30,8 +30,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-[clamp(1.58rem,5vw,4.5rem)] font-extrabold leading-[1.24]
-tracking-[-0.015em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tracking-[0.045em]">
+            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
               계단청소
               <br />
               <motion.span
@@ -45,9 +44,8 @@ tracking-[-0.015em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tr
               <br />
               하고 계신가요?
             </h1>
-
             <motion.p
-              className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed line-clamp-2 md:line-clamp-none"
+              className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
@@ -70,13 +68,6 @@ tracking-[-0.015em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tr
                 alt="카카오톡으로 계단 사진을 보내는 상담 화면"
                 className="w-full object-contain"
               />
-
-              <img
-                src="/character-wife.png"
-                alt="상담 캐릭터"
-                className="absolute -left-[2%] bottom-[13%] hidden w-[16%] drop-shadow-lg md:block"
-              />
-
               <motion.a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
@@ -94,11 +85,9 @@ tracking-[-0.015em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tr
                 <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors duration-300 group-hover:bg-white/95 group-hover:text-primary">
                   <Camera className="h-[54%] w-[54%]" />
                 </span>
-
                 <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.85vw,14px)] font-extrabold leading-none text-foreground transition-colors duration-300 group-hover:text-white">
                   4층 빌라 계단사진 보내드려요
                 </span>
-
                 <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors duration-300 group-hover:bg-white group-hover:text-primary">
                   <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
                 </span>
@@ -108,15 +97,14 @@ tracking-[-0.015em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tr
         </div>
       </div>
 
-      <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-11 md:py-12">
+      <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
         <div className="container max-w-7xl">
-          <div className="grid items-center gap-6 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
+          <div className="grid items-center gap-5 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
             <motion.div
               initial={{ opacity: 0, x: -18 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative"
             >
               <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.16em] text-primary md:text-sm">
                 <MapPin className="h-4 w-4 text-primary stroke-[3]" />
@@ -152,4 +140,30 @@ tracking-[-0.015em] text-foreground mb-3 sm:mb-4 md:mb-5 md:leading-[1.08] md:tr
                       <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
                         <img
                           src={item.src}
-                          alt={`${item.title} 관리 현장`
+                          alt={`${item.title} 관리 현장`}
+                          className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-[#f5f9ff]/10" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
+                        <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
+                          <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
+                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
+                            {item.title}
+                          </h3>
+                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
+                            {item.subtitle}
+                          </p>
+                        </div>
+                      </a>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
