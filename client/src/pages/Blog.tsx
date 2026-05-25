@@ -13,31 +13,31 @@ const areaCards = [
     name: "신둔면",
     slug: "sindun",
     count: "문의 가능 지역",
-    position: "top-[32%] left-[34%]",
+    position: "top-[23%] left-[27%]",
   },
   {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
-    position: "top-[58%] left-[28%]",
+    position: "top-[49%] left-[21%]",
   },
   {
     name: "시내권",
     slug: "downtown",
     count: "창전동·증포동·관고동·중리동",
-    position: "top-[47%] left-[51%]",
+    position: "top-[38%] left-[48%]",
   },
   {
     name: "부발읍",
     slug: "bubal",
     count: "최근 작업 있음",
-    position: "top-[41%] left-[70%]",
+    position: "top-[45%] left-[67%]",
   },
   {
     name: "대월면",
     slug: "daewol",
     count: "최근 작업 12건",
-    position: "top-[63%] left-[65%]",
+    position: "top-[66%] left-[64%]",
   },
 ];
 
@@ -131,24 +131,24 @@ export default function Blog() {
           </motion.div>
 
           <motion.div
-            className="mb-12 overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm md:mb-16"
+            className="mb-12 md:mb-16 overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.08 }}
           >
-            <div className="relative bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 px-4 py-6 md:px-10 md:py-12">
-              <div className="mb-4 flex flex-col gap-2 md:mb-8 md:flex-row md:items-end md:justify-between">
+            <div className="relative bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 px-3 py-6 md:px-10 md:py-12">
+              <div className="mb-5 md:mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
                 <div>
-                  <p className="text-base font-extrabold text-foreground md:text-xl">
+                  <p className="text-sm font-bold text-foreground">
                     이천 지역 관리 현황
                   </p>
-                  <p className="mt-1 text-xs leading-5 text-muted-foreground md:text-sm">
+                  <p className="mt-1 text-sm text-muted-foreground">
                     원하는 지역을 선택해주세요.
                   </p>
                 </div>
 
-                <p className="hidden text-sm font-medium text-primary md:block">
-                  지도에서 원하는 지역을 클릭하면 해당 관리 현장으로 이동합니다
+                <p className="hidden md:block text-sm font-medium text-primary">
+                  지역 버튼을 클릭하면 해당 관리 현장으로 이동합니다
                 </p>
               </div>
 
@@ -311,32 +311,28 @@ export default function Blog() {
 
 function IcheonAreaMap() {
   return (
-    <div className="relative mx-auto w-full max-w-[390px] md:max-w-3xl">
-      <div className="relative mx-auto aspect-square w-full">
+    <div className="relative mx-auto w-full max-w-5xl overflow-x-auto md:overflow-visible">
+      <div className="relative mx-auto min-w-[520px] max-w-4xl md:min-w-0">
         <img
-          src="/images/icheon-area-map-clean.svg"
+          src="/images/2000map.png"
           alt="이천 지역 지도"
-          className="mx-auto h-full w-full object-contain"
+          className="mx-auto h-auto w-full opacity-95"
         />
 
         <div className="absolute inset-0">
           {areaCards.map((area) => (
             <Link key={area.slug} href={`/area/${area.slug}`}>
-              <a
-                className={`absolute ${area.position} -translate-x-1/2 -translate-y-1/2 rounded-md px-2 py-1 text-[11px] font-extrabold text-primary transition hover:bg-white/80 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-sm`}
+              <div
+                className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center gap-1.5 rounded-lg border border-primary bg-white/95 px-3 py-2 text-sm font-extrabold text-primary shadow-md backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg md:px-4 md:py-2.5 md:text-base`}
                 title={area.count}
-                aria-label={`${area.name} 관리 현장 보기`}
               >
-                {area.name}
-              </a>
+                <span>{area.name}</span>
+                <ArrowRight className="h-4 w-4" />
+              </div>
             </Link>
           ))}
         </div>
       </div>
-
-      <p className="mt-3 text-center text-[11px] font-medium text-muted-foreground md:text-sm">
-        지도에서 원하는 지역을 터치해주세요.
-      </p>
     </div>
   );
 }
