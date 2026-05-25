@@ -9,7 +9,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "소개", href: "/about" },
-    { label: "서비스 소개", href: "/#how-it-works", sectionId: "how-it-works" },
+    { label: "서비스", href: "/#how-it-works", sectionId: "how-it-works" },
     { label: "청소 전후", href: "/#gallery", sectionId: "gallery" },
     { label: "관리 지역", href: "/areas" },
     { label: "청소 비용", href: "/#pricing", sectionId: "pricing" },
