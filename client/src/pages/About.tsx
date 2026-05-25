@@ -90,42 +90,50 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="relative min-h-[230px] overflow-hidden rounded-[1.5rem] bg-white/70 backdrop-blur-sm p-6">
-                <img
-                  src="/character-husband.png"
-                  alt="현장 관리 남편 캐릭터"
-                  className="absolute bottom-3 right-3 w-32 md:bottom-4 md:right-4 md:w-24"
-                  loading="lazy"
-                />
+              <div className="relative min-h-[260px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
+                <div className="max-w-[44%]">
+                  <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
+                    FIELD
+                  </p>
+                  <h3 className="mb-4 text-2xl font-extrabold text-foreground">
+                    현장관리
+                  </h3>
+                  <p className="text-sm leading-8 text-muted-foreground">
+                    계단·복도·공동현관을 직접 확인합니다.
+                  </p>
+                </div>
 
-                <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
-                  FIELD
-                </p>
-                <h3 className="mb-3 text-2xl font-extrabold text-foreground">
-                  현장관리
-                </h3>
-                <p className="max-w-[56%] text-sm leading-7 text-muted-foreground md:max-w-[66%]">
-                  계단·복도·공동현관을 직접 확인합니다.
-                </p>
+                <div className="absolute bottom-5 right-5 rounded-[1.5rem] bg-white p-4 shadow-sm">
+                  <img
+                    src="/character-husband.png"
+                    alt="현장 관리 남편 캐릭터"
+                    className="w-40 md:w-36"
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
-              <div className="relative min-h-[230px] overflow-hidden rounded-[1.5rem] bg-white/70 backdrop-blur-sm p-6">
-                <img
-                  src="/character-wife.png"
-                  alt="상담 기록 아내 캐릭터"
-                  className="absolute bottom-3 right-3 w-32 md:bottom-4 md:right-4 md:w-24"
-                  loading="lazy"
-                />
+              <div className="relative min-h-[260px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
+                <div className="max-w-[44%]">
+                  <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
+                    RECORD
+                  </p>
+                  <h3 className="mb-4 text-2xl font-extrabold text-foreground">
+                    상담·기록
+                  </h3>
+                  <p className="text-sm leading-8 text-muted-foreground">
+                    문의·일정·작업 사진을 정리합니다.
+                  </p>
+                </div>
 
-                <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
-                  RECORD
-                </p>
-                <h3 className="mb-3 text-2xl font-extrabold text-foreground">
-                  상담·기록
-                </h3>
-                <p className="max-w-[56%] text-sm leading-7 text-muted-foreground md:max-w-[66%]">
-                  문의·일정·작업 사진을 정리합니다.
-                </p>
+                <div className="absolute bottom-5 right-5 rounded-[1.5rem] bg-white p-4 shadow-sm">
+                  <img
+                    src="/character-wife.png"
+                    alt="상담 기록 아내 캐릭터"
+                    className="w-40 md:w-36"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
           </section>
