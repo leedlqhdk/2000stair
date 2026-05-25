@@ -57,7 +57,6 @@ export default function About() {
             </div>
 
             <div className="relative min-h-[360px] md:min-h-[430px]">
-             
               <div className="absolute bottom-0 left-0 w-[68%] rounded-[1.5rem] border border-blue-100 bg-white p-5 text-center shadow-lg">
                 <img
                   src="/booboo.webp"
@@ -94,18 +93,30 @@ export default function About() {
               </div>
 
               <div className="grid gap-4 p-7 md:grid-cols-2 md:p-10">
-                <div className="rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
+                <div className="relative overflow-hidden rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
                   <UserRound className="mb-4 h-6 w-6 text-primary" />
+                  <img
+                    src="/character-husband.png"
+                    alt="현장 관리 남편 캐릭터"
+                    className="absolute right-4 top-4 w-20 md:w-24"
+                    loading="lazy"
+                  />
                   <p className="mb-2 text-xs font-extrabold text-primary">현장관리</p>
                   <h3 className="mb-2 text-xl font-extrabold text-foreground">남편</h3>
-                  <p className="text-sm leading-7 text-muted-foreground">계단, 복도, 공동현관, 유리 등 현장을 직접 확인하고 관리합니다.</p>
+                  <p className="max-w-[72%] text-sm leading-7 text-muted-foreground">계단, 복도, 공동현관, 유리 등 현장을 직접 확인하고 관리합니다.</p>
                 </div>
 
-                <div className="rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
+                <div className="relative overflow-hidden rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
                   <ClipboardList className="mb-4 h-6 w-6 text-primary" />
+                  <img
+                    src="/character-wife.png"
+                    alt="상담 기록 아내 캐릭터"
+                    className="absolute right-4 top-4 w-20 md:w-24"
+                    loading="lazy"
+                  />
                   <p className="mb-2 text-xs font-extrabold text-primary">상담·기록·운영</p>
                   <h3 className="mb-2 text-xl font-extrabold text-foreground">아내</h3>
-                  <p className="text-sm leading-7 text-muted-foreground">문의 응대, 일정 조율, 작업 기록 정리까지 놓치지 않게 챙깁니다.</p>
+                  <p className="max-w-[72%] text-sm leading-7 text-muted-foreground">문의 응대, 일정 조율, 작업 기록 정리까지 놓치지 않게 챙깁니다.</p>
                 </div>
               </div>
             </div>
