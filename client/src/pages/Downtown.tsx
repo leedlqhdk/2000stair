@@ -120,7 +120,7 @@ export default function DowntownAreaPage() {
           ) : (
             <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 text-center shadow-sm md:p-8">
               <img
-                src="client/public/booboo.webp"
+                src="/booboo.webp"
                 alt="이천계단지기 부부 캐릭터"
                 className="mx-auto mb-4 w-28 md:w-36"
                 loading="lazy"
