@@ -148,7 +148,7 @@ export default function About() {
 
           <section className="rounded-[2rem] bg-white border border-blue-100 shadow-sm px-6 py-10 text-center md:px-10 md:py-14">
   <img
-    src="/booboo.webp"
+    src="/booboo2.webp"
     alt="이천계단지기 부부 캐릭터"
     className="mx-auto mb-4 w-24 md:w-32"
     loading="lazy"
