@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, CheckCircle2, MousePointerClick, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
@@ -13,31 +13,31 @@ const areaCards = [
     name: "신둔면",
     slug: "sindun",
     count: "문의 가능 지역",
-    position: "top-[23%] left-[27%]",
+    position: "top-[32%] left-[34%]",
   },
   {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
-    position: "top-[49%] left-[21%]",
+    position: "top-[58%] left-[28%]",
   },
   {
     name: "시내권",
     slug: "downtown",
     count: "창전동·증포동·관고동·중리동",
-    position: "top-[38%] left-[48%]",
+    position: "top-[47%] left-[51%]",
   },
   {
     name: "부발읍",
     slug: "bubal",
     count: "최근 작업 있음",
-    position: "top-[45%] left-[67%]",
+    position: "top-[41%] left-[70%]",
   },
   {
     name: "대월면",
     slug: "daewol",
     count: "최근 작업 12건",
-    position: "top-[66%] left-[64%]",
+    position: "top-[63%] left-[65%]",
   },
 ];
 
@@ -137,28 +137,22 @@ export default function Blog() {
             transition={{ duration: 0.65, delay: 0.08 }}
           >
             <div className="relative bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 px-4 py-6 md:px-10 md:py-12">
-              <div className="mb-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+              <div className="mb-4 flex flex-col gap-2 md:mb-8 md:flex-row md:items-end md:justify-between">
                 <div>
-                  <div className="mb-4 flex flex-col gap-2 md:mb-8 md:flex-row md:items-end md:justify-between">
-                    <div>
-                      <p className="text-base font-extrabold text-foreground md:text-sm md:font-bold">
-                        이천 지역 관리 현황
-                      </p>
-                      <p className="mt-1 text-xs leading-5 text-muted-foreground md:text-sm">
-                        원하는 지역을 선택해주세요.
-                      </p>
-                    </div>
-
-                    <p className="hidden text-sm font-medium text-primary md:block lg:hidden">
-                      지역 버튼을 클릭하면 해당 관리 현장으로 이동합니다
-                    </p>
-                  </div>
-
-                  <IcheonAreaMap />
+                  <p className="text-base font-extrabold text-foreground md:text-xl">
+                    이천 지역 관리 현황
+                  </p>
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground md:text-sm">
+                    원하는 지역을 선택해주세요.
+                  </p>
                 </div>
 
-                <MapGuidePanel />
+                <p className="hidden text-sm font-medium text-primary md:block">
+                  지도에서 원하는 지역을 클릭하면 해당 관리 현장으로 이동합니다
+                </p>
               </div>
+
+              <IcheonAreaMap />
             </div>
           </motion.div>
 
@@ -315,90 +309,34 @@ export default function Blog() {
   );
 }
 
-function MapGuidePanel() {
-  const featureItems = [
-    "지도의 각 영역을 터치하여 직관적으로 선택",
-    "터치 시 색상 하이라이트로 선택 영역 확인",
-    "하단 지역 버튼으로도 빠르게 이동 가능",
-  ];
-
-  return (
-    <aside className="space-y-5">
-      <div>
-        <p className="mb-3 text-sm font-extrabold text-foreground">특징</p>
-        <div className="space-y-3">
-          {featureItems.map((item) => (
-            <div key={item} className="flex items-start gap-2.5">
-              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 fill-primary text-white" />
-              <p className="text-sm font-semibold leading-6 text-slate-700">{item}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-xl border border-blue-100 bg-white p-4 shadow-sm">
-        <p className="mb-3 text-sm font-extrabold text-foreground">터치 시 인터랙션 예시</p>
-        <MiniMapExample />
-      </div>
-    </aside>
-  );
-}
-
 function IcheonAreaMap() {
   return (
-    <div className="relative mx-auto w-full max-w-5xl">
-      <div className="relative mx-auto aspect-square w-full max-w-[340px] md:aspect-auto md:max-w-4xl">
+    <div className="relative mx-auto w-full max-w-[390px] md:max-w-3xl">
+      <div className="relative mx-auto aspect-square w-full">
         <img
-          src="/images/2000map.png"
+          src="/images/icheon-area-map-clean.svg"
           alt="이천 지역 지도"
-          className="mx-auto h-full w-full object-contain opacity-95 md:h-auto"
+          className="mx-auto h-full w-full object-contain"
         />
 
         <div className="absolute inset-0">
           {areaCards.map((area) => (
             <Link key={area.slug} href={`/area/${area.slug}`}>
               <a
-                className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[11px] font-extrabold text-primary shadow-sm ring-1 ring-blue-100 backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg md:rounded-lg md:border md:border-primary md:px-4 md:py-2.5 md:text-base md:shadow-md md:ring-0`}
+                className={`absolute ${area.position} -translate-x-1/2 -translate-y-1/2 rounded-md px-2 py-1 text-[11px] font-extrabold text-primary transition hover:bg-white/80 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-sm`}
                 title={area.count}
+                aria-label={`${area.name} 관리 현장 보기`}
               >
-                <span>{area.name}</span>
-                <ArrowRight className="hidden h-4 w-4 md:block" />
+                {area.name}
               </a>
             </Link>
           ))}
         </div>
       </div>
 
-      <p className="mt-2 text-center text-[11px] font-medium text-muted-foreground md:hidden">
+      <p className="mt-3 text-center text-[11px] font-medium text-muted-foreground md:text-sm">
         지도에서 원하는 지역을 터치해주세요.
       </p>
-
-      <div className="mt-4 flex flex-wrap justify-center gap-2 md:hidden">
-        {areaCards.map((area) => (
-          <Link key={area.slug} href={`/area/${area.slug}`}>
-            <a className="rounded-full border border-blue-100 bg-white px-3 py-2 text-[11px] font-extrabold text-primary shadow-sm transition hover:border-primary hover:bg-blue-50">
-              {area.name}
-            </a>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MiniMapExample() {
-  return (
-    <div className="relative mx-auto aspect-square w-full max-w-[230px] rounded-lg bg-blue-50/35 p-3">
-      <img src="/images/2000map.png" alt="부발읍 터치 예시" className="h-full w-full object-contain opacity-85" />
-      <Link href="/area/bubal">
-        <a className="absolute left-[67%] top-[45%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary px-3 py-2 text-xs font-extrabold text-white shadow-lg ring-4 ring-primary/15">
-          부발읍
-        </a>
-      </Link>
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-md bg-slate-900 px-3 py-2 text-[10px] font-bold text-white shadow-lg">
-        부발읍 페이지로 이동합니다.
-        <MousePointerClick className="h-3.5 w-3.5" />
-      </div>
     </div>
   );
 }
