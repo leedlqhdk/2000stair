@@ -22,7 +22,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-6 md:pb-8">
+      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-8 md:pb-8">
         <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-0">
           <motion.div
             className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8"
@@ -41,12 +41,12 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               >
               직접 관리
               </motion.span>
-              
               <br />
               하고 계신가요?
             </h1>
+
             <motion.p
-              className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed"
+              className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed line-clamp-2 md:line-clamp-none"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
@@ -69,6 +69,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 alt="카카오톡으로 계단 사진을 보내는 상담 화면"
                 className="w-full object-contain"
               />
+
               <motion.a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
@@ -86,9 +87,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors duration-300 group-hover:bg-white/95 group-hover:text-primary">
                   <Camera className="h-[54%] w-[54%]" />
                 </span>
+
                 <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.85vw,14px)] font-extrabold leading-none text-foreground transition-colors duration-300 group-hover:text-white">
                   4층 빌라 계단사진 보내드려요
                 </span>
+
                 <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors duration-300 group-hover:bg-white group-hover:text-primary">
                   <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
                 </span>
@@ -98,9 +101,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         </div>
       </div>
 
-      <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
+      <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-11 md:py-12">
         <div className="container max-w-7xl">
-          <div className="grid items-center gap-5 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
+          <div className="grid items-center gap-6 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
             <motion.div
               initial={{ opacity: 0, x: -18 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -111,15 +114,17 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <MapPin className="h-4 w-4 text-primary stroke-[3]" />
                 MAP
               </p>
+
               <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
                 실제 관리 지역
               </h2>
-              <p className="max-w-xs text-sm leading-relaxed text-gray-600 md:text-base">
+
+              <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
                이천 북부 지역을 부부가 직접 관리합니다.
               </p>
             </motion.div>
 
-            <div className="relative overflow-hidden pb-2">
+            <div className="relative overflow-hidden pb-3 pt-1 md:pb-2 md:pt-0">
               <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 26s linear infinite" }}>
                 {[...areaSectionItems, ...areaSectionItems].map((item, index) => (
                   <motion.div
@@ -137,14 +142,18 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                           className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
                           loading="lazy"
                         />
+
                         <div className="absolute inset-0 bg-[#f5f9ff]/10" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
+
                         <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
                           <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
+
                           <h3 className="text-sm font-extrabold leading-tight md:text-base">
                             {item.title}
                           </h3>
-                          <p className="mt-0.5 text-[0.68rem] font-semibold text-white/78 md:text-xs">
+
+                          <p className="mt-0.5 text-[0.68rem] font-semibold text-white/78 line-clamp-1 md:text-xs">
                             {item.subtitle}
                           </p>
                         </div>
