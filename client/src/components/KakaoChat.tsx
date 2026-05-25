@@ -109,6 +109,22 @@ export default function KakaoChat() {
   return (
     <>
       <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3">
+        {!isScrolling && (
+          <div className="pointer-events-none mb-1 mr-1 flex items-end gap-2 rounded-2xl bg-white/95 px-3 py-2 shadow-lg shadow-blue-900/8 ring-1 ring-blue-100 backdrop-blur">
+            <p className="max-w-[118px] text-right text-[11px] font-extrabold leading-snug text-slate-700 md:max-w-[150px] md:text-sm">
+              사진 보내주시면
+              <br />
+              빠르게 답변드려요 :)
+            </p>
+            <img
+              src="/character-wife.png"
+              alt="상담 안내 캐릭터"
+              className="w-14 shrink-0 drop-shadow-md md:w-16"
+              loading="lazy"
+            />
+          </div>
+        )}
+
         <button
           type="button"
           onClick={() => setIsOpen(true)}
