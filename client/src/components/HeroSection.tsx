@@ -39,11 +39,11 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
               >
-               아직 직접 관리
+              직접 관리
               </motion.span>
               
               <br />
-             하고 계신가요?
+              하고 계신가요?
             </h1>
             <motion.p
               className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed"
