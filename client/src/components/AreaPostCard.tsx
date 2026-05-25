@@ -39,15 +39,15 @@ function getCardDescription(post: AreaPost, areaLabel?: string) {
   }
 
   if (/상가|관고/.test(title)) {
-    return "출입이 많은 공용부를 중심으로 바닥 먼지와 손이 닿는 구간을 확인했습니다.";
+    return "출입이 많은 공용부를 중심으로 확인했습니다.";
   }
 
   if (/원룸|빌라/.test(title)) {
-    return "입주민 이동이 많은 계단과 공동현관 주변을 중심으로 정리했습니다.";
+    return "계단과 공동현관 주변을 중심으로 정리했습니다.";
   }
 
   if (/유리|현관/.test(title)) {
-    return "공동현관과 유리 주변 얼룩까지 함께 확인한 관리 기록입니다.";
+    return "공동현관과 유리 주변 얼룩을 함께 확인했습니다.";
   }
 
   return `${areaLabel ?? "이천"} 현장 상태를 기준으로 관리 범위를 정리했습니다.`;
@@ -112,13 +112,13 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
           </div>
         </div>
 
-        <div className={`flex flex-col ${compact ? "min-h-[154px] p-3 md:min-h-[170px] md:p-4" : "min-h-[210px] p-5"}`}>
+        <div className={`flex flex-col ${compact ? "min-h-[118px] p-3 md:min-h-[126px] md:p-4" : "min-h-[174px] p-5"}`}>
           <h3 className={`line-clamp-2 font-extrabold leading-snug text-foreground ${
             compact ? "mb-2 text-sm md:text-base" : "mb-3 text-lg"
           }`}>
             {cardTitle}
           </h3>
-          <p className={`line-clamp-2 flex-1 text-muted-foreground ${
+          <p className={`line-clamp-1 flex-1 text-muted-foreground ${
             compact ? "text-[11px] leading-4 md:text-xs md:leading-5" : "text-sm leading-6"
           }`}>
             {cardDescription}
