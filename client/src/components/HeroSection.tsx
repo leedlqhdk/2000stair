@@ -118,20 +118,6 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
                 이천 북부 지역을 부부가 직접 관리합니다.
               </p>
-
-              <div className="mt-4 inline-flex items-end gap-2 rounded-2xl bg-white/80 px-3 py-2 shadow-sm ring-1 ring-blue-100/70 backdrop-blur">
-                <img
-                  src="/character-husband.png"
-                  alt="현장 관리 캐릭터"
-                  className="w-[78px] shrink-0 drop-shadow-md md:w-20"
-                  loading="lazy"
-                />
-                <p className="pb-2 text-xs font-extrabold leading-snug text-primary md:text-sm">
-                  직접
-                  <br />
-                  관리 중
-                </p>
-              </div>
             </motion.div>
 
             <div className="relative overflow-hidden pb-3 pt-1 md:pb-2 md:pt-0">
