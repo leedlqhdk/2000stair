@@ -10,12 +10,6 @@ import type { AreaPost } from "@/hooks/useAreaPosts";
 
 const areaCards = [
   {
-    name: "신둔면",
-    slug: "sindun",
-    count: "문의 가능 지역",
-    position: "top-[23%] left-[27%]",
-  },
-  {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
@@ -26,12 +20,6 @@ const areaCards = [
     slug: "downtown",
     count: "창전동·증포동·관고동·중리동",
     position: "top-[38%] left-[48%]",
-  },
-  {
-    name: "부발읍",
-    slug: "bubal",
-    count: "최근 작업 있음",
-    position: "top-[45%] left-[67%]",
   },
   {
     name: "대월면",
@@ -143,7 +131,7 @@ export default function Blog() {
                     이천 지역 관리 현황
                   </p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    원하는 지역을 선택해주세요.
+                    작업기록이 있는 지역만 선택할 수 있습니다.
                   </p>
                 </div>
 
