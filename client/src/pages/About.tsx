@@ -79,7 +79,7 @@ export default function About() {
             </p>
           </section>
 
-          <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100/60 p-7 shadow-sm md:mb-20 md:p-10">
+          <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 shadow-sm md:mb-20 md:p-10">
             <div className="mb-7">
               <p className="mb-2 text-sm font-extrabold text-primary">
                 WHO WE ARE
@@ -90,7 +90,7 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-[1.5rem] bg-white/85 p-7 backdrop-blur-sm">
+              <div className="rounded-[1.5rem] border border-blue-100 bg-white p-7">
                 <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
                   FIELD
                 </p>
@@ -111,7 +111,7 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="rounded-[1.5rem] bg-white/85 p-7 backdrop-blur-sm">
+              <div className="rounded-[1.5rem] border border-blue-100 bg-white p-7">
                 <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
                   RECORD
                 </p>
