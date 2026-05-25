@@ -57,14 +57,7 @@ export default function About() {
             </div>
 
             <div className="relative min-h-[360px] md:min-h-[430px]">
-              <div className="absolute right-0 top-0 w-[76%] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-blue-50 shadow-sm">
-                <img
-                  src="/images/"
-                  alt="이천계단지기 실제 작업 현장"
-                  className="h-64 w-full object-cover md:h-72"
-                  loading="lazy"
-                />
-              </div>
+             
               <div className="absolute bottom-0 left-0 w-[68%] rounded-[1.5rem] border border-blue-100 bg-white p-5 text-center shadow-lg">
                 <img
                   src="/booboo.webp"
