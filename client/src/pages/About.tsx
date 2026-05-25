@@ -1,14 +1,22 @@
 import { Link } from "wouter";
-import { ArrowLeft, Camera, CheckCircle2, ClipboardList, MessageCircle, Phone, ShieldCheck, UserRound, UsersRound } from "lucide-react";
+import { ArrowLeft, Camera, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const values = [
-  "꾸준한 관리",
-  "기록 남기기",
-  "연락 빠르게",
-  "동일한 퀄리티",
+  {
+    title: "같은 사람이 방문합니다",
+    text: "처음 확인한 오염 상태와 건물 특성을 기억하고 이어서 관리합니다.",
+  },
+  {
+    title: "작업 기록을 남깁니다",
+    text: "관리 전후 사진으로 멀리 있어도 현장 상태를 확인하실 수 있습니다.",
+  },
+  {
+    title: "하청 없이 직접 합니다",
+    text: "상담부터 방문, 작업 기록까지 부부가 직접 챙깁니다.",
+  },
 ];
 
 const workStyles = [
@@ -70,120 +78,108 @@ export default function About() {
             </div>
           </motion.section>
 
-         <section className="mb-14 px-1 md:mb-20">
-            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
-            <p className="mb-3 text-sm font-extrabold text-primary">왜 시작했는지</p>
-            <h2 className="mb-4 text-2xl font-extrabold leading-snug text-foreground md:text-3xl">
-              하청 구조의 한계를 느껴 직접 관리하기 시작했습니다.
-            </h2>
-            <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-              계단은 한 번 깨끗하게 만드는 것보다, 꾸준히 상태를 유지하는 관리가 더 중요합니다.
-              <br className="hidden md:block" />
-              그래서 저희는 상담부터 작업, 기록까지 직접 챙기는 방식으로 시작했습니다.
-            </p>
-          </section>
+         <section className="mb-16 md:mb-24">
+  <p className="mb-3 text-sm font-extrabold text-primary">
+    DIRECT MANAGEMENT
+  </p>
 
-          <section className="mb-14 md:mb-20">
-            <div className="grid md:grid-cols-[0.9fr_1.1fr]">
-              <div className="bg-blue-50/60 p-7 md:p-10">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary shadow-sm">
-                  <UsersRound className="h-5 w-5" />
-                </div>
-                <p className="mb-3 text-sm font-extrabold text-primary">부부 역할</p>
-                <h2 className="text-2xl font-extrabold text-foreground md:text-3xl">현장과 운영을 나누어 꼼꼼히 봅니다</h2>
-              </div>
+  <h2 className="mb-5 text-2xl font-extrabold leading-snug text-foreground md:text-4xl">
+    처음 왔던 사람이 다음 관리도 직접 방문해야,
+    <br className="hidden md:block" />
+    건물 상태를 꾸준히 볼 수 있다고 생각합니다.
+  </h2>
 
-              <div className="grid gap-4 p-7 md:grid-cols-2 md:p-10">
-                <div className="relative overflow-hidden rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
-                  <UserRound className="mb-4 h-6 w-6 text-primary" />
-                  <img
-                    src="/character-husband.png"
-                    alt="현장 관리 남편 캐릭터"
-                    className="absolute bottom-4 right-4 w-16 opacity-90 md:w-20"
-                    loading="lazy"
-                  />
-                  <p className="mb-2 text-xs font-extrabold text-primary">현장관리</p>
-                  <h3 className="mb-2 text-xl font-extrabold text-foreground">남편</h3>
-                  <p className="max-w-[72%] text-sm leading-7 text-muted-foreground">계단, 복도, 공동현관, 유리 등 현장을 직접 확인하고 관리합니다.</p>
-                </div>
+  <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
+    계단청소는 한 번 깨끗하게 만드는 것보다,
+    오염이 다시 쌓이지 않도록 꾸준히 관리하는 일이 더 중요합니다.
+    그래서 이천계단지기는 상담부터 작업, 기록까지 직접 챙깁니다.
+  </p>
+</section>
+          <section className="mb-16 md:mb-24">
+  <div className="mb-6">
+    <p className="mb-2 text-sm font-extrabold text-primary">
+      WHO WE ARE
+    </p>
+    <h2 className="text-2xl font-extrabold text-foreground md:text-4xl">
+      현장과 기록을 나누어 꼼꼼히 봅니다
+    </h2>
+  </div>
 
-                <div className="relative overflow-hidden rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
-                  <ClipboardList className="mb-4 h-6 w-6 text-primary" />
-                  <img
-                    src="/character-wife.png"
-                    alt="상담 기록 아내 캐릭터"
-                    className="absolute bottom-4 right-4 w-16 opacity-90 md:w-20"
-                    loading="lazy"
-                  />
-                  <p className="mb-2 text-xs font-extrabold text-primary">상담·기록·운영</p>
-                  <h3 className="mb-2 text-xl font-extrabold text-foreground">아내</h3>
-                  <p className="max-w-[72%] text-sm leading-7 text-muted-foreground">문의 응대, 일정 조율, 작업 기록 정리까지 놓치지 않게 챙깁니다.</p>
-                </div>
-              </div>
-            </div>
-          </section>
+  <div className="grid gap-4 md:grid-cols-2">
+    <div className="relative min-h-[220px] overflow-hidden rounded-[1.5rem] bg-blue-50/70 p-6 md:p-7">
+      <img
+        src="/character-husband.png"
+        alt="현장 관리 남편 캐릭터"
+        className="absolute bottom-4 right-4 w-24 md:w-28"
+        loading="lazy"
+      />
 
-          <section className="mb-12 md:mb-16">
-            <div className="mb-5">
-              <p className="mb-2 text-sm font-extrabold text-primary">우리가 중요하게 생각하는 것</p>
-              <h2 className="text-2xl font-extrabold text-foreground md:text-3xl">믿을 수 있는 관리는 작은 기준에서 시작됩니다</h2>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {values.map((value) => (
-                <div key={value} className="flex items-center gap-3 rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
-                  <CheckCircle2 className="h-5 w-5 shrink-0 fill-primary text-white" />
-                  <p className="font-extrabold text-foreground">{value}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+      <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
+        FIELD
+      </p>
+      <h3 className="mb-3 text-2xl font-extrabold text-foreground">
+        현장관리
+      </h3>
+      <p className="max-w-[68%] text-sm leading-7 text-muted-foreground">
+        계단, 복도, 공동현관, 유리 상태를 직접 확인하고 관리합니다.
+      </p>
+    </div>
 
-          <section className="mb-12 md:mb-16">
-            <div className="mb-5 flex items-end justify-between gap-4">
-              <div>
-                <p className="mb-2 text-sm font-extrabold text-primary">실제 작업 스타일</p>
-                <img
-  src="/booboo.webp"
-  alt="이천계단지기 부부 캐릭터"
-  className="mx-auto mb-4 w-24 md:w-32"
-  loading="lazy"
-/>
-                <h2 className="text-2xl font-extrabold text-foreground md:text-3xl">사진으로 확인되는 관리</h2>
-              </div>
-              <Camera className="hidden h-7 w-7 text-primary md:block" />
-            </div>
+    <div className="relative min-h-[220px] overflow-hidden rounded-[1.5rem] bg-blue-50/70 p-6 md:p-7">
+      <img
+        src="/character-wife.png"
+        alt="상담 기록 아내 캐릭터"
+        className="absolute bottom-4 right-4 w-24 md:w-28"
+        loading="lazy"
+      />
 
-            <div className="grid gap-4 md:grid-cols-2">
-              {workStyles.map((item) => (
-                <article key={item.title} className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm">
-                  <img src={item.image} alt={item.title} className="h-64 w-full object-cover" loading="lazy" />
-                  <div className="p-5">
-                    <h3 className="mb-2 text-lg font-extrabold text-foreground">{item.title}</h3>
-                    <p className="text-sm leading-7 text-muted-foreground">{item.text}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
+      <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
+        RECORD
+      </p>
+      <h3 className="mb-3 text-2xl font-extrabold text-foreground">
+        상담·기록
+      </h3>
+      <p className="max-w-[68%] text-sm leading-7 text-muted-foreground">
+        문의 응대, 일정 조율, 작업 전후 사진 기록을 정리합니다.
+      </p>
+    </div>
+  </div>
+</section>
 
-          <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
-            <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">사진 한 장이면 빠르게 안내드립니다</h2>
-            <p className="mb-8 text-sm leading-7 text-muted-foreground md:text-base">
-              계단, 복도, 공동현관 사진을 보내주시면 관리 가능 범위와 상담을 편하게 안내드릴게요.
-            </p>
-            <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
-              <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
-                <MessageCircle className="mr-2 h-4 w-4" />
-                카카오톡 문의하기
-              </a>
-              <a href="tel:01084381887" className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50">
-                <Phone className="mr-2 h-4 w-4" />
-                전화 문의하기
-              </a>
-            </div>
-          </section>
+          <section className="rounded-[2rem] bg-blue-50/70 px-6 py-10 text-center md:px-10 md:py-14">
+  <img
+    src="/booboo.webp"
+    alt="이천계단지기 부부 캐릭터"
+    className="mx-auto mb-4 w-24 md:w-32"
+    loading="lazy"
+  />
+
+  <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
+    사진 한 장이면 빠르게 안내드립니다
+  </h2>
+
+  <p className="mb-8 text-sm leading-7 text-muted-foreground md:text-base">
+    계단, 복도, 공동현관 사진을 보내주시면 관리 가능 범위와 상담을 편하게 안내드릴게요.
+  </p>
+
+  <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
+    <a
+      href="https://pf.kakao.com/_IiNfn/chat"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
+    >
+      카카오톡 문의하기
+    </a>
+
+    <a
+      href="tel:01084381887"
+      className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50"
+    >
+      전화 문의하기
+    </a>
+  </div>
+</section>
         </section>
       </main>
 
