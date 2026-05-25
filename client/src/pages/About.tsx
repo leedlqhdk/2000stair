@@ -27,7 +27,7 @@ export default function About() {
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
           <motion.section
-            className="mb-14 grid items-center gap-10 md:mb-20 md:grid-cols-[1fr_360px]"
+            className="mb-14 grid items-center gap-10 md:mb-20 md:grid-cols-[0.9fr_1.1fr]"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
@@ -47,8 +47,9 @@ export default function About() {
                 부부 직영,<br />
                 함께 관리합니다
               </h1>
-              <p className="max-w-xl text-base leading-8 text-muted-foreground md:text-base">
-                상담부터 현장 관리, 작업 기록까지 직접 관리합니다.
+              <p className="max-w-md text-base leading-8 text-muted-foreground md:text-base">
+                상담부터 현장 관리,
+                작업 기록까지 직접 관리합니다.
               </p>
             </div>
 
@@ -56,7 +57,7 @@ export default function About() {
               <img
                 src="/booboo.webp"
                 alt="이천계단지기 부부 캐릭터"
-                className="w-[82vw] max-w-[340px] drop-shadow-sm md:w-64"
+                className="w-[92vw] max-w-[420px] drop-shadow-sm md:w-[360px]"
                 loading="lazy"
               />
             </div>
