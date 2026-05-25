@@ -49,8 +49,8 @@ export default function About() {
                 ABOUT
               </p>
               <h1 className="mb-5 text-3xl font-extrabold leading-[1.18] text-foreground md:text-5xl">
-  하청 없이,<br />
-  같은 사람이 꾸준히 관리합니다
+  부부 직영,<br />
+  함께 관리합니다
 </h1>
               <p className="max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
                 이천계단지기는 상담부터 현장 관리, 작업 기록까지 부부가 직접 챙기는 공용공간 관리 서비스입니다.
@@ -70,7 +70,7 @@ export default function About() {
             </div>
           </motion.section>
 
-          <section className="mb-12 rounded-[1.75rem] border border-blue-100 bg-white p-7 shadow-sm md:mb-16 md:p-10">
+         <section className="mb-14 px-1 md:mb-20">
             <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
               <ShieldCheck className="h-5 w-5" />
             </div>
@@ -85,7 +85,7 @@ export default function About() {
             </p>
           </section>
 
-          <section className="mb-12 overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm md:mb-16">
+          <section className="mb-14 md:mb-20">
             <div className="grid md:grid-cols-[0.9fr_1.1fr]">
               <div className="bg-blue-50/60 p-7 md:p-10">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary shadow-sm">
