@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { Link, useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, CalendarDays, Images, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, CalendarDays, ExternalLink, Images, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -85,11 +85,7 @@ export default function WorkDetail() {
 
   const posts = useMemo(() => {
     const notionPosts = data ?? [];
-    const notionKeys = new Set(notionPosts.map((post) => `${post.title}-${post.date}`));
-    return [
-      ...notionPosts,
-      ...fallbackPosts.filter((post) => !notionKeys.has(`${post.title}-${post.date}`)),
-    ];
+    return notionPosts.length > 0 ? notionPosts : fallbackPosts;
   }, [data]);
 
   const post = posts.find((item) => getWorkSlug(item) === slug);
@@ -254,6 +250,12 @@ export default function WorkDetail() {
                 </p>
               </div>
               <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1">
+                {post.blogUrl ? (
+                  <a href={post.blogUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-primary">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    {post.blogButtonLabel || "블로그 후기 보기"}
+                  </a>
+                ) : null}
                 <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-primary">
                   <MessageCircle className="mr-2 h-4 w-4" />
                   카톡 문의
