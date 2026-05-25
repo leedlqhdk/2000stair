@@ -20,6 +20,8 @@ import Majang from "@/pages/Majang";
 import Daewol from "@/pages/Daewol";
 import Sindun from "@/pages/Sindun";
 import Downtown from "@/pages/Downtown";
+import Bubal from "@/pages/Bubal";
+import Baeksa from "@/pages/Baeksa";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -90,6 +92,8 @@ function Router() {
         <Route path="/area/daewol" component={Daewol} />
         <Route path="/area/sindun" component={Sindun} />
         <Route path="/area/downtown" component={Downtown} />
+        <Route path="/area/bubal" component={Bubal} />
+        <Route path="/area/baeksa" component={Baeksa} />
         <Route path="/area/:slug" component={LocationLanding} />
         <Route path="/admin/blog" component={AdminBlog} />
         <Route path="/admin/blog/new" component={AdminBlogEdit} />
