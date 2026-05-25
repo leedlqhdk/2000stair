@@ -33,6 +33,8 @@ type AreaPost = {
   buildingType: string;
   workScope: string;
   workType: string;
+  blogUrl: string;
+  blogButtonLabel: string;
 };
 
 const PROPERTY_NAMES = {
@@ -44,6 +46,8 @@ const PROPERTY_NAMES = {
   buildingType: ["건물 유형", "건물유형", "건물", "현장유형", "Building Type", "Building"],
   workScope: ["작업 내용", "작업내용", "관리범위", "작업범위", "범위", "Work Scope", "Scope"],
   workType: ["작업 형태", "작업형태", "관리형태", "청소형태", "Work Type", "Type"],
+  blogUrl: ["블로그링크", "블로그 링크", "블로그URL", "블로그 URL", "Blog URL", "Blog"],
+  blogButtonLabel: ["블로그버튼문구", "블로그 버튼 문구", "버튼문구", "Blog Button Label"],
   published: ["공개", "게시", "공개여부", "Published", "Public"],
 } as const;
 
@@ -145,6 +149,8 @@ function parsePage(page: NotionPage): AreaPost | null {
   const buildingType = propertyToText(getProperty(page.properties, PROPERTY_NAMES.buildingType));
   const workScope = propertyToText(getProperty(page.properties, PROPERTY_NAMES.workScope));
   const workType = propertyToText(getProperty(page.properties, PROPERTY_NAMES.workType));
+  const blogUrl = propertyToText(getProperty(page.properties, PROPERTY_NAMES.blogUrl));
+  const blogButtonLabel = propertyToText(getProperty(page.properties, PROPERTY_NAMES.blogButtonLabel));
 
   if (!area || images.length === 0 || !isPublished(page.properties)) return null;
 
@@ -159,6 +165,8 @@ function parsePage(page: NotionPage): AreaPost | null {
     buildingType,
     workScope,
     workType,
+    blogUrl,
+    blogButtonLabel,
   };
 }
 
