@@ -79,7 +79,7 @@ export default function About() {
             </p>
           </section>
 
-          <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 shadow-sm md:mb-20 md:p-10">
+          <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 bg-blue-50/40 shadow-sm md:mb-20 md:p-10">
             <div className="mb-7">
               <p className="mb-2 text-sm font-extrabold text-primary">
                 WHO WE ARE
@@ -90,7 +90,7 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="relative min-h-[230px] overflow-hidden rounded-[1.5rem] bg-blue-50/40 p-6 md:min-h-[200px] md:p-7">
+              <div className="relative min-h-[300px] overflow-hidden rounded-[1.5rem] p-6 md:min-h-[200px] md:p-7">
                 <img
                   src="/character-husband.png"
                   alt="현장 관리 남편 캐릭터"
@@ -109,7 +109,7 @@ export default function About() {
                 </p>
               </div>
 
-              <div className="relative min-h-[230px] overflow-hidden rounded-[1.5rem] bg-blue-50/40 p-6 md:min-h-[200px] md:p-7">
+              <div className="relative min-h-[300px] overflow-hidden rounded-[1.5rem] p-6 md:min-h-[200px] md:p-7">
                 <img
                   src="/character-wife.png"
                   alt="상담 기록 아내 캐릭터"
@@ -156,7 +156,7 @@ export default function About() {
 
           <section className="rounded-[2rem] border border-blue-100 bg-white px-6 py-10 text-center shadow-sm md:px-10 md:py-14">
             <img
-              src="/booboo.webp"
+              src="/booboo2.webp"
               alt="이천계단지기 부부 캐릭터"
               className="mx-auto mb-4 w-40 md:w-32"
               loading="lazy"
