@@ -90,8 +90,8 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="relative min-h-[260px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
-                <div className="max-w-[44%]">
+              <div className="relative min-h-[250px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
+                <div className="max-w-[52%]">
                   <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
                     FIELD
                   </p>
@@ -103,18 +103,18 @@ export default function About() {
                   </p>
                 </div>
 
-                <div className="absolute bottom-5 right-5 rounded-[1.5rem] bg-white p-4 shadow-sm">
+                <div className="absolute bottom-4 right-4 rounded-2xl bg-white p-2">
                   <img
                     src="/character-husband.png"
                     alt="현장 관리 남편 캐릭터"
-                    className="w-40 md:w-36"
+                    className="w-28 md:w-32"
                     loading="lazy"
                   />
                 </div>
               </div>
 
-              <div className="relative min-h-[260px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
-                <div className="max-w-[44%]">
+              <div className="relative min-h-[250px] overflow-hidden rounded-[1.5rem] bg-white/85 backdrop-blur-sm p-7">
+                <div className="max-w-[52%]">
                   <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
                     RECORD
                   </p>
@@ -126,11 +126,11 @@ export default function About() {
                   </p>
                 </div>
 
-                <div className="absolute bottom-5 right-5 rounded-[1.5rem] bg-white p-4 shadow-sm">
+                <div className="absolute bottom-4 right-4 rounded-2xl bg-white p-2">
                   <img
                     src="/character-wife.png"
                     alt="상담 기록 아내 캐릭터"
-                    className="w-40 md:w-36"
+                    className="w-28 md:w-32"
                     loading="lazy"
                   />
                 </div>
