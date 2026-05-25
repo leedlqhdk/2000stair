@@ -118,7 +118,148 @@ export default function KakaoChat() {
             </p>
           </div>
         )}
+
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-white text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+          aria-label="AI 관리진단 열기"
+        >
+          <Sparkles className="h-3 w-3 shrink-0 translate-y-px stroke-[2.8] md:h-5 md:w-5" />
+          <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>AI진단</span>
+        </button>
+
+        <a
+          href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
+          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-primary text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+          aria-label="전화 문의하기"
+        >
+          <Phone className="h-3 w-3 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
+          <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>전화문의</span>
+        </a>
+
+        <a
+          href={KAKAO_CHANNEL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+          aria-label="카카오톡 상담하기"
+        >
+          <MessageCircle className="h-3 w-3 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
+          <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>카톡상담</span>
+        </a>
       </div>
+
+      {isOpen && (
+        <div className="fixed inset-0 z-[60] flex items-end justify-center bg-slate-900/45 px-4 pb-4 backdrop-blur-sm md:items-center md:pb-0">
+          <div className="max-h-[88vh] w-full max-w-lg overflow-y-auto rounded-[1.75rem] bg-white p-5 shadow-2xl ring-1 ring-blue-100 md:p-6">
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <p className="mb-1 inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-primary">
+                  <Sparkles className="h-3.5 w-3.5 translate-y-px" />
+                  Gemini AI 진단
+                </p>
+                <h2 className="text-xl font-extrabold tracking-tight text-slate-900 md:text-2xl">
+                  우리 건물 관리 진단
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-slate-600">
+                  조건을 선택하면 AI가 건물 상태를 분석해 맞춤 안내 문장을 만들어드려요.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="rounded-full p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                aria-label="AI 관리진단 닫기"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="grid gap-4">
+              <DiagnosisSelect label="건물 유형" value={diagnosis.buildingType} items={options.buildingType} onChange={(value) => handleChange("buildingType", value)} />
+              <DiagnosisSelect label="층수" value={diagnosis.floors} items={options.floors} onChange={(value) => handleChange("floors", value)} />
+              <DiagnosisSelect label="현재 오염 상태" value={diagnosis.pollution} items={options.pollution} onChange={(value) => handleChange("pollution", value)} />
+              <DiagnosisSelect label="원하는 관리 주기" value={diagnosis.cycle} items={options.cycle} onChange={(value) => handleChange("cycle", value)} />
+            </div>
+
+            <button
+              type="button"
+              onClick={analyzeBuilding}
+              disabled={isAnalyzing}
+              className="mt-5 flex h-12 w-full items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {isAnalyzing ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  AI가 분석 중
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4 translate-y-px" />
+                  AI로 분석하기
+                </>
+              )}
+            </button>
+
+            {errorMessage && (
+              <p className="mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
+                {errorMessage}
+              </p>
+            )}
+
+            {result && (
+              <div className="mt-5 rounded-2xl bg-gradient-to-br from-blue-50 to-sky-50 p-4 ring-1 ring-blue-100">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-xs font-bold tracking-[0.18em] text-primary">AI 분석 결과</p>
+                  {result.source === "fallback" && (
+                    <span className="rounded-full bg-white px-2 py-1 text-[10px] font-bold text-slate-500 ring-1 ring-blue-100">
+                      기본 문장
+                    </span>
+                  )}
+                </div>
+                <h3 className="mt-2 text-lg font-extrabold text-slate-900">{result.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-700">{result.summary}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-700">{result.recommendation}</p>
+                <p className="mt-3 text-sm font-bold leading-6 text-primary">{result.cta}</p>
+                {result.setupRequired && (
+                  <p className="mt-3 text-xs leading-5 text-slate-500">
+                    Gemini API 키가 연결되면 이 문장이 실시간 AI 생성 문장으로 바뀝니다.
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div className="mt-5 grid grid-cols-2 gap-2">
+              <a href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`} className="flex h-12 items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md hover:bg-primary/90">
+                전화 상담
+              </a>
+              <a href={KAKAO_CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center justify-center rounded-full bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 hover:bg-[#F4DC00]">
+                카톡 문의
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </>
+  );
+}
+
+function DiagnosisSelect({ label, value, items, onChange }: { label: string; value: string; items: string[]; onChange: (value: string) => void }) {
+  return (
+    <label className="grid gap-1.5">
+      <span className="text-sm font-bold text-slate-700">{label}</span>
+      <select
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="h-11 rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-800 outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/15"
+      >
+        {items.map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
