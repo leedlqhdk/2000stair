@@ -40,7 +40,7 @@ export default function About() {
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
           <motion.section
-            className="mb-12 grid gap-8 md:mb-16 md:grid-cols-[minmax(0,1fr)_420px] md:items-center"
+            className="mb-16 grid gap-8 items-center md:grid-cols-[1fr_320px]"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
