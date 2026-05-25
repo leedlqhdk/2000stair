@@ -21,7 +21,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
       name: "2~3층 계단 정기관리",
       price: "66,000원~",
       description:
-        "소형 빌라·상가 공용계단 관리에 적합합니다. 계단, 복도, 공동현관 상태에 따라 범위를 조정합니다.",
+        "빌라·상가 공용계단 관리합니다. 엘레베이터, 공동현관 유리코팅 모든 서비스가 포함된 가격입니다.",
       popular: false,
     },
     {
@@ -42,10 +42,10 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     },
     {
       id: "bathroom",
-      name: "화장실 · 상가유리 · 사무실 청소",
+      name: "화장실 · 상가 유리창 · 사무실 청소",
       price: "별도 문의",
       description:
-        "공용화장실, 공동현관 유리, 사무실 청소는 현장 상태와 면적에 따라 별도 안내드립니다.",
+        "공용화장실, 사무실 청소는 현장 상태와 면적에 따라 별도 안내드립니다.",
       popular: false,
     },
   ];
@@ -105,7 +105,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
               >
                 {plan.popular && (
                   <div className="absolute top-5 right-5 rounded-full bg-primary text-white text-xs font-semibold px-3 py-1 shadow-sm">
-                    가장 많이 선택
+                    BEST
                   </div>
                 )}
 
