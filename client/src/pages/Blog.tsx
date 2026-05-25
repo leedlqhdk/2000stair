@@ -16,6 +16,12 @@ const areaCards = [
     position: "top-[23%] left-[27%]",
   },
   {
+    name: "백사면",
+    slug: "baeksa",
+    count: "업데이트 준비 중",
+    position: "top-[25%] left-[48%]",
+  },
+  {
     name: "마장면",
     slug: "majang",
     count: "최근 작업 15건",
@@ -30,7 +36,7 @@ const areaCards = [
   {
     name: "부발읍",
     slug: "bubal",
-    count: "최근 작업 있음",
+    count: "업데이트 준비 중",
     position: "top-[45%] left-[67%]",
   },
   {
