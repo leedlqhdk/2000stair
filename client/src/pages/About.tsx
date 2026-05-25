@@ -1,37 +1,26 @@
 import { Link } from "wouter";
-import { ArrowLeft, ClipboardList, MessageCircle, Phone, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
+import { ArrowLeft, Camera, CheckCircle2, ClipboardList, MessageCircle, Phone, ShieldCheck, UserRound, UsersRound } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const trustPoints = [
-  {
-    icon: ShieldCheck,
-    title: "하청 없이 직접 관리",
-    text: "상담부터 현장 확인, 작업 기록까지 부부가 직접 챙겨 관리 기준이 흐려지지 않게 합니다.",
-  },
-  {
-    icon: ClipboardList,
-    title: "사진과 기록으로 남기는 관리",
-    text: "말로만 끝나는 청소가 아니라 현장 상태와 작업 내용을 기록해 건물주님이 확인하기 쉽게 남깁니다.",
-  },
-  {
-    icon: Sparkles,
-    title: "반짝보다 꾸준함",
-    text: "한 번 반짝이게 만드는 것보다 계속 깨끗하게 유지되는 상태를 더 중요하게 봅니다.",
-  },
+const values = [
+  "꾸준한 관리",
+  "기록 남기기",
+  "연락 빠르게",
+  "같은 사람이 방문",
 ];
 
-const roles = [
+const workStyles = [
   {
-    label: "현장 관리",
-    name: "남편",
-    text: "계단, 복도, 공동현관, 유리 등 현장 상태를 직접 보고 필요한 관리 범위를 판단합니다.",
+    title: "계단과 난간 상태를 함께 봅니다",
+    text: "바닥만 닦고 끝내지 않고 손이 자주 닿는 난간, 벽면, 모서리 오염까지 같이 확인합니다.",
+    image: "/images/icheon-sindun-stair-cleaning.webp",
   },
   {
-    label: "상담·기록·운영",
-    name: "아내",
-    text: "문의 응대, 일정 조율, 작업 기록 정리를 맡아 관리 과정이 놓치지 않고 이어지도록 챙깁니다.",
+    title: "현장 사진으로 기록합니다",
+    text: "작업 전후 상태를 사진으로 남겨 건물주님이 멀리 있어도 관리 상황을 확인할 수 있게 합니다.",
+    image: "/images/icheon-daewol-stair-cleaning.webp",
   },
 ];
 
@@ -42,101 +31,134 @@ export default function About() {
 
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-          <motion.div
-            className="mb-10 md:mb-14"
+          <motion.section
+            className="mb-12 grid gap-8 md:mb-16 md:grid-cols-[minmax(0,1fr)_420px] md:items-center"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
           >
-            <Link href="/">
-              <a className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-primary shadow-sm transition hover:border-primary/40 hover:bg-blue-50">
-                <ArrowLeft className="h-4 w-4" />
-                메인으로 돌아가기
-              </a>
-            </Link>
+            <div>
+              <Link href="/">
+                <a className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-primary shadow-sm transition hover:border-primary/40 hover:bg-blue-50">
+                  <ArrowLeft className="h-4 w-4" />
+                  메인으로 돌아가기
+                </a>
+              </Link>
 
-            <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_320px] md:items-center">
-              <div>
-                <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
-                  ABOUT US
-                </p>
-                <h1 className="mb-5 text-3xl font-extrabold leading-[1.14] text-foreground md:text-5xl">
-                  이천계단지기는 부부가 직접 관리합니다
-                </h1>
-                <p className="max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-                  청소를 맡기는 일은 단순히 깨끗함만 보는 일이 아니라고 생각합니다. 누가 오고, 어떻게 관리하고, 문제가 생기면 누가 책임지는지까지 믿을 수 있어야 합니다.
-                </p>
+              <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+                ABOUT
+              </p>
+              <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] text-foreground md:text-6xl">
+                부부가 직접 관리하는<br />이천 계단청소
+              </h1>
+              <p className="max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+                이천계단지기는 상담부터 현장 관리, 작업 기록까지 부부가 직접 챙기는 공용공간 관리 서비스입니다.
+              </p>
+            </div>
+
+            <div className="relative min-h-[360px] md:min-h-[430px]">
+              <div className="absolute right-0 top-0 w-[76%] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-blue-50 shadow-sm">
+                <img
+                  src="/images/icheon-bubal-store-cleaning.webp"
+                  alt="이천계단지기 실제 작업 현장"
+                  className="h-64 w-full object-cover md:h-72"
+                  loading="lazy"
+                />
               </div>
-
-              <div className="rounded-[1.75rem] border border-blue-100 bg-white p-7 text-center shadow-sm">
+              <div className="absolute bottom-0 left-0 w-[68%] rounded-[1.5rem] border border-blue-100 bg-white p-5 text-center shadow-lg">
                 <img
                   src="/booboo.webp"
                   alt="이천계단지기 부부 캐릭터"
-                  className="mx-auto mb-5 w-40 md:w-48"
+                  className="mx-auto mb-3 w-36 md:w-44"
                   loading="lazy"
                 />
-                <p className="text-sm font-bold text-primary">직접 상담하고 직접 관리합니다</p>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  처음 문의부터 작업 후 기록까지, 같은 사람이 계속 챙기는 관리가 이천계단지기의 기준입니다.
-                </p>
+                <p className="text-sm font-extrabold text-primary">직접 상담하고 직접 방문합니다</p>
               </div>
             </div>
-          </motion.div>
+          </motion.section>
 
-          <section className="mb-12 grid gap-4 md:mb-16 md:grid-cols-3">
-            {trustPoints.map((point) => {
-              const Icon = point.icon;
-
-              return (
-                <div key={point.title} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h2 className="mb-2 text-lg font-extrabold text-foreground">{point.title}</h2>
-                  <p className="text-sm leading-7 text-muted-foreground">{point.text}</p>
-                </div>
-              );
-            })}
+          <section className="mb-12 rounded-[1.75rem] border border-blue-100 bg-white p-7 shadow-sm md:mb-16 md:p-10">
+            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <p className="mb-3 text-sm font-extrabold text-primary">왜 시작했는지</p>
+            <h2 className="mb-4 text-2xl font-extrabold leading-snug text-foreground md:text-3xl">
+              하청 구조의 한계를 느껴 직접 관리하기 시작했습니다.
+            </h2>
+            <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
+              누가 오는지, 어떤 기준으로 관리되는지 알기 어려우면 건물주님도 불안하고 현장도 꾸준히 좋아지기 어렵습니다. 그래서 저희는 상담부터 작업, 기록까지 직접 챙기는 방식으로 시작했습니다.
+            </p>
           </section>
 
           <section className="mb-12 overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm md:mb-16">
-            <div className="grid gap-0 md:grid-cols-[0.85fr_1.15fr]">
+            <div className="grid md:grid-cols-[0.9fr_1.1fr]">
               <div className="bg-blue-50/60 p-7 md:p-10">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary shadow-sm">
                   <UsersRound className="h-5 w-5" />
                 </div>
-                <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">부부가 나누어 맡는 일</h2>
-                <p className="text-sm leading-7 text-muted-foreground md:text-base">
-                  현장과 운영이 따로 놀지 않도록, 서로 확인하고 기록하며 관리합니다.
-                </p>
+                <p className="mb-3 text-sm font-extrabold text-primary">부부 역할</p>
+                <h2 className="text-2xl font-extrabold text-foreground md:text-3xl">현장과 운영을 나누어 꼼꼼히 봅니다</h2>
               </div>
 
-              <div className="grid gap-4 p-7 md:p-10">
-                {roles.map((role) => (
-                  <div key={role.label} className="rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
-                    <p className="mb-2 text-xs font-extrabold text-primary">{role.label}</p>
-                    <h3 className="mb-2 text-xl font-extrabold text-foreground">{role.name}</h3>
-                    <p className="text-sm leading-7 text-muted-foreground">{role.text}</p>
-                  </div>
-                ))}
+              <div className="grid gap-4 p-7 md:grid-cols-2 md:p-10">
+                <div className="rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
+                  <UserRound className="mb-4 h-6 w-6 text-primary" />
+                  <p className="mb-2 text-xs font-extrabold text-primary">현장관리</p>
+                  <h3 className="mb-2 text-xl font-extrabold text-foreground">남편</h3>
+                  <p className="text-sm leading-7 text-muted-foreground">계단, 복도, 공동현관, 유리 등 현장을 직접 확인하고 관리합니다.</p>
+                </div>
+
+                <div className="rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
+                  <ClipboardList className="mb-4 h-6 w-6 text-primary" />
+                  <p className="mb-2 text-xs font-extrabold text-primary">상담·기록·운영</p>
+                  <h3 className="mb-2 text-xl font-extrabold text-foreground">아내</h3>
+                  <p className="text-sm leading-7 text-muted-foreground">문의 응대, 일정 조율, 작업 기록 정리까지 놓치지 않게 챙깁니다.</p>
+                </div>
               </div>
             </div>
           </section>
 
-          <section className="mb-12 rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 shadow-sm md:mb-16 md:p-10">
-            <p className="mb-3 text-sm font-extrabold text-primary">작업 철학</p>
-            <h2 className="mb-4 text-2xl font-extrabold leading-snug text-foreground md:text-3xl">
-              한 번 반짝이는 청소보다, 꾸준히 관리되는 상태를 만듭니다
-            </h2>
-            <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-              공용공간은 매일 사람이 지나가는 곳이라 금방 다시 더러워질 수 있습니다. 그래서 이천계단지기는 보여주기식 청소보다 건물의 사용량과 오염 상태에 맞춰 꾸준히 유지되는 관리를 더 중요하게 생각합니다.
-            </p>
+          <section className="mb-12 md:mb-16">
+            <div className="mb-5">
+              <p className="mb-2 text-sm font-extrabold text-primary">우리가 중요하게 생각하는 것</p>
+              <h2 className="text-2xl font-extrabold text-foreground md:text-3xl">믿을 수 있는 관리는 작은 기준에서 시작됩니다</h2>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {values.map((value) => (
+                <div key={value} className="flex items-center gap-3 rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm">
+                  <CheckCircle2 className="h-5 w-5 shrink-0 fill-primary text-white" />
+                  <p className="font-extrabold text-foreground">{value}</p>
+                </div>
+              ))}
+            </div>
           </section>
 
-          <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 text-center shadow-sm md:p-12">
-            <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">우리 건물도 직접 관리가 필요하신가요?</h2>
+          <section className="mb-12 md:mb-16">
+            <div className="mb-5 flex items-end justify-between gap-4">
+              <div>
+                <p className="mb-2 text-sm font-extrabold text-primary">실제 작업 스타일</p>
+                <h2 className="text-2xl font-extrabold text-foreground md:text-3xl">사진으로 확인되는 관리</h2>
+              </div>
+              <Camera className="hidden h-7 w-7 text-primary md:block" />
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {workStyles.map((item) => (
+                <article key={item.title} className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm">
+                  <img src={item.image} alt={item.title} className="h-64 w-full object-cover" loading="lazy" />
+                  <div className="p-5">
+                    <h3 className="mb-2 text-lg font-extrabold text-foreground">{item.title}</h3>
+                    <p className="text-sm leading-7 text-muted-foreground">{item.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
+            <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">사진 한 장이면 빠르게 안내드립니다</h2>
             <p className="mb-8 text-sm leading-7 text-muted-foreground md:text-base">
-              건물 사진이나 현재 상태를 보내주시면 관리 가능 범위부터 편하게 안내드릴게요.
+              계단, 복도, 공동현관 사진을 보내주시면 관리 가능 범위와 상담을 편하게 안내드릴게요.
             </p>
             <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
               <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
