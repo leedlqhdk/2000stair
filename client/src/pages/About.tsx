@@ -27,39 +27,41 @@ export default function About() {
       <main>
         <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
           <motion.section
-            className="mb-14 grid items-center gap-10 md:mb-20 md:grid-cols-[0.9fr_1.1fr]"
+            className="mb-14 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 shadow-sm md:mb-20 md:p-10"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
           >
-            <div>
-              <Link href="/">
-                <a className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-primary shadow-sm transition hover:border-primary/40 hover:bg-blue-50">
-                  <ArrowLeft className="h-4 w-4" />
-                  메인으로 돌아가기
-                </a>
-              </Link>
+            <div className="grid items-center gap-8 md:grid-cols-[0.9fr_1.1fr]">
+              <div>
+                <Link href="/">
+                  <a className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-primary shadow-sm transition hover:border-primary/40 hover:bg-blue-50">
+                    <ArrowLeft className="h-4 w-4" />
+                    메인으로 돌아가기
+                  </a>
+                </Link>
 
-              <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
-                ABOUT
-              </p>
-              <h1 className="mb-5 text-[2.4rem] font-extrabold leading-[1.18] text-foreground md:text-5xl">
-                부부 직영,<br />
-                함께 관리합니다
-              </h1>
-              <p className="max-w-md text-base leading-8 text-muted-foreground md:text-base">
-                상담부터 현장 관리,
-                작업 기록까지 직접 관리합니다.
-              </p>
-            </div>
+                <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+                  ABOUT
+                </p>
+                <h1 className="mb-5 text-[2.4rem] font-extrabold leading-[1.18] text-foreground md:text-5xl">
+                  부부 직영,<br />
+                  함께 관리합니다
+                </h1>
+                <p className="max-w-sm text-base leading-8 text-muted-foreground md:max-w-md md:text-base">
+                  상담부터 현장 관리,
+                  작업 기록까지 직접 관리합니다.
+                </p>
+              </div>
 
-            <div className="flex justify-center md:justify-end">
-              <img
-                src="/booboo.webp"
-                alt="이천계단지기 부부 캐릭터"
-                className="w-[92vw] max-w-[420px] drop-shadow-sm md:w-[360px]"
-                loading="lazy"
-              />
+              <div className="flex justify-center md:justify-end">
+                <img
+                  src="/booboo.webp"
+                  alt="이천계단지기 부부 캐릭터"
+                  className="w-[92vw] max-w-[420px] md:w-[360px]"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </motion.section>
 
