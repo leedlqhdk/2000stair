@@ -39,7 +39,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
               >
-              직접 관리
+                직접 관리
               </motion.span>
               <br />
               하고 계신가요?
@@ -68,6 +68,12 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 src="/images/main-phone.webp"
                 alt="카카오톡으로 계단 사진을 보내는 상담 화면"
                 className="w-full object-contain"
+              />
+
+              <img
+                src="/character-wife.png"
+                alt="상담 캐릭터"
+                className="absolute -left-[2%] bottom-[13%] hidden w-[16%] drop-shadow-lg md:block"
               />
 
               <motion.a
@@ -109,6 +115,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="relative"
             >
               <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.16em] text-primary md:text-sm">
                 <MapPin className="h-4 w-4 text-primary stroke-[3]" />
@@ -120,8 +127,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </h2>
 
               <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
-               이천 북부 지역을 부부가 직접 관리합니다.
+                이천 북부 지역을 부부가 직접 관리합니다.
               </p>
+
+              <img
+                src="/character-husband.png"
+                alt="현장 관리 캐릭터"
+                className="mt-4 hidden w-20 drop-shadow-lg md:block"
+              />
             </motion.div>
 
             <div className="relative overflow-hidden pb-3 pt-1 md:pb-2 md:pt-0">
@@ -138,34 +151,4 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                       <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
                         <img
                           src={item.src}
-                          alt={`${item.title} 관리 현장`}
-                          className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
-                          loading="lazy"
-                        />
-
-                        <div className="absolute inset-0 bg-[#f5f9ff]/10" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
-
-                        <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                          <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
-
-                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
-                            {item.title}
-                          </h3>
-
-                          <p className="mt-0.5 text-[0.68rem] font-semibold text-white/78 line-clamp-1 md:text-xs">
-                            {item.subtitle}
-                          </p>
-                        </div>
-                      </a>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+                          alt={`${item.title} 관리 현장`
