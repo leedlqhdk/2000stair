@@ -8,12 +8,12 @@ const values = [
   "꾸준한 관리",
   "기록 남기기",
   "연락 빠르게",
-  "같은 사람이 방문",
+  "동일한 퀄리티",
 ];
 
 const workStyles = [
   {
-    title: "계단과 난간 상태를 함께 봅니다",
+    title: "건물 상태를 함께 봅니다",
     text: "바닥만 닦고 끝내지 않고 손이 자주 닿는 난간, 벽면, 모서리 오염까지 같이 확인합니다.",
     image: "/images/icheon-sindun-stair-cleaning.webp",
   },
@@ -79,7 +79,7 @@ export default function About() {
               하청 구조의 한계를 느껴 직접 관리하기 시작했습니다.
             </h2>
             <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-              누가 오는지, 어떤 기준으로 관리되는지 알기 어려우면 건물주님도 불안하고 현장도 꾸준히 좋아지기 어렵습니다.
+              계단은 한 번 깨끗하게 만드는 것보다, 꾸준히 상태를 유지하는 관리가 더 중요합니다.
               <br className="hidden md:block" />
               그래서 저희는 상담부터 작업, 기록까지 직접 챙기는 방식으로 시작했습니다.
             </p>
