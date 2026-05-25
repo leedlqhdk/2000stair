@@ -59,7 +59,7 @@ export default function About() {
             <div className="relative min-h-[360px] md:min-h-[430px]">
               <div className="absolute right-0 top-0 w-[76%] overflow-hidden rounded-[1.5rem] border border-blue-100 bg-blue-50 shadow-sm">
                 <img
-                  src="/images/icheon-bubal-store-cleaning.webp"
+                  src="/images/"
                   alt="이천계단지기 실제 작업 현장"
                   className="h-64 w-full object-cover md:h-72"
                   loading="lazy"
