@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, CalendarDays, Home, MessageCircle } from "lucide-react";
+import { CalendarDays, Home, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import { getWorkPath } from "@/lib/workSlug";
@@ -21,12 +21,6 @@ function getPostType(post: AreaPost) {
   if (/화장실/.test(post.title)) return "화장실청소";
   if (/유리|창/.test(post.title)) return "유리청소";
   return "계단청소";
-}
-
-function getPlace(post: AreaPost, areaName: string) {
-  const matches = post.title.match(/[가-힣]+(?:리|동|면|읍|권)/g) ?? [];
-  const found = matches.find((item) => item !== "이천" && item !== areaName);
-  return found ?? areaName;
 }
 
 function getSummary(post: AreaPost, areaName: string) {
@@ -66,12 +60,6 @@ export default function AreaTimeline({
             {description}
           </p>
         </div>
-        <Link href={`/records?area=${areaSlug}`}>
-          <a className="inline-flex w-fit items-center text-sm font-bold text-primary transition hover:opacity-80">
-            전체 보기
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </a>
-        </Link>
       </div>
 
       {posts.length > 0 && (
@@ -104,7 +92,6 @@ export default function AreaTimeline({
             <div className="relative space-y-4 md:space-y-5 md:before:absolute md:before:left-[85px] md:before:top-0 md:before:h-full md:before:w-px md:before:bg-blue-100">
               {filteredPosts.map((post, index) => {
                 const type = getPostType(post);
-                const place = getPlace(post, areaName);
                 const summary = getSummary(post, areaName);
 
                 return (
@@ -126,7 +113,7 @@ export default function AreaTimeline({
                     </div>
 
                     <Link href={getWorkPath(post)}>
-                      <a className="group grid h-auto overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)]">
+                      <a className="group grid h-auto overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)]">
                         <div className="relative h-44 overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px]">
                           <img
                             src={post.image}
@@ -141,29 +128,22 @@ export default function AreaTimeline({
 
                         <div className="flex min-h-0 min-w-0 flex-col justify-center p-4 md:h-[150px] md:p-5">
                           <div className="mb-2 flex flex-wrap gap-1.5">
-                            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-extrabold text-primary">
+                            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-extrabold text-primary transition-colors duration-300 group-hover:bg-white group-hover:text-primary">
                               {type}
-                            </span>
-                            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-extrabold text-slate-600">
-                              {place}
                             </span>
                           </div>
 
-                          <h3 className="line-clamp-1 text-base font-extrabold leading-snug text-foreground md:text-lg">
+                          <h3 className="line-clamp-1 text-base font-extrabold leading-snug text-foreground transition-colors duration-300 group-hover:text-white md:text-lg">
                             {post.title}
                           </h3>
-                          <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                          <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground transition-colors duration-300 group-hover:text-white/85">
                             {summary}
                           </p>
 
-                          <div className="mt-3 flex items-center justify-between gap-3 text-xs font-bold text-primary md:mt-2">
-                            <span className="inline-flex items-center gap-1 text-slate-400 md:hidden">
+                          <div className="mt-3 flex items-center gap-3 text-xs font-bold md:hidden">
+                            <span className="inline-flex items-center gap-1 text-slate-400 transition-colors duration-300 group-hover:text-white/80">
                               <CalendarDays className="h-3.5 w-3.5" />
                               {post.date}
-                            </span>
-                            <span className="ml-auto inline-flex items-center gap-1 transition-transform duration-300 group-hover:translate-x-1">
-                              자세히 보기
-                              <ArrowRight className="h-3.5 w-3.5" />
                             </span>
                           </div>
                         </div>
