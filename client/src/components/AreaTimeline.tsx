@@ -98,7 +98,7 @@ export default function AreaTimeline({
         </div>
       )}
 
-      <div className="grid gap-7 lg:grid-cols-[1fr_260px] lg:items-start">
+      <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
         <div className="relative">
           {filteredPosts.length > 0 ? (
             <div className="space-y-4 md:space-y-5">
@@ -110,37 +110,37 @@ export default function AreaTimeline({
                 return (
                   <motion.div
                     key={`${post.title}-${post.date}-${index}`}
-                    className="relative grid gap-3 md:grid-cols-[82px_1fr] md:gap-5"
+                    className="relative grid gap-3 md:grid-cols-[94px_minmax(0,1fr)] md:gap-4"
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
                   >
                     <div className="hidden md:block">
-                      <div className="relative flex h-full justify-end pr-5">
-                        <div className="absolute right-[7px] top-0 h-full w-px bg-blue-100" />
-                        <div className="relative z-10 mt-8 h-3.5 w-3.5 rounded-full border-4 border-white bg-primary shadow-sm ring-2 ring-primary/20" />
-                        <p className="absolute right-8 top-6 whitespace-nowrap text-[11px] font-extrabold text-slate-500">
+                      <div className="relative h-full min-h-[150px] pr-4">
+                        <div className="absolute right-[8px] top-0 h-full w-px bg-blue-100" />
+                        <div className="absolute right-[3px] top-[62px] z-10 h-3 w-3 rounded-full bg-primary ring-[5px] ring-blue-100" />
+                        <p className="absolute right-8 top-[55px] whitespace-nowrap text-[11px] font-extrabold text-slate-600">
                           {post.date}
                         </p>
                       </div>
                     </div>
 
                     <Link href={getWorkPath(post)}>
-                      <a className="group grid overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg md:grid-cols-[170px_1fr]">
-                        <div className="relative h-44 overflow-hidden bg-blue-50 md:h-full md:min-h-[126px]">
+                      <a className="group grid min-h-[150px] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg md:grid-cols-[168px_minmax(0,1fr)]">
+                        <div className="relative h-44 overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px]">
                           <img
                             src={post.image}
                             alt={post.title}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                           />
-                          <div className="absolute left-3 top-3 md:hidden rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-extrabold text-primary shadow-sm">
+                          <div className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-extrabold text-primary shadow-sm md:hidden">
                             {post.date}
                           </div>
                         </div>
 
-                        <div className="flex min-w-0 flex-col p-4 md:p-5">
+                        <div className="flex min-w-0 flex-col justify-center p-4 md:min-h-[150px] md:p-5">
                           <div className="mb-2 flex flex-wrap gap-1.5">
                             <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-extrabold text-primary">
                               {type}
@@ -150,14 +150,14 @@ export default function AreaTimeline({
                             </span>
                           </div>
 
-                          <h3 className="line-clamp-2 text-base font-extrabold leading-snug text-foreground md:text-lg">
+                          <h3 className="line-clamp-1 text-base font-extrabold leading-snug text-foreground md:text-lg">
                             {post.title}
                           </h3>
                           <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
                             {summary}
                           </p>
 
-                          <div className="mt-4 flex items-center justify-between gap-3 text-xs font-bold text-primary">
+                          <div className="mt-3 flex items-center justify-between gap-3 text-xs font-bold text-primary md:mt-4">
                             <span className="inline-flex items-center gap-1 text-slate-400 md:hidden">
                               <CalendarDays className="h-3.5 w-3.5" />
                               {post.date}
