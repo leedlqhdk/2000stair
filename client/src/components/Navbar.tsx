@@ -11,11 +11,11 @@ const serviceLinks = [
 
 const areaLinks = [
   { label: "전체 보기", href: "/areas" },
+  { label: "시내권", href: "/area/downtown" },
   { label: "마장면", href: "/area/majang" },
   { label: "신둔면", href: "/area/sindun" },
   { label: "부발읍", href: "/area/bubal" },
   { label: "대월면", href: "/area/daewol" },
-  { label: "시내권", href: "/area/downtown" },
   { label: "백사면", href: "/area/baeksa" },
 ];
 
