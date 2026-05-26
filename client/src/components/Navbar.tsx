@@ -108,8 +108,8 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Link href="/records" className={linkClass}>
-            작업기록
+          <Link href="/qna" className={linkClass}>
+            QnA
           </Link>
         </nav>
 
@@ -173,11 +173,11 @@ export default function Navbar() {
               </div>
 
               <Link
-                href="/records"
+                href="/qna"
                 className="block rounded-2xl px-4 py-3 text-base font-bold text-foreground hover:bg-white transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
-                작업기록
+                QnA
               </Link>
 
               <Button
