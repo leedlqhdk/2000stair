@@ -17,6 +17,15 @@ const areaLabels: Record<string, string> = {
   downtown: "시내권",
 };
 
+const areaRoutes: Record<string, string> = {
+  majang: "/area/majang",
+  daewol: "/area/daewol",
+  sindun: "/area/sindun",
+  downtown: "/area/downtown",
+  bubal: "/area/bubal",
+  baeksa: "/area/baeksa",
+};
+
 const downtownPosts: AreaPost[] = [
   { title: "송정동 빌라 계단청소", date: "2026.05.20", image: "/images/areas/downtown/downtown-1.jpg", area: "downtown" },
   { title: "관고동 상가건물 관리", date: "2026.05.18", image: "/images/areas/downtown/downtown-2.jpg", area: "downtown" },
@@ -36,11 +45,13 @@ function useAllAreaPosts() {
   return useQuery({
     queryKey: ["area-posts", "work-detail"],
     queryFn: async () => {
-      const response = await fetch("/api/area-posts?limit=50");
+      const response = await fetch("/api/area-posts?limit=50", { cache: "no-store" });
       if (!response.ok) return [];
       return (await response.json()) as AreaPost[];
     },
-    staleTime: 60_000,
+    staleTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
     retry: 1,
   });
 }
@@ -143,7 +154,7 @@ export default function WorkDetail() {
   const post = posts.find((item) => getWorkSlug(item) === slug);
   const images = post?.images?.length ? post.images : post ? [post.image] : [];
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
-  const backHref = post?.area ? `/records?area=${post.area}` : "/records";
+  const backHref = post?.area ? areaRoutes[post.area] ?? "/records" : "/records";
   const blogAreaLabel = post ? getBlogAreaLabel(post, areaLabel) : areaLabel;
   const detailRows = post ? [
     ["지역", areaLabel],
