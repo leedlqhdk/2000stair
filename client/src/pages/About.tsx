@@ -101,7 +101,7 @@ export default function About() {
                   계단·복도·공동현관을 직접 확인합니다.
                 </p>
 
-                <div className="flex justify-center rounded-3xl bg-blue-50/45 py-4">
+                <div className="flex justify-center rounded-3xl bg-white py-4">
                   <img
                     src="/character-husband.png"
                     alt="현장 관리 남편 캐릭터"
@@ -122,7 +122,7 @@ export default function About() {
                   문의·일정·작업 사진을 정리합니다.
                 </p>
 
-                <div className="flex justify-center rounded-3xl bg-blue-50/45 py-4">
+                <div className="flex justify-center rounded-3xl bg-white py-4">
                   <img
                     src="/character-wife.png"
                     alt="상담 기록 아내 캐릭터"
