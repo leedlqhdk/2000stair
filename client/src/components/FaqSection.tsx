@@ -41,10 +41,11 @@ const faqs = [
 
 export default function FaqSection() {
   return (
-    <section id="faq" className="bg-white py-16 md:py-24">
+    <section className="bg-white py-16 md:py-24">
       <div className="container max-w-5xl">
         <motion.div
-          className="mb-9 md:mb-11"
+          id="faq"
+          className="mb-9 scroll-mt-24 md:mb-11 md:scroll-mt-28"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
