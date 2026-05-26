@@ -108,9 +108,9 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Link href="/qna" className={linkClass}>
+          <a href="/#faq" className={linkClass} onClick={(event) => handleSectionClick(event, "faq")}>
             QnA
-          </Link>
+          </a>
         </nav>
 
         <button
@@ -172,13 +172,13 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <Link
-                href="/qna"
+              <a
+                href="/#faq"
                 className="block rounded-2xl px-4 py-3 text-base font-bold text-foreground hover:bg-white transition-colors"
-                onClick={() => setMobileOpen(false)}
+                onClick={(event) => handleSectionClick(event, "faq")}
               >
                 QnA
-              </Link>
+              </a>
 
               <Button
                 size="lg"
