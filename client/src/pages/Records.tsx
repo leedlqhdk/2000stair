@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
@@ -14,6 +15,13 @@ const areaLabels: Record<string, string> = {
   daewol: "대월면",
   sindun: "신둔면",
   downtown: "시내권",
+};
+
+const areaRoutes: Record<string, string> = {
+  majang: "/area/majang",
+  daewol: "/area/daewol",
+  sindun: "/area/sindun",
+  downtown: "/area/downtown",
 };
 
 const downtownPosts: AreaPost[] = [
@@ -35,22 +43,39 @@ function useAllAreaPosts() {
   return useQuery({
     queryKey: ["area-posts", "all-records"],
     queryFn: async () => {
-      const response = await fetch("/api/area-posts?limit=50");
+      const response = await fetch("/api/area-posts?limit=50", { cache: "no-store" });
       if (!response.ok) return [];
       return (await response.json()) as AreaPost[];
     },
-    staleTime: 60_000,
+    staleTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
     retry: 1,
   });
 }
 
 function goToRecords(area: string) {
-  window.location.href = area === "all" ? "/records" : `/records?area=${area}`;
+  window.location.href = area === "all" ? "/records" : areaRoutes[area] ?? "/records";
 }
 
 export default function Records() {
   const { data, isLoading } = useAllAreaPosts();
   const selectedArea = new URLSearchParams(window.location.search).get("area") ?? "all";
+
+  useEffect(() => {
+    if (selectedArea !== "all" && areaRoutes[selectedArea]) {
+      window.location.replace(areaRoutes[selectedArea]);
+    }
+  }, [selectedArea]);
+
+  if (selectedArea !== "all" && areaRoutes[selectedArea]) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+        <Navbar />
+      </div>
+    );
+  }
+
   const selectedAreaName = areaLabels[selectedArea] ?? "전체";
   const notionPosts = data ?? [];
   const allPosts = notionPosts.length > 0 ? notionPosts : fallbackPosts;
