@@ -59,7 +59,7 @@ const AREA_LABELS: Record<string, string> = {
 };
 
 let cache: { fetchedAt: number; posts: AreaPost[] } | null = null;
-const CACHE_TTL_MS = 60_000;
+const CACHE_TTL_MS = 0;
 
 function getProperty(
   properties: Record<string, NotionProperty | undefined>,
@@ -211,7 +211,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const posts = await fetchAreaPostsFromNotion();
     const filtered = area ? posts.filter((post) => post.area === area) : posts;
 
-    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
+    res.setHeader("Cache-Control", "no-store, max-age=0");
     res.status(200).json(filtered.slice(0, limit));
   } catch (error) {
     console.error("[AreaPosts] Failed to load posts", error);
