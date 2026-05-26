@@ -1,7 +1,7 @@
 import { Link } from "wouter";
-import { ArrowLeft, ArrowRight, MessageCircle, Phone, Star } from "lucide-react";
+import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
-import AreaPostCard from "@/components/AreaPostCard";
+import AreaTimeline from "@/components/AreaTimeline";
 import { majangPosts, majangReviews } from "@/data/areas/majang";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
@@ -38,32 +38,19 @@ export default function MajangAreaPage() {
                 </p>
               </div>
               <div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
-                최근 작업 15건
+                최근 작업 {posts.length}건
               </div>
             </div>
           </div>
         </motion.div>
 
-        <section className="mb-12 md:mb-16">
-          <div className="mb-5 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-extrabold text-foreground md:text-2xl">마장면 작업 기록</h2>
-              <p className="mt-1 text-sm text-muted-foreground">최근 작업 지역을 기준으로 업데이트됩니다.</p>
-            </div>
-            <Link href="/records?area=majang">
-              <a className="hidden items-center text-sm font-bold text-primary transition hover:opacity-80 md:inline-flex">
-                전체 보기
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-            {posts.map((post, index) => (
-              <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} compact />
-            ))}
-          </div>
-        </section>
+        <AreaTimeline
+          areaName="마장면"
+          areaSlug="majang"
+          posts={posts}
+          title="마장면 작업 일지"
+          description="마장면에서 진행한 작업들을 날짜순으로 확인해보세요."
+        />
 
         <section className="mb-12 md:mb-16">
           <div className="mb-5">
