@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, ArrowRight, MapPin, MessageCircle, Phone, Star } from "lucide-react";
+import { ArrowLeft, MapPin, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
-import AreaPostCard from "@/components/AreaPostCard";
+import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: AreaPost[] = [
@@ -91,47 +91,14 @@ export default function DowntownAreaPage() {
           </div>
         </motion.div>
 
-        <section className="mb-12 md:mb-16">
-          <div className="mb-5 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-extrabold text-foreground md:text-2xl">
-                {selectedArea === "전체" ? "시내권 작업 기록" : `${selectedArea} 작업 기록`}
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {selectedArea === "전체"
-                  ? "관고동·창전동·증포동 등 시내권 현장을 기준으로 업데이트됩니다."
-                  : `${selectedArea} 현장 기록만 모아 보여드립니다.`}
-              </p>
-            </div>
-            <Link href="/records?area=downtown">
-              <a className="hidden items-center text-sm font-bold text-primary transition hover:opacity-80 md:inline-flex">
-                전체 보기
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
-            </Link>
-          </div>
-
-          {filteredPosts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-              {filteredPosts.map((post, index) => (
-                <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} compact />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 text-center shadow-sm md:p-8">
-              <img
-                src="/booboo.webp"
-                alt="이천계단지기 부부 캐릭터"
-                className="mx-auto mb-4 w-28 md:w-36"
-                loading="lazy"
-              />
-              <p className="text-base font-extrabold text-foreground">업데이트 중입니다.</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {selectedArea} 작업 기록은 사진 정리 후 순서대로 추가할게요.
-              </p>
-            </div>
-          )}
-        </section>
+        <AreaTimeline
+          areaName={selectedArea === "전체" ? "시내권" : selectedArea}
+          areaSlug="downtown"
+          posts={filteredPosts}
+          title={selectedArea === "전체" ? "시내권 작업 일지" : `${selectedArea} 작업 일지`}
+          description={selectedArea === "전체" ? "관고동·창전동·증포동 등 시내권 현장을 날짜순으로 확인해보세요." : `${selectedArea} 현장 기록만 모아 보여드립니다.`}
+          emptyMessage={`${selectedArea} 작업 기록은 사진 정리 후 순서대로 추가할게요.`}
+        />
 
         <section className="mb-12 md:mb-16">
           <div className="mb-5">
