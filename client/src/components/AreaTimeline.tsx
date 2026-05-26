@@ -101,7 +101,7 @@ export default function AreaTimeline({
       <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
         <div className="relative">
           {filteredPosts.length > 0 ? (
-            <div className="space-y-4 md:space-y-5">
+            <div className="relative space-y-4 md:space-y-5 md:before:absolute md:before:left-[85px] md:before:top-0 md:before:h-full md:before:w-px md:before:bg-blue-100">
               {filteredPosts.map((post, index) => {
                 const type = getPostType(post);
                 const place = getPlace(post, areaName);
@@ -117,22 +117,21 @@ export default function AreaTimeline({
                     transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
                   >
                     <div className="hidden md:block">
-                      <div className="relative h-full min-h-[150px] pr-4">
-                        <div className="absolute right-[8px] top-0 h-full w-px bg-blue-100" />
-                        <div className="absolute right-[3px] top-[62px] z-10 h-3 w-3 rounded-full bg-primary ring-[5px] ring-blue-100" />
-                        <p className="absolute right-8 top-[55px] whitespace-nowrap text-[11px] font-extrabold text-slate-600">
+                      <div className="relative h-[150px] pr-4">
+                        <div className="absolute right-[2px] top-[69px] z-10 h-3.5 w-3.5 rounded-full border-[3px] border-white bg-primary shadow-sm ring-[3px] ring-blue-100" />
+                        <p className="absolute right-8 top-[62px] whitespace-nowrap text-[11px] font-extrabold text-slate-600">
                           {post.date}
                         </p>
                       </div>
                     </div>
 
                     <Link href={getWorkPath(post)}>
-                      <a className="group grid min-h-[150px] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg md:grid-cols-[168px_minmax(0,1fr)]">
+                      <a className="group grid h-auto overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)]">
                         <div className="relative h-44 overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px]">
                           <img
                             src={post.image}
                             alt={post.title}
-                            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                            className="block h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                           />
                           <div className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-extrabold text-primary shadow-sm md:hidden">
@@ -140,7 +139,7 @@ export default function AreaTimeline({
                           </div>
                         </div>
 
-                        <div className="flex min-w-0 flex-col justify-center p-4 md:min-h-[150px] md:p-5">
+                        <div className="flex min-h-0 min-w-0 flex-col justify-center p-4 md:h-[150px] md:p-5">
                           <div className="mb-2 flex flex-wrap gap-1.5">
                             <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-extrabold text-primary">
                               {type}
@@ -157,7 +156,7 @@ export default function AreaTimeline({
                             {summary}
                           </p>
 
-                          <div className="mt-3 flex items-center justify-between gap-3 text-xs font-bold text-primary md:mt-4">
+                          <div className="mt-3 flex items-center justify-between gap-3 text-xs font-bold text-primary md:mt-2">
                             <span className="inline-flex items-center gap-1 text-slate-400 md:hidden">
                               <CalendarDays className="h-3.5 w-3.5" />
                               {post.date}
