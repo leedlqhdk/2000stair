@@ -79,6 +79,53 @@ function getIntroText(post: AreaPost, areaLabel: string) {
   return `${areaLabel} 현장에서 직접 확인한 상태를 기준으로 관리 범위를 정리한 작업 기록입니다.`;
 }
 
+function WorkPhotoCollage({ images, title }: { images: string[]; title: string }) {
+  const visibleImages = images.slice(0, 5);
+
+  if (visibleImages.length === 1) {
+    return (
+      <div className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-blue-50 shadow-sm">
+        <img
+          src={visibleImages[0]}
+          alt={`${title} 현장 사진`}
+          loading="lazy"
+          className="h-auto w-full object-cover"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid h-[520px] gap-3 overflow-hidden rounded-[1.5rem] md:grid-cols-4 md:grid-rows-2">
+      {visibleImages.map((image, index) => {
+        const isMain = index === 0;
+        const hiddenCount = images.length - visibleImages.length;
+
+        return (
+          <div
+            key={`${image}-${index}`}
+            className={`relative overflow-hidden border border-blue-100 bg-blue-50 shadow-sm ${
+              isMain ? "md:col-span-2 md:row-span-2" : ""
+            } ${index === 1 && visibleImages.length === 2 ? "md:col-span-2 md:row-span-2" : ""}`}
+          >
+            <img
+              src={image}
+              alt={`${title} 현장 사진 ${index + 1}`}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+            {index === visibleImages.length - 1 && hiddenCount > 0 ? (
+              <div className="absolute inset-0 flex items-center justify-center bg-primary/70 text-xl font-extrabold text-white backdrop-blur-[1px]">
+                +{hiddenCount}
+              </div>
+            ) : null}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { data, isLoading } = useAllAreaPosts();
@@ -227,17 +274,7 @@ export default function WorkDetail() {
 
           <section className="mt-12">
             <h2 className="mb-6 text-2xl font-extrabold text-foreground">현장 사진</h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              {images.map((image, index) => (
-                <img
-                  key={`${image}-${index}`}
-                  src={image}
-                  alt={`${post.title} 현장 사진 ${index + 1}`}
-                  loading="lazy"
-                  className="w-full rounded-[1.25rem] border border-blue-100 bg-blue-50 object-contain shadow-sm"
-                />
-              ))}
-            </div>
+            <WorkPhotoCollage images={images} title={post.title} />
           </section>
 
           <section className="mt-14 rounded-[1.5rem] bg-primary p-7 text-white md:p-9">
