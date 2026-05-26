@@ -1,7 +1,7 @@
 import { Link } from "wouter";
-import { ArrowLeft, ArrowRight, MessageCircle, Phone, Star } from "lucide-react";
+import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
-import AreaPostCard from "@/components/AreaPostCard";
+import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: never[] = [];
@@ -50,32 +50,14 @@ export default function SindunAreaPage() {
           </div>
         </motion.div>
 
-        <section className="mb-12 md:mb-16">
-          <div className="mb-5 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-extrabold text-foreground md:text-2xl">신둔면 작업 기록</h2>
-              <p className="mt-1 text-sm text-muted-foreground">노션 작업일지 기준으로 업데이트됩니다.</p>
-            </div>
-            <Link href="/records?area=sindun">
-              <a className="hidden items-center text-sm font-bold text-primary transition hover:opacity-80 md:inline-flex">
-                전체 보기
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
-            </Link>
-          </div>
-
-          {posts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-              {posts.map((post, index) => (
-                <AreaPostCard key={`${post.title}-${post.date}-${index}`} post={post} index={index} compact />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-[1.5rem] border border-blue-100 bg-white p-8 text-center text-sm font-semibold text-muted-foreground shadow-sm">
-              신둔면 작업 기록은 노션 작업일지 등록 후 표시됩니다.
-            </div>
-          )}
-        </section>
+        <AreaTimeline
+          areaName="신둔면"
+          areaSlug="sindun"
+          posts={posts}
+          title="신둔면 작업 일지"
+          description="노션 작업일지 기준으로 업데이트됩니다."
+          emptyMessage="신둔면 작업 기록은 노션 작업일지 등록 후 표시됩니다."
+        />
 
         <section className="mb-12 md:mb-16">
           <div className="mb-5">
