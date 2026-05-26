@@ -7,8 +7,14 @@ import { useAreaPosts } from "@/hooks/useAreaPosts";
 const fallbackPosts: never[] = [];
 
 const reviews = [
-  "관리 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.",
-  "공용공간이 꾸준히 깔끔하게 유지돼서 만족합니다.",
+  {
+    text: "관리 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.",
+    source: "신둔면 빌라 동대표님 후기",
+  },
+  {
+    text: "공용공간이 꾸준히 깔끔하게 유지돼서 만족합니다.",
+    source: "신둔면 원룸 입주민 후기",
+  },
 ];
 
 export default function SindunAreaPage() {
@@ -66,14 +72,14 @@ export default function SindunAreaPage() {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {reviews.map((review) => (
-              <div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
+              <div key={review.text} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
                 <div className="mb-3 flex items-center gap-1 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <p className="text-base leading-relaxed text-foreground">“{review}”</p>
-                <p className="mt-4 text-sm text-muted-foreground">신둔면 건물주 후기</p>
+                <p className="text-base leading-relaxed text-foreground">“{review.text}”</p>
+                <p className="mt-4 text-sm text-muted-foreground">{review.source}</p>
               </div>
             ))}
           </div>
