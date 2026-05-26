@@ -27,6 +27,7 @@ export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
     staleTime: 0,
     refetchOnMount: "always",
     refetchOnWindowFocus: true,
+    refetchInterval: 15_000,
     retry: 1,
   });
 
