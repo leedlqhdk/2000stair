@@ -90,6 +90,28 @@ function getIntroText(post: AreaPost, areaLabel: string) {
   return `${areaLabel} 현장에서 직접 확인한 상태를 기준으로 관리 범위를 정리한 작업 기록입니다.`;
 }
 
+function getRecommendedTargets(post: AreaPost) {
+  const title = `${post.title} ${post.buildingType ?? ""} ${post.workScope ?? ""}`;
+
+  if (/상가|상업|공용부/.test(title)) {
+    return ["출입이 잦은 상가 공용계단", "손님 방문 전 인상이 중요한 건물", "먼지와 발자국이 자주 쌓이는 공용부"];
+  }
+
+  if (/원룸|빌라|연립/.test(title)) {
+    return ["입주민 이동이 많은 빌라·원룸", "계단 바닥과 난간 오염이 신경 쓰이는 건물", "정기적으로 같은 사람이 관리하길 원하는 현장"];
+  }
+
+  if (/유리|현관|코팅/.test(title)) {
+    return ["공동현관 유리 얼룩이 잘 보이는 건물", "출입구 첫인상을 깔끔하게 관리하고 싶은 현장", "손자국과 먼지가 반복되는 공용현관"];
+  }
+
+  if (/화장실|수전|욕실/.test(title)) {
+    return ["물때와 얼룩이 눈에 띄는 화장실", "수전·타일 틈 오염을 정리하고 싶은 공간", "사진 기준으로 빠른 안내가 필요한 현장"];
+  }
+
+  return ["공용공간 상태를 꾸준히 관리하고 싶은 건물", "사진 기록으로 관리 상태를 확인하고 싶은 현장", "계단·복도·공동현관을 함께 맡기고 싶은 곳"];
+}
+
 function getBlogAreaLabel(post: AreaPost, areaLabel: string) {
   const match = post.title.match(/[가-힣]+(?:동|면|읍|리|권)/);
   return match?.[0] ?? areaLabel;
@@ -156,6 +178,7 @@ export default function WorkDetail() {
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
   const backHref = post?.area ? areaRoutes[post.area] ?? "/records" : "/records";
   const blogAreaLabel = post ? getBlogAreaLabel(post, areaLabel) : areaLabel;
+  const recommendedTargets = post ? getRecommendedTargets(post) : [];
   const detailRows = post ? [
     ["지역", areaLabel],
     ["건물 유형", post.buildingType || getDefaultBuildingType(post.title)],
@@ -284,6 +307,18 @@ export default function WorkDetail() {
                       <div className="px-4 py-3 font-semibold leading-6 text-slate-800">{value}</div>
                     </div>
                   ))}
+                </div>
+
+                <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/60 p-4">
+                  <p className="mb-3 text-sm font-extrabold text-primary">이런 건물에 추천해요</p>
+                  <ul className="space-y-2 text-sm font-semibold leading-6 text-slate-700">
+                    {recommendedTargets.map((target) => (
+                      <li key={target} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                        <span>{target}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
