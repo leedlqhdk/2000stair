@@ -33,6 +33,12 @@ const galleryItems = [
     before: "/images/before-after/stair-railing-before.webp",
     after: "/images/before-after/stair-railing-after.webp",
   },
+  {
+    id: 6,
+    title: "샤워 수전 청소",
+    before: "/images/before-after/bathroom-shower-cleaning-before.webp",
+    after: "/images/before-after/bathroom-shower-cleaning-after.webp",
+  },
 ];
 
 function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
