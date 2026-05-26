@@ -21,10 +21,28 @@ const areaLinks = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
+  const [mobileAreaOpen, setMobileAreaOpen] = useState(false);
   const [location, setLocation] = useLocation();
 
   const openKakao = () => {
     window.open("https://pf.kakao.com/_IiNfn/chat", "_blank");
+  };
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+    setMobileServiceOpen(false);
+    setMobileAreaOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    const nextOpen = !mobileOpen;
+    setMobileOpen(nextOpen);
+
+    if (nextOpen) {
+      setMobileServiceOpen(false);
+      setMobileAreaOpen(false);
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -42,7 +60,7 @@ export default function Navbar() {
     if (!sectionId) return;
 
     event.preventDefault();
-    setMobileOpen(false);
+    closeMobileMenu();
 
     if (location !== "/") {
       setLocation("/");
@@ -115,8 +133,9 @@ export default function Navbar() {
 
         <button
           className="md:hidden w-10 h-10 rounded-full border border-blue-100 bg-white flex items-center justify-center"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="메뉴 열기"
+          onClick={toggleMobileMenu}
+          aria-label={mobileOpen ? "메뉴 닫기" : "메뉴 열기"}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -129,47 +148,61 @@ export default function Navbar() {
               <Link
                 href="/about"
                 className="block rounded-2xl px-4 py-3 text-base font-bold text-foreground hover:bg-white transition-colors"
-                onClick={() => setMobileOpen(false)}
+                onClick={closeMobileMenu}
               >
                 소개
               </Link>
 
               <div className="rounded-2xl px-4 py-3">
-                <p className="mb-2 flex items-center justify-between text-base font-extrabold text-foreground">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between text-base font-extrabold text-foreground"
+                  onClick={() => setMobileServiceOpen((open) => !open)}
+                  aria-expanded={mobileServiceOpen}
+                >
                   서비스
-                  <ChevronDown className="h-4 w-4" />
-                </p>
-                <div className="grid gap-1">
-                  {serviceLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground"
-                      onClick={(event) => handleSectionClick(event, link.sectionId)}
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
+                  <ChevronDown className={`h-4 w-4 transition-transform ${mobileServiceOpen ? "rotate-180" : ""}`} />
+                </button>
+                {mobileServiceOpen && (
+                  <div className="mt-2 grid gap-1">
+                    {serviceLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground"
+                        onClick={(event) => handleSectionClick(event, link.sectionId)}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="rounded-2xl px-4 py-3">
-                <p className="mb-2 flex items-center justify-between text-base font-extrabold text-foreground">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between text-base font-extrabold text-foreground"
+                  onClick={() => setMobileAreaOpen((open) => !open)}
+                  aria-expanded={mobileAreaOpen}
+                >
                   관리지역
-                  <ChevronDown className="h-4 w-4" />
-                </p>
-                <div className="grid gap-1">
-                  {areaLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
+                  <ChevronDown className={`h-4 w-4 transition-transform ${mobileAreaOpen ? "rotate-180" : ""}`} />
+                </button>
+                {mobileAreaOpen && (
+                  <div className="mt-2 grid gap-1">
+                    {areaLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground"
+                        onClick={closeMobileMenu}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <a
@@ -185,7 +218,7 @@ export default function Navbar() {
                 className="mt-3 w-full rounded-2xl font-bold"
                 onClick={() => {
                   openKakao();
-                  setMobileOpen(false);
+                  closeMobileMenu();
                 }}
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
