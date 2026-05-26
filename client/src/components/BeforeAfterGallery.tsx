@@ -5,37 +5,37 @@ import { ChevronRight } from "lucide-react";
 const galleryItems = [
   {
     id: 1,
-    title: "계단 바닥 녹 제거",
+    title: "빌라 계단 바닥 녹",
     before: "/images/before-after/majang-villa-stair-rust-removal-before.webp",
     after: "/images/before-after/majang-villa-stair-rust-removal-after.webp",
   },
   {
     id: 2,
-    title: "빌라 계단 바닥 오염",
+    title: "원룸 계단 정기청소",
     before: "/images/before-after/stair-before.webp",
     after: "/images/before-after/stair-after.webp",
   },
   {
     id: 3,
-    title: "소화전 먼지 제거",
+    title: "소화전 오염",
     before: "/images/before-after/fire-extinguisher-before.webp",
     after: "/images/before-after/fire-extinguisher-after.webp",
   },
   {
     id: 4,
-    title: "난간 아래 먼지 제거",
+    title: "창틀 오염",
     before: "/images/before-after/railing-before.webp",
     after: "/images/before-after/railing-after.webp",
   },
   {
     id: 5,
-    title: "계단 난간 오염 제거",
+    title: "계단 난간 아래",
     before: "/images/before-after/stair-railing-before.webp",
     after: "/images/before-after/stair-railing-after.webp",
   },
   {
     id: 6,
-    title: "샤워 수전 청소",
+    title: "샤워 수전",
     before: "/images/before-after/bathroom-shower-cleaning-before.webp",
     after: "/images/before-after/bathroom-shower-cleaning-after.webp",
   },
