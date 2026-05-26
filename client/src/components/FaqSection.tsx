@@ -15,7 +15,7 @@ const faqs = [
   {
     question: "엘리베이터 있는 건물은 추가금 있나요?",
     answer:
-      "아니요. 추가금 발생하지 않습니다. 이천계단지기는 계단뿐 아니라 공동현관, 복도, 엘리베이터 내부까지 함께 관리해드립니다. 공동현관 유리코팅 또한 포함입니다..",
+      "아니요. 추가금 발생하지 않습니다. 이천계단지기는 계단뿐 아니라 공동현관, 복도, 엘리베이터 내부까지 함께 관리해드립니다. 공동현관 유리코팅 또한 포함입니다.",
   },
   {
     question: "작업 전후 사진도 받을 수 있나요?",
@@ -39,9 +39,27 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
 export default function FaqSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="border-y border-blue-100 bg-gradient-to-b from-blue-50/45 via-white to-blue-50/25 py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       <div className="container max-w-5xl">
         <motion.div
           id="faq"
