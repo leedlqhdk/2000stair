@@ -14,6 +14,13 @@ type AreaTimelineProps = {
   emptyMessage?: string;
 };
 
+const nearbyAreaNames: Record<string, string[]> = {
+  majang: ["오천리", "관리리", "양촌사거리", "덕평리"],
+  daewol: ["사동리", "초지리", "장평리", "대대리"],
+  sindun: ["수광리", "도암리", "남정리", "지석리"],
+  downtown: ["관고동", "창전동", "증포동", "중리동"],
+};
+
 function getPostType(post: AreaPost) {
   if (post.workType) return post.workType.split(",")[0].trim();
   if (/견적/.test(post.title)) return "현장 견적";
@@ -48,6 +55,8 @@ export default function AreaTimeline({
   const filteredPosts = selectedFilter === "전체"
     ? posts
     : posts.filter((post) => getPostType(post) === selectedFilter);
+  const nearbyText = (nearbyAreaNames[areaSlug] ?? [areaName]).join(", ");
+  const displayAreaName = areaSlug === "downtown" && areaName === "시내권" ? "이천 시내권" : areaName;
 
   return (
     <section className="mb-12 md:mb-16">
@@ -172,12 +181,12 @@ export default function AreaTimeline({
             <Home className="h-7 w-7" />
           </div>
           <h3 className="text-lg font-extrabold leading-snug text-foreground">
-            {areaName} 전 지역
+            {displayAreaName} 전 지역
             <br />
             관리 가능합니다
           </h3>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
-            오천리, 관리리, 창전리, 덕평리 등 인근 건물도 상담 가능합니다.
+            {nearbyText} 등 인근 건물도 상담 가능합니다.
           </p>
           <a
             href="https://pf.kakao.com/_IiNfn/chat"
