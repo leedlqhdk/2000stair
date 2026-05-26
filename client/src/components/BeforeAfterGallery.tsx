@@ -104,7 +104,7 @@ export default function BeforeAfterGallery() {
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground">
             실제 작업 현장을 기반으로 촬영한 사진입니다.
-            관리 전후의 차이를 한눈에 확인해보세요.
+            
           </p>
         </motion.div>
 
