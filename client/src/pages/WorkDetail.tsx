@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { Link, useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, CalendarDays, ExternalLink, Images, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, CalendarDays, Images, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -79,6 +79,11 @@ function getIntroText(post: AreaPost, areaLabel: string) {
   return `${areaLabel} 현장에서 직접 확인한 상태를 기준으로 관리 범위를 정리한 작업 기록입니다.`;
 }
 
+function getBlogAreaLabel(post: AreaPost, areaLabel: string) {
+  const match = post.title.match(/[가-힣]+(?:동|면|읍|리|권)/);
+  return match?.[0] ?? areaLabel;
+}
+
 function WorkPhotoCollage({ images, title }: { images: string[]; title: string }) {
   const visibleImages = images.slice(0, 5);
 
@@ -139,6 +144,7 @@ export default function WorkDetail() {
   const images = post?.images?.length ? post.images : post ? [post.image] : [];
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
   const backHref = post?.area ? `/records?area=${post.area}` : "/records";
+  const blogAreaLabel = post ? getBlogAreaLabel(post, areaLabel) : areaLabel;
   const detailRows = post ? [
     ["지역", areaLabel],
     ["건물 유형", post.buildingType || getDefaultBuildingType(post.title)],
@@ -289,8 +295,10 @@ export default function WorkDetail() {
               <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1">
                 {post.blogUrl ? (
                   <a href={post.blogUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-primary">
-                    <ExternalLink className="mr-2 h-4 w-4" />
-                    {post.blogButtonLabel || "블로그 후기 보기"}
+                    <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-md bg-[#03c75a] text-[11px] font-black leading-none text-white">
+                      N
+                    </span>
+                    {post.blogButtonLabel || `${blogAreaLabel} 블로그 후기 보러가기`}
                   </a>
                 ) : null}
                 <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-primary">
