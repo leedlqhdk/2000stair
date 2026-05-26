@@ -20,11 +20,13 @@ export function useAreaPosts(area: string, fallbackPosts: AreaPost[]) {
   const query = useQuery({
     queryKey: ["area-posts", area],
     queryFn: async () => {
-      const response = await fetch(`/api/area-posts?area=${encodeURIComponent(area)}&limit=24`);
+      const response = await fetch(`/api/area-posts?area=${encodeURIComponent(area)}&limit=24`, { cache: "no-store" });
       if (!response.ok) return [];
       return (await response.json()) as AreaPost[];
     },
-    staleTime: 60_000,
+    staleTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
     retry: 1,
   });
 
