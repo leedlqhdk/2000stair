@@ -68,9 +68,9 @@ function applySeo({ title, description, canonical, keywords, jsonLd }: SeoProps)
   setJsonLd(jsonLd);
 }
 
-export default function Seo(props: SeoProps) {
+export default function Seo({ title, description, canonical, keywords, jsonLd }: SeoProps) {
   useEffect(() => {
-    applySeo(props);
+    applySeo({ title, description, canonical, keywords, jsonLd });
 
     return () => {
       applySeo({
@@ -81,7 +81,7 @@ export default function Seo(props: SeoProps) {
       });
       document.getElementById("route-seo-jsonld")?.remove();
     };
-  }, [props]);
+  }, [title, description, canonical, keywords, jsonLd]);
 
   return null;
 }
