@@ -1,4 +1,12 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+type ApiRequest = {
+  query: Record<string, string | string[] | undefined>;
+};
+
+type ApiResponse = {
+  setHeader: (name: string, value: string) => void;
+  status: (code: number) => ApiResponse;
+  json: (body: unknown) => void;
+};
 
 type NotionFile = {
   external?: { url?: string };
@@ -202,7 +210,7 @@ async function fetchAreaPostsFromNotion() {
   return posts;
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   try {
     const areaParam = Array.isArray(req.query.area) ? req.query.area[0] : req.query.area;
     const limitParam = Array.isArray(req.query.limit) ? req.query.limit[0] : req.query.limit;
