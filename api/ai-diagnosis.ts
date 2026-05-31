@@ -118,7 +118,7 @@ async function requestGemini(model: string, apiKey: string, prompt: string) {
       ],
       generationConfig: {
         temperature: 0.45,
-        maxOutputTokens: 320,
+        maxOutputTokens: 1024,
         responseMimeType: "application/json",
       },
     }),
