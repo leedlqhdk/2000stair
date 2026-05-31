@@ -20,10 +20,21 @@ type GeminiResponse = {
 };
 
 const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models";
-const DEFAULT_MODEL = "gemini-2.0-flash";
+const DEFAULT_MODEL = "gemini-2.5-flash";
+const LEGACY_FALLBACK_MODEL = "gemini-2.0-flash";
 
 function sanitize(value: unknown) {
   return typeof value === "string" ? value.slice(0, 80).trim() : "";
+}
+
+function getCandidateModels() {
+  return Array.from(
+    new Set(
+      [process.env.GEMINI_MODEL?.trim(), DEFAULT_MODEL, LEGACY_FALLBACK_MODEL].filter(
+        Boolean
+      ) as string[]
+    )
+  );
 }
 
 function extractJson(text: string) {
@@ -70,6 +81,43 @@ function fallbackResult(input: Required<DiagnosisInput>) {
   };
 }
 
+async function requestGemini(model: string, apiKey: string, prompt: string) {
+  const response = await fetch(`${GEMINI_ENDPOINT}/${model}:generateContent`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-goog-api-key": apiKey,
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: prompt }],
+        },
+      ],
+      generationConfig: {
+        temperature: 0.65,
+        maxOutputTokens: 420,
+        responseMimeType: "application/json",
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`${model} failed with ${response.status}: ${errorText}`);
+  }
+
+  const data = (await response.json()) as GeminiResponse;
+  const text =
+    data.candidates?.[0]?.content?.parts
+      ?.map((part) => part.text ?? "")
+      .join("")
+      .trim() ?? "";
+
+  return extractJson(text);
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -84,7 +132,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   };
 
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY;
-  const model = process.env.GEMINI_MODEL || DEFAULT_MODEL;
 
   if (!apiKey) {
     return res.status(200).json({
@@ -115,47 +162,28 @@ JSON 형식:
 }
 `;
 
-  try {
-    const response = await fetch(`${GEMINI_ENDPOINT}/${model}:generateContent`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey,
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: prompt }],
-          },
-        ],
-        generationConfig: {
-          temperature: 0.65,
-          maxOutputTokens: 420,
-          responseMimeType: "application/json",
-        },
-      }),
-    });
+  const baseFallback = fallbackResult(input);
+  let lastError: unknown;
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Gemini diagnosis error", response.status, errorText);
-      return res.status(200).json({ ...fallbackResult(input), source: "fallback" });
+  for (const model of getCandidateModels()) {
+    try {
+      const parsed = await requestGemini(model, apiKey, prompt);
+
+      return res.status(200).json({
+        title: sanitize(parsed.title) || baseFallback.title,
+        summary: sanitize(parsed.summary) || baseFallback.summary,
+        recommendation:
+          sanitize(parsed.recommendation) || baseFallback.recommendation,
+        cta: sanitize(parsed.cta) || baseFallback.cta,
+        source: "gemini",
+        model,
+      });
+    } catch (error) {
+      lastError = error;
+      console.error("Gemini diagnosis model failed", model, error);
     }
-
-    const data = (await response.json()) as GeminiResponse;
-    const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("").trim() ?? "";
-    const parsed = extractJson(text);
-
-    return res.status(200).json({
-      title: sanitize(parsed.title) || fallbackResult(input).title,
-      summary: sanitize(parsed.summary) || fallbackResult(input).summary,
-      recommendation: sanitize(parsed.recommendation) || fallbackResult(input).recommendation,
-      cta: sanitize(parsed.cta) || fallbackResult(input).cta,
-      source: "gemini",
-    });
-  } catch (error) {
-    console.error("AI diagnosis failed", error);
-    return res.status(200).json({ ...fallbackResult(input), source: "fallback" });
   }
+
+  console.error("AI diagnosis failed for all Gemini models", lastError);
+  return res.status(200).json({ ...baseFallback, source: "fallback" });
 }
