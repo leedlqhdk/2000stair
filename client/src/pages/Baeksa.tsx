@@ -90,26 +90,6 @@ export default function BaeksaAreaPage() {
           ))}
         </section>
 
-        <section className="mb-12 md:mb-16">
-          <div className="grid overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm md:grid-cols-[180px_minmax(0,1fr)]">
-            <div className="flex items-center justify-center bg-blue-50/70 p-6">
-              <img
-                src="/booboo.webp"
-                alt="이천계단지기 부부 캐릭터"
-                className="w-28 md:w-32"
-                loading="lazy"
-              />
-            </div>
-            <div className="p-6 md:p-8">
-              <p className="mb-2 text-sm font-extrabold text-primary">업데이트 중입니다</p>
-              <h2 className="mb-3 text-xl font-extrabold text-foreground md:text-2xl">백사면 작업 기록을 정리하고 있습니다</h2>
-              <p className="text-sm leading-7 text-muted-foreground">
-                백사면 작업 사진은 정리 후 순서대로 추가됩니다. 기록이 올라오기 전에도 건물 상태 사진을 보내주시면 관리 가능 범위와 견적을 먼저 안내드립니다.
-              </p>
-            </div>
-          </div>
-        </section>
-
         <AreaTimeline
           areaName="백사면"
           areaSlug="baeksa"
