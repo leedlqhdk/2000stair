@@ -4,7 +4,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import Seo from "./components/Seo";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { getSeoForPath } from "@/data/areaSeo";
 import Home from "./pages/Home";
 import MyQuotes from "./pages/MySubscription";
 import Blog from "./pages/Blog";
@@ -67,6 +69,15 @@ function ScrollToTop() {
   return null;
 }
 
+function RouteSeo() {
+  const [location] = useLocation();
+  const seo = getSeoForPath(location);
+
+  if (!seo) return null;
+
+  return <Seo {...seo} />;
+}
+
 function AreaNavbar() {
   const [location] = useLocation();
 
@@ -79,6 +90,7 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <RouteSeo />
       <AreaNavbar />
       <Switch>
         <Route path={"/"} component={Home} />
