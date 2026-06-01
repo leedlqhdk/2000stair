@@ -10,11 +10,13 @@ import { eq, desc } from "drizzle-orm";
 import { notifyOwner } from "./_core/notification";
 import { blogRouter } from "./routers/blog";
 import { areaPostsRouter } from "./routers/areaPosts";
+import { contentPostsRouter } from "./routers/contentPosts";
 
 export const appRouter = router({
   system: systemRouter,
   blog: blogRouter,
   areaPosts: areaPostsRouter,
+  contentPosts: contentPostsRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
