@@ -41,9 +41,9 @@ const RELEASE_NOTES = [
   },
   {
     date: "2026-06-01",
-    title: "운영·배포 상태 공개 준비",
-    summary: "외부에서 배포 SHA와 변경 이력을 볼 수 있도록 상태 노출 경로를 추가했습니다.",
-    commit: "pending-current",
+    title: "운영·배포 상태 공개",
+    summary: "외부에서 배포 SHA, 브랜치, 최근 반영한 변경 로그를 확인할 수 있는 공개 상태 API를 추가했습니다.",
+    commit: "f14dcf8368f6bc895bb7ac32a87ac32a54158e77",
   },
   {
     date: "2026-06-01",
@@ -193,10 +193,7 @@ function getPublicStatus() {
     },
     releaseNotes: RELEASE_NOTES.map((note) => ({
       ...note,
-      commitUrl:
-        note.commit === "pending-current"
-          ? null
-          : `${REPOSITORY_URL}/commit/${note.commit}`,
+      commitUrl: `${REPOSITORY_URL}/commit/${note.commit}`,
     })),
   };
 }
