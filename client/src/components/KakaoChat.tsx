@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
+const STAIR_BUILDING_TYPE = "빌라/상가 계단";
 
 type DiagnosisState = {
   buildingType: string;
@@ -21,17 +22,17 @@ type DiagnosisResult = {
 };
 
 const initialDiagnosis: DiagnosisState = {
-  buildingType: "빌라",
-  floors: "3~4층",
+  buildingType: STAIR_BUILDING_TYPE,
+  floors: "2~3층",
   pollution: "보통",
-  cycle: "아직 모르겠음",
+  cycle: "월 4회",
 };
 
 const options = {
-  buildingType: ["빌라", "원룸", "상가", "사무실"],
-  floors: ["2층 이하", "3~4층", "5층 이상"],
+  buildingType: [STAIR_BUILDING_TYPE, "유리청소", "화장실청소", "사무실청소"],
+  floors: ["2~3층", "4층", "5~6층"],
   pollution: ["깨끗한 편", "보통", "오염 심함"],
-  cycle: ["주 1회", "주 2회", "월 관리", "아직 모르겠음"],
+  cycle: ["월 2회", "월 4회", "상담 후 결정"],
 };
 
 const expandedButtonClass = "w-[102px] px-2 md:w-[168px] md:px-5";
@@ -74,9 +75,14 @@ export default function KakaoChat() {
   const buttonWidthClass = isScrolling ? collapsedButtonClass : expandedButtonClass;
   const buttonTextClass = isScrolling ? collapsedTextClass : expandedTextClass;
   const buttonGapClass = isScrolling ? "gap-0" : "gap-1 md:gap-2";
+  const isStairCleaning = diagnosis.buildingType === STAIR_BUILDING_TYPE;
 
   const handleChange = (key: keyof DiagnosisState, value: string) => {
-    setDiagnosis((prev) => ({ ...prev, [key]: value }));
+    setDiagnosis((prev) => ({
+      ...prev,
+      [key]: value,
+      ...(key === "buildingType" && value === STAIR_BUILDING_TYPE && !prev.floors ? { floors: "2~3층" } : {}),
+    }));
     setResult(null);
     setErrorMessage("");
   };
@@ -163,7 +169,7 @@ export default function KakaoChat() {
                   우리 건물 관리 진단
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-slate-600">
-                  조건을 선택하면 AI가 건물 상태를 분석해 맞춤 안내 문장을 만들어드려요.
+                  조건을 선택하면 AI가 가격표 기준 예상 비용과 상담 방향을 함께 안내해드려요.
                 </p>
               </div>
               <button
@@ -178,9 +184,15 @@ export default function KakaoChat() {
 
             <div className="grid gap-4">
               <DiagnosisSelect label="건물 유형" value={diagnosis.buildingType} items={options.buildingType} onChange={(value) => handleChange("buildingType", value)} />
-              <DiagnosisSelect label="층수" value={diagnosis.floors} items={options.floors} onChange={(value) => handleChange("floors", value)} />
+              {isStairCleaning ? (
+                <DiagnosisSelect label="계단 층수" value={diagnosis.floors} items={options.floors} onChange={(value) => handleChange("floors", value)} />
+              ) : (
+                <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold leading-6 text-slate-600 ring-1 ring-slate-200">
+                  유리청소, 화장실청소, 사무실청소는 현장 사진 확인 후 별도 안내해드려요.
+                </div>
+              )}
               <DiagnosisSelect label="현재 오염 상태" value={diagnosis.pollution} items={options.pollution} onChange={(value) => handleChange("pollution", value)} />
-              <DiagnosisSelect label="원하는 관리 주기" value={diagnosis.cycle} items={options.cycle} onChange={(value) => handleChange("cycle", value)} />
+              <DiagnosisSelect label="원하는 관리주기" value={diagnosis.cycle} items={options.cycle} onChange={(value) => handleChange("cycle", value)} />
             </div>
 
             <button
