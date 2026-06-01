@@ -46,7 +46,8 @@ type ContentPost = {
   date: string;
 };
 
-const DEFAULT_CONTENT_DATABASE_ID = "ebe89083-37af-41fb-b28a-ba2c4722b0dd";
+const DEFAULT_CONTENT_DATA_SOURCE_ID = "826b94c2-dd83-4f89-a118-6f07ced2ff3e";
+const NOTION_VERSION = "2025-09-03";
 const PROPERTY_NAMES = {
   title: ["제목", "글 제목", "작업명", "이름", "Name", "Title"],
   summary: ["카드설명", "요약", "설명", "Description", "Summary"],
@@ -102,7 +103,7 @@ function normalizeDate(value: string) {
 
 function isTruthy(value: string) {
   const normalized = value.trim().toLowerCase();
-  return !["false", "비공개", "draft", "hidden", "no", "0", "아니오"].includes(normalized);
+  return !["false", "비공개", "draft", "hidden", "no", "0", "아니오", "__no__"].includes(normalized);
 }
 
 function isPublished(properties: Record<string, NotionProperty | undefined>) {
@@ -136,20 +137,21 @@ function parsePage(page: NotionPage): ContentPost | null {
 
 async function fetchContentPostsFromNotion() {
   const token = process.env.NOTION_API_KEY || process.env.NOTION_TOKEN;
-  const databaseId =
+  const dataSourceId =
+    process.env.NOTION_CONTENT_DATA_SOURCE_ID ||
     process.env.NOTION_CONTENT_DATABASE_ID ||
     process.env.NOTION_BLOG_DATABASE_ID ||
-    DEFAULT_CONTENT_DATABASE_ID;
+    DEFAULT_CONTENT_DATA_SOURCE_ID;
 
-  if (!token || !databaseId) return [];
+  if (!token || !dataSourceId) return [];
   if (cache && Date.now() - cache.fetchedAt < CACHE_TTL_MS) return cache.posts;
 
-  const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+  const response = await fetch(`https://api.notion.com/v1/data_sources/${dataSourceId}/query`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-      "Notion-Version": "2022-06-28",
+      "Notion-Version": NOTION_VERSION,
     },
     body: JSON.stringify({ page_size: 100 }),
   });
