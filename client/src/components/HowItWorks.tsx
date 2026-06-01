@@ -30,7 +30,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-16 md:py-24 bg-white">
+    <section id="how-it-works" className="bg-white py-16 md:py-24">
       <div className="container max-w-4xl">
         <motion.div
           className="mx-auto mb-10 max-w-2xl text-center md:mb-12"
@@ -63,27 +63,27 @@ export default function HowItWorks() {
             {steps.map((step, index) => (
               <div key={step.number}>
                 <motion.div
-                  className="flex min-h-[6.25rem] items-center rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:min-h-[6.5rem] sm:p-5"
+                  className="flex min-h-[6.25rem] items-center rounded-[1.75rem] border border-slate-800/70 bg-[radial-gradient(circle_at_top,_rgba(41,93,167,0.2),_transparent_42%),linear-gradient(180deg,_rgba(12,19,31,0.98),_rgba(9,14,24,0.96))] p-4 shadow-[0_22px_60px_rgba(8,12,20,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-700/80 hover:shadow-[0_26px_70px_rgba(8,12,20,0.24)] sm:min-h-[6.5rem] sm:p-5"
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.08 }}
                 >
                   <div className="flex w-full items-center gap-3 sm:gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 sm:h-12 sm:w-12">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/[0.05] text-white ring-1 ring-white/10 sm:h-12 sm:w-12">
                       <step.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
 
                     <div className="flex min-w-0 flex-1 items-start gap-3 sm:gap-4">
-                      <span className="mt-0.5 text-xs font-extrabold text-primary sm:text-sm">
+                      <span className="mt-0.5 text-xs font-extrabold tracking-[0.18em] text-sky-200/90 sm:text-sm">
                         {step.number}
                       </span>
 
                       <div className="min-w-0">
-                        <h3 className="mb-1 text-base font-extrabold text-foreground sm:text-lg">
+                        <h3 className="mb-1 text-base font-extrabold text-white sm:text-lg">
                           {step.title}
                         </h3>
-                        <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                        <p className="text-sm leading-relaxed text-white/68 sm:text-base">
                           {step.text}
                         </p>
                       </div>
