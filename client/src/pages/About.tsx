@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { trpc } from "@/lib/trpc";
 
 const values = [
   {
@@ -20,7 +20,14 @@ const values = [
   },
 ];
 
-const fallbackInfoPosts = [
+type InfoPost = {
+  id: string;
+  title: string;
+  image: string;
+  url: string;
+};
+
+const fallbackInfoPosts: InfoPost[] = [
   {
     id: "naver-guide-1",
     title: "이천 빌라 계단청소 업체 선택 시 꼭 확인해야 할 점",
@@ -30,12 +37,30 @@ const fallbackInfoPosts = [
 ];
 
 export default function About() {
-  const featuredInfoPosts = trpc.contentPosts.featured.useQuery({
-    contentType: "정보성",
-    limit: 3,
-  });
+  const [infoPosts, setInfoPosts] = useState<InfoPost[]>(fallbackInfoPosts);
 
-  const infoPosts = featuredInfoPosts.data?.length ? featuredInfoPosts.data : fallbackInfoPosts;
+  useEffect(() => {
+    let active = true;
+
+    fetch("/api/content-posts?contentType=정보성&limit=3")
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`Failed to load posts: ${response.status}`);
+        return response.json() as Promise<{ posts?: InfoPost[] }>;
+      })
+      .then((data) => {
+        if (!active) return;
+        if (data.posts?.length) {
+          setInfoPosts(data.posts);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to load featured info posts", error);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
