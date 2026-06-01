@@ -9,6 +9,22 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { registerStripeWebhook } from "../stripe";
 
+const CANONICAL_HOST = "2000stair.kr";
+const LEGACY_HOSTS = new Set(["2000stair.click", "www.2000stair.click", "www.2000stair.kr"]);
+
+function getRequestHost(req: express.Request) {
+  const forwardedHost = req.headers["x-forwarded-host"];
+  const hostHeader = Array.isArray(forwardedHost)
+    ? forwardedHost[0]
+    : forwardedHost ?? req.headers.host ?? "";
+
+  return hostHeader.split(",")[0]?.trim().split(":")[0]?.toLowerCase() ?? "";
+}
+
+function buildCanonicalUrl(req: express.Request) {
+  return `https://${CANONICAL_HOST}${req.originalUrl}`;
+}
+
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
     const server = net.createServer();
@@ -36,6 +52,20 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  app.set("trust proxy", true);
+  app.use((req, res, next) => {
+    const host = getRequestHost(req);
+
+    if (!host) {
+      return next();
+    }
+
+    if (LEGACY_HOSTS.has(host) || (host === CANONICAL_HOST && req.protocol !== "https")) {
+      return res.redirect(301, buildCanonicalUrl(req));
+    }
+
+    return next();
+  });
   registerOAuthRoutes(app);
   // tRPC API
   app.use(
