@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowLeft, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, Mail, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -174,24 +174,31 @@ export default function About() {
               계단, 복도, 공동현관 사진을 보내주시면 관리 가능 범위와 상담을 안내드릴게요.
             </p>
 
-            <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
+            <div className="mx-auto max-w-xl">
               <a
                 href="https://pf.kakao.com/_IiNfn/chat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
               >
                 <MessageCircle className="mr-2 h-4 w-4" />
-                카카오톡 문의하기
+                카카오톡으로 사진 보내기
               </a>
 
-              <a
-                href="tel:01084381887"
-                className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50"
-              >
-                <Phone className="mr-2 h-4 w-4" />
-                전화 문의하기
-              </a>
+              <div className="mt-5 grid gap-3 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 text-left sm:grid-cols-3">
+                <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-white px-4 py-3 transition hover:border-primary/20 hover:bg-white">
+                  <strong className="block text-sm text-foreground">카톡 상담</strong>
+                  <span className="text-xs text-muted-foreground">사진 보내면 빠르게 답변</span>
+                </a>
+                <a href="tel:01084381887" className="rounded-xl bg-white px-4 py-3 transition hover:border-primary/20 hover:bg-white">
+                  <strong className="block text-sm text-foreground">전화 문의</strong>
+                  <span className="text-xs text-muted-foreground">010-8438-1887</span>
+                </a>
+                <a href="mailto:rbska3308@naver.com" className="rounded-xl bg-white px-4 py-3 transition hover:border-primary/20 hover:bg-white">
+                  <strong className="block text-sm text-foreground">이메일</strong>
+                  <span className="text-xs text-muted-foreground">rbska3308@naver.com</span>
+                </a>
+              </div>
             </div>
           </section>
         </section>
