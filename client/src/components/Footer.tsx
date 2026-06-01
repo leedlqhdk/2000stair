@@ -100,13 +100,41 @@ function MobileLinkGroup({
 }
 
 function ContactCard({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    return (
+      <div className="rounded-[1.75rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(41,93,167,0.18),_transparent_42%),linear-gradient(180deg,_rgba(12,19,31,0.98),_rgba(9,14,24,0.96))] p-5 shadow-[0_28px_80px_rgba(0,0,0,0.28)]">
+        <h4 className="text-2xl font-extrabold tracking-tight text-white">Contact</h4>
+
+        <div className="mt-5 border-t border-white/10">
+          {contactItems.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                className={`flex items-center gap-4 py-5 transition-colors hover:text-white/90 ${
+                  index !== contactItems.length - 1 ? "border-b border-white/10" : ""
+                }`}
+                {...linkTarget(item.external)}
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] ring-1 ring-white/8">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[1.08rem] font-extrabold text-white">{item.label}</p>
+                  <p className="mt-1 text-base leading-6 text-white/58">{item.value}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={`rounded-[1.75rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(41,93,167,0.18),_transparent_42%),linear-gradient(180deg,_rgba(12,19,31,0.98),_rgba(9,14,24,0.96))] shadow-[0_28px_80px_rgba(0,0,0,0.28)] ${compact ? "p-5" : "p-7"}`}
-    >
-      <h4 className={`${compact ? "text-2xl" : "text-[2rem]"} font-extrabold tracking-tight text-white`}>
-        Contact
-      </h4>
+    <div>
+      <h4 className="text-[2rem] font-extrabold tracking-tight text-white">Contact</h4>
 
       <div className="mt-5 border-t border-white/10">
         {contactItems.map((item, index) => {
@@ -120,11 +148,11 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
               }`}
               {...linkTarget(item.external)}
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] ring-1 ring-white/8">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] text-white ring-1 ring-white/8">
                 <Icon className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <p className="text-[1.08rem] font-extrabold text-white">{item.label}</p>
+                <p className="text-[1.05rem] font-extrabold text-white">{item.label}</p>
                 <p className="mt-1 text-base leading-6 text-white/58">{item.value}</p>
               </div>
             </a>
