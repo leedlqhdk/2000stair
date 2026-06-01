@@ -215,17 +215,17 @@ export default function About() {
                   href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative block overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-sm"
+                  className="group relative mx-auto block w-full max-w-[360px] overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-sm"
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: index * 0.08 }}
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden bg-slate-100">
+                  <div className="relative aspect-square overflow-hidden bg-slate-100">
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/58 via-slate-900/12 to-transparent transition-all duration-300 group-hover:from-primary/68 group-hover:via-primary/24 group-hover:to-sky-100/12" />
