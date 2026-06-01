@@ -43,15 +43,17 @@ export type ContentPost = {
 };
 
 const PROPERTY_NAMES = {
-  title: ["제목", "작업명", "이름", "Name", "Title"],
+  title: ["제목", "글 제목", "작업명", "이름", "Name", "Title"],
   summary: ["카드설명", "요약", "설명", "Description", "Summary"],
   contentType: ["콘텐츠유형", "유형", "Type", "Category"],
   published: ["공개", "게시", "공개여부", "Published", "Public"],
   homepage: ["홈페이지노출", "메인노출", "홈노출", "Featured", "Homepage"],
   sourceUrl: ["원문링크", "블로그링크", "링크", "URL", "Source URL"],
   image: ["대표사진", "대표 이미지", "썸네일", "Thumbnail", "Image", "Images", "Photo"],
-  date: ["작성일", "날짜", "Date", "Created"],
+  date: ["작성일", "게시 예정일", "날짜", "Date", "Created"],
 } as const;
+
+const DEFAULT_CONTENT_DATABASE_ID = "ebe89083-37af-41fb-b28a-ba2c4722b0dd";
 
 let cache: { fetchedAt: number; posts: ContentPost[] } | null = null;
 const CACHE_TTL_MS = 60_000;
@@ -148,7 +150,10 @@ function parsePage(page: NotionPage): ContentPost | null {
 
 export async function fetchContentPostsFromNotion() {
   const token = process.env.NOTION_API_KEY || process.env.NOTION_TOKEN;
-  const databaseId = process.env.NOTION_AREA_DATABASE_ID;
+  const databaseId =
+    process.env.NOTION_CONTENT_DATABASE_ID ||
+    process.env.NOTION_BLOG_DATABASE_ID ||
+    DEFAULT_CONTENT_DATABASE_ID;
 
   if (!token || !databaseId) return [];
   if (cache && Date.now() - cache.fetchedAt < CACHE_TTL_MS) return cache.posts;
