@@ -18,6 +18,7 @@ const serviceLinks = [
 
 const archiveLinks = [
   { href: "/areas", label: "관리 가능 지역" },
+  { href: "/ops", label: "운영 · 배포 상태" },
   {
     href: "https://blog.naver.com/icheonstair",
     label: "네이버 블로그",
@@ -40,6 +41,28 @@ const socialLinks = [
     href: "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
     label: "YouTube",
     icon: Youtube,
+  },
+];
+
+const contactItems = [
+  {
+    href: "https://pf.kakao.com/_IiNfn/chat",
+    label: "카카오톡 상담",
+    value: "사진 보내주시면 빠르게 답변드려요",
+    icon: MessageCircle,
+    external: true,
+  },
+  {
+    href: "tel:01084381887",
+    label: "전화 문의",
+    value: "010-8438-1887",
+    icon: Phone,
+  },
+  {
+    href: "mailto:rbska3308@naver.com",
+    label: "이메일",
+    value: "rbska3308@naver.com",
+    icon: Mail,
   },
 ];
 
@@ -120,37 +143,43 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-2">
-            <a
-              href="tel:01084381887"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-3 text-sm font-extrabold text-white shadow-sm transition-colors hover:bg-primary/90"
-            >
-              <Phone className="h-4 w-4" />
-              전화 문의
-            </a>
-            <a
-              href="https://pf.kakao.com/_IiNfn/chat"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[#FEE500] px-3 text-sm font-extrabold text-[#191919] shadow-sm transition-colors hover:bg-[#F4DC00]"
-            >
-              <MessageCircle className="h-4 w-4" />
-              카톡 상담
-            </a>
-          </div>
+          <a
+            href="https://pf.kakao.com/_IiNfn/chat"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-sm transition-colors hover:bg-[#F4DC00]"
+          >
+            <MessageCircle className="h-4 w-4" />
+            카톡 상담을 먼저 시작하기
+          </a>
 
-          <div className="mt-5 rounded-xl bg-white/[0.06] px-4 py-3 text-sm leading-6 text-white/65">
-            <a href="tel:01084381887" className="flex items-center gap-2 hover:text-white">
-              <Phone className="h-3.5 w-3.5" />
-              010-8438-1887
-            </a>
-            <a href="mailto:rbska3308@naver.com" className="mt-1.5 flex items-center gap-2 hover:text-white">
-              <Mail className="h-3.5 w-3.5" />
-              rbska3308@naver.com
-            </a>
-            <div className="mt-1.5 flex items-start gap-2">
-              <MapPin className="mt-1 h-3.5 w-3.5 shrink-0" />
-              <span>경기도 이천시 경충대로3160번길 21</span>
+          <div className="mt-5 rounded-xl bg-white/[0.06] px-4 py-3 text-sm text-white/68">
+            <p className="mb-3 text-xs font-extrabold tracking-[0.18em] text-white/45">CONTACT</p>
+            <div className="space-y-3">
+              {contactItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-start gap-2.5 hover:text-white"
+                    {...linkTarget(item.external)}
+                  >
+                    <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                    <span>
+                      <strong className="block text-white">{item.label}</strong>
+                      <span>{item.value}</span>
+                    </span>
+                  </a>
+                );
+              })}
+              <div className="flex items-start gap-2.5">
+                <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                <span>
+                  <strong className="block text-white">방문 주소</strong>
+                  <span>경기도 이천시 경충대로3160번길 21</span>
+                </span>
+              </div>
             </div>
           </div>
 
@@ -165,7 +194,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="hidden md:grid lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr] gap-10 lg:gap-14">
+        <div className="hidden md:grid lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.95fr] gap-10 lg:gap-14">
           <div>
             <a href="/" className="inline-flex items-center mb-5 group" aria-label="이천계단지기 홈으로 이동">
               <img
@@ -180,22 +209,6 @@ export default function Footer() {
             </p>
 
             <div className="space-y-2.5 text-sm text-white/60">
-              <a
-                href="tel:01084381887"
-                className="flex items-center gap-2 hover:text-white transition-colors"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                010-8438-1887
-              </a>
-
-              <a
-                href="mailto:rbska3308@naver.com"
-                className="flex items-center gap-2 hover:text-white transition-colors"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                rbska3308@naver.com
-              </a>
-
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5" />
                 경기도 이천시 경충대로3160번길 21
@@ -240,11 +253,33 @@ export default function Footer() {
                 href="https://pf.kakao.com/_IiNfn/chat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white text-foreground px-4 py-3 text-sm font-bold hover:bg-white/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FEE500] px-4 py-3 text-sm font-bold text-[#191919] transition-colors hover:bg-[#F4DC00]"
               >
                 <MessageCircle className="w-4 h-4" />
-                카톡 상담
+                카톡 상담을 먼저 시작하기
               </a>
+
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <div className="space-y-3 text-sm text-white/68">
+                  {contactItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="flex items-start gap-2.5 hover:text-white transition-colors"
+                        {...linkTarget(item.external)}
+                      >
+                        <Icon className="mt-0.5 h-4 w-4 shrink-0" />
+                        <span>
+                          <strong className="block text-white">{item.label}</strong>
+                          <span>{item.value}</span>
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
 
               <div className="flex gap-2">
                 {socialLinks.map((social) => {
