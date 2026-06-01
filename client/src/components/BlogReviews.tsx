@@ -11,6 +11,9 @@ const reviewCards = [
     detail: "신둔면 · 네이버 플레이스",
     button: "리뷰 보러가기",
     url: "https://naver.me/xmB4q3oq",
+    gradientClass:
+      "bg-[radial-gradient(circle_at_top_left,_rgba(196,255,214,0.9),_transparent_34%),linear-gradient(180deg,_#f8fff9,_#eefaf2)]",
+    ringClass: "border-emerald-100/80 hover:border-emerald-200",
   },
   {
     platform: "숨고 리뷰",
@@ -20,6 +23,9 @@ const reviewCards = [
     detail: "마장면 · 숨고",
     button: "리뷰 보러가기",
     url: "https://soomgo.com/profile/users/3729049",
+    gradientClass:
+      "bg-[radial-gradient(circle_at_top_left,_rgba(218,210,255,0.92),_transparent_34%),linear-gradient(180deg,_#fbfaff,_#f2efff)]",
+    ringClass: "border-indigo-100/80 hover:border-indigo-200",
   },
   {
     platform: "당근 후기",
@@ -29,6 +35,9 @@ const reviewCards = [
     detail: "동네 주민 후기 · 당근",
     button: "후기 보러가기",
     url: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
+    gradientClass:
+      "bg-[radial-gradient(circle_at_top_left,_rgba(255,224,194,0.92),_transparent_34%),linear-gradient(180deg,_#fffaf4,_#fff1e5)]",
+    ringClass: "border-orange-100/80 hover:border-orange-200",
   },
 ];
 
@@ -104,11 +113,13 @@ export default function BlogReviews() {
                   className="group block h-full"
                   aria-label={review.platform}
                 >
-                  <Card className="h-full rounded-lg border-blue-50 bg-white shadow-[0_8px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-                    <CardContent className="flex h-full flex-col p-5">
+                  <Card
+                    className={`h-full rounded-[1.4rem] border shadow-[0_10px_26px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(15,23,42,0.08)] ${review.gradientClass} ${review.ringClass}`}
+                  >
+                    <CardContent className="flex h-full flex-col p-5 md:p-6">
                       <div className="mb-3 flex items-center">
                         <span
-                          className={`flex h-7 w-7 shrink-0 items-center justify-center text-xs font-black leading-none ${review.logoClass}`}
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center text-xs font-black leading-none shadow-sm ${review.logoClass}`}
                         >
                           {review.mark}
                         </span>
@@ -127,7 +138,7 @@ export default function BlogReviews() {
                         {review.quote}
                       </p>
 
-                      <p className="mt-5 text-xs font-medium text-muted-foreground">
+                      <p className="mt-5 text-xs font-medium text-slate-500">
                         {review.detail}
                       </p>
                     </CardContent>
