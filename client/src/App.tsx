@@ -26,6 +26,7 @@ import Bubal from "@/pages/Bubal";
 import Baeksa from "@/pages/Baeksa";
 import About from "@/pages/About";
 import Qna from "@/pages/Qna";
+import OpsStatus from "@/pages/OpsStatus";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -96,6 +97,7 @@ function Router() {
         <Route path={"/"} component={Home} />
         <Route path="/about" component={About} />
         <Route path="/qna" component={Qna} />
+        <Route path="/ops" component={OpsStatus} />
         <Route path="/my-quotes" component={MyQuotes} />
         <Route path="/blog" component={Records} />
         <Route path="/records" component={Records} />
