@@ -47,8 +47,8 @@ const socialLinks = [
 const contactItems = [
   {
     href: "https://pf.kakao.com/_IiNfn/chat",
-    label: "카카오톡 상담",
-    value: "사진 보내주시면 빠르게 답변드려요",
+    label: "카톡 상담",
+    value: "카톡 상담을 먼저 시작하기",
     icon: MessageCircle,
     external: true,
   },
@@ -99,9 +99,45 @@ function MobileLinkGroup({
   );
 }
 
+function ContactCard({ compact = false }: { compact?: boolean }) {
+  return (
+    <div
+      className={`rounded-[1.75rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(41,93,167,0.18),_transparent_42%),linear-gradient(180deg,_rgba(12,19,31,0.98),_rgba(9,14,24,0.96))] shadow-[0_28px_80px_rgba(0,0,0,0.28)] ${compact ? "p-5" : "p-7"}`}
+    >
+      <h4 className={`${compact ? "text-2xl" : "text-[2rem]"} font-extrabold tracking-tight text-white`}>
+        Contact
+      </h4>
+
+      <div className="mt-5 border-t border-white/10">
+        {contactItems.map((item, index) => {
+          const Icon = item.icon;
+          return (
+            <a
+              key={item.label}
+              href={item.href}
+              className={`flex items-center gap-4 py-5 transition-colors hover:text-white/90 ${
+                index !== contactItems.length - 1 ? "border-b border-white/10" : ""
+              }`}
+              {...linkTarget(item.external)}
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] ring-1 ring-white/8">
+                <Icon className="h-5 w-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[1.08rem] font-extrabold text-white">{item.label}</p>
+                <p className="mt-1 text-base leading-6 text-white/58">{item.value}</p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="bg-foreground text-white py-10 md:py-20">
+    <footer className="bg-foreground py-10 text-white md:py-20">
       <motion.div
         className="container max-w-7xl"
         initial={{ opacity: 0, y: 34 }}
@@ -143,43 +179,17 @@ export default function Footer() {
             </div>
           </div>
 
-          <a
-            href="https://pf.kakao.com/_IiNfn/chat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-sm transition-colors hover:bg-[#F4DC00]"
-          >
-            <MessageCircle className="h-4 w-4" />
-            카톡 상담을 먼저 시작하기
-          </a>
+          <div className="mt-6">
+            <ContactCard compact />
+          </div>
 
-          <div className="mt-5 rounded-xl bg-white/[0.06] px-4 py-3 text-sm text-white/68">
-            <p className="mb-3 text-xs font-extrabold tracking-[0.18em] text-white/45">CONTACT</p>
-            <div className="space-y-3">
-              {contactItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="flex items-start gap-2.5 hover:text-white"
-                    {...linkTarget(item.external)}
-                  >
-                    <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                    <span>
-                      <strong className="block text-white">{item.label}</strong>
-                      <span>{item.value}</span>
-                    </span>
-                  </a>
-                );
-              })}
-              <div className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                <span>
-                  <strong className="block text-white">방문 주소</strong>
-                  <span>경기도 이천시 경충대로3160번길 21</span>
-                </span>
-              </div>
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/68">
+            <div className="flex items-start gap-2.5">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/72" />
+              <span>
+                <strong className="block text-white">방문 주소</strong>
+                <span>경기도 이천시 경충대로3160번길 21</span>
+              </span>
             </div>
           </div>
 
@@ -194,34 +204,34 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="hidden md:grid lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.95fr] gap-10 lg:gap-14">
+        <div className="hidden gap-10 md:grid lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.05fr] lg:gap-14">
           <div>
-            <a href="/" className="inline-flex items-center mb-5 group" aria-label="이천계단지기 홈으로 이동">
+            <a href="/" className="group mb-5 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
               <img
                 src="/images/icheon-logo-white.png"
                 alt="이천계단지기"
-                className="h-10 md:h-11 w-auto max-w-[220px] object-contain"
+                className="h-10 w-auto max-w-[220px] object-contain md:h-11"
               />
             </a>
 
-            <p className="text-white/65 text-sm leading-relaxed max-w-sm mb-6">
+            <p className="mb-6 max-w-sm text-sm leading-relaxed text-white/65">
               이천 빌라·상가 공용공간을 부부가 직접 관리합니다.
             </p>
 
             <div className="space-y-2.5 text-sm text-white/60">
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5" />
+                <MapPin className="h-3.5 w-3.5" />
                 경기도 이천시 경충대로3160번길 21
               </div>
             </div>
           </div>
 
           <div>
-            <h4 className="font-bold mb-4 text-white">Service</h4>
+            <h4 className="mb-4 font-bold text-white">Service</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-white transition-colors">
+                  <a href={link.href} className="transition-colors hover:text-white">
                     {link.label}
                   </a>
                 </li>
@@ -230,13 +240,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold mb-4 text-white">Archive</h4>
+            <h4 className="mb-4 font-bold text-white">Archive</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               {archiveLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="hover:text-white transition-colors"
+                    className="transition-colors hover:text-white"
                     {...linkTarget(link.external)}
                   >
                     {link.label}
@@ -246,73 +256,40 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-bold mb-4 text-white">Contact</h4>
-            <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
+            <ContactCard />
+
+            <div className="flex gap-2">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-white/15"
+                    aria-label={social.label}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
+
               <a
-                href="https://pf.kakao.com/_IiNfn/chat"
+                href="https://blog.naver.com/icheonstair"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FEE500] px-4 py-3 text-sm font-bold text-[#191919] transition-colors hover:bg-[#F4DC00]"
+                className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-xs font-bold transition-colors hover:bg-white/15"
+                aria-label="Naver Blog"
               >
-                <MessageCircle className="w-4 h-4" />
-                카톡 상담을 먼저 시작하기
+                B
               </a>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <div className="space-y-3 text-sm text-white/68">
-                  {contactItems.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        className="flex items-start gap-2.5 hover:text-white transition-colors"
-                        {...linkTarget(item.external)}
-                      >
-                        <Icon className="mt-0.5 h-4 w-4 shrink-0" />
-                        <span>
-                          <strong className="block text-white">{item.label}</strong>
-                          <span>{item.value}</span>
-                        </span>
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.href}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-11 h-11 rounded-xl bg-white/10 hover:bg-white/15 flex items-center justify-center transition-colors"
-                      aria-label={social.label}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </a>
-                  );
-                })}
-
-                <a
-                  href="https://blog.naver.com/icheonstair"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-11 h-11 rounded-xl bg-white/10 hover:bg-white/15 flex items-center justify-center text-xs font-bold transition-colors"
-                  aria-label="Naver Blog"
-                >
-                  B
-                </a>
-              </div>
             </div>
           </div>
         </div>
 
-        <div className="hidden border-t border-white/10 mt-12 pt-8 md:flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+        <div className="mt-12 hidden flex-col items-start justify-between gap-3 border-t border-white/10 pt-8 md:flex md:flex-row md:items-center">
           <p className="text-sm text-white/45">
             © {new Date().getFullYear()} 이천계단지기. All rights reserved.
           </p>
