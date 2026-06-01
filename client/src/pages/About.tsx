@@ -216,10 +216,9 @@ export default function About() {
                       className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/58 via-slate-900/12 to-transparent transition-all duration-300 group-hover:from-primary/68 group-hover:via-primary/24 group-hover:to-sky-100/12"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 p-5">
-                      <p className="text-base font-extrabold leading-snug text-white opacity-100 transition-all duration-300 md:translate-y-3 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
+                    <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary/88" />
+                    <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+                      <p className="max-w-[15rem] text-lg font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-2xl">
                         {post.title}
                       </p>
                     </div>
