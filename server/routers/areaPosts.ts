@@ -32,7 +32,7 @@ type NotionPage = {
   properties: Record<string, NotionProperty | undefined>;
 };
 
-type AreaPost = {
+export type AreaPost = {
   id: string;
   title: string;
   area: string;
@@ -145,7 +145,7 @@ function parsePage(page: NotionPage): AreaPost | null {
   };
 }
 
-async function fetchAreaPostsFromNotion() {
+export async function fetchAreaPostsFromNotion() {
   const token = process.env.NOTION_API_KEY || process.env.NOTION_TOKEN;
   const databaseId = process.env.NOTION_AREA_DATABASE_ID;
 
