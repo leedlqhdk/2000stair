@@ -119,7 +119,7 @@ export default function BlogReviews() {
                     <CardContent className="flex h-full flex-col p-5 md:p-6">
                       <div className="mb-3 flex items-center">
                         <span
-                          className={`flex h-8 w-8 shrink-0 items-center justify-center text-xs font-black leading-none shadow-sm ${review.logoClass}`}
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center text-sm font-black leading-none shadow-[0_10px_18px_rgba(15,23,42,0.12)] ring-1 ring-white/80 ${review.logoClass}`}
                         >
                           {review.mark}
                         </span>
