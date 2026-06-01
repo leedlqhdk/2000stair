@@ -1,8 +1,9 @@
 import { Link } from "wouter";
-import { ArrowLeft, ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { trpc } from "@/lib/trpc";
 
 const values = [
   {
@@ -19,25 +20,35 @@ const values = [
   },
 ];
 
-const infoPosts = [
+const fallbackInfoPosts = [
   {
+    id: "naver-guide-1",
     title: "이천 빌라 계단청소 업체 선택 시 꼭 확인해야 할 점",
     image: "/images/blog-banner-main.png",
-    href: "https://blog.naver.com/icheonstair/224302652052",
+    url: "https://blog.naver.com/icheonstair/224302652052",
   },
   {
+    id: "naver-guide-2",
     title: "이천 계단청소 정기관리, 월 2회와 월 4회는 어떻게 다를까",
     image: "/images/areas/downtown/downtown-1.jpg",
-    href: "https://blog.naver.com/icheonstair",
+    url: "https://blog.naver.com/icheonstair",
   },
   {
+    id: "naver-guide-3",
     title: "이천 공용계단 청소 문의 전 사진 상담으로 먼저 확인하는 이유",
     image: "/images/areas/downtown/downtown-2.jpg",
-    href: "https://blog.naver.com/icheonstair",
+    url: "https://blog.naver.com/icheonstair",
   },
 ];
 
 export default function About() {
+  const featuredInfoPosts = trpc.contentPosts.featured.useQuery({
+    contentType: "정보성",
+    limit: 3,
+  });
+
+  const infoPosts = featuredInfoPosts.data?.length ? featuredInfoPosts.data : fallbackInfoPosts;
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <Navbar />
@@ -176,32 +187,32 @@ export default function About() {
             </div>
           </section>
 
-          <section className="mb-14 md:mb-20">
-            <div className="mb-6 flex items-end justify-between gap-4">
-              <div>
-                <p className="mb-2 text-sm font-extrabold text-primary">
-                  GUIDE CONTENT
-                </p>
-                <h2 className="text-2xl font-extrabold text-foreground md:text-4xl">
-                  이런 글도 참고해보세요
-                </h2>
-              </div>
-              <a
-                href="https://blog.naver.com/icheonstair"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1 md:inline-flex"
-              >
-                블로그 더 보기
-                <ArrowRight className="h-4 w-4" />
-              </a>
+          <section className="rounded-[2rem] border border-blue-100 bg-white px-6 py-10 shadow-sm md:px-10 md:py-14">
+            <div className="mb-8 text-center">
+              <img
+                src="/booboo2.webp"
+                alt="이천계단지기 부부 캐릭터"
+                className="mx-auto mb-5 w-56 md:w-48"
+                loading="lazy"
+              />
+
+              <p className="mb-2 text-sm font-extrabold text-primary">
+                GUIDE CONTENT
+              </p>
+              <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
+                청소 맡기기 전에 이런 글도 참고해보세요
+              </h2>
+
+              <p className="text-sm leading-7 text-muted-foreground md:text-base">
+                대표 이미지로 먼저 보고, 궁금한 내용은 제목을 눌러 네이버 글에서 바로 확인할 수 있습니다.
+              </p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
               {infoPosts.map((post, index) => (
                 <motion.a
-                  key={post.title}
-                  href={post.href}
+                  key={post.id}
+                  href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative block overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-sm"
@@ -217,9 +228,9 @@ export default function About() {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/10 to-transparent transition-colors duration-300 group-hover:from-primary/65 group-hover:via-primary/18 group-hover:to-sky-100/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/58 via-slate-900/12 to-transparent transition-all duration-300 group-hover:from-primary/68 group-hover:via-primary/24 group-hover:to-sky-100/12" />
                     <div className="absolute inset-x-0 bottom-0 p-5">
-                      <p className="translate-y-3 text-base font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                      <p className="text-base font-extrabold leading-snug text-white opacity-100 transition-all duration-300 md:translate-y-3 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
                         {post.title}
                       </p>
                     </div>
@@ -228,58 +239,16 @@ export default function About() {
               ))}
             </div>
 
-            <a
-              href="https://blog.naver.com/icheonstair"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1 md:hidden"
-            >
-              블로그 더 보기
-              <ArrowRight className="h-4 w-4" />
-            </a>
-          </section>
-
-          <section className="rounded-[2rem] border border-blue-100 bg-white px-6 py-10 text-center shadow-sm md:px-10 md:py-14">
-            <img
-              src="/booboo2.webp"
-              alt="이천계단지기 부부 캐릭터"
-              className="mx-auto mb-5 w-56 md:w-48"
-              loading="lazy"
-            />
-
-            <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
-              사진 한 장이면 빠르게 안내드립니다
-            </h2>
-
-            <p className="mb-8 text-sm leading-7 text-muted-foreground md:text-base">
-              계단, 복도, 공동현관 사진을 보내주시면 관리 가능 범위와 상담을 안내드릴게요.
-            </p>
-
-            <div className="mx-auto max-w-xl">
+            <div className="mt-6 flex justify-center md:justify-end">
               <a
-                href="https://pf.kakao.com/_IiNfn/chat"
+                href="https://blog.naver.com/icheonstair"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
+                className="inline-flex items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1"
               >
-                <MessageCircle className="mr-2 h-4 w-4" />
-                카카오톡으로 사진 보내기
+                블로그 더 보기
+                <ArrowRight className="h-4 w-4" />
               </a>
-
-              <div className="mt-5 grid gap-3 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 text-left sm:grid-cols-3">
-                <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-white px-4 py-3 transition hover:border-primary/20 hover:bg-white">
-                  <strong className="block text-sm text-foreground">카톡 상담</strong>
-                  <span className="text-xs text-muted-foreground">사진 보내면 빠르게 답변</span>
-                </a>
-                <a href="tel:01084381887" className="rounded-xl bg-white px-4 py-3 transition hover:border-primary/20 hover:bg-white">
-                  <strong className="block text-sm text-foreground">전화 문의</strong>
-                  <span className="text-xs text-muted-foreground">010-8438-1887</span>
-                </a>
-                <a href="mailto:rbska3308@naver.com" className="rounded-xl bg-white px-4 py-3 transition hover:border-primary/20 hover:bg-white">
-                  <strong className="block text-sm text-foreground">이메일</strong>
-                  <span className="text-xs text-muted-foreground">rbska3308@naver.com</span>
-                </a>
-              </div>
             </div>
           </section>
         </section>
