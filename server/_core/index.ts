@@ -16,6 +16,7 @@ import { getWorkSlug } from "../../client/src/lib/workSlug";
 
 const CANONICAL_HOST = "2000stair.kr";
 const SITE_URL = `https://${CANONICAL_HOST}`;
+const REPOSITORY_URL = "https://github.com/leedlqhdk/2000stair";
 const LEGACY_HOSTS = new Set(["2000stair.click", "www.2000stair.click", "www.2000stair.kr"]);
 const STATIC_SITEMAP_ROUTES = [
   { path: "/", lastmod: "2026-05-31", changefreq: "weekly", priority: "1.0" },
@@ -30,6 +31,44 @@ const STATIC_SITEMAP_ROUTES = [
   { path: "/area/downtown", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/bubal", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/baeksa", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
+] as const;
+const RELEASE_NOTES = [
+  {
+    date: "2026-06-01",
+    title: "연락처/CTA 정리",
+    summary: "푸터와 소개 페이지에서 카톡을 메인 CTA로 두고 전화·메일·카톡을 분리 표기했습니다.",
+    commit: "f8c57a531f8c38c5830c9aadf617d5c1496c7c07",
+  },
+  {
+    date: "2026-06-01",
+    title: "운영·배포 상태 공개 준비",
+    summary: "외부에서 배포 SHA와 변경 이력을 볼 수 있도록 상태 노출 경로를 추가했습니다.",
+    commit: "pending-current",
+  },
+  {
+    date: "2026-06-01",
+    title: "후기 카드 문구 차별화",
+    summary: "네이버는 관리 결과, 당근은 상담 편의 중심으로 리뷰 톤을 분리했습니다.",
+    commit: "2395df932a8d327706f284096205d7b3560fc794",
+  },
+  {
+    date: "2026-06-01",
+    title: "동적 sitemap 보강",
+    summary: "blog 상세와 work 상세 URL이 sitemap.xml에 자동 반영되도록 변경했습니다.",
+    commit: "3777868539547517bf3c939d1243901d823ddfdc",
+  },
+  {
+    date: "2026-06-01",
+    title: "상세 canonical 보강",
+    summary: "블로그/작업일지 상세 페이지의 canonical과 og:url을 .kr 정본으로 고정했습니다.",
+    commit: "38196d84f1beaa90eab19c00d52fc7c3e1a5e14b",
+  },
+  {
+    date: "2026-06-01",
+    title: "legacy 도메인 301 정리",
+    summary: "2000stair.click, www 하위 도메인을 2000stair.kr로 301 리디렉션하도록 추가했습니다.",
+    commit: "f69d682ba546dfd3412d9d1158e003fee1674589",
+  },
 ] as const;
 
 function getRequestHost(req: express.Request) {
@@ -135,6 +174,33 @@ async function buildSitemapXml() {
   ].join("\n");
 }
 
+function getPublicStatus() {
+  const commitSha = process.env.VERCEL_GIT_COMMIT_SHA || process.env.GIT_COMMIT_SHA || "unknown";
+  const deploymentId = process.env.VERCEL_DEPLOYMENT_ID || process.env.VERCEL_URL || "unknown";
+  const branch = process.env.VERCEL_GIT_COMMIT_REF || process.env.GIT_BRANCH || "unknown";
+  const commitMessage = process.env.VERCEL_GIT_COMMIT_MESSAGE || process.env.GIT_COMMIT_MESSAGE || "";
+
+  return {
+    siteUrl: SITE_URL,
+    repositoryUrl: REPOSITORY_URL,
+    generatedAt: new Date().toISOString(),
+    deployment: {
+      sha: commitSha,
+      shortSha: commitSha === "unknown" ? "unknown" : commitSha.slice(0, 7),
+      branch,
+      deploymentId,
+      commitMessage,
+    },
+    releaseNotes: RELEASE_NOTES.map((note) => ({
+      ...note,
+      commitUrl:
+        note.commit === "pending-current"
+          ? null
+          : `${REPOSITORY_URL}/commit/${note.commit}`,
+    })),
+  };
+}
+
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
     const server = net.createServer();
@@ -157,9 +223,7 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
-  // Legacy: Stripe webhook placeholder (no-op)
   registerStripeWebhook(app);
-  // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   app.set("trust proxy", true);
@@ -184,8 +248,10 @@ async function startServer() {
       next(error);
     }
   });
+  app.get("/api/public/status", (_req, res) => {
+    res.status(200).json(getPublicStatus());
+  });
   registerOAuthRoutes(app);
-  // tRPC API
   app.use(
     "/api/trpc",
     createExpressMiddleware({
@@ -193,7 +259,6 @@ async function startServer() {
       createContext,
     })
   );
-  // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
