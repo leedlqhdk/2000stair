@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+const SITE_URL = "https://2000stair.kr";
+
 function renderContentWithLinks(text: string) {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const parts = text.split(urlRegex);
@@ -44,6 +46,18 @@ function renderContentWithLinks(text: string) {
   });
 }
 
+function setCanonical(url: string) {
+  let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+
+  if (!link) {
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+
+  link.setAttribute("href", url);
+}
+
 export default function BlogDetail() {
   const { id } = useParams<{ id: string }>();
   const postId = parseInt(id ?? "0");
@@ -54,6 +68,7 @@ export default function BlogDetail() {
   useEffect(() => {
     if (!post) return;
 
+    const canonicalUrl = `${SITE_URL}/blog/${postId}`;
     const seoTitle = post.seoTitle || `${post.title} | 이천계단지기`;
     const seoDesc =
       post.seoDescription ||
@@ -79,14 +94,16 @@ export default function BlogDetail() {
     setMeta("keywords", seoKw);
     setMeta("og:title", seoTitle, true);
     setMeta("og:description", seoDesc, true);
-    setMeta("og:url", window.location.href, true);
+    setMeta("og:url", canonicalUrl, true);
     setMeta("twitter:title", seoTitle);
     setMeta("twitter:description", seoDesc);
+    setCanonical(canonicalUrl);
 
     return () => {
       document.title = "이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소";
+      setCanonical(`${SITE_URL}/`);
     };
-  }, [post]);
+  }, [post, postId]);
 
   if (isLoading) {
     return (
