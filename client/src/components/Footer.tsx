@@ -134,26 +134,26 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
 
   return (
     <div>
-      <h4 className="text-[2rem] font-extrabold tracking-tight text-white">Contact</h4>
+      <h4 className="text-[2.35rem] font-extrabold tracking-tight text-white">Contact</h4>
 
-      <div className="mt-5 border-t border-white/10">
+      <div className="mt-4 border-t border-white/10">
         {contactItems.map((item, index) => {
           const Icon = item.icon;
           return (
             <a
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-4 py-5 transition-colors hover:text-white/90 ${
+              className={`flex items-center gap-4 py-4 transition-colors hover:text-white/90 ${
                 index !== contactItems.length - 1 ? "border-b border-white/10" : ""
               }`}
               {...linkTarget(item.external)}
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] text-white ring-1 ring-white/8">
-                <Icon className="h-5 w-5" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[1.15rem] bg-white/[0.04] text-white ring-1 ring-white/8">
+                <Icon className="h-4.5 w-4.5" />
               </div>
               <div className="min-w-0">
-                <p className="text-[1.05rem] font-extrabold text-white">{item.label}</p>
-                <p className="mt-1 text-base leading-6 text-white/58">{item.value}</p>
+                <p className="text-[1rem] font-extrabold text-white">{item.label}</p>
+                <p className="mt-1 text-[0.95rem] leading-6 text-white/58">{item.value}</p>
               </div>
             </a>
           );
@@ -232,7 +232,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="hidden gap-10 md:grid lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.05fr] lg:gap-14">
+        <div className="hidden gap-10 md:grid lg:grid-cols-[1.2fr_0.78fr_0.78fr_0.9fr] lg:gap-12">
           <div>
             <a href="/" className="group mb-5 inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
               <img
@@ -296,7 +296,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-white/15"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-white/15"
                     aria-label={social.label}
                   >
                     <Icon className="h-4 w-4" />
@@ -308,7 +308,7 @@ export default function Footer() {
                 href="https://blog.naver.com/icheonstair"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-xs font-bold transition-colors hover:bg-white/15"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-xs font-bold transition-colors hover:bg-white/15"
                 aria-label="Naver Blog"
               >
                 B
