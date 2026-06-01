@@ -134,26 +134,26 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
 
   return (
     <div>
-      <h4 className="text-[2.35rem] font-extrabold tracking-tight text-white">Contact</h4>
+      <h4 className="mb-4 text-[1.45rem] font-bold tracking-tight text-white">Contact</h4>
 
-      <div className="mt-4 border-t border-white/10">
+      <div className="border-t border-white/10">
         {contactItems.map((item, index) => {
           const Icon = item.icon;
           return (
             <a
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-4 py-4 transition-colors hover:text-white/90 ${
+              className={`flex items-center gap-3.5 py-3.5 transition-colors hover:text-white/90 ${
                 index !== contactItems.length - 1 ? "border-b border-white/10" : ""
               }`}
               {...linkTarget(item.external)}
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[1.15rem] bg-white/[0.04] text-white ring-1 ring-white/8">
-                <Icon className="h-4.5 w-4.5" />
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[1rem] bg-white/[0.04] text-white ring-1 ring-white/8">
+                <Icon className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-[1rem] font-extrabold text-white">{item.label}</p>
-                <p className="mt-1 text-[0.95rem] leading-6 text-white/58">{item.value}</p>
+                <p className="text-sm font-bold text-white">{item.label}</p>
+                <p className="mt-0.5 text-sm leading-5 text-white/58">{item.value}</p>
               </div>
             </a>
           );
@@ -255,7 +255,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 font-bold text-white">Service</h4>
+            <h4 className="mb-4 text-[1.45rem] font-bold tracking-tight text-white">Service</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
@@ -268,7 +268,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 font-bold text-white">Archive</h4>
+            <h4 className="mb-4 text-[1.45rem] font-bold tracking-tight text-white">Archive</h4>
             <ul className="space-y-2.5 text-sm text-white/60">
               {archiveLinks.map((link) => (
                 <li key={link.href}>
