@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowLeft, Mail, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,6 +16,24 @@ const values = [
   {
     title: "직접 관리합니다",
     text: "상담부터 방문까지 부부가 직접 챙깁니다.",
+  },
+];
+
+const infoPosts = [
+  {
+    title: "이천 빌라 계단청소 업체 선택 시 꼭 확인해야 할 점",
+    image: "/images/blog-banner-main.png",
+    href: "https://blog.naver.com/icheonstair/224302652052",
+  },
+  {
+    title: "이천 계단청소 정기관리, 월 2회와 월 4회는 어떻게 다를까",
+    image: "/images/areas/downtown/downtown-1.jpg",
+    href: "https://blog.naver.com/icheonstair",
+  },
+  {
+    title: "이천 공용계단 청소 문의 전 사진 상담으로 먼저 확인하는 이유",
+    image: "/images/areas/downtown/downtown-2.jpg",
+    href: "https://blog.naver.com/icheonstair",
   },
 ];
 
@@ -156,6 +174,69 @@ export default function About() {
                 </div>
               ))}
             </div>
+          </section>
+
+          <section className="mb-14 md:mb-20">
+            <div className="mb-6 flex items-end justify-between gap-4">
+              <div>
+                <p className="mb-2 text-sm font-extrabold text-primary">
+                  GUIDE CONTENT
+                </p>
+                <h2 className="text-2xl font-extrabold text-foreground md:text-4xl">
+                  이런 글도 참고해보세요
+                </h2>
+              </div>
+              <a
+                href="https://blog.naver.com/icheonstair"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1 md:inline-flex"
+              >
+                블로그 더 보기
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {infoPosts.map((post, index) => (
+                <motion.a
+                  key={post.title}
+                  href={post.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-sm"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: index * 0.08 }}
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden bg-slate-100">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/10 to-transparent transition-colors duration-300 group-hover:from-primary/65 group-hover:via-primary/18 group-hover:to-sky-100/10" />
+                    <div className="absolute inset-x-0 bottom-0 p-5">
+                      <p className="translate-y-3 text-base font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                        {post.title}
+                      </p>
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+
+            <a
+              href="https://blog.naver.com/icheonstair"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1 md:hidden"
+            >
+              블로그 더 보기
+              <ArrowRight className="h-4 w-4" />
+            </a>
           </section>
 
           <section className="rounded-[2rem] border border-blue-100 bg-white px-6 py-10 text-center shadow-sm md:px-10 md:py-14">
