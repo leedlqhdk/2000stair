@@ -27,18 +27,6 @@ const fallbackInfoPosts = [
     image: "/images/blog-banner-main.png",
     url: "https://blog.naver.com/icheonstair/224302652052",
   },
-  {
-    id: "naver-guide-2",
-    title: "이천 계단청소 정기관리, 월 2회와 월 4회는 어떻게 다를까",
-    image: "/images/areas/downtown/downtown-1.jpg",
-    url: "https://blog.naver.com/icheonstair",
-  },
-  {
-    id: "naver-guide-3",
-    title: "이천 공용계단 청소 문의 전 사진 상담으로 먼저 확인하는 이유",
-    image: "/images/areas/downtown/downtown-2.jpg",
-    url: "https://blog.naver.com/icheonstair",
-  },
 ];
 
 export default function About() {
@@ -228,7 +216,8 @@ export default function About() {
                       className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/58 via-slate-900/12 to-transparent transition-all duration-300 group-hover:from-primary/68 group-hover:via-primary/24 group-hover:to-sky-100/12" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/58 via-slate-900/12 to-transparent transition-all duration-300 group-hover:from-primary/68 group-hover:via-primary/24 group-hover:to-sky-100/12"
+                    />
                     <div className="absolute inset-x-0 bottom-0 p-5">
                       <p className="text-base font-extrabold leading-snug text-white opacity-100 transition-all duration-300 md:translate-y-3 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
                         {post.title}
