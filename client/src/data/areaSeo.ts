@@ -112,6 +112,13 @@ const generalSeoByPath = {
     canonical: `${SITE_URL}/blog`,
     keywords: `이천계단청소 후기, 계단청소 기록, 청소 현장 사례, ${BASE_KEYWORDS}`,
   },
+  "/ops": {
+    title: "운영 · 배포 상태 | 이천계단지기",
+    description:
+      "현재 배포 SHA, 브랜치, 최근 반영한 변경 로그를 외부에서 확인할 수 있는 운영 상태 페이지입니다.",
+    canonical: `${SITE_URL}/ops`,
+    keywords: "이천계단지기 운영 상태, 배포 sha, 변경 로그, 사이트 업데이트",
+  },
 } satisfies Record<string, SeoProps>;
 
 export function getSeoForPath(path: string) {
