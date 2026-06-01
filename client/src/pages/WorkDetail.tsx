@@ -10,6 +10,8 @@ import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import { getWorkSlug } from "@/lib/workSlug";
 
+const SITE_URL = "https://2000stair.kr";
+
 const areaLabels: Record<string, string> = {
   majang: "마장면",
   daewol: "대월면",
@@ -164,6 +166,18 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
   );
 }
 
+function setCanonical(url: string) {
+  let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+
+  if (!link) {
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+
+  link.setAttribute("href", url);
+}
+
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { data, isLoading } = useAllAreaPosts();
@@ -187,8 +201,9 @@ export default function WorkDetail() {
   ] : [];
 
   useEffect(() => {
-    if (!post) return;
+    if (!post || !slug) return;
 
+    const canonicalUrl = `${SITE_URL}/work/${slug}`;
     const title = `${post.title} | ${areaLabel} 계단청소 작업일지 | 이천계단지기`;
     const description = post.description || `${areaLabel} ${post.title} 현장 기록입니다. 이천계단지기가 직접 관리한 계단청소 작업 사진과 날짜를 확인할 수 있습니다.`;
 
@@ -211,13 +226,15 @@ export default function WorkDetail() {
     setMeta("keywords", `${areaLabel} 계단청소, ${post.title}, 이천계단청소, 빌라계단청소, 상가계단청소`);
     setMeta("og:title", title, true);
     setMeta("og:description", description, true);
-    setMeta("og:url", window.location.href, true);
+    setMeta("og:url", canonicalUrl, true);
     setMeta("og:image", post.image, true);
+    setCanonical(canonicalUrl);
 
     return () => {
       document.title = "이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소";
+      setCanonical(`${SITE_URL}/`);
     };
-  }, [areaLabel, post]);
+  }, [areaLabel, post, slug]);
 
   if (isLoading) {
     return (
