@@ -211,16 +211,6 @@ export default function Footer() {
             <ContactCard compact />
           </div>
 
-          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/68">
-            <div className="flex items-start gap-2.5">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/72" />
-              <span>
-                <strong className="block text-white">방문 주소</strong>
-                <span>경기도 이천시 경충대로3160번길 21</span>
-              </span>
-            </div>
-          </div>
-
           <div className="mt-4 border-b border-white/10">
             <MobileLinkGroup title="서비스 바로가기" links={serviceLinks} />
             <MobileLinkGroup title="후기와 채널" links={archiveLinks} />
