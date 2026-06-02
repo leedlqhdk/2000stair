@@ -225,7 +225,7 @@ export default function About() {
 
             <div className="overflow-hidden">
               <motion.div
-                className="flex w-max gap-4"
+                className="flex w-max gap-3 md:gap-4"
                 animate={
                   infoPosts.length > 1
                     ? { x: ["0%", "-50%"] }
@@ -247,7 +247,7 @@ export default function About() {
                     href={post.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative block w-[260px] shrink-0 overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-sm md:w-[320px]"
+                    className="group relative block w-[190px] shrink-0 overflow-hidden rounded-[1.15rem] border border-blue-100 bg-white shadow-sm sm:w-[220px] md:w-[320px] md:rounded-[1.6rem]"
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -260,9 +260,9 @@ export default function About() {
                         className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary/88" />
-                      <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
-                        <p className="max-w-[15rem] text-lg font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-2xl">
+                      <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary" />
+                      <div className="absolute inset-0 flex items-center justify-center p-4 text-center md:p-6">
+                        <p className="max-w-[10.5rem] text-sm font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 sm:max-w-[12rem] sm:text-base md:max-w-[15rem] md:text-2xl">
                           {post.title}
                         </p>
                       </div>
