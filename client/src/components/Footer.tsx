@@ -10,10 +10,10 @@ import {
 import { motion } from "framer-motion";
 
 const serviceLinks = [
-  { href: "#how-it-works", label: "상담 절차" },
-  { href: "#box-preview", label: "관리 방식" },
-  { href: "#gallery", label: "청소 전후" },
-  { href: "#pricing", label: "청소 비용" },
+  { href: "/#how-it-works", label: "상담 절차" },
+  { href: "/#box-preview", label: "관리 방식" },
+  { href: "/#gallery", label: "청소 전후" },
+  { href: "/#pricing", label: "청소 비용" },
 ];
 
 const archiveLinks = [
