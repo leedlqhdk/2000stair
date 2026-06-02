@@ -40,6 +40,26 @@ const collapsedButtonClass = "w-9 px-0 md:w-14 md:px-0";
 const expandedTextClass = "max-w-[64px] opacity-100 md:max-w-[80px]";
 const collapsedTextClass = "max-w-0 opacity-0";
 
+const createDiagnosisMessage = (diagnosis: DiagnosisState, result: DiagnosisResult | null) => {
+  const rows = [
+    "안녕하세요. 이천계단지기 홈페이지 AI 진단 후 문의드립니다.",
+    "",
+    `[진단 선택]`,
+    `건물 유형: ${diagnosis.buildingType}`,
+    ...(diagnosis.buildingType === STAIR_BUILDING_TYPE ? [`계단 층수: ${diagnosis.floors}`] : []),
+    `오염 상태: ${diagnosis.pollution}`,
+    `관리 주기: ${diagnosis.cycle}`,
+  ];
+
+  if (result) {
+    rows.push("", "[AI 안내]", result.title, result.summary, result.recommendation);
+  }
+
+  rows.push("", "건물 사진을 보내드리면 정확한 견적 안내 부탁드립니다.");
+
+  return rows.join("\n");
+};
+
 export default function KakaoChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
@@ -49,6 +69,7 @@ export default function KakaoChat() {
   const [result, setResult] = useState<DiagnosisResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [copyMessage, setCopyMessage] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,11 +127,27 @@ export default function KakaoChat() {
     }));
     setResult(null);
     setErrorMessage("");
+    setCopyMessage("");
+  };
+
+  const handleKakaoInquiry = async () => {
+    const message = createDiagnosisMessage(diagnosis, result);
+
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopyMessage("진단 내용이 복사됐어요. 카톡창에서 붙여넣기만 해주세요.");
+    } catch (error) {
+      console.error(error);
+      setCopyMessage("카톡창이 열리면 아래 진단 내용을 복사해서 보내주세요.");
+    }
+
+    window.open(KAKAO_CHANNEL_URL, "_blank", "noopener,noreferrer");
   };
 
   const analyzeBuilding = async () => {
     setIsAnalyzing(true);
     setErrorMessage("");
+    setCopyMessage("");
 
     try {
       const response = await fetch("/api/ai-diagnosis", {
@@ -265,13 +302,24 @@ export default function KakaoChat() {
               </div>
             )}
 
+            {copyMessage && (
+              <p className="mt-3 rounded-xl bg-yellow-50 px-4 py-3 text-sm font-bold leading-6 text-yellow-800 ring-1 ring-yellow-100">
+                {copyMessage}
+              </p>
+            )}
+
+            <details className="mt-4 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-700 ring-1 ring-slate-200">
+              <summary className="cursor-pointer font-extrabold text-slate-800">카톡으로 보낼 진단 내용 보기</summary>
+              <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-xs leading-5 text-slate-600">{createDiagnosisMessage(diagnosis, result)}</pre>
+            </details>
+
             <div className="mt-5 grid grid-cols-2 gap-2">
               <a href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`} className="flex h-12 items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md hover:bg-primary/90">
                 전화 상담
               </a>
-              <a href={KAKAO_CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center justify-center rounded-full bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 hover:bg-[#F4DC00]">
+              <button type="button" onClick={handleKakaoInquiry} className="flex h-12 items-center justify-center rounded-full bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 hover:bg-[#F4DC00]">
                 카톡 문의
-              </a>
+              </button>
             </div>
           </div>
         </div>
