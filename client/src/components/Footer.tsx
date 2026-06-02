@@ -78,17 +78,17 @@ function MobileLinkGroup({
   links: Array<{ href: string; label: string; external?: boolean }>;
 }) {
   return (
-    <details className="group border-t border-white/10 py-3">
-      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-bold text-white [&::-webkit-details-marker]:hidden">
+    <details className="group border-t border-white/10 py-2.5">
+      <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold text-white/90 [&::-webkit-details-marker]:hidden">
         {title}
-        <ChevronDown className="h-4 w-4 text-white/45 transition-transform group-open:rotate-180" />
+        <ChevronDown className="h-3.5 w-3.5 text-white/38 transition-transform group-open:rotate-180" />
       </summary>
-      <div className="mt-3 grid grid-cols-2 gap-2 text-sm text-white/60">
+      <div className="mt-2 grid grid-cols-2 gap-1.5 text-xs text-white/58">
         {links.map((link) => (
           <a
             key={link.href}
             href={link.href}
-            className="rounded-lg bg-white/[0.06] px-3 py-2 transition-colors hover:bg-white/10 hover:text-white"
+            className="rounded-md bg-white/[0.045] px-2.5 py-1.5 transition-colors hover:bg-white/10 hover:text-white"
             {...linkTarget(link.external)}
           >
             {link.label}
@@ -102,27 +102,27 @@ function MobileLinkGroup({
 function ContactCard({ compact = false }: { compact?: boolean }) {
   if (compact) {
     return (
-      <div className="rounded-[1.75rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(41,93,167,0.18),_transparent_42%),linear-gradient(180deg,_rgba(12,19,31,0.98),_rgba(9,14,24,0.96))] p-5 shadow-[0_28px_80px_rgba(0,0,0,0.28)]">
-        <h4 className="text-2xl font-extrabold tracking-tight text-white">Contact</h4>
+      <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 shadow-[0_16px_36px_rgba(0,0,0,0.18)]">
+        <h4 className="text-lg font-extrabold tracking-tight text-white">Contact</h4>
 
-        <div className="mt-5 border-t border-white/10">
+        <div className="mt-3 border-t border-white/10">
           {contactItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <a
                 key={item.label}
                 href={item.href}
-                className={`flex items-center gap-4 py-5 transition-colors hover:text-white/90 ${
+                className={`flex items-center gap-3 py-3 transition-colors hover:text-white/90 ${
                   index !== contactItems.length - 1 ? "border-b border-white/10" : ""
                 }`}
                 {...linkTarget(item.external)}
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/[0.04] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] ring-1 ring-white/8">
-                  <Icon className="h-5 w-5" />
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.045] text-white ring-1 ring-white/8">
+                  <Icon className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[1.08rem] font-extrabold text-white">{item.label}</p>
-                  <p className="mt-1 text-base leading-6 text-white/58">{item.value}</p>
+                  <p className="text-sm font-extrabold text-white">{item.label}</p>
+                  <p className="mt-0.5 text-xs leading-5 text-white/52">{item.value}</p>
                 </div>
               </a>
             );
@@ -165,7 +165,7 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
 
 export default function Footer() {
   return (
-    <footer id="site-footer" className="bg-foreground py-10 text-white md:py-20">
+    <footer id="site-footer" className="bg-foreground py-8 text-white md:py-20">
       <motion.div
         className="container max-w-7xl"
         initial={{ opacity: 0, y: 34 }}
@@ -174,21 +174,21 @@ export default function Footer() {
         transition={{ duration: 0.7 }}
       >
         <div className="md:hidden">
-          <div className="flex items-start justify-between gap-5">
+          <div className="flex items-start justify-between gap-4">
             <div>
               <a href="/" className="inline-flex" aria-label="이천계단지기 홈으로 이동">
                 <img
                   src="/images/icheon-logo-white.png"
                   alt="이천계단지기"
-                  className="h-9 w-auto max-w-[180px] object-contain"
+                  className="h-8 w-auto max-w-[156px] object-contain"
                 />
               </a>
-              <p className="mt-3 max-w-[220px] text-sm leading-6 text-white/62">
+              <p className="mt-2 max-w-[210px] text-xs leading-5 text-white/56">
                 이천 빌라·상가 공용공간을 부부가 직접 관리합니다.
               </p>
             </div>
 
-            <div className="flex shrink-0 gap-2">
+            <div className="flex shrink-0 gap-1.5">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -197,26 +197,26 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 transition-colors hover:bg-white/15"
+                    className="flex h-8 w-8 items-center justify-center rounded-md bg-white/8 transition-colors hover:bg-white/14"
                     aria-label={social.label}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-3.5 w-3.5" />
                   </a>
                 );
               })}
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-5">
             <ContactCard compact />
           </div>
 
-          <div className="mt-4 border-b border-white/10">
+          <div className="mt-3 border-b border-white/10">
             <MobileLinkGroup title="서비스 바로가기" links={serviceLinks} />
             <MobileLinkGroup title="후기와 채널" links={archiveLinks} />
           </div>
 
-          <div className="mt-5 space-y-1 text-xs leading-5 text-white/42">
+          <div className="mt-4 space-y-1 text-[11px] leading-5 text-white/38">
             <p>© {new Date().getFullYear()} 이천계단지기. All rights reserved.</p>
             <p>사업자등록번호 234-23-02318 · 이천 계단청소 정기관리</p>
           </div>
