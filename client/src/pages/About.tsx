@@ -38,11 +38,13 @@ const fallbackInfoPosts: InfoPost[] = [
 
 export default function About() {
   const [infoPosts, setInfoPosts] = useState<InfoPost[]>(fallbackInfoPosts);
+  const scrollingInfoPosts =
+    infoPosts.length > 1 ? [...infoPosts, ...infoPosts] : infoPosts;
 
   useEffect(() => {
     let active = true;
 
-    fetch("/api/content-posts?contentType=정보성&limit=3")
+    fetch("/api/content-posts?contentType=정보성&limit=5")
       .then(async (response) => {
         if (!response.ok) throw new Error(`Failed to load posts: ${response.status}`);
         return response.json() as Promise<{ posts?: InfoPost[] }>;
@@ -221,35 +223,53 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {infoPosts.map((post, index) => (
-                <motion.a
-                  key={post.id}
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative mx-auto block w-full max-w-[360px] overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-sm"
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: index * 0.08 }}
-                >
-                  <div className="relative aspect-square overflow-hidden bg-slate-100">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary/88" />
-                    <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
-                      <p className="max-w-[15rem] text-lg font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-2xl">
-                        {post.title}
-                      </p>
+            <div className="overflow-hidden">
+              <motion.div
+                className="flex w-max gap-4"
+                animate={
+                  infoPosts.length > 1
+                    ? { x: ["0%", "-50%"] }
+                    : { x: "0%" }
+                }
+                transition={
+                  infoPosts.length > 1
+                    ? {
+                        duration: 26,
+                        ease: "linear",
+                        repeat: Infinity,
+                      }
+                    : undefined
+                }
+              >
+                {scrollingInfoPosts.map((post, index) => (
+                  <motion.a
+                    key={`${post.id}-${index}`}
+                    href={post.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative block w-[260px] shrink-0 overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-sm md:w-[320px]"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: (index % infoPosts.length) * 0.08 }}
+                  >
+                    <div className="relative aspect-square overflow-hidden bg-slate-100">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary/88" />
+                      <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+                        <p className="max-w-[15rem] text-lg font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-2xl">
+                          {post.title}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </motion.a>
-              ))}
+                  </motion.a>
+                ))}
+              </motion.div>
             </div>
 
             <div className="mt-6 flex justify-center md:justify-end">
