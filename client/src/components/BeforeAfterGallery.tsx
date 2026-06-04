@@ -49,8 +49,8 @@ function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
     >
-      <div className="relative grid aspect-[16/9] grid-cols-2 overflow-hidden bg-blue-50">
-        <div className="relative overflow-hidden">
+      <div className="relative grid overflow-hidden bg-blue-50 md:aspect-[16/9] md:grid-cols-2">
+        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto">
           <img
             src={item.before}
             alt={`${item.title} 청소 전`}
@@ -62,7 +62,7 @@ function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
           </span>
         </div>
 
-        <div className="relative overflow-hidden">
+        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto">
           <img
             src={item.after}
             alt={`${item.title} 청소 후`}
@@ -75,7 +75,7 @@ function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
         </div>
 
         <div className="absolute left-1/2 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-md md:h-12 md:w-12">
-          <ChevronRight className="h-5 w-5" strokeWidth={3} />
+          <ChevronRight className="h-5 w-5 rotate-90 md:rotate-0" strokeWidth={3} />
         </div>
       </div>
     </motion.article>
