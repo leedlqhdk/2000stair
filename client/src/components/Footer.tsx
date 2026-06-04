@@ -78,8 +78,8 @@ function MobileLinkGroup({
   links: Array<{ href: string; label: string; external?: boolean }>;
 }) {
   return (
-    <details className="group border-t border-white/10 py-2.5">
-      <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-bold text-white/90 [&::-webkit-details-marker]:hidden">
+    <details className="group border-t border-white/10 py-1.5">
+      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-xs font-bold text-white/90 [&::-webkit-details-marker]:hidden">
         {title}
         <ChevronDown className="h-3.5 w-3.5 text-white/38 transition-transform group-open:rotate-180" />
       </summary>
@@ -88,7 +88,7 @@ function MobileLinkGroup({
           <a
             key={link.href}
             href={link.href}
-            className="rounded-md bg-white/[0.045] px-2.5 py-1.5 transition-colors hover:bg-white/10 hover:text-white"
+            className="flex min-h-10 items-center rounded-md bg-white/[0.045] px-2.5 py-1.5 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
             {...linkTarget(link.external)}
           >
             {link.label}
@@ -112,9 +112,10 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
               <a
                 key={item.label}
                 href={item.href}
-                className={`flex items-center gap-3 py-3 transition-colors hover:text-white/90 ${
+                className={`flex min-h-14 items-center gap-3 py-3 transition-colors hover:text-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground ${
                   index !== contactItems.length - 1 ? "border-b border-white/10" : ""
                 }`}
+                aria-label={`${item.label}: ${item.value}`}
                 {...linkTarget(item.external)}
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[0.045] text-white ring-1 ring-white/8">
@@ -122,7 +123,7 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-extrabold text-white">{item.label}</p>
-                  <p className="mt-0.5 text-xs leading-5 text-white/52">{item.value}</p>
+                  <p className="mt-0.5 break-words text-xs leading-5 text-white/52">{item.value}</p>
                 </div>
               </a>
             );
@@ -197,7 +198,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-8 w-8 items-center justify-center rounded-md bg-white/8 transition-colors hover:bg-white/14"
+                    className="relative flex h-8 w-8 items-center justify-center rounded-md bg-white/8 transition-colors before:absolute before:-inset-1.5 before:content-[''] hover:bg-white/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
                     aria-label={social.label}
                   >
                     <Icon className="h-3.5 w-3.5" />
