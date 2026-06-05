@@ -98,7 +98,7 @@ export default function AreaTimeline({
       <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
         <div className="relative">
           {filteredPosts.length > 0 ? (
-            <div className="relative space-y-5 before:absolute before:left-4 before:top-1 before:h-[calc(100%-0.5rem)] before:w-px before:bg-blue-100 md:space-y-5 md:before:left-[85px] md:before:top-0 md:before:h-full">
+            <div className="relative space-y-4 before:absolute before:left-3 before:top-1 before:h-[calc(100%-0.5rem)] before:w-px before:bg-blue-100 md:space-y-5 md:before:left-[85px] md:before:top-0 md:before:h-full">
               {filteredPosts.map((post, index) => {
                 const type = getPostType(post);
                 const summary = getSummary(post, areaName);
@@ -106,13 +106,13 @@ export default function AreaTimeline({
                 return (
                   <motion.div
                     key={`${post.title}-${post.date}-${index}`}
-                    className="relative grid gap-3 pl-10 md:grid-cols-[94px_minmax(0,1fr)] md:gap-4 md:pl-0"
+                    className="relative grid pl-8 md:grid-cols-[94px_minmax(0,1fr)] md:gap-4 md:pl-0"
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
                   >
-                    <div className="absolute left-[9px] top-6 z-10 h-3.5 w-3.5 rounded-full border-[3px] border-white bg-primary shadow-sm ring-[3px] ring-blue-100 md:hidden" />
+                    <div className="absolute left-[5px] top-8 z-10 h-3.5 w-3.5 rounded-full border-[3px] border-white bg-primary shadow-sm ring-[3px] ring-blue-100 md:hidden" />
 
                     <div className="hidden md:block">
                       <div className="relative h-[150px] pr-4">
@@ -124,8 +124,8 @@ export default function AreaTimeline({
                     </div>
 
                     <Link href={getWorkPath(post)}>
-                      <a className="group grid h-auto overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)] md:hover:bg-primary">
-                        <div className="relative aspect-[4/3] overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px] md:aspect-auto">
+                      <a className="group grid min-h-[116px] grid-cols-[104px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)] md:hover:bg-primary">
+                        <div className="relative h-full min-h-[116px] overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px]">
                           <img
                             src={post.image}
                             alt={post.title}
@@ -134,21 +134,21 @@ export default function AreaTimeline({
                           />
                         </div>
 
-                        <div className="flex min-h-0 min-w-0 flex-col justify-center p-4 md:h-[150px] md:p-5">
-                          <div className="mb-2 flex flex-wrap items-center gap-1.5">
-                            <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-extrabold text-primary transition-colors duration-300 md:group-hover:bg-white md:group-hover:text-primary">
+                        <div className="flex min-h-0 min-w-0 flex-col justify-center p-3.5 md:h-[150px] md:p-5">
+                          <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
+                            <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-extrabold text-primary transition-colors duration-300 md:px-2.5 md:py-1 md:text-[11px] md:group-hover:bg-white md:group-hover:text-primary">
                               {type}
                             </span>
-                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-400 md:hidden">
-                              <CalendarDays className="h-3.5 w-3.5" />
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-400 md:hidden">
+                              <CalendarDays className="h-3 w-3" />
                               {post.date}
                             </span>
                           </div>
 
-                          <h3 className="line-clamp-2 text-base font-extrabold leading-snug text-foreground transition-colors duration-300 md:line-clamp-1 md:text-lg md:group-hover:text-white">
+                          <h3 className="line-clamp-2 text-sm font-extrabold leading-snug text-foreground transition-colors duration-300 md:line-clamp-1 md:text-lg md:group-hover:text-white">
                             {post.title}
                           </h3>
-                          <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground transition-colors duration-300 md:group-hover:text-white/85">
+                          <p className="mt-1.5 line-clamp-2 text-xs leading-5 text-muted-foreground transition-colors duration-300 md:mt-2 md:text-sm md:leading-6 md:group-hover:text-white/85">
                             {summary}
                           </p>
                         </div>
