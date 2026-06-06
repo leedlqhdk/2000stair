@@ -1,12 +1,39 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Building2, Camera, ClipboardCheck, Home, Store } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 interface PricingSectionProps {
   isAuthenticated: boolean;
 }
+
+const includedServices = [
+  { icon: Home, label: "계단 바닥 청소" },
+  { icon: Building2, label: "난간·손잡이" },
+  { icon: Store, label: "공동현관 유리" },
+  { icon: ClipboardCheck, label: "거미줄 제거" },
+  { icon: Building2, label: "엘리베이터 포함" },
+  { icon: Camera, label: "작업 전후 사진 기록" },
+];
+
+const planFeatures: Record<string, string[]> = {
+  stair_2_3: [
+    "빌라·상가 공용계단 관리",
+    "계단 바닥, 난간·손잡이, 공동현관 유리",
+    "거미줄 제거, 엘리베이터 포함",
+  ],
+  stair_4: [
+    "가장 많이 문의되는 기본 관리",
+    "계단 바닥, 난간·손잡이, 공동현관 유리",
+    "거미줄 제거, 엘리베이터 포함",
+  ],
+  stair_5_6: [
+    "층수가 높은 건물 맞춤 관리",
+    "계단 바닥, 난간·손잡이, 공동현관 유리",
+    "거미줄 제거, 엘리베이터 포함",
+  ],
+};
 
 export default function PricingSection({ isAuthenticated }: PricingSectionProps) {
   const { data: plans } = trpc.quote.plans.useQuery();
@@ -54,32 +81,51 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
   const otherPlans = displayPlans.filter((p) => !p.id.startsWith("stair"));
 
   return (
-    <section id="pricing" className="py-16 md:py-28 bg-gradient-to-b from-white to-blue-50/40">
+    <section id="pricing" className="bg-gradient-to-b from-white to-blue-50/45 py-16 md:py-28">
       <div className="container">
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="mx-auto mb-8 max-w-3xl text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-sm font-bold tracking-[0.3em] text-primary mb-4">
-            PRICING
-          </p>
+          <div className="mb-4 inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-bold text-white shadow-[0_10px_24px_rgba(0,81,199,0.22)]">
+            <span className="mr-2">✓</span>
+            모든 요금제 동일 서비스 제공
+          </div>
 
-          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-5 leading-tight">
-            건물 상태에 맞춘
-            <br />
-            정기관리 플랜
+          <h2 className="text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
+            서비스는 <span className="text-primary">모두 동일합니다</span>
           </h2>
 
-          <p className="text-muted-foreground text-lg leading-relaxed max-w-xl mx-auto">
-            빌라·상가의 층수와 오염 상태에 맞춰 정기관리 기준으로 안내드립니다.
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            건물 <strong className="font-bold text-primary">층수</strong>와 <strong className="font-bold text-primary">작업시간</strong>에 따라 비용이 달라집니다.
           </p>
         </motion.div>
 
         <motion.div
-          className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8"
+          className="mx-auto mb-7 grid max-w-6xl grid-cols-2 overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-[0_16px_42px_rgba(15,76,169,0.08)] sm:grid-cols-3 lg:grid-cols-6"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {includedServices.map((service, index) => (
+            <div
+              key={service.label}
+              className={`flex min-h-[112px] flex-col items-center justify-center gap-3 px-4 py-5 text-center ${
+                index !== includedServices.length - 1 ? "border-r border-blue-100/80" : ""
+              } ${index < 3 ? "border-b border-blue-100/80 lg:border-b-0" : ""}`}
+            >
+              <service.icon className="h-8 w-8 text-primary" strokeWidth={1.7} />
+              <p className="text-sm font-extrabold text-foreground">{service.label}</p>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -97,35 +143,42 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
               }}
             >
               <Card
-                className={`relative overflow-hidden rounded-[2rem] border bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
+                className={`relative h-full overflow-visible rounded-[1.6rem] border bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
                   plan.popular
-                    ? "border-primary shadow-lg ring-2 ring-primary/15"
-                    : "border-blue-100 shadow-sm"
+                    ? "border-primary shadow-[0_20px_48px_rgba(0,81,199,0.12)] ring-2 ring-primary/10"
+                    : "border-blue-100 shadow-[0_16px_42px_rgba(15,76,169,0.08)]"
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute top-5 right-5 rounded-full bg-primary text-white text-xs font-semibold px-3 py-1 shadow-sm">
+                  <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary px-5 py-1.5 text-xs font-extrabold text-white shadow-sm">
                     BEST
                   </div>
                 )}
 
-                <CardContent className="p-6 md:p-9 flex flex-col h-full">
-                  <h3 className="text-lg md:text-xl font-extrabold text-foreground mb-4 pr-20">
+                <CardContent className="flex h-full flex-col p-7 md:p-8">
+                  <h3 className="mb-4 text-xl font-extrabold text-foreground">
                     {plan.name}
                   </h3>
 
-                  <div className="mb-6">
-                    <span className="text-2xl md:text-3xl font-extrabold text-primary">
+                  <div className="mb-6 border-b border-blue-100 pb-6">
+                    <span className="text-3xl font-extrabold tracking-tight text-primary md:text-4xl">
                       {plan.price}
                     </span>
-                    <span className="text-xs text-muted-foreground ml-1">
+                    <span className="ml-1 text-xs font-semibold text-muted-foreground">
                       / 월
                     </span>
                   </div>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 md:mb-8 flex-1">
-                    {plan.description}
-                  </p>
+                  <ul className="mb-8 flex-1 space-y-3">
+                    {(planFeatures[plan.id] || [plan.description]).map((feature) => (
+                      <li key={feature} className="flex gap-2 text-sm leading-6 text-foreground/80">
+                        <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-primary text-[10px] font-bold text-primary">
+                          ✓
+                        </span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
                   <Button
                     className="w-full rounded-xl"
@@ -133,7 +186,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                     onClick={handleQuoteRequest}
                   >
                     카톡으로 요금 문의
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardContent>
               </Card>
@@ -143,40 +196,38 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
 
         {otherPlans.length > 0 && (
           <motion.div
-            className="max-w-6xl mx-auto mt-8"
+            className="mx-auto mt-6 max-w-6xl"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
           >
-            <Card className="rounded-[2rem] border-blue-100 bg-white shadow-sm hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-7 md:p-8">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-                  <div>
-                    <p className="text-xs font-bold tracking-[0.25em] text-primary mb-2">
-                      EXTRA SERVICE
-                    </p>
-                    <h3 className="text-xl font-extrabold text-foreground">
+            <Card className="overflow-hidden rounded-[1.6rem] border-blue-100 bg-white shadow-[0_16px_42px_rgba(15,76,169,0.08)] transition-all duration-300 hover:shadow-xl">
+              <CardContent className="grid gap-6 p-7 md:grid-cols-[1fr_auto] md:items-center md:p-8">
+                <div>
+                  <p className="mb-3 text-xs font-bold tracking-[0.28em] text-primary">
+                    EXTRA SERVICE
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h3 className="text-xl font-extrabold text-foreground md:text-2xl">
                       {otherPlans[0].name}
                     </h3>
+                    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-primary">
+                      별도 문의
+                    </span>
                   </div>
-
-                  <span className="text-lg font-extrabold text-primary">
-                    {otherPlans[0].price}
-                  </span>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {otherPlans[0].description}
+                  </p>
                 </div>
 
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  {otherPlans[0].description}
-                </p>
-
                 <Button
-                  className="w-full md:w-auto rounded-xl"
+                  className="w-full rounded-xl md:w-auto md:min-w-[190px]"
                   variant="outline"
                   onClick={handleQuoteRequest}
                 >
                   카톡으로 별도 문의
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
             </Card>
