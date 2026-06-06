@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -46,14 +46,13 @@ export default function AdminBlog() {
     onError: (e) => toast.error(e.message),
   });
 
-  const handlePasswordLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const handlePasswordLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const trimmedPassword = password.trim();
-    if (!trimmedPassword) {
+    if (!password) {
       toast.error("비밀번호를 입력해주세요.");
       return;
     }
-    passwordLogin.mutate({ password: trimmedPassword });
+    passwordLogin.mutate({ password });
   };
 
   if (!isAdmin) {
