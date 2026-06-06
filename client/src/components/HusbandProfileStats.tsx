@@ -23,7 +23,7 @@ export default function HusbandProfileStats() {
     <section className="bg-white py-14 md:py-20">
       <div className="container max-w-6xl">
         <motion.div
-          className="grid items-end gap-6 overflow-hidden rounded-[2rem] border border-blue-100 bg-white px-6 pt-6 shadow-[0_20px_55px_rgba(15,76,169,0.06)] md:grid-cols-[0.9fr_1.1fr] md:gap-8 md:px-12 md:pt-5"
+          className="grid items-end gap-6 overflow-hidden rounded-[2rem] border border-blue-100 bg-white px-6 pt-8 shadow-[0_20px_55px_rgba(15,76,169,0.06)] md:grid-cols-[0.9fr_1.1fr] md:gap-8 md:px-12 md:pt-9"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -39,13 +39,13 @@ export default function HusbandProfileStats() {
             <img
               src="/images/husband-profile-main.webp?v=20260606"
               alt="이천계단지기 대표 현장관리 프로필"
-              className="-mb-1 w-[315px] max-w-full object-contain md:-mb-2 md:w-[430px]"
+              className="-mb-1 w-[330px] max-w-full object-contain md:-mb-2 md:w-[455px]"
               loading="lazy"
             />
           </motion.div>
 
           <motion.div
-            className="pb-8 text-center md:pb-10 md:text-left"
+            className="pb-8 pt-2 text-center md:pb-12 md:pt-4 md:text-left"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -67,7 +67,7 @@ export default function HusbandProfileStats() {
               이천계단지기는 외주나 하청 없이 대표가 직접 방문하여 건물 상태를 확인하고, 관리 주기와 작업 범위를 안내해드립니다.
             </p>
 
-            <div className="mt-7 grid gap-5 sm:grid-cols-3 md:max-w-2xl">
+            <div className="mt-8 grid gap-5 sm:grid-cols-3 md:max-w-2xl">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center md:text-left">
                   <p className="text-[2.2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.45rem]">
