@@ -16,6 +16,20 @@ import { sdk } from "./_core/sdk.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
+const createAdminUser = () => {
+  const now = new Date();
+  return {
+    id: 0,
+    openId: ADMIN_OPEN_ID,
+    name: "이천계단지기 관리자",
+    email: ENV.adminEmail,
+    loginMethod: "password",
+    role: "admin" as const,
+    createdAt: now,
+    updatedAt: now,
+    lastSignedIn: now,
+  };
+};
 
 export const appRouter = router({
   system: systemRouter,
@@ -58,7 +72,7 @@ export const appRouter = router({
           maxAge: ONE_YEAR_MS,
         });
 
-        return { success: true } as const;
+        return { success: true, user: createAdminUser() } as const;
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
