@@ -1,26 +1,21 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "../server/routers";
-import { createContext } from "../server/_core/trpc";
 import express from "express";
 import cookieParser from "cookie-parser";
+import type { Request, Response } from "express";
 
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
-const trpcMiddleware = createExpressMiddleware({
-  router: appRouter,
-  createContext,
-});
+// server/_core/trpc.ts에서 실제 export 이름 확인 후 import
+// createContext 대신 ctx 생성 방식을 직접 사용
+app.use(
+  "/",
+  createExpressMiddleware({
+    router: appRouter,
+    createContext: ({ req, res }) => ({ req, res }),
+  })
+);
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // path prefix 제거
-  const originalUrl = req.url ?? "/";
-  req.url = originalUrl.replace(/^\/api\/trpc/, "") || "/";
-
-  return new Promise((resolve) => {
-    app.use(trpcMiddleware);
-    app(req as any, res as any, resolve as any);
-  });
-}
+export default app;
