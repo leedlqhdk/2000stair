@@ -49,8 +49,7 @@ export default function About() {
                   함께 관리합니다
                 </h1>
                 <p className="max-w-sm text-base leading-8 text-muted-foreground md:max-w-md md:text-base">
-                  상담부터 현장 관리,
-                  작업 기록까지 직접 관리합니다.
+                  계단청소는 한 번보다 꾸준함이 중요합니다. 처음 확인한 건물 상태를 기억하고 이어서 관리합니다.
                 </p>
               </div>
 
@@ -66,20 +65,6 @@ export default function About() {
           </motion.section>
 
           <section className="mb-14 md:mb-20">
-            <p className="mb-3 text-sm font-extrabold text-primary">
-              DIRECT MANAGEMENT
-            </p>
-
-            <h2 className="mb-5 text-2xl font-extrabold leading-snug text-foreground md:text-4xl">
-              같은 사람이 꾸준히 봅니다
-            </h2>
-
-            <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
-              계단청소는 한 번보다 꾸준함이 중요합니다. 처음 확인한 건물 상태를 기억하고 이어서 관리합니다.
-            </p>
-          </section>
-
-          <section className="mb-14 overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50/70 via-white to-sky-50/50 p-7 shadow-sm md:mb-20 md:p-10">
             <div className="mb-7">
               <p className="mb-2 text-sm font-extrabold text-primary">
                 WHO WE ARE
@@ -90,7 +75,7 @@ export default function About() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-blue-100/80 bg-white/82 p-7 shadow-sm shadow-blue-950/5">
+              <div className="rounded-[1.5rem] border border-blue-100/80 bg-white p-7 shadow-sm shadow-blue-950/5">
                 <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
                   FIELD
                 </p>
@@ -111,7 +96,7 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="rounded-[1.5rem] border border-blue-100/80 bg-white/82 p-7 shadow-sm shadow-blue-950/5">
+              <div className="rounded-[1.5rem] border border-blue-100/80 bg-white p-7 shadow-sm shadow-blue-950/5">
                 <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">
                   RECORD
                 </p>
