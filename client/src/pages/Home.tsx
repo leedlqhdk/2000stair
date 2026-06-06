@@ -4,7 +4,7 @@ import HusbandProfileStats from "@/components/HusbandProfileStats";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
-import BlogReviews from "@/components/BlogReviews";
+import CareGuideSection from "@/components/CareGuideSection";
 import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -21,7 +21,7 @@ export default function Home() {
         <HowItWorks />
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={false} />
-        <BlogReviews />
+        <CareGuideSection />
         <FaqSection />
       </main>
 
