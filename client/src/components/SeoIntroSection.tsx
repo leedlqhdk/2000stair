@@ -25,10 +25,10 @@ const needCards = [
 ];
 
 const textVariants = {
-  hidden: { opacity: 0, x: -28 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
-    x: 0,
+    y: 0,
     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
 };
@@ -41,10 +41,9 @@ const cardListVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, x: 28, y: 14, scale: 0.98 },
+  hidden: { opacity: 0, y: 22, scale: 0.98 },
   visible: {
     opacity: 1,
-    x: 0,
     y: 0,
     scale: 1,
     transition: { duration: 0.56, ease: [0.22, 1, 0.36, 1] },
@@ -69,62 +68,61 @@ export default function SeoIntroSection() {
         transition={{ duration: 1.1, delay: 0.1, ease: "easeOut" }}
       />
 
-      <div className="container relative max-w-6xl">
-        <div className="grid gap-9 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={textVariants}
+      <div className="container relative max-w-7xl">
+        <motion.div
+          className="mx-auto max-w-3xl text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={textVariants}
+        >
+          <motion.p
+            className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm"
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.08 }}
           >
-            <motion.p
-              className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm"
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.08 }}
-            >
-              ICHEON STAIR CLEANING
-            </motion.p>
-            <h2 className="text-2xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
-              이천 계단청소,
-              <br className="hidden sm:block" />
-              어떤 건물에 필요할까요?
-            </h2>
-            <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground md:text-base">
-              다음 중 하나라도 해당된다면 정기적인 계단관리를 추천드립니다.
-            </p>
-          </motion.div>
+            ICHEON STAIR CLEANING
+          </motion.p>
+          <h2 className="text-2xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
+            이천 계단청소,
+            <br className="hidden sm:block" />
+            어떤 건물에 필요할까요?
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-muted-foreground md:text-base">
+            다음 중 하나라도 해당된다면 정기적인 계단관리를 추천드립니다.
+          </p>
+        </motion.div>
 
-          <motion.div
-            className="flex gap-4 overflow-x-auto pb-3 md:gap-5 lg:overflow-visible"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={cardListVariants}
-          >
-            {needCards.map((item) => (
-              <motion.div
-                key={item.title}
-                className="group flex min-h-[250px] w-[250px] shrink-0 flex-col justify-between rounded-[1.35rem] border border-blue-100 bg-white/88 p-5 text-foreground shadow-[0_18px_48px_rgba(15,76,169,0.10)] transition duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-blue-50/85 md:w-[265px] md:p-6 lg:w-1/4"
-                variants={cardVariants}
-              >
-                <div>
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 transition-colors duration-300 group-hover:bg-white">
-                    <item.icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-lg font-extrabold leading-snug">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.text}</p>
+        <motion.div
+          className="mt-10 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={cardListVariants}
+        >
+          {needCards.map((item) => (
+            <motion.div
+              key={item.title}
+              className="group flex min-h-[300px] w-full flex-col justify-between rounded-[1.35rem] border border-blue-100 bg-white/90 p-5 text-foreground shadow-[0_18px_48px_rgba(15,76,169,0.08)] transition duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-blue-50/80 md:p-6"
+              variants={cardVariants}
+            >
+              <div>
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 transition-colors duration-300 group-hover:bg-white">
+                  <item.icon className="h-5 w-5" />
                 </div>
-                <div className="mt-6 flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-primary/70" />
-                  <span className="h-3 w-3 rounded-full border border-primary/25" />
-                  <span className="h-3 w-3 rounded-full border border-primary/15" />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+                <h3 className="text-lg font-extrabold leading-snug md:text-xl">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.text}</p>
+              </div>
+              <div className="mt-6 flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-primary/70" />
+                <span className="h-3 w-3 rounded-full border border-primary/25" />
+                <span className="h-3 w-3 rounded-full border border-primary/15" />
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
