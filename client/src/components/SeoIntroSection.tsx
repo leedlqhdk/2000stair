@@ -105,21 +105,14 @@ export default function SeoIntroSection() {
           {needCards.map((item) => (
             <motion.div
               key={item.title}
-              className="group flex min-h-[300px] w-full flex-col justify-between rounded-[1.35rem] border border-blue-100 bg-white/90 p-5 text-foreground shadow-[0_18px_48px_rgba(15,76,169,0.08)] transition duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-blue-50/80 md:p-6"
+              className="group flex min-h-[300px] w-full flex-col rounded-[1.35rem] border border-blue-100 bg-white/90 p-5 text-foreground shadow-[0_18px_48px_rgba(15,76,169,0.08)] transition duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-blue-50/80 md:p-6"
               variants={cardVariants}
             >
-              <div>
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 transition-colors duration-300 group-hover:bg-white">
-                  <item.icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-lg font-extrabold leading-snug md:text-xl">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.text}</p>
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 transition-colors duration-300 group-hover:bg-white">
+                <item.icon className="h-5 w-5" />
               </div>
-              <div className="mt-6 flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-primary/70" />
-                <span className="h-3 w-3 rounded-full border border-primary/25" />
-                <span className="h-3 w-3 rounded-full border border-primary/15" />
-              </div>
+              <h3 className="text-lg font-extrabold leading-snug md:text-xl">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.text}</p>
             </motion.div>
           ))}
         </motion.div>
