@@ -65,7 +65,7 @@ export default function About() {
           </motion.section>
 
           <section className="mb-14 md:mb-20">
-            <div className="mb-7">
+            <div className="mx-auto mb-8 max-w-2xl text-center">
               <p className="mb-2 text-sm font-extrabold text-primary">
                 WHO WE ARE
               </p>
@@ -120,7 +120,7 @@ export default function About() {
           </section>
 
           <section className="mb-14 md:mb-20">
-            <div className="mb-6">
+            <div className="mx-auto mb-7 max-w-2xl text-center">
               <p className="mb-2 text-sm font-extrabold text-primary">
                 OUR STANDARD
               </p>
@@ -129,7 +129,7 @@ export default function About() {
               </h2>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-6 text-center md:grid-cols-3">
               {values.map((value) => (
                 <div key={value.title} className="border-t border-blue-100 pt-5">
                   <h3 className="mb-2 text-lg font-extrabold text-foreground">
