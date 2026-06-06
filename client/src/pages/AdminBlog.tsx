@@ -1,11 +1,12 @@
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { PenLine, Trash2, Eye, EyeOff, Plus } from "lucide-react";
+import { PenLine, Trash2, Eye, EyeOff, Plus, LogIn } from "lucide-react";
 
 export default function AdminBlog() {
   const { user } = useAuth();
@@ -33,8 +34,21 @@ export default function AdminBlog() {
 
   if (!user || user.role !== "admin") {
     return (
-      <div className="max-w-xl mx-auto px-4 py-20 text-center text-gray-400">
-        <p>관리자만 접근할 수 있습니다.</p>
+      <div className="min-h-screen bg-blue-50/30 px-4 py-20">
+        <div className="mx-auto max-w-xl rounded-[1.5rem] border border-blue-100 bg-white p-8 text-center shadow-sm">
+          <p className="text-sm font-bold tracking-[0.25em] text-primary mb-3">ADMIN</p>
+          <h1 className="text-2xl font-extrabold text-foreground mb-3">관리자 로그인이 필요합니다</h1>
+          <p className="text-sm leading-7 text-muted-foreground mb-6">
+            정보성글과 작업일지는 관리자 계정으로 로그인한 뒤 작성, 수정, 삭제할 수 있습니다.
+          </p>
+          <Button
+            className="bg-blue-600 hover:bg-blue-700 text-white gap-2"
+            onClick={() => (window.location.href = getLoginUrl())}
+          >
+            <LogIn className="h-4 w-4" />
+            관리자 로그인
+          </Button>
+        </div>
       </div>
     );
   }
@@ -61,7 +75,7 @@ export default function AdminBlog() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold">작업일지 관리</h1>
+          <h1 className="text-2xl font-bold">작업일지·관리정보 관리</h1>
           <p className="text-sm text-gray-400 mt-1">총 {posts?.length ?? 0}개의 게시글</p>
         </div>
         <Link href="/admin/blog/new">
@@ -82,7 +96,7 @@ export default function AdminBlog() {
         <div className="text-center py-20 text-gray-400">
           <p className="mb-4">아직 작성된 게시글이 없습니다.</p>
           <Link href="/admin/blog/new">
-            <Button variant="outline">첫 번째 작업일지 작성하기</Button>
+            <Button variant="outline">첫 번째 글 작성하기</Button>
           </Link>
         </div>
       ) : (
