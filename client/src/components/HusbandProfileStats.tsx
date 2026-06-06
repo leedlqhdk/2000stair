@@ -37,7 +37,7 @@ export default function HusbandProfileStats() {
             transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <img
-              src="/images/gyunam%20home.webp"
+              src="/images/husband-profile-main.webp?v=20260606"
               alt="이천계단지기 대표 현장관리 프로필"
               className="w-[250px] object-contain md:w-[330px]"
               loading="lazy"
