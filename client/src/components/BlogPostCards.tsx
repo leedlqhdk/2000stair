@@ -20,13 +20,13 @@ const fallbackInfoPosts: InfoPost[] = [
 
 export default function BlogPostCards() {
   const [infoPosts, setInfoPosts] = useState<InfoPost[]>(fallbackInfoPosts);
-  const visiblePosts = infoPosts.slice(0, 4);
+  const visiblePosts = infoPosts.slice(0, 6);
   const scrollingPosts = visiblePosts.length > 1 ? [...visiblePosts, ...visiblePosts] : visiblePosts;
 
   useEffect(() => {
     let active = true;
 
-    fetch("/api/content-posts?contentType=정보성&limit=4")
+    fetch("/api/content-posts?contentType=정보성&limit=6")
       .then(async (response) => {
         if (!response.ok) throw new Error(`Failed to load posts: ${response.status}`);
         return response.json() as Promise<{ posts?: InfoPost[] }>;
@@ -34,7 +34,7 @@ export default function BlogPostCards() {
       .then((data) => {
         if (!active) return;
         if (data.posts?.length) {
-          setInfoPosts(data.posts.slice(0, 4));
+          setInfoPosts(data.posts.slice(0, 6));
         }
       })
       .catch((error) => {
@@ -65,7 +65,7 @@ export default function BlogPostCards() {
           transition={
             visiblePosts.length > 1
               ? {
-                  duration: 24,
+                  duration: 30,
                   ease: "linear",
                   repeat: Infinity,
                 }
@@ -78,11 +78,11 @@ export default function BlogPostCards() {
               href={post.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block w-[190px] shrink-0 overflow-hidden rounded-[1.15rem] border border-blue-100 bg-white shadow-sm sm:w-[220px] md:w-[300px] md:rounded-[1.45rem]"
+              className="group relative block w-[185px] shrink-0 overflow-hidden rounded-[1.15rem] border border-blue-100 bg-white shadow-sm sm:w-[220px] md:w-[292px] md:rounded-[1.45rem]"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: (index % visiblePosts.length) * 0.08 }}
+              transition={{ duration: 0.45, delay: (index % visiblePosts.length) * 0.06 }}
             >
               <div className="relative aspect-square overflow-hidden bg-slate-100">
                 <img
