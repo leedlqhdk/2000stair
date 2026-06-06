@@ -1,16 +1,20 @@
-import { COOKIE_NAME } from "@shared/const";
+import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { PLANS } from "./products";
-import { getDb } from "./db";
+import { getDb, upsertUser } from "./db";
 import { quoteRequests } from "../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { notifyOwner } from "./_core/notification";
 import { blogRouter } from "./routers/blog";
 import { areaPostsRouter } from "./routers/areaPosts";
 import { contentPostsRouter } from "./routers/contentPosts";
+import { ENV } from "./_core/env";
+import { sdk } from "./_core/sdk";
+
+const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 
 export const appRouter = router({
   system: systemRouter,
@@ -19,6 +23,38 @@ export const appRouter = router({
   contentPosts: contentPostsRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
+    passwordLogin: publicProcedure
+      .input(z.object({ password: z.string().min(1, "비밀번호를 입력해주세요") }))
+      .mutation(async ({ ctx, input }) => {
+        if (!ENV.adminPassword) {
+          throw new Error("관리자 비밀번호가 아직 설정되지 않았습니다.");
+        }
+
+        if (input.password !== ENV.adminPassword) {
+          throw new Error("비밀번호가 올바르지 않습니다.");
+        }
+
+        await upsertUser({
+          openId: ADMIN_OPEN_ID,
+          name: "이천계단지기 관리자",
+          email: ENV.adminEmail,
+          loginMethod: "password",
+          role: "admin",
+          lastSignedIn: new Date(),
+        });
+
+        const sessionToken = await sdk.createSessionToken(ADMIN_OPEN_ID, {
+          name: "이천계단지기 관리자",
+          expiresInMs: ONE_YEAR_MS,
+        });
+        const cookieOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.cookie(COOKIE_NAME, sessionToken, {
+          ...cookieOptions,
+          maxAge: ONE_YEAR_MS,
+        });
+
+        return { success: true } as const;
+      }),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
