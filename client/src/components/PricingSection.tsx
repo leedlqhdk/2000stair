@@ -1,18 +1,46 @@
+import type { SVGProps } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, ArrowUpDown, Brush, BugOff, Camera, DoorOpen, Hand } from "lucide-react";
+import { ArrowRight, ArrowUpDown, Camera, DoorOpen, Hand } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 interface PricingSectionProps {
   isAuthenticated: boolean;
 }
 
+function StairIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M4 19h16" />
+      <path d="M5 16h4v-4h4V8h4V4h3" />
+      <path d="M9 16v3" />
+      <path d="M13 12v7" />
+      <path d="M17 8v11" />
+      <path d="M5 7.5l1.1-2.2L8.3 4.2 6.1 3.1 5 1.8 3.9 3.1 1.7 4.2l2.2 1.1L5 7.5Z" />
+    </svg>
+  );
+}
+
+function SpiderWebIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M12 3v18" />
+      <path d="M3 12h18" />
+      <path d="M5.6 5.6l12.8 12.8" />
+      <path d="M18.4 5.6 5.6 18.4" />
+      <path d="M12 6.5c3.1 0 5.5 2.4 5.5 5.5S15.1 17.5 12 17.5 6.5 15.1 6.5 12 8.9 6.5 12 6.5Z" />
+      <path d="M12 9.2c1.6 0 2.8 1.2 2.8 2.8s-1.2 2.8-2.8 2.8S9.2 13.6 9.2 12 10.4 9.2 12 9.2Z" />
+      <path d="M20.5 4.5c-.4 1.4-1.2 2.1-2.5 2.5 1.3.4 2.1 1.2 2.5 2.5.4-1.3 1.2-2.1 2.5-2.5-1.3-.4-2.1-1.1-2.5-2.5Z" />
+    </svg>
+  );
+}
+
 const includedServices = [
-  { icon: Brush, label: "계단 바닥 청소" },
+  { icon: StairIcon, label: "계단 바닥 청소" },
   { icon: Hand, label: "난간·손잡이" },
   { icon: DoorOpen, label: "공동현관 유리" },
-  { icon: BugOff, label: "거미줄 제거" },
+  { icon: SpiderWebIcon, label: "거미줄 제거" },
   { icon: ArrowUpDown, label: "엘리베이터 포함" },
   { icon: Camera, label: "작업 전후 사진 기록" },
 ];
@@ -105,7 +133,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         </motion.div>
 
         <motion.div
-          className="mx-auto mb-8 grid max-w-6xl grid-cols-1 gap-3 md:grid-cols-3 md:gap-5 xl:grid-cols-6"
+          className="mx-auto mb-8 grid max-w-md grid-cols-6 gap-2 md:max-w-6xl md:grid-cols-3 md:gap-5 xl:grid-cols-6"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -114,10 +142,12 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           {includedServices.map((service) => (
             <div
               key={service.label}
-              className="flex min-h-[58px] items-center gap-3 rounded-2xl px-2 py-2 text-left md:min-h-[96px] md:flex-col md:justify-center md:gap-3 md:text-center"
+              className="flex min-h-12 items-center justify-center rounded-2xl px-1 py-2 md:min-h-[96px] md:flex-col md:gap-3 md:px-2 md:text-center"
+              aria-label={service.label}
+              title={service.label}
             >
               <service.icon className="h-7 w-7 shrink-0 text-primary md:h-9 md:w-9" strokeWidth={1.8} />
-              <p className="text-sm font-extrabold text-foreground">{service.label}</p>
+              <p className="hidden text-sm font-extrabold text-foreground md:block">{service.label}</p>
             </div>
           ))}
         </motion.div>
