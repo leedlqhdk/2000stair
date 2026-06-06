@@ -15,8 +15,25 @@ import type {
   GetUserInfoWithJwtResponse,
 } from "./types/manusTypes.js";
 
+const PASSWORD_ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
+
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === "string" && value.length > 0;
+
+const createPasswordAdminUser = (openId: string): User => {
+  const now = new Date();
+  return {
+    id: 0,
+    openId,
+    name: "이천계단지기 관리자",
+    email: ENV.adminEmail,
+    loginMethod: "password",
+    role: "admin",
+    createdAt: now,
+    updatedAt: now,
+    lastSignedIn: now,
+  };
+};
 
 export type SessionPayload = {
   openId: string;
@@ -193,6 +210,10 @@ class SDKServer {
 
     const signedInAt = new Date();
     let user = await db.getUserByOpenId(session.openId);
+
+    if (!user && session.openId === PASSWORD_ADMIN_OPEN_ID) {
+      return createPasswordAdminUser(session.openId);
+    }
 
     if (!user) {
       try {
