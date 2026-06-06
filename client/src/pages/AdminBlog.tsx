@@ -10,9 +10,12 @@ import { PenLine, Trash2, Eye, EyeOff, Plus, LogIn } from "lucide-react";
 
 export default function AdminBlog() {
   const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
   const utils = trpc.useUtils();
 
-  const { data: posts, isLoading } = trpc.blog.adminList.useQuery();
+  const { data: posts, isLoading } = trpc.blog.adminList.useQuery(undefined, {
+    enabled: isAdmin,
+  });
   const { data: allTags } = trpc.blog.tags.useQuery();
 
   const deletePost = trpc.blog.delete.useMutation({
@@ -32,7 +35,7 @@ export default function AdminBlog() {
     onError: (e) => toast.error(e.message),
   });
 
-  if (!user || user.role !== "admin") {
+  if (!isAdmin) {
     return (
       <div className="min-h-screen bg-blue-50/30 px-4 py-20">
         <div className="mx-auto max-w-xl rounded-[1.5rem] border border-blue-100 bg-white p-8 text-center shadow-sm">
@@ -43,7 +46,14 @@ export default function AdminBlog() {
           </p>
           <Button
             className="bg-blue-600 hover:bg-blue-700 text-white gap-2"
-            onClick={() => (window.location.href = getLoginUrl())}
+            onClick={() => {
+              const loginUrl = getLoginUrl();
+              if (loginUrl.includes("login=not-configured")) {
+                toast.error("관리자 로그인 설정이 아직 연결되지 않았습니다.");
+                return;
+              }
+              window.location.href = loginUrl;
+            }}
           >
             <LogIn className="h-4 w-4" />
             관리자 로그인
