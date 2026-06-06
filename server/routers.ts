@@ -15,6 +15,7 @@ import { ENV } from "./_core/env";
 import { sdk } from "./_core/sdk";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
+const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
 
 export const appRouter = router({
   system: systemRouter,
@@ -43,10 +44,14 @@ export const appRouter = router({
           lastSignedIn: new Date(),
         });
 
-        const sessionToken = await sdk.createSessionToken(ADMIN_OPEN_ID, {
-          name: "이천계단지기 관리자",
-          expiresInMs: ONE_YEAR_MS,
-        });
+        const sessionToken = await sdk.signSession(
+          {
+            openId: ADMIN_OPEN_ID,
+            appId: ENV.appId || PASSWORD_ADMIN_APP_ID,
+            name: "이천계단지기 관리자",
+          },
+          { expiresInMs: ONE_YEAR_MS }
+        );
         const cookieOptions = getSessionCookieOptions(ctx.req);
         ctx.res.cookie(COOKIE_NAME, sessionToken, {
           ...cookieOptions,
