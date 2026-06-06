@@ -23,7 +23,7 @@ export default function HusbandProfileStats() {
     <section className="bg-white py-14 md:py-20">
       <div className="container max-w-6xl">
         <motion.div
-          className="grid items-end gap-6 overflow-hidden rounded-[2rem] border border-blue-100 bg-white px-6 pt-8 shadow-[0_20px_55px_rgba(15,76,169,0.06)] md:px-10 md:pt-10 lg:grid-cols-[minmax(430px,0.95fr)_minmax(0,1.05fr)] lg:gap-8 lg:px-12 lg:pt-9"
+          className="grid items-end gap-6 overflow-hidden rounded-[2rem] border border-blue-100 bg-white px-6 pt-8 shadow-[0_20px_55px_rgba(15,76,169,0.06)] md:px-10 md:pt-10 lg:grid-cols-[minmax(500px,1fr)_minmax(0,0.95fr)] lg:gap-6 lg:px-10 lg:pt-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -39,7 +39,7 @@ export default function HusbandProfileStats() {
             <img
               src="/images/husband-profile-main.webp?v=20260606"
               alt="이천계단지기 대표 현장관리 프로필"
-              className="-mb-1 w-[min(88vw,430px)] object-contain md:w-[470px] lg:-mb-2 lg:w-[500px]"
+              className="-mb-1 w-[min(92vw,470px)] object-contain md:w-[520px] lg:-mb-2 lg:w-[580px]"
               loading="lazy"
             />
           </motion.div>
