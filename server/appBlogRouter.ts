@@ -20,6 +20,105 @@ function parsePost(post: typeof posts.$inferSelect) {
   };
 }
 
+function stripHtml(value: string) {
+  return value
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function pickMeta(html: string, property: string) {
+  const escaped = property.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const patterns = [
+    new RegExp(`<meta[^>]+property=["']${escaped}["'][^>]+content=["']([^"']+)["'][^>]*>`, "i"),
+    new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+property=["']${escaped}["'][^>]*>`, "i"),
+    new RegExp(`<meta[^>]+name=["']${escaped}["'][^>]+content=["']([^"']+)["'][^>]*>`, "i"),
+    new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+name=["']${escaped}["'][^>]*>`, "i"),
+  ];
+
+  for (const pattern of patterns) {
+    const match = html.match(pattern);
+    if (match?.[1]) return stripHtml(match[1]);
+  }
+  return "";
+}
+
+function pickTitle(html: string) {
+  const ogTitle = pickMeta(html, "og:title");
+  if (ogTitle) return cleanNaverTitle(ogTitle);
+
+  const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? "";
+  return cleanNaverTitle(stripHtml(title));
+}
+
+function cleanNaverTitle(title: string) {
+  return title
+    .replace(/\s*:\s*네이버\s*블로그\s*$/i, "")
+    .replace(/\s*-\s*Naver\s*Blog\s*$/i, "")
+    .replace(/\s*\|\s*네이버\s*블로그\s*$/i, "")
+    .trim();
+}
+
+function inferTitleFromUrl(url: string) {
+  const known: Record<string, string> = {
+    "224306730819": "여름철 빌라 계단 냄새, 물청소만으로 해결 안 되는 이유",
+  };
+
+  const id = url.match(/\/(\d{8,})/)?.[1];
+  return id ? known[id] ?? `이천계단지기 관리정보 ${id}` : "이천계단지기 관리정보";
+}
+
+function buildNaverDraft(input: { url: string; title?: string; description?: string; image?: string }) {
+  const title = cleanNaverTitle(input.title || inferTitleFromUrl(input.url));
+  const description =
+    input.description ||
+    `${title}에 대해 이천계단지기가 실제 계단청소 현장 기준으로 정리한 관리정보입니다.`;
+  const seoTitle = `${title} | 이천계단지기`;
+  const seoDescription = `${description} 이천 빌라·원룸 계단청소와 공용공간 정기관리에 필요한 내용을 정리했습니다.`.slice(0, 150);
+  const seoKeywords = "이천계단청소, 이천계단지기, 빌라계단청소, 원룸계단청소, 공용공간청소, 정기계단청소, 계단냄새, 계단관리정보";
+
+  const content = [
+    `# ${title}`,
+    "",
+    "네이버 블로그에 먼저 정리한 내용을 홈페이지 방문자가 보기 쉽도록 다시 구성한 관리정보 글입니다.",
+    "",
+    "## 핵심 요약",
+    `- ${description}`,
+    "- 계단·복도·공동현관처럼 함께 쓰는 공간은 오염이 눈에 잘 보이지 않아도 냄새나 미끄럼, 먼지 문제로 이어질 수 있습니다.",
+    "- 한 번의 물청소보다 오염이 굳기 전에 주기적으로 관리하는 방식이 더 안정적입니다.",
+    "",
+    "## 확인하면 좋은 부분",
+    "- 계단 논슬립 모서리와 줄눈 틈새",
+    "- 공동현관 매트 아래와 유리 프레임 하단",
+    "- 난간 손잡이와 브래킷 주변",
+    "- 환기가 부족한 계단실의 습기와 냄새 잔여감",
+    "",
+    "## 이천계단지기 관리 방식",
+    "이천계단지기는 부부가 직접 현장을 확인하고, 건물별 전용 걸레를 구분해 사용합니다. 친환경 세제와 탈취 작업을 함께 적용해 공용공간을 꾸준히 관리합니다.",
+    "",
+    "계단·복도·공동현관 현재 사진을 보내주시면 관리 범위와 견적을 빠르게 안내드립니다.",
+    "",
+    `[네이버 블로그 원문 보기](${input.url})`,
+  ].join("\n");
+
+  return {
+    title,
+    content,
+    thumbnail: input.image || "",
+    thumbnailAlt: `${title} 이천계단지기 관리정보`,
+    seoTitle: seoTitle.slice(0, 90),
+    seoDescription,
+    seoKeywords,
+  };
+}
+
 export const blogRouter = router({
   list: publicProcedure
     .input(
@@ -78,6 +177,34 @@ export const blogRouter = router({
     const rows = await db.select().from(posts).orderBy(desc(posts.createdAt));
     return rows.map(parsePost);
   }),
+
+  importNaverDraft: adminProcedure
+    .input(z.object({ url: z.string().url("네이버 블로그 주소를 입력해주세요.") }))
+    .mutation(async ({ input }) => {
+      if (!input.url.includes("blog.naver.com")) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "네이버 블로그 주소만 변환할 수 있습니다." });
+      }
+
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 6000);
+        const response = await fetch(input.url, {
+          signal: controller.signal,
+          headers: {
+            "User-Agent": "Mozilla/5.0 2000stair admin importer",
+          },
+        });
+        clearTimeout(timeout);
+
+        const html = await response.text();
+        const title = pickTitle(html) || inferTitleFromUrl(input.url);
+        const description = pickMeta(html, "og:description") || pickMeta(html, "description");
+        const image = pickMeta(html, "og:image");
+        return buildNaverDraft({ url: input.url, title, description, image });
+      } catch {
+        return buildNaverDraft({ url: input.url });
+      }
+    }),
 
   create: adminProcedure
     .input(
@@ -179,9 +306,9 @@ export const blogRouter = router({
   generateSeo: adminProcedure
     .input(z.object({ title: z.string().min(1), content: z.string().min(1) }))
     .mutation(({ input }) => ({
-      seoTitle: input.title.slice(0, 60),
-      seoDescription: input.content.replace(/\s+/g, " ").slice(0, 80),
-      seoKeywords: "이천계단청소, 이천계단지기, 빌라계단청소, 정기계단청소",
+      seoTitle: `${input.title} | 이천계단지기`.slice(0, 90),
+      seoDescription: input.content.replace(/[#*\[\]()`]/g, " ").replace(/\s+/g, " ").slice(0, 150),
+      seoKeywords: "이천계단청소, 이천계단지기, 빌라계단청소, 원룸계단청소, 공용공간청소, 정기계단청소",
     })),
 
   generateAlt: adminProcedure
