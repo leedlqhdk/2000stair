@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { PenLine, Trash2, Eye, EyeOff, Plus, LogIn } from "lucide-react";
 
 export default function AdminBlog() {
+  const [password, setPassword] = useState("");
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
   const utils = trpc.useUtils();
@@ -17,6 +18,16 @@ export default function AdminBlog() {
     enabled: isAdmin,
   });
   const { data: allTags } = trpc.blog.tags.useQuery();
+
+  const passwordLogin = trpc.auth.passwordLogin.useMutation({
+    onSuccess: async () => {
+      toast.success("관리자 로그인 완료");
+      setPassword("");
+      await utils.auth.me.invalidate();
+      await utils.blog.adminList.invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
 
   const deletePost = trpc.blog.delete.useMutation({
     onSuccess: () => {
@@ -35,29 +46,50 @@ export default function AdminBlog() {
     onError: (e) => toast.error(e.message),
   });
 
+  const handlePasswordLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const trimmedPassword = password.trim();
+    if (!trimmedPassword) {
+      toast.error("비밀번호를 입력해주세요.");
+      return;
+    }
+    passwordLogin.mutate({ password: trimmedPassword });
+  };
+
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-blue-50/30 px-4 py-20">
         <div className="mx-auto max-w-xl rounded-[1.5rem] border border-blue-100 bg-white p-8 text-center shadow-sm">
           <p className="text-sm font-bold tracking-[0.25em] text-primary mb-3">ADMIN</p>
-          <h1 className="text-2xl font-extrabold text-foreground mb-3">관리자 로그인이 필요합니다</h1>
+          <h1 className="text-2xl font-extrabold text-foreground mb-3">관리자 비밀번호가 필요합니다</h1>
           <p className="text-sm leading-7 text-muted-foreground mb-6">
-            정보성글과 작업일지는 관리자 계정으로 로그인한 뒤 작성, 수정, 삭제할 수 있습니다.
+            정보성글과 작업일지는 관리자 비밀번호를 입력한 뒤 작성, 수정, 삭제할 수 있습니다.
           </p>
-          <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white gap-2"
-            onClick={() => {
-              const loginUrl = getLoginUrl();
-              if (loginUrl.includes("login=not-configured")) {
-                toast.error("관리자 로그인 설정이 아직 연결되지 않았습니다.");
-                return;
-              }
-              window.location.href = loginUrl;
-            }}
-          >
-            <LogIn className="h-4 w-4" />
-            관리자 로그인
-          </Button>
+          <form onSubmit={handlePasswordLogin} className="mx-auto max-w-sm space-y-3 text-left">
+            <label className="block text-sm font-semibold text-slate-700" htmlFor="admin-password">
+              관리자 비밀번호
+            </label>
+            <input
+              id="admin-password"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              autoComplete="current-password"
+              placeholder="비밀번호 입력"
+              className="h-12 w-full rounded-xl border border-blue-100 bg-white px-4 text-base outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+            />
+            <Button
+              type="submit"
+              disabled={passwordLogin.isPending}
+              className="h-12 w-full bg-blue-600 hover:bg-blue-700 text-white gap-2"
+            >
+              <LogIn className="h-4 w-4" />
+              {passwordLogin.isPending ? "확인 중" : "관리자 로그인"}
+            </Button>
+          </form>
+          <p className="mt-5 text-xs leading-6 text-muted-foreground">
+            비밀번호는 홈페이지 설정값으로만 확인합니다. 채팅이나 메모장에 남기지 않는 편이 좋습니다.
+          </p>
         </div>
       </div>
     );
