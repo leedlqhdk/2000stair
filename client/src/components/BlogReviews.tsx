@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import BlogPostCards from "@/components/BlogPostCards";
 
 const reviewCards = [
   {
@@ -64,27 +65,9 @@ export default function BlogReviews() {
           </p>
         </motion.div>
 
-        <motion.a
-          href="https://blog.naver.com/icheonstair"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="이천계단지기 네이버 블로그에서 실제 작업 기록 보기"
-          className="group block max-w-6xl mx-auto mb-14 rounded-xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="relative overflow-hidden rounded-xl">
-            <img
-              src="/images/blog-banner-main.png"
-              alt="이천계단지기 실제 작업 기록 보러가기"
-              className="w-full h-auto transition-transform duration-500 group-hover:scale-[1.01]"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-white/0 transition-colors duration-300 group-hover:bg-white/8" />
-          </div>
-        </motion.a>
+        <div className="mb-14">
+          <BlogPostCards />
+        </div>
 
         <motion.div
           className="mx-auto max-w-6xl rounded-2xl border border-blue-50 bg-white/70 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] md:p-6"
