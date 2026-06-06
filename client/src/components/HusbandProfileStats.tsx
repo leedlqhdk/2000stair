@@ -88,7 +88,7 @@ export default function HusbandProfileStats() {
                 href="/about"
                 className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]"
               >
-                대표 소개 보기
+                부부소개 보기
                 <span className="ml-2">→</span>
               </a>
             </div>
