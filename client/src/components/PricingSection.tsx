@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, ArrowUpDown, Brush, BugOff, Camera, DoorOpen, Hand, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpDown, Brush, BugOff, Camera, DoorOpen, Hand } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 interface PricingSectionProps {
@@ -90,7 +90,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <div className="mb-4 inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-bold text-white shadow-[0_10px_24px_rgba(0,81,199,0.22)]">
+          <div className="mb-4 inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-bold text-white">
             <span className="mr-2">✓</span>
             모든 요금제 동일 서비스 제공
           </div>
@@ -105,22 +105,18 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         </motion.div>
 
         <motion.div
-          className="mx-auto mb-7 grid max-w-6xl grid-cols-1 overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-[0_16px_42px_rgba(15,76,169,0.08)] md:grid-cols-3 xl:grid-cols-6"
+          className="mx-auto mb-8 grid max-w-6xl grid-cols-1 gap-3 md:grid-cols-3 md:gap-5 xl:grid-cols-6"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {includedServices.map((service, index) => (
+          {includedServices.map((service) => (
             <div
               key={service.label}
-              className={`flex min-h-[72px] items-center gap-4 px-5 py-4 text-left md:min-h-[112px] md:flex-col md:justify-center md:gap-3 md:px-4 md:py-5 md:text-center ${
-                index !== includedServices.length - 1 ? "border-b border-blue-100/80 xl:border-b-0 xl:border-r" : ""
-              } ${index < 3 ? "md:border-b md:border-blue-100/80 xl:border-b-0" : ""}`}
+              className="flex min-h-[58px] items-center gap-3 rounded-2xl px-2 py-2 text-left md:min-h-[96px] md:flex-col md:justify-center md:gap-3 md:text-center"
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 md:h-auto md:w-auto md:rounded-none md:bg-transparent md:ring-0">
-                <service.icon className="h-6 w-6 md:h-8 md:w-8" strokeWidth={1.8} />
-              </div>
+              <service.icon className="h-7 w-7 shrink-0 text-primary md:h-9 md:w-9" strokeWidth={1.8} />
               <p className="text-sm font-extrabold text-foreground">{service.label}</p>
             </div>
           ))}
