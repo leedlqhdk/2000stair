@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Building2, Camera, ClipboardCheck, Home, Store } from "lucide-react";
+import { ArrowRight, ArrowUpDown, Brush, BugOff, Camera, DoorOpen, Hand, Sparkles } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
 interface PricingSectionProps {
@@ -9,11 +9,11 @@ interface PricingSectionProps {
 }
 
 const includedServices = [
-  { icon: Home, label: "계단 바닥 청소" },
-  { icon: Building2, label: "난간·손잡이" },
-  { icon: Store, label: "공동현관 유리" },
-  { icon: ClipboardCheck, label: "거미줄 제거" },
-  { icon: Building2, label: "엘리베이터 포함" },
+  { icon: Brush, label: "계단 바닥 청소" },
+  { icon: Hand, label: "난간·손잡이" },
+  { icon: DoorOpen, label: "공동현관 유리" },
+  { icon: BugOff, label: "거미줄 제거" },
+  { icon: ArrowUpDown, label: "엘리베이터 포함" },
   { icon: Camera, label: "작업 전후 사진 기록" },
 ];
 
@@ -105,7 +105,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         </motion.div>
 
         <motion.div
-          className="mx-auto mb-7 grid max-w-6xl grid-cols-2 overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-[0_16px_42px_rgba(15,76,169,0.08)] sm:grid-cols-3 lg:grid-cols-6"
+          className="mx-auto mb-7 grid max-w-6xl grid-cols-1 overflow-hidden rounded-[1.6rem] border border-blue-100 bg-white shadow-[0_16px_42px_rgba(15,76,169,0.08)] md:grid-cols-3 xl:grid-cols-6"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -114,11 +114,13 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           {includedServices.map((service, index) => (
             <div
               key={service.label}
-              className={`flex min-h-[112px] flex-col items-center justify-center gap-3 px-4 py-5 text-center ${
-                index !== includedServices.length - 1 ? "border-r border-blue-100/80" : ""
-              } ${index < 3 ? "border-b border-blue-100/80 lg:border-b-0" : ""}`}
+              className={`flex min-h-[72px] items-center gap-4 px-5 py-4 text-left md:min-h-[112px] md:flex-col md:justify-center md:gap-3 md:px-4 md:py-5 md:text-center ${
+                index !== includedServices.length - 1 ? "border-b border-blue-100/80 xl:border-b-0 xl:border-r" : ""
+              } ${index < 3 ? "md:border-b md:border-blue-100/80 xl:border-b-0" : ""}`}
             >
-              <service.icon className="h-8 w-8 text-primary" strokeWidth={1.7} />
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 md:h-auto md:w-auto md:rounded-none md:bg-transparent md:ring-0">
+                <service.icon className="h-6 w-6 md:h-8 md:w-8" strokeWidth={1.8} />
+              </div>
               <p className="text-sm font-extrabold text-foreground">{service.label}</p>
             </div>
           ))}
