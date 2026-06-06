@@ -1,18 +1,18 @@
-import { COOKIE_NAME, ONE_YEAR_MS } from "../shared/const";
-import { getSessionCookieOptions } from "./_core/cookies";
-import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
+import { COOKIE_NAME, ONE_YEAR_MS } from "../shared/const.js";
+import { getSessionCookieOptions } from "./_core/cookies.js";
+import { systemRouter } from "./_core/systemRouter.js";
+import { publicProcedure, protectedProcedure, router } from "./_core/trpc.js";
 import { z } from "zod";
-import { PLANS } from "./products";
-import { getDb, upsertUser } from "./db";
-import { quoteRequests } from "../drizzle/schema";
+import { PLANS } from "./products.js";
+import { getDb, upsertUser } from "./db.js";
+import { quoteRequests } from "../drizzle/schema.js";
 import { eq, desc } from "drizzle-orm";
-import { notifyOwner } from "./_core/notification";
-import { blogRouter } from "./routers/blog";
-import { areaPostsRouter } from "./routers/areaPosts";
-import { contentPostsRouter } from "./routers/contentPosts";
-import { ENV } from "./_core/env";
-import { sdk } from "./_core/sdk";
+import { notifyOwner } from "./_core/notification.js";
+import { blogRouter } from "./appBlogRouter.js";
+import { areaPostsRouter } from "./appAreaPostsRouter.js";
+import { contentPostsRouter } from "./appContentPostsRouter.js";
+import { ENV } from "./_core/env.js";
+import { sdk } from "./_core/sdk.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
@@ -68,7 +68,6 @@ export const appRouter = router({
   }),
 
   quote: router({
-    // Get available plans (public)
     plans: publicProcedure.query(() => {
       return PLANS.map((p) => ({
         id: p.id,
@@ -79,7 +78,6 @@ export const appRouter = router({
       }));
     }),
 
-    // Submit a quote request (public - no login required)
     submit: publicProcedure
       .input(
         z.object({
@@ -109,7 +107,6 @@ export const appRouter = router({
           message: input.message || null,
         });
 
-        // Notify owner about new quote request
         const plan = PLANS.find((p) => p.id === input.planId);
         try {
           const notified = await notifyOwner({
@@ -126,7 +123,6 @@ export const appRouter = router({
         return { success: true };
       }),
 
-    // Get my quote requests (protected)
     myRequests: protectedProcedure.query(async ({ ctx }) => {
       const db = await getDb();
       if (!db) return [];
