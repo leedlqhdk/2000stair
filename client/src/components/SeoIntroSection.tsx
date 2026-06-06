@@ -36,22 +36,20 @@ const textVariants = {
 const cardListVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.16 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.12 },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, x: 34, y: 18, scale: 0.97 },
+  hidden: { opacity: 0, x: 28, y: 14, scale: 0.98 },
   visible: {
     opacity: 1,
     x: 0,
     y: 0,
     scale: 1,
-    transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.56, ease: [0.22, 1, 0.36, 1] },
   },
 };
-
-const offsetClasses = ["md:-translate-y-5", "md:translate-y-5", "md:-translate-y-3", "md:translate-y-4"];
 
 export default function SeoIntroSection() {
   return (
@@ -72,7 +70,7 @@ export default function SeoIntroSection() {
       />
 
       <div className="container relative max-w-6xl">
-        <div className="grid gap-9 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-center">
+        <div className="grid gap-9 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-center">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -99,36 +97,29 @@ export default function SeoIntroSection() {
           </motion.div>
 
           <motion.div
-            className="grid gap-4 sm:grid-cols-2 md:gap-5"
+            className="flex gap-4 overflow-x-auto pb-3 md:gap-5 lg:overflow-visible"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={cardListVariants}
           >
-            {needCards.map((item, index) => (
+            {needCards.map((item) => (
               <motion.div
                 key={item.title}
-                className={`group min-h-[250px] rounded-[1.35rem] border border-blue-200/70 bg-[#0b2b66] p-5 text-white shadow-[0_22px_55px_rgba(15,76,169,0.18)] transition-colors duration-300 hover:bg-primary md:p-6 ${offsetClasses[index]}`}
+                className="group flex min-h-[250px] w-[250px] shrink-0 flex-col justify-between rounded-[1.35rem] border border-blue-100 bg-white/88 p-5 text-foreground shadow-[0_18px_48px_rgba(15,76,169,0.10)] transition duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-blue-50/85 md:w-[265px] md:p-6 lg:w-1/4"
                 variants={cardVariants}
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
-                <div className="flex h-full flex-col justify-between gap-7">
-                  <div>
-                    <motion.div
-                      className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/12 text-sky-100 ring-1 ring-white/20 transition-colors duration-300 group-hover:bg-white group-hover:text-primary"
-                      whileHover={{ rotate: -4 }}
-                    >
-                      <item.icon className="h-5 w-5" />
-                    </motion.div>
-                    <h3 className="text-lg font-extrabold leading-snug">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-blue-50/85">{item.text}</p>
+                <div>
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 transition-colors duration-300 group-hover:bg-white">
+                    <item.icon className="h-5 w-5" />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full bg-sky-300" />
-                    <span className="h-3 w-3 rounded-full border border-white/35" />
-                    <span className="h-3 w-3 rounded-full border border-white/20" />
-                  </div>
+                  <h3 className="text-lg font-extrabold leading-snug">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.text}</p>
+                </div>
+                <div className="mt-6 flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-primary/70" />
+                  <span className="h-3 w-3 rounded-full border border-primary/25" />
+                  <span className="h-3 w-3 rounded-full border border-primary/15" />
                 </div>
               </motion.div>
             ))}
