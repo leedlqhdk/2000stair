@@ -19,21 +19,61 @@ const highlights = [
   },
 ];
 
+const textVariants = {
+  hidden: { opacity: 0, x: -28 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const cardListVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.16 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, x: 34, y: 18, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export default function SeoIntroSection() {
   return (
-    <section className="border-y border-blue-100 bg-blue-50/35 py-14 md:py-20">
-      <div className="container max-w-6xl">
-        <motion.div
-          className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.65 }}
-        >
-          <div>
-            <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+    <section className="relative overflow-hidden border-y border-blue-100 bg-blue-50/35 py-14 md:py-20">
+      <motion.div
+        className="pointer-events-none absolute left-1/2 top-10 h-48 w-48 -translate-x-1/2 rounded-full bg-white/70 blur-3xl md:h-72 md:w-72"
+        initial={{ opacity: 0, scale: 0.7 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.1, ease: "easeOut" }}
+      />
+
+      <div className="container relative max-w-6xl">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={textVariants}
+          >
+            <motion.p
+              className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+            >
               ICHEON STAIR CLEANING
-            </p>
+            </motion.p>
             <h2 className="text-2xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
               이천 계단청소,
               <br className="hidden sm:block" />
@@ -43,25 +83,37 @@ export default function SeoIntroSection() {
               이천계단지기는 이천시 빌라·상가 공용공간을 부부가 직접 관리하는 계단청소 전문 서비스입니다.
               한 번 반짝이는 청소보다, 계단과 공동현관이 꾸준히 깨끗하게 유지되는 상태를 목표로 관리합니다.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-3 md:gap-4">
+          <motion.div
+            className="grid gap-3 md:gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={cardListVariants}
+          >
             {highlights.map((item) => (
-              <div
+              <motion.div
                 key={item.title}
-                className="grid gap-3 rounded-2xl border border-blue-100 bg-white p-5 shadow-sm sm:grid-cols-[48px_minmax(0,1fr)] sm:items-start md:p-6"
+                className="group grid gap-3 rounded-2xl border border-blue-100 bg-white p-5 shadow-sm transition-colors duration-300 sm:grid-cols-[48px_minmax(0,1fr)] sm:items-start md:p-6"
+                variants={cardVariants}
+                whileHover={{ y: -6, scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100">
+                <motion.div
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 transition-colors duration-300 group-hover:bg-primary group-hover:text-white"
+                  whileHover={{ rotate: -4 }}
+                >
                   <item.icon className="h-5 w-5" />
-                </div>
+                </motion.div>
                 <div>
                   <h3 className="text-base font-extrabold text-foreground md:text-lg">{item.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">{item.text}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
