@@ -48,60 +48,54 @@ export default function BlogPostCards() {
 
   return (
     <motion.div
-      className="mx-auto max-w-6xl rounded-[2rem] border border-blue-100 bg-white px-6 py-8 shadow-sm md:px-8 md:py-10"
-      initial={{ opacity: 0, y: 40 }}
+      className="mx-auto max-w-6xl overflow-hidden py-2"
+      initial={{ opacity: 0, y: 34 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <p className="mb-7 text-center text-sm leading-7 text-muted-foreground md:text-base">
-        대표 이미지로 먼저 보고, 궁금한 내용은 제목을 눌러 네이버 글에서 바로 확인할 수 있습니다.
-      </p>
-
-      <div className="overflow-hidden">
-        <motion.div
-          className="flex w-max gap-3 md:gap-4"
-          animate={visiblePosts.length > 1 ? { x: ["0%", "-50%"] } : { x: "0%" }}
-          transition={
-            visiblePosts.length > 1
-              ? {
-                  duration: 30,
-                  ease: "linear",
-                  repeat: Infinity,
-                }
-              : undefined
-          }
-        >
-          {scrollingPosts.map((post, index) => (
-            <motion.a
-              key={`${post.id}-${index}`}
-              href={post.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative block w-[185px] shrink-0 overflow-hidden rounded-[1.15rem] border border-blue-100 bg-white shadow-sm sm:w-[220px] md:w-[292px] md:rounded-[1.45rem]"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: (index % visiblePosts.length) * 0.06 }}
-            >
-              <div className="relative aspect-square overflow-hidden bg-slate-100">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary" />
-                <div className="absolute inset-0 flex items-center justify-center p-4 text-center md:p-5">
-                  <p className="max-w-[12rem] text-sm font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-lg">
-                    {post.title}
-                  </p>
-                </div>
+      <motion.div
+        className="flex w-max gap-3 md:gap-4"
+        animate={visiblePosts.length > 1 ? { x: ["0%", "-50%"] } : { x: "0%" }}
+        transition={
+          visiblePosts.length > 1
+            ? {
+                duration: 30,
+                ease: "linear",
+                repeat: Infinity,
+              }
+            : undefined
+        }
+      >
+        {scrollingPosts.map((post, index) => (
+          <motion.a
+            key={`${post.id}-${index}`}
+            href={post.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative block w-[185px] shrink-0 overflow-hidden rounded-[1.15rem] border border-blue-100 bg-white shadow-sm sm:w-[220px] md:w-[292px] md:rounded-[1.45rem]"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: (index % visiblePosts.length) * 0.06 }}
+          >
+            <div className="relative aspect-square overflow-hidden bg-slate-100">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary" />
+              <div className="absolute inset-0 flex items-center justify-center p-4 text-center md:p-5">
+                <p className="max-w-[12rem] text-sm font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-lg">
+                  {post.title}
+                </p>
               </div>
-            </motion.a>
-          ))}
-        </motion.div>
-      </div>
+            </div>
+          </motion.a>
+        ))}
+      </motion.div>
 
       <div className="mt-6 flex justify-center md:justify-end">
         <a
