@@ -1,5 +1,5 @@
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { appRouter } from "../server/routers";
+import { appRouter } from "../server/appRouter";
 import { createContext } from "../server/_core/context";
 import express from "express";
 
