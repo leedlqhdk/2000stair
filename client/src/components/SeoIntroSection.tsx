@@ -52,7 +52,7 @@ const cardVariants = {
 
 export default function SeoIntroSection() {
   return (
-    <section className="relative overflow-hidden border-y border-blue-100 bg-gradient-to-br from-white via-blue-50/45 to-white py-14 md:py-20">
+    <section className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/45 to-white py-14 md:py-20">
       <motion.div
         className="pointer-events-none absolute -left-16 top-12 h-56 w-56 rounded-full bg-blue-100/70 blur-3xl md:h-72 md:w-72"
         initial={{ opacity: 0, scale: 0.7 }}
