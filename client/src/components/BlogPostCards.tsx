@@ -21,6 +21,7 @@ const fallbackInfoPosts: InfoPost[] = [
 export default function BlogPostCards() {
   const [infoPosts, setInfoPosts] = useState<InfoPost[]>(fallbackInfoPosts);
   const visiblePosts = infoPosts.slice(0, 4);
+  const scrollingPosts = visiblePosts.length > 1 ? [...visiblePosts, ...visiblePosts] : visiblePosts;
 
   useEffect(() => {
     let active = true;
@@ -57,35 +58,49 @@ export default function BlogPostCards() {
         대표 이미지로 먼저 보고, 궁금한 내용은 제목을 눌러 네이버 글에서 바로 확인할 수 있습니다.
       </p>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 md:gap-4">
-        {visiblePosts.map((post, index) => (
-          <motion.a
-            key={post.id}
-            href={post.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative block overflow-hidden rounded-[1.15rem] border border-blue-100 bg-white shadow-sm md:rounded-[1.45rem]"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-          >
-            <div className="relative aspect-square overflow-hidden bg-slate-100">
-              <img
-                src={post.image}
-                alt={post.title}
-                className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary" />
-              <div className="absolute inset-0 flex items-center justify-center p-4 text-center md:p-5">
-                <p className="max-w-[12rem] text-sm font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-lg">
-                  {post.title}
-                </p>
+      <div className="overflow-hidden">
+        <motion.div
+          className="flex w-max gap-3 md:gap-4"
+          animate={visiblePosts.length > 1 ? { x: ["0%", "-50%"] } : { x: "0%" }}
+          transition={
+            visiblePosts.length > 1
+              ? {
+                  duration: 24,
+                  ease: "linear",
+                  repeat: Infinity,
+                }
+              : undefined
+          }
+        >
+          {scrollingPosts.map((post, index) => (
+            <motion.a
+              key={`${post.id}-${index}`}
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block w-[190px] shrink-0 overflow-hidden rounded-[1.15rem] border border-blue-100 bg-white shadow-sm sm:w-[220px] md:w-[300px] md:rounded-[1.45rem]"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: (index % visiblePosts.length) * 0.08 }}
+            >
+              <div className="relative aspect-square overflow-hidden bg-slate-100">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-primary/0 transition-all duration-300 group-hover:bg-primary" />
+                <div className="absolute inset-0 flex items-center justify-center p-4 text-center md:p-5">
+                  <p className="max-w-[12rem] text-sm font-extrabold leading-snug text-white opacity-0 transition-all duration-300 group-hover:opacity-100 md:text-lg">
+                    {post.title}
+                  </p>
+                </div>
               </div>
-            </div>
-          </motion.a>
-        ))}
+            </motion.a>
+          ))}
+        </motion.div>
       </div>
 
       <div className="mt-6 flex justify-center md:justify-end">
