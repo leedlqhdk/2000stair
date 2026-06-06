@@ -20,10 +20,10 @@ export default function AdminBlog() {
   const { data: allTags } = trpc.blog.tags.useQuery();
 
   const passwordLogin = trpc.auth.passwordLogin.useMutation({
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       toast.success("관리자 로그인 완료");
       setPassword("");
-      await utils.auth.me.invalidate();
+      utils.auth.me.setData(undefined, data.user);
       await utils.blog.adminList.invalidate();
     },
     onError: (e) => toast.error(e.message),
