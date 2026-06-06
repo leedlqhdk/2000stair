@@ -62,9 +62,9 @@ export default function HusbandProfileStats() {
               현장관리 담당
             </motion.div>
             <motion.img
-              src="/character-husband.png"
-              alt="이천계단지기 남편 현장관리 캐릭터"
-              className="relative z-10 w-60 object-contain md:w-72"
+              src="/images/husband-profile-home.webp"
+              alt="이천계단지기 남편 현장관리 프로필"
+              className="relative z-10 w-64 object-contain drop-shadow-[0_18px_35px_rgba(15,76,169,0.18)] md:w-80"
               loading="lazy"
               initial={{ opacity: 0, y: 24, scale: 0.96 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}

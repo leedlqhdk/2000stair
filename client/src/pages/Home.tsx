@@ -1,5 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import SeoIntroSection from "@/components/SeoIntroSection";
+import HusbandProfileStats from "@/components/HusbandProfileStats";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
@@ -16,6 +17,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection isAuthenticated={false} />
         <SeoIntroSection />
+        <HusbandProfileStats />
         <HowItWorks />
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={false} />
