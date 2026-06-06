@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 
 const stats = [
   {
-    value: "30+",
-    label: "관리 빌라",
-    text: "이천 지역 빌라·상가 공용공간을 직접 확인합니다.",
+    value: "21600+",
+    label: "누적 관리 빌라",
+    text: "지금까지 직접 관리해온 빌라 현장 경험을 기준으로 안내합니다.",
   },
   {
     value: "100%",
@@ -120,8 +120,8 @@ export default function HusbandProfileStats() {
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100">
                     {index === 0 ? <Home className="h-5 w-5" /> : index === 1 ? <ShieldCheck className="h-5 w-5" /> : <Camera className="h-5 w-5" />}
                   </div>
-                  <p className="text-2xl font-extrabold text-primary md:text-3xl">{item.value}</p>
-                  <h3 className="mt-1 text-sm font-extrabold text-foreground">{item.label}</h3>
+                  <p className="text-[1.7rem] font-extrabold leading-none text-primary md:text-[2rem]">{item.value}</p>
+                  <h3 className="mt-2 text-sm font-extrabold text-foreground">{item.label}</h3>
                   <p className="mt-2 text-xs leading-6 text-muted-foreground">{item.text}</p>
                 </motion.div>
               ))}
