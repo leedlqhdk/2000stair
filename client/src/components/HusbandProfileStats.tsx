@@ -37,7 +37,7 @@ export default function HusbandProfileStats() {
             transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <img
-              src="/images/husband-profile-home.webp"
+              src="/images/husband-profile-home.webp?v=20260606"
               alt="이천계단지기 대표 현장관리 프로필"
               className="w-[250px] object-contain md:w-[330px]"
               loading="lazy"
@@ -70,10 +70,10 @@ export default function HusbandProfileStats() {
             <div className="mt-7 grid gap-5 sm:grid-cols-3 md:max-w-2xl">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center md:text-left">
-                  <p className="font-serif text-[2.55rem] leading-none text-primary md:text-[2.8rem]">
+                  <p className="text-[2.2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.45rem]">
                     {stat.value}
                     {stat.unit && (
-                      <span className="ml-1 align-baseline font-sans text-xs text-foreground">
+                      <span className="ml-1 align-baseline text-xs font-bold text-foreground/80">
                         {stat.unit}
                       </span>
                     )}
