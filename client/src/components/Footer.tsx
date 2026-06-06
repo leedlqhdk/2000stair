@@ -18,7 +18,6 @@ const serviceLinks = [
 
 const archiveLinks = [
   { href: "/areas", label: "관리 가능 지역" },
-  { href: "/ops", label: "운영 · 배포 상태" },
   {
     href: "https://blog.naver.com/icheonstair",
     label: "네이버 블로그",
