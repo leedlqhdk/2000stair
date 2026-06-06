@@ -1,37 +1,26 @@
-import { Building2, ClipboardCheck, HeartHandshake, MapPin, Sparkles } from "lucide-react";
+import { Building2, ClipboardCheck, Home, Store } from "lucide-react";
 import { motion } from "framer-motion";
 
-const messageCards = [
+const needCards = [
   {
-    title: "부부가 직접 관리합니다",
-    text: "이천시 빌라·상가 공용공간을 하청 없이 직접 확인하고 관리합니다.",
+    icon: Home,
+    title: "빌라·원룸 민원이 잦은 건물",
+    text: "계단은 입주민 모두가 매일 사용하는 공간입니다. 먼지, 머리카락, 흙자국이 쌓이면 건물 전체 관리 상태가 나빠 보일 수 있습니다.",
   },
-  {
-    title: "한 번보다 꾸준히",
-    text: "반짝이는 하루 청소보다, 계단과 공동현관이 계속 깨끗하게 유지되는 상태를 목표로 합니다.",
-  },
-];
-
-const highlights = [
   {
     icon: Building2,
-    title: "공용공간 관리",
-    text: "계단, 복도, 공동현관처럼 여러 사람이 함께 쓰는 공간을 정기적으로 관리합니다.",
+    title: "공동현관 출입이 많은 다세대주택",
+    text: "택배 기사, 배달 기사, 방문객의 출입이 많은 건물은 오염 속도가 빠릅니다. 공동현관과 계단 모서리는 관리 여부가 바로 눈에 띕니다.",
   },
   {
-    icon: MapPin,
-    title: "이천 지역 맞춤",
-    text: "마장면, 신둔면, 부발읍, 대월면과 시내권 건물 구조에 맞춰 안내합니다.",
+    icon: Store,
+    title: "상가·사무실 건물",
+    text: "고객이 처음 마주하는 공간이 계단과 출입구입니다. 깨끗한 공용공간은 건물 이미지와 입점 업체의 신뢰도에도 영향을 줍니다.",
   },
   {
     icon: ClipboardCheck,
-    title: "사진 기준 상담",
-    text: "건물 사진과 주소를 보내주시면 오염 상태와 관리 주기를 현실적으로 잡아드립니다.",
-  },
-  {
-    icon: HeartHandshake,
-    title: "연락 빠른 관리",
-    text: "상담부터 작업 기록까지 같은 흐름으로 빠르게 정리해드립니다.",
+    title: "관리업체가 없거나 직접 관리하기 어려운 건물",
+    text: "건물주가 직접 청소하기 어렵거나 기존 관리 품질이 아쉬운 경우, 정기적인 계단청소만으로도 건물 상태를 크게 개선할 수 있습니다.",
   },
 ];
 
@@ -83,7 +72,7 @@ export default function SeoIntroSection() {
       />
 
       <div className="container relative max-w-6xl">
-        <div className="grid gap-9 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center">
+        <div className="grid gap-9 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-center">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -104,30 +93,9 @@ export default function SeoIntroSection() {
               <br className="hidden sm:block" />
               어떤 건물에 필요할까요?
             </h2>
-
-            <motion.div
-              className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={cardListVariants}
-            >
-              {messageCards.map((item) => (
-                <motion.div
-                  key={item.title}
-                  className="rounded-2xl border border-blue-100 bg-white/90 p-5 shadow-[0_18px_45px_rgba(15,76,169,0.08)]"
-                  variants={cardVariants}
-                  whileHover={{ y: -4 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100">
-                    <Sparkles className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-lg font-extrabold text-foreground">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.text}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+            <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground md:text-base">
+              다음 중 하나라도 해당된다면 정기적인 계단관리를 추천드립니다.
+            </p>
           </motion.div>
 
           <motion.div
@@ -137,10 +105,10 @@ export default function SeoIntroSection() {
             viewport={{ once: true, margin: "-80px" }}
             variants={cardListVariants}
           >
-            {highlights.map((item, index) => (
+            {needCards.map((item, index) => (
               <motion.div
                 key={item.title}
-                className={`group min-h-[220px] rounded-[1.35rem] border border-blue-200/70 bg-[#0b2b66] p-5 text-white shadow-[0_22px_55px_rgba(15,76,169,0.18)] transition-colors duration-300 hover:bg-primary md:p-6 ${offsetClasses[index]}`}
+                className={`group min-h-[250px] rounded-[1.35rem] border border-blue-200/70 bg-[#0b2b66] p-5 text-white shadow-[0_22px_55px_rgba(15,76,169,0.18)] transition-colors duration-300 hover:bg-primary md:p-6 ${offsetClasses[index]}`}
                 variants={cardVariants}
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
@@ -153,7 +121,7 @@ export default function SeoIntroSection() {
                     >
                       <item.icon className="h-5 w-5" />
                     </motion.div>
-                    <h3 className="text-lg font-extrabold">{item.title}</h3>
+                    <h3 className="text-lg font-extrabold leading-snug">{item.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-blue-50/85">{item.text}</p>
                   </div>
                   <div className="flex items-center gap-2">
