@@ -7,13 +7,12 @@ import {
   Phone,
   Youtube,
 } from "lucide-react";
-import { motion } from "framer-motion";
 
 const serviceLinks = [
-  { href: "/#how-it-works", label: "상담 절차" },
-  { href: "/#box-preview", label: "관리 방식" },
-  { href: "/#gallery", label: "청소 전후" },
-  { href: "/#pricing", label: "청소 비용" },
+  { href: "/services/stair", label: "계단청소" },
+  { href: "/services/glass", label: "유리청소" },
+  { href: "/services/bathroom", label: "화장실청소" },
+  { href: "/services/office", label: "사무실청소" },
 ];
 
 const archiveLinks = [
@@ -103,7 +102,6 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
     return (
       <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 shadow-[0_16px_36px_rgba(0,0,0,0.18)]">
         <h4 className="text-lg font-extrabold tracking-tight text-white">Contact</h4>
-
         <div className="mt-3 border-t border-white/10">
           {contactItems.map((item, index) => {
             const Icon = item.icon;
@@ -135,7 +133,6 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
   return (
     <div>
       <h4 className="mb-4 text-[1.45rem] font-bold tracking-tight text-white">Contact</h4>
-
       <div className="border-t border-white/10">
         {contactItems.map((item, index) => {
           const Icon = item.icon;
@@ -166,7 +163,6 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
 export default function Footer() {
   return (
     <footer id="site-footer" className="bg-[#1B2F57] text-white">
-      {/* CTA 배너 */}
       <div className="border-b border-white/10">
         <div className="container mx-auto flex flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between md:py-10">
           <div>
@@ -185,13 +181,15 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 메인 푸터 */}
       <div className="container mx-auto px-4 py-10 md:py-14">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {/* 브랜드 */}
           <div className="col-span-2 md:col-span-1">
-            <a href="/" className="inline-flex items-center gap-2" aria-label="이천계단지기 홈으로 이동">
-              <span className="text-base font-extrabold tracking-tight">이천계단지기</span>
+            <a href="/" className="inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
+              <img
+                src="/images/icheon-logo-main.png"
+                alt="이천계단지기 로고"
+                className="h-12 w-auto max-w-[190px] object-contain brightness-0 invert"
+              />
             </a>
             <p className="mt-3 text-sm leading-relaxed text-white/55">
               이천 빌라·상가의 공용공간을<br />부부가 직접 방문해 꾸준히 관리합니다.
@@ -202,7 +200,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* 서비스 */}
           <div>
             <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/40">서비스</h3>
             <ul className="space-y-2.5">
@@ -216,7 +213,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 둘러보기 */}
           <div>
             <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/40">둘러보기</h3>
             <ul className="space-y-2.5">
@@ -230,7 +226,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 문의처 */}
           <div>
             <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-white/40">문의처</h3>
             <div className="space-y-3">
@@ -264,11 +259,19 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 하단 바 */}
+      <div className="hidden md:block">
+        <div className="container mx-auto px-4 pb-4">
+          <div className="grid grid-cols-2 gap-3">
+            <MobileLinkGroup title="서비스" links={serviceLinks} />
+            <ContactCard compact />
+          </div>
+        </div>
+      </div>
+
       <div className="border-t border-white/10">
         <div className="container mx-auto flex flex-col gap-1 px-4 py-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} 이천계단지기. All rights reserved.</p>
-          <p>사업자등록번호 234-23-02318 · 대표 이보아</p>
+          <p>사업자등록번호 234-23-02318 · 대표 김규남</p>
         </div>
       </div>
     </footer>
