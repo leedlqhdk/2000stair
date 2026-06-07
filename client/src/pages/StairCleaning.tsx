@@ -16,22 +16,22 @@ export default function StairCleaning() {
           { title: "장기 관리 가능", description: "월 2회/4회 등 장기 정기 관리가 가능합니다." },
         ],
         scopeItems: [
-          "계단 바닥 청소",
-          "난간 및 손잡이 청소",
-          "벽면·몰딩·탕관 청소",
-          "공동현관 청소",
-          "거미줄 및 먼지 제거",
-          "쓰레기 분리 및 정리",
-        ],
+  "계단 바닥 약품 청소",
+  "계단 난간·손잡이 오염 제거",
+  "방향제 사용 및 악취관리",
+  "공동현관 유리 및 출입문 청소",
+  "거미줄·천장 먼지 제거",
+  "건물 입구 낙엽·흙먼지 정리",
+]
         gallery: [
           { before: "/images/services/stair-cleaning/icheon-stair-cleaning-before-01.webp", after: "/images/services/stair-cleaning/icheon-stair-cleaning-after-01.webp", label: "이천 계단 사례 1" },
           { before: "/images/services/stair-cleaning/icheon-villa-stair-before-02.webp", after: "/images/services/stair-cleaning/icheon-villa-stair-after-02.webp", label: "이천 빌라 계단 사례 2" },
           { before: "/images/services/stair-cleaning/icheon-apartment-stair-before-03.webp", after: "/images/services/stair-cleaning/icheon-apartment-stair-after-03.webp", label: "이천 아파트 계단 사례 3" },
         ],
         pricingTiers: [
-          { badge: "월 2회", price: "월 66,000원~", note: "빌라 8층 기준" },
-          { badge: "월 4회", price: "월 110,000원~", note: "상가·층별 등 추가 조정", highlight: true },
-          { badge: "월 8회 이상", price: "별도 견적", note: "대형 건물·다중이용시설" },
+          { badge: "월 2회", price: "월 44,000원~", note: "빌라 2-3층 기준" },
+          { badge: "월 4회", price: "월 66,000원~", note: "상가·층별 등 추가 조정", highlight: true },
+          { badge: "고층건물", price: "별도 견적", note: "카카오톡 문의" },
         ],
       }}
     />
