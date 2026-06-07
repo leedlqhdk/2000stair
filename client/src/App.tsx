@@ -27,6 +27,7 @@ import Bubal from "@/pages/Bubal";
 import Baeksa from "@/pages/Baeksa";
 import About from "@/pages/About";
 import Qna from "@/pages/Qna";
+import Reviews from "./pages/Reviews";
 import OpsStatus from "@/pages/OpsStatus";
 import Guide from "@/pages/Guide";
 
@@ -99,6 +100,7 @@ function Router() {
         <Route path={"/"} component={Home} />
         <Route path="/about" component={About} />
         <Route path="/qna" component={Qna} />
+            <Route path="/reviews" component={Reviews} />
         <Route path="/ops" component={OpsStatus} />
         <Route path="/guide" component={Guide} />
         <Route path="/my-quotes" component={MyQuotes} />
