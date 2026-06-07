@@ -148,6 +148,11 @@ export default function AdminBlogEdit() {
   };
 
   const handleGenerateAlt = async (imageUrl: string, target: "thumbnail" | "image") => {
+    if (imageUrl.startsWith("data:")) {
+      toast.error("사진 설명은 사진 저장 후 직접 입력해주세요.");
+      return;
+    }
+
     try {
       const result = await generateAlt.mutateAsync({ imageUrl, title: title || undefined });
       if (target === "thumbnail") {
@@ -168,7 +173,13 @@ export default function AdminBlogEdit() {
 
     setUploading(true);
     try {
-      const optimized = await optimizeImage(file, { isThumbnail: target === "thumbnail", quality: 0.82 });
+      const optimized = await optimizeImage(file, {
+        isThumbnail: target === "thumbnail",
+        quality: 0.55,
+        maxWidth: 900,
+        maxHeight: 700,
+        thumbnailMaxSize: 480,
+      });
       const ext = optimized.mimeType === "image/webp" ? "webp" : "jpg";
       const filename = file.name.replace(/\.[^.]+$/, `.${ext}`);
       const result = await uploadImage.mutateAsync({
@@ -181,13 +192,12 @@ export default function AdminBlogEdit() {
 
       if (target === "thumbnail") {
         setThumbnail(result.url);
-        await handleGenerateAlt(result.url, "thumbnail");
+        setThumbnailAlt(thumbnailAlt || `${title || "이천계단지기"} 대표 사진`);
       } else {
-        setImages((prev) => [...prev, { url: result.url, alt: "" }]);
-        await handleGenerateAlt(result.url, "image");
+        setImages((prev) => [...prev, { url: result.url, alt: `${title || "이천계단지기"} 현장 사진` }]);
       }
     } catch {
-      toast.error("사진 업로드에 실패했어요.");
+      toast.error("사진 업로드에 실패했어요. 우선 사진 없이 글만 저장해주세요.");
     } finally {
       setUploading(false);
     }
