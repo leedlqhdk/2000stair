@@ -47,7 +47,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: "이천계단지기 소개", href: "/about" },
       { label: "부부 운영 이야기", href: "/about" },
-      { label: "실제 고객후기", href: "/qna" },
+      { label: "실제 고객후기", href: "/reviews" },
     ],
   },
 ];
