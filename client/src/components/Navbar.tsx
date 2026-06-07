@@ -37,7 +37,7 @@ const navGroups: NavGroup[] = [
   {
     label: "정보센터",
     items: [
-      { label: "블로그", href: "/blog" },
+      { label: "블로그", href: "https://blog.naver.com/icheonstair" },
       { label: "정보글", href: "/areas" },
       { label: "자주묻는질문", href: "/qna" },
     ],
@@ -125,6 +125,10 @@ export default function Navbar() {
                     <a key={item.label} href={item.href} className={dropdownItemClass} onClick={(e) => handleSectionClick(e, item.sectionId)}>
                       {item.label}
                     </a>
+                  ) : item.href.startsWith('http') ? (
+                    <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className={dropdownItemClass}>
+                      {item.label}
+                    </a>
                   ) : (
                     <Link key={item.label} href={item.href} className={dropdownItemClass}>
                       {item.label}
@@ -175,6 +179,10 @@ export default function Navbar() {
                       {group.items.map((item) =>
                         item.sectionId ? (
                           <a key={item.label} href={item.href} className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground" onClick={(e) => handleSectionClick(e, item.sectionId)}>
+                            {item.label}
+                          </a>
+                        ) : item.href.startsWith('http') ? (
+                          <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground" onClick={closeMobileMenu}>
                             {item.label}
                           </a>
                         ) : (
