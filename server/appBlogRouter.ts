@@ -185,25 +185,57 @@ export const blogRouter = router({
         throw new TRPCError({ code: "BAD_REQUEST", message: "네이버 블로그 주소만 변환할 수 있습니다." });
       }
 
-      try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 6000);
-        const response = await fetch(input.url, {
-          signal: controller.signal,
-          headers: {
-            "User-Agent": "Mozilla/5.0 2000stair admin importer",
-          },
-        });
-        clearTimeout(timeout);
+      const match = input.url.match(/blog\.naver\.com\/([^/?#]+)\/(\d+)/);
+      const [, blogId, logNo] = match ?? [];
 
-        const html = await response.text();
-        const title = pickTitle(html) || inferTitleFromUrl(input.url);
-        const description = pickMeta(html, "og:description") || pickMeta(html, "description");
-        const image = pickMeta(html, "og:image");
-        return buildNaverDraft({ url: input.url, title, description, image });
-      } catch {
-        return buildNaverDraft({ url: input.url });
+      const candidates = [
+        logNo && blogId ? `https://m.blog.naver.com/${blogId}/${logNo}` : null,
+        logNo && blogId
+          ? `https://blog.naver.com/PostView.naver?blogId=${blogId}&logNo=${logNo}&redirect=Dlog`
+          : null,
+        input.url,
+      ].filter(Boolean) as string[];
+
+      const browserHeaders = {
+        "User-Agent":
+          "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ko-KR,ko;q=0.9",
+        Referer: "https://m.blog.naver.com/",
+      };
+
+      for (const candidateUrl of candidates) {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 8000);
+          const response = await fetch(candidateUrl, {
+            signal: controller.signal,
+            headers: browserHeaders,
+          });
+          clearTimeout(timeout);
+
+          if (!response.ok) continue;
+          const html = await response.text();
+          if (!html || html.length < 500) continue;
+
+          const rawTitle = pickTitle(html);
+          const isPostTitle =
+            rawTitle &&
+            !rawTitle.endsWith("블로그") &&
+            rawTitle !== blogId &&
+            rawTitle.length > 4;
+          const title = isPostTitle ? rawTitle : inferTitleFromUrl(input.url);
+          const description = pickMeta(html, "og:description") || pickMeta(html, "description");
+          const validDescription = description && description.length > 20 ? description : undefined;
+          const image = pickMeta(html, "og:image");
+
+          return buildNaverDraft({ url: input.url, title, description: validDescription, image });
+        } catch {
+          continue;
+        }
       }
+
+      return buildNaverDraft({ url: input.url });
     }),
 
   create: adminProcedure
