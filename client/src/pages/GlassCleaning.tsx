@@ -2,30 +2,78 @@ import ServicePageLayout from "@/components/ServicePageLayout";
 
 export default function GlassCleaning() {
   return (
-    <ServicePageLayout data={{
-      serviceFolder: "glass-cleaning",
-      heroBgImage: "/images/services/glass-cleaning/icheon-glass-cleaning-main.webp",
-      heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
-      heroSubtitle: "이천 유리청소 전문 – 대표가 직접 관리",
-      features: [
-        { icon: "shield", title: "전문 장비 사용", description: "스퀴지·순수물 세정 방식으로 얼룩 없이 깨끗하게 마감합니다." },
-        { icon: "clock", title: "정기 계약 관리", description: "월 1~4회 정기 방문으로 항상 투명한 유리를 유지합니다." },
-        { icon: "star", title: "대표 직접 방문", description: "외주·하청 없이 대표가 직접 방문하여 품질을 보장합니다." },
-        { icon: "camera", title: "전후사진 제공", description: "매 방문마다 청소 전·후 사진을 카카오톡으로 전달해드립니다." },
-      ],
-      scopeItems: [
-        "외부 유리창 세정",
-        "내부 유리창 세정",
-        "창틀·레일 청소",
-        "출입문 유리 청소",
-        "로비·복도 유리 청소",
-        "고층 유리 (별도 견적)",
-      ],
-      pricingTiers: [
-        { badge: "월 1회", price: "별도 견적", note: "건물 규모에 따라 안내" },
-        { badge: "월 2회", price: "별도 견적", note: "가장 인기 있는 플랜", highlight: true },
-        { badge: "월 4회 이상", price: "별도 견적", note: "대형 건물·다중이용시설" },
-      ],
-    }} />
+    <ServicePageLayout
+      data={{
+        serviceFolder: "glass-cleaning",
+        heroBgImage: "/images/services/glass-cleaning/icheon-glass-cleaning-main.webp",
+        heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
+        heroSubtitle: "이천 유리청소 전문 · 상가 유리 · 공동현관 유리 · 건물 유리관리",
+
+        features: [
+          {
+            title: "이천 상가 유리청소",
+            description: "출입문과 전면 유리는 손자국과 먼지가 쉽게 쌓여 매장 첫인상에 영향을 줍니다.",
+          },
+          {
+            title: "공동현관 유리 관리",
+            description: "빌라·원룸 공동현관 유리는 계단청소 정기관리와 함께 관리하면 효율적입니다.",
+          },
+          {
+            title: "얼룩·물자국 관리",
+            description: "비, 먼지, 손자국으로 생긴 유리 오염을 전용 도구로 깔끔하게 정리합니다.",
+          },
+          {
+            title: "대표 직접 방문",
+            description: "외주 없이 대표가 직접 현장을 확인하고 작업 가능 범위를 안내드립니다.",
+          },
+        ],
+
+        infoSections: [
+          {
+            title: "유리청소는 건물 첫인상 관리입니다",
+            body: "상가 출입문, 빌라 공동현관, 복도 유리는 방문자가 가장 먼저 보는 부분입니다. 유리에 손자국과 먼지, 빗물 자국이 남아 있으면 건물 전체가 관리되지 않는 인상을 줄 수 있습니다.",
+            image: "/images/services/glass-cleaning/icheon-glass-cleaning-work-01.webp",
+          },
+          {
+            title: "공동현관 유리는 정기관리와 함께하면 효율적입니다",
+            body: "공동현관 유리청소는 계단청소 정기관리와 함께 진행하면 이동비와 작업 동선이 줄어 합리적으로 관리할 수 있습니다. 단독 일회성 작업도 가능하지만 현장 규모에 따라 견적이 달라집니다.",
+            image: "/images/services/glass-cleaning/icheon-glass-cleaning-work-02.webp",
+          },
+          {
+            title: "고층·외창·특수 유리는 별도 확인이 필요합니다",
+            body: "사다리, 고소작업, 외부 고층 유리는 안전 문제로 현장 확인 후 작업 가능 여부와 비용을 안내드립니다. 무리한 작업보다 안전한 범위 안에서 깨끗하게 관리하는 것을 우선합니다.",
+            image: "/images/services/glass-cleaning/icheon-glass-cleaning-work-03.webp",
+          },
+        ],
+
+        scopeItems: [
+          "상가 출입문 유리 청소",
+          "공동현관 유리 청소",
+          "내부 유리창 세정",
+          "창틀·레일 먼지 정리",
+          "로비·복도 유리 관리",
+          "고층·외창 별도 상담",
+        ],
+
+        pricingTiers: [
+          {
+            badge: "공동현관 유리",
+            price: "30,000원~",
+            note: "출입문 유리 · 고정창 기준",
+          },
+          {
+            badge: "상가 유리청소",
+            price: "80,000원~",
+            note: "소형 상가 · 전면 유리 기준",
+            highlight: true,
+          },
+          {
+            badge: "대형 유리창",
+            price: "별도 견적",
+            note: "고층 · 외창 · 특수작업",
+          },
+        ],
+      }}
+    />
   );
 }
