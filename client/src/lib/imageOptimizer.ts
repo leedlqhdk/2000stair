@@ -2,17 +2,17 @@
  * 이미지 최적화 유틸리티
  * - Canvas API로 리사이즈
  * - WebP 지원 브라우저는 WebP로 변환, 미지원 시 JPEG 사용
- * - 최대 너비/높이 제한 및 품질 조절
+ * - Vercel 함수 요청 제한에 걸리지 않도록 업로드용 이미지를 작게 압축
  */
 
 export interface OptimizeOptions {
-  /** 최대 너비 (px). 기본값: 1920 */
+  /** 최대 너비 (px). 기본값: 1200 */
   maxWidth?: number;
-  /** 최대 높이 (px). 기본값: 1080 */
+  /** 최대 높이 (px). 기본값: 900 */
   maxHeight?: number;
-  /** 썸네일용 최대 크기 (px). 기본값: 800 */
+  /** 썸네일용 최대 크기 (px). 기본값: 640 */
   thumbnailMaxSize?: number;
-  /** 압축 품질 0~1. 기본값: 0.82 */
+  /** 압축 품질 0~1. 기본값: 0.65 */
   quality?: number;
   /** 썸네일 여부 */
   isThumbnail?: boolean;
@@ -35,7 +35,6 @@ export interface OptimizeResult {
   height: number;
 }
 
-/** 브라우저가 WebP 인코딩을 지원하는지 확인 */
 function supportsWebP(): boolean {
   const canvas = document.createElement("canvas");
   canvas.width = 1;
@@ -43,7 +42,6 @@ function supportsWebP(): boolean {
   return canvas.toDataURL("image/webp").startsWith("data:image/webp");
 }
 
-/** File → HTMLImageElement 로드 */
 function loadImage(file: File): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
@@ -60,7 +58,6 @@ function loadImage(file: File): Promise<HTMLImageElement> {
   });
 }
 
-/** 비율을 유지하면서 최대 크기 안으로 축소 */
 function calcDimensions(
   srcW: number,
   srcH: number,
@@ -72,24 +69,20 @@ function calcDimensions(
   return { w: Math.round(srcW * ratio), h: Math.round(srcH * ratio) };
 }
 
-/**
- * 이미지 파일을 최적화하여 base64 문자열로 반환
- */
 export async function optimizeImage(
   file: File,
   options: OptimizeOptions = {}
 ): Promise<OptimizeResult> {
   const {
-    maxWidth = 1920,
-    maxHeight = 1080,
-    thumbnailMaxSize = 800,
-    quality = 0.82,
+    maxWidth = 1200,
+    maxHeight = 900,
+    thumbnailMaxSize = 640,
+    quality = 0.65,
     isThumbnail = false,
   } = options;
 
   const originalSize = file.size;
 
-  // GIF는 압축 건너뜀 (애니메이션 보존)
   if (file.type === "image/gif") {
     const base64 = await fileToBase64Raw(file);
     return {
@@ -113,7 +106,6 @@ export async function optimizeImage(
   canvas.height = h;
   const ctx = canvas.getContext("2d")!;
 
-  // 고품질 렌더링
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, 0, 0, w, h);
@@ -135,7 +127,6 @@ export async function optimizeImage(
   };
 }
 
-/** File → base64 (data: prefix 없음) */
 function fileToBase64Raw(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -145,7 +136,6 @@ function fileToBase64Raw(file: File): Promise<string> {
   });
 }
 
-/** 바이트를 사람이 읽기 좋은 문자열로 변환 */
 export function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
