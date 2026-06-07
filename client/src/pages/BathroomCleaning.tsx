@@ -8,10 +8,10 @@ export default function BathroomCleaning() {
       heroTitle: "쾌적한 화장실,\n건물 가치를 높입니다",
       heroSubtitle: "이천 화장실청소 전문 – 대표가 직접 관리",
       features: [
-        { icon: "shield", title: "위생 전문 관리", description: "세균·악취 원인을 차단하는 전문 약품과 장비로 관리합니다." },
-        { icon: "clock", title: "정기 계약 관리", description: "월 1~8회 정기 방문으로 항상 청결한 상태를 유지합니다." },
-        { icon: "star", title: "대표 직접 방문", description: "외주·하청 없이 대표가 직접 방문하여 품질을 보장합니다." },
-        { icon: "camera", title: "전후사진 제공", description: "매 방문마다 청소 전·후 사진을 카카오톡으로 전달해드립니다." },
+        { title: "위생 전문 관리", description: "세균·악취 원인을 차단하는 전문 약품과 장비로 관리합니다." },
+        { title: "정기 계약 관리", description: "월 1~8회 정기 방문으로 항상 청결한 상태를 유지합니다." },
+        { title: "대표 직접 방문", description: "외주·하청 없이 대표가 직접 방문하여 품질을 보장합니다." },
+        { title: "전후사진 제공", description: "매 방문마다 청소 전·후 사진을 카카오톡으로 전달해드립니다." },
       ],
       scopeItems: [
         "변기 내·외부 세척 및 소독",
