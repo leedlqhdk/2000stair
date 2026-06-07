@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
+import CareGuideSection from "@/components/CareGuideSection";
 
 const areaCards = [
   {
@@ -132,7 +133,7 @@ export default function Blog() {
             </h1>
 
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              이천 지역 공용공간을 깨끗하게 관리합니다. 원하는 지역을 선택해 관리 현장을 확인하세요.
+              이천 지역 공용공간을 깨끔하게 관리합니다. 원하는 지역을 선택해 관리 현장을 확인하세요.
             </p>
           </motion.div>
 
@@ -310,6 +311,8 @@ export default function Blog() {
             </motion.div>
           )}
         </section>
+
+        <CareGuideSection />
       </main>
     </div>
   );
