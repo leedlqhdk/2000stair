@@ -3,6 +3,7 @@ import { ArrowLeft, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CareGuideSection from "@/components/CareGuideSection";
 import FaqSection from "@/components/FaqSection";
 
 export default function Qna() {
@@ -58,6 +59,7 @@ export default function Qna() {
           </motion.div>
         </section>
 
+        <CareGuideSection />
         <FaqSection />
       </main>
 
