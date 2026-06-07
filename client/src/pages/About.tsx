@@ -48,30 +48,28 @@ export default function About() {
 
         
 
-          <section className="mb-14 md:mb-20">
-            <div className="mx-auto mb-8 max-w-2xl text-center">
-              <p className="mb-2 text-sm font-extrabold text-primary">WHO WE ARE</p>
-              <h2 className="text-2xl font-extrabold text-foreground md:text-4xl">역할을 나누어 관리합니다</h2>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-blue-100/80 bg-white p-7 shadow-sm shadow-blue-950/5">
-                <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">FIELD</p>
-                <h3 className="mb-4 text-2xl font-extrabold text-foreground">현장관리</h3>
-                <p className="mb-6 text-sm leading-8 text-muted-foreground">계단·복도·공동현관을 직접 확인합니다.</p>
-                <div className="flex justify-center rounded-3xl bg-white py-4">
-                  <img src="/character-husband.png" alt="현장 관리 남편 캐릭터" className="w-40 md:w-36" loading="lazy" />
-                </div>
-              </div>
-              <div className="rounded-[1.5rem] border border-blue-100/80 bg-white p-7 shadow-sm shadow-blue-950/5">
-                <p className="mb-2 text-xs font-extrabold tracking-[0.18em] text-primary">RECORD</p>
-                <h3 className="mb-4 text-2xl font-extrabold text-foreground">상담·기록</h3>
-                <p className="mb-6 text-sm leading-8 text-muted-foreground">문의·일정·작업 사진을 정리합니다.</p>
-                <div className="flex justify-center rounded-3xl bg-white py-4">
-                  <img src="/character-wife.png" alt="상담 기록 아내 캐릭터" className="w-40 md:w-36" loading="lazy" />
-                </div>
-              </div>
-            </div>
-          </section>
+          <section className="mb-14 rounded-[2rem] bg-blue-50/70 px-6 py-10 md:mb-20 md:px-10 md:py-14">
+  <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+    <div className="grid grid-cols-2 gap-4 sm:gap-5">
+      <div className="flex aspect-square items-center justify-center rounded-[1.7rem] border border-blue-100 bg-white p-5 shadow-sm shadow-blue-950/5">
+        <img src="/character-husband.png" alt="현장 관리 남편 캐릭터" className="h-full w-full object-contain" loading="lazy" />
+      </div>
+      <div className="flex aspect-square items-center justify-center rounded-[1.7rem] border border-blue-100 bg-white p-5 shadow-sm shadow-blue-950/5">
+        <img src="/character-wife.png" alt="상담 기록 아내 캐릭터" className="h-full w-full object-contain" loading="lazy" />
+      </div>
+    </div>
+
+    <div>
+      <p className="mb-3 text-sm font-extrabold tracking-[0.18em] text-primary">WHO WE ARE</p>
+      <h2 className="text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
+        부부 직영 마스코트
+      </h2>
+      <p className="mt-5 max-w-xl text-base leading-8 text-muted-foreground md:text-lg md:leading-9">
+        부부가 직접 관리한다는 핵심 메시지를 담은 캐릭터입니다. 현장 관리와 상담 기록을 나누어 맡는 이천계단지기의 방식을 친근하게 전달합니다.
+      </p>
+    </div>
+  </div>
+</section>
 
           <section className="mb-14 md:mb-20">
             <div className="mx-auto mb-7 max-w-2xl text-center">
