@@ -1,38 +1,43 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
-export const users = mysqlTable("users", {
-  id: int("id").autoincrement().primaryKey(),
+export const roleEnum = pgEnum("role", ["user", "admin"]);
+export const serviceTypeEnum = pgEnum("serviceType", ["in_person", "non_contact"]);
+export const quoteStatusEnum = pgEnum("status", ["pending", "contacted", "confirmed", "canceled"]);
+export const publishedEnum = pgEnum("published", ["draft", "published"]);
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  role: roleEnum("role").default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
 });
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-export const quoteRequests = mysqlTable("quote_requests", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId"),
+export const quoteRequests = pgTable("quote_requests", {
+  id: serial("id").primaryKey(),
+  userId: integer("userId"),
   name: varchar("name", { length: 100 }).notNull(),
   phone: varchar("phone", { length: 20 }).notNull(),
   email: varchar("email", { length: 320 }),
   address: text("address").notNull(),
-  serviceType: mysqlEnum("serviceType", ["in_person", "non_contact"]).notNull(),
+  serviceType: serviceTypeEnum("serviceType").notNull(),
   planId: varchar("planId", { length: 32 }).notNull(),
   message: text("message"),
-  status: mysqlEnum("status", ["pending", "contacted", "confirmed", "canceled"]).default("pending").notNull(),
+  status: quoteStatusEnum("status").default("pending").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
 export type QuoteRequest = typeof quoteRequests.$inferSelect;
 export type InsertQuoteRequest = typeof quoteRequests.$inferInsert;
 
-export const postTags = mysqlTable("post_tags", {
-  id: int("id").autoincrement().primaryKey(),
+export const postTags = pgTable("post_tags", {
+  id: serial("id").primaryKey(),
   name: varchar("name", { length: 50 }).notNull().unique(),
   slug: varchar("slug", { length: 60 }).notNull().unique(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -40,21 +45,21 @@ export const postTags = mysqlTable("post_tags", {
 export type PostTag = typeof postTags.$inferSelect;
 export type InsertPostTag = typeof postTags.$inferInsert;
 
-export const posts = mysqlTable("posts", {
-  id: int("id").autoincrement().primaryKey(),
+export const posts = pgTable("posts", {
+  id: serial("id").primaryKey(),
   title: varchar("title", { length: 200 }).notNull(),
   content: text("content").notNull(),
   thumbnail: text("thumbnail"),
   thumbnailAlt: varchar("thumbnail_alt", { length: 200 }),
-  images: text("images"),       // JSON array of {url, alt} objects
-  tags: text("tags"),           // JSON array of tag ids
-  published: mysqlEnum("published", ["draft", "published"]).default("draft").notNull(),
-  authorId: int("authorId").notNull(),
+  images: text("images"),
+  tags: text("tags"),
+  published: publishedEnum("published").default("draft").notNull(),
+  authorId: integer("authorId").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   seoTitle: varchar("seo_title", { length: 100 }),
   seoDescription: varchar("seo_description", { length: 160 }),
   seoKeywords: varchar("seo_keywords", { length: 300 }),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
 export type Post = typeof posts.$inferSelect;
 export type InsertPost = typeof posts.$inferInsert;
