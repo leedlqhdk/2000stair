@@ -2,6 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
+import HusbandProfileStats from "@/components/HusbandProfileStats";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
