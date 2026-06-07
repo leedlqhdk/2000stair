@@ -14,7 +14,7 @@ const stats = [
   {
     value: "21600+",
     unit: "",
-    label: "누적 관리 빌라",
+    label: "누적 관리 세대",
   },
 ];
 
