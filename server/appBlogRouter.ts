@@ -267,7 +267,7 @@ export const blogRouter = router({
         images: JSON.stringify(imageObjects),
         tags: JSON.stringify(input.tags),
         published: input.published,
-        authorId: ctx.user.id,
+        authorId: ctx.user.id || 1,
         seoTitle: input.seoTitle || null,
         seoDescription: input.seoDescription || null,
         seoKeywords: input.seoKeywords || null,
