@@ -38,7 +38,7 @@ export default function StairCleaning() {
           {
             before: "/images/services/stair-cleaning/icheon-apartment-stair-before-03.webp",
             after: "/images/services/stair-cleaning/icheon-apartment-stair-after-03.webp",
-            label: "이천 아파트 계단 사례 3",
+            label: "이천 빌라 창틀 사례 3",
           },
         ],
         pricingTiers: [
