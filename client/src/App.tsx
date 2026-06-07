@@ -18,6 +18,7 @@ import AdminBlog from "./pages/AdminBlog";
 import AdminBlogEdit from "./pages/AdminBlogEdit";
 import KakaoChat from "./components/KakaoChat";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Majang from "@/pages/Majang";
 import Daewol from "@/pages/Daewol";
 import Sindun from "@/pages/Sindun";
@@ -27,6 +28,7 @@ import Baeksa from "@/pages/Baeksa";
 import About from "@/pages/About";
 import Qna from "@/pages/Qna";
 import OpsStatus from "@/pages/OpsStatus";
+import Guide from "@/pages/Guide";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -98,6 +100,7 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/qna" component={Qna} />
         <Route path="/ops" component={OpsStatus} />
+        <Route path="/guide" component={Guide} />
         <Route path="/my-quotes" component={MyQuotes} />
         <Route path="/blog" component={Records} />
         <Route path="/records" component={Records} />
@@ -129,6 +132,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <Footer />
           <KakaoChat />
         </TooltipProvider>
       </ThemeProvider>
