@@ -28,6 +28,10 @@ import Baeksa from "@/pages/Baeksa";
 import About from "@/pages/About";
 import Qna from "@/pages/Qna";
 import Reviews from "./pages/Reviews";
+import StairCleaning from "./pages/StairCleaning";
+import BathroomCleaning from "./pages/BathroomCleaning";
+import GlassCleaning from "./pages/GlassCleaning";
+import OfficeCleaning from "./pages/OfficeCleaning";
 import OpsStatus from "@/pages/OpsStatus";
 import Guide from "@/pages/Guide";
 
@@ -101,6 +105,10 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/qna" component={Qna} />
             <Route path="/reviews" component={Reviews} />
+        <Route path="/services/stair" component={StairCleaning} />
+        <Route path="/services/bathroom" component={BathroomCleaning} />
+        <Route path="/services/glass" component={GlassCleaning} />
+        <Route path="/services/office" component={OfficeCleaning} />
         <Route path="/ops" component={OpsStatus} />
         <Route path="/guide" component={Guide} />
         <Route path="/my-quotes" component={MyQuotes} />
