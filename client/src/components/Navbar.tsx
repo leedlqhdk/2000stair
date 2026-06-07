@@ -25,9 +25,9 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: "작업일지",
+    label: "청소현장",
     items: [
-      { label: "이천북부지역·시내권", href: "/area/downtown" },
+      { label: "시내권", href: "/area/downtown" },
       { label: "신둔면", href: "/area/sindun" },
       { label: "마장면", href: "/area/majang" },
       { label: "부발읍", href: "/area/bubal" },
@@ -47,7 +47,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: "이천계단지기 소개", href: "/about" },
       { label: "부부 운영 이야기", href: "/about" },
-      { label: "고객후기", href: "/qna" },
+      { label: "실제 고객후기", href: "/qna" },
     ],
   },
 ];
