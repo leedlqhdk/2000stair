@@ -18,10 +18,10 @@ const navGroups: NavGroup[] = [
   {
     label: "서비스",
     items: [
-      { label: "계단청소", href: "/#how-it-works", sectionId: "how-it-works" },
-      { label: "유리청소", href: "/#how-it-works", sectionId: "how-it-works" },
-      { label: "화장실청소", href: "/#how-it-works", sectionId: "how-it-works" },
-      { label: "사무실청소", href: "/#how-it-works", sectionId: "how-it-works" },
+      { label: "계단청소", href: "/services/stair" },
+      { label: "유리청소", href: "/services/glass" },
+      { label: "화장실청소", href: "/services/bathroom" },
+      { label: "사무실청소", href: "/services/office" },
     ],
   },
   {
