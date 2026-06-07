@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { Check, Phone, MessageCircle } from "lucide-react";
-import { useState, useRef } from "react";
+import { Check, Phone, MessageCircle, ChevronRight } from "lucide-react";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 
 export interface ServiceFeature {
@@ -33,56 +33,46 @@ export interface ServicePageData {
   serviceFolder: string;
 }
 
-function BeforeAfterSlider({ before, after, label }: GalleryPair) {
-  const [pos, setPos] = useState(50);
-  const ref = useRef<HTMLDivElement>(null);
-  const dragging = useRef(false);
-
-  const updatePos = (clientX: number) => {
-    if (!ref.current) return;
-    const { left, width } = ref.current.getBoundingClientRect();
-    setPos(Math.max(2, Math.min(98, ((clientX - left) / width) * 100)));
-  };
+function BeforeAfterCard({ item }: { item: GalleryPair }) {
+  const title = item.label ?? "청소 전후 사례";
 
   return (
-    <div className="w-full flex flex-col items-center">
-      {label && (
-        <p className="mb-3 text-sm font-bold text-foreground">{label}</p>
-      )}
-      <div
-        ref={ref}
-        className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden cursor-col-resize select-none shadow-md"
-        onMouseMove={(e) => { if (dragging.current) updatePos(e.clientX); }}
-        onMouseDown={(e) => { dragging.current = true; updatePos(e.clientX); }}
-        onMouseUp={() => { dragging.current = false; }}
-        onMouseLeave={() => { dragging.current = false; }}
-        onTouchMove={(e) => updatePos(e.touches[0].clientX)}
-        onTouchStart={(e) => updatePos(e.touches[0].clientX)}
-      >
-        {/* Before */}
-        <img src={before} alt="청소 전" draggable={false}
-          className="absolute inset-0 h-full w-full object-cover bg-gray-100" />
-        {/* After (clipped) */}
-        <div className="absolute inset-0 overflow-hidden"
-          style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-          <img src={after} alt="청소 후" draggable={false}
-            className="absolute inset-0 h-full w-full object-cover bg-gray-100" />
+    <motion.article
+      className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm"
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+    >
+      <div className="relative grid overflow-hidden bg-blue-50 md:aspect-[16/9] md:grid-cols-2">
+        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto">
+          <img
+            src={item.before}
+            alt={`${title} 청소 전`}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <span className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
+            BEFORE
+          </span>
         </div>
-        {/* Divider line */}
-        <div className="absolute top-0 bottom-0 w-0.5 bg-white/90 shadow-[0_0_8px_rgba(0,0,0,0.35)]"
-          style={{ left: `${pos}%` }}>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-lg flex items-center justify-center border border-gray-200">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M5 8H1M1 8L3 6M1 8L3 10M11 8H15M15 8L13 6M15 8L13 10"
-                stroke="#1B2F57" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
+
+        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto">
+          <img
+            src={item.after}
+            alt={`${title} 청소 후`}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <span className="absolute right-4 top-4 rounded-full bg-primary/85 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
+            AFTER
+          </span>
         </div>
-        {/* Labels */}
-        <span className="absolute left-2 top-2 rounded-md bg-black/55 px-2 py-0.5 text-[10px] font-bold text-white pointer-events-none">전</span>
-        <span className="absolute right-2 top-2 rounded-md bg-primary/80 px-2 py-0.5 text-[10px] font-bold text-white pointer-events-none">후</span>
+
+        <div className="absolute left-1/2 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-md md:h-12 md:w-12">
+          <ChevronRight className="h-5 w-5 rotate-90 md:rotate-0" strokeWidth={3} />
+        </div>
       </div>
-    </div>
+    </motion.article>
   );
 }
 
@@ -93,6 +83,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
     { before: imgBase + "before-1.webp", after: imgBase + "after-1.webp", label: "사례 1" },
     { before: imgBase + "before-2.webp", after: imgBase + "after-2.webp", label: "사례 2" },
   ];
+  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
+  const selectedGalleryItem = gallery[selectedGalleryIndex] ?? gallery[0];
 
   return (
     <>
@@ -162,16 +154,45 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         </section>
 
         {/* Before/After Gallery */}
-        <section className="bg-white py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="mb-2 text-center text-2xl font-extrabold text-foreground md:text-3xl">
-              청소 전·후 사례
-            </h2>
-            <p className="mb-8 text-center text-sm text-muted-foreground">슬라이더를 드래그해서 전후를 비교해보세요</p>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 max-w-3xl mx-auto">
-              {gallery.map((pair, i) => (
-                <BeforeAfterSlider key={i} {...pair} />
-              ))}
+        <section className="bg-gradient-to-b from-white to-blue-50/30 py-16 md:py-28">
+          <div className="container max-w-6xl">
+            <motion.div
+              className="mx-auto mb-10 max-w-3xl text-center md:mb-12"
+              initial={{ opacity: 0, y: 34 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <p className="mb-5 text-center text-sm font-bold tracking-[0.35em] text-primary">PROOF</p>
+              <h2 className="text-center text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
+                눈으로 확인하는
+                <br />
+                계단청소 결과
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground">
+                실제 작업 현장을 기반으로 촬영한 전후 사진입니다.
+              </p>
+            </motion.div>
+
+            <div className="mx-auto max-w-5xl space-y-5">
+              <div className="flex gap-2 overflow-x-auto pb-2 md:justify-center">
+                {gallery.map((item, index) => (
+                  <button
+                    key={`${item.label ?? "case"}-${index}`}
+                    type="button"
+                    onClick={() => setSelectedGalleryIndex(index)}
+                    className={`flex-shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-all ${
+                      index === selectedGalleryIndex
+                        ? "border-primary bg-primary text-white shadow-sm"
+                        : "border-blue-100 bg-white text-muted-foreground hover:border-primary/30 hover:text-primary"
+                    }`}
+                  >
+                    {item.label ?? `사례 ${index + 1}`}
+                  </button>
+                ))}
+              </div>
+
+              {selectedGalleryItem && <BeforeAfterCard key={selectedGalleryIndex} item={selectedGalleryItem} />}
             </div>
           </div>
         </section>
