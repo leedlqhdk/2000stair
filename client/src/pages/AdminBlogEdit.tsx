@@ -13,6 +13,11 @@ import { optimizeImage, formatBytes } from "@/lib/imageOptimizer";
 
 type ImageItem = { url: string; alt: string };
 
+const isStorableImageUrl = (url: string | null | undefined) => {
+  if (!url) return false;
+  return !url.startsWith("data:");
+};
+
 export default function AdminBlogEdit() {
   const { id } = useParams<{ id?: string }>();
   const isEdit = !!id;
@@ -192,13 +197,20 @@ export default function AdminBlogEdit() {
     if (!title.trim()) return toast.error("제목을 입력해주세요.");
     if (!content.trim()) return toast.error("내용을 입력해주세요.");
 
+    const storableImages = images.filter((img) => isStorableImageUrl(img.url));
+    const skippedImageCount = images.length - storableImages.length + (thumbnail && !isStorableImageUrl(thumbnail) ? 1 : 0);
+
+    if (skippedImageCount > 0) {
+      toast.warning("사진 저장 설정 전이라 글 먼저 저장해요. 사진은 저장 후 다시 올려주세요.");
+    }
+
     const payload = {
       title,
       content,
-      thumbnail: thumbnail ?? undefined,
+      thumbnail: isStorableImageUrl(thumbnail) ? thumbnail ?? undefined : undefined,
       thumbnailAlt: thumbnailAlt || undefined,
-      images: images.map((img) => img.url),
-      imageAlts: images.map((img) => img.alt),
+      images: storableImages.map((img) => img.url),
+      imageAlts: storableImages.map((img) => img.alt),
       tags: selectedTags,
       published: published ? ("published" as const) : ("draft" as const),
       seoTitle: seoTitle || undefined,
@@ -257,7 +269,6 @@ export default function AdminBlogEdit() {
           </div>
         </section>
       )}
-
       <div className="space-y-6">
         <div>
           <Label className="mb-1 block">제목 *</Label>
