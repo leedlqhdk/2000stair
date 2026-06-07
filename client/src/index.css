@@ -99,33 +99,32 @@
 
 
 @layer base {
-
-* {
-  @apply border-border outline-ring/50;
+  * {
+    @apply border-border outline-ring/50;
   }
 
-html {
-color-scheme: light;
-background: #ffffff;
-}
+  html,
+  body,
+  #root {
+    color-scheme: light only;
+    background-color: #ffffff !important;
+  }
 
-body {
-@apply bg-background text-foreground;
-color-scheme: light;
-background: #ffffff;
-}
+  body {
+    @apply bg-background text-foreground;
+  }
 
-button:not(:disabled),
-[role="button"]:not([aria-disabled="true"]),
-[type="button"]:not(:disabled),
-[type="submit"]:not(:disabled),
-[type="reset"]:not(:disabled),
-a[href],
-select:not(:disabled),
-input[type="checkbox"]:not(:disabled),
-input[type="radio"]:not(:disabled) {
-@apply cursor-pointer;
-}
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
 }
 
 
