@@ -23,14 +23,14 @@ export default function HusbandProfileStats() {
     <section className="bg-white py-14 md:py-20">
       <div className="container max-w-6xl">
         <motion.div
-          className="grid items-end gap-6 overflow-hidden rounded-[2rem] border border-blue-100 bg-white px-6 pt-8 shadow-[0_20px_55px_rgba(15,76,169,0.06)] md:px-10 md:pt-10 lg:grid-cols-[minmax(500px,1fr)_minmax(0,0.95fr)] lg:gap-6 lg:px-10 lg:pt-8"
+          className="grid items-stretch overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-[0_20px_55px_rgba(15,76,169,0.06)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div
-            className="flex justify-center lg:justify-start"
+            className="relative min-h-[340px] overflow-hidden md:min-h-[430px] lg:min-h-[520px]"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -39,13 +39,13 @@ export default function HusbandProfileStats() {
             <img
               src="/images/husband-profile.webp?v=20260606"
               alt="이천계단지기 대표 현장관리 프로필"
-              className="-mb-1 w-[min(92vw,470px)] object-contain md:w-[520px] lg:-mb-2 lg:w-[580px]"
+              className="absolute inset-0 h-full w-full object-cover object-[38%_50%]"
               loading="lazy"
             />
           </motion.div>
 
           <motion.div
-            className="pb-8 pt-1 text-center md:pb-10 lg:pb-12 lg:pt-4 lg:text-left"
+            className="px-6 py-8 text-center md:px-10 md:py-10 lg:px-12 lg:py-14 lg:text-left"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -68,8 +68,11 @@ export default function HusbandProfileStats() {
             </p>
 
             <div className="mx-auto mt-8 grid max-w-2xl gap-5 sm:grid-cols-3 lg:mx-0">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center lg:text-left">
+              {stats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`text-center lg:text-left ${index === 1 ? "lg:-ml-3" : ""}`}
+                >
                   <p className="text-[2.2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.45rem]">
                     {stat.value}
                     {stat.unit && (
