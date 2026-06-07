@@ -14,6 +14,7 @@ export default function Home() {
         <HowItWorks />
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={false} />
+        <HusbandProfileStats />
       </main>
     </div>
   );
