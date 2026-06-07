@@ -165,7 +165,7 @@ function ContactCard({ compact = false }: { compact?: boolean }) {
 
 export default function Footer() {
   return (
-    <footer id="site-footer" className="bg-foreground py-8 text-white md:py-20">
+    <footer id="site-footer" className="bg-[#1B2F57] py-8 text-white md:py-20">
       <motion.div
         className="container max-w-7xl"
         initial={{ opacity: 0, y: 34 }}
