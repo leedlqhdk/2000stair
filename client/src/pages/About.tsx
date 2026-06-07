@@ -47,7 +47,7 @@ export default function About() {
             </div>
           </motion.section>
 
-          <HusbandProfileStats />
+        
 
           <section className="mb-14 md:mb-20">
             <div className="mx-auto mb-8 max-w-2xl text-center">
