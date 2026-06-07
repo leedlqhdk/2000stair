@@ -38,7 +38,7 @@ const navGroups: NavGroup[] = [
     label: "정보센터",
     items: [
       { label: "블로그", href: "https://blog.naver.com/icheonstair" },
-      { label: "정보글", href: "/areas" },
+      { label: "정보글", href: "/guide" },
       { label: "자주묻는질문", href: "/qna" },
     ],
   },
