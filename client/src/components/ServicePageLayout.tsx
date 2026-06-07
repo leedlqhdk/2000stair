@@ -23,11 +23,12 @@ export interface ServicePageData {
   heroTitle: string;
   heroSubtitle: string;
   heroBgImage?: string;
+  heroVideo?: string;
   features: ServiceFeature[];
   scopeItems: string[];
   pricingTiers: ServicePricingTier[];
   gallery?: GalleryPair[];
-  serviceFolder: string; // e.g. "stair-cleaning"
+  serviceFolder: string;
 }
 
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
@@ -42,14 +43,30 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
     <main className="min-h-screen">
       {/* Hero */}
       <section
-        className="relative flex min-h-[460px] md:min-h-[540px] flex-col justify-end overflow-hidden bg-gray-800 pb-12 pt-24"
+        className="relative flex min-h-[460px] md:min-h-[580px] flex-col justify-end overflow-hidden bg-gray-900 pb-14 pt-24"
         style={
-          data.heroBgImage
+          !data.heroVideo && data.heroBgImage
             ? { backgroundImage: `url(${data.heroBgImage})`, backgroundSize: "cover", backgroundPosition: "center" }
             : {}
         }
       >
-        <div className="absolute inset-0 bg-black/55" />
+        {/* Video background */}
+        {data.heroVideo && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            <source src={data.heroVideo} type="video/mp4" />
+          </video>
+        )}
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+
+        {/* Content */}
         <div className="relative container mx-auto px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -59,29 +76,32 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           >
             {data.heroTitle}
           </motion.h1>
-          <motion.p
+
+          {/* Feature badges */}
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-3 text-sm text-white/80 md:text-base"
-          >
-            {data.heroSubtitle}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-5 flex flex-wrap gap-2"
           >
-            {["하청 NO", "직접 담당", "전후 사진 제공", "장기 관리 가능"].map((badge) => (
+            {["이천 계단청소 전문", "대표 직접 관리", "전후사진 제공", "무료견적"].map((badge) => (
               <span
                 key={badge}
-                className="rounded-full border border-white/30 bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
+                className="rounded-full border border-white/40 bg-white/15 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-sm md:text-sm"
               >
                 {badge}
               </span>
             ))}
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-4 text-sm text-white/75 md:text-base"
+          >
+            {data.heroSubtitle}
+          </motion.p>
         </div>
       </section>
 
@@ -115,23 +135,15 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                   src={pair.before}
                   alt={"청소 전 " + (pair.label ?? "")}
                   className="aspect-[4/3] w-full rounded-2xl object-cover bg-gray-100"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; (e.target as HTMLImageElement).nextElementSibling?.classList.remove("hidden"); }}
                 />
-                <div className="hidden aspect-[4/3] rounded-2xl bg-gray-100 flex-col items-center justify-center text-gray-400 text-xs gap-1 flex">
-                  <span className="text-2xl">📷</span><span>사진 업로드 예정</span>
-                </div>
-                <span className="absolute left-2 top-2 rounded bg-black/50 px-2 py-0.5 text-[10px] font-bold text-white">전</span>
+                <span className="absolute left-2 top-2 rounded bg-black/55 px-2 py-0.5 text-[10px] font-bold text-white">전</span>
               </div>,
               <div key={"a" + i} className="relative">
                 <img
                   src={pair.after}
                   alt={"청소 후 " + (pair.label ?? "")}
                   className="aspect-[4/3] w-full rounded-2xl object-cover bg-gray-100"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; (e.target as HTMLImageElement).nextElementSibling?.classList.remove("hidden"); }}
                 />
-                <div className="hidden aspect-[4/3] rounded-2xl bg-gray-100 flex-col items-center justify-center text-gray-400 text-xs gap-1 flex">
-                  <span className="text-2xl">📷</span><span>사진 업로드 예정</span>
-                </div>
                 <span className="absolute left-2 top-2 rounded bg-primary/80 px-2 py-0.5 text-[10px] font-bold text-white">후</span>
               </div>,
             ])}
