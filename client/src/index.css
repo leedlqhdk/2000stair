@@ -1,6 +1,21 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'GmarketSans';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -41,6 +56,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "GmarketSans", "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
 :root {
@@ -164,19 +180,11 @@
     }
   }
 }
-@keyframes slideLeft {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-@keyframes slideLeft {
-  from {
-    transform: translateX(0);
-  }
 
+@keyframes slideLeft {
+  from {
+    transform: translateX(0);
+  }
   to {
     transform: translateX(-50%);
   }
