@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogReviews from "@/components/BlogReviews";
-import CareGuideSection from "@/components/CareGuideSection";
 import FaqSection from "@/components/FaqSection";
 
 export default function Qna() {
@@ -61,7 +60,6 @@ export default function Qna() {
         </section>
 
         <BlogReviews />
-        <CareGuideSection />
         <FaqSection />
       </main>
 
