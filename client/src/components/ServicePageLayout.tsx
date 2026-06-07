@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, Phone, MessageCircle } from "lucide-react";
+import { useState, useRef } from "react";
+import Navbar from "@/components/Navbar";
 
 export interface ServiceFeature {
   title: string;
@@ -31,193 +33,209 @@ export interface ServicePageData {
   serviceFolder: string;
 }
 
+function BeforeAfterSlider({ before, after, label }: GalleryPair) {
+  const [pos, setPos] = useState(50);
+  const ref = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
+
+  const updatePos = (clientX: number) => {
+    if (!ref.current) return;
+    const { left, width } = ref.current.getBoundingClientRect();
+    setPos(Math.max(2, Math.min(98, ((clientX - left) / width) * 100)));
+  };
+
+  return (
+    <div className="flex flex-col items-center">
+      {label && (
+        <p className="mb-3 text-sm font-bold text-foreground">{label}</p>
+      )}
+      <div
+        ref={ref}
+        className="relative aspect-[4/3] w-full max-w-[480px] rounded-2xl overflow-hidden cursor-col-resize select-none shadow-md"
+        onMouseMove={(e) => { if (dragging.current) updatePos(e.clientX); }}
+        onMouseDown={(e) => { dragging.current = true; updatePos(e.clientX); }}
+        onMouseUp={() => { dragging.current = false; }}
+        onMouseLeave={() => { dragging.current = false; }}
+        onTouchMove={(e) => updatePos(e.touches[0].clientX)}
+        onTouchStart={(e) => updatePos(e.touches[0].clientX)}
+      >
+        {/* Before */}
+        <img src={before} alt="청소 전" draggable={false}
+          className="absolute inset-0 h-full w-full object-cover bg-gray-100" />
+        {/* After (clipped) */}
+        <div className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+          <img src={after} alt="청소 후" draggable={false}
+            className="absolute inset-0 h-full w-full object-cover bg-gray-100" />
+        </div>
+        {/* Divider line */}
+        <div className="absolute top-0 bottom-0 w-0.5 bg-white/90 shadow-[0_0_8px_rgba(0,0,0,0.35)]"
+          style={{ left: `${pos}%` }}>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-lg flex items-center justify-center border border-gray-200">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M5 8H1M1 8L3 6M1 8L3 10M11 8H15M15 8L13 6M15 8L13 10"
+                stroke="#1B2F57" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        {/* Labels */}
+        <span className="absolute left-2 top-2 rounded-md bg-black/55 px-2 py-0.5 text-[10px] font-bold text-white pointer-events-none">전</span>
+        <span className="absolute right-2 top-2 rounded-md bg-primary/80 px-2 py-0.5 text-[10px] font-bold text-white pointer-events-none">후</span>
+      </div>
+    </div>
+  );
+}
+
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
-  const kakaoUrl = "https://" + ["pf.kakao.com", "_IiNfn", "chat"].join("/");
-  const imgBase = "/images/services/" + data.serviceFolder + "/";
+  const imgBase = `/images/services/${data.serviceFolder}/`;
+  const kakaoUrl = "https://pf.kakao.com/_IiNfn/chat";
   const gallery = data.gallery ?? [
     { before: imgBase + "before-1.webp", after: imgBase + "after-1.webp", label: "사례 1" },
     { before: imgBase + "before-2.webp", after: imgBase + "after-2.webp", label: "사례 2" },
   ];
 
   return (
-    <main className="min-h-screen">
-      {/* Hero */}
-      <section
-        className="relative flex min-h-[460px] md:min-h-[580px] flex-col justify-end overflow-hidden bg-gray-900 pb-14 pt-24"
-        style={
-          !data.heroVideo && data.heroBgImage
-            ? { backgroundImage: `url(${data.heroBgImage})`, backgroundSize: "cover", backgroundPosition: "center" }
-            : {}
-        }
-      >
-        {/* Video background */}
-        {data.heroVideo && (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 h-full w-full object-cover"
-          >
-            <source src={data.heroVideo} type="video/mp4" />
-          </video>
-        )}
-
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
-
-        {/* Content */}
-        <div className="relative container mx-auto px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl font-['GmarketSans'] whitespace-pre-line"
-          >
-            {data.heroTitle}
-          </motion.h1>
-
-          {/* Feature badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-5 flex flex-wrap gap-2"
-          >
-            {["이천 계단청소 전문", "대표 직접 관리", "전후사진 제공", "무료견적"].map((badge) => (
-              <span
-                key={badge}
-                className="rounded-full border border-white/40 bg-white/15 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-sm md:text-sm"
-              >
-                {badge}
-              </span>
-            ))}
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-4 text-sm text-white/75 md:text-base"
-          >
-            {data.heroSubtitle}
-          </motion.p>
-        </div>
-      </section>
-
-      {/* Why Us */}
-      <section className="bg-[#f7f8fa] py-14 md:py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">
-            이천계단지기가 다른 이유
-          </h2>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-            {data.features.map((f) => (
-              <div key={f.title} className="rounded-2xl bg-white border border-blue-50 p-4 md:p-5 shadow-sm">
-                <p className="font-bold text-foreground text-sm md:text-base mb-1">{f.title}</p>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{f.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Gallery */}
-      <section className="bg-white py-14 md:py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">
-            청소 전·후 사례
-          </h2>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-            {gallery.flatMap((pair, i) => [
-              <div key={"b" + i} className="relative">
-                <img
-                  src={pair.before}
-                  alt={"청소 전 " + (pair.label ?? "")}
-                  className="aspect-[4/3] w-full rounded-2xl object-cover bg-gray-100"
-                />
-                <span className="absolute left-2 top-2 rounded bg-black/55 px-2 py-0.5 text-[10px] font-bold text-white">전</span>
-              </div>,
-              <div key={"a" + i} className="relative">
-                <img
-                  src={pair.after}
-                  alt={"청소 후 " + (pair.label ?? "")}
-                  className="aspect-[4/3] w-full rounded-2xl object-cover bg-gray-100"
-                />
-                <span className="absolute left-2 top-2 rounded bg-primary/80 px-2 py-0.5 text-[10px] font-bold text-white">후</span>
-              </div>,
-            ])}
-          </div>
-        </div>
-      </section>
-
-      {/* Scope */}
-      <section className="bg-[#f7f8fa] py-14 md:py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-2xl font-extrabold text-foreground md:text-3xl">서비스 범위</h2>
-          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:gap-3 max-w-2xl">
-            {data.scopeItems.map((item) => (
-              <div key={item} className="flex items-center gap-2">
-                <Check className="h-4 w-4 shrink-0 text-primary" />
-                <span className="text-sm md:text-base text-foreground">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="bg-white py-14 md:py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">요금 안내</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-3xl mx-auto">
-            {data.pricingTiers.map((tier) => (
-              <div
-                key={tier.badge}
-                className={`rounded-2xl p-6 md:p-7 ${tier.highlight ? "bg-[#1B2F57] text-white" : "bg-[#f7f8fa] text-foreground"}`}
-              >
-                <span className={`inline-block rounded-full px-3 py-1 text-xs font-bold mb-3 ${tier.highlight ? "bg-white/20 text-white" : "bg-primary/10 text-primary"}`}>
-                  {tier.badge}
+    <>
+      <Navbar />
+      <main className="min-h-screen">
+        {/* Hero */}
+        <section
+          className="relative flex min-h-[460px] md:min-h-[580px] flex-col justify-end overflow-hidden bg-gray-900 pb-14 pt-24"
+          style={
+            !data.heroVideo && data.heroBgImage
+              ? { backgroundImage: `url(${data.heroBgImage})`, backgroundSize: "cover", backgroundPosition: "center" }
+              : {}
+          }
+        >
+          {data.heroVideo && (
+            <video autoPlay muted loop playsInline
+              className="absolute inset-0 h-full w-full object-cover">
+              <source src={data.heroVideo} type="video/mp4" />
+            </video>
+          )}
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative container mx-auto px-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl font-['GmarketSans'] whitespace-pre-line"
+            >
+              {data.heroTitle}
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-5 flex flex-wrap gap-2"
+            >
+              {["이천 계단청소 전문", "대표 직접 관리", "전후사진 제공", "무료견적"].map((badge) => (
+                <span key={badge}
+                  className="rounded-full border border-white/40 bg-white/15 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-sm md:text-sm">
+                  {badge}
                 </span>
-                <p className={`text-2xl font-extrabold md:text-3xl ${tier.highlight ? "text-white" : "text-foreground"}`}>
-                  {tier.price}
-                </p>
-                <p className={`mt-1 text-sm ${tier.highlight ? "text-white/70" : "text-muted-foreground"}`}>
-                  {tier.note}
-                </p>
-              </div>
-            ))}
+              ))}
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="mt-4 text-sm text-white/75 md:text-base"
+            >
+              {data.heroSubtitle}
+            </motion.p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="bg-[#f0f3f8] py-12 md:py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-xl font-extrabold text-foreground md:text-2xl mb-2">
-            지금 바로 무료 견적 받아보세요!
-          </h3>
-          <p className="text-sm text-muted-foreground mb-7">담당자가 빠르게 연락드리겠습니다.</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="tel:010-4491-4721"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1B2F57] px-6 py-3 text-sm font-bold text-white"
-            >
-              <Phone className="h-4 w-4" />
-              전화 문의
-            </a>
-            <a
-              href={kakaoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FAE100] px-6 py-3 text-sm font-bold text-[#3A1D1D]"
-            >
-              <MessageCircle className="h-4 w-4" />
-              카카오톡 상담하기
-            </a>
+        {/* Why Us */}
+        <section className="bg-[#f7f8fa] py-14 md:py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">
+              이천계단지기가 다른 이유
+            </h2>
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+              {data.features.map((f) => (
+                <div key={f.title} className="rounded-2xl bg-white border border-blue-50 p-4 md:p-5 shadow-sm">
+                  <p className="font-bold text-foreground text-sm md:text-base mb-1">{f.title}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{f.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        {/* Before/After Gallery */}
+        <section className="bg-white py-14 md:py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="mb-2 text-center text-2xl font-extrabold text-foreground md:text-3xl">
+              청소 전·후 사례
+            </h2>
+            <p className="mb-8 text-center text-sm text-muted-foreground">슬라이더를 드래그해서 전후를 비교해보세요</p>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 max-w-3xl mx-auto place-items-center">
+              {gallery.map((pair, i) => (
+                <BeforeAfterSlider key={i} {...pair} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Scope */}
+        <section className="bg-[#f7f8fa] py-14 md:py-20">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">서비스 범위</h2>
+            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:gap-3">
+              {data.scopeItems.map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <Check className="h-4 w-4 shrink-0 text-primary" />
+                  <span className="text-sm md:text-base text-foreground">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing */}
+        <section className="bg-white py-14 md:py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">요금 안내</h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-3xl mx-auto">
+              {data.pricingTiers.map((tier) => (
+                <div key={tier.badge}
+                  className={`rounded-2xl p-6 md:p-7 ${tier.highlight ? "bg-[#1B2F57] text-white" : "bg-[#f7f8fa] text-foreground"}`}>
+                  <span className={`inline-block rounded-full px-3 py-1 text-xs font-bold mb-3 ${tier.highlight ? "bg-white/20 text-white" : "bg-primary/10 text-primary"}`}>
+                    {tier.badge}
+                  </span>
+                  <p className={`text-2xl font-extrabold md:text-3xl ${tier.highlight ? "text-white" : "text-foreground"}`}>
+                    {tier.price}
+                  </p>
+                  <p className={`mt-1 text-sm ${tier.highlight ? "text-white/70" : "text-muted-foreground"}`}>
+                    {tier.note}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="bg-[#f0f3f8] py-12 md:py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h3 className="text-xl font-extrabold text-foreground md:text-2xl mb-2">
+              지금 바로 무료 견적 받아보세요!
+            </h3>
+            <p className="text-sm text-muted-foreground mb-7">담당자가 빠르게 연락드리겠습니다.</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a href="tel:010-4491-4721"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1B2F57] px-6 py-3 text-sm font-bold text-white">
+                <Phone className="h-4 w-4" />
+                전화 문의
+              </a>
+              <a href={kakaoUrl} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FAE100] px-6 py-3 text-sm font-bold text-[#3A1D1D]">
+                <MessageCircle className="h-4 w-4" />
+                카카오톡 상담하기
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
