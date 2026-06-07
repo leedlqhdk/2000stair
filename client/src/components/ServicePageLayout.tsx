@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { Check, Phone, MessageCircle, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { Check, Phone, MessageCircle, ChevronDown } from "lucide-react";
+import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 
 export interface ServiceFeature {
   title: string;
   description: string;
+  icon?: string;
 }
 
 export interface ServicePricingTier {
@@ -21,359 +22,125 @@ export interface GalleryPair {
   label?: string;
 }
 
-export interface ServiceInfoSection {
-  title: string;
-  body: string;
-  image: string;
-}
-
 export interface ServicePageData {
   heroTitle: string;
   heroSubtitle: string;
   heroBgImage?: string;
   heroVideo?: string;
-  heroStyle?: "default" | "fullscreenVideo";
   features: ServiceFeature[];
   scopeItems: string[];
   pricingTiers: ServicePricingTier[];
   gallery?: GalleryPair[];
-  infoSections?: ServiceInfoSection[];
   serviceFolder: string;
 }
 
-function BeforeAfterCard({ item }: { item: GalleryPair }) {
-  const title = item.label ?? "청소 전후 사례";
-
+function BeforeAfterSlider({ before, after, label }: GalleryPair) {
+  const [pos, setPos] = useState(50);
+  const ref = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
+  const updatePos = (clientX: number) => {
+    if (!ref.current) return;
+    const { left, width } = ref.current.getBoundingClientRect();
+    setPos(Math.max(2, Math.min(98, ((clientX - left) / width) * 100)));
+  };
   return (
-    <motion.article
-      className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm"
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
-    >
-      <div className="relative grid overflow-hidden bg-blue-50 md:aspect-[16/9] md:grid-cols-2">
-        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto">
-          <img
-            src={item.before}
-            alt={`${title} 청소 전`}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-          />
-          <span className="absolute left-4 top-4 rounded-full bg-black/55 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
-            BEFORE
-          </span>
+    <div className="w-full flex flex-col items-center">
+      {label && <p className="mb-3 text-sm font-bold text-foreground">{label}</p>}
+      <div
+        ref={ref}
+        className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden cursor-col-resize select-none shadow-md"
+        onMouseMove={(e) => { if (dragging.current) updatePos(e.clientX); }}
+        onMouseDown={(e) => { dragging.current = true; updatePos(e.clientX); }}
+        onMouseUp={() => { dragging.current = false; }}
+        onMouseLeave={() => { dragging.current = false; }}
+        onTouchMove={(e) => updatePos(e.touches[0].clientX)}
+        onTouchStart={(e) => updatePos(e.touches[0].clientX)}
+      >
+        <img src={before} alt="청소 전" draggable={false} className="absolute inset-0 h-full w-full object-cover bg-gray-100" />
+        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+          <img src={after} alt="청소 후" draggable={false} className="absolute inset-0 h-full w-full object-cover bg-gray-100" />
         </div>
-
-        <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto">
-          <img
-            src={item.after}
-            alt={`${title} 청소 후`}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-          />
-          <span className="absolute right-4 top-4 rounded-full bg-primary/85 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
-            AFTER
-          </span>
-        </div>
-
-        <div className="absolute left-1/2 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-md md:h-12 md:w-12">
-          <ChevronRight className="h-5 w-5 rotate-90 md:rotate-0" strokeWidth={3} />
-        </div>
-      </div>
-    </motion.article>
-  );
-}
-
-function ServiceInfoSections({ sections }: { sections: ServiceInfoSection[] }) {
-  return (
-    <section className="bg-gradient-to-b from-white to-blue-50/30 py-16 md:py-28">
-      <div className="container max-w-6xl">
-        <motion.div
-          className="mx-auto mb-10 max-w-3xl text-center md:mb-14"
-          initial={{ opacity: 0, y: 34 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+        <div
+          className="absolute top-0 bottom-0 w-0.5 bg-white/90 shadow-[0_0_8px_rgba(0,0,0,0.35)]"
+          style={{ left: `${pos}%` }}
         >
-          <p className="mb-5 text-center text-sm font-bold tracking-[0.35em] text-primary">GUIDE</p>
-          <h2 className="text-center text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
-            유리청소,
-            <br />
-            이런 점을 확인하세요
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground">
-            현장 상황에 따라 작업 범위와 비용이 달라질 수 있어 먼저 확인이 필요합니다.
-          </p>
-        </motion.div>
-
-        <div className="space-y-6 md:space-y-8">
-          {sections.map((section, index) => (
-            <motion.article
-              key={section.title}
-              className={`grid overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm lg:grid-cols-2 ${
-                index % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
-              }`}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: index * 0.08 }}
-            >
-              <div className="relative min-h-[260px] overflow-hidden bg-blue-50 md:min-h-[340px]">
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="flex flex-col justify-center p-6 md:p-10">
-                <span className="mb-4 inline-flex w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-extrabold text-primary">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
-                  {section.title}
-                </h3>
-                <p className="mt-5 text-sm font-medium leading-7 text-muted-foreground md:text-base">
-                  {section.body}
-                </p>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ServiceGallery({ gallery }: { gallery: GalleryPair[] }) {
-  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
-  const selectedGalleryItem = gallery[selectedGalleryIndex] ?? gallery[0];
-
-  return (
-    <section className="bg-gradient-to-b from-white to-blue-50/30 py-16 md:py-28">
-      <div className="container max-w-6xl">
-        <motion.div
-          className="mx-auto mb-10 max-w-3xl text-center md:mb-12"
-          initial={{ opacity: 0, y: 34 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <p className="mb-5 text-center text-sm font-bold tracking-[0.35em] text-primary">PROOF</p>
-          <h2 className="text-center text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
-            눈으로 확인하는
-            <br />
-            청소 결과
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground">
-            실제 작업 현장을 기반으로 촬영한 전후 사진입니다.
-          </p>
-        </motion.div>
-
-        <div className="mx-auto max-w-5xl space-y-5">
-          <div className="flex gap-2 overflow-x-auto pb-2 md:justify-center">
-            {gallery.map((item, index) => (
-              <button
-                key={`${item.label ?? "case"}-${index}`}
-                type="button"
-                onClick={() => setSelectedGalleryIndex(index)}
-                className={`flex-shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-all ${
-                  index === selectedGalleryIndex
-                    ? "border-primary bg-primary text-white shadow-sm"
-                    : "border-blue-100 bg-white text-muted-foreground hover:border-primary/30 hover:text-primary"
-                }`}
-              >
-                {item.label ?? `사례 ${index + 1}`}
-              </button>
-            ))}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-lg flex items-center justify-center border border-gray-200">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M5 8H1M1 8L3 6M1 8L3 10M11 8H15M15 8L13 6M15 8L13 10" stroke="#1B2F57" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
-
-          {selectedGalleryItem && <BeforeAfterCard key={selectedGalleryIndex} item={selectedGalleryItem} />}
         </div>
+        <span className="absolute left-2 top-2 rounded-md bg-black/55 px-2 py-0.5 text-[10px] font-bold text-white pointer-events-none">전</span>
+        <span className="absolute right-2 top-2 rounded-md bg-primary/80 px-2 py-0.5 text-[10px] font-bold text-white pointer-events-none">후</span>
       </div>
-    </section>
+    </div>
   );
 }
 
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
-  const imgBase = `/images/services/${data.serviceFolder}/`;
-  const kakaoUrl = "https://pf.kakao.com/_IiNfn/chat";
-  const gallery = data.gallery ?? [
-    { before: imgBase + "before-1.webp", after: imgBase + "after-1.webp", label: "사례 1" },
-    { before: imgBase + "before-2.webp", after: imgBase + "after-2.webp", label: "사례 2" },
-  ];
-  const isFullscreenVideo = data.heroStyle === "fullscreenVideo" && !!data.heroVideo;
+  const heroBadges = ["대표 직접 관리", "정기 계약", "당일 견적"];
 
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-white">
+
+      {/* Fixed parallax video — sits behind everything, only visible through hero */}
+      {data.heroVideo && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="fixed inset-0 w-full h-full object-cover"
+          style={{ zIndex: -10 }}
+        >
+          <source src={data.heroVideo} type="video/mp4" />
+        </video>
+      )}
+
+      <main className="min-h-screen">
+        {/* Hero */}
         <section
-          className={`relative flex flex-col overflow-hidden bg-gray-900 ${
-            isFullscreenVideo
-              ? "min-h-screen justify-center py-28 md:py-36"
-              : "min-h-[460px] justify-end pb-14 pt-24 md:min-h-[580px]"
-          }`}
+          className="relative flex h-screen min-h-[620px] flex-col items-center justify-center"
           style={
             !data.heroVideo && data.heroBgImage
               ? { backgroundImage: `url(${data.heroBgImage})`, backgroundSize: "cover", backgroundPosition: "center" }
               : {}
           }
         >
-          {data.heroVideo && (
-            <div className="absolute inset-0 z-0 overflow-hidden">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster={data.heroBgImage}
-                className={`h-full w-full object-cover ${isFullscreenVideo ? "scale-110 md:fixed md:inset-0 md:h-screen md:w-screen" : ""}`}
-              >
-                <source src={data.heroVideo} type="video/mp4" />
-              </video>
-            </div>
-          )}
-          <div className={`absolute inset-0 z-10 ${isFullscreenVideo ? "bg-black/55" : "bg-black/60"}`} />
-          {isFullscreenVideo && (
-            <div className="absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-black/65 to-transparent" />
-          )}
-          <div className={`relative z-20 container mx-auto px-4 ${isFullscreenVideo ? "text-center" : ""}`}>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
-              className={`mb-5 text-xs font-extrabold tracking-[0.35em] text-white/80 ${isFullscreenVideo ? "text-center" : ""}`}
-            >
-              2000 STAIR SERVICE
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.08 }}
-              className={`whitespace-pre-line font-['GmarketSans'] font-extrabold leading-tight text-white ${
-                isFullscreenVideo ? "mx-auto max-w-5xl text-4xl sm:text-5xl md:text-7xl" : "text-3xl sm:text-4xl md:text-5xl"
-              }`}
-            >
-              {data.heroTitle}
-            </motion.h1>
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/75 pointer-events-none" />
+
+          {/* Content */}
+          <div className="relative z-10 container mx-auto px-6 text-center">
+            {/* Badge tag */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className={`mt-6 flex flex-wrap gap-2 ${isFullscreenVideo ? "justify-center" : ""}`}
+              transition={{ duration: 0.5 }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 backdrop-blur-sm"
             >
-              {["이천 청소 전문", "대표 직접 관리", "현장 맞춤 안내", "무료견적"].map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full border border-white/40 bg-white/15 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-sm md:text-sm"
-                >
-                  {badge}
-                </span>
-              ))}
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className={`mt-5 text-sm leading-7 text-white/80 md:text-lg ${isFullscreenVideo ? "mx-auto max-w-2xl text-center" : ""}`}
-            >
-              {data.heroSubtitle}
-            </motion.p>
-            {isFullscreenVideo && (
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.48 }}
-                className="mt-9 flex flex-col justify-center gap-3 sm:flex-row"
-              >
-                <a href="tel:01084381887" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-extrabold text-[#1B2F57] shadow-xl transition hover:-translate-y-0.5">
-                  전화 문의
-                </a>
-                <a href={kakaoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full border border-white/45 bg-white/10 px-6 py-3 text-sm font-extrabold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20">
-                  카카오톡 상담하기
-                </a>
-              </motion.div>
-            )}
-          </div>
-          {isFullscreenVideo && (
-            <div className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 text-xs font-bold tracking-[0.25em] text-white/55">
-              SCROLL
-            </div>
-          )}
-        </section>
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-[11px] font-semibold text-white/90 tracking-[0.2em] uppercase">이천 청�;(!:�.��[����[�[ۋ�]�����ʈ]H
+��B�[�[ۋ�B�[�]X[^���X�]N�N��_B�[�[X]O^���X�]N�KN�_B��[��][ۏ^��\�][ێ���K[^N��H_B��\�Ә[YOH�^M�۝Y^�X��XY[��]Y�^]�]H�N�^M^Y�^M�Ν^M��۝V���X\��]�[���H�]\�X�K\�K[[�H��\�Y��L������]K�\��]_B��[�[ۋ�O����ʈX��[�[�H
+��B�[�[ۋ�]��[�]X[^����[V�_B�[�[X]O^����[V�H_B��[��][ۏ^��\�][ێ��MK[^N���_B��\�Ә[YOH�^X]]�]M�L�H�LM�ܚY�[�X�[�\���\�[X\�H��ς���ʈ�X�]H
+��B�[�[ۋ��[�]X[^���X�]N�N�M�_B�[�[X]O^���X�]N�KN�_B��[��][ۏ^��\�][ێ���[^N���_B��\�Ә[YOH�]MH^X�\�H�۝[YY][H^]�]K��H�N�^[�Y�^^�����]K�\���X�]_B��[�[ۋ�����ʈ�X]\�H[�
+��B�[�[ۋ�]��[�]X[^���X�]N�N�M�_B�[�[X]O^���X�]N�KN�_B��[��][ۏ^��\�][ێ���[^N��
+�_B��\�Ә[YOH�]M��^�^]ܘ\�\�Y�KX�[�\��\L������\�ИY�\˛X\
 
-        <section className="relative z-20 bg-[#f7f8fa] py-14 md:py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">
-              이천계단지기가 다른 이유
-            </h2>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-              {data.features.map((f) => (
-                <div key={f.title} className="rounded-2xl border border-blue-50 bg-white p-4 shadow-sm md:p-5">
-                  <p className="mb-1 text-sm font-bold text-foreground md:text-base">{f.title}</p>
-                  <p className="text-xs leading-relaxed text-muted-foreground md:text-sm">{f.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+�HO�
+��[���^O^؟B��\�Ә[YOH���[�YY�[��]�]K�L�X����X�\�\�H�ܙ\��ܙ\�]�]ǨLˍHKLH^^��۝\�[ZX��^]�]K�L����؟B���[���
+J_B��[�[ۋ�]�����ʈ�\�
+��B�[�[ۋ�]��[�]X[^���X�]N�N�M�_B�[�[X]O^���X�]N�KN�_B��[��][ۏ^��\�][ێ���[^N��M�_B��\�Ә[YOH�]LL�^�^X��][\�X�[�\��\�Y�KX�[�\��\L��N��^\��Ȃ���B��Y�H�[��KM��ML���\�Ә[YOH�[�[�KY�^][\�X�[�\��\L���[�YY�[��\�[X\�HM�KLˍH^\�H�۝X��^]�]H�Y��[�ݙ\����\�[X\�K�L�[��][ۋX[ݙ\����[KLL
+H����ۙH�\�Ә[YOH�M�M�ς�;(!;fe; �z����O��B��Y�H�΋�����Z�[˘��K������]��\��]H�؛[�Ȃ��[H����[�\��ܙY�\��\����\�Ә[YOH�[�[�KY�^][\�X�[�\��\L���[�YY�[�ܙ\��ܙ\�]�]K��H��]�]K�L�X����X�\�\�HM�KLˍH^\�H�۝X��^]�]Hݙ\����]�]Ǩ�[��][ۋX[ݙ\����[KLL
+H����Y\��Y�P�\��H�\�Ә[YOH�M�M�ς�;.m;.m;&); �z����O���[�[ۋ�]����]�����ʈ�ܛ�[�X�]܈
+��B�[�[ۋ�]��[�]X[^���X�]N�_B�[�[X]O^���X�]N�H_B��[��][ۏ^��\�][ێ�K[^N�K��_B��\�Ә[YOH�X���]H���KNY�LK̈]�[��]K^LK̈�^�^X��][\�X�[�\��\LK�H�����[��\�Ә[YOH�^V�LH�۝[YY][H^]�]K��X��[��V���Y[WH\\��\�H���ܛ���[���[�[ۋ�]��[�[X]O^��N��
+�H_B��[��][ۏ^��\�][ێ�K�K�\X]�[��[�]KX\�N��X\�R[��]�_B����]��ۑ�ۈ�\�Ә[YOH�MH�MH^]�]K��ς��[�[ۋ�]����[�[ۋ�]�����X�[ۏ����ʈ�X]\�\�8�%��Y���ݙ\���^Y�Y[�
+��B��X�[ۈ�\�Ә[YOH��[]]�H��]�]HKLM�Y�KL���[O^���[�^�L_O��]��\�Ә[YOH��۝Z[�\�^X]]�M���[�[ۋ���[�]X[^���X�]N�N��_B��[R[��Y]�^���X�]N�KN�_B��Y]�ܝ^��ۘ�N��YH_B��\�Ә[YOH�X�LL^X�[�\�^L��۝Y^�X��^Y�ܙYܛ�[��N�^L�����;!':�a;"�;b�{)�B��[�[ۋ����]��\�Ә[YOH�ܚY�\M��N�ܚYX���L�ΙܚYX���M����]K��X]\�\˛X\
 
-        <div className="relative z-20 bg-white">
-          {data.infoSections?.length ? <ServiceInfoSections sections={data.infoSections} /> : <ServiceGallery gallery={gallery} />}
-
-          <section className="bg-[#f7f8fa] py-14 md:py-20">
-            <div className="container mx-auto max-w-3xl px-4">
-              <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">서비스 범위</h2>
-              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:gap-3">
-                {data.scopeItems.map((item) => (
-                  <div key={item} className="flex items-center gap-2">
-                    <Check className="h-4 w-4 shrink-0 text-primary" />
-                    <span className="text-sm text-foreground md:text-base">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="bg-white py-14 md:py-20">
-            <div className="container mx-auto px-4">
-              <h2 className="mb-8 text-center text-2xl font-extrabold text-foreground md:text-3xl">요금 안내</h2>
-              <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {data.pricingTiers.map((tier) => (
-                  <div
-                    key={tier.badge}
-                    className={`rounded-2xl p-6 md:p-7 ${tier.highlight ? "bg-[#1B2F57] text-white" : "bg-[#f7f8fa] text-foreground"}`}
-                  >
-                    <span className={`mb-3 inline-block rounded-full px-3 py-1 text-xs font-bold ${tier.highlight ? "bg-white/20 text-white" : "bg-primary/10 text-primary"}`}>
-                      {tier.badge}
-                    </span>
-                    <p className={`text-2xl font-extrabold md:text-3xl ${tier.highlight ? "text-white" : "text-foreground"}`}>{tier.price}</p>
-                    <p className={`mt-1 text-sm ${tier.highlight ? "text-white/70" : "text-muted-foreground"}`}>{tier.note}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="bg-[#f0f3f8] py-12 md:py-16">
-            <div className="container mx-auto px-4 text-center">
-              <h3 className="mb-2 text-xl font-extrabold text-foreground md:text-2xl">지금 바로 무료 견적 받아보세요!</h3>
-              <p className="mb-7 text-sm text-muted-foreground">담당자가 빠르게 연락드리겠습니다.</p>
-              <div className="flex flex-col justify-center gap-3 sm:flex-row">
-                <a href="tel:01084381887" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1B2F57] px-6 py-3 text-sm font-bold text-white">
-                  <Phone className="h-4 w-4" />
-                  전화 문의
-                </a>
-                <a href={kakaoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FAE100] px-6 py-3 text-sm font-bold text-[#3A1D1D]">
-                  <MessageCircle className="h-4 w-4" />
-                  카카오톡 상담하기
-                </a>
-              </div>
-            </div>
-          </section>
-        </div>
-      </main>
-    </>
-  );
-}
+�JHO�
+�[�[ۋ�]���^O^�_B�[�]X[^���X�]N�N��_B��[R[��Y]�^���X�]N�KN�_B��Y]�ܝ^��ۘ�N��YH_B��[��][ۏ^��[^N�H
+��_B��\�Ә[YOH���[�YL��ܙ\��ܙ\�Yܘ^KLL��Yܘ^KMLM�ݙ\���Y��[Y�[��][ۋ\�Y�Ȃ�����\�Ә[YOH�X�L��۝X��^Y�ܙYܛ�[���ً�]_O�ς��\�Ә[YOH�^\�HXY[��\�[^Y^[]]YY�ܙYܛ�[���ً�\�ܚ\[۟O����[�[ۋ�]���
+J_B��]����]�����X�[ۏ����ʈ�[\�H
+��B��]K��[\�H	��]K��[\�K�[���	��
+��X�[ۈ�\�Ә[YOH��[]]�H��Yܘ^KMLKLM�Y�KL���[O^���[�^�L_O��]��\�Ә[YOH��۝Z[�\�^X]]�M���[�[ۋ���[�]X[^���X�]N�N��_B��[R[��Y]�^���X�]N�KN�_B��Y]�ܝ^��ۘ�N��YH_B��\�Ә[YOH�X�LL^X�[�\�^L��۝Y^�X��^Y�ܙYܛ�[��N�^L�����;,�xh��L+~ٸB��N�Y �����F����#��F�b6�74��S�&w&�Bw&�B�6��2�vӂ6Ӧw&�B�6��2�"�C�v����r�7��ׂ�WF�#��FF�v��W'������"����������F����F�`��W�׶�Т��F��׷��6�G�����#�Тv���T��f�Ws׷��6�G������Тf�Ww�'C׷���6S�G'VR�ТG&�6�F���׷�FV�������Т6�74��S�'r�gV�� ���&Vf�&TgFW%6ƖFW"�����'�������F����F�c���Т��F�c���F�c���6V7F�����Р���66�R��Т�6V7F���6�74��S�'&V�F�fR&r�v��FR��b�C���#B"7G��S׷����FW������F�b6�74��S�&6��F��W"ׂ�WF���B���r�'��#����F���� ���F��׷��6�G�����#�Тv���T��f�Ws׷��6�G������Тf�Ww�'C׷���6S�G'VR�Т6�74��S�&�"�FW�B�6V�FW"FW�B�'��f��B�W�G&&��BFW�B�f�&Vw&�V�B6ӧFW�B�7�� ���*��h��)N��@�����F����#��F�b6�74��S�&w&�Bw&�B�6��2�v�26Ӧw&�B�6��2�"#��FF�66�T�FV�2�����FV�����������F����F�`��W�׶�Т��F��׷��6�G�������Тv���T��f�Ws׷��6�G������Тf�Ww�'C׷���6S�G'VR�ТG&�6�F���׷�FV������b�Т6�74��S�&f�W��FV�2�6V�FW"v�2&�V�FVB׆�&r�w&��S��B��2 ���6�V6�6�74��S�&��Br�Bf�W��6�&���FW�B�&��'�"���7�6�74��S�'FW�B�6�f��B��VF�V�FW�B�f�&Vw&�V�B#綗FV����7������F����F�c���Т��F�c���F�c���6V7F���ࠢ��&�6��r��Т�6V7F���6�74��S�'&V�F�fR&r�w&��S��b�C���#B"7G��S׷����FW������F�b6�74��S�&6��F��W"ׂ�WF���B#����F���� ���F��׷��6�G�����#�Тv���T��f�Ws׷��6�G������Тf�Ww�'C׷���6S�G'VR�Т6�74��S�&�"�FW�B�6V�FW"FW�B�'��f��B�W�G&&��BFW�B�f�&Vw&�V�B6ӧFW�B�7�� ��ɩN����X��+@�����F����#��F�b6�74��S�&w&�Bv�b6Ӧw&�B�6��2�2���r�7��ׂ�WF�#��FF�&�6��uF�W'2����F�W"����������F����F�`��W�׶�Т��F��׷��6�G�����#�Тv���T��f�Ws׷��6�G������Тf�Ww�'C׷���6S�G'VR�ТG&�6�F���׷�FV�������Т6�74��S׶&�V�FVB�'��&�&FW"�bFW�B�6V�FW"G�F�W"憖v�Ɩv�B�&&�&FW"�&��'�&r�&��'��R6�F�r��r"�&&�&FW"�w&��#&r�v��FR'�Т��7�6�74��S׶��Ɩ�R�&��6�&�V�FVB�gV����2��FW�Bׇ2f��B�&��BG�F�W"憖v�Ɩv�B�&&r�&��'�FW�B�v��FR"�&&r�w&��FW�B�w&��s'����F�W"�&FvWТ��7���6�74��S�&�B�BFW�B�'��f��B�W�G&&��BFW�B�f�&Vw&�V�B#�F�W"�&�6W�����6�74��S�&�B�"FW�Bׇ2FW�B��WFVB�f�&Vw&�V�B#�F�W"���FW��������F����F�c���Т��F�c���F�c���6V7F���ࠢ��5D��Т�6V7F���6�74��S�'&V�F�fR&r�&��'���b�C���#"7G��S׷����FW������F�b6�74��S�&6��F��W"ׂ�WF���BFW�B�6V�FW"#����F���� ���F��׷��6�G�����#�Тv���T��f�Ws׷��6�G������Тf�Ww�'C׷���6S�G'VR�Т6�74��S�&�"�2FW�B�'��f��B�W�G&&��BFW�B�v��FR6ӧFW�B�7�� ���x����	N����N�8��*���	�����K�ɩ@�����F����#��6�74��S�&�"ӂFW�B�v��FR�#��NٙB����B˛N˛NɊN�j��κ��N���Y��(��ˎ�َ�Y��K�ɩC����F�b6�74��S�&f�W�f�W��6���FV�2�6V�FW"�W7F�g��6V�FW"v�B6Ӧf�W��&�r#����&Vc�'FVã3�c3��S �6�74��S�&��Ɩ�R�f�W��FV�2�6V�FW"v�"&�V�FVB�gV��&r�v��FR�ӂ��BFW�B�6�f��B�&��BFW�B�&��'�6�F�r��fW#�&r�v��FR�G&�6�F��������fW#�66�R�R ������R6�74��S�&��Br�B"��3�c3��S �������&Vc�&�GG3���b����6��������w�B�6�B �F&vWC�%�&�� �&V��&���V�W"��&VfW'&W" �6�74��S�&��Ɩ�R�f�W��FV�2�6V�FW"v�"&�V�FVB�gV��&�&FW"&�&FW"�v��FR�C&r�v��FR�R�ӂ��BFW�B�6�f��B�&��BFW�B�v��FR��fW#�&r�v��FR�#RG&�6�F��������fW#�66�R�R ����W76vT6�&6�R6�74��S�&��Br�B"��˛N˛NɊN�j�ˎ�ـ������F�c���F�c���6V7F�����������������
