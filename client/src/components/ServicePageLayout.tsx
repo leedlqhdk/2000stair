@@ -45,13 +45,13 @@ function BeforeAfterSlider({ before, after, label }: GalleryPair) {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       {label && (
         <p className="mb-3 text-sm font-bold text-foreground">{label}</p>
       )}
       <div
         ref={ref}
-        className="relative aspect-[4/3] w-full max-w-[480px] rounded-2xl overflow-hidden cursor-col-resize select-none shadow-md"
+        className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden cursor-col-resize select-none shadow-md"
         onMouseMove={(e) => { if (dragging.current) updatePos(e.clientX); }}
         onMouseDown={(e) => { dragging.current = true; updatePos(e.clientX); }}
         onMouseUp={() => { dragging.current = false; }}
@@ -168,7 +168,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               청소 전·후 사례
             </h2>
             <p className="mb-8 text-center text-sm text-muted-foreground">슬라이더를 드래그해서 전후를 비교해보세요</p>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 max-w-3xl mx-auto place-items-center">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-10 max-w-3xl mx-auto">
               {gallery.map((pair, i) => (
                 <BeforeAfterSlider key={i} {...pair} />
               ))}
