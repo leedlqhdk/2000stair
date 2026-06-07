@@ -22,16 +22,19 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="container max-w-6xl pt-6 sm:pt-7 md:pt-9 pb-6 md:pb-8">
-        <div className="grid grid-cols-[0.56fr_0.44fr] items-start gap-1 sm:gap-2 md:gap-3 lg:gap-0">
+      <div className="container max-w-6xl pb-8 pt-6 sm:pt-7 md:pb-10 md:pt-9">
+        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-8 lg:gap-10">
           <motion.div
-            className="min-w-0 pt-5 sm:pt-6 md:pt-7 lg:pt-8"
+            className="min-w-0 pt-3 text-left sm:pt-4 md:pt-0"
             initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="mb-3 sm:mb-4 inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs sm:text-sm font-bold text-primary"><MapPin className="h-3.5 w-3.5" />이천 빌라·상가 전문</p>
-            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold font-['GmarketSans'] leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
+            <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-bold text-primary sm:mb-4 sm:text-sm">
+              <MapPin className="h-3.5 w-3.5" />
+              이천 빌라·상가 전문
+            </p>
+            <h1 className="mb-3 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-extrabold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
               계단청소
               <br />
               <motion.span
@@ -46,7 +49,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               하고 계신가요?
             </h1>
             <motion.p
-              className="text-[clamp(0.78rem,2vw,1.25rem)] text-gray-700 font-semibold leading-relaxed"
+              className="text-[clamp(0.95rem,2vw,1.22rem)] font-semibold leading-relaxed text-gray-700"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
@@ -55,20 +58,27 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <br />
               사진 한 장이면 빠르게 안내드립니다.
             </motion.p>
-            <div className="mt-5 sm:mt-6 flex flex-wrap gap-3">
-              <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5">
-                카톡으로 사진 보내기<ArrowRight className="h-4 w-4" />
+            <div className="mt-5 flex max-w-md flex-col gap-3 sm:mt-6 sm:flex-row sm:flex-wrap">
+              <a
+                href="https://pf.kakao.com/_IiNfn/chat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5 sm:w-auto"
+              >
+                카톡으로 사진 보내기
+                <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="/#pricing"
-                 className="inline-flex items-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-extrabold text-primary transition hover:bg-blue-50">
+              <a
+                href="/#pricing"
+                className="inline-flex items-center justify-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-extrabold text-primary transition hover:bg-blue-50 sm:w-auto"
+              >
                 청소 비용 보기
               </a>
             </div>
-            <div className="mt-4 flex flex-wrap gap-3 sm:gap-4">
+            <div className="mt-4 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
               {["하청 없이 부부가 직접", "무료 방문 견적", "작업 전후 사진 보고"].map(badge => (
-                <span key={badge} className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-muted-foreground">
-                  <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" />
+                <span key={badge} className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground sm:text-sm">
+                  <Check className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
                   {badge}
                 </span>
               ))}
@@ -76,7 +86,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </motion.div>
 
           <motion.div
-            className="relative ml-[-2%] w-[108%] max-w-[clamp(230px,44vw,470px)] pt-0 -mr-[1%] md:ml-[-5%] md:-mr-[2%] lg:ml-[-10%]"
+            className="relative mx-auto w-full max-w-[360px] md:max-w-[430px] lg:max-w-[470px]"
             initial={{ opacity: 0, y: 34, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
@@ -91,7 +101,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group absolute left-[11%] right-[7%] bottom-[3.8%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
+                className="group absolute bottom-[3.8%] left-[11%] right-[7%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
                 aria-label="카카오톡으로 계단 사진 보내기"
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}
                 animate={{ opacity: 1, y: [0, -5, 0], scale: 1 }}
@@ -104,7 +114,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors duration-300 group-hover:bg-white/95 group-hover:text-primary">
                   <Camera className="h-[54%] w-[54%]" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.85vw,14px)] font-extrabold leading-none text-foreground transition-colors duration-300 group-hover:text-white">
+                <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.45vw,14px)] font-extrabold leading-none text-foreground transition-colors duration-300 group-hover:text-white">
                   4층 빌라 계단사진 보내드려요
                 </span>
                 <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors duration-300 group-hover:bg-white group-hover:text-primary">
