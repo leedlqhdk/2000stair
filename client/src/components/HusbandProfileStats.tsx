@@ -30,7 +30,7 @@ export default function HusbandProfileStats() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div
-            className="relative min-h-[340px] overflow-hidden md:min-h-[430px] lg:min-h-[520px]"
+            className="relative h-full min-h-[340px] overflow-hidden md:min-h-[430px] lg:min-h-[520px]"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
