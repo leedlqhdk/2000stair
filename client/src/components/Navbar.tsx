@@ -3,26 +3,58 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 
-const serviceLinks = [
-  { label: "서비스 안내", href: "/#how-it-works", sectionId: "how-it-works" },
-  { label: "청소 전후", href: "/#gallery", sectionId: "gallery" },
-  { label: "청소 비용", href: "/#pricing", sectionId: "pricing" },
-];
+type DropdownItem = {
+  label: string;
+  href: string;
+  sectionId?: string;
+};
 
-const areaLinks = [
-  { label: "전체 보기", href: "/areas" },
-  { label: "시내권", href: "/area/downtown" },
-  { label: "마장면", href: "/area/majang" },
-  { label: "신둔면", href: "/area/sindun" },
-  { label: "부발읍", href: "/area/bubal" },
-  { label: "대월면", href: "/area/daewol" },
-  { label: "백사면", href: "/area/baeksa" },
+type NavGroup = {
+  label: string;
+  items: DropdownItem[];
+};
+
+const navGroups: NavGroup[] = [
+  {
+    label: "서비스",
+    items: [
+      { label: "계단청소", href: "/#how-it-works", sectionId: "how-it-works" },
+      { label: "유리청소", href: "/#how-it-works", sectionId: "how-it-works" },
+      { label: "화장실청소", href: "/#how-it-works", sectionId: "how-it-works" },
+      { label: "사무실청소", href: "/#how-it-works", sectionId: "how-it-works" },
+    ],
+  },
+  {
+    label: "작업일지",
+    items: [
+      { label: "이천북부지역·시내권", href: "/area/downtown" },
+      { label: "신둔면", href: "/area/sindun" },
+      { label: "마장면", href: "/area/majang" },
+      { label: "부발읍", href: "/area/bubal" },
+      { label: "대월면", href: "/area/daewol" },
+    ],
+  },
+  {
+    label: "정보센터",
+    items: [
+      { label: "블로그", href: "/blog" },
+      { label: "정보글", href: "/areas" },
+      { label: "자주묻는질문", href: "/qna" },
+    ],
+  },
+  {
+    label: "회사소개",
+    items: [
+      { label: "이천계단지기 소개", href: "/about" },
+      { label: "부부 운영 이야기", href: "/about" },
+      { label: "고객후기", href: "/qna" },
+    ],
+  },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
-  const [mobileAreaOpen, setMobileAreaOpen] = useState(false);
+  const [openMobileIndex, setOpenMobileIndex] = useState<number | null>(null);
   const [location, setLocation] = useLocation();
 
   const openKakao = () => {
@@ -31,25 +63,18 @@ export default function Navbar() {
 
   const closeMobileMenu = () => {
     setMobileOpen(false);
-    setMobileServiceOpen(false);
-    setMobileAreaOpen(false);
+    setOpenMobileIndex(null);
   };
 
   const toggleMobileMenu = () => {
     const nextOpen = !mobileOpen;
     setMobileOpen(nextOpen);
-
-    if (nextOpen) {
-      setMobileServiceOpen(false);
-      setMobileAreaOpen(false);
-    }
+    if (nextOpen) setOpenMobileIndex(null);
   };
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
-
     if (!section) return;
-
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -58,16 +83,13 @@ export default function Navbar() {
     sectionId?: string
   ) => {
     if (!sectionId) return;
-
     event.preventDefault();
     closeMobileMenu();
-
     if (location !== "/") {
       setLocation("/");
       window.setTimeout(() => scrollToSection(sectionId), 120);
       return;
     }
-
     scrollToSection(sectionId);
     window.history.replaceState(null, "", "/");
   };
@@ -89,46 +111,34 @@ export default function Navbar() {
         </a>
 
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/about" className={linkClass}>
-            소개
-          </Link>
+          <Link href="/" className={linkClass}>홈</Link>
 
-          <div className="group relative py-5">
-            <button type="button" className={dropdownButtonClass} aria-haspopup="true">
-              서비스
-              <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
-            </button>
-            <div className={dropdownPanelClass}>
-              {serviceLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={dropdownItemClass}
-                  onClick={(event) => handleSectionClick(event, link.sectionId)}
-                >
-                  {link.label}
-                </a>
-              ))}
+          {navGroups.map((group) => (
+            <div key={group.label} className="group relative py-5">
+              <button type="button" className={dropdownButtonClass} aria-haspopup="true">
+                {group.label}
+                <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
+              </button>
+              <div className={dropdownPanelClass}>
+                {group.items.map((item) =>
+                  item.sectionId ? (
+                    <a key={item.label} href={item.href} className={dropdownItemClass} onClick={(e) => handleSectionClick(e, item.sectionId)}>
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link key={item.label} href={item.href} className={dropdownItemClass}>
+                      {item.label}
+                    </Link>
+                  )
+                )}
+              </div>
             </div>
-          </div>
+          ))}
 
-          <div className="group relative py-5">
-            <button type="button" className={dropdownButtonClass} aria-haspopup="true">
-              관리지역
-              <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
-            </button>
-            <div className={dropdownPanelClass}>
-              {areaLinks.map((link) => (
-                <Link key={link.href} href={link.href} className={dropdownItemClass}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <a href="/#faq" className={linkClass} onClick={(event) => handleSectionClick(event, "faq")}>
-            QnA
-          </a>
+          <Button size="sm" className="rounded-full font-bold" onClick={openKakao}>
+            <MessageCircle className="w-4 h-4 mr-1.5" />
+            카톡 상담
+          </Button>
         </nav>
 
         <button
@@ -145,82 +155,40 @@ export default function Navbar() {
         <div className="md:hidden border-t border-blue-100 bg-white/95 backdrop-blur-xl">
           <nav className="container py-4">
             <div className="rounded-3xl border border-blue-100 bg-blue-50/40 p-3">
-              <Link
-                href="/about"
-                className="block rounded-2xl px-4 py-3 text-base font-bold text-foreground hover:bg-white transition-colors"
-                onClick={closeMobileMenu}
-              >
-                소개
+              <Link href="/" className="block rounded-2xl px-4 py-3 text-base font-bold text-foreground hover:bg-white transition-colors" onClick={closeMobileMenu}>
+                홈
               </Link>
 
-              <div className="rounded-2xl px-4 py-3">
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-between text-base font-extrabold text-foreground"
-                  onClick={() => setMobileServiceOpen((open) => !open)}
-                  aria-expanded={mobileServiceOpen}
-                >
-                  서비스
-                  <ChevronDown className={`h-4 w-4 transition-transform ${mobileServiceOpen ? "rotate-180" : ""}`} />
-                </button>
-                {mobileServiceOpen && (
-                  <div className="mt-2 grid gap-1">
-                    {serviceLinks.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground"
-                        onClick={(event) => handleSectionClick(event, link.sectionId)}
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
+              {navGroups.map((group, idx) => (
+                <div key={group.label} className="rounded-2xl px-4 py-3">
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between text-base font-extrabold text-foreground"
+                    onClick={() => setOpenMobileIndex(openMobileIndex === idx ? null : idx)}
+                    aria-expanded={openMobileIndex === idx}
+                  >
+                    {group.label}
+                    <ChevronDown className={`h-4 w-4 transition-transform ${openMobileIndex === idx ? "rotate-180" : ""}`} />
+                  </button>
+                  {openMobileIndex === idx && (
+                    <div className="mt-2 grid gap-1">
+                      {group.items.map((item) =>
+                        item.sectionId ? (
+                          <a key={item.label} href={item.href} className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground" onClick={(e) => handleSectionClick(e, item.sectionId)}>
+                            {item.label}
+                          </a>
+                        ) : (
+                          <Link key={item.label} href={item.href} className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground" onClick={closeMobileMenu}>
+                            {item.label}
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
 
-              <div className="rounded-2xl px-4 py-3">
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-between text-base font-extrabold text-foreground"
-                  onClick={() => setMobileAreaOpen((open) => !open)}
-                  aria-expanded={mobileAreaOpen}
-                >
-                  관리지역
-                  <ChevronDown className={`h-4 w-4 transition-transform ${mobileAreaOpen ? "rotate-180" : ""}`} />
-                </button>
-                {mobileAreaOpen && (
-                  <div className="mt-2 grid gap-1">
-                    {areaLinks.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground"
-                        onClick={closeMobileMenu}
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <a
-                href="/#faq"
-                className="block rounded-2xl px-4 py-3 text-base font-bold text-foreground hover:bg-white transition-colors"
-                onClick={(event) => handleSectionClick(event, "faq")}
-              >
-                QnA
-              </a>
-
-              <Button
-                size="lg"
-                className="mt-3 w-full rounded-2xl font-bold"
-                onClick={() => {
-                  openKakao();
-                  closeMobileMenu();
-                }}
-              >
+              <Button size="lg" className="mt-3 w-full rounded-2xl font-bold" onClick={() => { openKakao(); closeMobileMenu(); }}>
                 <MessageCircle className="w-4 h-4 mr-2" />
                 카톡 상담
               </Button>
