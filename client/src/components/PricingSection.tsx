@@ -36,13 +36,6 @@ function SpiderWebIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-const includedServices = [
-  { icon: StairIcon, label: "계단 바닥 청소" },
-  { icon: Hand, label: "난간·손잡이" },
-  { icon: DoorOpen, label: "공동현관 유리" },
-  { icon: SpiderWebIcon, label: "거미줄 제거" },
-  { icon: ArrowUpDown, label: "엘리베이터 포함" },
-  { icon: Camera, label: "작업 전후 사진 기록" },
 ];
 
 const planFeatures: Record<string, string[]> = {
@@ -120,7 +113,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         >
           <div className="mb-4 inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-bold text-white">
             <span className="mr-2">✓</span>
-            모든 요금제 동일 서비스 제공
+            
           </div>
 
           <h2 className="text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
