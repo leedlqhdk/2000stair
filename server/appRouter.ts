@@ -31,6 +31,21 @@ const createAdminUser = () => {
   };
 };
 
+const setSessionCookie = (res: unknown, value: string, maxAge: number) => {
+  (res as { cookie: (name: string, value: string, options: Record<string, unknown>) => void }).cookie(
+    COOKIE_NAME,
+    value,
+    { maxAge }
+  );
+};
+
+const clearSessionCookie = (res: unknown) => {
+  (res as { clearCookie: (name: string, options: Record<string, unknown>) => void }).clearCookie(
+    COOKIE_NAME,
+    { maxAge: -1 }
+  );
+};
+
 export const appRouter = router({
   system: systemRouter,
   blog: blogRouter,
@@ -67,16 +82,23 @@ export const appRouter = router({
           { expiresInMs: ONE_YEAR_MS }
         );
         const cookieOptions = getSessionCookieOptions(ctx.req);
-        ctx.res.cookie(COOKIE_NAME, sessionToken, {
-          ...cookieOptions,
-          maxAge: ONE_YEAR_MS,
-        });
+        (ctx.res as { cookie: (name: string, value: string, options: Record<string, unknown>) => void }).cookie(
+          COOKIE_NAME,
+          sessionToken,
+          {
+            ...cookieOptions,
+            maxAge: ONE_YEAR_MS,
+          }
+        );
 
         return { success: true, user: createAdminUser() } as const;
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
-      ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
+      (ctx.res as { clearCookie: (name: string, options: Record<string, unknown>) => void }).clearCookie(
+        COOKIE_NAME,
+        { ...cookieOptions, maxAge: -1 }
+      );
       return { success: true } as const;
     }),
   }),
@@ -128,26 +150,34 @@ export const appRouter = router({
             content: `이름: ${input.name}\n연락처: ${input.phone}\n주소: ${input.address}\n서비스: ${input.serviceType === "in_person" ? "대면" : "비대면"}\n플랜: ${plan?.name || input.planId}`,
           });
           if (!notified) {
-            console.warn("[Quote] Owner notification failed - service may be temporarily unavailable");
+            console.warn("견적 신청 알림을 전송하지 못했습니다.");
           }
-        } catch (err) {
-          console.error("[Quote] Failed to notify owner:", err);
+        } catch (error) {
+          console.error("견적 신청 알림 전송 중 오류", error);
         }
 
         return { success: true };
       }),
 
-    myRequests: protectedProcedure.query(async ({ ctx }) => {
+    list: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Admin access required");
+      }
       const db = await getDb();
       if (!db) return [];
 
-      const result = await db
-        .select()
-        .from(quoteRequests)
-        .where(eq(quoteRequests.userId, ctx.user.id))
-        .orderBy(desc(quoteRequests.createdAt));
+      return await db.select().from(quoteRequests).orderBy(desc(quoteRequests.createdAt));
+    }),
 
-      return result;
+    get: protectedProcedure.input(z.object({ id: z.number() })).query(async ({ ctx, input }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Admin access required");
+      }
+      const db = await getDb();
+      if (!db) return null;
+
+      const result = await db.select().from(quoteRequests).where(eq(quoteRequests.id, input.id)).limit(1);
+      return result[0] || null;
     }),
   }),
 });
