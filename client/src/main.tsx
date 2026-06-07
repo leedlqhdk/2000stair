@@ -9,9 +9,6 @@ import { getLoginUrl } from "./const";
 import "./index.css";
 
 const forceLightMode = () => {
-  document.documentElement.classList.remove("dark");
-  document.documentElement.classList.add("light");
-  document.documentElement.style.colorScheme = "light";
   document.body?.classList.remove("dark");
   document.body?.classList.add("light");
 };
