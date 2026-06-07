@@ -6,6 +6,7 @@ export default function StairCleaning() {
       data={{
         serviceFolder: "stair-cleaning",
         heroBgImage: "/images/services/stair-cleaning/icheon-stair-cleaning-service-main.webp",
+      heroVideo: "/images/services/stair-cleaning/2000stair-youtube.mp4",
         heroTitle: "매일 오르는 계단,\n누가 관리하고 있나요?",
         heroSubtitle: "부부가 직접 관리하는 이천 계단청소 전문업체",
         features: [
