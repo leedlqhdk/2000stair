@@ -2,7 +2,6 @@ import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import PricingSection from "@/components/PricingSection";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
@@ -16,8 +15,6 @@ export default function Home() {
         <BeforeAfterGallery />
         <PricingSection isAuthenticated={false} />
       </main>
-
-      <Footer />
     </div>
   );
 }
