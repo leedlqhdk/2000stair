@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Camera, MapPin } from "lucide-react";
+import { ArrowRight, Camera, Check, MapPin } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -30,7 +30,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
+            <p className="mb-3 sm:mb-4 inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs sm:text-sm font-bold text-primary"><MapPin className="h-3.5 w-3.5" />이천 빌라·상가 전문</p>
+            <h1 className="text-[clamp(1.85rem,6vw,4.5rem)] font-extrabold font-['GmarketSans'] leading-[1.08] tracking-[0.045em] text-foreground mb-3 sm:mb-4 md:mb-5">
               계단청소
               <br />
               <motion.span
@@ -54,6 +55,24 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <br />
               사진 한 장이면 빠르게 안내드립니다.
             </motion.p>
+            <div className="mt-5 sm:mt-6 flex flex-wrap gap-3">
+              <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5">
+                카톡으로 사진 보내기<ArrowRight className="h-4 w-4" />
+              </a>
+              <a href="/#pricing"
+                 className="inline-flex items-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-extrabold text-primary transition hover:bg-blue-50">
+                청소 비용 보기
+              </a>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-3 sm:gap-4">
+              {["하청 없이 부부가 직접", "무료 방문 견적", "작업 전후 사진 보고"].map(badge => (
+                <span key={badge} className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-muted-foreground">
+                  <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" />
+                  {badge}
+                </span>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
