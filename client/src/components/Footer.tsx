@@ -259,14 +259,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="hidden md:block">
-        <div className="container mx-auto px-4 pb-4">
-          <div className="grid grid-cols-2 gap-3">
-            <MobileLinkGroup title="서비스" links={serviceLinks} />
-            <ContactCard compact />
-          </div>
-        </div>
-      </div>
+      
 
       <div className="border-t border-white/10">
         <div className="container mx-auto flex flex-col gap-1 px-4 py-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
