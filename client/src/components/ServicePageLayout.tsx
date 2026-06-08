@@ -7,7 +7,7 @@ import {
   MessageCircle,
   Phone,
   Sparkles,
-  Spider,
+  Bug,
   ArrowDown,
 } from "lucide-react";
 import { useState, useRef } from "react";
@@ -123,7 +123,7 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
   );
 }
 
-const scopeIcons = [Brush, Hand, Sparkles, DoorOpen, Spider, Leaf];
+const scopeIcons = [Brush, Hand, Sparkles, DoorOpen, Bug, Leaf];
 
 function getScopeIcon(index: number) {
   return scopeIcons[index % scopeIcons.length];
@@ -252,7 +252,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 {/* 서비스 범위 섹션 */}
         <section className="relative z-10 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2.5rem] border border-white/25 bg-white/18 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_30px_90px_rgba(15,23,42,0.2)] backdrop-blur-2xl md:p-10">
+            <div className="rounded-[2.5rem] border border-white/25 bg-white/[0.18] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_30px_90px_rgba(15,23,42,0.2)] backdrop-blur-2xl md:p-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -267,7 +267,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 </h2>
               </motion.div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-white/30 bg-white/18 shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_20px_70px_rgba(15,23,42,0.18)] backdrop-blur-2xl">
+              <div className="overflow-hidden rounded-[2rem] border border-white/30 bg-white/[0.18] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_20px_70px_rgba(15,23,42,0.18)] backdrop-blur-2xl">
                 <div className="grid grid-cols-1 divide-y divide-white/25 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
                   <div>
                     {data.scopeItems.slice(0, 3).map((item, i) => {
@@ -357,7 +357,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {/* 요금 안내 섹션 */}
         <section className="relative z-10 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/82 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
+            <div className="rounded-[2rem] border border-white/25 bg-white/[0.82] p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
