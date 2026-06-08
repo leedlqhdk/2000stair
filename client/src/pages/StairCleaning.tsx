@@ -10,12 +10,12 @@ export default function StairCleaning() {
         heroVideo: "/images/services/stair-cleaning/2000stair-youtube.mp4",
         heroTitle: "매일 오르는 계단,\n누가 관리하고 있나요?",
         heroSubtitle: "이천 계단청소 전문업체 | 빌라·상가·원룸 정기관리",
-        seoTitle: "이천 계단청소 전문업체 | 빌라·상가 정기관리 – 2000stair",
+        seoTitle: "이천 계단청소 전문업체 | 빌라·상가 정기관리 – 이천계단지기",
         features: [
           { title: "부부 직접 관리", description: "처음부터 끝까지 부부가 직접 관리합니다." },
-          { title: "직접 담당", description: "대표가 직접 방문해 건물 상태에 맞춰 관리합니다." },
-          { title: "전후 사진 제공", description: "매회 작업 후 전후 사진을 전달해드립니다." },
-          { title: "장기 관리 가능", description: "월 2회/4회 등 장기 정기 관리가 가능합니다." },
+          { title: "대표 직접 담당", description: "대표가 직접 방문해 건물 상태에 맞춰 관리합니다." },
+          { title: "전후 사진 제공", description: "요청시 작업 후 전후 사진을 카톡으로 전달해드립니다." },
+          { title: "친환경 수입세제", description: "고가의 친환경 수입세제로 꼼꼼히 관리해드립니다." },
         ],
         scopeItems: [
           "계단 바닥 약품 청소",
@@ -29,12 +29,12 @@ export default function StairCleaning() {
           {
             before: "/images/services/stair-cleaning/icheon-stair-cleaning-before-01.webp",
             after: "/images/services/stair-cleaning/icheon-stair-cleaning-after-01.webp",
-            label: "이천 빌라 계단 사례 1 – 논슬립 오염 제거·난간 청소·공동현관 유리 관리",
+            label: "이천 빌라 계단 사례 – 논슬립 오염 제거·난간 청소·공동현관 유리 관리",
           },
           {
             before: "/images/services/stair-cleaning/icheon-villa-stair-before-02.webp",
             after: "/images/services/stair-cleaning/icheon-villa-stair-after-02.webp",
-            label: "이천 빌라 계단 사례 2 – 계단 바닥 약품 세척·손잡이 오염 제거",
+            label: "이천 빌라 계단 사례 – 계단 바닥 약품 세척·손잡이 오염 제거",
           },
         ],
         pricingTiers: [
@@ -48,7 +48,7 @@ export default function StairCleaning() {
 
 특히 빌라나 원룸 건물의 경우 계단청소를 건물주가 직접 관리하거나 입주자에게 맡기는 경우가 많지만, 정기적인 전문 관리를 받지 않으면 오염이 누적되어 나중에 더 많은 비용과 시간이 필요합니다.
 
-이천 계단청소 전문업체 2000stair는 이천 지역 빌라, 원룸, 상가 건물의 계단 정기관리를 전문으로 합니다. 계단 바닥 약품 세척, 난간·손잡이 오염 제거, 공동현관 유리 청소, 거미줄 제거까지 한 번에 처리합니다.
+이천 계단청소 전문업체 '이천계단지기'는 이천 지역 빌라, 원룸, 상가 건물의 계단 정기관리를 전문으로 합니다. 계단 바닥 약품 세척, 난간·손잡이 오염 제거, 공동현관 유리 청소, 거미줄 제거까지 한 번에 처리합니다.
 
 월 2회 또는 4회 정기관리를 통해 건물이 항상 깔끔하게 유지됩니다. 상가 건물의 경우 방문 고객에게 청결한 첫인상을 주는 것이 입점 업체 매출에도 영향을 줄 수 있습니다. 부부가 직접 담당하기 때문에 일관된 품질을 유지할 수 있으며, 매회 작업 전후 사진을 전달해드려 건물주가 직접 확인하실 수 있습니다.`,
         },
@@ -67,7 +67,7 @@ export default function StairCleaning() {
           },
           {
             q: "이천 전지역 방문 가능한가요?",
-            a: "이천 시내(관고동, 창전동 등)뿐만 아니라 신둔면, 마장면, 대월면, 부발읍, 백사면 등 이천 전 지역 방문이 가능합니다.",
+            a: "현재는 이천 시내(관고동, 창전동 등)뿐만 아니라 신둔면, 마장면, 대월면, 부발읍, 백사면 등 이천 북부 지역만 방문이 가능합니다.",
           },
           {
             q: "엘리베이터 건물도 가능한가요?",
