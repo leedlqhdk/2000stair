@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, Phone, MessageCircle, ChevronDown } from "lucide-react";
+import { Check, Phone, MessageCircle } from "lucide-react";
 import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 
@@ -35,7 +35,6 @@ export interface ServicePageData {
   serviceFolder: string;
 }
 
-// 1. 비포/애프터 이미지 슬라이더 컴포넌트
 function BeforeAfterSlider({ before, after }: GalleryPair) {
   const [pos, setPos] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
@@ -54,29 +53,50 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       <div
         ref={ref}
-        className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden cursor-col-resize select-none shadow-md"
-        onMouseMove={(e) => { if (dragging.current) updatePos(e.clientX); }}
-        onMouseDown={(e) => { dragging.current = true; updatePos(e.clientX); }}
-        onMouseUp={() => { dragging.current = false; }}
-        onMouseLeave={() => { dragging.current = false; }}
+        className="relative aspect-[4/3] w-full cursor-col-resize select-none overflow-hidden rounded-2xl shadow-md"
+        onMouseMove={(e) => {
+          if (dragging.current) updatePos(e.clientX);
+        }}
+        onMouseDown={(e) => {
+          dragging.current = true;
+          updatePos(e.clientX);
+        }}
+        onMouseUp={() => {
+          dragging.current = false;
+        }}
+        onMouseLeave={() => {
+          dragging.current = false;
+        }}
         onTouchMove={handleTouch}
         onTouchStart={handleTouch}
       >
-        {/* 청소 후 이미지 (기본 베이스 배경) */}
-        <img src={after} alt="청소 후" className="absolute inset-0 h-full w-full object-cover" />
-        
-        {/* 청소 전 이미지 (pos 값에 따라 가로 크기가 슬라이딩 조절됨) */}
-        <div className="absolute inset-0 right-0 overflow-hidden" style={{ width: `${pos}%` }}>
-          <img src={before} alt="청소 전" className="absolute inset-0 h-full w-full object-cover max-w-none" style={{ width: ref.current?.clientWidth }} />
+        <img
+          src={after}
+          alt="청소 후"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+
+        <div
+          className="absolute inset-0 right-0 overflow-hidden"
+          style={{ width: `${pos}%` }}
+        >
+          <img
+            src={before}
+            alt="청소 전"
+            className="absolute inset-0 h-full max-w-none object-cover"
+            style={{ width: ref.current?.clientWidth }}
+          />
         </div>
 
-        {/* 슬라이더 드래그 핸들러 센터 라인 */}
-        <div className="absolute inset-y-0 w-1 bg-white cursor-col-resize shadow" style={{ left: `${pos}%` }}>
-          <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-200">
-            <span className="text-gray-400 text-xs font-bold">↔</span>
+        <div
+          className="absolute inset-y-0 w-1 cursor-col-resize bg-white shadow"
+          style={{ left: `${pos}%` }}
+        >
+          <div className="absolute top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white shadow-lg">
+            <span className="text-xs font-bold text-gray-400">↔</span>
           </div>
         </div>
       </div>
@@ -84,33 +104,54 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
   );
 }
 
-// 2. 메인 서비스 페이지 레이아웃 컴포넌트
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
   return (
     <>
       <Navbar />
+
       <main className="min-h-screen bg-white">
-        
         {/* 상단 히어로 섹션 */}
         <section className="relative flex h-[60vh] min-h-[400px] items-center justify-center overflow-hidden bg-gray-900 text-white">
           {data.heroVideo ? (
-            <video src={data.heroVideo} autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover opacity-40" />
+            <video
+              src={data.heroVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover opacity-40"
+            />
           ) : data.heroBgImage ? (
-            <img src={data.heroBgImage} alt={data.heroTitle} className="absolute inset-0 h-full w-full object-cover opacity-40" />
+            <img
+              src={data.heroBgImage}
+              alt={data.heroTitle}
+              className="absolute inset-0 h-full w-full object-cover opacity-40"
+            />
           ) : null}
-          
+
           <div className="container relative z-10 mx-auto px-4 text-center">
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-4 text-3xl font-extrabold sm:text-5xl">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 whitespace-pre-line text-3xl font-extrabold sm:text-5xl"
+            >
               {data.heroTitle}
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-white/80 sm:text-xl">
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-lg text-white/80 sm:text-xl"
+            >
               {data.heroSubtitle}
             </motion.p>
           </div>
+        </section>
 
-          {/* 서비스 범위 섹션 */}
+        {/* 서비스 범위 섹션 */}
         <section className="relative bg-white py-12 md:py-20" style={{ zIndex: 10 }}>
-          <div className="container mx-auto px-4 max-w-3xl">
+          <div className="container mx-auto max-w-3xl px-4">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -119,6 +160,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             >
               서비스 범위
             </motion.h2>
+
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {data.scopeItems.map((item, i) => (
                 <motion.div
@@ -136,26 +178,27 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             </div>
           </div>
         </section>
-          
-        </section>
 
-        {/* 작업 비포 & 애프터 갤러리 섹션 (조건부 렌더링) */}
-        {/* 계단, 화장실 청소는 노출 / 유리창 청소처럼 데이터가 비어있으면 영역 자체가 자동 생략됨 */}
+        {/* 작업 비포 & 애프터 갤러리 섹션 */}
         {data.gallery && data.gallery.length > 0 ? (
-          <section className="py-12 md:py-20 container mx-auto px-4 max-w-2xl relative z-10 bg-white">
+          <section className="container relative z-10 mx-auto max-w-2xl bg-white px-4 py-12 md:py-20">
             <h2 className="mb-8 text-center text-xl font-extrabold text-foreground sm:text-2xl">
               작업 비포 & 애프터
             </h2>
+
             {data.gallery.map((pair, idx) => (
               <div key={idx} className="mb-6">
                 <BeforeAfterSlider before={pair.before} after={pair.after} />
-                {pair.caption && <p className="mt-3 text-center text-sm text-muted-foreground">{pair.caption}</p>}
+                {pair.caption && (
+                  <p className="mt-3 text-center text-sm text-muted-foreground">
+                    {pair.caption}
+                  </p>
+                )}
               </div>
             ))}
           </section>
         ) : (
-          // 갤러리가 없는 페이지(유리청소)를 위한 상하 여백 정돈
-          <div className="py-6 bg-white"></div>
+          <div className="bg-white py-6" />
         )}
 
         {/* 요금 안내 섹션 */}
@@ -169,7 +212,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             >
               요금 안내
             </motion.h2>
-            <div className="grid gap-6 sm:grid-cols-3 max-w-3xl mx-auto">
+
+            <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-3">
               {data.pricingTiers.map((tier, i) => (
                 <motion.div
                   key={i}
@@ -177,20 +221,36 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className={`rounded-2xl border p-6 text-center ${tier.highlight ? "border-primary bg-primary/5 shadow-lg" : "border-gray-200 bg-white"}`}
+                  className={`rounded-2xl border p-6 text-center ${
+                    tier.highlight
+                      ? "border-primary bg-primary/5 shadow-lg"
+                      : "border-gray-200 bg-white"
+                  }`}
                 >
-                  <span className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${tier.highlight ? "bg-primary text-white" : "bg-gray-100 text-gray-700"}`}>
+                  <span
+                    className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${
+                      tier.highlight
+                        ? "bg-primary text-white"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
                     {tier.badge}
                   </span>
-                  <p className="mt-4 text-2xl font-extrabold text-foreground">{tier.price}</p>
-                  <p className="mt-2 text-xs text-muted-foreground">{tier.note}</p>
+
+                  <p className="mt-4 text-2xl font-extrabold text-foreground">
+                    {tier.price}
+                  </p>
+
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {tier.note}
+                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA (하단 견적 문의) 섹션 */}
+        {/* CTA 섹션 */}
         <section className="relative bg-primary py-10 md:py-16" style={{ zIndex: 10 }}>
           <div className="container mx-auto px-4 text-center">
             <motion.h2
@@ -201,20 +261,25 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             >
               지금 바로 무료 견적 받으세요
             </motion.h2>
-            <p className="mb-8 text-white/80">전화 또는 카카오톡으로 간편하게 문의하세요</p>
+
+            <p className="mb-8 text-white/80">
+              전화 또는 카카오톡으로 간편하게 문의하세요
+            </p>
+
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
-                href="tel:031-638-5000"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-primary shadow hover:bg-white/90 transition-all hover:scale-105"
+                href="tel:01084381887"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-primary shadow transition-all hover:scale-105 hover:bg-white/90 sm:w-auto"
               >
                 <Phone className="h-4 w-4" />
-                031-638-5000
+                010-8438-1887
               </a>
+
               <a
-                href="https://pf.kakao.com/_xhxkWxd/chat"
+                href="https://pf.kakao.com/_IiNfn/chat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-8 py-4 text-sm font-bold text-white hover:bg-white/25 transition-all hover:scale-105"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-8 py-4 text-sm font-bold text-white transition-all hover:scale-105 hover:bg-white/25 sm:w-auto"
               >
                 <MessageCircle className="h-4 w-4" />
                 카카오톡 문의
