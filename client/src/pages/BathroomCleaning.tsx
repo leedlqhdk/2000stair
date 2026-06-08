@@ -50,8 +50,8 @@ export default function BathroomCleaning() {
           },
         ],
         pricingTiers: [
-          { badge: "월 2회", price: "별도 견적", note: "소형 상가·공용화장실 기준" },
-          { badge: "월 4회", price: "별도 견적", note: "가장 인기 있는 정기관리", highlight: true },
+          { badge: "월 2회", price: "20,000~", note: "소형 상가·공용화장실 기준" },
+          { badge: "월 4회", price: "40,000~", note: "가장 인기 있는 정기관리", highlight: true },
           { badge: "일회성", price: "별도 견적", note: "오염이 심해 강도 높은 세척 필요시" },
         ],
         infoContent: {
@@ -74,8 +74,8 @@ export default function BathroomCleaning() {
             a: "네, 배수구·타일 사이·변기 주변 등 악취 원인을 전문 약품으로 처리합니다. 단순 방향제 마스킹이 아닌 원인 제거를 목표로 합니다.",
           },
           {
-            q: "소독도 포함되나요?",
-            a: "네, 기본 청소 과정에 변기 및 세면대 소독이 포함됩니다.",
+            q: "추가금은 얼마나 추가되나요?",
+            a: "소변기 및 추가 위생시설은 수량에 따라 별도 비용이 발생할 수 있으며, 현장 확인 후 정확한 견적을 안내드립니다..",
           },
           {
             q: "휴지통 관리도 가능한가요?",
