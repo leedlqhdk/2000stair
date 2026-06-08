@@ -308,7 +308,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 viewport={{ once: true }}
                 className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
               >
-                왜 2000stair인가요?
+                왜 '이천계단지기'인가요?
               </motion.h2>
 
               <div className="grid gap-4 sm:grid-cols-2">
