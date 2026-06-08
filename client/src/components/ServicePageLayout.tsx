@@ -134,8 +134,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               poster={data.heroBgImage}
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-[#061226]/70" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-[#07152f]/45 to-[#07152f]/85" />
+            <div className="absolute inset-0 bg-[#061226]/30" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-[#07152f]/10 to-[#07152f]/40" />
           </div>
         )}
 
@@ -246,21 +246,49 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 서비스 범위
               </motion.h2>
 
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {data.scopeItems.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.06 }}
-                    className="flex items-center gap-3 rounded-2xl border border-white/50 bg-white/70 px-4 py-4 shadow-sm backdrop-blur-md"
-                  >
-                    <Check className="h-4 w-4 flex-shrink-0 text-primary" />
-                    <span className="text-sm font-bold text-[#111827]">{item}</span>
-                  </motion.div>
-                ))}
-              </div>
+             <div className="rounded-[2rem] border border-white/45 bg-white/35 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-2xl md:p-6">
+  <div className="grid grid-cols-1 divide-y divide-white/35 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+    <div className="space-y-0">
+      {data.scopeItems.slice(0, 3).map((item, i) => (
+        <motion.div
+          key={item}
+          initial={{ opacity: 0, x: -10 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.06 }}
+          className="flex items-center gap-3 border-b border-white/35 px-4 py-5 last:border-b-0"
+        >
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/65 text-primary shadow-sm backdrop-blur-xl">
+            <Check className="h-4 w-4" />
+          </span>
+          <span className="text-sm font-extrabold text-[#0f172a] md:text-base">
+            {item}
+          </span>
+        </motion.div>
+      ))}
+    </div>
+
+    <div className="space-y-0 sm:pl-2">
+      {data.scopeItems.slice(3).map((item, i) => (
+        <motion.div
+          key={item}
+          initial={{ opacity: 0, x: -10 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: (i + 3) * 0.06 }}
+          className="flex items-center gap-3 border-b border-white/35 px-4 py-5 last:border-b-0"
+        >
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/65 text-primary shadow-sm backdrop-blur-xl">
+            <Check className="h-4 w-4" />
+          </span>
+          <span className="text-sm font-extrabold text-[#0f172a] md:text-base">
+            {item}
+          </span>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</div>
             </div>
           </div>
         </section>
@@ -269,7 +297,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.gallery && data.gallery.length > 0 ? (
           <section className="relative z-10 py-16 md:py-24">
             <div className="container mx-auto max-w-4xl px-4">
-              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-xl md:p-10">
+              <div className="rounded-[2.5rem] border border-white/35 bg-white/25 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_30px_90px_rgba(15,23,42,0.24)] backdrop-blur-2xl md:p-10">
                 <motion.div
                   initial={{ opacity: 0, y: 22 }}
                   whileInView={{ opacity: 1, y: 0 }}
