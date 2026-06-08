@@ -10,14 +10,22 @@ export const getLoginUrl = () => {
     return "/admin/blog?login=not-configured";
   }
 
-  const redirectUri = `${window.location.origin}/api/oauth/callback`;
-  const state = btoa(redirectUri);
+  try {
+    const redirectUri = `${window.location.origin}/api/oauth/callback`;
+    const state = btoa(redirectUri);
+    const baseUrl = oauthPortalUrl.startsWith("http")
+      ? oauthPortalUrl
+      : `https://${oauthPortalUrl}`;
 
-  const url = new URL(`${oauthPortalUrl}/app-auth`);
-  url.searchParams.set("appId", appId);
-  url.searchParams.set("redirectUri", redirectUri);
-  url.searchParams.set("state", state);
-  url.searchParams.set("type", "signIn");
+    const url = new URL("/app-auth", baseUrl);
+    url.searchParams.set("appId", appId);
+    url.searchParams.set("redirectUri", redirectUri);
+    url.searchParams.set("state", state);
+    url.searchParams.set("type", "signIn");
 
-  return url.toString();
+    return url.toString();
+  } catch (error) {
+    console.error("Failed to build OAuth login URL", error);
+    return "/admin/blog?login=invalid-url";
+  }
 };
