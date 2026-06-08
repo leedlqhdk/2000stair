@@ -30,11 +30,12 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-bold text-primary sm:mb-4 sm:text-sm">
+            <p className="mb-3 hidden md:inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-bold text-primary sm:mb-4 sm:text-sm">
               <MapPin className="h-3.5 w-3.5" />
               이천 빌라·상가 전문
             </p>
-            <h1 className="mb-3 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-extrabold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
+            <div className="flex items-center gap-3 md:block">
+            <h1 className="flex-1 min-w-0 mb-3 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-extrabold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
               계단청소
               <br />
               <motion.span
@@ -48,6 +49,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <br />
               하고 계신가요?
             </h1>
+            <div className="md:hidden w-[45%] shrink-0">
+              <img src="/images/main-phone.webp" alt="카카오톡으로 계단 사진을 보내는 상담 화면" className="w-full object-contain" />
+            </div>
+            </div>
             <motion.p
               className="text-[clamp(0.95rem,2vw,1.22rem)] font-semibold leading-relaxed text-gray-700"
               initial={{ opacity: 0, y: 14 }}
@@ -86,7 +91,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </motion.div>
 
           <motion.div
-            className="relative mx-auto w-full max-w-[360px] md:max-w-[430px] lg:max-w-[470px]"
+            className="hidden md:block relative mx-auto w-full max-w-[360px] md:max-w-[430px] lg:max-w-[470px]"
             initial={{ opacity: 0, y: 34, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
