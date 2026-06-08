@@ -23,7 +23,7 @@ export default function AdminBlogEdit() {
   const isEdit = !!id;
   const postId = id ? Number(id) : undefined;
   const [, navigate] = useLocation();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const utils = trpc.useUtils();
 
   const [naverUrl, setNaverUrl] = useState("");
@@ -128,6 +128,7 @@ export default function AdminBlogEdit() {
     onError: (e) => toast.error(e.message),
   });
 
+  if (loading) return null;
   if (!user || user.role !== "admin") {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center text-gray-400">
