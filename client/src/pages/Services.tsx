@@ -25,8 +25,6 @@ const serviceCards = [
 export default function Services() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/35 to-white">
-      <Navbar />
-
       <main className="px-5 py-16 md:px-10 md:py-24">
         <section className="mx-auto max-w-6xl">
           <div className="mb-10 text-center md:mb-14">
