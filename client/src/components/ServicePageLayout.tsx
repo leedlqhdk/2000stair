@@ -120,7 +120,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
     <>
       <Navbar />
 
-      <main className="relative min-h-screen overflow-hidden bg-[#07152f]">
+      <main className="relative min-h-screen overflow-x-hidden bg-[#07152f]">
         {/* 고정 배경 영상 */}
         {data.heroVideo && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
@@ -151,10 +151,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         )}
 
-        {/* 상단 히어로 섹션 */}
+        {/* 상단 히어로 섹션 (모바일 높이 계산 버그 해결) */}
         <section
           className={`relative z-10 flex items-center justify-center px-4 text-white ${
-            isFullscreenVideo ? "min-h-screen py-28" : "min-h-[620px] py-24"
+            isFullscreenVideo 
+              ? "min-h-[100dvh] py-20 md:py-28" 
+              : "min-h-[540px] md:min-h-[620px] py-16 md:py-24"
           }`}
         >
           <div className="container mx-auto max-w-5xl text-center">
@@ -162,7 +164,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55 }}
-              className="mb-5 text-xs font-extrabold tracking-[0.35em] text-white/65"
+              className="mb-4 text-xs font-extrabold tracking-[0.35em] text-white/65 md:mb-5"
             >
               2000 STAIR SERVICE
             </motion.p>
@@ -171,7 +173,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08 }}
-              className="mx-auto whitespace-pre-line font-['GmarketSans'] text-4xl font-extrabold leading-tight tracking-tight text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
+              className="mx-auto whitespace-pre-line font-['GmarketSans'] text-3xl font-extrabold leading-tight tracking-tight text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
             >
               {data.heroTitle}
             </motion.h1>
@@ -180,7 +182,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.2 }}
-              className="mx-auto mt-6 max-w-2xl text-base font-semibold leading-relaxed text-white/78 sm:text-lg md:text-xl"
+              className="mx-auto mt-5 max-w-2xl text-sm font-semibold leading-relaxed text-white/78 sm:text-lg md:text-xl md:mt-6"
             >
               {data.heroSubtitle}
             </motion.p>
@@ -189,12 +191,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.32 }}
-              className="mt-8 flex flex-wrap justify-center gap-2"
+              className="mt-6 flex flex-wrap justify-center gap-1.5 md:gap-2 md:mt-8"
             >
               {["부부 직접 관리", "하청 없이 직접 방문", "작업 전후 사진 제공", "무료 견적"].map((badge) => (
                 <span
                   key={badge}
-                  className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold text-white/90 backdrop-blur-md sm:text-sm"
+                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
                 >
                   {badge}
                 </span>
@@ -205,13 +207,13 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.44 }}
-              className="mt-10 flex flex-col justify-center gap-3 sm:flex-row"
+              className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10"
             >
               <a
                 href="https://pf.kakao.com/_IiNfn/chat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-extrabold text-[#123268] shadow-xl transition hover:-translate-y-0.5 hover:bg-white/90"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-extrabold text-[#123268] shadow-xl transition hover:-translate-y-0.5 hover:bg-white/90 md:py-4"
               >
                 <MessageCircle className="h-4 w-4" />
                 카카오톡 상담하기
@@ -219,14 +221,14 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
 
               <a
                 href="tel:01084381887"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/10 px-7 py-4 text-sm font-extrabold text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/20"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/10 px-7 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/20 md:py-4"
               >
                 <Phone className="h-4 w-4" />
                 전화 문의
               </a>
             </motion.div>
 
-            <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/55 md:flex">
+            <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/55 md:flex">
               <span className="text-[10px] font-bold tracking-[0.3em]">SCROLL</span>
               <ArrowDown className="h-4 w-4 animate-bounce" />
             </div>
@@ -234,14 +236,14 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         </section>
 
         {/* 서비스 범위 섹션 */}
-        <section className="relative z-10 py-16 md:py-24">
+        <section className="relative z-10 py-12 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/75 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
+            <div className="rounded-[2rem] border border-white/25 bg-white/75 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-8 text-center text-2xl font-extrabold text-[#0f172a] sm:text-3xl"
+                className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
               >
                 서비스 범위
               </motion.h2>
@@ -254,7 +256,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.06 }}
-                    className="flex items-center gap-3 rounded-2xl border border-white/50 bg-white/70 px-4 py-4 shadow-sm backdrop-blur-md"
+                    className="flex items-center gap-3 rounded-2xl border border-white/50 bg-white/70 px-4 py-3.5 shadow-sm backdrop-blur-md"
                   >
                     <Check className="h-4 w-4 flex-shrink-0 text-primary" />
                     <span className="text-sm font-bold text-[#111827]">{item}</span>
@@ -267,29 +269,29 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
 
         {/* 작업 비포 & 애프터 갤러리 섹션 */}
         {data.gallery && data.gallery.length > 0 ? (
-          <section className="relative z-10 py-16 md:py-24">
+          <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-4xl px-4">
               <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-xl md:p-10">
                 <motion.div
                   initial={{ opacity: 0, y: 22 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mb-9 text-center"
+                  className="mb-6 text-center md:mb-9"
                 >
-                  <p className="mb-3 text-xs font-extrabold tracking-[0.3em] text-primary">
+                  <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
                     BEFORE & AFTER
                   </p>
-                  <h2 className="text-2xl font-extrabold text-[#0f172a] sm:text-3xl">
+                  <h2 className="text-xl font-extrabold text-[#0f172a] sm:text-3xl">
                     작업 비포 & 애프터
                   </h2>
                 </motion.div>
 
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                   {data.gallery.map((pair, idx) => (
                     <div key={idx}>
                       <BeforeAfterSlider before={pair.before} after={pair.after} />
                       {(pair.caption || pair.label) && (
-                        <p className="mt-4 text-center text-sm font-semibold text-slate-600">
+                        <p className="mt-3 text-center text-xs font-semibold text-slate-600 md:text-sm md:mt-4">
                           {pair.caption || pair.label}
                         </p>
                       )}
@@ -302,19 +304,19 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         ) : null}
 
         {/* 요금 안내 섹션 */}
-        <section className="relative z-10 py-16 md:py-24">
+        <section className="relative z-10 py-12 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/82 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
+            <div className="rounded-[2rem] border border-white/25 bg-white/82 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-8 text-center text-2xl font-extrabold text-[#0f172a] sm:text-3xl"
+                className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
               >
                 요금 안내
               </motion.h2>
 
-              <div className="mx-auto grid max-w-3xl gap-5 sm:grid-cols-3">
+              <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
                 {data.pricingTiers.map((tier, i) => (
                   <motion.div
                     key={i}
@@ -322,7 +324,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className={`rounded-2xl border p-6 text-center ${
+                    className={`rounded-2xl border p-5 text-center md:p-6 ${
                       tier.highlight
                         ? "border-primary bg-primary text-white shadow-xl"
                         : "border-blue-100 bg-white/80 text-[#0f172a]"
@@ -338,12 +340,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       {tier.badge}
                     </span>
 
-                    <p className="mt-4 text-2xl font-extrabold">
+                    <p className="mt-3 text-xl font-extrabold md:text-2xl md:mt-4">
                       {tier.price}
                     </p>
 
                     <p
-                      className={`mt-2 text-xs font-medium ${
+                      className={`mt-1.5 text-xs font-medium ${
                         tier.highlight ? "text-white/75" : "text-slate-500"
                       }`}
                     >
@@ -356,26 +358,26 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         </section>
 
-        {/* CTA 섹션 */}
-        <section className="relative z-10 px-4 pb-16 md:pb-24">
-          <div className="container mx-auto max-w-4xl rounded-[2rem] border border-white/25 bg-primary/90 px-6 py-12 text-center text-white shadow-[0_24px_80px_rgba(15,23,42,0.28)] backdrop-blur-xl md:px-10 md:py-16">
+        {/* CTA 섹션 (하단 불필요한 마진 슬림화) */}
+        <section className="relative z-10 px-4 pb-12 md:pb-24">
+          <div className="container mx-auto max-w-4xl rounded-[2rem] border border-white/25 bg-primary/90 px-5 py-10 text-center text-white shadow-[0_24px_80px_rgba(15,23,42,0.28)] backdrop-blur-xl md:px-10 md:py-16">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-3 text-2xl font-extrabold sm:text-3xl"
+              className="mb-2 text-xl font-extrabold sm:text-3xl md:mb-3"
             >
               지금 바로 무료 견적 받으세요
             </motion.h2>
 
-            <p className="mb-8 text-white/80">
+            <p className="mb-6 text-sm text-white/80 md:mb-8">
               전화 또는 카카오톡으로 간편하게 문의하세요
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row md:gap-4">
               <a
                 href="tel:01084381887"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-primary shadow transition-all hover:scale-105 hover:bg-white/90 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold text-primary shadow transition-all hover:scale-105 hover:bg-white/90 sm:w-auto"
               >
                 <Phone className="h-4 w-4" />
                 010-8438-1887
@@ -385,7 +387,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 href="https://pf.kakao.com/_IiNfn/chat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-8 py-4 text-sm font-bold text-white transition-all hover:scale-105 hover:bg-white/25 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/15 px-8 py-3.5 text-sm font-bold text-white transition-all hover:scale-105 hover:bg-white/25 sm:w-auto"
               >
                 <MessageCircle className="h-4 w-4" />
                 카카오톡 문의
