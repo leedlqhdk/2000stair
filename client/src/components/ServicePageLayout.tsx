@@ -107,28 +107,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               {data.heroSubtitle}
             </motion.p>
           </div>
-        </section>
 
-        {/* 작업 비포 & 애프터 갤러리 섹션 (조건부 렌더링) */}
-        {/* 계단, 화장실 청소는 노출 / 유리창 청소처럼 데이터가 비어있으면 영역 자체가 자동 생략됨 */}
-        {data.gallery && data.gallery.length > 0 ? (
-          <section className="py-12 md:py-20 container mx-auto px-4 max-w-2xl relative z-10 bg-white">
-            <h2 className="mb-8 text-center text-xl font-extrabold text-foreground sm:text-2xl">
-              작업 비포 & 애프터
-            </h2>
-            {data.gallery.map((pair, idx) => (
-              <div key={idx} className="mb-6">
-                <BeforeAfterSlider before={pair.before} after={pair.after} />
-                {pair.caption && <p className="mt-3 text-center text-sm text-muted-foreground">{pair.caption}</p>}
-              </div>
-            ))}
-          </section>
-        ) : (
-          // 갤러리가 없는 페이지(유리청소)를 위한 상하 여백 정돈
-          <div className="py-6 bg-white"></div>
-        )}
-
-        {/* 서비스 범위 섹션 */}
+          {/* 서비스 범위 섹션 */}
         <section className="relative bg-white py-12 md:py-20" style={{ zIndex: 10 }}>
           <div className="container mx-auto px-4 max-w-3xl">
             <motion.h2
@@ -156,6 +136,27 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             </div>
           </div>
         </section>
+          
+        </section>
+
+        {/* 작업 비포 & 애프터 갤러리 섹션 (조건부 렌더링) */}
+        {/* 계단, 화장실 청소는 노출 / 유리창 청소처럼 데이터가 비어있으면 영역 자체가 자동 생략됨 */}
+        {data.gallery && data.gallery.length > 0 ? (
+          <section className="py-12 md:py-20 container mx-auto px-4 max-w-2xl relative z-10 bg-white">
+            <h2 className="mb-8 text-center text-xl font-extrabold text-foreground sm:text-2xl">
+              작업 비포 & 애프터
+            </h2>
+            {data.gallery.map((pair, idx) => (
+              <div key={idx} className="mb-6">
+                <BeforeAfterSlider before={pair.before} after={pair.after} />
+                {pair.caption && <p className="mt-3 text-center text-sm text-muted-foreground">{pair.caption}</p>}
+              </div>
+            ))}
+          </section>
+        ) : (
+          // 갤러리가 없는 페이지(유리청소)를 위한 상하 여백 정돈
+          <div className="py-6 bg-white"></div>
+        )}
 
         {/* 요금 안내 섹션 */}
         <section className="relative bg-gray-50 py-12 md:py-20" style={{ zIndex: 10 }}>
