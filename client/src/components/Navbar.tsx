@@ -1,5 +1,5 @@
 import { ChevronDown, Menu, MessageCircle, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 
@@ -56,7 +56,17 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileIndex, setOpenMobileIndex] = useState<number | null>(null);
   const [location, setLocation] = useLocation();
+  const [scrolled, setScrolled] = useState(false);
 
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 20);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+  
   const openKakao = () => {
     window.open("https://pf.kakao.com/_IiNfn/chat", "_blank");
   };
@@ -96,21 +106,34 @@ export default function Navbar() {
 
   const linkClass = "text-sm font-semibold text-muted-foreground hover:text-primary transition-colors";
   const dropdownButtonClass = "inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary";
-  const dropdownPanelClass = "invisible absolute left-1/2 top-full z-50 mt-3 min-w-44 -translate-x-1/2 rounded-2xl border border-blue-100 bg-white p-2 opacity-0 shadow-xl shadow-blue-950/10 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100";
+  const dropdownPanelClass =
+  "invisible absolute left-1/2 top-full z-50 mt-4 min-w-52 -translate-x-1/2 rounded-3xl border border-blue-100/70 bg-white/95 p-3 opacity-0 backdrop-blur-xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:visible group-hover:opacity-100";
   const dropdownItemClass = "block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-blue-50 hover:text-primary";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-blue-100 bg-white/85 backdrop-blur-xl">
-      <div className="container max-w-7xl flex items-center justify-between h-16">
+    <header
+  className={`sticky top-0 z-50 transition-all duration-300 ${
+    scrolled
+      ? "border-b border-blue-100/70 bg-white/80 backdrop-blur-2xl shadow-[0_8px_30px_rgba(15,23,42,0.08)]"
+      : "border-b border-transparent bg-white/60 backdrop-blur-md"
+  }`}
+>
+      <div
+  className={`container max-w-7xl flex items-center justify-between transition-all duration-300 ${
+    scrolled ? "h-14" : "h-16"
+  }`}
+>
         <a href="/" className="flex items-center" aria-label="이천계단지기 홈으로 이동">
           <img
             src="/images/icheon-logo-main.png"
             alt="이천계단지기"
-            className="h-10 md:h-11 w-auto max-w-[190px] object-contain"
+            className={`w-auto max-w-[190px] object-contain transition-all duration-300 ${
+  scrolled ? "h-9 md:h-10" : "h-10 md:h-11"
+}`}
           />
         </a>
 
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-8">
           <Link href="/" className={linkClass}>홈</Link>
 
           {navGroups.map((group) => (
