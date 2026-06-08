@@ -571,7 +571,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.showReviews && (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-5xl px-4">
-              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
+              <div>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
