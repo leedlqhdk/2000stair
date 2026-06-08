@@ -16,7 +16,14 @@ type NavGroup = {
 
 const navGroups: NavGroup[] = [
   {
-    label: "서비스",
+    label: "회사소개",
+    items: [
+      { label: "이천계단지기 소개", href: "/about" },
+      { label: "실제 고객후기", href: "/reviews" },
+    ],
+  },
+  {
+    label: "청소서비스",
     items: [
       { label: "계단청소", href: "/services/stair" },
       { label: "유리청소", href: "/services/glass" },
@@ -43,13 +50,7 @@ const navGroups: NavGroup[] = [
       { label: "QnA", href: "/qna" },
     ],
   },
-  {
-    label: "회사소개",
-    items: [
-      { label: "이천계단지기 소개", href: "/about" },
-      { label: "실제 고객후기", href: "/reviews" },
-    ],
-  },
+  
 ];
 
 export default function Navbar() {
