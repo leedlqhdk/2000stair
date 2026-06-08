@@ -1,5 +1,15 @@
 import { motion } from "framer-motion";
-import { Check, Phone, MessageCircle, ArrowDown } from "lucide-react";
+import {
+  Brush,
+  DoorOpen,
+  Hand,
+  Leaf,
+  MessageCircle,
+  Phone,
+  Sparkles,
+  Spider,
+  ArrowDown,
+} from "lucide-react";
 import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 
@@ -113,6 +123,11 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
   );
 }
 
+const scopeIcons = [Brush, Hand, Sparkles, DoorOpen, Spider, Leaf];
+
+function getScopeIcon(index: number) {
+  return scopeIcons[index % scopeIcons.length];
+}
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
   const isFullscreenVideo = data.heroStyle === "fullscreenVideo" && !!data.heroVideo;
 
@@ -234,62 +249,71 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         </section>
 
-        {/* 서비스 범위 섹션 */}
+                {/* 서비스 범위 섹션 */}
         <section className="relative z-10 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2.5rem] border border-white/20 bg-white/15 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.18)] backdrop-blur-2xl md:p-10">
-              <motion.h2
+            <div className="rounded-[2.5rem] border border-white/25 bg-white/18 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_30px_90px_rgba(15,23,42,0.2)] backdrop-blur-2xl md:p-10">
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mb-8 text-center text-2xl font-extrabold text-[#0f172a] sm:text-3xl"
+                className="mb-9 text-center"
               >
-                서비스 범위
-              </motion.h2>
+                <p className="mb-3 text-xs font-extrabold tracking-[0.3em] text-white/65">
+                  CLEANING SCOPE
+                </p>
+                <h2 className="text-2xl font-extrabold text-white drop-shadow sm:text-3xl">
+                  서비스 범위
+                </h2>
+              </motion.div>
 
-             <div className="rounded-[2rem] border border-white/45 bg-white/20 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-2xl md:p-6">
-  <div className="grid grid-cols-1 divide-y divide-white/35 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-    <div className="space-y-0">
-      {data.scopeItems.slice(0, 3).map((item, i) => (
-        <motion.div
-          key={item}
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: i * 0.06 }}
-          className="flex items-center gap-3 border-b border-white/35 px-4 py-5 last:border-b-0"
-        >
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/65 text-primary shadow-sm backdrop-blur-xl">
-            <Check className="h-4 w-4" />
-          </span>
-          <span className="text-sm font-extrabold text-[#0f172a] md:text-base">
-            {item}
-          </span>
-        </motion.div>
-      ))}
-    </div>
+              <div className="overflow-hidden rounded-[2rem] border border-white/30 bg-white/18 shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_20px_70px_rgba(15,23,42,0.18)] backdrop-blur-2xl">
+                <div className="grid grid-cols-1 divide-y divide-white/25 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+                  <div>
+                    {data.scopeItems.slice(0, 3).map((item, i) => {
+                      const Icon = getScopeIcon(i);
 
-    <div className="space-y-0 sm:pl-2">
-      {data.scopeItems.slice(3).map((item, i) => (
-        <motion.div
-          key={item}
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: (i + 3) * 0.06 }}
-          className="flex items-center gap-3 border-b border-white/35 px-4 py-5 last:border-b-0"
-        >
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/65 text-primary shadow-sm backdrop-blur-xl">
-            <Check className="h-4 w-4" />
-          </span>
-          <span className="text-sm font-extrabold text-[#0f172a] md:text-base">
-            {item}
-          </span>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</div>
+                      return (
+                        <motion.div
+                          key={item}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.06 }}
+                          className="flex items-center gap-4 border-b border-white/25 px-5 py-5 last:border-b-0"
+                        >
+                          <Icon className="h-5 w-5 shrink-0 text-white/90 drop-shadow" />
+                          <span className="text-sm font-extrabold text-white drop-shadow md:text-base">
+                            {item}
+                          </span>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
+                  <div>
+                    {data.scopeItems.slice(3).map((item, i) => {
+                      const Icon = getScopeIcon(i + 3);
+
+                      return (
+                        <motion.div
+                          key={item}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: (i + 3) * 0.06 }}
+                          className="flex items-center gap-4 border-b border-white/25 px-5 py-5 last:border-b-0"
+                        >
+                          <Icon className="h-5 w-5 shrink-0 text-white/90 drop-shadow" />
+                          <span className="text-sm font-extrabold text-white drop-shadow md:text-base">
+                            {item}
+                          </span>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
