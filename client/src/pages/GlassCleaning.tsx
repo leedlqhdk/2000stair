@@ -9,7 +9,7 @@ export default function GlassCleaning() {
         heroVideo: "/images/services/glass-cleaning/glass-cleaning-video.mov",
         heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
         heroSubtitle: "이천 유리청소 전문업체 | 상가 유리·공동현관 유리·건물 유리관리",
-        seoTitle: "이천 유리청소 전문업체 | 상가·건물 유리관리 – 2000stair",
+        seoTitle: "이천 유리청소 전문업체 | 상가·건물 유리관리 – 이천계단지기",
 
         features: [
           {
@@ -21,8 +21,8 @@ export default function GlassCleaning() {
             description: "빌라·원룸 공동현관 유리는 계단청소 정기관리와 함께 관리하면 효율적입니다.",
           },
           {
-            title: "얼룩·물자국 관리",
-            description: "비, 먼지, 손자국으로 생긴 유리 오염을 전용 도구로 깔끔하게 정리합니다.",
+            title: "얼룩·석회자국 관리",
+            description: "비, 먼지 생긴 오래된 유리 오염을 전용 도구와 세제로 깔끔하게 없애줍니다.",
           },
           {
             title: "대표 직접 방문",
@@ -41,8 +41,8 @@ export default function GlassCleaning() {
           "공동현관 유리 청소",
           "매장 유리창 세정 및 코팅",
           "빌라·원룸 현관 유리 관리",
-          "얼룩·물때·손자국 제거",
-          "유리 주변 프레임·실리콘 오염 제거",
+          "얼룩·물때·석회자국 제거",
+          "오래된 스티커·시트지 제거",
         ],
 
         infoSections: [
@@ -76,9 +76,9 @@ export default function GlassCleaning() {
             highlight: true,
           },
           {
-            badge: "대형 유리창",
+            badge: "일회성 청소",
             price: "별도 견적",
-            note: "고층 · 외창 · 특수작업",
+            note: "묵은 오염이 심해 강도 높은 청소가 필요한 경우",
           },
         ],
 
@@ -87,10 +87,7 @@ export default function GlassCleaning() {
             q: "외부 유리도 가능한가요?",
             a: "1~2층 외부 유리는 대부분 작업 가능합니다. 고층 외창은 현장 확인 후 작업 가능 여부를 안내드립니다.",
           },
-          {
-            q: "고층 유리는 어떻게 진행하나요?",
-            a: "고층 외창 유리는 안전 문제로 사다리 또는 고소작업 장비가 필요한 경우 현장 확인 후 별도 견적을 드립니다.",
-          },
+        
           {
             q: "정기관리도 가능한가요?",
             a: "네, 계단청소 정기관리와 함께 묶어서 진행하거나 유리청소만 단독으로 정기계약도 가능합니다.",
