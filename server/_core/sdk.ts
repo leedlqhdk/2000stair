@@ -65,7 +65,7 @@ export class Sdk {
   }
 
   async signSession(payload: SessionPayload, options: SignSessionOptions = {}) {
-    const secret = new TextEncoder().encode(ENV.jwtSecret);
+    const secret = new TextEncoder().encode(ENV.cookieSecret);
     const expiresInMs = options.expiresInMs ?? ONE_YEAR_MS;
 
     return await new SignJWT(payload as Record<string, unknown>)
@@ -79,7 +79,7 @@ export class Sdk {
     if (!isNonEmptyString(token)) return null;
 
     try {
-      const secret = new TextEncoder().encode(ENV.jwtSecret);
+      const secret = new TextEncoder().encode(ENV.cookieSecret);
       const { payload } = await jwtVerify(token, secret);
 
       const openId = payload.openId;
