@@ -33,7 +33,7 @@ export default function Services() {
             <p className="text-sm font-extrabold tracking-[0.32em] text-primary">
               SERVICES
             </p>
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-foreground md:text-5xl">
+            <h2 className="mb-4 text-3xl font-extrabold leading-[1.14] text-foreground md:text-4xl">
               이천계단지기 서비스
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-muted-foreground md:text-base">
