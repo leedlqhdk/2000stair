@@ -76,6 +76,7 @@ export interface ServicePageData {
 
 const featureIcons = [Users, ShieldCheck, Camera, CalendarClock];
 const scopeIcons = [Brush, Hand, Sparkles, DoorOpen, Bug, Leaf];
+const glassCard ="rounded-[1.6rem] border border-white/18 bg-white/[0.14] shadow-[0_20px_60px_rgba(15,23,42,0.14)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.2]";
 
 function BeforeAfterSlider({ before, after }: GalleryPair) {
   const [pos, setPos] = useState(50);
@@ -484,12 +485,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.photoGrid && data.photoGrid.length > 0 && (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-5xl px-4">
-              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
+              <div className={`${glassCard} p-5 md:p-10`}>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
+                  className="mb-6 text-center text-xl font-extrabold text-white sm:text-3xl md:mb-8"
                 >
                   작업 현장
                 </motion.h2>
@@ -501,7 +502,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.1 }}
-                      className="overflow-hidden rounded-2xl"
+                      className="overflow-hidden rounded-2xl border border-white/10"
                     >
                       <img
                         src={photo.src}
@@ -520,12 +521,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.infoContent && (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-4xl px-4">
-              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-12">
+              <div className={`${glassCard} p-6 md:p-12`}>
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="mb-4 text-xl font-extrabold text-[#0f172a] sm:text-2xl md:mb-6"
+                  className="mb-4 text-xl font-extrabold text-white sm:text-2xl md:mb-6"
                 >
                   {data.infoContent.title}
                 </motion.h2>
@@ -534,7 +535,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="whitespace-pre-line text-sm leading-[1.9] text-slate-600 md:text-base"
+                  className="whitespace-pre-line text-sm leading-[1.9] text-white/75 md:text-base"
                 >
                   {data.infoContent.body}
                 </motion.p>
@@ -554,7 +555,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="rounded-[2rem] border border-white/25 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10"
+                  className={`${glassCard} p-6 md:p-10`}
                 >
                   {sec.image && (
                     <img
@@ -563,10 +564,10 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       className="mb-5 h-48 w-full rounded-2xl object-cover md:h-64"
                     />
                   )}
-                  <h2 className="mb-3 text-lg font-extrabold text-[#0f172a] md:text-xl">
+                  <h2 className="mb-3 text-lg font-extrabold text-white md:text-xl">
                     {sec.title}
                   </h2>
-                  <p className="text-sm leading-[1.9] text-slate-600 md:text-base">
+                  <p className="text-sm leading-[1.9] text-white/75 md:text-base">
                     {sec.body}
                   </p>
                 </motion.div>
