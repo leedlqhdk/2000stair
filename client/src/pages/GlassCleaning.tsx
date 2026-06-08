@@ -30,11 +30,7 @@ export default function GlassCleaning() {
           },
         ],
 
-        photoGrid: [
-          { src: "/images/services/glass-cleaning/glass-page01.webp", alt: "이천 상가 유리청소 작업 사례 1" },
-          { src: "/images/services/glass-cleaning/glass-page02.webp", alt: "이천 공동현관 유리 관리 사례" },
-          { src: "/images/services/glass-cleaning/glass-page03.webp", alt: "이천 건물 유리청소 작업 사례 3" },
-        ],
+      
 
         scopeItems: [
           "상가 출입문 유리 청소",
@@ -49,17 +45,17 @@ export default function GlassCleaning() {
           {
             title: "유리청소는 건물 첫인상 관리입니다",
             body: "상가 출입문, 빌라 공동현관, 복도 유리는 방문자가 가장 먼저 보는 부분입니다. 유리에 손자국과 먼지, 빗물 자국이 남아 있으면 건물 전체가 관리되지 않는 인상을 줄 수 있습니다.",
-            image: "/images/services/glass-cleaning/icheon-glass-cleaning-work-01.webp",
+            image: "/images/services/glass-cleaning/glass-page01.webp",
           },
           {
             title: "공동현관 유리는 정기관리와 함께하면 효율적입니다",
             body: "공동현관 유리청소는 계단청소 정기관리와 함께 진행하면 이동비와 작업 동선이 줄어 합리적으로 관리할 수 있습니다. 단독 일회성 작업도 가능하지만 현장 규모에 따라 견적이 달라집니다.",
-            image: "/images/services/glass-cleaning/icheon-glass-cleaning-work-02.webp",
+            image: "/images/services/glass-cleaning/glass-page02.webp",
           },
           {
-            title: "고층·외창·특수 유리는 별도 확인이 필요합니다",
-            body: "사다리, 고소작업, 외부 고층 유리는 안전 문제로 현장 확인 후 작업 가능 여부와 비용을 안내드립니다. 무리한 작업보다 안전한 범위 안에서 깨끗하게 관리하는 것을 우선합니다.",
-            image: "/images/services/glass-cleaning/icheon-glass-cleaning-work-03.webp",
+            title: "유리 전용 세제로 깔끔한 마감을 추구합니다",
+  body: "유리는 먼지를 닦는 것보다 자국 없이 마무리하는 과정이 중요합니다. 이천계단지기는 유리 전용 수입 세제와 전문 장비를 활용해 얼룩을 최소화하고 건물의 첫인상을 더욱 깔끔하게 유지할 수 있도록 관리합니다.",
+  image: "/images/services/glass-cleaning/glass-page03.webp",
           },
         ],
 
