@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
-import Navbar from "@/components/Navbar";
 
 const serviceCards = [
   {
