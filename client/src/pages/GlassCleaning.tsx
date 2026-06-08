@@ -50,10 +50,7 @@ export default function GlassCleaning() {
         scopeItems: [
           "상가 출입문 유리 청소",
           "공동현관 유리 청소",
-          "내부 유리창 세정",
-          "창틀·레일 먼지 정리",
-          "로비·복도 유리 관리",
-          "고층·외창 별도 상담",
+          "매장 유리창 세정 및 코팅",
         ],
 
         pricingTiers: [
@@ -64,7 +61,7 @@ export default function GlassCleaning() {
           },
           {
             badge: "상가 유리청소",
-            price: "80,000원~",
+            price: "50,000원~",
             note: "소형 상가 · 전면 유리 기준",
             highlight: true,
           },
