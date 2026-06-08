@@ -28,6 +28,7 @@ import Baeksa from "@/pages/Baeksa";
 import About from "@/pages/About";
 import Qna from "@/pages/Qna";
 import Reviews from "./pages/Reviews";
+import Services from "./pages/Services";
 import StairCleaning from "./pages/StairCleaning";
 import BathroomCleaning from "./pages/BathroomCleaning";
 import GlassCleaning from "./pages/GlassCleaning";
