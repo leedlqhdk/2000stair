@@ -205,15 +205,15 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               alt={data.heroTitle}
               className="h-full w-full object-cover"
             />
-                     <div className="absolute inset-0 bg-[#061226]/75" />
+            <div className="absolute inset-0 bg-[#061226]/75" />
           </div>
         )}
 
         {/* 상단 히어로 섹션 (모바일 높이 계산 버그 해결) */}
         <section
           className={`relative z-10 flex items-center justify-center px-4 text-white ${
-            isFullscreenVideo 
-              ? "min-h-[100dvh] py-20 md:py-28" 
+            isFullscreenVideo
+              ? "min-h-[100dvh] py-20 md:py-28"
               : "min-h-[540px] md:min-h-[620px] py-16 md:py-24"
           }`}
         >
@@ -251,7 +251,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               transition={{ duration: 0.65, delay: 0.32 }}
               className="mt-6 flex flex-wrap justify-center gap-1.5 md:gap-2 md:mt-8"
             >
-              {["부부 직접 관리", "하청 없이 직접 방문", "작업 전후 사진 제공", "무료 견적"].map((badge) => (
+              {[
+                "부부 직접 관리",
+                "하청 없이 직접 방문",
+                "작업 전후 사진 제공",
+                "무료 견적",
+              ].map((badge) => (
                 <span
                   key={badge}
                   className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
@@ -321,8 +326,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     transition={{ delay: i * 0.08 }}
                     className="rounded-2xl border border-blue-100 bg-white/80 p-5 md:p-6"
                   >
-                    <p className="mb-1.5 font-extrabold text-primary">{feat.title}</p>
-                    <p className="text-sm leading-relaxed text-slate-600">{feat.description}</p>
+                    <p className="mb-1.5 font-extrabold text-primary">
+                      {feat.title}
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">
+                      {feat.description}
+                    </p>
                   </motion.div>
                 ))}
               </div>
@@ -366,33 +375,31 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.gallery && data.gallery.length > 0 ? (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-4xl px-4">
-              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-xl md:p-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 22 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="mb-6 text-center md:mb-9"
-                >
-                  <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
-                    BEFORE & AFTER
-                  </p>
-                  <h2 className="text-xl font-extrabold text-[#0f172a] sm:text-3xl">
-                    작업 비포 & 애프터
-                  </h2>
-                </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-6 text-center md:mb-9"
+              >
+                <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
+                  BEFORE & AFTER
+                </p>
+                <h2 className="text-xl font-extrabold text-white sm:text-3xl">
+                  작업 비포 & 애프터
+                </h2>
+              </motion.div>
 
-                <div className="space-y-6 md:space-y-8">
-                  {data.gallery.map((pair, idx) => (
-                    <div key={idx}>
-                      <BeforeAfterSlider before={pair.before} after={pair.after} />
-                      {(pair.caption || pair.label) && (
-                        <p className="mt-3 text-center text-xs font-semibold text-slate-600 md:text-sm md:mt-4">
-                          {pair.caption || pair.label}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
+              <div className="space-y-6 md:space-y-8">
+                {data.gallery.map((pair, idx) => (
+                  <div key={idx}>
+                    <BeforeAfterSlider before={pair.before} after={pair.after} />
+                    {(pair.caption || pair.label) && (
+                      <p className="mt-3 text-center text-xs font-semibold text-white/70 md:mt-4 md:text-sm">
+                        {pair.caption || pair.label}
+                      </p>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </section>
@@ -435,7 +442,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       {tier.badge}
                     </span>
 
-                    <p className="mt-3 text-xl font-extrabold md:text-2xl md:mt-4">
+                    <p className="mt-3 text-xl font-extrabold md:mt-4 md:text-2xl">
                       {tier.price}
                     </p>
 
@@ -519,7 +526,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {/* 정보성 콘텐츠 섹션 (다중 - 선택) */}
         {data.infoSections && data.infoSections.length > 0 && (
           <section className="relative z-10 py-12 md:py-24">
-            <div className="container mx-auto max-w-4xl px-4 space-y-6 md:space-y-8">
+            <div className="container mx-auto max-w-4xl space-y-6 px-4 md:space-y-8">
               {data.infoSections.map((sec, i) => (
                 <motion.div
                   key={i}
@@ -567,21 +574,11 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </section>
         )}
 
-        {/* 고객 후기 섹션 (선택) */}
+        {/* 고객 후기 + 실제 작업 기록 섹션 (선택) */}
         {data.showReviews && (
           <section className="relative z-10 py-12 md:py-24">
-            <div className="container mx-auto max-w-5xl px-4">
-              <div>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
-                >
-                  실제 고객 후기
-                </motion.h2>
-                <BlogReviews />
-              </div>
+            <div className="container mx-auto max-w-6xl px-4">
+              <BlogReviews />
             </div>
           </section>
         )}
