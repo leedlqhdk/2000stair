@@ -1,5 +1,4 @@
 import { ArrowRight, Building2, Droplets, Sparkles } from "lucide-react";
-import Navbar from "@/components/Navbar";
 
 const services = [
   {
@@ -33,9 +32,7 @@ const glassCard =
 
 export default function Services() {
   return (
-    <>
-      <Navbar />
-
+   
       <main className="relative min-h-screen overflow-hidden bg-[#07152f] text-white">
         <div className="fixed inset-0 z-0 bg-[#07152f]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.28),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.18),transparent_32%)]" />
