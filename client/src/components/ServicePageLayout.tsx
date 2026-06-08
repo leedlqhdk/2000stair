@@ -161,20 +161,20 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
       {items.map((item, i) => (
         <div
           key={i}
-          className="overflow-hidden rounded-2xl border border-blue-100 bg-white/80"
+          className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.1] shadow-[0_16px_46px_rgba(15,23,42,0.12)] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.15]"
         >
           <button
             onClick={() => setOpen(open === i ? null : i)}
-            className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-bold text-[#0f172a] md:px-6 md:py-5"
+            className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-bold text-white md:px-6 md:py-5"
           >
             <span className="text-sm md:text-base">{item.q}</span>
             <ChevronDown
-              className={`h-4 w-4 flex-shrink-0 text-primary transition-transform duration-200 ${open === i ? "rotate-180" : ""}`}
+              className={`h-4 w-4 flex-shrink-0 text-white/70 transition-transform duration-200 ${open === i ? "rotate-180" : ""}`}
             />
           </button>
           {open === i && (
-            <div className="border-t border-blue-50 px-5 pb-5 pt-3 md:px-6">
-              <p className="text-sm leading-relaxed text-slate-600">{item.a}</p>
+            <div className="border-t border-white/10 px-5 pb-5 pt-3 md:px-6">
+              <p className="text-sm leading-relaxed text-white/70">{item.a}</p>
             </div>
           )}
         </div>
@@ -383,7 +383,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     className="flex items-center gap-4 rounded-2xl border border-white/14 bg-white/[0.1] px-4 py-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.16] md:px-5"
                   >
                     <Icon className="h-5 w-5 shrink-0 text-white/85" />
-                    <span className="text-sm font-extrabold text-white/88 md:text-base">
+                    <span className="text-sm font-extrabold text-white/90 md:text-base">
                       {item}
                     </span>
                   </motion.div>
@@ -430,54 +430,52 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {/* 요금 안내 섹션 */}
         <section className="relative z-10 py-12 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/82 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
-              >
-                요금 안내
-              </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-7 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-10"
+            >
+              요금 안내
+            </motion.h2>
 
-              <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
-                {data.pricingTiers.map((tier, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className={`rounded-2xl border p-5 text-center md:p-6 ${
+            <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
+              {data.pricingTiers.map((tier, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className={`rounded-[1.6rem] border p-5 text-center shadow-[0_20px_60px_rgba(15,23,42,0.14)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 md:p-6 ${
+                    tier.highlight
+                      ? "border-primary/50 bg-primary/85 text-white shadow-[0_24px_70px_rgba(49,85,164,0.28)]"
+                      : "border-white/16 bg-white/[0.12] text-white hover:bg-white/[0.17]"
+                  }`}
+                >
+                  <span
+                    className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${
                       tier.highlight
-                        ? "border-primary bg-primary text-white shadow-xl"
-                        : "border-blue-100 bg-white/80 text-[#0f172a]"
+                        ? "bg-white/20 text-white"
+                        : "bg-white/12 text-white/80"
                     }`}
                   >
-                    <span
-                      className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${
-                        tier.highlight
-                          ? "bg-white/20 text-white"
-                          : "bg-primary/10 text-primary"
-                      }`}
-                    >
-                      {tier.badge}
-                    </span>
+                    {tier.badge}
+                  </span>
 
-                    <p className="mt-3 text-xl font-extrabold md:mt-4 md:text-2xl">
-                      {tier.price}
-                    </p>
+                  <p className="mt-3 text-xl font-extrabold md:mt-4 md:text-2xl">
+                    {tier.price}
+                  </p>
 
-                    <p
-                      className={`mt-1.5 text-xs font-medium ${
-                        tier.highlight ? "text-white/75" : "text-slate-500"
-                      }`}
-                    >
-                      {tier.note}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
+                  <p
+                    className={`mt-1.5 text-xs font-medium ${
+                      tier.highlight ? "text-white/78" : "text-white/58"
+                    }`}
+                  >
+                    {tier.note}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
@@ -581,17 +579,15 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.faq && data.faq.length > 0 && (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-4xl px-4">
-              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
-                >
-                  자주 묻는 질문
-                </motion.h2>
-                <FaqAccordion items={data.faq} />
-              </div>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-7 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-10"
+              >
+                자주 묻는 질문
+              </motion.h2>
+              <FaqAccordion items={data.faq} />
             </div>
           </section>
         )}
