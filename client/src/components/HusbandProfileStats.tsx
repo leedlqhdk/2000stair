@@ -1,21 +1,9 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  {
-    value: "5",
-    unit: "years",
-    label: "대표 직접 방문",
-  },
-  {
-    value: "99.9%",
-    unit: "",
-    label: "고객 만족도",
-  },
-  {
-    value: "21600+",
-    unit: "",
-    label: "누적 관리 세대",
-  },
+  { value: "5", unit: "years", label: "대표 직접 방문" },
+  { value: "99.9%", unit: "", label: "고객 만족도" },
+  { value: "21600+", unit: "", label: "누적 관리 세대" },
 ];
 
 export default function HusbandProfileStats() {
@@ -69,20 +57,38 @@ export default function HusbandProfileStats() {
 
             <div className="mx-auto mt-8 grid max-w-2xl gap-5 sm:grid-cols-3 lg:mx-0">
               {stats.map((stat, index) => (
-                <div
+                <motion.div
                   key={stat.label}
                   className={`text-center lg:text-left ${index === 1 ? "lg:-ml-3" : ""}`}
+                  initial={{ opacity: 0, y: 18, scale: 0.92 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.25 + index * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
-                  <p className="text-[2.2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.45rem]">
+                  <motion.p
+                    className="text-[2.2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.45rem]"
+                    initial={{ scale: 0.9 }}
+                    whileInView={{ scale: [0.9, 1.08, 1] }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.35 + index * 0.12,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
                     {stat.value}
                     {stat.unit && (
                       <span className="ml-1 align-baseline text-xs font-bold text-foreground/80">
                         {stat.unit}
                       </span>
                     )}
-                  </p>
+                  </motion.p>
                   <p className="mt-2 text-sm font-bold text-foreground">{stat.label}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
