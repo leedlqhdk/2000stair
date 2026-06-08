@@ -13,6 +13,7 @@ import {
   Phone,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar";
 
 const SITE_URL = "https://2000stair.kr";
 
@@ -144,6 +145,7 @@ export default function BlogDetail() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
+      <Navbar />
       <article className="container max-w-4xl py-12 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 34 }}
