@@ -19,7 +19,7 @@ const navGroups: NavGroup[] = [
     label: "회사소개",
     items: [
       { label: "이천계단지기 소개", href: "/about" },
-      { label: "실제 고객후기", href: "/reviews" },
+      
     ],
   },
   {
@@ -47,6 +47,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: "공식 블로그", href: "https://blog.naver.com/icheonstair" },
       { label: "청소 관련정보", href: "/guide" },
+      { label: "실제 고객후기", href: "/reviews" },
       { label: "QnA", href: "/qna" },
     ],
   },
