@@ -35,11 +35,6 @@ export default function StairCleaning() {
             after: "/images/services/stair-cleaning/icheon-villa-stair-after-02.webp",
             label: "이천 빌라 계단 사례 2",
           },
-          {
-            before: "/images/services/stair-cleaning/icheon-apartment-stair-before-03.webp",
-            after: "/images/services/stair-cleaning/icheon-apartment-stair-after-03.webp",
-            label: "이천 빌라 창틀 사례 3",
-          },
         ],
         pricingTiers: [
           { badge: "월 2회", price: "월 44,000원~", note: "빌라 2-3층 기준" },
