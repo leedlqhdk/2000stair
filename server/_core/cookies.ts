@@ -29,7 +29,7 @@ export function getSessionCookieOptions(req: RequestLike): SessionCookieOptions 
   return {
     httpOnly: true,
     path: "/",
-    sameSite: "none",
+    sameSite: "lax",
     secure: isSecureRequest(req),
   };
 }
