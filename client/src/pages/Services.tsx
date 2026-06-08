@@ -36,7 +36,7 @@ export default function Services() {
             SERVICES
           </p>
 
-          <h2 className="font-['GmarketSans'] text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+          <h2 className="mb-4 text-3xl font-extrabold leading-[1.14] text-foreground md:text-4xl">
             어떤 공간을 관리하나요?
           </h2>
 
