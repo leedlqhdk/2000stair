@@ -65,16 +65,16 @@ export const appRouter = router({
           { expiresInMs: ONE_YEAR_MS }
         );
         const cookieOptions = getSessionCookieOptions(ctx.req);
-        ctx.res.setHeader(
-          "Set-Cookie",
-          serializeCookie(COOKIE_NAME, sessionToken, {
-            httpOnly: cookieOptions.httpOnly,
-            path: cookieOptions.path,
-            sameSite: cookieOptions.sameSite as "lax" | "strict" | "none",
-            secure: cookieOptions.secure,
-            maxAge: Math.floor(ONE_YEAR_MS / 1000),
-          })
-        );
+        const cookieStr = serializeCookie(COOKIE_NAME, sessionToken, {
+          httpOnly: cookieOptions.httpOnly,
+          path: cookieOptions.path,
+          sameSite: cookieOptions.sameSite as "lax" | "strict" | "none",
+          secure: cookieOptions.secure,
+          maxAge: Math.floor(ONE_YEAR_MS / 1000),
+        });
+        ctx.res.setHeader("Set-Cookie", cookieStr);
+        console.log("[LOGIN-DEBUG] Set-Cookie header:", cookieStr.substring(0, 120));
+        console.log("[LOGIN-DEBUG] secure:", cookieOptions.secure, "x-forwarded-proto:", ctx.req.headers?.["x-forwarded-proto"]);
         return { success: true, user: createAdminUser() } as const;
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
