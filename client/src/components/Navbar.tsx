@@ -114,8 +114,8 @@ useEffect(() => {
     <header
   className={`sticky top-0 z-50 transition-all duration-300 ${
     scrolled
-      ? "border-b border-blue-100/70 bg-white/80 backdrop-blur-2xl shadow-[0_8px_30px_rgba(15,23,42,0.08)]"
-      : "border-b border-transparent bg-white/60 backdrop-blur-md"
+      ? "border-b border-slate-200 bg-white shadow-[0_4px_24px_rgba(15,23,42,0.06)]"
+      : "border-b border-slate-100 bg-white"
   }`}
 >
       <div
