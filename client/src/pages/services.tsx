@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ArrowRight, Building2, Droplets, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
