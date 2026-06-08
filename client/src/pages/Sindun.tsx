@@ -3,7 +3,7 @@ import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
-import Navbar from "@/components/Navbar";
+
 
 const fallbackPosts: never[] = [];
 
@@ -23,7 +23,7 @@ export default function SindunAreaPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
-      <Navbar />
+      
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
         <motion.div
           className="mb-8 md:mb-10"
