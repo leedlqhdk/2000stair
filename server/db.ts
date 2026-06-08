@@ -166,3 +166,18 @@ export async function getUserByOpenId(openId: string) {
 
   return result.length > 0 ? result[0] : undefined;
 }
+
+
+export async function updateLastSignedIn(userId: number, date: Date): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update lastSignedIn: database not available");
+    return;
+  }
+  try {
+    await db.update(users).set({ lastSignedIn: date, updatedAt: date }).where(eq(users.id, userId));
+  } catch (error) {
+    console.error("[Database] Failed to update lastSignedIn:", error);
+    // Non-critical: don't throw, just log
+  }
+}
