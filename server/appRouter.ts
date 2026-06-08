@@ -1,4 +1,5 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "../shared/const.js";
+import { serialize as serializeCookie } from "cookie";
 import { getSessionCookieOptions } from "./_core/cookies.js";
 import { systemRouter } from "./_core/systemRouter.js";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc.js";
@@ -31,21 +32,6 @@ const createAdminUser = () => {
   };
 };
 
-const setSessionCookie = (res: unknown, value: string, maxAge: number) => {
-  (res as { cookie: (name: string, value: string, options: Record<string, unknown>) => void }).cookie(
-    COOKIE_NAME,
-    value,
-    { maxAge }
-  );
-};
-
-const clearSessionCookie = (res: unknown) => {
-  (res as { clearCookie: (name: string, options: Record<string, unknown>) => void }).clearCookie(
-    COOKIE_NAME,
-    { maxAge: -1 }
-  );
-};
-
 export const appRouter = router({
   system: systemRouter,
   blog: blogRouter,
@@ -59,11 +45,9 @@ export const appRouter = router({
         if (!ENV.adminPassword) {
           throw new Error("관리자 비밀번호가 아직 설정되지 않았습니다.");
         }
-
         if (input.password !== ENV.adminPassword) {
           throw new Error("비밀번호가 올바르지 않습니다.");
         }
-
         await upsertUser({
           openId: ADMIN_OPEN_ID,
           name: "이천계단지기 관리자",
@@ -72,7 +56,6 @@ export const appRouter = router({
           role: "admin",
           lastSignedIn: new Date(),
         });
-
         const sessionToken = await sdk.signSession(
           {
             openId: ADMIN_OPEN_ID,
@@ -82,22 +65,27 @@ export const appRouter = router({
           { expiresInMs: ONE_YEAR_MS }
         );
         const cookieOptions = getSessionCookieOptions(ctx.req);
-        (ctx.res as { cookie: (name: string, value: string, options: Record<string, unknown>) => void }).cookie(
-          COOKIE_NAME,
-          sessionToken,
-          {
-            ...cookieOptions,
-            maxAge: ONE_YEAR_MS,
-          }
+        ctx.res.setHeader(
+          "Set-Cookie",
+          serializeCookie(COOKIE_NAME, sessionToken, {
+            httpOnly: cookieOptions.httpOnly,
+            path: cookieOptions.path,
+            sameSite: cookieOptions.sameSite as "lax" | "strict" | "none",
+            secure: cookieOptions.secure,
+            maxAge: Math.floor(ONE_YEAR_MS / 1000),
+          })
         );
-
         return { success: true, user: createAdminUser() } as const;
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
-      const cookieOptions = getSessionCookieOptions(ctx.req);
-      (ctx.res as { clearCookie: (name: string, options: Record<string, unknown>) => void }).clearCookie(
-        COOKIE_NAME,
-        { ...cookieOptions, maxAge: -1 }
+      ctx.res.setHeader(
+        "Set-Cookie",
+        serializeCookie(COOKIE_NAME, "", {
+          httpOnly: true,
+          path: "/",
+          maxAge: 0,
+          expires: new Date(0),
+        })
       );
       return { success: true } as const;
     }),
@@ -113,7 +101,6 @@ export const appRouter = router({
         popular: p.popular,
       }));
     }),
-
     submit: publicProcedure
       .input(
         z.object({
@@ -129,9 +116,7 @@ export const appRouter = router({
       .mutation(async ({ ctx, input }) => {
         const db = await getDb();
         if (!db) throw new Error("Database not available");
-
         const userId = ctx.user?.id || null;
-
         await db.insert(quoteRequests).values({
           userId,
           name: input.name,
@@ -142,12 +127,11 @@ export const appRouter = router({
           planId: input.planId,
           message: input.message || null,
         });
-
         const plan = PLANS.find((p) => p.id === input.planId);
         try {
           const notified = await notifyOwner({
             title: "새 견적 신청이 접수되었습니다",
-            content: `이름: ${input.name}\n연락처: ${input.phone}\n주소: ${input.address}\n서비스: ${input.serviceType === "in_person" ? "대면" : "비대면"}\n플랜: ${plan?.name || input.planId}`,
+            content: "이름: " + input.name + "\n연락처: " + input.phone + "\n주소: " + input.address + "\n서비스: " + (input.serviceType === "in_person" ? "대면" : "비대면") + "\n플랜: " + (plan?.name || input.planId),
           });
           if (!notified) {
             console.warn("견적 신청 알림을 전송하지 못했습니다.");
@@ -155,27 +139,22 @@ export const appRouter = router({
         } catch (error) {
           console.error("견적 신청 알림 전송 중 오류", error);
         }
-
         return { success: true };
       }),
-
     list: protectedProcedure.query(async ({ ctx }) => {
       if (ctx.user.role !== "admin") {
         throw new Error("Admin access required");
       }
       const db = await getDb();
       if (!db) return [];
-
       return await db.select().from(quoteRequests).orderBy(desc(quoteRequests.createdAt));
     }),
-
     get: protectedProcedure.input(z.object({ id: z.number() })).query(async ({ ctx, input }) => {
       if (ctx.user.role !== "admin") {
         throw new Error("Admin access required");
       }
       const db = await getDb();
       if (!db) return null;
-
       const result = await db.select().from(quoteRequests).where(eq(quoteRequests.id, input.id)).limit(1);
       return result[0] || null;
     }),
