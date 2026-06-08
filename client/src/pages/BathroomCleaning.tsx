@@ -9,7 +9,7 @@ export default function BathroomCleaning() {
         heroBgImage: "/images/services/restroom-cleaning/icheon-restroom-cleaning-main.webp",
         heroVideo: "/images/services/restroom-cleaning/bathroom-cleaning-video.mov",
         heroTitle: "쾌적한 화장실,\n건물 신뢰도를 높입니다",
-        heroSubtitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리 – 대표 직접 방문",
+        heroSubtitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
         seoTitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리 – 이천계단지기",
         features: [
           {
