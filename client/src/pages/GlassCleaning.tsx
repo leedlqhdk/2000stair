@@ -6,6 +6,7 @@ export default function GlassCleaning() {
       data={{
         serviceFolder: "glass-cleaning",
         heroBgImage: "/images/services/glass-cleaning/icheon-glass-cleaning-main.webp",
+        heroVideo: "/images/services/glass-cleaning/glass-cleaning-video.mov",
         heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
         heroSubtitle: "이천 유리청소 전문 · 상가 유리 · 공동현관 유리 · 건물 유리관리",
 
