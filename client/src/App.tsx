@@ -94,17 +94,53 @@ function AreaNavbar() {
   return <Navbar />;
 }
 
+function AdminRedirect() {
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    setLocation("/admin/blog");
+  }, [setLocation]);
+
+  return null;
+}
+
+function AdminNoIndex() {
+  const [location] = useLocation();
+  const isAdminRoute = location.startsWith("/admin");
+
+  useEffect(() => {
+    let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
+
+    if (!robots) {
+      robots = document.createElement("meta");
+      robots.setAttribute("name", "robots");
+      document.head.appendChild(robots);
+    }
+
+    if (isAdminRoute) {
+      document.title = "관리자 페이지 | 이천계단지기";
+      robots.setAttribute("content", "noindex, nofollow, noarchive");
+      return;
+    }
+
+    robots.setAttribute("content", "index, follow");
+  }, [isAdminRoute]);
+
+  return null;
+}
+
 function Router() {
   return (
     <>
       <ScrollToTop />
+      <AdminNoIndex />
       <RouteSeo />
       <AreaNavbar />
       <Switch>
         <Route path={"/"} component={Home} />
         <Route path="/about" component={About} />
         <Route path="/qna" component={Qna} />
-            <Route path="/reviews" component={Reviews} />
+        <Route path="/reviews" component={Reviews} />
         <Route path="/services/stair" component={StairCleaning} />
         <Route path="/services/bathroom" component={BathroomCleaning} />
         <Route path="/services/glass" component={GlassCleaning} />
@@ -126,11 +162,25 @@ function Router() {
         <Route path="/area/bubal" component={Bubal} />
         <Route path="/area/baeksa" component={Baeksa} />
         <Route path="/area/:slug" component={LocationLanding} />
+        <Route path="/admin" component={AdminRedirect} />
         <Route path="/admin/blog" component={AdminBlog} />
         <Route path="/admin/blog/new" component={AdminBlogEdit} />
         <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
         <Route component={NotFound} />
       </Switch>
+    </>
+  );
+}
+
+function AppChrome() {
+  const [location] = useLocation();
+  const isAdminRoute = location.startsWith("/admin");
+
+  return (
+    <>
+      <Router />
+      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <KakaoChat />}
     </>
   );
 }
@@ -141,9 +191,7 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
-          <Router />
-          <Footer />
-          <KakaoChat />
+          <AppChrome />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
