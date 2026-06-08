@@ -32,8 +32,10 @@ import StairCleaning from "./pages/StairCleaning";
 import BathroomCleaning from "./pages/BathroomCleaning";
 import GlassCleaning from "./pages/GlassCleaning";
 import OfficeCleaning from "./pages/OfficeCleaning";
+import Services from "./pages/Services";
 import OpsStatus from "@/pages/OpsStatus";
 import Guide from "@/pages/Guide";
+
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -141,6 +143,7 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/qna" component={Qna} />
         <Route path="/reviews" component={Reviews} />
+        <Route path="/services" component={Services} />
         <Route path="/services/stair" component={StairCleaning} />
         <Route path="/services/bathroom" component={BathroomCleaning} />
         <Route path="/services/glass" component={GlassCleaning} />
