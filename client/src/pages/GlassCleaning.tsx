@@ -8,7 +8,8 @@ export default function GlassCleaning() {
         heroBgImage: "/images/services/glass-cleaning/icheon-glass-cleaning-main.webp",
         heroVideo: "/images/services/glass-cleaning/glass-cleaning-video.mov",
         heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
-        heroSubtitle: "이천 유리청소 전문 · 상가 유리 · 공동현관 유리 · 건물 유리관리",
+        heroSubtitle: "이천 유리청소 전문업체 | 상가 유리·공동현관 유리·건물 유리관리",
+        seoTitle: "이천 유리청소 전문업체 | 상가·건물 유리관리 – 2000stair",
 
         features: [
           {
@@ -29,6 +30,21 @@ export default function GlassCleaning() {
           },
         ],
 
+        photoGrid: [
+          { src: "/images/services/glass-cleaning/glass-page01.webp", alt: "이천 상가 유리청소 작업 사례 1" },
+          { src: "/images/services/glass-cleaning/glass-page02.webp", alt: "이천 공동현관 유리 관리 사례" },
+          { src: "/images/services/glass-cleaning/glass-page03.webp", alt: "이천 건물 유리청소 작업 사례 3" },
+        ],
+
+        scopeItems: [
+          "상가 출입문 유리 청소",
+          "공동현관 유리 청소",
+          "매장 유리창 세정 및 코팅",
+          "빌라·원룸 현관 유리 관리",
+          "얼룩·물때·손자국 제거",
+          "유리 주변 프레임·실리콘 오염 제거",
+        ],
+
         infoSections: [
           {
             title: "유리청소는 건물 첫인상 관리입니다",
@@ -45,12 +61,6 @@ export default function GlassCleaning() {
             body: "사다리, 고소작업, 외부 고층 유리는 안전 문제로 현장 확인 후 작업 가능 여부와 비용을 안내드립니다. 무리한 작업보다 안전한 범위 안에서 깨끗하게 관리하는 것을 우선합니다.",
             image: "/images/services/glass-cleaning/icheon-glass-cleaning-work-03.webp",
           },
-        ],
-
-        scopeItems: [
-          "상가 출입문 유리 청소",
-          "공동현관 유리 청소",
-          "매장 유리창 세정 및 코팅",
         ],
 
         pricingTiers: [
@@ -71,6 +81,31 @@ export default function GlassCleaning() {
             note: "고층 · 외창 · 특수작업",
           },
         ],
+
+        faq: [
+          {
+            q: "외부 유리도 가능한가요?",
+            a: "1~2층 외부 유리는 대부분 작업 가능합니다. 고층 외창은 현장 확인 후 작업 가능 여부를 안내드립니다.",
+          },
+          {
+            q: "고층 유리는 어떻게 진행하나요?",
+            a: "고층 외창 유리는 안전 문제로 사다리 또는 고소작업 장비가 필요한 경우 현장 확인 후 별도 견적을 드립니다.",
+          },
+          {
+            q: "정기관리도 가능한가요?",
+            a: "네, 계단청소 정기관리와 함께 묶어서 진행하거나 유리청소만 단독으로 정기계약도 가능합니다.",
+          },
+          {
+            q: "유리 물때 제거도 가능한가요?",
+            a: "네, 유리 물때와 얼룩은 전용 세정 도구와 약품으로 제거합니다. 오염 정도에 따라 작업 시간이 달라질 수 있습니다.",
+          },
+          {
+            q: "상가 출입문 유리도 포함되나요?",
+            a: "네, 상가 출입문 유리는 기본 작업 범위에 포함됩니다. 전면 유리창 전체 세정도 가능합니다.",
+          },
+        ],
+
+        showReviews: true,
       }}
     />
   );
