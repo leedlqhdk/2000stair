@@ -19,7 +19,7 @@ const serviceCards = [
     title: "화장실청소",
     subtitle: "상가·사무실 공용화장실",
     image: "/images/main-service-restroom.webp",
-    href: "/services/restroom",
+    href: "/services/bathroom",
   },
 ];
 
