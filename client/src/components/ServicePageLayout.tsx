@@ -1,5 +1,20 @@
 import { motion } from "framer-motion";
-import { Check, Phone, MessageCircle, ArrowDown, ChevronDown } from "lucide-react";
+import {
+  ArrowDown,
+  Brush,
+  Bug,
+  CalendarClock,
+  Camera,
+  ChevronDown,
+  DoorOpen,
+  Hand,
+  Leaf,
+  MessageCircle,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  Users,
+} from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import BlogReviews from "@/components/BlogReviews";
@@ -58,6 +73,9 @@ export interface ServicePageData {
   showReviews?: boolean;
   photoGrid?: PhotoGridItem[];
 }
+
+const featureIcons = [Users, ShieldCheck, Camera, CalendarClock];
+const scopeIcons = [Brush, Hand, Sparkles, DoorOpen, Bug, Leaf];
 
 function BeforeAfterSlider({ before, after }: GalleryPair) {
   const [pos, setPos] = useState(50);
@@ -179,7 +197,6 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
       <Navbar />
 
       <main className="relative min-h-screen overflow-x-hidden bg-[#07152f]">
-        {/* 고정 배경 영상 */}
         {data.heroVideo && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
             <video
@@ -197,7 +214,6 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         )}
 
-        {/* 영상이 없을 때 기본 배경 */}
         {!data.heroVideo && data.heroBgImage && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
             <img
@@ -209,12 +225,11 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         )}
 
-        {/* 상단 히어로 섹션 (모바일 높이 계산 버그 해결) */}
         <section
           className={`relative z-10 flex items-center justify-center px-4 text-white ${
             isFullscreenVideo
               ? "min-h-[100dvh] py-20 md:py-28"
-              : "min-h-[540px] md:min-h-[620px] py-16 md:py-24"
+              : "min-h-[540px] py-16 md:min-h-[620px] md:py-24"
           }`}
         >
           <div className="container mx-auto max-w-5xl text-center">
@@ -240,7 +255,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.2 }}
-              className="mx-auto mt-5 max-w-2xl text-sm font-semibold leading-relaxed text-white/78 sm:text-lg md:text-xl md:mt-6"
+              className="mx-auto mt-5 max-w-2xl text-sm font-semibold leading-relaxed text-white/78 sm:text-lg md:mt-6 md:text-xl"
             >
               {data.heroSubtitle}
             </motion.p>
@@ -249,7 +264,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.32 }}
-              className="mt-6 flex flex-wrap justify-center gap-1.5 md:gap-2 md:mt-8"
+              className="mt-6 flex flex-wrap justify-center gap-1.5 md:mt-8 md:gap-2"
             >
               {[
                 "부부 직접 관리",
@@ -306,35 +321,38 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {/* 특징 섹션 */}
         <section className="relative z-10 py-12 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/82 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
-              >
-                왜 '이천계단지기'인가요?
-              </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-7 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-10"
+            >
+              왜 '이천계단지기'인가요?
+            </motion.h2>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                {data.features.map((feat, i) => (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {data.features.map((feat, i) => {
+                const Icon = featureIcons[i % featureIcons.length];
+
+                return (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08 }}
-                    className="rounded-2xl border border-blue-100 bg-white/80 p-5 md:p-6"
+                    className="group rounded-[1.6rem] border border-white/18 bg-white/[0.14] p-5 shadow-[0_20px_60px_rgba(15,23,42,0.14)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.2] md:p-6"
                   >
-                    <p className="mb-1.5 font-extrabold text-primary">
-                      {feat.title}
-                    </p>
-                    <p className="text-sm leading-relaxed text-slate-600">
+                    <div className="mb-4 flex items-center gap-3">
+                      <Icon className="h-6 w-6 shrink-0 text-white/90" />
+                      <p className="font-extrabold text-white">{feat.title}</p>
+                    </div>
+                    <p className="text-sm leading-relaxed text-white/70">
                       {feat.description}
                     </p>
                   </motion.div>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -342,31 +360,35 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {/* 관리 범위 섹션 */}
         <section className="relative z-10 py-12 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
-              >
-                관리 범위
-              </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-7 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-10"
+            >
+              관리 범위
+            </motion.h2>
 
-              <div className="grid gap-2.5 sm:grid-cols-2">
-                {data.scopeItems.map((item, i) => (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {data.scopeItems.map((item, i) => {
+                const Icon = scopeIcons[i % scopeIcons.length];
+
+                return (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.06 }}
-                    className="flex items-center gap-3 rounded-xl border border-blue-50 bg-white/90 px-4 py-3"
+                    className="flex items-center gap-4 rounded-2xl border border-white/14 bg-white/[0.1] px-4 py-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.16] md:px-5"
                   >
-                    <Check className="h-4 w-4 flex-shrink-0 text-primary" />
-                    <span className="text-sm font-bold text-[#111827]">{item}</span>
+                    <Icon className="h-5 w-5 shrink-0 text-white/85" />
+                    <span className="text-sm font-extrabold text-white/88 md:text-base">
+                      {item}
+                    </span>
                   </motion.div>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         </section>
