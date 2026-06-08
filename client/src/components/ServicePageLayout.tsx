@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
+// 기존의 import 문들 아래에 이 줄을 한 줄 추가해 주세요.
+import { Link } from "react-router-dom";
 
 export interface ServiceFeature {
   title: string;
@@ -318,6 +320,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         </section>
 </div>
+        
         {/* 작업 비포 & 애프터 갤러리 섹션 */}
         {data.gallery && data.gallery.length > 0 ? (
           <section className="relative z-10 py-16 md:py-24">
@@ -349,11 +352,39 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     </div>
                   ))}
                 </div>
+
+                {/* [수정 완료]: 지도가 있는 서비스 지역 페이지로 연결되는 버튼 */}
+                <div className="mt-10 text-center">
+                  <a 
+                    href="/area" 
+                    className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-bold px-6 py-3 rounded-full border border-slate-200/80 shadow-sm transition-all duration-200 hover:shadow hover:-translate-y-0.5 text-sm sm:text-base"
+                  >
+                    <span>우리 동네 서비스 가능 지역 확인하기</span>
+                    <span className="text-primary font-extrabold">→</span>
+                  </a>
+                </div>
+
               </div>
             </div>
           </section>
         ) : null}
 
+                {/* [추가 완료]: 비포애프터 슬라이더 리스트 하단에 삽입된 후기 링크 버튼 */}
+                <div className="mt-10 text-center">
+                  <a 
+                    href="/reviews" 
+                    className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-bold px-6 py-3 rounded-full border border-slate-200/80 shadow-sm transition-all duration-200 hover:shadow hover:-translate-y-0.5 text-sm sm:text-base"
+                  >
+                    <span>실제 고객 작업 후기 보러가기</span>
+                    <span className="text-primary font-extrabold">→</span>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        ) : null}
+        
         {/* 요금 안내 섹션 */}
         <section className="relative z-10 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
