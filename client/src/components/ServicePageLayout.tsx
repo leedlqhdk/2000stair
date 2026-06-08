@@ -123,7 +123,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
       <main className="relative min-h-screen overflow-hidden bg-[#07152f]">
         {/* 고정 배경 영상 */}
         {data.heroVideo && (
-          <div className="fixed inset-0 z-0 bg-[#07152f]">
+          <div className="absolute inset-0 z-0 bg-[#07152f]">
             <video
               src={data.heroVideo}
               autoPlay
@@ -151,6 +151,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         )}
 
+        <div className="relative overflow-hidden">
         {/* 상단 히어로 섹션 */}
         <section
           className={`relative z-10 flex items-center justify-center px-4 text-white ${
@@ -236,7 +237,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {/* 서비스 범위 섹션 */}
         <section className="relative z-10 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/75 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
+            <div className="rounded-[2.5rem] border border-white/20 bg-white/15 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.18)] backdrop-blur-2xl md:p-10">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -246,7 +247,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 서비스 범위
               </motion.h2>
 
-             <div className="rounded-[2rem] border border-white/45 bg-white/35 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-2xl md:p-6">
+             <div className="rounded-[2rem] border border-white/45 bg-white/20 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-2xl md:p-6">
   <div className="grid grid-cols-1 divide-y divide-white/35 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
     <div className="space-y-0">
       {data.scopeItems.slice(0, 3).map((item, i) => (
@@ -292,7 +293,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             </div>
           </div>
         </section>
-
+</div>
         {/* 작업 비포 & 애프터 갤러리 섹션 */}
         {data.gallery && data.gallery.length > 0 ? (
           <section className="relative z-10 py-16 md:py-24">
