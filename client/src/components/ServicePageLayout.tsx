@@ -114,13 +114,15 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         <section className="relative flex h-[60vh] min-h-[400px] items-center justify-center overflow-hidden bg-gray-900 text-white">
           {data.heroVideo ? (
             <video
-              src={data.heroVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-40"
-            />
+  src={data.heroVideo}
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+  poster={data.heroBgImage}
+  className="absolute inset-0 h-full w-full object-cover opacity-40"
+/>
           ) : data.heroBgImage ? (
             <img
               src={data.heroBgImage}
