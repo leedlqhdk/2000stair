@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SeoIntroSection from "@/components/SeoIntroSection";
 
 const values = [
@@ -121,7 +120,6 @@ export default function About() {
         <SeoIntroSection />
       </main>
 
-      <Footer />
     </div>
   );
 }
