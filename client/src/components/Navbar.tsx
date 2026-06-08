@@ -139,10 +139,7 @@ export default function Navbar() {
             </div>
           ))}
 
-          <Button size="sm" className="rounded-full font-bold" onClick={openKakao}>
-            <MessageCircle className="w-4 h-4 mr-1.5" />
-            카톡 상담
-          </Button>
+          
         </nav>
 
         <button
@@ -196,10 +193,7 @@ export default function Navbar() {
                 </div>
               ))}
 
-              <Button size="lg" className="mt-3 w-full rounded-2xl font-bold" onClick={() => { openKakao(); closeMobileMenu(); }}>
-                <MessageCircle className="w-4 h-4 mr-2" />
-                카톡 상담
-              </Button>
+              
             </div>
           </nav>
         </div>
