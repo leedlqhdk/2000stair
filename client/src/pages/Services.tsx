@@ -35,7 +35,7 @@ export default function Services() {
             </p>
             <h2 className="mb-4 text-3xl font-extrabold leading-[1.14] text-foreground md:text-4xl">
               이천계단지기 서비스
-            </h1>
+            </h2>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-muted-foreground md:text-base">
               이천 빌라·상가·원룸 공용공간을 부부가 직접 확인하고 관리합니다.
             </p>
