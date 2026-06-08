@@ -1,78 +1,86 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
+import Navbar from "@/components/Navbar";
 
 const serviceCards = [
   {
-    title: "계단 정기관리",
+    title: "계단정기청소",
     subtitle: "빌라·원룸·상가 공용계단",
-    image: "/images/services/stair-cleaning.webp",
+    image: "/images/main-service-stair.webp",
     href: "/services/stair",
   },
   {
-    title: "공동현관 유리관리",
-    subtitle: "출입문·창틀·손자국 관리",
-    image: "/images/services/glass-cleaning.webp",
+    title: "유리청소",
+    subtitle: "상가·사무실·매장 유리관리",
+    image: "/images/main-service-glass.webp",
     href: "/services/glass",
   },
   {
-    title: "공용공간 관리",
-    subtitle: "복도·엘리베이터·입구 주변",
-    image: "/images/services/common-area.webp",
-    href: "/services/common",
+    title: "화장실청소",
+    subtitle: "상가·사무실 공용화장실",
+    image: "/images/main-service-restroom.webp",
+    href: "/services/restroom",
   },
 ];
 
 export default function Services() {
   return (
-    <main className="bg-[#0f172a] px-5 py-16 md:px-10 md:py-24">
-      <section className="mx-auto max-w-6xl">
-        <div className="mb-10 text-center">
-          <p className="text-sm font-extrabold tracking-[0.3em] text-blue-300">
-            SERVICES
-          </p>
-          <h1 className="mt-3 text-3xl font-extrabold text-white md:text-5xl">
-            이천계단지기 서비스
-          </h1>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/35 to-white">
+      <Navbar />
 
-        <div className="grid gap-5 md:grid-cols-3">
-          {serviceCards.map((card) => (
-            <Link key={card.title} href={card.href}>
-              <a className="group relative block h-[420px] overflow-hidden border border-white/30 bg-slate-900 shadow-xl md:h-[520px]">
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
+      <main className="px-5 py-16 md:px-10 md:py-24">
+        <section className="mx-auto max-w-6xl">
+          <div className="mb-10 text-center md:mb-14">
+            <p className="text-sm font-extrabold tracking-[0.32em] text-primary">
+              SERVICES
+            </p>
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-foreground md:text-5xl">
+              이천계단지기 서비스
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-muted-foreground md:text-base">
+              이천 빌라·상가·원룸 공용공간을 부부가 직접 확인하고 관리합니다.
+            </p>
+          </div>
 
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/35 to-black/85" />
+          <div className="grid gap-5 md:grid-cols-3">
+            {serviceCards.map((card) => (
+              <Link key={card.title} href={card.href}>
+                <a className="group relative block h-[430px] overflow-hidden rounded-[1.8rem] border border-blue-100 bg-white shadow-[0_18px_45px_rgba(15,76,169,0.10)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(15,76,169,0.16)] md:h-[520px]">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
 
-                {card.badge && (
-                  <span className="absolute right-6 top-24 bg-white/85 px-4 py-2 text-sm font-bold text-slate-800">
-                    {card.badge}
-                  </span>
-                )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/28 to-white/5" />
+                  <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/20 to-transparent" />
 
-                <div className="absolute bottom-8 left-7 right-7">
-                  <p className="mb-2 text-sm font-bold text-white/70">
-                    {card.subtitle}
-                  </p>
-                  <h2 className="text-3xl font-extrabold leading-tight text-white md:text-4xl">
-                    {card.title}
-                  </h2>
+                  <div className="absolute bottom-0 left-0 right-0 p-7 md:p-8">
+                    <p className="mb-2 text-sm font-bold text-white/75">
+                      {card.subtitle}
+                    </p>
 
-                  <div className="mt-8 flex justify-end">
-                    <span className="flex h-10 w-10 items-center justify-center border border-white/50 text-white transition group-hover:bg-white group-hover:text-slate-900">
-                      <ArrowRight className="h-5 w-5" />
-                    </span>
+                    <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white md:text-[2.15rem]">
+                      {card.title}
+                    </h2>
+
+                    <div className="mt-8 flex items-center justify-between">
+                      <span className="text-xs font-bold tracking-[0.22em] text-white/55">
+                        VIEW SERVICE
+                      </span>
+
+                      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:text-primary">
+                        <ArrowRight className="h-5 w-5" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </main>
+                </a>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
