@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { Check, Phone, MessageCircle, ArrowDown } from "lucide-react";
-import { useState, useRef } from "react";
+import { Check, Phone, MessageCircle, ArrowDown, ChevronDown } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
+import BlogReviews from "@/components/BlogReviews";
 
 export interface ServiceFeature {
   title: string;
@@ -23,6 +24,22 @@ export interface GalleryPair {
   caption?: string;
 }
 
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+export interface InfoSection {
+  title: string;
+  body: string;
+  image?: string;
+}
+
+export interface PhotoGridItem {
+  src: string;
+  alt: string;
+}
+
 export interface ServicePageData {
   heroTitle: string;
   heroSubtitle: string;
@@ -34,6 +51,12 @@ export interface ServicePageData {
   pricingTiers: ServicePricingTier[];
   gallery?: GalleryPair[];
   serviceFolder: string;
+  seoTitle?: string;
+  infoContent?: { title: string; body: string };
+  infoSections?: InfoSection[];
+  faq?: FaqItem[];
+  showReviews?: boolean;
+  photoGrid?: PhotoGridItem[];
 }
 
 function BeforeAfterSlider({ before, after }: GalleryPair) {
@@ -113,8 +136,43 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
   );
 }
 
+function FaqAccordion({ items }: { items: FaqItem[] }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="space-y-3">
+      {items.map((item, i) => (
+        <div
+          key={i}
+          className="overflow-hidden rounded-2xl border border-blue-100 bg-white/80"
+        >
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-bold text-[#0f172a] md:px-6 md:py-5"
+          >
+            <span className="text-sm md:text-base">{item.q}</span>
+            <ChevronDown
+              className={`h-4 w-4 flex-shrink-0 text-primary transition-transform duration-200 ${open === i ? "rotate-180" : ""}`}
+            />
+          </button>
+          {open === i && (
+            <div className="border-t border-blue-50 px-5 pb-5 pt-3 md:px-6">
+              <p className="text-sm leading-relaxed text-slate-600">{item.a}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
-  const isFullscreenVideo = data.heroStyle === "fullscreenVideo" && !!data.heroVideo;
+  const isFullscreenVideo = data.heroStyle === "fullscreenVideo";
+
+  useEffect(() => {
+    if (data.seoTitle) {
+      document.title = data.seoTitle;
+    }
+  }, [data.seoTitle]);
 
   return (
     <>
@@ -147,7 +205,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               alt={data.heroTitle}
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-[#061226]/75" />
+                     <div className="absolute inset-0 bg-[#061226]/75" />
           </div>
         )}
 
@@ -213,42 +271,79 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 href="https://pf.kakao.com/_IiNfn/chat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-extrabold text-[#123268] shadow-xl transition hover:-translate-y-0.5 hover:bg-white/90 md:py-4"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fee500] px-8 py-3.5 text-sm font-extrabold text-[#3a1d00] shadow-lg transition-all hover:scale-105 hover:brightness-110"
               >
                 <MessageCircle className="h-4 w-4" />
-                카카오톡 상담하기
+                카카오톡 문의
               </a>
-
               <a
                 href="tel:01084381887"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/10 px-7 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/20 md:py-4"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-8 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
               >
                 <Phone className="h-4 w-4" />
-                전화 문의
+                010-8438-1887
               </a>
             </motion.div>
 
-            <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/55 md:flex">
-              <span className="text-[10px] font-bold tracking-[0.3em]">SCROLL</span>
-              <ArrowDown className="h-4 w-4 animate-bounce" />
-            </div>
+            {isFullscreenVideo && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 1.2 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2"
+              >
+                <ArrowDown className="h-6 w-6 animate-bounce text-white/50" />
+              </motion.div>
+            )}
           </div>
         </section>
 
-        {/* 서비스 범위 섹션 */}
+        {/* 특징 섹션 */}
         <section className="relative z-10 py-12 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="rounded-[2rem] border border-white/25 bg-white/75 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
+            <div className="rounded-[2rem] border border-white/25 bg-white/82 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.2)] backdrop-blur-xl md:p-10">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
               >
-                서비스 범위
+                왜 2000stair인가요?
               </motion.h2>
 
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2">
+                {data.features.map((feat, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    className="rounded-2xl border border-blue-100 bg-white/80 p-5 md:p-6"
+                  >
+                    <p className="mb-1.5 font-extrabold text-primary">{feat.title}</p>
+                    <p className="text-sm leading-relaxed text-slate-600">{feat.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 관리 범위 섹션 */}
+        <section className="relative z-10 py-12 md:py-24">
+          <div className="container mx-auto max-w-5xl px-4">
+            <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
+              >
+                관리 범위
+              </motion.h2>
+
+              <div className="grid gap-2.5 sm:grid-cols-2">
                 {data.scopeItems.map((item, i) => (
                   <motion.div
                     key={i}
@@ -256,7 +351,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.06 }}
-                    className="flex items-center gap-3 rounded-2xl border border-white/50 bg-white/70 px-4 py-3.5 shadow-sm backdrop-blur-md"
+                    className="flex items-center gap-3 rounded-xl border border-blue-50 bg-white/90 px-4 py-3"
                   >
                     <Check className="h-4 w-4 flex-shrink-0 text-primary" />
                     <span className="text-sm font-bold text-[#111827]">{item}</span>
@@ -357,6 +452,139 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             </div>
           </div>
         </section>
+
+        {/* 사진 그리드 섹션 (선택) */}
+        {data.photoGrid && data.photoGrid.length > 0 && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-5xl px-4">
+              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
+                >
+                  작업 현장
+                </motion.h2>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {data.photoGrid.map((photo, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="overflow-hidden rounded-2xl"
+                    >
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="aspect-[4/3] w-full object-cover"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 정보성 콘텐츠 섹션 (단일 - 선택) */}
+        {data.infoContent && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-4xl px-4">
+              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-12">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mb-4 text-xl font-extrabold text-[#0f172a] sm:text-2xl md:mb-6"
+                >
+                  {data.infoContent.title}
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="whitespace-pre-line text-sm leading-[1.9] text-slate-600 md:text-base"
+                >
+                  {data.infoContent.body}
+                </motion.p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 정보성 콘텐츠 섹션 (다중 - 선택) */}
+        {data.infoSections && data.infoSections.length > 0 && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-4xl px-4 space-y-6 md:space-y-8">
+              {data.infoSections.map((sec, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="rounded-[2rem] border border-white/25 bg-white/78 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10"
+                >
+                  {sec.image && (
+                    <img
+                      src={sec.image}
+                      alt={sec.title}
+                      className="mb-5 h-48 w-full rounded-2xl object-cover md:h-64"
+                    />
+                  )}
+                  <h2 className="mb-3 text-lg font-extrabold text-[#0f172a] md:text-xl">
+                    {sec.title}
+                  </h2>
+                  <p className="text-sm leading-[1.9] text-slate-600 md:text-base">
+                    {sec.body}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* FAQ 섹션 (선택) */}
+        {data.faq && data.faq.length > 0 && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-4xl px-4">
+              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
+                >
+                  자주 묻는 질문
+                </motion.h2>
+                <FaqAccordion items={data.faq} />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 고객 후기 섹션 (선택) */}
+        {data.showReviews && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-5xl px-4">
+              <div className="rounded-[2rem] border border-white/25 bg-white/78 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:p-10">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mb-6 text-center text-xl font-extrabold text-[#0f172a] sm:text-3xl md:mb-8"
+                >
+                  실제 고객 후기
+                </motion.h2>
+                <BlogReviews />
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA 섹션 (하단 불필요한 마진 슬림화) */}
         <section className="relative z-10 px-4 pb-12 md:pb-24">
