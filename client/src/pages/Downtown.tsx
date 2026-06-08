@@ -4,7 +4,7 @@ import { ArrowLeft, MapPin, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
-import Navbar from "@/components/Navbar";
+
 
 const fallbackPosts: AreaPost[] = [
   { title: "송정동 빌라 계단청소", date: "2026.05.20", image: "/images/areas/downtown/downtown-1.jpg", area: "downtown" },
@@ -32,7 +32,7 @@ export default function DowntownAreaPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
-      <Navbar />
+      
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
         <motion.div
           className="mb-10 md:mb-12"
