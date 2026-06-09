@@ -282,7 +282,29 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               ))}
             </motion.div>
 
-            
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.44 }}
+              className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10"
+            >
+              <a
+                href="https://pf.kakao.com/_IiNfn/chat"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fee500] px-8 py-3.5 text-sm font-extrabold text-[#3a1d00] shadow-lg transition-all hover:scale-105 hover:brightness-110"
+              >
+                <MessageCircle className="h-4 w-4" />
+                카카오톡 문의
+              </a>
+              <a
+                href="tel:01084381887"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-8 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
+              >
+                <Phone className="h-4 w-4" />
+                010-8438-1887
+              </a>
+            </motion.div>
 
             {isFullscreenVideo && (
               <motion.div
@@ -575,7 +597,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.showReviews && (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-6xl px-4">
-              <BlogReviews />
+              <BlogReviews variant="dark" />
             </div>
           </section>
         )}
