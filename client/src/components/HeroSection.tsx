@@ -72,13 +72,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               >
                 카톡으로 사진 보내기
                 <ArrowRight className="h-4 w-4" />
-              </a>
-              <a
-                href="/#pricing"
-                className="inline-flex items-center justify-center rounded-full border border-blue-200 bg-white px-5 py-3 text-sm font-extrabold text-primary transition hover:bg-blue-50 sm:w-auto"
-              >
-                청소 비용 보기
-              </a>
+            
             </div>
             <div className="mt-4 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
               {["하청 없이 부부가 직접", "무료 방문 견적", "작업 전후 사진 보고"].map(badge => (
