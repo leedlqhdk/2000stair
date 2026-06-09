@@ -1,25 +1,10 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "routes": [
-    {
-      "src": "/area",
-      "headers": { "Location": "/areas" },
-      "status": 301
-    },
-    {
-      "src": "/api/trpc/(.*)",
-      "dest": "/api/trpc"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/.*",
-      "dest": "/index.html"
-    }
+  "redirects": [
+    { "source": "/area", "destination": "/areas", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/api/trpc/:path*", "destination": "/api/trpc" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
