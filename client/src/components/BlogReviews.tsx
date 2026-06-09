@@ -30,7 +30,23 @@ const reviewCards = [
   },
 ];
 
-export default function BlogReviews() {
+type BlogReviewsProps = {
+  variant?: "light" | "dark";
+};
+
+export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
+  const isDark = variant === "dark";
+
+  const titleClass = isDark ? "text-white" : "text-foreground";
+  const descriptionClass = isDark ? "text-white/68" : "text-muted-foreground";
+  const cardClass = isDark
+    ? "border-white/18 bg-white/[0.13] shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-xl hover:bg-white/[0.18] hover:shadow-[0_26px_70px_rgba(15,23,42,0.24)]"
+    : "border-blue-100 bg-white shadow-[0_18px_45px_rgba(15,76,169,0.08)] hover:shadow-[0_24px_60px_rgba(15,76,169,0.13)]";
+  const platformClass = isDark ? "text-white/55" : "text-muted-foreground";
+  const scoreClass = isDark ? "text-white/90" : "text-foreground/70";
+  const quoteClass = isDark ? "text-white" : "text-foreground";
+  const detailClass = isDark ? "text-white/55" : "text-muted-foreground";
+
   return (
     <div id="blog-reviews" className="space-y-14 md:space-y-20">
       <motion.div
@@ -44,10 +60,10 @@ export default function BlogReviews() {
           <p className="mb-3 text-xs font-extrabold tracking-[0.28em] text-primary">
             REAL REVIEWS
           </p>
-          <h3 className="text-2xl font-extrabold leading-tight text-white md:text-3xl">
+          <h3 className={`text-2xl font-extrabold leading-tight md:text-3xl ${titleClass}`}>
             고객님들의 실제 후기
           </h3>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/68 md:text-base">
+          <p className={`mx-auto mt-3 max-w-xl text-sm leading-relaxed md:text-base ${descriptionClass}`}>
             실제 고객님들이 남겨주신 후기를 한곳에 모았습니다.
           </p>
         </div>
@@ -62,7 +78,7 @@ export default function BlogReviews() {
               className="group block h-full"
               aria-label={review.platform}
             >
-              <Card className="h-full rounded-[1.5rem] border border-white/18 bg-white/[0.13] shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.18] hover:shadow-[0_26px_70px_rgba(15,23,42,0.24)]">
+              <Card className={`h-full rounded-[1.5rem] border transition-all duration-300 hover:-translate-y-1 ${cardClass}`}>
                 <CardContent className="flex h-full flex-col p-5 md:p-6">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <span
@@ -70,23 +86,23 @@ export default function BlogReviews() {
                     >
                       {review.mark}
                     </span>
-                    <span className="text-xs font-bold text-white/55">
+                    <span className={`text-xs font-bold ${platformClass}`}>
                       {review.platform}
                     </span>
                   </div>
 
-                  <div className="mb-3 flex items-center gap-1.5 text-yellow-300">
-                    <span className="mr-1 text-xs font-bold text-white/90">5.0</span>
+                  <div className="mb-3 flex items-center gap-1.5 text-yellow-400">
+                    <span className={`mr-1 text-xs font-bold ${scoreClass}`}>5.0</span>
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="h-3.5 w-3.5 fill-current" />
                     ))}
                   </div>
 
-                  <p className="flex-1 text-sm font-bold leading-relaxed text-white md:text-base">
+                  <p className={`flex-1 text-sm font-bold leading-relaxed md:text-base ${quoteClass}`}>
                     {review.quote}
                   </p>
 
-                  <p className="mt-5 text-xs font-medium text-white/55">
+                  <p className={`mt-5 text-xs font-medium ${detailClass}`}>
                     {review.detail}
                   </p>
                 </CardContent>
@@ -107,10 +123,10 @@ export default function BlogReviews() {
           <p className="mb-3 text-sm font-bold tracking-[0.35em] text-primary">
             FIELD ARCHIVE
           </p>
-          <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
+          <h2 className={`mb-4 text-3xl font-bold md:text-4xl ${titleClass}`}>
             실제 작업 기록
           </h2>
-          <p className="text-base leading-relaxed text-white/70 md:text-lg">
+          <p className={`text-base leading-relaxed md:text-lg ${descriptionClass}`}>
             이천계단지기의 현장 기록은 네이버 블로그에 꾸준히 남기고 있습니다.
           </p>
         </div>
