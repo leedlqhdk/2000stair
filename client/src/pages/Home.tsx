@@ -4,7 +4,8 @@ import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import HusbandProfileStats from "@/components/HusbandProfileStats";
 import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
-import QnA from "@/components/FaqSection";
+import FaqSection from "@/components/FaqSection";
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
