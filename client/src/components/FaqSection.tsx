@@ -11,6 +11,7 @@ import {
 type Faq = {
   question: string;
   answer: string;
+  image?: { src: string; alt: string };
   links?: { label: string; href: string }[];
 };
 
@@ -27,7 +28,7 @@ const faqs: Faq[] = [
       "카카오톡 채팅으로 건물 주소 또는 사진을 보내주시면 확인 후 비용을 안내해드립니다. 정확한 견적은 무료방문견적을 권장드립니다.",
   },
   {
-    question: "계단 정기관리는 보통 몇 회 진행하나요?",
+    question: "정기관리는 보통 몇 회 진행하나요?",
     answer:
       "2~3층 원룸은 월 2회, 4층 이상 빌라는 주 1회(월4회) 관리를 가장 많이 선택합니다.",
   },
@@ -49,6 +50,11 @@ const faqs: Faq[] = [
     links: [{ label: "화장실청소 자세히 보기", href: "/services/bathroom" }],
   },
   {
+    question: "엘리베이터 있는 건물은 추가금 있나요?",
+    answer:
+      "아닙니다. 엘리베이터 청소도 기본 서비스에 포함됩니다.",
+  },
+  {
     question: "세금계산서 발행 가능한가요?",
     answer:
       "네. 사업자용 세금계산서 및 현금영수증 발행이 가능합니다.",
@@ -57,6 +63,10 @@ const faqs: Faq[] = [
     question: "세제는 안전한 제품을 사용하나요?",
     answer:
       "네. 이천계단지기는 친환경 해외수입 세제를 사용해 공용공간을 관리합니다. 입주민이 오가는 계단과 복도인 만큼 냄새와 자극은 줄이고, 오염 제거력은 살리는 방식으로 작업합니다.",
+    image: {
+      src: "/images/kiehl-detergents.webp",
+      alt: "이천계단지기가 사용하는 독일 Kiehl 친환경 세제",
+    },
   },
 ];
 
@@ -120,6 +130,14 @@ export default function FaqSection() {
                 </AccordionTrigger>
                 <AccordionContent className="max-w-3xl pb-5 pr-3 text-sm leading-6 text-muted-foreground md:text-[15px] md:leading-7">
                   {faq.answer}
+                  {faq.image && (
+                    <img
+                      src={faq.image.src}
+                      alt={faq.image.alt}
+                      loading="lazy"
+                      className="mt-4 w-full max-w-md rounded-2xl border border-blue-100 object-cover shadow-sm"
+                    />
+                  )}
                   {faq.links && faq.links.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {faq.links.map((link) => (
