@@ -37,16 +37,15 @@ const navGroups: NavGroup[] = [
       { label: "신둔면 작업", href: "/area/sindun" },
       { label: "마장면 작업", href: "/area/majang" },
       { label: "대월면 작업", href: "/area/daewol" },
-      { label: "부발읍(준비중)", href: "/area" },
-      { label: "백사면(준비중)", href: "/area" },
+      { label: "부발읍(준비중)", href: "/area/Bubal" },
+      { label: "백사면(준비중)", href: "/area/Baeksa" },
     ],
   },
   {
-    label: "정보센터",
+    label: "작업후기",
     items: [
+       { label: "청소관련 정보글", href: "/guide" },
       { label: "공식 블로그", href: "https://blog.naver.com/icheonstair" },
-      { label: "청소 관련정보", href: "/guide" },
-      { label: "QnA", href: "/qna" },
     ],
   },
   
