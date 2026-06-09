@@ -24,6 +24,8 @@ export default function Home() {
 
         {/* 실제 작업 결과 */}
         <BeforeAfterGallery />
+
+        <FaqSection />
       </main>
     </div>
   );
