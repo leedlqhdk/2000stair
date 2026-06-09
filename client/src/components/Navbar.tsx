@@ -11,16 +11,15 @@ type DropdownItem = {
 
 type NavGroup = {
   label: string;
+  href?: string;
   items: DropdownItem[];
 };
 
 const navGroups: NavGroup[] = [
   {
     label: "회사소개",
-    items: [
-      { label: "이천계단지기 소개", href: "/about" },
-      
-    ],
+    href: "/about",
+    items: [],
   },
   {
     label: "청소서비스",
@@ -137,7 +136,12 @@ useEffect(() => {
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/" className={linkClass}>홈</Link>
 
-          {navGroups.map((group) => (
+          {navGroups.map((group) =>
+            group.href ? (
+              <Link key={group.label} href={group.href} className={linkClass}>
+                {group.label}
+              </Link>
+            ) : (
             <div key={group.label} className="group relative py-5">
               <button type="button" className={dropdownButtonClass} aria-haspopup="true">
                 {group.label}
@@ -161,9 +165,10 @@ useEffect(() => {
                 )}
               </div>
             </div>
-          ))}
+            )
+          )}
 
-          
+
         </nav>
 
         <button
@@ -184,7 +189,12 @@ useEffect(() => {
                 홈
               </Link>
 
-              {navGroups.map((group, idx) => (
+              {navGroups.map((group, idx) =>
+                group.href ? (
+                  <Link key={group.label} href={group.href} className="block rounded-2xl px-4 py-3 text-base font-extrabold text-foreground hover:bg-white transition-colors" onClick={closeMobileMenu}>
+                    {group.label}
+                  </Link>
+                ) : (
                 <div key={group.label} className="rounded-2xl px-4 py-3">
                   <button
                     type="button"
@@ -215,9 +225,10 @@ useEffect(() => {
                     </div>
                   )}
                 </div>
-              ))}
+                )
+              )}
 
-              
+
             </div>
           </nav>
         </div>
