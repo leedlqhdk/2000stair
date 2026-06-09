@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { Link } from "wouter";
+import { ArrowRight } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -6,11 +8,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const faqs = [
+type Faq = {
+  question: string;
+  answer: string;
+  link?: { label: string; href: string };
+};
+
+const faqs: Faq[] = [
   {
     question: "계단청소 비용은 얼마인가요?",
     answer:
       "건물 층수와 관리 주기에 따라 달라집니다. 사진 또는 주소를 보내주시면 빠르게 안내해드립니다.",
+    link: { label: "계단청소 자세히 보기", href: "/services/stair" },
   },
   {
     question: "견적은 어떻게 받나요?",
@@ -104,6 +113,15 @@ export default function FaqSection() {
                 </AccordionTrigger>
                 <AccordionContent className="max-w-3xl pb-5 pr-3 text-sm leading-6 text-muted-foreground md:text-[15px] md:leading-7">
                   {faq.answer}
+                  {faq.link && (
+                    <Link
+                      href={faq.link.href}
+                      className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-4 py-2 text-sm font-extrabold text-primary transition hover:bg-primary hover:text-white"
+                    >
+                      {faq.link.label}
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}
