@@ -2,6 +2,11 @@
   "installCommand": "pnpm install --no-frozen-lockfile",
   "routes": [
     {
+      "src": "/area",
+      "headers": { "Location": "/areas" },
+      "status": 301
+    },
+    {
       "src": "/api/trpc/(.*)",
       "dest": "/api/trpc"
     },
