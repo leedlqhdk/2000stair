@@ -21,6 +21,12 @@ const navGroups: NavGroup[] = [
     href: "/about",
     items: [],
   },
+   {
+    label: "관리지역",
+     href: "/areas",
+    items: [],
+      
+  },
   {
     label: "청소서비스",
     items: [
@@ -28,17 +34,6 @@ const navGroups: NavGroup[] = [
       { label: "유리청소", href: "/services/glass" },
       { label: "화장실청소", href: "/services/bathroom" },
       { label: "사무실청소(준비중)", href: "/services/office" },
-    ],
-  },
-  {
-    label: "관리지역",
-    items: [
-      { label: "시내권 작업", href: "/area/downtown" },
-      { label: "신둔면 작업", href: "/area/sindun" },
-      { label: "마장면 작업", href: "/area/majang" },
-      { label: "대월면 작업", href: "/area/daewol" },
-      { label: "부발읍(준비중)", href: "/area/Bubal" },
-      { label: "백사면(준비중)", href: "/area/Baeksa" },
     ],
   },
   {
