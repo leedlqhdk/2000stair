@@ -14,8 +14,7 @@ import { optimizeImage, formatBytes } from "@/lib/imageOptimizer";
 type ImageItem = { url: string; alt: string };
 
 const isStorableImageUrl = (url: string | null | undefined) => {
-  if (!url) return false;
-  return !url.startsWith("data:");
+  return !!url;
 };
 
 export default function AdminBlogEdit() {
