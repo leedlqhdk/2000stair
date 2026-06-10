@@ -111,7 +111,7 @@ export const seoByAreaSlug = {
   }),
 } satisfies Record<string, SeoProps>;
 
-const generalSeoByPath = {
+export const generalSeoByPath = {
   "/about": {
     title: "부부가 직접 관리하는 이천 계단청소 업체 | 이천계단지기",
     description:
