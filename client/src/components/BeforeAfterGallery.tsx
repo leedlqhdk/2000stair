@@ -11,9 +11,9 @@ const galleryItems = [
   },
   {
     id: 2,
-    title: "원룸 계단 정기청소",
-    before: "/images/before-after/stair-before.webp",
-    after: "/images/before-after/stair-after.webp",
+    title: "공동현관 유리청소",
+    before: "/images/before-after/glass-clean-before01.webp",
+    after: "/images/before-after/glass-clean-after01.webp",
   },
   {
     id: 3,
