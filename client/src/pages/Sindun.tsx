@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
@@ -9,36 +8,49 @@ const fallbackPosts: never[] = [];
 
 const serviceCards = [
   {
-    title: "ì´ì² íì§ ê´ë¦¬",
-    text: "ì´ì²ì ì ëë©´ ë¹ë¼Â·ìë£¸Â·ìê°ì ê³ë¨ê³¼ ê³µì©ê³µê°ì ì ê¸°ì ì¼ë¡ ê´ë¦¬í©ëë¤.",
+    title: "이천 현지 관리",
+    text: "이천시 신둔면 빌라·원룸·상가의 계단과 공용공간을 정기적으로 관리합니다.",
   },
   {
-    title: "íì¥ ê¸°ë¡ ì ê³µ",
-    text: "ë°©ë¬¸ë§ë¤ ìì ì í ì¬ì§ì ì§ì  ì´¬ìí´ ê¸°ë¡í©ëë¤. ë©ë¦¬ ìì´ë íì¥ ìíë¥¼ íì¸íì¤ ì ììµëë¤.",
+    title: "현장 기록 제공",
+    text: "방문마다 작업 전후 사진을 직접 촬영해 기록합니다. 멀리 있어도 현장 상태를 확인하실 수 있습니다.",
   },
   {
-    title: "ë¶ë¶ ì§ì ê´ë¦¬",
-    text: "ì¸ì£¼ ìì´ ë¶ë¶ê° ì§ì  ììí©ëë¤. ë´ë¹ìê° ë°ëì§ ìì ê¾¸ì¤í íì§ì ì ì§í©ëë¤.",
+    title: "부부 직접관리",
+    text: "외주 없이 부부가 직접 작업합니다. 담당자가 바뀌지 않아 꾸준한 품질을 유지합니다.",
   },
 ];
 
 const reviews = [
 {
-text: "ê´ë¦¬ ì í ì¬ì§ì ë³´ë´ì£¼ìì ë¯¿ê³  ë§¡ê¸¸ ì ìììµëë¤.",
-source: "ì ëë©´ ë¹ë¼ ëëíë íê¸°",
+text: "관리 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.",
+source: "신둔면 빌라 동대표님 후기",
 },
 {
-text: "ê³µì©ê³µê°ì´ ê¾¸ì¤í ê¹ëíê² ì ì§ë¼ì ë§ì¡±í©ëë¤.",
-source: "ì ëë©´ ìë£¸ ìì£¼ë¯¼ íê¸°",
+text: "공용공간이 꾸준히 깔끔하게 유지돼서 만족합니다.",
+source: "신둔면 원룸 입주민 후기",
+},
+];
+
+const localities = ["신둔면", "수광리", "도암리", "남정리"];
+
+const faqs = [
+{
+question: "신둔면 어디까지 방문 가능한가요?",
+answer: "수광리, 도암리, 남정리 등 신둔면 전 지역 상담 가능합니다. 사진과 주소를 보내주시면 방문 가능 여부를 먼저 확인합니다.",
+},
+{
+question: "정기관리는 어떻게 진행되나요?",
+answer: "사진 또는 주소를 보내주시면 건물 층수와 오염 상태를 확인한 뒤 월 2회 또는 4회 정기관리 일정을 안내해드립니다.",
+},
+{
+question: "유리청소·화장실청소도 함께 가능한가요?",
+answer: "네. 계단청소와 함께 공동현관 유리청소, 화장실청소도 정기관리 또는 개별로 문의하실 수 있습니다.",
 },
 ];
 
 export default function SindunAreaPage() {
 const { posts } = useAreaPosts("sindun", fallbackPosts);
-
-useEffect(() => {
-  document.title = "ì ëë©´ ê³ë¨ì²­ì ì ë¬¸ | ì´ì²ê³ë¨ì§ê¸°";
-}, []);
 
 return (
 <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
@@ -53,7 +65,7 @@ transition={{ duration: 0.65 }}
 <Link href="/areas">
 <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
 <ArrowLeft className="h-4 w-4" />
-ê´ë¦¬ì§ì­ì¼ë¡ ëìê°ê¸°
+관리지역으로 돌아가기
 </a>
 </Link>
 
@@ -64,14 +76,14 @@ AREA ARCHIVE
 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
 <div>
 <h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
-ì ëë©´ì ê³µì©ê³µê°ì ê¾¸ì¤í ê´ë¦¬í©ëë¤
+신둔면의 공용공간을 꾸준히 관리합니다
 </h1>
 <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-ë¶ë¶ê° ì§ì , ì ëë©´ ë¹ë¼Â·ìë£¸Â·ìê° ê³µì©ê³µê°ì ê´ë¦¬í©ëë¤.
+부부가 직접, 신둔면 빌라·원룸·상가 공용공간을 관리합니다.
 </p>
 </div>
 <div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
-ìµê·¼ ìì ê¸°ë¡
+최근 작업 기록
 </div>
 </div>
 </div>
@@ -87,18 +99,18 @@ AREA ARCHIVE
 </section>
 
 <AreaTimeline
-areaName="ì ëë©´"
+areaName="신둔면"
 areaSlug="sindun"
 posts={posts}
-title="ì ëë©´ ìì ì¼ì§"
-description="ë¸ì ììì¼ì§ ê¸°ì¤ì¼ë¡ ìë°ì´í¸ë©ëë¤."
-emptyMessage="ì ëë©´ ìì ê¸°ë¡ì ë¸ì ììì¼ì§ ë±ë¡ í íìë©ëë¤."
+title="신둔면 작업 일지"
+description="노션 작업일지 기준으로 업데이트됩니다."
+emptyMessage="신둔면 작업 기록은 노션 작업일지 등록 후 표시됩니다."
 />
 
 <section className="mb-12 md:mb-16">
 <div className="mb-5">
-<h2 className="text-xl font-extrabold text-foreground md:text-2xl">ê³ ê° íê¸°</h2>
-<p className="mt-1 text-sm text-muted-foreground">ì ëë©´ ê´ë¦¬ íì¥ìì ë°ì í¼ëë°±ìëë¤.</p>
+<h2 className="text-xl font-extrabold text-foreground md:text-2xl">고객 후기</h2>
+<p className="mt-1 text-sm text-muted-foreground">신둔면 관리 현장에서 받은 피드백입니다.</p>
 </div>
 <div className="grid gap-4 md:grid-cols-2">
 {reviews.map((review) => (
@@ -115,17 +127,38 @@ emptyMessage="ì ëë©´ ìì ê¸°ë¡ì ë¸ì ì
 </div>
 </section>
 
+<section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
+<h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">관리 가능 지역</h2>
+<div className="flex flex-wrap gap-2">
+{localities.map((name) => (
+<span key={name} className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-primary">{name}</span>
+))}
+</div>
+</section>
+
+<section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
+<h2 className="mb-5 text-xl font-extrabold text-foreground md:text-2xl">자주 묻는 질문</h2>
+<div className="grid gap-4 md:grid-cols-2">
+{faqs.map((faq) => (
+<div key={faq.question} className="rounded-2xl bg-blue-50/70 p-5">
+<h3 className="mb-2 text-sm font-extrabold text-foreground">{faq.question}</h3>
+<p className="text-sm leading-7 text-muted-foreground">{faq.answer}</p>
+</div>
+))}
+</div>
+</section>
+
 <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
-<h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">ì ëë©´ ì²­ì ê´ë¦¬ê° íìíì ê°ì?</h2>
-<p className="mb-8 text-muted-foreground">ì ê¸°ê´ë¦¬Â·ì¼íì± ì²­ì ëª¨ë ë¬¸ì ê°ë¥í©ëë¤.</p>
+<h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">신둔면 청소 관리가 필요하신가요?</h2>
+<p className="mb-8 text-muted-foreground">정기관리·일회성 청소 모두 문의 가능합니다.</p>
 <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
 <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
 <MessageCircle className="mr-2 h-4 w-4" />
-ì¹´ì¹´ì¤í¡ ë¬¸ìíê¸°
+카카오톡 문의하기
 </a>
 <a href="tel:01084381887" className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50">
 <Phone className="mr-2 h-4 w-4" />
-ì í ë¬¸ìíê¸°
+전화 문의하기
 </a>
 </div>
 </section>

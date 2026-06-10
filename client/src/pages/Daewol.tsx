@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
@@ -21,12 +20,25 @@ const serviceCards = [
   },
 ];
 
+const localities = ["대월면", "사동리", "초지리", "군량리"];
+
+const faqs = [
+  {
+    question: "대월면 어디까지 방문 가능한가요?",
+    answer: "사동리, 초지리, 군량리 등 대월면 전 지역 상담 가능합니다. 사진과 주소를 보내주시면 방문 가능 여부를 먼저 확인합니다.",
+  },
+  {
+    question: "정기관리는 어떻게 진행되나요?",
+    answer: "사진 또는 주소를 보내주시면 건물 층수와 오염 상태를 확인한 뒤 월 2회 또는 4회 정기관리 일정을 안내해드립니다.",
+  },
+  {
+    question: "유리청소·화장실청소도 함께 가능한가요?",
+    answer: "네. 계단청소와 함께 공동현관 유리청소, 화장실청소도 정기관리 또는 개별로 문의하실 수 있습니다.",
+  },
+];
+
 export default function DaewolAreaPage() {
   const { posts } = useAreaPosts("daewol", daewolPosts);
-
-  useEffect(() => {
-    document.title = "대월면 계단청소 전문 | 이천계단지기";
-  }, []);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
@@ -104,6 +116,27 @@ export default function DaewolAreaPage() {
                 </div>
                 <p className="text-base leading-relaxed text-foreground">"{review}"</p>
                 <p className="mt-4 text-sm text-muted-foreground">대월면 건물주 후기</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
+          <h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">관리 가능 지역</h2>
+          <div className="flex flex-wrap gap-2">
+            {localities.map((name) => (
+              <span key={name} className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-primary">{name}</span>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
+          <h2 className="mb-5 text-xl font-extrabold text-foreground md:text-2xl">자주 묻는 질문</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {faqs.map((faq) => (
+              <div key={faq.question} className="rounded-2xl bg-blue-50/70 p-5">
+                <h3 className="mb-2 text-sm font-extrabold text-foreground">{faq.question}</h3>
+                <p className="text-sm leading-7 text-muted-foreground">{faq.answer}</p>
               </div>
             ))}
           </div>
