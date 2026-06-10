@@ -8,115 +8,134 @@ import { useAreaPosts } from "@/hooks/useAreaPosts";
 
 const serviceCards = [
   {
-    title: "ì´ì² íì§ ê´ë¦¬",
-    text: "ì´ì²ì ëìë©´ ë¹ë¼Â·ìë£¸Â·ìê°ì ê³ë¨ê³¼ ê³µì©ê³µê°ì ì ê¸°ì ì¼ë¡ ê´ë¦¬í©ëë¤.",
+    title: "이천 현지 관리",
+    text: "이천시 대월면 빌라·원룸·상가의 계단과 공용공간을 정기적으로 관리합니다.",
   },
   {
-    title: "íì¥ ê¸°ë¡ ì ê³µ",
-    text: "ë°©ë¬¸ë§ë¤ ìì ì í ì¬ì§ì ì§ì  ì´¬ìí´ ê¸°ë¡í©ëë¤. ë©ë¦¬ ìì´ë íì¥ ìíë¥¼ íì¸íì¤ ì ììµëë¤.",
+    title: "현장 기록 제공",
+    text: "방문마다 작업 전후 사진을 직접 촬영해 기록합니다. 멀리 있어도 현장 상태를 확인하실 수 있습니다.",
   },
   {
-    title: "ë¶ë¶ ì§ì ê´ë¦¬",
-    text: "ì¸ì£¼ ìì´ ë¶ë¶ê° ì§ì  ììí©ëë¤. ë´ë¹ìê° ë°ëì§ ìì ê¾¸ì¤í íì§ì ì ì§í©ëë¤.",
+    title: "부부 직접관리",
+    text: "외주 없이 부부가 직접 작업합니다. 담당자가 바뀌지 않아 꾸준한 품질을 유지합니다.",
   },
 ];
 
 export default function DaewolAreaPage() {
-const { posts } = useAreaPosts("daewol", daewolPosts);
+  const { posts } = useAreaPosts("daewol", daewolPosts);
 
-useEffect(() => {
-  document.title = "ëìë©´ ê³ë¨ì²­ì ì ë¬¸ | ì´ì²ê³ë¨ì§ê¸°";
-}, []);
+  useEffect(() => {
+    document.title = "대월면 계단청소 전문 | 이천계단지기";
+  }, []);
 
-return (
-<main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+      <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
+        <motion.div
+          className="mb-8 md:mb-10"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65 }}
+        >
+          <Link href="/areas">
+            <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
+              <ArrowLeft className="h-4 w-4" />
+              관리지역으로 돌아가기
+            </a>
+          </Link>
 
-<section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-<motion.div
-className="mb-8 md:mb-10"
-initial={{ opacity: 0, y: 28 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 0.65 }}
->
-<Link href="/areas">
-<a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
-<ArrowLeft className="h-4 w-4" />
-ê´ë¦¬ì§ì­ì¼ë¡ ëìê°ê¸°
-</a>
-</Link>
+          <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
+            <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+              AREA ARCHIVE
+            </p>
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
+                  대월면의 공용공간을 꾸준히 관리합니다
+                </h1>
+                <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
+                  부부가 직접, 대월면 빌라·원룸·상가 공용공간을 관리합니다.
+                </p>
+              </div>
+              <div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
+                최근 작업 {posts.length}건
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
-<div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
-<p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
-AREA ARCHIVE
-</p>
-<div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-<div>
-<h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
-ëìë©´ì ê³µì©ê³µê°ì ê¾¸ì¤í ê´ë¦¬í©ëë¤
-</h1>
-<p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-ë¶ë¶ê° ì§ì , ëìë©´ ë¹ë¼Â·ìë£¸Â·ìê° ê³µì©ê³µê°ì ê´ë¦¬í©ëë¤.
-</p>
-</div>
-<div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
-ìµê·¼ ìì {posts.length}ê±´
-</div>
-</div>
-</div>
-</motion.div>
+        <section className="mb-12 grid gap-4 md:grid-cols-3 md:mb-16">
+          {serviceCards.map((card) => (
+            <div
+              key={card.title}
+              className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
+            >
+              <p className="mb-3 text-sm font-extrabold text-primary">{card.title}</p>
+              <p className="text-sm leading-7 text-muted-foreground">{card.text}</p>
+            </div>
+          ))}
+        </section>
 
-<section className="mb-12 grid gap-4 md:grid-cols-3 md:mb-16">
-  {serviceCards.map((card) => (
-    <div key={card.title} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
-      <p className="mb-3 text-sm font-extrabold text-primary">{card.title}</p>
-      <p className="text-sm leading-7 text-muted-foreground">{card.text}</p>
-    </div>
-  ))}
-</section>
+        <AreaTimeline
+          areaName="대월면"
+          areaSlug="daewol"
+          posts={posts}
+          title="대월면 작업일지"
+          description="대월면에서 진행한 작업들을 날짜순으로 확인해보세요."
+        />
 
-<AreaTimeline
-areaName="ëìë©´"
-areaSlug="daewol"
-posts={posts}
-title="ëìë©´ ìì ì¼ì§"
-description="ëìë©´ìì ì§íí ììë¤ì ë ì§ìì¼ë¡ íì¸í´ë³´ì¸ì."
-/>
+        <section className="mb-12 md:mb-16">
+          <div className="mb-5">
+            <h2 className="text-xl font-extrabold text-foreground md:text-2xl">고객 후기</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              대월면 관리 현장에서 받은 실제 피드백입니다.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {daewolReviews.map((review) => (
+              <div
+                key={review}
+                className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
+              >
+                <div className="mb-3 flex items-center gap-1 text-yellow-400">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star key={index} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-base leading-relaxed text-foreground">"{review}"</p>
+                <p className="mt-4 text-sm text-muted-foreground">대월면 건물주 후기</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-<section className="mb-12 md:mb-16">
-<div className="mb-5">
-<h2 className="text-xl font-extrabold text-foreground md:text-2xl">ê³ ê° íê¸°</h2>
-<p className="mt-1 text-sm text-muted-foreground">ëìë©´ ê´ë¦¬ íì¥ìì ë°ì ì¤ì  í¼ëë°±ìëë¤.</p>
-</div>
-<div className="grid gap-4 md:grid-cols-2">
-{daewolReviews.map((review) => (
-<div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
-<div className="mb-3 flex items-center gap-1 text-yellow-400">
-{Array.from({ length: 5 }).map((_, index) => (
-<Star key={index} className="h-4 w-4 fill-current" />
-))}
-</div>
-<p className="text-base leading-relaxed text-foreground">"{review}"</p>
-<p className="mt-4 text-sm text-muted-foreground">ëìë©´ ê±´ë¬¼ì£¼ íê¸°</p>
-</div>
-))}
-</div>
-</section>
-
-<section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
-<h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">ëìë©´ ì²­ì ê´ë¦¬ê° íìíì ê°ì?</h2>
-<p className="mb-8 text-muted-foreground">ì ê¸°ê´ë¦¬Â·ì¼íì± ì²­ì ëª¨ë ë¬¸ì ê°ë¥í©ëë¤.</p>
-<div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
-<a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
-<MessageCircle className="mr-2 h-4 w-4" />
-ì¹´ì¹´ì¤í¡ ë¬¸ìíê¸°
-</a>
-<a href="tel:01084381887" className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50">
-<Phone className="mr-2 h-4 w-4" />
-ì í ë¬¸ìíê¸°
-</a>
-</div>
-</section>
-</section>
-</main>
-);
+        <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
+          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
+            대월면 청소 관리가 필요하신가요?
+          </h2>
+          <p className="mb-8 text-muted-foreground">
+            정기관리·일회성 청소 모두 문의 가능합니다.
+          </p>
+          <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
+            <a
+              href="https://pf.kakao.com/_IiNfn/chat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
+            >
+              <MessageCircle className="mr-2 h-4 w-4" />
+              카카오톡 문의하기
+            </a>
+            <a
+              href="/qna"
+              className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50"
+            >
+              <Phone className="mr-2 h-4 w-4" />
+              문의 방법 보기
+            </a>
+          </div>
+        </section>
+      </section>
+    </main>
+  );
 }
