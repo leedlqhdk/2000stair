@@ -6,12 +6,14 @@ const DEFAULT_DESCRIPTION =
 const DEFAULT_KEYWORDS =
   "이천계단청소, 이천계단청소업체, 이천계단청소비용, 계단청소, 이천빌라청소, 상가청소, 이천청소, 계단청소업체, 계단청소비용, 이천청소업체, 정기청소, 계단청소구독, 빌라계단청소, 상가계단청소, 유리청소, 화장실청소, 이천유리청소";
 const DEFAULT_URL = "https://2000stair.kr/";
+const DEFAULT_IMAGE = "https://2000stair.kr/og-image.png";
 
 export type SeoProps = {
   title: string;
   description: string;
   canonical: string;
   keywords?: string;
+  image?: string;
   jsonLd?: Record<string, unknown>;
 };
 
@@ -55,22 +57,24 @@ function setJsonLd(jsonLd?: Record<string, unknown>) {
   document.head.appendChild(script);
 }
 
-function applySeo({ title, description, canonical, keywords, jsonLd }: SeoProps) {
+function applySeo({ title, description, canonical, keywords, image, jsonLd }: SeoProps) {
   document.title = title;
   setMeta('meta[name="description"]', { name: "description" }, description);
   setMeta('meta[name="keywords"]', { name: "keywords" }, keywords ?? DEFAULT_KEYWORDS);
   setMeta('meta[property="og:title"]', { property: "og:title" }, title);
   setMeta('meta[property="og:description"]', { property: "og:description" }, description);
   setMeta('meta[property="og:url"]', { property: "og:url" }, canonical);
+  setMeta('meta[property="og:image"]', { property: "og:image" }, image ?? DEFAULT_IMAGE);
   setMeta('meta[name="twitter:title"]', { name: "twitter:title" }, title);
   setMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description);
+  setMeta('meta[name="twitter:image"]', { name: "twitter:image" }, image ?? DEFAULT_IMAGE);
   setCanonical(canonical);
   setJsonLd(jsonLd);
 }
 
-export default function Seo({ title, description, canonical, keywords, jsonLd }: SeoProps) {
+export default function Seo({ title, description, canonical, keywords, image, jsonLd }: SeoProps) {
   useEffect(() => {
-    applySeo({ title, description, canonical, keywords, jsonLd });
+    applySeo({ title, description, canonical, keywords, image, jsonLd });
 
     return () => {
       applySeo({
@@ -81,7 +85,7 @@ export default function Seo({ title, description, canonical, keywords, jsonLd }:
       });
       document.getElementById("route-seo-jsonld")?.remove();
     };
-  }, [title, description, canonical, keywords, jsonLd]);
+  }, [title, description, canonical, keywords, image, jsonLd]);
 
   return null;
 }
