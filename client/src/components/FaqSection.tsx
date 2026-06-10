@@ -118,7 +118,11 @@ export default function FaqSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.08 }}
         >
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion
+            type="multiple"
+            defaultValue={faqs.map((faq) => faq.question)}
+            className="w-full"
+          >
             {faqs.map((faq) => (
               <AccordionItem
                 key={faq.question}
