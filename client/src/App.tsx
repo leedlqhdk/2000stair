@@ -33,7 +33,6 @@ import StairCleaning from "./pages/StairCleaning";
 import BathroomCleaning from "./pages/BathroomCleaning";
 import GlassCleaning from "./pages/GlassCleaning";
 import OfficeCleaning from "./pages/OfficeCleaning";
-import Services from "./pages/Services";
 import OpsStatus from "@/pages/OpsStatus";
 import Guide from "@/pages/Guide";
 
