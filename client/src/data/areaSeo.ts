@@ -29,6 +29,27 @@ function areaJsonLd({ slug, areaName, title, description, localities = [areaName
   };
 }
 
+type ServiceConfig = {
+  slug: string;
+  name: string;
+  description: string;
+  serviceType: string | string[];
+};
+
+function serviceJsonLd({ slug, name, description, serviceType }: ServiceConfig) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${SITE_URL}/services/${slug}#service`,
+    name,
+    description,
+    url: `${SITE_URL}/services/${slug}`,
+    provider: { "@id": `${SITE_URL}/#business` },
+    serviceType,
+    areaServed: { "@type": "City", name: "이천시" },
+  };
+}
+
 function areaSeo(config: AreaConfig): SeoProps {
   return {
     title: config.title,
@@ -118,6 +139,13 @@ const generalSeoByPath = {
       "빌라·원룸·상가 계단 바닥, 난간·손잡이, 공동현관 유리, 거미줄 제거까지 월 2회·4회 정기관리합니다. 월 44,000원부터 현장 확인 후 견적을 안내드립니다.",
     canonical: `${SITE_URL}/services/stair`,
     keywords: `이천 계단청소, 계단정기청소, 빌라계단청소, 상가계단청소, 계단청소 비용, ${BASE_KEYWORDS}`,
+    jsonLd: serviceJsonLd({
+      slug: "stair",
+      name: "계단청소 정기관리",
+      description:
+        "빌라·원룸·상가 계단 바닥, 난간·손잡이, 공동현관 유리, 거미줄 제거까지 월 2회·4회 정기관리합니다.",
+      serviceType: ["계단청소", "계단정기청소", "빌라계단청소", "상가계단청소"],
+    }),
   },
   "/services/glass": {
     title: "이천 유리청소 전문업체 | 상가·건물 유리관리 – 이천계단지기",
@@ -125,6 +153,13 @@ const generalSeoByPath = {
       "상가 출입문·전면 유리, 공동현관 유리, 얼룩·석회자국까지 이천계단지기가 직접 관리합니다. 계단청소와 함께 정기관리하면 더욱 효율적입니다.",
     canonical: `${SITE_URL}/services/glass`,
     keywords: `이천 유리청소, 상가 유리청소, 공동현관 유리청소, 건물 유리관리, ${BASE_KEYWORDS}`,
+    jsonLd: serviceJsonLd({
+      slug: "glass",
+      name: "유리청소",
+      description:
+        "상가 출입문·전면 유리, 공동현관 유리, 얼룩·석회자국 제거를 정기 또는 일회성으로 관리합니다.",
+      serviceType: ["유리청소", "상가 유리청소", "공동현관 유리청소"],
+    }),
   },
   "/services/bathroom": {
     title: "이천 화장실청소 전문업체 | 공용화장실 정기관리 – 이천계단지기",
@@ -132,6 +167,13 @@ const generalSeoByPath = {
       "상가·사무실 공용화장실을 전문 약품과 장비로 위생 관리합니다. 정기 방문으로 세균과 악취 걱정 없이 항상 청결한 상태를 유지합니다.",
     canonical: `${SITE_URL}/services/bathroom`,
     keywords: `이천 화장실청소, 공용화장실 청소, 상가 화장실청소, 사무실 화장실청소, ${BASE_KEYWORDS}`,
+    jsonLd: serviceJsonLd({
+      slug: "bathroom",
+      name: "화장실청소 정기관리",
+      description:
+        "상가·사무실 공용화장실을 전문 약품과 장비로 월 2회·4회 정기 방문해 위생 관리합니다.",
+      serviceType: ["화장실청소", "공용화장실 청소", "상가 화장실청소"],
+    }),
   },
   "/services/office": {
     title: "이천 사무실·상가 정기청소 | 이천계단지기",
@@ -139,6 +181,13 @@ const generalSeoByPath = {
       "이천 소규모 사무실과 상가의 바닥, 책상 주변, 화장실, 유리창까지 정기적으로 청소합니다. 업무 시간 전후로 방문 일정을 조정해드립니다.",
     canonical: `${SITE_URL}/services/office`,
     keywords: `이천 사무실청소, 상가청소, 사무실 정기청소, ${BASE_KEYWORDS}`,
+    jsonLd: serviceJsonLd({
+      slug: "office",
+      name: "사무실·상가 정기청소",
+      description:
+        "이천 소규모 사무실과 상가의 바닥, 책상 주변, 화장실, 유리창까지 정기적으로 청소합니다.",
+      serviceType: ["사무실청소", "상가청소", "사무실 정기청소"],
+    }),
   },
   "/reviews": {
     title: "이천계단지기 고객 후기 | 실제 청소 후기 모음",

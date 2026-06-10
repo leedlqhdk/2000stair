@@ -4,6 +4,8 @@ import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import HusbandProfileStats from "@/components/HusbandProfileStats";
 import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
+import PricingOverview from "@/components/PricingOverview";
+import BlogReviews from "@/components/BlogReviews";
 import FaqSection from "@/components/FaqSection";
 
 export default function Home() {
@@ -17,6 +19,9 @@ export default function Home() {
         {/* 제공 서비스 */}
         <Services />
 
+        {/* 정기관리 요금 안내 */}
+        <PricingOverview />
+
         {/* 왜 이천계단지기인가 */}
         <HowItWorks />
 
@@ -25,6 +30,11 @@ export default function Home() {
 
         {/* 실제 작업 결과 */}
         <BeforeAfterGallery />
+
+        {/* 실제 후기 요약 */}
+        <div className="container max-w-6xl py-16 md:py-24">
+          <BlogReviews />
+        </div>
 
         <FaqSection />
       </main>
