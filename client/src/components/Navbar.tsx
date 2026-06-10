@@ -22,7 +22,7 @@ const navGroups: NavGroup[] = [
     items: [],
   },
    {
-    label: "작업후기",
+    label: "관리현장",
      href: "/areas",
     items: [],
       
@@ -37,7 +37,7 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: "관리정보",
+    label: "작업정보",
     items: [
        { label: "청소 정보글", href: "/guide" },
       { label: "공식 블로그", href: "https://blog.naver.com/icheonstair" },
