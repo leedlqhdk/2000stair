@@ -19,9 +19,6 @@ export default function Home() {
         {/* 제공 서비스 */}
         <Services />
 
-        {/* 정기관리 요금 안내 */}
-        <PricingOverview />
-
         {/* 왜 이천계단지기인가 */}
         <HowItWorks />
 
@@ -30,6 +27,9 @@ export default function Home() {
 
         {/* 실제 작업 결과 */}
         <BeforeAfterGallery />
+
+        {/* 정기관리 요금 안내 */}
+        <PricingOverview />
 
         {/* 실제 후기 요약 */}
         <div className="container max-w-6xl py-16 md:py-24">

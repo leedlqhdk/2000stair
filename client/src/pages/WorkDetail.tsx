@@ -1,23 +1,17 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { Link, useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, CalendarDays, Images, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import Seo from "@/components/Seo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { daewolPosts } from "@/data/areas/daewol";
+import { downtownPosts } from "@/data/areas/downtown";
 import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
+import { getWorkSeo, workAreaLabels as areaLabels } from "@/lib/workSeo";
 import { getWorkSlug } from "@/lib/workSlug";
-
-const SITE_URL = "https://2000stair.kr";
-
-const areaLabels: Record<string, string> = {
-  majang: "마장면",
-  daewol: "대월면",
-  sindun: "신둔면",
-  downtown: "시내권",
-};
 
 const areaRoutes: Record<string, string> = {
   majang: "/area/majang",
@@ -27,15 +21,6 @@ const areaRoutes: Record<string, string> = {
   bubal: "/area/bubal",
   baeksa: "/area/baeksa",
 };
-
-const downtownPosts: AreaPost[] = [
-  { title: "송정동 빌라 계단청소", date: "2026.05.20", image: "/images/areas/downtown/downtown-1.jpg", area: "downtown" },
-  { title: "관고동 상가건물 관리", date: "2026.05.18", image: "/images/areas/downtown/downtown-2.jpg", area: "downtown" },
-  { title: "관고동 상가 계단 정기청소", date: "2026.05.15", image: "/images/areas/downtown/downtown-3.jpg", area: "downtown" },
-  { title: "송정동 빌라 계단 바닥 정기관리", date: "2026.05.12", image: "/images/areas/downtown/downtown-4.jpg", area: "downtown" },
-  { title: "창전동 연립빌라 공동현관 유리코팅", date: "2026.04.19", image: "/images/areas/downtown/downtown-5.jpg", area: "downtown" },
-  { title: "안흥동 빌라 정기관리", date: "2026.04.10", image: "/images/areas/downtown/downtown-6.jpg", area: "downtown" },
-];
 
 const fallbackPosts: AreaPost[] = [
   ...majangPosts.map((post) => ({ ...post, area: "majang" })),
@@ -166,18 +151,6 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
   );
 }
 
-function setCanonical(url: string) {
-  let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-
-  if (!link) {
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-
-  link.setAttribute("href", url);
-}
-
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { data, isLoading } = useAllAreaPosts();
@@ -199,42 +172,6 @@ export default function WorkDetail() {
     ["작업 내용", post.workScope || getDefaultWorkScope(post.title)],
     ["작업 형태", post.workType || getDefaultWorkType(post.title)],
   ] : [];
-
-  useEffect(() => {
-    if (!post || !slug) return;
-
-    const canonicalUrl = `${SITE_URL}/work/${slug}`;
-    const title = `${post.title} | ${areaLabel} 계단청소 작업일지 | 이천계단지기`;
-    const description = post.description || `${areaLabel} ${post.title} 현장 기록입니다. 이천계단지기가 직접 관리한 계단청소 작업 사진과 날짜를 확인할 수 있습니다.`;
-
-    document.title = title;
-
-    const setMeta = (name: string, content: string, prop = false) => {
-      const attr = prop ? "property" : "name";
-      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
-
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute(attr, name);
-        document.head.appendChild(el);
-      }
-
-      el.setAttribute("content", content);
-    };
-
-    setMeta("description", description);
-    setMeta("keywords", `${areaLabel} 계단청소, ${post.title}, 이천계단청소, 빌라계단청소, 상가계단청소`);
-    setMeta("og:title", title, true);
-    setMeta("og:description", description, true);
-    setMeta("og:url", canonicalUrl, true);
-    setMeta("og:image", post.image, true);
-    setCanonical(canonicalUrl);
-
-    return () => {
-      document.title = "이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소";
-      setCanonical(`${SITE_URL}/`);
-    };
-  }, [areaLabel, post, slug]);
 
   if (isLoading) {
     return (
@@ -271,6 +208,7 @@ export default function WorkDetail() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+      <Seo {...getWorkSeo(post)} />
       <Navbar />
       <main className="container max-w-5xl pt-24 pb-16 md:pt-32 md:pb-24">
         <motion.article
