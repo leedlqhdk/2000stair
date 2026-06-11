@@ -27,6 +27,7 @@ const Sindun = lazy(() => import("@/pages/Sindun"));
 const Downtown = lazy(() => import("@/pages/Downtown"));
 const Bubal = lazy(() => import("@/pages/Bubal"));
 const Baeksa = lazy(() => import("@/pages/Baeksa"));
+const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
 const About = lazy(() => import("@/pages/About"));
 const Qna = lazy(() => import("@/pages/Qna"));
 const Reviews = lazy(() => import("./pages/Reviews"));
@@ -175,6 +176,7 @@ function Router() {
           <Route path="/area/downtown" component={Downtown} />
           <Route path="/area/bubal" component={Bubal} />
           <Route path="/area/baeksa" component={Baeksa} />
+          <Route path="/area/gonjiam" component={Gonjiam} />
           <Route path="/area/:slug" component={LocationLanding} />
           <Route path="/admin" component={AdminRedirect} />
           <Route path="/admin/blog" component={AdminBlog} />
