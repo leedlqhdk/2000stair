@@ -11,6 +11,12 @@ import CareGuideSection from "@/components/CareGuideSection";
 
 const areaCards = [
   {
+    name: "곤지암",
+    slug: "gonjiam",
+    count: "업데이트 준비 중",
+    position: "top-[17%] left-[19%]",
+  },
+  {
     name: "신둔면",
     slug: "sindun",
     count: "문의 가능 지역",
@@ -77,9 +83,10 @@ const areaLabels: Record<string, string> = {
   daewol: "대월면",
   sindun: "신둔면",
   downtown: "시내권",
+  gonjiam: "곤지암",
 };
 
-const fallbackRecentPosts = [
+const fallbackRecentPosts: AreaPost[] = [
   ...majangPosts.map((post) => ({ ...post, area: "majang" })),
   ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
 ]

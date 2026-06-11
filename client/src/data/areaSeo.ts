@@ -109,6 +109,14 @@ export const seoByAreaSlug = {
       "백사면 빌라·상가 공용공간의 계단, 복도, 현관, 유리청소를 건물 규모와 오염도에 맞춰 직접 관리합니다.",
     localities: ["백사면", "모전리", "조읍리", "현방리"],
   }),
+  gonjiam: areaSeo({
+    slug: "gonjiam",
+    areaName: "곤지암",
+    title: "곤지암 계단청소·공용공간 정기관리 | 이천계단지기",
+    description:
+      "곤지암 빌라·상가 공용공간의 계단, 복도, 공동현관, 유리청소 상담을 현장 사진과 주소 확인 후 안내드립니다.",
+    localities: ["곤지암", "곤지암읍"],
+  }),
 } satisfies Record<string, SeoProps>;
 
 export const generalSeoByPath = {
@@ -206,9 +214,9 @@ export const generalSeoByPath = {
   "/areas": {
     title: "이천 지역별 계단청소 가능 지역 | 이천계단지기",
     description:
-      "마장면, 대월면, 신둔면, 부발읍, 백사면, 이천 시내권 계단청소·빌라청소 가능 지역을 확인하세요.",
+      "마장면, 대월면, 신둔면, 부발읍, 백사면, 곤지암, 이천 시내권 계단청소·빌라청소 가능 지역을 확인하세요.",
     canonical: `${SITE_URL}/areas`,
-    keywords: `이천 지역별 계단청소, 마장면 계단청소, 대월면 계단청소, 신둔면 계단청소, 부발읍 계단청소, 백사면 계단청소, ${BASE_KEYWORDS}`,
+    keywords: `이천 지역별 계단청소, 마장면 계단청소, 대월면 계단청소, 신둔면 계단청소, 부발읍 계단청소, 백사면 계단청소, 곤지암 계단청소, ${BASE_KEYWORDS}`,
   },
   "/records": {
     title: "이천계단지기 청소 기록 | 계단청소 현장 사례",
