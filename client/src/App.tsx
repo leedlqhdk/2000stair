@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Spinner } from "@/components/ui/spinner";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -8,33 +9,34 @@ import Seo from "./components/Seo";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { getSeoForPath } from "@/data/areaSeo";
 import Home from "./pages/Home";
-import MyQuotes from "./pages/MySubscription";
-import Blog from "./pages/Blog";
-import BlogDetail from "./pages/BlogDetail";
-import Records from "./pages/Records";
-import WorkDetail from "./pages/WorkDetail";
-import LocationLanding from "./pages/LocationLanding";
-import AdminBlog from "./pages/AdminBlog";
-import AdminBlogEdit from "./pages/AdminBlogEdit";
 import KakaoChat from "./components/KakaoChat";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Majang from "@/pages/Majang";
-import Daewol from "@/pages/Daewol";
-import Sindun from "@/pages/Sindun";
-import Downtown from "@/pages/Downtown";
-import Bubal from "@/pages/Bubal";
-import Baeksa from "@/pages/Baeksa";
-import About from "@/pages/About";
-import Qna from "@/pages/Qna";
-import Reviews from "./pages/Reviews";
-import Services from "./pages/Services";
-import StairCleaning from "./pages/StairCleaning";
-import BathroomCleaning from "./pages/BathroomCleaning";
-import GlassCleaning from "./pages/GlassCleaning";
-import OfficeCleaning from "./pages/OfficeCleaning";
-import OpsStatus from "@/pages/OpsStatus";
-import Guide from "@/pages/Guide";
+
+const MyQuotes = lazy(() => import("./pages/MySubscription"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const Records = lazy(() => import("./pages/Records"));
+const WorkDetail = lazy(() => import("./pages/WorkDetail"));
+const LocationLanding = lazy(() => import("./pages/LocationLanding"));
+const AdminBlog = lazy(() => import("./pages/AdminBlog"));
+const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
+const Majang = lazy(() => import("@/pages/Majang"));
+const Daewol = lazy(() => import("@/pages/Daewol"));
+const Sindun = lazy(() => import("@/pages/Sindun"));
+const Downtown = lazy(() => import("@/pages/Downtown"));
+const Bubal = lazy(() => import("@/pages/Bubal"));
+const Baeksa = lazy(() => import("@/pages/Baeksa"));
+const About = lazy(() => import("@/pages/About"));
+const Qna = lazy(() => import("@/pages/Qna"));
+const Reviews = lazy(() => import("./pages/Reviews"));
+const Services = lazy(() => import("./pages/Services"));
+const StairCleaning = lazy(() => import("./pages/StairCleaning"));
+const BathroomCleaning = lazy(() => import("./pages/BathroomCleaning"));
+const GlassCleaning = lazy(() => import("./pages/GlassCleaning"));
+const OfficeCleaning = lazy(() => import("./pages/OfficeCleaning"));
+const OpsStatus = lazy(() => import("@/pages/OpsStatus"));
+const Guide = lazy(() => import("@/pages/Guide"));
 
 
 function ScrollToTop() {
@@ -106,6 +108,14 @@ function AdminRedirect() {
   return null;
 }
 
+function PageLoader() {
+  return (
+    <div className="flex min-h-[60vh] w-full items-center justify-center">
+      <Spinner className="size-8 text-primary" />
+    </div>
+  );
+}
+
 function AdminNoIndex() {
   const [location] = useLocation();
   const isAdminRoute = location.startsWith("/admin");
@@ -138,39 +148,41 @@ function Router() {
       <AdminNoIndex />
       <RouteSeo />
       <AreaNavbar />
-      <Switch>
-        <Route path={"/"} component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/qna" component={Qna} />
-        <Route path="/reviews" component={Reviews} />
-        <Route path="/services" component={Services} />
-        <Route path="/services/stair" component={StairCleaning} />
-        <Route path="/services/bathroom" component={BathroomCleaning} />
-        <Route path="/services/glass" component={GlassCleaning} />
-        <Route path="/services/office" component={OfficeCleaning} />
-        <Route path="/ops" component={OpsStatus} />
-        <Route path="/guide" component={Guide} />
-        <Route path="/my-quotes" component={MyQuotes} />
-        <Route path="/blog" component={Records} />
-        <Route path="/records" component={Records} />
-        <Route path="/work/:slug" component={WorkDetail} />
-        <Route path="/areas" component={Blog} />
-        <Route path="/blog/category/:slug" component={Blog} />
-        <Route path="/blog/:id" component={BlogDetail} />
-        <Route path="/area/majang" component={Majang} />
-        <Route path={"/area/Majang"} component={Majang} />
-        <Route path="/area/daewol" component={Daewol} />
-        <Route path="/area/sindun" component={Sindun} />
-        <Route path="/area/downtown" component={Downtown} />
-        <Route path="/area/bubal" component={Bubal} />
-        <Route path="/area/baeksa" component={Baeksa} />
-        <Route path="/area/:slug" component={LocationLanding} />
-        <Route path="/admin" component={AdminRedirect} />
-        <Route path="/admin/blog" component={AdminBlog} />
-        <Route path="/admin/blog/new" component={AdminBlogEdit} />
-        <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
-        <Route component={NotFound} />
-      </Switch>
+      <Suspense fallback={<PageLoader />}>
+        <Switch>
+          <Route path={"/"} component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/qna" component={Qna} />
+          <Route path="/reviews" component={Reviews} />
+          <Route path="/services" component={Services} />
+          <Route path="/services/stair" component={StairCleaning} />
+          <Route path="/services/bathroom" component={BathroomCleaning} />
+          <Route path="/services/glass" component={GlassCleaning} />
+          <Route path="/services/office" component={OfficeCleaning} />
+          <Route path="/ops" component={OpsStatus} />
+          <Route path="/guide" component={Guide} />
+          <Route path="/my-quotes" component={MyQuotes} />
+          <Route path="/blog" component={Records} />
+          <Route path="/records" component={Records} />
+          <Route path="/work/:slug" component={WorkDetail} />
+          <Route path="/areas" component={Blog} />
+          <Route path="/blog/category/:slug" component={Blog} />
+          <Route path="/blog/:id" component={BlogDetail} />
+          <Route path="/area/majang" component={Majang} />
+          <Route path={"/area/Majang"} component={Majang} />
+          <Route path="/area/daewol" component={Daewol} />
+          <Route path="/area/sindun" component={Sindun} />
+          <Route path="/area/downtown" component={Downtown} />
+          <Route path="/area/bubal" component={Bubal} />
+          <Route path="/area/baeksa" component={Baeksa} />
+          <Route path="/area/:slug" component={LocationLanding} />
+          <Route path="/admin" component={AdminRedirect} />
+          <Route path="/admin/blog" component={AdminBlog} />
+          <Route path="/admin/blog/new" component={AdminBlogEdit} />
+          <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
     </>
   );
 }
