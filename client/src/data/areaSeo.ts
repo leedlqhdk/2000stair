@@ -4,12 +4,17 @@ const SITE_URL = "https://2000stair.kr";
 const SERVICE_TYPES = ["계단청소", "빌라청소", "상가청소", "공용공간 정기관리", "유리청소", "화장실청소"];
 const BASE_KEYWORDS = "이천계단청소, 계단청소, 빌라계단청소, 상가계단청소, 이천청소업체, 정기청소";
 
+function toAbsoluteUrl(url: string) {
+  return url.startsWith("http") ? url : `${SITE_URL}${url}`;
+}
+
 type AreaConfig = {
   slug: string;
   areaName: string;
   title: string;
   description: string;
   localities?: string[];
+  image?: string;
 };
 
 function areaJsonLd({ slug, areaName, title, description, localities = [areaName] }: AreaConfig) {
@@ -56,6 +61,7 @@ function areaSeo(config: AreaConfig): SeoProps {
     description: config.description,
     canonical: `${SITE_URL}/area/${config.slug}`,
     keywords: `${config.areaName} 계단청소, ${config.areaName} 빌라청소, ${config.areaName} 상가청소, ${BASE_KEYWORDS}`,
+    image: config.image ? toAbsoluteUrl(config.image) : undefined,
     jsonLd: areaJsonLd(config),
   };
 }
@@ -68,6 +74,7 @@ export const seoByAreaSlug = {
     description:
       "마장면 빌라·원룸·상가 공용공간 계단청소, 공동현관, 복도, 유리청소 정기관리. 부부가 하청 없이 직접 관리합니다.",
     localities: ["마장면", "오천리", "양촌리", "장암리"],
+    image: "/images/icheon-majang-villa-cleaning.webp",
   }),
   daewol: areaSeo({
     slug: "daewol",
@@ -76,6 +83,7 @@ export const seoByAreaSlug = {
     description:
       "대월면 빌라·상가·공용공간 계단청소와 유리·화장실 정기청소를 현장 상태에 맞춰 직접 관리합니다.",
     localities: ["대월면", "사동리", "초지리", "군량리"],
+    image: "/images/icheon-daewol-stair-cleaning.webp",
   }),
   sindun: areaSeo({
     slug: "sindun",
@@ -84,6 +92,7 @@ export const seoByAreaSlug = {
     description:
       "신둔면 빌라, 다세대, 상가의 계단·복도·공동현관 청소를 하청 없이 직접 정기관리합니다.",
     localities: ["신둔면", "수광리", "도암리", "남정리"],
+    image: "/images/icheon-sindun-stair-cleaning.webp",
   }),
   downtown: areaSeo({
     slug: "downtown",
@@ -92,6 +101,7 @@ export const seoByAreaSlug = {
     description:
       "창전동·관고동·증포동·중리동 등 이천 시내권 빌라·상가 계단청소와 공용공간 정기관리를 직접 진행합니다.",
     localities: ["창전동", "관고동", "증포동", "중리동", "송정동"],
+    image: "/images/icheon-downtown-stair-cleaning.webp",
   }),
   bubal: areaSeo({
     slug: "bubal",
@@ -100,6 +110,7 @@ export const seoByAreaSlug = {
     description:
       "부발읍 빌라·상가·원룸 건물의 계단, 복도, 공동현관, 유리청소를 정기 방문으로 깔끔하게 관리합니다.",
     localities: ["부발읍", "아미리", "무촌리", "신하리"],
+    image: "/images/icheon-bubal-store-cleaning.webp",
   }),
   baeksa: areaSeo({
     slug: "baeksa",
@@ -108,6 +119,7 @@ export const seoByAreaSlug = {
     description:
       "백사면 빌라·상가 공용공간의 계단, 복도, 현관, 유리청소를 건물 규모와 오염도에 맞춰 직접 관리합니다.",
     localities: ["백사면", "모전리", "조읍리", "현방리"],
+    image: "/images/main-service-stair.webp",
   }),
   gonjiam: areaSeo({
     slug: "gonjiam",
@@ -126,6 +138,7 @@ export const generalSeoByPath = {
       "이천계단지기는 하청 없이 부부가 직접 빌라·상가 계단, 유리, 화장실 공용공간을 정기관리하는 이천 지역 청소 업체입니다. 같은 담당자가 꾸준히 관리하고 작업 전후 사진으로 결과를 확인하실 수 있습니다.",
     canonical: `${SITE_URL}/about`,
     keywords: `이천계단청소 업체, 부부 직영 청소업체, 이천계단지기 소개, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/images/main-phone.webp"),
   },
   "/qna": {
     title: "이천 계단청소 비용·견적·정기관리 자주 묻는 질문 | 이천계단지기",
@@ -147,6 +160,7 @@ export const generalSeoByPath = {
       "빌라·원룸·상가 계단 바닥, 난간·손잡이, 공동현관 유리, 거미줄 제거까지 월 2회·4회 정기관리합니다. 월 44,000원부터 현장 확인 후 견적을 안내드립니다.",
     canonical: `${SITE_URL}/services/stair`,
     keywords: `이천 계단청소, 계단정기청소, 빌라계단청소, 상가계단청소, 계단청소 비용, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/images/services/stair-cleaning/icheon-stair-cleaning-service-main.webp"),
     jsonLd: serviceJsonLd({
       slug: "stair",
       name: "계단청소 정기관리",
@@ -161,6 +175,7 @@ export const generalSeoByPath = {
       "상가 출입문·전면 유리, 공동현관 유리, 얼룩·석회자국까지 이천계단지기가 직접 관리합니다. 계단청소와 함께 정기관리하면 더욱 효율적입니다.",
     canonical: `${SITE_URL}/services/glass`,
     keywords: `이천 유리청소, 상가 유리청소, 공동현관 유리청소, 건물 유리관리, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/images/services/glass-cleaning/glass-page01.webp"),
     jsonLd: serviceJsonLd({
       slug: "glass",
       name: "유리청소",
@@ -175,6 +190,7 @@ export const generalSeoByPath = {
       "상가·사무실 공용화장실을 전문 약품과 장비로 위생 관리합니다. 정기 방문으로 세균과 악취 걱정 없이 항상 청결한 상태를 유지합니다.",
     canonical: `${SITE_URL}/services/bathroom`,
     keywords: `이천 화장실청소, 공용화장실 청소, 상가 화장실청소, 사무실 화장실청소, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/images/services/restroom-cleaning/bathroom-01-after.webp"),
     jsonLd: serviceJsonLd({
       slug: "bathroom",
       name: "화장실청소 정기관리",
@@ -189,6 +205,7 @@ export const generalSeoByPath = {
       "이천 소규모 사무실과 상가의 바닥, 책상 주변, 화장실, 유리창까지 정기적으로 청소합니다. 업무 시간 전후로 방문 일정을 조정해드립니다.",
     canonical: `${SITE_URL}/services/office`,
     keywords: `이천 사무실청소, 상가청소, 사무실 정기청소, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/images/icheon-gwango-building-cleaning.webp"),
     jsonLd: serviceJsonLd({
       slug: "office",
       name: "사무실·상가 정기청소",

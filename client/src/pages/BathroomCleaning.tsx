@@ -6,7 +6,7 @@ export default function BathroomCleaning() {
       data={{
         serviceFolder: "restroom-cleaning",
         heroStyle: "fullscreenVideo",
-        heroBgImage: "/images/services/restroom-cleaning/icheon-restroom-cleaning-main.webp",
+        heroBgImage: "/images/services/restroom-cleaning/bathroom-02-after.webp",
         heroVideo: "/images/services/restroom-cleaning/bathroom-cleaning-video.mov",
         heroTitle: "쾌적한 화장실,\n건물 신뢰도를 높입니다",
         heroSubtitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
