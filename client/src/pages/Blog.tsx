@@ -7,8 +7,15 @@ import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
+import CareGuideSection from "@/components/CareGuideSection";
 
 const areaCards = [
+  {
+    name: "곤지암",
+    slug: "gonjiam",
+    count: "업데이트 준비 중",
+    position: "top-[17%] left-[19%]",
+  },
   {
     name: "신둔면",
     slug: "sindun",
@@ -76,9 +83,10 @@ const areaLabels: Record<string, string> = {
   daewol: "대월면",
   sindun: "신둔면",
   downtown: "시내권",
+  gonjiam: "곤지암",
 };
 
-const fallbackRecentPosts = [
+const fallbackRecentPosts: AreaPost[] = [
   ...majangPosts.map((post) => ({ ...post, area: "majang" })),
   ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
 ]
@@ -132,7 +140,7 @@ export default function Blog() {
             </h1>
 
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              이천 지역 공용공간을 깨끗하게 관리합니다. 원하는 지역을 선택해 관리 현장을 확인하세요.
+              이천 지역 공용공간을 깨끔하게 관리합니다. 원하는 지역을 선택해 관리 현장을 확인하세요.
             </p>
           </motion.div>
 
@@ -310,6 +318,8 @@ export default function Blog() {
             </motion.div>
           )}
         </section>
+
+        <CareGuideSection />
       </main>
     </div>
   );
