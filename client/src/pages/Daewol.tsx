@@ -5,6 +5,38 @@ import AreaTimeline from "@/components/AreaTimeline";
 import { daewolPosts, daewolReviews } from "@/data/areas/daewol";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
+const serviceCards = [
+  {
+    title: "이천 현지 관리",
+    text: "이천시 대월면 빌라·원룸·상가의 계단과 공용공간을 정기적으로 관리합니다.",
+  },
+  {
+    title: "현장 기록 제공",
+    text: "방문마다 작업 전후 사진을 직접 촬영해 기록합니다. 멀리 있어도 현장 상태를 확인하실 수 있습니다.",
+  },
+  {
+    title: "부부 직접관리",
+    text: "외주 없이 부부가 직접 작업합니다. 담당자가 바뀌지 않아 꾸준한 품질을 유지합니다.",
+  },
+];
+
+const localities = ["대월면", "사동리", "초지리", "군량리"];
+
+const faqs = [
+  {
+    question: "대월면 어디까지 방문 가능한가요?",
+    answer: "사동리, 초지리, 군량리 등 대월면 전 지역 상담 가능합니다. 사진과 주소를 보내주시면 방문 가능 여부를 먼저 확인합니다.",
+  },
+  {
+    question: "정기관리는 어떻게 진행되나요?",
+    answer: "사진 또는 주소를 보내주시면 건물 층수와 오염 상태를 확인한 뒤 월 2회 또는 4회 정기관리 일정을 안내해드립니다.",
+  },
+  {
+    question: "유리청소·화장실청소도 함께 가능한가요?",
+    answer: "네. 계단청소와 함께 공동현관 유리청소, 화장실청소도 정기관리 또는 개별로 문의하실 수 있습니다.",
+  },
+];
+
 export default function DaewolAreaPage() {
   const { posts } = useAreaPosts("daewol", daewolPosts);
 
@@ -44,45 +76,95 @@ export default function DaewolAreaPage() {
           </div>
         </motion.div>
 
+        <section className="mb-12 grid gap-4 md:grid-cols-3 md:mb-16">
+          {serviceCards.map((card) => (
+            <div
+              key={card.title}
+              className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
+            >
+              <p className="mb-3 text-sm font-extrabold text-primary">{card.title}</p>
+              <p className="text-sm leading-7 text-muted-foreground">{card.text}</p>
+            </div>
+          ))}
+        </section>
+
         <AreaTimeline
           areaName="대월면"
           areaSlug="daewol"
           posts={posts}
-          title="대월면 작업 일지"
+          title="대월면 작업일지"
           description="대월면에서 진행한 작업들을 날짜순으로 확인해보세요."
         />
 
         <section className="mb-12 md:mb-16">
           <div className="mb-5">
             <h2 className="text-xl font-extrabold text-foreground md:text-2xl">고객 후기</h2>
-            <p className="mt-1 text-sm text-muted-foreground">대월면 관리 현장에서 받은 실제 피드백입니다.</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              대월면 관리 현장에서 받은 실제 피드백입니다.
+            </p>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {daewolReviews.map((review) => (
-              <div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
+              <div
+                key={review}
+                className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
+              >
                 <div className="mb-3 flex items-center gap-1 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <p className="text-base leading-relaxed text-foreground">“{review}”</p>
+                <p className="text-base leading-relaxed text-foreground">"{review}"</p>
                 <p className="mt-4 text-sm text-muted-foreground">대월면 건물주 후기</p>
               </div>
             ))}
           </div>
         </section>
 
+        <section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
+          <h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">관리 가능 지역</h2>
+          <div className="flex flex-wrap gap-2">
+            {localities.map((name) => (
+              <span key={name} className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-primary">{name}</span>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
+          <h2 className="mb-5 text-xl font-extrabold text-foreground md:text-2xl">자주 묻는 질문</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {faqs.map((faq) => (
+              <div key={faq.question} className="rounded-2xl bg-blue-50/70 p-5">
+                <h3 className="mb-2 text-sm font-extrabold text-foreground">{faq.question}</h3>
+                <p className="text-sm leading-7 text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
-          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">대월면 청소 관리가 필요하신가요?</h2>
-          <p className="mb-8 text-muted-foreground">정기관리·일회성 청소 모두 문의 가능합니다.</p>
+          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
+            대월면 청소 관리가 필요하신가요?
+          </h2>
+          <p className="mb-8 text-muted-foreground">
+            정기관리·일회성 청소 모두 문의 가능합니다.
+          </p>
           <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
-            <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
+            <a
+              href="https://pf.kakao.com/_IiNfn/chat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90"
+            >
               <MessageCircle className="mr-2 h-4 w-4" />
               카카오톡 문의하기
             </a>
-            <a href="tel:01084381887" className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50">
+            <a
+              href="/qna"
+              className="inline-flex items-center justify-center rounded-xl border border-primary/20 bg-white px-6 py-4 text-sm font-bold text-primary transition hover:bg-blue-50"
+            >
               <Phone className="mr-2 h-4 w-4" />
-              전화 문의하기
+              문의 방법 보기
             </a>
           </div>
         </section>

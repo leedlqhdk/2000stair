@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, Phone, MapPin } from "lucide-react";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function MyQuotes() {
   const { user, isAuthenticated, logout } = useAuth({ redirectOnUnauthenticated: true });
@@ -107,7 +106,6 @@ export default function MyQuotes() {
           </Card>
         )}
       </main>
-      <Footer />
     </div>
   );
 }

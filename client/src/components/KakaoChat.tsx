@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
+const STAIR_BUILDING_TYPE = "빌라/상가 계단";
 
 type DiagnosisState = {
   buildingType: string;
@@ -21,17 +22,17 @@ type DiagnosisResult = {
 };
 
 const initialDiagnosis: DiagnosisState = {
-  buildingType: "빌라",
-  floors: "3~4층",
+  buildingType: STAIR_BUILDING_TYPE,
+  floors: "2~3층",
   pollution: "보통",
-  cycle: "아직 모르겠음",
+  cycle: "월 4회",
 };
 
 const options = {
-  buildingType: ["빌라", "원룸", "상가", "사무실"],
-  floors: ["2층 이하", "3~4층", "5층 이상"],
+  buildingType: [STAIR_BUILDING_TYPE, "유리청소", "화장실청소", "사무실청소"],
+  floors: ["2~3층", "4층", "5~6층"],
   pollution: ["깨끗한 편", "보통", "오염 심함"],
-  cycle: ["주 1회", "주 2회", "월 관리", "아직 모르겠음"],
+  cycle: ["월 2회", "월 4회", "상담 후 결정"],
 };
 
 const expandedButtonClass = "w-[102px] px-2 md:w-[168px] md:px-5";
@@ -39,14 +40,36 @@ const collapsedButtonClass = "w-9 px-0 md:w-14 md:px-0";
 const expandedTextClass = "max-w-[64px] opacity-100 md:max-w-[80px]";
 const collapsedTextClass = "max-w-0 opacity-0";
 
+const createDiagnosisMessage = (diagnosis: DiagnosisState, result: DiagnosisResult | null) => {
+  const rows = [
+    "안녕하세요. 이천계단지기 홈페이지 AI 진단 후 문의드립니다.",
+    "",
+    `[진단 선택]`,
+    `건물 유형: ${diagnosis.buildingType}`,
+    ...(diagnosis.buildingType === STAIR_BUILDING_TYPE ? [`계단 층수: ${diagnosis.floors}`] : []),
+    `오염 상태: ${diagnosis.pollution}`,
+    `관리 주기: ${diagnosis.cycle}`,
+  ];
+
+  if (result) {
+    rows.push("", "[AI 안내]", result.title, result.summary, result.recommendation);
+  }
+
+  rows.push("", "건물 사진을 보내드리면 정확한 견적 안내 부탁드립니다.");
+
+  return rows.join("\n");
+};
+
 export default function KakaoChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const scrollTimer = useRef<number | null>(null);
   const [diagnosis, setDiagnosis] = useState<DiagnosisState>(initialDiagnosis);
   const [result, setResult] = useState<DiagnosisResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [copyMessage, setCopyMessage] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,19 +94,60 @@ export default function KakaoChat() {
     };
   }, []);
 
+  useEffect(() => {
+    const footer = document.getElementById("site-footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.12,
+      }
+    );
+
+    observer.observe(footer);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const buttonWidthClass = isScrolling ? collapsedButtonClass : expandedButtonClass;
   const buttonTextClass = isScrolling ? collapsedTextClass : expandedTextClass;
   const buttonGapClass = isScrolling ? "gap-0" : "gap-1 md:gap-2";
+  const isStairCleaning = diagnosis.buildingType === STAIR_BUILDING_TYPE;
 
   const handleChange = (key: keyof DiagnosisState, value: string) => {
-    setDiagnosis((prev) => ({ ...prev, [key]: value }));
+    setDiagnosis((prev) => ({
+      ...prev,
+      [key]: value,
+      ...(key === "buildingType" && value === STAIR_BUILDING_TYPE && !prev.floors ? { floors: "2~3층" } : {}),
+    }));
     setResult(null);
     setErrorMessage("");
+    setCopyMessage("");
+  };
+
+  const handleKakaoInquiry = async () => {
+    const message = createDiagnosisMessage(diagnosis, result);
+
+    try {
+      await navigator.clipboard.writeText(message);
+      setCopyMessage("진단 내용이 복사됐어요. 카톡창에서 붙여넣기만 해주세요.");
+    } catch (error) {
+      console.error(error);
+      setCopyMessage("카톡창이 열리면 아래 진단 내용을 복사해서 보내주세요.");
+    }
+
+    window.open(KAKAO_CHANNEL_URL, "_blank", "noopener,noreferrer");
   };
 
   const analyzeBuilding = async () => {
     setIsAnalyzing(true);
     setErrorMessage("");
+    setCopyMessage("");
 
     try {
       const response = await fetch("/api/ai-diagnosis", {
@@ -108,47 +172,49 @@ export default function KakaoChat() {
 
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3">
-        {!isScrolling && (
-          <div className="pointer-events-none mb-1 mr-1 rounded-2xl bg-white/95 px-4 py-3 shadow-lg shadow-blue-900/8 ring-1 ring-blue-100 backdrop-blur">
-            <p className="text-center text-[11px] font-extrabold leading-snug text-slate-700 md:text-sm">
-              사진 보내주시면
-              <br />
-              빠르게 답변드려요 :)
-            </p>
-          </div>
-        )}
+      {!isFooterVisible && (
+        <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3">
+          {!isScrolling && (
+            <div className="pointer-events-none mb-1 mr-1 rounded-2xl bg-white/95 px-4 py-3 shadow-lg shadow-blue-900/8 ring-1 ring-blue-100 backdrop-blur">
+              <p className="text-center text-[11px] font-extrabold leading-snug text-slate-700 md:text-sm">
+                사진 보내주시면
+                <br />
+                빠르게 답변드려요 :)
+              </p>
+            </div>
+          )}
 
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-white text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
-          aria-label="AI 관리진단 열기"
-        >
-          <Sparkles className="h-3 w-3 shrink-0 translate-y-px stroke-[2.8] md:h-5 md:w-5" />
-          <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>AI진단</span>
-        </button>
+          <button
+            type="button"
+            onClick={() => setIsOpen(true)}
+            className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-white text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            aria-label="AI 관리진단 열기"
+          >
+            <Sparkles className="h-3 w-3 shrink-0 translate-y-px stroke-[2.8] md:h-5 md:w-5" />
+            <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>AI진단</span>
+          </button>
 
-        <a
-          href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-primary text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
-          aria-label="전화 문의하기"
-        >
-          <Phone className="h-3 w-3 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
-          <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>전화문의</span>
-        </a>
+          <a
+            href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
+            className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-primary text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            aria-label="전화 문의하기"
+          >
+            <Phone className="h-3 w-3 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
+            <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>전화문의</span>
+          </a>
 
-        <a
-          href={KAKAO_CHANNEL_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
-          aria-label="카카오톡 상담하기"
-        >
-          <MessageCircle className="h-3 w-3 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
-          <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>카톡상담</span>
-        </a>
-      </div>
+          <a
+            href={KAKAO_CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            aria-label="카카오톡 상담하기"
+          >
+            <MessageCircle className="h-3 w-3 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
+            <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>카톡상담</span>
+          </a>
+        </div>
+      )}
 
       {isOpen && (
         <div className="fixed inset-0 z-[60] flex items-end justify-center bg-slate-900/45 px-4 pb-4 backdrop-blur-sm md:items-center md:pb-0">
@@ -163,7 +229,7 @@ export default function KakaoChat() {
                   우리 건물 관리 진단
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-slate-600">
-                  조건을 선택하면 AI가 건물 상태를 분석해 맞춤 안내 문장을 만들어드려요.
+                  조건을 선택하면 AI가 가격표 기준 예상 비용과 상담 방향을 함께 안내해드려요.
                 </p>
               </div>
               <button
@@ -178,9 +244,15 @@ export default function KakaoChat() {
 
             <div className="grid gap-4">
               <DiagnosisSelect label="건물 유형" value={diagnosis.buildingType} items={options.buildingType} onChange={(value) => handleChange("buildingType", value)} />
-              <DiagnosisSelect label="층수" value={diagnosis.floors} items={options.floors} onChange={(value) => handleChange("floors", value)} />
+              {isStairCleaning ? (
+                <DiagnosisSelect label="계단 층수" value={diagnosis.floors} items={options.floors} onChange={(value) => handleChange("floors", value)} />
+              ) : (
+                <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold leading-6 text-slate-600 ring-1 ring-slate-200">
+                  유리청소, 화장실청소, 사무실청소는 현장 사진 확인 후 별도 안내해드려요.
+                </div>
+              )}
               <DiagnosisSelect label="현재 오염 상태" value={diagnosis.pollution} items={options.pollution} onChange={(value) => handleChange("pollution", value)} />
-              <DiagnosisSelect label="원하는 관리 주기" value={diagnosis.cycle} items={options.cycle} onChange={(value) => handleChange("cycle", value)} />
+              <DiagnosisSelect label="원하는 관리주기" value={diagnosis.cycle} items={options.cycle} onChange={(value) => handleChange("cycle", value)} />
             </div>
 
             <button
@@ -230,13 +302,24 @@ export default function KakaoChat() {
               </div>
             )}
 
+            {copyMessage && (
+              <p className="mt-3 rounded-xl bg-yellow-50 px-4 py-3 text-sm font-bold leading-6 text-yellow-800 ring-1 ring-yellow-100">
+                {copyMessage}
+              </p>
+            )}
+
+            <details className="mt-4 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-700 ring-1 ring-slate-200">
+              <summary className="cursor-pointer font-extrabold text-slate-800">카톡으로 보낼 진단 내용 보기</summary>
+              <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-xs leading-5 text-slate-600">{createDiagnosisMessage(diagnosis, result)}</pre>
+            </details>
+
             <div className="mt-5 grid grid-cols-2 gap-2">
               <a href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`} className="flex h-12 items-center justify-center rounded-full bg-primary px-4 text-sm font-extrabold text-white shadow-md hover:bg-primary/90">
                 전화 상담
               </a>
-              <a href={KAKAO_CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center justify-center rounded-full bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 hover:bg-[#F4DC00]">
+              <button type="button" onClick={handleKakaoInquiry} className="flex h-12 items-center justify-center rounded-full bg-[#FEE500] px-4 text-sm font-extrabold text-[#191919] shadow-md ring-1 ring-black/5 hover:bg-[#F4DC00]">
                 카톡 문의
-              </a>
+              </button>
             </div>
           </div>
         </div>

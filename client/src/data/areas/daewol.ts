@@ -7,7 +7,7 @@ export const daewolPosts = [
   {
     title: "대월면 창틀 먼지 제거",
     date: "2026.05.18",
-    image: "/images/areas/daewol/daewol-2.jpg",
+    image: "/images/areas/daewol/daewol-2.webp",
   },
   {
     title: "대월면 공동 현관 유리관리",

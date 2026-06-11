@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { useLocation, useParams } from "wouter";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useParams } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -8,20 +8,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, Upload, X, Plus, Sparkles, ChevronDown, ChevronUp, Wand2, Zap } from "lucide-react";
-import { Link } from "wouter";
-import { optimizeImage, formatBytes, type OptimizeResult } from "@/lib/imageOptimizer";
+import { ArrowLeft, ChevronDown, ChevronUp, ExternalLink, Plus, Sparkles, Upload, Wand2, X } from "lucide-react";
+import { optimizeImage, formatBytes } from "@/lib/imageOptimizer";
 
-// 이미지 객체 타입 - url + alt 포함
 type ImageItem = { url: string; alt: string };
+
+const isStorableImageUrl = (url: string | null | undefined) => {
+  return !!url;
+};
 
 export default function AdminBlogEdit() {
   const { id } = useParams<{ id?: string }>();
   const isEdit = !!id;
-  const postId = id ? parseInt(id) : undefined;
+  const postId = id ? Number(id) : undefined;
   const [, navigate] = useLocation();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  const utils = trpc.useUtils();
 
+  const [naverUrl, setNaverUrl] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [thumbnail, setThumbnail] = useState<string | null>(null);
@@ -33,43 +37,51 @@ export default function AdminBlogEdit() {
   const [newTagSlug, setNewTagSlug] = useState("");
   const [showTagForm, setShowTagForm] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [generatingAlt, setGeneratingAlt] = useState<string | null>(null); // url of image being processed
-  const [compressResults, setCompressResults] = useState<OptimizeResult[]>([]); // 압축 결과 목록
-
-  // SEO 상태
   const [seoTitle, setSeoTitle] = useState("");
   const [seoDescription, setSeoDescription] = useState("");
   const [seoKeywords, setSeoKeywords] = useState("");
   const [showSeo, setShowSeo] = useState(false);
+  const [uploadNote, setUploadNote] = useState("");
 
   const thumbInputRef = useRef<HTMLInputElement>(null);
   const imgInputRef = useRef<HTMLInputElement>(null);
 
-  const utils = trpc.useUtils();
   const { data: allTags, refetch: refetchTags } = trpc.blog.tags.useQuery();
-  const { data: existingPost } = trpc.blog.getById.useQuery(
-    { id: postId! },
-    { enabled: isEdit }
-  );
+  const { data: existingPost } = trpc.blog.getById.useQuery({ id: postId! }, { enabled: isEdit });
 
   useEffect(() => {
-    if (existingPost && isEdit) {
-      setTitle(existingPost.title);
-      setContent(existingPost.content);
-      setThumbnail(existingPost.thumbnail ?? null);
-      // 기존 images가 string[] 또는 {url,alt}[] 모두 처리
-      const parsedImages = (existingPost.images as unknown[]).map((img) => {
-        if (typeof img === "string") return { url: img, alt: "" };
-        return img as ImageItem;
-      });
-      setImages(parsedImages);
-      setSelectedTags(existingPost.tags);
-      setPublished(existingPost.published === "published");
-      setSeoTitle(existingPost.seoTitle ?? "");
-      setSeoDescription(existingPost.seoDescription ?? "");
-      setSeoKeywords(existingPost.seoKeywords ?? "");
-    }
+    if (!existingPost || !isEdit) return;
+
+    setTitle(existingPost.title);
+    setContent(existingPost.content);
+    setThumbnail(existingPost.thumbnail ?? null);
+    setThumbnailAlt(existingPost.thumbnailAlt ?? "");
+    setImages(
+      (existingPost.images as unknown[]).map((img) =>
+        typeof img === "string" ? { url: img, alt: "" } : (img as ImageItem)
+      )
+    );
+    setSelectedTags(existingPost.tags);
+    setPublished(existingPost.published === "published");
+    setSeoTitle(existingPost.seoTitle ?? "");
+    setSeoDescription(existingPost.seoDescription ?? "");
+    setSeoKeywords(existingPost.seoKeywords ?? "");
   }, [existingPost, isEdit]);
+
+  const importNaverDraft = trpc.blog.importNaverDraft.useMutation({
+    onSuccess: (data) => {
+      setTitle(data.title);
+      setContent(data.content);
+      if (data.thumbnail) setThumbnail(data.thumbnail);
+      setThumbnailAlt(data.thumbnailAlt);
+      setSeoTitle(data.seoTitle);
+      setSeoDescription(data.seoDescription);
+      setSeoKeywords(data.seoKeywords);
+      setShowSeo(true);
+      toast.success("네이버 글을 홈페이지용 정보글 초안으로 바꿨어요.");
+    },
+    onError: (e) => toast.error(e.message),
+  });
 
   const uploadImage = trpc.blog.uploadImage.useMutation();
   const generateSeo = trpc.blog.generateSeo.useMutation({
@@ -78,30 +90,35 @@ export default function AdminBlogEdit() {
       setSeoDescription(data.seoDescription);
       setSeoKeywords(data.seoKeywords);
       setShowSeo(true);
-      toast.success("SEO 메타 태그가 자동 생성되었습니다!");
+      toast.success("SEO 문구를 다시 만들었어요.");
     },
-    onError: (e) => toast.error("SEO 생성 실패: " + e.message),
+    onError: (e) => toast.error(e.message),
   });
   const generateAlt = trpc.blog.generateAlt.useMutation();
+
   const createPost = trpc.blog.create.useMutation({
     onSuccess: () => {
-      toast.success("게시글이 작성되었습니다.");
+      toast.success("게시글이 저장됐어요.");
       utils.blog.adminList.invalidate();
+      utils.blog.list.invalidate();
       navigate("/admin/blog");
     },
     onError: (e) => toast.error(e.message),
   });
+
   const updatePost = trpc.blog.update.useMutation({
     onSuccess: () => {
-      toast.success("게시글이 수정되었습니다.");
+      toast.success("게시글이 수정됐어요.");
       utils.blog.adminList.invalidate();
+      utils.blog.list.invalidate();
       navigate("/admin/blog");
     },
     onError: (e) => toast.error(e.message),
   });
+
   const createTag = trpc.blog.createTag.useMutation({
     onSuccess: () => {
-      toast.success("태그가 추가되었습니다.");
+      toast.success("태그가 추가됐어요.");
       refetchTags();
       setNewTagName("");
       setNewTagSlug("");
@@ -110,6 +127,7 @@ export default function AdminBlogEdit() {
     onError: (e) => toast.error(e.message),
   });
 
+  if (loading) return null;
   if (!user || user.role !== "admin") {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center text-gray-400">
@@ -118,70 +136,9 @@ export default function AdminBlogEdit() {
     );
   }
 
-  const handleFileUpload = async (file: File, target: "thumbnail" | "image") => {
-    if (file.size > 16 * 1024 * 1024) {
-      toast.error("파일 크기는 16MB 이하여야 합니다.");
-      return;
-    }
-    setUploading(true);
-    try {
-      // 이미지 압축 최적화
-      const optimized = await optimizeImage(file, {
-        isThumbnail: target === "thumbnail",
-        quality: 0.82,
-      });
-      setCompressResults((prev) => [...prev, optimized]);
-
-      // 압축 안내 토스트
-      if (optimized.compressionRate > 5) {
-        toast.success(
-          `이미지 압축 완료: ${formatBytes(optimized.originalSize)} → ${formatBytes(optimized.optimizedSize)} (-${optimized.compressionRate}%)`
-        );
-      }
-
-      const ext = optimized.mimeType === "image/webp" ? "webp" : "jpg";
-      const filename = file.name.replace(/\.[^.]+$/, "." + ext);
-
-      const result = await uploadImage.mutateAsync({
-        filename,
-        mimeType: optimized.mimeType,
-        base64: optimized.base64,
-      });
-
-      if (target === "thumbnail") {
-        setThumbnail(result.url);
-        // 썸네일 alt 자동 생성
-        handleGenerateAlt(result.url, "thumbnail");
-      } else {
-        const newItem: ImageItem = { url: result.url, alt: "" };
-        setImages((prev) => [...prev, newItem]);
-        // 추가 이미지 alt 자동 생성
-        handleGenerateAlt(result.url, "image");
-      }
-    } catch {
-      toast.error("이미지 업로드에 실패했습니다.");
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleGenerateAlt = async (imageUrl: string, target: "thumbnail" | "image") => {
-    setGeneratingAlt(imageUrl);
-    try {
-      const result = await generateAlt.mutateAsync({ imageUrl, title: title || undefined });
-      if (target === "thumbnail") {
-        setThumbnailAlt(result.alt);
-      } else {
-        setImages((prev) =>
-          prev.map((img) => (img.url === imageUrl ? { ...img, alt: result.alt } : img))
-        );
-      }
-      toast.success("alt 태그가 자동 생성되었습니다!");
-    } catch {
-      toast.error("alt 태그 생성에 실패했습니다. 직접 입력해주세요.");
-    } finally {
-      setGeneratingAlt(null);
-    }
+  const handleImportNaver = () => {
+    if (!naverUrl.trim()) return toast.error("네이버 블로그 주소를 붙여넣어주세요.");
+    importNaverDraft.mutate({ url: naverUrl.trim() });
   };
 
   const handleGenerateSeo = () => {
@@ -190,17 +147,80 @@ export default function AdminBlogEdit() {
     generateSeo.mutate({ title, content });
   };
 
+  const handleGenerateAlt = async (imageUrl: string, target: "thumbnail" | "image") => {
+    if (imageUrl.startsWith("data:")) {
+      toast.error("사진 설명은 사진 저장 후 직접 입력해주세요.");
+      return;
+    }
+
+    try {
+      const result = await generateAlt.mutateAsync({ imageUrl, title: title || undefined });
+      if (target === "thumbnail") {
+        setThumbnailAlt(result.alt);
+      } else {
+        setImages((prev) => prev.map((img) => (img.url === imageUrl ? { ...img, alt: result.alt } : img)));
+      }
+    } catch {
+      toast.error("사진 설명을 자동 생성하지 못했어요. 직접 입력해도 됩니다.");
+    }
+  };
+
+  const handleFileUpload = async (file: File, target: "thumbnail" | "image") => {
+    if (file.size > 16 * 1024 * 1024) {
+      toast.error("사진은 16MB 이하만 올릴 수 있어요.");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const optimized = await optimizeImage(file, {
+        isThumbnail: target === "thumbnail",
+        quality: 0.55,
+        maxWidth: 900,
+        maxHeight: 700,
+        thumbnailMaxSize: 480,
+      });
+      const ext = optimized.mimeType === "image/webp" ? "webp" : "jpg";
+      const filename = file.name.replace(/\.[^.]+$/, `.${ext}`);
+      const result = await uploadImage.mutateAsync({
+        filename,
+        mimeType: optimized.mimeType,
+        base64: optimized.base64,
+      });
+
+      setUploadNote(`${formatBytes(optimized.originalSize)} → ${formatBytes(optimized.optimizedSize)}로 줄였어요.`);
+
+      if (target === "thumbnail") {
+        setThumbnail(result.url);
+        setThumbnailAlt(thumbnailAlt || `${title || "이천계단지기"} 대표 사진`);
+      } else {
+        setImages((prev) => [...prev, { url: result.url, alt: `${title || "이천계단지기"} 현장 사진` }]);
+      }
+    } catch {
+      toast.error("사진 업로드에 실패했어요. 우선 사진 없이 글만 저장해주세요.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleSubmit = () => {
     if (!title.trim()) return toast.error("제목을 입력해주세요.");
     if (!content.trim()) return toast.error("내용을 입력해주세요.");
 
+    const storableImages = images.filter((img) => isStorableImageUrl(img.url));
+    const skippedImageCount = images.length - storableImages.length + (thumbnail && !isStorableImageUrl(thumbnail) ? 1 : 0);
+
+    if (skippedImageCount > 0) {
+      toast.warning("사진 저장 설정 전이라 글 먼저 저장해요. 사진은 저장 후 다시 올려주세요.");
+    }
+
     const payload = {
       title,
       content,
-      thumbnail: thumbnail ?? undefined,
+      thumbnail: isStorableImageUrl(thumbnail) ? thumbnail ?? undefined : undefined,
       thumbnailAlt: thumbnailAlt || undefined,
-      images: images.map((img) => img.url), // 서버는 string[] 유지, alt는 별도 저장
-      imageAlts: images.map((img) => img.alt),
+      images: storableImages.map((img) => img.url),
+      imageAlts: storableImages.map((img) => img.alt),
       tags: selectedTags,
       published: published ? ("published" as const) : ("draft" as const),
       seoTitle: seoTitle || undefined,
@@ -208,17 +228,12 @@ export default function AdminBlogEdit() {
       seoKeywords: seoKeywords || undefined,
     };
 
-    if (isEdit && postId) {
-      updatePost.mutate({ id: postId, ...payload });
-    } else {
-      createPost.mutate(payload);
-    }
+    if (isEdit && postId) updatePost.mutate({ id: postId, ...payload });
+    else createPost.mutate(payload);
   };
 
   const toggleTag = (id: number) => {
-    setSelectedTags((prev) =>
-      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
-    );
+    setSelectedTags((prev) => (prev.includes(id) ? prev.filter((tagId) => tagId !== id) : [...prev, id]));
   };
 
   return (
@@ -230,72 +245,77 @@ export default function AdminBlogEdit() {
         </Button>
       </Link>
 
-      <h1 className="text-2xl font-bold mb-8">
-        {isEdit ? "작업일지 수정" : "새 작업일지 작성"}
-      </h1>
+      <h1 className="text-2xl font-bold mb-8">{isEdit ? "정보글 수정" : "새 정보글 작성"}</h1>
 
+      {!isEdit && (
+        <section className="mb-8 rounded-2xl border border-blue-100 bg-blue-50/60 p-4">
+          <div className="mb-3 flex items-start gap-3">
+            <div className="mt-0.5 rounded-full bg-blue-600 p-2 text-white">
+              <Sparkles className="h-4 w-4" />
+            </div>
+            <div>
+              <h2 className="font-bold text-slate-900">네이버 블로그 글 자동 변환</h2>
+              <p className="mt-1 text-sm leading-6 text-slate-500">
+                네이버 글 주소를 넣으면 홈페이지용 정보글 초안, SEO 제목, 설명, 키워드를 자동으로 채웁니다. 사진이 자동으로 안 잡히면 아래에서 직접 올리면 돼요.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Input
+              value={naverUrl}
+              onChange={(event) => setNaverUrl(event.target.value)}
+              placeholder="https://blog.naver.com/icheonstair/224306730819"
+              className="h-11 bg-white"
+            />
+            <Button
+              type="button"
+              onClick={handleImportNaver}
+              disabled={importNaverDraft.isPending}
+              className="h-11 shrink-0 bg-blue-600 text-white hover:bg-blue-700"
+            >
+              <Wand2 className="mr-2 h-4 w-4" />
+              {importNaverDraft.isPending ? "변환 중" : "정보글로 변환"}
+            </Button>
+          </div>
+        </section>
+      )}
       <div className="space-y-6">
-        {/* Title */}
         <div>
           <Label className="mb-1 block">제목 *</Label>
-          <Input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="예: 이천 ○○빌라 계단청소 완료"
-          />
+          <Input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="예: 여름철 빌라 계단 냄새, 물청소만으로 해결 안 되는 이유" />
         </div>
 
-        {/* Thumbnail */}
         <div>
-          <Label className="mb-1 block">대표 사진 (썸네일)</Label>
+          <Label className="mb-1 block">대표 사진</Label>
           {thumbnail ? (
-            <div className="space-y-2">
-              <div className="relative inline-block">
-                <img src={thumbnail} alt={thumbnailAlt || "썸네일"} className="h-40 rounded-lg object-cover" />
+            <div className="space-y-3">
+              <div className="relative inline-block overflow-hidden rounded-xl border bg-white">
+                <img src={thumbnail} alt={thumbnailAlt || "대표 사진"} className="h-44 max-w-full object-cover" />
                 <button
-                  onClick={() => { setThumbnail(null); setThumbnailAlt(""); }}
-                  className="absolute top-1 right-1 bg-black/50 rounded-full p-0.5 text-white"
+                  type="button"
+                  onClick={() => {
+                    setThumbnail(null);
+                    setThumbnailAlt("");
+                  }}
+                  className="absolute right-2 top-2 rounded-full bg-black/55 p-1 text-white"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="h-4 w-4" />
                 </button>
               </div>
-              {/* 썸네일 alt 편집 */}
-              <div className="flex gap-2 items-center max-w-md">
-                <div className="flex-1">
-                  <div className="flex items-center gap-1 mb-1">
-                    <Label className="text-xs text-gray-500">alt 태그</Label>
-                    {generatingAlt === thumbnail && (
-                      <span className="text-xs text-blue-500 animate-pulse">AI 생성 중...</span>
-                    )}
-                  </div>
-                  <Input
-                    value={thumbnailAlt}
-                    onChange={(e) => setThumbnailAlt(e.target.value)}
-                    placeholder="이미지 설명 (SEO용)"
-                    className="text-sm h-8"
-                  />
-                </div>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleGenerateAlt(thumbnail, "thumbnail")}
-                  disabled={generatingAlt === thumbnail}
-                  className="mt-5 h-8 text-blue-600 border-blue-300 hover:bg-blue-50 text-xs"
-                >
-                  <Wand2 className="w-3 h-3 mr-1" />
-                  AI 재생성
-                </Button>
+              <div className="flex gap-2">
+                <Input value={thumbnailAlt} onChange={(event) => setThumbnailAlt(event.target.value)} placeholder="대표 사진 설명" />
+                <Button type="button" variant="outline" onClick={() => thumbnail && handleGenerateAlt(thumbnail, "thumbnail")}>사진설명</Button>
               </div>
             </div>
           ) : (
             <button
+              type="button"
               onClick={() => thumbInputRef.current?.click()}
               disabled={uploading}
-              className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors"
+              className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 px-4 py-5 text-gray-500 transition hover:border-blue-400 hover:text-blue-600"
             >
-              <Upload className="w-4 h-4" />
-              {uploading ? "업로드 중..." : "사진 선택 (업로드 시 alt 자동 생성)"}
+              <Upload className="h-4 w-4" />
+              {uploading ? "사진 올리는 중" : "대표사진 선택"}
             </button>
           )}
           <input
@@ -303,298 +323,155 @@ export default function AdminBlogEdit() {
             type="file"
             accept="image/*"
             className="hidden"
-            onChange={(e) => {
-              const f = e.target.files?.[0];
-              if (f) handleFileUpload(f, "thumbnail");
-              e.target.value = "";
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              if (file) handleFileUpload(file, "thumbnail");
+              event.target.value = "";
             }}
           />
+          {uploadNote && <p className="mt-2 text-xs text-green-600">{uploadNote}</p>}
         </div>
 
-        {/* Content */}
         <div>
           <Label className="mb-1 block">내용 *</Label>
-          <Textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="작업 내용, 현장 상황, 사용한 세제 등을 자유롭게 작성해주세요."
-            rows={10}
-          />
+          <Textarea value={content} onChange={(event) => setContent(event.target.value)} rows={16} placeholder="정보글 본문을 작성하거나 네이버 링크로 자동 변환해보세요." />
         </div>
 
-        {/* Extra images */}
         <div>
           <Label className="mb-1 block">추가 사진</Label>
-          <div className="space-y-3 mb-3">
-            {images.map((img, i) => (
-              <div key={i} className="flex gap-3 items-start bg-gray-50 rounded-lg p-3">
-                <div className="relative flex-shrink-0">
-                  <img src={img.url} alt={img.alt} className="h-20 w-20 rounded-lg object-cover" />
-                  <button
-                    onClick={() => setImages((prev) => prev.filter((_, idx) => idx !== i))}
-                    className="absolute top-0.5 right-0.5 bg-black/50 rounded-full p-0.5 text-white"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1 mb-1">
-                    <Label className="text-xs text-gray-500">alt 태그</Label>
-                    {generatingAlt === img.url && (
-                      <span className="text-xs text-blue-500 animate-pulse">AI 생성 중...</span>
-                    )}
+          {images.length > 0 && (
+            <div className="mb-3 space-y-3">
+              {images.map((img, index) => (
+                <div key={`${img.url}-${index}`} className="flex gap-3 rounded-xl bg-gray-50 p-3">
+                  <div className="relative shrink-0">
+                    <img src={img.url} alt={img.alt} className="h-20 w-20 rounded-lg object-cover" />
+                    <button type="button" onClick={() => setImages((prev) => prev.filter((_, i) => i !== index))} className="absolute right-1 top-1 rounded-full bg-black/55 p-0.5 text-white">
+                      <X className="h-3 w-3" />
+                    </button>
                   </div>
-                  <div className="flex gap-2">
-                    <Input
-                      value={img.alt}
-                      onChange={(e) =>
-                        setImages((prev) =>
-                          prev.map((item, idx) =>
-                            idx === i ? { ...item, alt: e.target.value } : item
-                          )
-                        )
-                      }
-                      placeholder="이미지 설명 (SEO용)"
-                      className="text-sm h-8 flex-1"
-                    />
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleGenerateAlt(img.url, "image")}
-                      disabled={generatingAlt === img.url}
-                      className="h-8 text-blue-600 border-blue-300 hover:bg-blue-50 text-xs flex-shrink-0"
-                    >
-                      <Wand2 className="w-3 h-3 mr-1" />
-                      AI 재생성
-                    </Button>
-                  </div>
+                  <Input
+                    value={img.alt}
+                    onChange={(event) => setImages((prev) => prev.map((item, i) => (i === index ? { ...item, alt: event.target.value } : item)))}
+                    placeholder="사진 설명"
+                  />
                 </div>
-              </div>
-            ))}
-            <button
-              onClick={() => imgInputRef.current?.click()}
-              disabled={uploading}
-              className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors w-full"
-            >
-              <Upload className="w-4 h-4" />
-              {uploading ? "업로드 중..." : "사진 추가 (업로드 시 alt 자동 생성)"}
-            </button>
-          </div>
+              ))}
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() => imgInputRef.current?.click()}
+            disabled={uploading}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-300 px-4 py-4 text-gray-500 transition hover:border-blue-400 hover:text-blue-600"
+          >
+            <Upload className="h-4 w-4" />
+            추가사진 선택
+          </button>
           <input
             ref={imgInputRef}
             type="file"
             accept="image/*"
             multiple
             className="hidden"
-            onChange={(e) => {
-              const files = Array.from(e.target.files ?? []);
-              files.forEach((f) => handleFileUpload(f, "image"));
-              e.target.value = "";
+            onChange={(event) => {
+              Array.from(event.target.files ?? []).forEach((file) => handleFileUpload(file, "image"));
+              event.target.value = "";
             }}
           />
         </div>
 
-        {/* Tags */}
         <div>
           <Label className="mb-2 block">태그</Label>
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="mb-3 flex flex-wrap gap-2">
             {(allTags ?? []).map((tag) => (
               <button
+                type="button"
                 key={tag.id}
                 onClick={() => toggleTag(tag.id)}
-                className={`px-3 py-1 rounded-full text-sm border transition-colors ${
-                  selectedTags.includes(tag.id)
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-gray-600 border-gray-300 hover:border-blue-400"
-                }`}
+                className={`rounded-full border px-3 py-1 text-sm transition ${selectedTags.includes(tag.id) ? "border-blue-600 bg-blue-600 text-white" : "border-gray-300 bg-white text-gray-600 hover:border-blue-400"}`}
               >
                 {tag.name}
               </button>
             ))}
-            <button
-              onClick={() => setShowTagForm(!showTagForm)}
-              className="px-3 py-1 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-blue-400 hover:text-blue-500 flex items-center gap-1"
-            >
-              <Plus className="w-3 h-3" />
+            <button type="button" onClick={() => setShowTagForm(!showTagForm)} className="flex items-center gap-1 rounded-full border border-dashed border-gray-300 px-3 py-1 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600">
+              <Plus className="h-3 w-3" />
               태그 추가
             </button>
           </div>
           {showTagForm && (
-            <div className="flex gap-2 items-end mt-2">
+            <div className="flex flex-wrap items-end gap-2 rounded-xl bg-gray-50 p-3">
               <div>
-                <Label className="text-xs mb-1 block">태그명</Label>
+                <Label className="mb-1 block text-xs">태그명</Label>
                 <Input
                   value={newTagName}
-                  onChange={(e) => {
-                    setNewTagName(e.target.value);
-                    setNewTagSlug(e.target.value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-가-힣]/g, ""));
+                  onChange={(event) => {
+                    const value = event.target.value;
+                    setNewTagName(value);
+                    setNewTagSlug(value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-가-힣]/g, ""));
                   }}
-                  placeholder="계단청소"
+                  placeholder="관리정보"
                   className="w-32"
                 />
               </div>
               <div>
-                <Label className="text-xs mb-1 block">슬러그</Label>
-                <Input
-                  value={newTagSlug}
-                  onChange={(e) => setNewTagSlug(e.target.value)}
-                  placeholder="stair"
-                  className="w-28"
-                />
+                <Label className="mb-1 block text-xs">주소용 이름</Label>
+                <Input value={newTagSlug} onChange={(event) => setNewTagSlug(event.target.value)} placeholder="guide" className="w-32" />
               </div>
-              <Button
-                size="sm"
-                onClick={() => createTag.mutate({ name: newTagName, slug: newTagSlug })}
-                disabled={!newTagName || !newTagSlug}
-              >
-                추가
-              </Button>
+              <Button type="button" size="sm" onClick={() => createTag.mutate({ name: newTagName, slug: newTagSlug })} disabled={!newTagName || !newTagSlug}>추가</Button>
             </div>
           )}
         </div>
 
-        {/* SEO 자동 생성 패널 */}
-        <div className="border border-gray-200 rounded-xl overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 bg-gray-50">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-blue-500" />
-              <span className="font-medium text-sm text-gray-700">SEO 메타 태그</span>
-              {seoTitle && (
-                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">설정됨</span>
-              )}
+        <section className="overflow-hidden rounded-xl border border-gray-200">
+          <div className="flex items-center justify-between bg-gray-50 px-4 py-3">
+            <div className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <Sparkles className="h-4 w-4 text-blue-500" />
+              SEO 설정
+              {seoTitle && <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700">작성됨</span>}
             </div>
             <div className="flex items-center gap-2">
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                onClick={handleGenerateSeo}
-                disabled={generateSeo.isPending}
-                className="text-blue-600 border-blue-300 hover:bg-blue-50 text-xs h-7"
-              >
-                <Sparkles className="w-3 h-3 mr-1" />
-                {generateSeo.isPending ? "AI 생성 중..." : "AI 자동 생성"}
+              <Button type="button" size="sm" variant="outline" onClick={handleGenerateSeo} disabled={generateSeo.isPending} className="h-8 text-xs text-blue-600">
+                <Sparkles className="mr-1 h-3 w-3" />
+                다시 생성
               </Button>
-              <button
-                type="button"
-                onClick={() => setShowSeo(!showSeo)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                {showSeo ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              <button type="button" onClick={() => setShowSeo(!showSeo)} className="text-gray-400 hover:text-gray-600">
+                {showSeo ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
               </button>
             </div>
           </div>
-
           {showSeo && (
-            <div className="px-4 py-4 space-y-4 bg-white">
-              <p className="text-xs text-gray-400">
-                제목과 내용을 입력한 후 "AI 자동 생성" 버튼을 누르면 검색 최적화된 메타 태그가 자동으로 작성됩니다.
-              </p>
-
+            <div className="space-y-4 bg-white p-4">
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <Label className="text-xs text-gray-600">SEO 제목 (검색 결과 제목)</Label>
-                  <span className={`text-xs ${seoTitle.length > 60 ? "text-red-500" : "text-gray-400"}`}>
-                    {seoTitle.length}/60자
-                  </span>
-                </div>
-                <Input
-                  value={seoTitle}
-                  onChange={(e) => setSeoTitle(e.target.value)}
-                  placeholder="이천계단청소 전문 이천계단지기 | 빌라 계단청소 완료"
-                  className="text-sm"
-                />
+                <Label className="mb-1 block text-xs">SEO 제목</Label>
+                <Input value={seoTitle} onChange={(event) => setSeoTitle(event.target.value)} />
               </div>
-
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <Label className="text-xs text-gray-600">SEO 설명 (검색 결과 스니펫)</Label>
-                  <span className={`text-xs ${seoDescription.length > 80 ? "text-red-500" : "text-gray-400"}`}>
-                    {seoDescription.length}/80자
-                  </span>
-                </div>
-                <Textarea
-                  value={seoDescription}
-                  onChange={(e) => setSeoDescription(e.target.value)}
-                  placeholder="이천 빌라 계단청소 전문 이천계단지기. 무료 방문 견적 가능합니다."
-                  rows={2}
-                  className="text-sm resize-none"
-                />
+                <Label className="mb-1 block text-xs">SEO 설명</Label>
+                <Textarea value={seoDescription} onChange={(event) => setSeoDescription(event.target.value)} rows={2} />
               </div>
-
               <div>
-                <Label className="text-xs text-gray-600 mb-1 block">키워드 (쉼표로 구분)</Label>
-                <Input
-                  value={seoKeywords}
-                  onChange={(e) => setSeoKeywords(e.target.value)}
-                  placeholder="이천계단청소, 이천빌라청소, 이천계단지기, 계단청소업체"
-                  className="text-sm"
-                />
+                <Label className="mb-1 block text-xs">키워드</Label>
+                <Input value={seoKeywords} onChange={(event) => setSeoKeywords(event.target.value)} />
               </div>
-
-              {(seoTitle || seoDescription) && (
-                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p className="text-xs text-gray-400 mb-2">검색 결과 미리보기</p>
-                  <p className="text-blue-600 text-sm font-medium truncate">
-                    {seoTitle || title}
-                  </p>
-                  <p className="text-green-700 text-xs">2000stair.click</p>
-                  <p className="text-gray-600 text-xs mt-0.5 line-clamp-2">
-                    {seoDescription}
-                  </p>
-                </div>
-              )}
             </div>
           )}
-        </div>
+        </section>
 
-        {/* 이미지 압축 결과 요약 */}
-        {compressResults.length > 0 && (
-          <div className="border border-green-200 bg-green-50 rounded-xl px-4 py-3">
-            <div className="flex items-center gap-2 mb-2">
-              <Zap className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-medium text-green-800">이미지 최적화 결과</span>
-            </div>
-            <div className="space-y-1">
-              {compressResults.map((r, i) => (
-                <div key={i} className="flex items-center justify-between text-xs text-green-700">
-                  <span>{i + 1}번 이미지 ({r.mimeType === "image/webp" ? "WebP" : "JPEG"} {r.width}×{r.height}px)</span>
-                  <span className="font-medium">
-                    {formatBytes(r.originalSize)} → {formatBytes(r.optimizedSize)}
-                    {r.compressionRate > 0 && (
-                      <span className="ml-1 text-green-600 font-bold">(-{r.compressionRate}%)</span>
-                    )}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <p className="text-xs text-green-600 mt-2">
-              총 절감: {formatBytes(compressResults.reduce((a, r) => a + r.originalSize - r.optimizedSize, 0))}
-            </p>
-          </div>
+        {naverUrl && (
+          <a href={naverUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:underline">
+            네이버 원문 확인
+            <ExternalLink className="h-3 w-3" />
+          </a>
         )}
 
-        {/* Publish toggle */}
         <div className="flex items-center gap-3">
-          <Switch
-            id="published"
-            checked={published}
-            onCheckedChange={setPublished}
-          />
-          <Label htmlFor="published">
-            {published ? "공개 (바로 게시)" : "임시저장 (비공개)"}
-          </Label>
+          <Switch id="published" checked={published} onCheckedChange={setPublished} />
+          <Label htmlFor="published">{published ? "공개" : "임시저장"}</Label>
         </div>
 
-        {/* Submit */}
         <div className="flex gap-3 pt-2">
-          <Button
-            onClick={handleSubmit}
-            disabled={createPost.isPending || updatePost.isPending || uploading}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            {isEdit ? "수정 완료" : "게시하기"}
+          <Button onClick={handleSubmit} disabled={createPost.isPending || updatePost.isPending || uploading} className="bg-blue-600 text-white hover:bg-blue-700">
+            {isEdit ? "수정 완료" : "저장하기"}
           </Button>
           <Link href="/admin/blog">
             <Button variant="outline">취소</Button>
@@ -603,13 +480,4 @@ export default function AdminBlogEdit() {
       </div>
     </div>
   );
-}
-
-function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve((reader.result as string).split(",")[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 }

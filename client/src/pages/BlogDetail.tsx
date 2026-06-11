@@ -4,6 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import BlogReviews from "@/components/BlogReviews";
 import {
   ArrowLeft,
   CalendarDays,
@@ -12,6 +13,9 @@ import {
   Phone,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar";
+
+const SITE_URL = "https://2000stair.kr";
 
 function renderContentWithLinks(text: string) {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -44,6 +48,18 @@ function renderContentWithLinks(text: string) {
   });
 }
 
+function setCanonical(url: string) {
+  let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+
+  if (!link) {
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+
+  link.setAttribute("href", url);
+}
+
 export default function BlogDetail() {
   const { id } = useParams<{ id: string }>();
   const postId = parseInt(id ?? "0");
@@ -54,6 +70,7 @@ export default function BlogDetail() {
   useEffect(() => {
     if (!post) return;
 
+    const canonicalUrl = `${SITE_URL}/blog/${postId}`;
     const seoTitle = post.seoTitle || `${post.title} | 이천계단지기`;
     const seoDesc =
       post.seoDescription ||
@@ -79,14 +96,16 @@ export default function BlogDetail() {
     setMeta("keywords", seoKw);
     setMeta("og:title", seoTitle, true);
     setMeta("og:description", seoDesc, true);
-    setMeta("og:url", window.location.href, true);
+    setMeta("og:url", canonicalUrl, true);
     setMeta("twitter:title", seoTitle);
     setMeta("twitter:description", seoDesc);
+    setCanonical(canonicalUrl);
 
     return () => {
       document.title = "이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소";
+      setCanonical(`${SITE_URL}/`);
     };
-  }, [post]);
+  }, [post, postId]);
 
   if (isLoading) {
     return (
@@ -120,28 +139,32 @@ export default function BlogDetail() {
   }
 
   const matchedTags = (allTags ?? []).filter((t) => post.tags.includes(t.id));
+  const isCareGuide = matchedTags.some(
+    (tag) => tag.name.includes("관리정보") || tag.slug.includes("guide") || tag.slug.includes("info")
+  );
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
+      <Navbar />
       <article className="container max-w-4xl py-12 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 34 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <Link href="/blog">
+          <Link href={isCareGuide ? "/#care-guide" : "/blog"}>
             <Button
               variant="ghost"
               size="sm"
               className="mb-8 -ml-2 text-muted-foreground hover:text-primary"
             >
               <ArrowLeft className="w-4 h-4 mr-1" />
-              작업일지 목록
+              {isCareGuide ? "관리정보 목록" : "작업일지 목록"}
             </Button>
           </Link>
 
           <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
-            FIELD ARCHIVE
+            {isCareGuide ? "STAIR CARE GUIDE" : "FIELD ARCHIVE"}
           </p>
 
           <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-6">
@@ -172,6 +195,15 @@ export default function BlogDetail() {
                 alt={(post as { thumbnailAlt?: string }).thumbnailAlt || post.title}
                 className="w-full max-h-[520px] object-cover"
               />
+            </div>
+          )}
+
+          {isCareGuide && (
+            <div className="mb-8 rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm md:p-6">
+              <p className="text-sm font-extrabold text-primary mb-2">이 글에서 확인할 내용</p>
+              <p className="text-sm leading-7 text-muted-foreground">
+                현장에서 자주 확인하는 계단 관리 문제를 기준으로 원인과 관리 포인트를 쉽게 정리했습니다.
+              </p>
             </div>
           )}
 
@@ -253,6 +285,8 @@ export default function BlogDetail() {
           </div>
         </motion.div>
       </article>
+
+      {isCareGuide && <BlogReviews />}
     </main>
   );
 }

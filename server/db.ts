@@ -1,20 +1,97 @@
-import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
-import { ENV } from './_core/env';
+import { eq, sql } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import { InsertUser, users } from "../drizzle/schema.js";
+import { ENV } from "./_core/env.js";
 
 let _db: ReturnType<typeof drizzle> | null = null;
+let _schemaReady = false;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
+async function ensureSchema(db: ReturnType<typeof drizzle>) {
+  if (_schemaReady) return;
+
+  await db.execute(sql`DO $$ BEGIN CREATE TYPE "role" AS ENUM ('user', 'admin'); EXCEPTION WHEN duplicate_object THEN null; END $$;`);
+  await db.execute(sql`DO $$ BEGIN CREATE TYPE "serviceType" AS ENUM ('in_person', 'non_contact'); EXCEPTION WHEN duplicate_object THEN null; END $$;`);
+  await db.execute(sql`DO $$ BEGIN CREATE TYPE "status" AS ENUM ('pending', 'contacted', 'confirmed', 'canceled'); EXCEPTION WHEN duplicate_object THEN null; END $$;`);
+  await db.execute(sql`DO $$ BEGIN CREATE TYPE "published" AS ENUM ('draft', 'published'); EXCEPTION WHEN duplicate_object THEN null; END $$;`);
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS "users" (
+      "id" serial PRIMARY KEY,
+      "openId" varchar(64) NOT NULL UNIQUE,
+      "name" text,
+      "email" varchar(320),
+      "loginMethod" varchar(64),
+      "role" "role" NOT NULL DEFAULT 'user',
+      "createdAt" timestamp NOT NULL DEFAULT now(),
+      "updatedAt" timestamp NOT NULL DEFAULT now(),
+      "lastSignedIn" timestamp NOT NULL DEFAULT now()
+    )
+  `);
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS "quote_requests" (
+      "id" serial PRIMARY KEY,
+      "userId" integer,
+      "name" varchar(100) NOT NULL,
+      "phone" varchar(20) NOT NULL,
+      "email" varchar(320),
+      "address" text NOT NULL,
+      "serviceType" "serviceType" NOT NULL,
+      "planId" varchar(32) NOT NULL,
+      "message" text,
+      "status" "status" NOT NULL DEFAULT 'pending',
+      "createdAt" timestamp NOT NULL DEFAULT now(),
+      "updatedAt" timestamp NOT NULL DEFAULT now()
+    )
+  `);
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS "post_tags" (
+      "id" serial PRIMARY KEY,
+      "name" varchar(50) NOT NULL UNIQUE,
+      "slug" varchar(60) NOT NULL UNIQUE,
+      "createdAt" timestamp NOT NULL DEFAULT now()
+    )
+  `);
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS "posts" (
+      "id" serial PRIMARY KEY,
+      "title" varchar(200) NOT NULL,
+      "content" text NOT NULL,
+      "thumbnail" text,
+      "thumbnail_alt" varchar(200),
+      "images" text,
+      "tags" text,
+      "published" "published" NOT NULL DEFAULT 'draft',
+      "authorId" integer NOT NULL,
+      "createdAt" timestamp NOT NULL DEFAULT now(),
+      "seo_title" varchar(100),
+      "seo_description" varchar(160),
+      "seo_keywords" varchar(300),
+      "updatedAt" timestamp NOT NULL DEFAULT now()
+    )
+  `);
+
+  _schemaReady = true;
+}
+
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      const sqlClient = neon(process.env.DATABASE_URL);
+      _db = drizzle(sqlClient);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
     }
   }
+
+  if (_db) {
+    await ensureSchema(_db);
+  }
+
   return _db;
 }
 
@@ -56,8 +133,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       values.role = user.role;
       updateSet.role = user.role;
     } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
+      values.role = "admin";
+      updateSet.role = "admin";
     }
 
     if (!values.lastSignedIn) {
@@ -68,7 +145,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.lastSignedIn = new Date();
     }
 
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
+    await db.insert(users).values(values).onConflictDoUpdate({
+      target: users.openId,
       set: updateSet,
     });
   } catch (error) {
@@ -89,4 +167,17 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+
+export async function updateLastSignedIn(userId: number, date: Date): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update lastSignedIn: database not available");
+    return;
+  }
+  try {
+    await db.update(users).set({ lastSignedIn: date, updatedAt: date }).where(eq(users.id, userId));
+  } catch (error) {
+    console.error("[Database] Failed to update lastSignedIn:", error);
+    // Non-critical: don't throw, just log
+  }
+}

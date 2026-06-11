@@ -1,11 +1,11 @@
 {
-  "buildCommand": "pnpm build",
-  "installCommand": "pnpm install",
-  "framework": null,
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "buildCommand": "vite build && tsx scripts/prerender-seo.ts",
+  "redirects": [
+    { "source": "/area", "destination": "/areas", "permanent": true }
+  ],
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/trpc/:path*", "destination": "/api/trpc" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

@@ -1,143 +1,138 @@
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import BlogPostCards from "@/components/BlogPostCards";
 
 const reviewCards = [
   {
     platform: "네이버 리뷰",
     mark: "N",
     logoClass: "rounded-md bg-[#35b957] text-white",
-    quote: "꼼꼼하게 해주셔서 감사해요.",
+    quote: "정기관리 맡기고 나서 계단이 훨씬 안정적으로 깔끔해졌어요.",
     detail: "신둔면 · 네이버 플레이스",
-    button: "리뷰 보러가기",
     url: "https://naver.me/xmB4q3oq",
   },
   {
     platform: "숨고 리뷰",
     mark: "S",
     logoClass: "rounded-md bg-[#6b4eff] text-white",
-    quote: "오랜 빌라 청소도 결과물 완성도가 높았어요.",
+    quote: "오래된 빌라 청소도 결과물 완성도가 높았어요.",
     detail: "마장면 · 숨고",
-    button: "리뷰 보러가기",
     url: "https://soomgo.com/profile/users/3729049",
   },
   {
     platform: "당근 후기",
     mark: "d",
     logoClass: "rounded-md bg-[#f47a22] text-white",
-    quote: "너무 꼼꼼하게 해주셨습니다.",
+    quote: "사진 보내고 바로 상담돼서 편했고 응대도 부담 없이 빨랐어요.",
     detail: "동네 주민 후기 · 당근",
-    button: "후기 보러가기",
     url: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
   },
 ];
 
-export default function BlogReviews() {
+type BlogReviewsProps = {
+  variant?: "light" | "dark";
+};
+
+export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
+  const isDark = variant === "dark";
+
+  const titleClass = isDark ? "text-white" : "text-foreground";
+  const descriptionClass = isDark ? "text-white/68" : "text-muted-foreground";
+  const cardClass = isDark
+    ? "border-white/18 bg-white/[0.13] shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-xl hover:bg-white/[0.18] hover:shadow-[0_26px_70px_rgba(15,23,42,0.24)]"
+    : "border-blue-100 bg-white shadow-[0_18px_45px_rgba(15,76,169,0.08)] hover:shadow-[0_24px_60px_rgba(15,76,169,0.13)]";
+  const platformClass = isDark ? "text-white/55" : "text-muted-foreground";
+  const scoreClass = isDark ? "text-white/90" : "text-foreground/70";
+  const quoteClass = isDark ? "text-white" : "text-foreground";
+  const detailClass = isDark ? "text-white/55" : "text-muted-foreground";
+
   return (
-    <section id="blog-reviews" className="py-16 md:py-24 bg-background">
-      <div className="container">
-        <motion.div
-          className="text-center max-w-2xl mx-auto mb-10"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-4">
+    <div id="blog-reviews" className="space-y-14 md:space-y-20">
+      <motion.div
+        className="mx-auto max-w-6xl"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="mb-8 text-center">
+          <p className="mb-3 text-xs font-extrabold tracking-[0.28em] text-primary">
+            REAL REVIEWS
+          </p>
+          <h3 className={`text-2xl font-extrabold leading-tight md:text-3xl ${titleClass}`}>
+            고객님들의 실제 후기
+          </h3>
+          <p className={`mx-auto mt-3 max-w-xl text-sm leading-relaxed md:text-base ${descriptionClass}`}>
+            실제 고객님들이 남겨주신 후기를 한곳에 모았습니다.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {reviewCards.map((review) => (
+            <a
+              key={review.platform}
+              href={review.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block h-full"
+              aria-label={review.platform}
+            >
+              <Card className={`h-full rounded-[1.5rem] border transition-all duration-300 hover:-translate-y-1 ${cardClass}`}>
+                <CardContent className="flex h-full flex-col p-5 md:p-6">
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <span
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center text-sm font-black leading-none shadow-[0_10px_18px_rgba(15,23,42,0.18)] ring-1 ring-white/60 ${review.logoClass}`}
+                    >
+                      {review.mark}
+                    </span>
+                    <span className={`text-xs font-bold ${platformClass}`}>
+                      {review.platform}
+                    </span>
+                  </div>
+
+                  <div className="mb-3 flex items-center gap-1.5 text-yellow-400">
+                    <span className={`mr-1 text-xs font-bold ${scoreClass}`}>5.0</span>
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                    ))}
+                  </div>
+
+                  <p className={`flex-1 text-sm font-bold leading-relaxed md:text-base ${quoteClass}`}>
+                    {review.quote}
+                  </p>
+
+                  <p className={`mt-5 text-xs font-medium ${detailClass}`}>
+                    {review.detail}
+                  </p>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="mx-auto max-w-6xl"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="mb-8 text-center">
+          <p className="mb-3 text-sm font-bold tracking-[0.35em] text-primary">
             FIELD ARCHIVE
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className={`mb-4 text-3xl font-bold md:text-4xl ${titleClass}`}>
             실제 작업 기록
           </h2>
-
-          <p className="text-muted-foreground text-lg">
+          <p className={`text-base leading-relaxed md:text-lg ${descriptionClass}`}>
             이천계단지기의 현장 기록은 네이버 블로그에 꾸준히 남기고 있습니다.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.a
-          href="https://blog.naver.com/icheonstair"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="이천계단지기 네이버 블로그에서 실제 작업 기록 보기"
-          className="group block max-w-6xl mx-auto mb-14 rounded-xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="relative overflow-hidden rounded-xl">
-            <img
-              src="/images/blog-banner-main.png"
-              alt="이천계단지기 실제 작업 기록 보러가기"
-              className="w-full h-auto transition-transform duration-500 group-hover:scale-[1.01]"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-white/0 transition-colors duration-300 group-hover:bg-white/8" />
-          </div>
-        </motion.a>
-
-        <motion.div
-          className="mx-auto max-w-6xl rounded-2xl border border-blue-50 bg-white/70 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] md:p-6"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="grid gap-5 lg:grid-cols-[0.22fr_0.78fr] lg:items-start">
-            <div className="flex h-full flex-col items-start justify-start py-1 lg:pt-1">
-              <h3 className="text-xl font-extrabold leading-tight text-foreground md:text-2xl">
-                고객님들의 실제 후기
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                실제 고객님들이 남겨주신 후기를 만나보세요.
-              </p>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-3">
-              {reviewCards.map((review) => (
-                <a
-                  key={review.platform}
-                  href={review.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block h-full"
-                  aria-label={review.platform}
-                >
-                  <Card className="h-full rounded-lg border-blue-50 bg-white shadow-[0_8px_24px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-                    <CardContent className="flex h-full flex-col p-5">
-                      <div className="mb-3 flex items-center">
-                        <span
-                          className={`flex h-7 w-7 shrink-0 items-center justify-center text-xs font-black leading-none ${review.logoClass}`}
-                        >
-                          {review.mark}
-                        </span>
-                      </div>
-
-                      <div className="mb-3 flex items-center gap-1.5 text-yellow-400">
-                        <span className="mr-1 text-xs font-bold text-foreground">
-                          5.0
-                        </span>
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                        ))}
-                      </div>
-
-                      <p className="flex-1 text-sm font-bold leading-relaxed text-foreground md:text-base">
-                        {review.quote}
-                      </p>
-
-                      <p className="mt-5 text-xs font-medium text-muted-foreground">
-                        {review.detail}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+        <BlogPostCards />
+      </motion.div>
+    </div>
   );
 }
