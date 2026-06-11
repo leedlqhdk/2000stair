@@ -265,9 +265,15 @@ function applySeoToHtml(html: string, seo: NonNullable<ReturnType<typeof getSeoF
   }
 
   if (seo.jsonLd) {
-    result = result.replace(/<script id="route-seo-jsonld"[^>]*>.*?<\/script>\s*/s, "");
-    const script = `<script id="route-seo-jsonld" type="application/ld+json">${escapeJsonForScriptTag(seo.jsonLd)}</script>\n  </head>`;
-    result = replaceOrThrow(result, /<\/head>/, script, "jsonld");
+    result = result.replace(/<script id="route-seo-jsonld[^"]*"[^>]*>.*?<\/script>\s*/gs, "");
+    const items = Array.isArray(seo.jsonLd) ? seo.jsonLd : [seo.jsonLd];
+    const scripts = items
+      .map((item, index) => {
+        const id = index === 0 ? "route-seo-jsonld" : `route-seo-jsonld-${index}`;
+        return `<script id="${id}" type="application/ld+json">${escapeJsonForScriptTag(item)}</script>`;
+      })
+      .join("\n  ");
+    result = replaceOrThrow(result, /<\/head>/, `${scripts}\n  </head>`, "jsonld");
   }
 
   return result;
