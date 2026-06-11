@@ -220,6 +220,40 @@ export const generalSeoByPath = {
       "네이버, 당근, 숨고에서 받은 이천계단지기의 실제 계단청소·유리청소·화장실청소 고객 후기를 확인하세요.",
     canonical: `${SITE_URL}/reviews`,
     keywords: `이천계단청소 후기, 이천청소업체 후기, ${BASE_KEYWORDS}`,
+    // 평점·후기 데이터는 페이지에 노출되는 실제 후기(BlogReviews.tsx)와 일치해야 합니다.
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": ["HomeAndConstructionBusiness", "ProfessionalService"],
+      "@id": `${SITE_URL}/#business`,
+      name: "이천계단지기",
+      url: `${SITE_URL}/`,
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "5.0",
+        bestRating: "5",
+        reviewCount: 3,
+      },
+      review: [
+        {
+          "@type": "Review",
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          author: { "@type": "Person", name: "신둔면 고객" },
+          reviewBody: "정기관리 맡기고 나서 계단이 훨씬 안정적으로 깔끔해졌어요.",
+        },
+        {
+          "@type": "Review",
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          author: { "@type": "Person", name: "마장면 고객" },
+          reviewBody: "오래된 빌라 청소도 결과물 완성도가 높았어요.",
+        },
+        {
+          "@type": "Review",
+          reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+          author: { "@type": "Person", name: "이천 동네 주민" },
+          reviewBody: "사진 보내고 바로 상담돼서 편했고 응대도 부담 없이 빨랐어요.",
+        },
+      ],
+    },
   },
   "/guide": {
     title: "빌라 계단 관리정보 | 이천계단지기 청소 가이드",
