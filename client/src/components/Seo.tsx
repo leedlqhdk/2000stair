@@ -14,7 +14,7 @@ export type SeoProps = {
   canonical: string;
   keywords?: string;
   image?: string;
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 };
 
 function getOrCreateMeta(selector: string, attributes: Record<string, string>) {
@@ -45,16 +45,20 @@ function setCanonical(url: string) {
   link.setAttribute("href", url);
 }
 
-function setJsonLd(jsonLd?: Record<string, unknown>) {
-  document.getElementById("route-seo-jsonld")?.remove();
+function setJsonLd(jsonLd?: Record<string, unknown> | Record<string, unknown>[]) {
+  document.querySelectorAll('script[id^="route-seo-jsonld"]').forEach((el) => el.remove());
 
   if (!jsonLd) return;
 
-  const script = document.createElement("script");
-  script.id = "route-seo-jsonld";
-  script.type = "application/ld+json";
-  script.text = JSON.stringify(jsonLd);
-  document.head.appendChild(script);
+  const items = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+
+  items.forEach((item, index) => {
+    const script = document.createElement("script");
+    script.id = index === 0 ? "route-seo-jsonld" : `route-seo-jsonld-${index}`;
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(item);
+    document.head.appendChild(script);
+  });
 }
 
 function applySeo({ title, description, canonical, keywords, image, jsonLd }: SeoProps) {
@@ -83,7 +87,7 @@ export default function Seo({ title, description, canonical, keywords, image, js
         canonical: DEFAULT_URL,
         keywords: DEFAULT_KEYWORDS,
       });
-      document.getElementById("route-seo-jsonld")?.remove();
+      document.querySelectorAll('script[id^="route-seo-jsonld"]').forEach((el) => el.remove());
     };
   }, [title, description, canonical, keywords, image, jsonLd]);
 
