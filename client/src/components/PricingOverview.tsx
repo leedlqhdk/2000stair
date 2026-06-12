@@ -55,7 +55,48 @@ export default function PricingOverview() {
           </p>
         </motion.div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="space-y-3 md:hidden">
+          {priceCards.map((card, index) => {
+            const highlight = card.items.find((item) => item.highlight) ?? card.items[0];
+
+            return (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+              >
+                <Link href={card.href}>
+                  <a className="flex items-center justify-between gap-3 rounded-2xl border border-blue-100 bg-white px-4 py-4 shadow-sm transition hover:border-primary/30">
+                    <div className="min-w-0">
+                      <h3 className="text-base font-extrabold text-foreground">
+                        {card.title}
+                      </h3>
+                      <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                        {card.note}
+                      </p>
+                    </div>
+
+                    <div className="flex shrink-0 items-center gap-2.5">
+                      <span className="text-right">
+                        <span className="block text-[11px] font-bold text-primary">
+                          {highlight.badge}
+                        </span>
+                        <span className="block text-base font-extrabold text-foreground">
+                          {highlight.price}
+                        </span>
+                      </span>
+                      <ArrowRight className="h-4 w-4 text-primary" />
+                    </div>
+                  </a>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="hidden gap-4 md:grid md:grid-cols-3">
           {priceCards.map((card, index) => (
             <motion.div
               key={card.title}
