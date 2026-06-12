@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, MapPin, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import AreaServiceCards from "@/components/AreaServiceCards";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
@@ -122,14 +123,7 @@ aria-pressed={isActive}
 </div>
 </motion.div>
 
-<section className="mb-12 grid gap-4 md:grid-cols-3 md:mb-16">
-  {serviceCards.map((card) => (
-    <div key={card.title} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
-      <p className="mb-3 text-sm font-extrabold text-primary">{card.title}</p>
-      <p className="text-sm leading-7 text-muted-foreground">{card.text}</p>
-    </div>
-  ))}
-</section>
+<AreaServiceCards cards={serviceCards} />
 
 <AreaTimeline
 areaName={selectedArea === "전체" ? "시내권" : selectedArea}
