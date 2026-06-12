@@ -392,22 +392,27 @@ function AreaChipList() {
             >
               {group.title}
             </h3>
+            {group.note && (
+              <span className="shrink-0 rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-bold text-primary">
+                {group.note}
+              </span>
+            )}
             <div className="h-px flex-1 bg-blue-100" />
           </div>
 
-          <div className="grid max-w-[214px] grid-cols-2 gap-2">
+          <div className="flex flex-wrap gap-2">
             {group.items.map((area) => (
-              <a
-                key={`${group.title}-${area.name}`}
-                href={`/area/${area.slug}`}
-                className={`inline-flex min-h-11 items-center justify-center rounded-full border px-3 text-sm font-extrabold transition ${
-                  area.featured
-                    ? "border-primary bg-primary text-white shadow-md shadow-blue-900/15"
-                    : "border-blue-100 bg-white text-foreground hover:border-primary/40 hover:bg-blue-50"
-                }`}
-              >
-                {area.name}
-              </a>
+              <Link key={`${group.title}-${area.name}`} href={`/area/${area.slug}`}>
+                <a
+                  className={`inline-flex min-h-11 items-center justify-center rounded-full border px-5 text-sm font-extrabold transition ${
+                    area.featured
+                      ? "border-primary bg-primary text-white shadow-md shadow-blue-900/15"
+                      : "border-blue-100 bg-white text-foreground hover:border-primary/40 hover:bg-blue-50"
+                  }`}
+                >
+                  {area.name}
+                </a>
+              </Link>
             ))}
           </div>
         </section>
@@ -446,7 +451,7 @@ function DesktopAreaSelector() {
   const primaryArea = areaCards.find((area) => area.slug === "downtown") ?? areaCards[0];
 
   return (
-    <div className="hidden md:block" style={{ maxWidth: 900 }}>
+    <div className="hidden md:block max-w-[900px]">
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
         <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
           <div className="relative h-[300px] bg-blue-50/80">
@@ -456,13 +461,12 @@ function DesktopAreaSelector() {
               className="h-full w-full object-cover object-center opacity-90"
             />
             <div className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2">
-              <a
-                href={`/area/${primaryArea.slug}`}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-base font-extrabold text-white shadow-lg shadow-blue-900/20"
-              >
-                {primaryArea.name}
-                <MapPin className="h-5 w-5 fill-current" />
-              </a>
+              <Link href={`/area/${primaryArea.slug}`}>
+                <a className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-base font-extrabold text-white shadow-lg shadow-blue-900/20">
+                  {primaryArea.name}
+                  <MapPin className="h-5 w-5 fill-current" />
+                </a>
+              </Link>
             </div>
             <div className="absolute bottom-4 right-4 rounded-full bg-white px-5 py-3 text-sm font-extrabold text-primary shadow-sm">
               이천 북부·인근 지역 방문
@@ -478,24 +482,24 @@ function DesktopAreaSelector() {
 
           <div className="grid grid-cols-2 gap-4">
             {areaCards.map((area) => (
-              <a
-                key={area.slug}
-                href={`/area/${area.slug}`}
-                className={`group flex min-h-20 items-center justify-between rounded-2xl border bg-white px-6 py-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md ${
-                  area.slug === primaryArea.slug ? "border-primary bg-blue-50/80" : "border-blue-100"
-                }`}
-                title={area.count}
-              >
-                <span>
-                  <span className="block text-xl font-extrabold text-foreground group-hover:text-primary">
-                    {area.name}
+              <Link key={area.slug} href={`/area/${area.slug}`}>
+                <a
+                  className={`group flex min-h-20 items-center justify-between rounded-2xl border bg-white px-6 py-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md ${
+                    area.slug === primaryArea.slug ? "border-primary bg-blue-50/80" : "border-blue-100"
+                  }`}
+                  title={area.count}
+                >
+                  <span>
+                    <span className="block text-xl font-extrabold text-foreground group-hover:text-primary">
+                      {area.name}
+                    </span>
+                    <span className="mt-1 block text-sm font-medium text-muted-foreground">
+                      {area.count}
+                    </span>
                   </span>
-                  <span className="mt-1 block text-sm font-medium text-muted-foreground">
-                    {area.count}
-                  </span>
-                </span>
-                <ArrowRight className="h-5 w-5 text-primary" />
-              </a>
+                  <ArrowRight className="h-5 w-5 text-primary" />
+                </a>
+              </Link>
             ))}
           </div>
 
