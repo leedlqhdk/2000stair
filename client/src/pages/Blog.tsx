@@ -319,7 +319,7 @@ export default function Blog() {
           )}
         </section>
 
-        <CareGuideSection />
+        <CareGuideSection limit={3} viewAllHref="/guide" />
       </main>
     </div>
   );
