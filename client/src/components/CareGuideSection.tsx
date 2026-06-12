@@ -1,16 +1,25 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
+import { ArrowRight } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { Button } from "@/components/ui/button";
 
-export default function CareGuideSection() {
+interface CareGuideSectionProps {
+  limit?: number;
+  viewAllHref?: string;
+}
+
+export default function CareGuideSection({ limit, viewAllHref }: CareGuideSectionProps) {
   const { data: postData } = trpc.blog.list.useQuery({ limit: 50, offset: 0 });
 
-  const guides = (postData?.posts ?? []).map((post) => ({
+  const allGuides = (postData?.posts ?? []).map((post) => ({
     id: String(post.id),
     title: post.title,
     thumbnail: post.thumbnail || "",
     href: `/blog/${post.id}`,
   }));
+
+  const guides = limit ? allGuides.slice(0, limit) : allGuides;
 
   return (
     <section id="care-guide" className="py-16 md:py-24 bg-white">
@@ -82,6 +91,17 @@ export default function CareGuideSection() {
               </motion.div>
             ))}
           </motion.div>
+        )}
+
+        {viewAllHref && allGuides.length > 0 && (
+          <div className="mt-8 flex justify-center">
+            <Link href={viewAllHref}>
+              <Button variant="outline" className="rounded-xl bg-white">
+                관리정보 전체 보기
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
         )}
       </div>
     </section>
