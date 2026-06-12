@@ -371,26 +371,37 @@ function ResponsiveAreaSelector() {
                 alt="이천 생활권 청소 가능지역 지도"
                 className="h-full w-full object-cover object-center opacity-90"
               />
-              {serviceAreas.map((area) => {
-                const isSelected = area.name === selectedArea.name;
-
-                return (
-                  <button
-                    key={area.name}
-                    type="button"
-                    onClick={() => setSelectedAreaName(area.name)}
-                    className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full px-3 py-2 text-xs font-extrabold shadow-lg transition md:px-4 md:text-sm ${
-                      isSelected
-                        ? "z-10 bg-primary text-white shadow-blue-900/25"
-                        : "bg-white/95 text-primary hover:bg-primary hover:text-white"
-                    }`}
-                  >
-                    {area.name}
-                    {isSelected && <MapPin className="h-4 w-4 fill-current" />}
-                  </button>
-                );
-              })}
+              <button
+                type="button"
+                onClick={() => setSelectedAreaName(selectedArea.name)}
+                className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-xl shadow-blue-900/25 transition md:px-5 md:py-3 md:text-base`}
+              >
+                {selectedArea.name}
+                <MapPin className="h-4 w-4 fill-current md:h-5 md:w-5" />
+              </button>
             </div>
+          </div>
+
+          <div className="mt-3 flex items-center gap-2 text-sm font-extrabold text-slate-600">
+            <MapPin className="h-4 w-4 shrink-0 text-primary" />
+            아래 동네를 누르면 지도에 위치가 표시됩니다
+          </div>
+
+          <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 md:flex-wrap md:overflow-visible">
+            {serviceAreas.map((area) => (
+              <button
+                key={area.name}
+                type="button"
+                onClick={() => setSelectedAreaName(area.name)}
+                className={`shrink-0 rounded-full border px-5 py-3 text-sm font-extrabold shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 ${
+                  area.name === selectedArea.name
+                    ? "border-primary bg-primary text-white shadow-blue-900/15"
+                    : "border-blue-100 bg-white text-foreground hover:bg-blue-50"
+                }`}
+              >
+                {area.name}
+              </button>
+            ))}
           </div>
         </div>
 
