@@ -110,7 +110,7 @@ export default function Footer() {
 
             <div className="space-y-3">
               <div>
-                <p className="text-[11px] text-white/40">전화 문의</p>
+                <p className="text-xs text-white/50">전화 문의</p>
                 <a
                   href="tel:01084381887"
                   className="mt-0.5 flex items-center gap-1.5 text-lg font-extrabold tracking-tight text-white hover:text-white/80"

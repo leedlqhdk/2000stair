@@ -238,7 +238,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55 }}
-              className="mb-4 text-xs font-extrabold tracking-[0.35em] text-white/65 md:mb-5"
+              className="mb-4 text-xs font-extrabold tracking-[0.25em] text-white/65 md:mb-5"
             >
               2000 STAIR SERVICE
             </motion.p>

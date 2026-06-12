@@ -39,7 +39,7 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+          <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
             PROCESS
           </p>
 

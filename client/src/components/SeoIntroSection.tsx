@@ -77,7 +77,7 @@ export default function SeoIntroSection() {
           variants={textVariants}
         >
           <motion.p
-            className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm"
+            className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm"
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

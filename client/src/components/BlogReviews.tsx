@@ -120,7 +120,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
         transition={{ duration: 0.6 }}
       >
         <div className="mb-8 text-center">
-          <p className="mb-3 text-sm font-bold tracking-[0.35em] text-primary">
+          <p className="mb-3 text-sm font-bold tracking-[0.25em] text-primary">
             FIELD ARCHIVE
           </p>
           <h2 className={`mb-4 text-3xl font-bold md:text-4xl ${titleClass}`}>

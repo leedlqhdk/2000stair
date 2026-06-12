@@ -43,7 +43,7 @@ export default function PricingOverview() {
           viewport={{ once: true }}
           transition={{ duration: 0.65 }}
         >
-          <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+          <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
             PRICING
           </p>
           <h2 className="mb-4 text-3xl font-extrabold leading-[1.14] text-foreground md:text-4xl">

@@ -33,7 +33,7 @@ export default function OwnerStory() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
+          <p className="text-xs md:text-sm font-bold tracking-[0.25em] text-primary mb-4">
             ABOUT US
           </p>
 

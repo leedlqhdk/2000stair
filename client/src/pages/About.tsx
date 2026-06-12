@@ -31,7 +31,7 @@ export default function About() {
                     메인으로 돌아가기
                   </a>
                 </Link>
-                <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">ABOUT</p>
+                <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">ABOUT</p>
                 <h1 className="mb-5 text-[2.4rem] font-extrabold leading-[1.18] text-foreground md:text-5xl">
                   부부 직영,<br />함께 관리합니다
                 </h1>

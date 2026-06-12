@@ -133,7 +133,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         </motion.div>
 
         <motion.div
-          className="mx-auto mb-8 grid max-w-md grid-cols-6 gap-2 md:max-w-6xl md:grid-cols-3 md:gap-5 xl:grid-cols-6"
+          className="mx-auto mb-8 grid max-w-md grid-cols-3 gap-2 md:max-w-6xl md:gap-5 xl:grid-cols-6"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -142,12 +142,12 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           {includedServices.map((service) => (
             <div
               key={service.label}
-              className="flex min-h-12 items-center justify-center rounded-2xl px-1 py-2 md:min-h-[96px] md:flex-col md:gap-3 md:px-2 md:text-center"
+              className="flex min-h-[76px] flex-col items-center justify-center gap-1.5 rounded-2xl px-1 py-2 text-center md:min-h-[96px] md:gap-3 md:px-2"
               aria-label={service.label}
               title={service.label}
             >
               <service.icon className="h-7 w-7 shrink-0 text-primary md:h-9 md:w-9" strokeWidth={1.8} />
-              <p className="hidden text-sm font-extrabold text-foreground md:block">{service.label}</p>
+              <p className="text-xs font-extrabold text-foreground md:text-sm">{service.label}</p>
             </div>
           ))}
         </motion.div>

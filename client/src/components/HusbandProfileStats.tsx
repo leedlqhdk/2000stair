@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { motion } from "framer-motion";
 
 const stats = [
@@ -18,7 +19,7 @@ export default function HusbandProfileStats() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div
-            className="relative h-full min-h-[340px] overflow-hidden md:min-h-[430px] lg:min-h-[520px]"
+            className="relative h-full min-h-[260px] overflow-hidden md:min-h-[430px] lg:min-h-[520px]"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -93,13 +94,12 @@ export default function HusbandProfileStats() {
             </div>
 
             <div className="mt-6 flex justify-center lg:max-w-2xl lg:justify-end">
-              <a
-                href="/about"
-                className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]"
-              >
-                부부소개 보기
-                <span className="ml-2">→</span>
-              </a>
+              <Link href="/about">
+                <a className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]">
+                  부부소개 보기
+                  <span className="ml-2">→</span>
+                </a>
+              </Link>
             </div>
           </motion.div>
         </motion.div>

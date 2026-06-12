@@ -23,7 +23,7 @@ export default function LatestPosts() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-5">
+          <p className="text-sm font-bold tracking-[0.25em] text-primary mb-5">
             ARCHIVE
           </p>
 

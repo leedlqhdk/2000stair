@@ -101,7 +101,7 @@ export default function Records() {
               </a>
             </Link>
 
-            <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+            <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
               FIELD RECORDS
             </p>
             <h1 className="mb-5 text-3xl font-extrabold leading-[1.12] text-foreground md:text-4xl">

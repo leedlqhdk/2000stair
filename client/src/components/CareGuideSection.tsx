@@ -31,7 +31,7 @@ export default function CareGuideSection({ limit, viewAllHref }: CareGuideSectio
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-sm font-bold tracking-[0.35em] text-primary mb-4">
+          <p className="text-sm font-bold tracking-[0.25em] text-primary mb-4">
             STAIR CARE GUIDE
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
