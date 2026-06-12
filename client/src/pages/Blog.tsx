@@ -177,7 +177,7 @@ export default function Blog() {
               </a>
             </Link>
 
-            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
+            <p className="text-xs md:text-sm font-bold tracking-[0.25em] text-primary mb-4">
               FIELD ARCHIVE
             </p>
 
@@ -290,7 +290,7 @@ export default function Blog() {
                   key={i}
                   className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white"
                 >
-                  <Skeleton className="h-64 w-full" />
+                  <Skeleton className="h-52 md:h-64 w-full" />
                   <div className="p-5">
                     <Skeleton className="h-6 w-3/4 mb-3" />
                     <Skeleton className="h-4 w-1/3" />
@@ -333,7 +333,7 @@ export default function Blog() {
                   >
                     <Link href={`/area/${areaSlug}`}>
                       <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
-                        <div className="relative h-72 overflow-hidden bg-blue-50">
+                        <div className="relative h-52 md:h-72 overflow-hidden bg-blue-50">
                           <img
                             src={post.image}
                             alt={post.title}

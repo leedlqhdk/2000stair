@@ -35,9 +35,9 @@ const options = {
   cycle: ["월 2회", "월 4회", "상담 후 결정"],
 };
 
-const expandedButtonClass = "w-[102px] px-2 md:w-[168px] md:px-5";
-const collapsedButtonClass = "w-9 px-0 md:w-14 md:px-0";
-const expandedTextClass = "max-w-[64px] opacity-100 md:max-w-[80px]";
+const expandedButtonClass = "w-[120px] px-3 md:w-[168px] md:px-5";
+const collapsedButtonClass = "w-11 px-0 md:w-14 md:px-0";
+const expandedTextClass = "max-w-[72px] opacity-100 md:max-w-[80px]";
 const collapsedTextClass = "max-w-0 opacity-0";
 
 const createDiagnosisMessage = (diagnosis: DiagnosisState, result: DiagnosisResult | null) => {
@@ -176,7 +176,7 @@ export default function KakaoChat() {
         <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3">
           {!isScrolling && (
             <div className="pointer-events-none mb-1 mr-1 rounded-2xl bg-white/95 px-4 py-3 shadow-lg shadow-blue-900/8 ring-1 ring-blue-100 backdrop-blur">
-              <p className="text-center text-[11px] font-extrabold leading-snug text-slate-700 md:text-sm">
+              <p className="text-center text-xs font-extrabold leading-snug text-slate-700 md:text-sm">
                 사진 보내주시면
                 <br />
                 빠르게 답변드려요 :)
@@ -187,19 +187,19 @@ export default function KakaoChat() {
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-white text-[11px] font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-white text-xs font-extrabold text-primary shadow-md shadow-blue-900/5 ring-1 ring-blue-100 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
             aria-label="AI 관리진단 열기"
           >
-            <Sparkles className="h-3 w-3 shrink-0 translate-y-px stroke-[2.8] md:h-5 md:w-5" />
+            <Sparkles className="h-4 w-4 shrink-0 translate-y-px stroke-[2.8] md:h-5 md:w-5" />
             <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>AI진단</span>
           </button>
 
           <a
             href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-            className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-primary text-[11px] font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-primary text-xs font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
             aria-label="전화 문의하기"
           >
-            <Phone className="h-3 w-3 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
+            <Phone className="h-4 w-4 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
             <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>전화문의</span>
           </a>
 
@@ -207,10 +207,10 @@ export default function KakaoChat() {
             href={KAKAO_CHANNEL_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex h-9 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-[11px] font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-xs font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
             aria-label="카카오톡 상담하기"
           >
-            <MessageCircle className="h-3 w-3 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
+            <MessageCircle className="h-4 w-4 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
             <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>카톡상담</span>
           </a>
         </div>

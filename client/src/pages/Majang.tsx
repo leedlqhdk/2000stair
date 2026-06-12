@@ -59,7 +59,7 @@ transition={{ duration: 0.65 }}
 </Link>
 
 <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
-<p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+<p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
 AREA ARCHIVE
 </p>
 <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">

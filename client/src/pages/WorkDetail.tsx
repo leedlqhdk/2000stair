@@ -235,7 +235,7 @@ export default function WorkDetail() {
               </div>
 
               <div className="flex flex-col justify-center p-7 md:p-9">
-                <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+                <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
                   WORK RECORD
                 </p>
                 <h1 className="mb-5 text-3xl font-extrabold leading-[1.15] text-foreground md:text-5xl">

@@ -124,8 +124,8 @@ export default function AreaTimeline({
                     </div>
 
                     <Link href={getWorkPath(post)}>
-                      <a className="group grid h-[130px] grid-cols-[108px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)] md:hover:bg-primary">
-                        <div className="relative h-[130px] overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px]">
+                      <a className="group grid min-h-[130px] grid-cols-[108px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)] md:hover:bg-primary">
+                        <div className="relative h-full min-h-[130px] overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px]">
                           <img
                             src={post.image}
                             alt={post.title}
@@ -134,7 +134,7 @@ export default function AreaTimeline({
                           />
                         </div>
 
-                        <div className="flex h-[130px] min-h-0 min-w-0 flex-col justify-center overflow-hidden p-3.5 md:h-[150px] md:p-5">
+                        <div className="flex min-h-0 min-w-0 flex-col justify-center overflow-hidden p-3.5 md:h-[150px] md:p-5">
                           <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
                             <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-extrabold text-primary transition-colors duration-300 md:px-2.5 md:py-1 md:text-[11px] md:group-hover:bg-white md:group-hover:text-primary">
                               {type}

@@ -65,7 +65,7 @@ transition={{ duration: 0.65 }}
 <div className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm">
 <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_320px]">
 <div className="p-6 md:p-8">
-<p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+<p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
 AREA ARCHIVE
 </p>
 <h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">

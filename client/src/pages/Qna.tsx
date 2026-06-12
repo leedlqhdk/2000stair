@@ -25,7 +25,7 @@ export default function Qna() {
               </a>
             </Link>
 
-            <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
+            <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
               QNA
             </p>
             <h1 className="mb-5 text-[2.4rem] font-extrabold leading-[1.18] text-foreground md:text-5xl">

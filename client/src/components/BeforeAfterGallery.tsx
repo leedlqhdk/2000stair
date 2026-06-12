@@ -96,7 +96,7 @@ export default function BeforeAfterGallery() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="mb-5 text-center text-sm font-bold tracking-[0.35em] text-primary">PROOF</p>
+          <p className="mb-5 text-center text-sm font-bold tracking-[0.25em] text-primary">PROOF</p>
           <h2 className="text-center text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
             눈으로 확인하는
             <br />
@@ -109,13 +109,13 @@ export default function BeforeAfterGallery() {
         </motion.div>
 
         <div className="mx-auto max-w-5xl space-y-5">
-          <div className="flex gap-2 overflow-x-auto pb-2 md:justify-center">
+          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:justify-center md:px-0">
             {galleryItems.map((item, index) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedIndex(index)}
-                className={`flex-shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-all ${
+                className={`flex min-h-11 flex-shrink-0 items-center rounded-full border px-4 text-sm font-semibold transition-all ${
                   index === selectedIndex
                     ? "border-primary bg-primary text-white shadow-sm"
                     : "border-blue-100 bg-white text-muted-foreground hover:border-primary/30 hover:text-primary"
