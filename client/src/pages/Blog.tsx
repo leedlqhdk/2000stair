@@ -62,14 +62,12 @@ type AreaChip = {
 
 type AreaGroup = {
   title: string;
-  note?: string;
   items: AreaChip[];
 };
 
 const areaGroups: AreaGroup[] = [
   {
     title: "시내권",
-    note: "당일 방문 가능",
     items: [
       { name: "증포동", slug: "downtown", featured: true },
       { name: "창전동", slug: "downtown" },
@@ -379,8 +377,6 @@ export default function Blog() {
 }
 
 function AreaChipList() {
-  const selectedArea = areaGroups[0].items[0];
-
   return (
     <div className="space-y-6 md:hidden">
       {areaGroups.map((group) => (
@@ -392,11 +388,6 @@ function AreaChipList() {
             >
               {group.title}
             </h3>
-            {group.note && (
-              <span className="shrink-0 rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-bold text-primary">
-                {group.note}
-              </span>
-            )}
             <div className="h-px flex-1 bg-blue-100" />
           </div>
 
@@ -421,7 +412,7 @@ function AreaChipList() {
       <div className="flex gap-3 rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-sm font-bold leading-relaxed text-slate-700">
         <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
         <p>
-          {selectedArea.name}은 당일 방문도 가능한 지역입니다. 건물 주소를 보내주시면 방문 일정을 바로 안내드려요.
+          건물 주소와 사진을 보내주시면 방문 일정을 바로 안내드려요.
         </p>
       </div>
 
@@ -448,80 +439,47 @@ function AreaChipList() {
 }
 
 function DesktopAreaSelector() {
-  const primaryArea = areaCards.find((area) => area.slug === "downtown") ?? areaCards[0];
-
   return (
-    <div className="hidden md:block max-w-[900px]">
-      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-        <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
-          <div className="relative h-[300px] bg-blue-50/80">
-            <img
-              src="/images/2000map.png"
-              alt="이천 북부 관리 가능 지역 지도"
-              className="h-full w-full object-cover object-center opacity-90"
-            />
-            <div className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2">
-              <Link href={`/area/${primaryArea.slug}`}>
-                <a className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-base font-extrabold text-white shadow-lg shadow-blue-900/20">
-                  {primaryArea.name}
-                  <MapPin className="h-5 w-5 fill-current" />
-                </a>
-              </Link>
-            </div>
-            <div className="absolute bottom-4 right-4 rounded-full bg-white px-5 py-3 text-sm font-extrabold text-primary shadow-sm">
-              이천 북부·인근 지역 방문
-            </div>
-          </div>
+    <div className="hidden md:block">
+      <div className="relative mx-auto w-full max-w-4xl">
+        <img
+          src="/images/2000map.png"
+          alt="이천 지역 지도"
+          className="mx-auto h-auto w-full opacity-95"
+        />
+
+        <div className="absolute inset-0">
+          {areaCards.map((area) => (
+            <Link key={area.slug} href={`/area/${area.slug}`}>
+              <a
+                className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-lg border border-primary bg-white/95 px-4 py-2.5 text-base font-extrabold text-primary shadow-md backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg`}
+                title={area.count}
+              >
+                <span>{area.name}</span>
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </Link>
+          ))}
         </div>
+      </div>
 
-        <div>
-          <div className="mb-5 flex items-center gap-3">
-            <h3 className="shrink-0 text-base font-extrabold text-slate-700">동네 선택</h3>
-            <div className="h-px flex-1 bg-blue-100" />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {areaCards.map((area) => (
-              <Link key={area.slug} href={`/area/${area.slug}`}>
-                <a
-                  className={`group flex min-h-20 items-center justify-between rounded-2xl border bg-white px-6 py-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md ${
-                    area.slug === primaryArea.slug ? "border-primary bg-blue-50/80" : "border-blue-100"
-                  }`}
-                  title={area.count}
-                >
-                  <span>
-                    <span className="block text-xl font-extrabold text-foreground group-hover:text-primary">
-                      {area.name}
-                    </span>
-                    <span className="mt-1 block text-sm font-medium text-muted-foreground">
-                      {area.count}
-                    </span>
-                  </span>
-                  <ArrowRight className="h-5 w-5 text-primary" />
-                </a>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-5 flex items-center gap-3">
-            <a
-              href="https://pf.kakao.com/_IiNfn/chat"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-6 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00]"
-            >
-              <MessageCircle className="h-5 w-5 fill-current" />
-              선택한 지역 견적 받기
-            </a>
-            <a
-              href="tel:01084381887"
-              aria-label="전화 문의하기"
-              className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-sm transition hover:bg-blue-50"
-            >
-              <Phone className="h-6 w-6" />
-            </a>
-          </div>
-        </div>
+      <div className="mx-auto mt-6 flex max-w-4xl items-center gap-3">
+        <a
+          href="https://pf.kakao.com/_IiNfn/chat"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-6 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00]"
+        >
+          <MessageCircle className="h-5 w-5 fill-current" />
+          카톡으로 견적 받기
+        </a>
+        <a
+          href="tel:01084381887"
+          aria-label="전화 문의하기"
+          className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-sm transition hover:bg-blue-50"
+        >
+          <Phone className="h-6 w-6" />
+        </a>
       </div>
     </div>
   );

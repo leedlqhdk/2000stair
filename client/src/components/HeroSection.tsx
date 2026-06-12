@@ -9,12 +9,12 @@ interface HeroSectionProps {
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 
 const areaSectionItems = [
-  { src: "/images/icheon-sindun-stair-cleaning.webp", title: "신둔면", subtitle: "공동현관 관리" },
-  { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 공용부 관리" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리" },
-  { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리" },
-  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리" },
-  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리" },
+  { src: "/images/icheon-sindun-stair-cleaning.webp", title: "신둔면", subtitle: "공동현관 관리", slug: "sindun" },
+  { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 공용부 관리", slug: "bubal" },
+  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리", slug: "downtown" },
+  { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리", slug: "majang" },
+  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리", slug: "downtown" },
+  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리", slug: "downtown" },
 ];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -158,7 +158,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
-                    <Link href="/areas">
+                    <Link href={`/area/${item.slug}`}>
                       <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
                         <img
                           src={item.src}
