@@ -287,11 +287,14 @@ function getBlogSeo(post: BlogPost): SeoProps {
   const title = post.seoTitle || `${post.title} | 이천계단지기`;
   const description =
     post.seoDescription || `이천계단청소 전문 이천계단지기. ${blogExcerpt(post.content)}`;
-  const image = post.thumbnail
-    ? post.thumbnail.startsWith("http")
-      ? post.thumbnail
-      : `${SITE_URL}${post.thumbnail}`
-    : undefined;
+  // Thumbnails may be stored as data: URIs (inline base64) which are invalid
+  // as og:image and would bloat the <head>; only use real http(s) or path URLs.
+  const thumb = post.thumbnail ?? "";
+  const image = thumb.startsWith("http")
+    ? thumb
+    : thumb.startsWith("/")
+      ? `${SITE_URL}${thumb}`
+      : undefined;
   const datePublished = toIsoDate(post.createdAt);
   const dateModified = toIsoDate(post.updatedAt ?? post.createdAt);
 
