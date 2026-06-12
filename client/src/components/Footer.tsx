@@ -113,9 +113,9 @@ export default function Footer() {
                 <p className="text-xs text-white/50">전화 문의</p>
                 <a
                   href="tel:01084381887"
-                  className="mt-0.5 flex items-center gap-1.5 text-lg font-extrabold tracking-tight text-white hover:text-white/80"
+                  className="mt-0.5 flex items-center gap-1.5 whitespace-nowrap text-base font-extrabold tracking-tight text-white hover:text-white/80 md:text-lg"
                 >
-                  <Phone className="h-4 w-4" />
+                  <Phone className="h-4 w-4 shrink-0" />
                   010-8438-1887
                 </a>
               </div>
