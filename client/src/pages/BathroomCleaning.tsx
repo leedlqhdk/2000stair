@@ -9,7 +9,6 @@ export default function BathroomCleaning() {
         breadcrumbLabel: "화장실청소",
         heroBgImage: "/images/services/restroom-cleaning/bathroom-02-after.webp",
         heroVideo: "/images/services/restroom-cleaning/bathroom-cleaning-video.mov",
-        heroEyebrow: "ICHEON STAIR KEEPER · 정기 화장실청소",
         heroTitle: "쾌적한 화장실,\n건물 신뢰도를 높입니다",
         heroSubtitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
         heroBody: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
