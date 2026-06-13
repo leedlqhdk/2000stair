@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, Check, List, Map, MapPin, MessageCircle, Phone, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Map, MapPin, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
@@ -169,7 +169,7 @@ export default function Blog() {
                 </div>
 
                 <p className="hidden md:block text-sm font-medium text-primary">
-                  지역을 누르면 지도·목록·문의 버튼이 함께 반응합니다
+                  지역을 누르면 지도와 문의 버튼이 함께 반응합니다
                 </p>
               </div>
 
@@ -336,107 +336,59 @@ function ResponsiveAreaSelector() {
   const [selectedAreaName, setSelectedAreaName] = useState(
     serviceAreas.find((area) => area.featured)?.name ?? serviceAreas[0].name
   );
-  const [viewMode, setViewMode] = useState<"map" | "list">("map");
   const selectedArea = serviceAreas.find((area) => area.name === selectedAreaName) ?? serviceAreas[0];
 
   return (
-    <div className="space-y-5 md:max-w-[900px]">
-      <div className="grid grid-cols-2 rounded-full border border-blue-100 bg-blue-50/70 p-1">
-        {[
-          { id: "map" as const, label: "지도 보기", icon: Map },
-          { id: "list" as const, label: "목록 보기", icon: List },
-        ].map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setViewMode(item.id)}
-            className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full text-sm font-extrabold transition md:text-base ${
-              viewMode === item.id
-                ? "bg-primary text-white shadow-md shadow-blue-900/15"
-                : "text-slate-600 hover:bg-white"
-            }`}
-          >
-            <item.icon className="h-4 w-4" />
-            {item.label}
-          </button>
-        ))}
+    <div className="mx-auto space-y-5 md:max-w-[920px]">
+      <div className="rounded-full border border-blue-100 bg-blue-50/70 p-1">
+        <button
+          type="button"
+          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-extrabold text-white shadow-md shadow-blue-900/15 transition md:min-h-16 md:text-xl"
+        >
+          <Map className="h-4 w-4 md:h-6 md:w-6" />
+          지도 보기
+        </button>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-[0.95fr_1.05fr] md:items-start">
-        <div className={viewMode === "list" ? "hidden md:block" : "block"}>
-          <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
-            <div className="relative aspect-[1.16] bg-blue-50/80 md:h-[310px] md:aspect-auto">
-              <img
-                src="/images/2000map.png"
-                alt="이천 생활권 청소 가능지역 지도"
-                className="h-full w-full object-cover object-center opacity-90"
-              />
-              <button
-                type="button"
-                onClick={() => setSelectedAreaName(selectedArea.name)}
-                className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-xl shadow-blue-900/25 transition md:px-5 md:py-3 md:text-base`}
-              >
-                {selectedArea.name}
-                <MapPin className="h-4 w-4 fill-current md:h-5 md:w-5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-3 flex items-center gap-2 text-sm font-extrabold text-slate-600">
-            <MapPin className="h-4 w-4 shrink-0 text-primary" />
-            아래 동네를 누르면 지도에 위치가 표시됩니다
-          </div>
-
-          <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 md:flex-wrap md:overflow-visible">
-            {serviceAreas.map((area) => (
-              <button
-                key={area.name}
-                type="button"
-                onClick={() => setSelectedAreaName(area.name)}
-                className={`shrink-0 rounded-full border px-5 py-3 text-sm font-extrabold shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 ${
-                  area.name === selectedArea.name
-                    ? "border-primary bg-primary text-white shadow-blue-900/15"
-                    : "border-blue-100 bg-white text-foreground hover:bg-blue-50"
-                }`}
-              >
-                {area.name}
-              </button>
-            ))}
+      <div>
+        <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
+          <div className="relative aspect-[1.16] bg-blue-50/80 md:h-[560px] md:aspect-auto">
+            <img
+              src="/images/2000map.png"
+              alt="이천 생활권 청소 가능지역 지도"
+              className="h-full w-full object-cover object-center opacity-90"
+            />
+            <button
+              type="button"
+              onClick={() => setSelectedAreaName(selectedArea.name)}
+              className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-xl shadow-blue-900/25 transition md:px-8 md:py-5 md:text-2xl`}
+            >
+              {selectedArea.name}
+              <MapPin className="h-4 w-4 fill-current md:h-8 md:w-8" />
+            </button>
           </div>
         </div>
 
-        <div className={viewMode === "map" ? "hidden md:block" : "block"}>
-          <div className="mb-3 flex items-center gap-2 text-sm font-extrabold text-primary">
-            <MapPin className="h-4 w-4" />
-            아래 지역은 홈페이지에 안내된 청소 가능지역입니다
-          </div>
+        <div className="mt-3 flex items-center gap-2 text-sm font-extrabold text-slate-600 md:mt-5 md:text-lg">
+          <MapPin className="h-4 w-4 shrink-0 text-primary md:h-6 md:w-6" />
+          아래 동네를 누르면 지도에 위치가 표시됩니다
+        </div>
 
-          <div className="grid gap-3 md:grid-cols-2 md:gap-4">
-            {serviceAreas.map((area) => (
-              <button
-                key={area.name}
-                type="button"
-                onClick={() => setSelectedAreaName(area.name)}
-                className={`group flex min-h-[4.75rem] items-center justify-between rounded-2xl border bg-white px-5 py-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md ${
-                  area.name === selectedArea.name ? "border-primary bg-blue-50/80" : "border-blue-100"
-                }`}
-              >
-                <span>
-                  <span className="block text-lg font-extrabold text-foreground group-hover:text-primary">
-                    {area.name}
-                  </span>
-                  <span className="mt-1 block text-xs font-semibold text-muted-foreground md:text-sm">
-                    {area.summary}
-                  </span>
-                </span>
-                {area.name === selectedArea.name ? (
-                  <Check className="h-5 w-5 text-primary" />
-                ) : (
-                  <ArrowRight className="h-5 w-5 text-primary" />
-                )}
-              </button>
-            ))}
-          </div>
+        <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 md:mt-5 md:flex-wrap md:gap-4 md:overflow-visible">
+          {serviceAreas.map((area) => (
+            <button
+              key={area.name}
+              type="button"
+              onClick={() => setSelectedAreaName(area.name)}
+              className={`shrink-0 rounded-full border px-5 py-3 text-sm font-extrabold shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 md:min-w-32 md:px-7 md:py-4 md:text-lg ${
+                area.name === selectedArea.name
+                  ? "border-primary bg-primary text-white shadow-blue-900/15"
+                  : "border-blue-100 bg-white text-foreground hover:bg-blue-50"
+              }`}
+            >
+              {area.name}
+            </button>
+          ))}
         </div>
       </div>
 
