@@ -6,7 +6,7 @@ const priceCards = [
   {
     title: "계단청소 정기관리",
     items: [
-      { badge: "월 2회", price: "40,000원~" },
+      { badge: "월 2회", price: "40,000원~", mobile: true },
       { badge: "월 4회", price: "70,000원~", highlight: true },
     ],
     note: "빌라 2~3층 공용계단 기준",
@@ -15,7 +15,7 @@ const priceCards = [
   {
     title: "화장실청소 정기관리",
     items: [
-      { badge: "월 2회", price: "20,000원~" },
+      { badge: "월 2회", price: "20,000원~", mobile: true },
       { badge: "월 4회", price: "40,000원~", highlight: true },
     ],
     note: "소형 상가·공용화장실 기준",
@@ -57,7 +57,7 @@ export default function PricingOverview() {
 
         <div className="space-y-3 md:hidden">
           {priceCards.map((card, index) => {
-            const highlight = card.items.find((item) => item.highlight) ?? card.items[0];
+            const mobilePrice = card.items.find((item) => item.mobile) ?? card.items.find((item) => item.highlight) ?? card.items[0];
 
             return (
               <motion.div
@@ -81,10 +81,10 @@ export default function PricingOverview() {
                     <div className="flex shrink-0 items-center gap-2.5">
                       <span className="text-right">
                         <span className="block text-[11px] font-bold text-primary">
-                          {highlight.badge}
+                          {mobilePrice.badge}
                         </span>
                         <span className="block text-base font-extrabold text-foreground">
-                          {highlight.price}
+                          {mobilePrice.price}
                         </span>
                       </span>
                       <ArrowRight className="h-4 w-4 text-primary" />
