@@ -174,8 +174,8 @@ function ResponsiveAreaSelector() {
         <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
           <div className="relative aspect-square bg-white md:h-[560px] md:aspect-auto md:bg-blue-50/80">
             <img src="/images/2000map.png" alt="이천 생활권 청소 가능지역 지도" className="h-full w-full object-contain object-center p-2 opacity-90 md:object-cover md:p-0" />
-            <button type="button" onClick={() => setSelectedAreaName(selectedArea.name)} className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-xl shadow-blue-900/25 transition md:px-8 md:py-5 md:text-2xl`}>
-              {selectedArea.name}<MapPin className="h-4 w-4 fill-current md:h-8 md:w-8" />
+            <button type="button" onClick={() => setSelectedAreaName(selectedArea.name)} className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full bg-primary px-3 py-2 text-xs font-bold text-white shadow-md shadow-blue-900/10 transition md:px-5 md:py-3 md:text-lg`}>
+              {selectedArea.name}<MapPin className="h-3.5 w-3.5 fill-current md:h-5 md:w-5" />
             </button>
           </div>
         </div>
@@ -194,7 +194,7 @@ function ResponsiveAreaSelector() {
           <p className="mt-1 text-sm font-semibold leading-relaxed text-slate-700">{selectedArea.summary}. 해당 지역의 실제 관리 기록을 확인해보세요.</p>
         </div>
         <Link href={`/area/${selectedArea.slug}`}>
-          <a className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00] md:w-auto md:min-w-[320px]">
+          <a className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-primary px-5 text-base font-extrabold text-white shadow-sm transition hover:bg-primary/90 md:w-auto md:min-w-[320px]">
             <ArrowRight className="h-5 w-5" />{selectedArea.name} 작업현장 보러가기
           </a>
         </Link>
