@@ -14,7 +14,6 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
-  Youtube,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
@@ -273,7 +272,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08 }}
-              className="mx-auto whitespace-pre-line font-['GmarketSans'] text-3xl font-bold leading-tight tracking-normal text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
+              className="mx-auto whitespace-pre-line font-['GmarketSans'] text-3xl font-semibold leading-tight tracking-normal text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
             >
               {data.heroTitle}
             </motion.h1>
@@ -287,47 +286,26 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               {data.heroBody ?? data.heroSubtitle}
             </motion.p>
 
-            {isFullscreenVideo ? (
-              data.heroVideoUrl ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.65, delay: 0.32 }}
-                  className="mt-8 flex justify-center md:mt-10"
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.32 }}
+              className="mt-6 flex flex-wrap justify-center gap-1.5 md:mt-8 md:gap-2"
+            >
+              {[
+                "부부 직접 관리",
+                "하청 없이 직접 방문",
+                "작업 전후 사진 제공",
+                "무료 견적",
+              ].map((badge) => (
+                <span
+                  key={badge}
+                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
                 >
-                  <a
-                    href={data.heroVideoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-8 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
-                  >
-                    <Youtube className="h-4 w-4" />
-                    전체 영상 보기
-                  </a>
-                </motion.div>
-              ) : null
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.32 }}
-                className="mt-6 flex flex-wrap justify-center gap-1.5 md:mt-8 md:gap-2"
-              >
-                {[
-                  "부부 직접 관리",
-                  "하청 없이 직접 방문",
-                  "작업 전후 사진 제공",
-                  "무료 견적",
-                ].map((badge) => (
-                  <span
-                    key={badge}
-                    className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
-                  >
-                    {badge}
-                  </span>
-                ))}
-              </motion.div>
-            )}
+                  {badge}
+                </span>
+              ))}
+            </motion.div>
 
             {isFullscreenVideo && (
               <motion.div
