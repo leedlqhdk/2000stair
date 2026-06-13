@@ -1,57 +1,34 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, MapPin, MessageCircle, Phone, Star } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CalendarDays,
+  Check,
+  List as ListIcon,
+  Map as MapIcon,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Star,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import CareGuideSection from "@/components/CareGuideSection";
 
-const areaCards = [
-  {
-    name: "곤지암",
-    slug: "gonjiam",
-    count: "업데이트 준비 중",
-    position: "top-[17%] left-[19%]",
-  },
-  {
-    name: "신둔면",
-    slug: "sindun",
-    count: "문의 가능 지역",
-    position: "top-[23%] left-[27%]",
-  },
-  {
-    name: "백사면",
-    slug: "baeksa",
-    count: "업데이트 준비 중",
-    position: "top-[25%] left-[48%]",
-  },
-  {
-    name: "마장면",
-    slug: "majang",
-    count: "최근 작업 15건",
-    position: "top-[49%] left-[21%]",
-  },
-  {
-    name: "시내권",
-    slug: "downtown",
-    count: "창전동·증포동·관고동·중리동",
-    position: "top-[38%] left-[48%]",
-  },
-  {
-    name: "부발읍",
-    slug: "bubal",
-    count: "업데이트 준비 중",
-    position: "top-[45%] left-[67%]",
-  },
-  {
-    name: "대월면",
-    slug: "daewol",
-    count: "최근 작업 12건",
-    position: "top-[66%] left-[64%]",
-  },
+const areaDetails = [
+  { name: "신둔면", slug: "sindun", description: "공동현관·계단 정기관리", position: "top-[23%] left-[27%]" },
+  { name: "마장면", slug: "majang", description: "빌라·상가 공용부 관리", position: "top-[49%] left-[21%]" },
+  { name: "부발읍", slug: "bubal", description: "상가·소형 건물 관리", position: "top-[45%] left-[67%]" },
+  { name: "증포동", slug: "downtown", description: "이천 시내권 계단·복도 관리", position: "top-[35%] left-[50%]" },
+  { name: "중리동", slug: "downtown", description: "시내권 상가·공용공간 관리", position: "top-[41%] left-[52%]" },
+  { name: "관고동", slug: "downtown", description: "건물 공용부·유리 관리", position: "top-[36%] left-[44%]" },
+  { name: "대월면", slug: "daewol", description: "빌라 계단·정기관리", position: "top-[66%] left-[64%]" },
 ];
 
 type AreaChip = {
@@ -439,47 +416,136 @@ function AreaChipList() {
 }
 
 function DesktopAreaSelector() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [view, setView] = useState<"map" | "list">("list");
+  const selected = areaDetails[selectedIndex];
+
   return (
     <div className="hidden md:block">
-      <div className="relative mx-auto w-full max-w-4xl">
-        <img
-          src="/images/2000map.png"
-          alt="이천 지역 지도"
-          className="mx-auto h-auto w-full opacity-95"
-        />
+      <div className="mb-6 grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={() => setView("map")}
+          className={`flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-base font-extrabold transition ${
+            view === "map" ? "bg-primary text-white shadow-md" : "bg-blue-50 text-muted-foreground hover:bg-blue-100"
+          }`}
+        >
+          <MapIcon className="h-5 w-5" />
+          지도 보기
+        </button>
+        <button
+          type="button"
+          onClick={() => setView("list")}
+          className={`flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-base font-extrabold transition ${
+            view === "list" ? "bg-primary text-white shadow-md" : "bg-blue-50 text-muted-foreground hover:bg-blue-100"
+          }`}
+        >
+          <ListIcon className="h-5 w-5" />
+          목록 보기
+        </button>
+      </div>
 
-        <div className="absolute inset-0">
-          {areaCards.map((area) => (
-            <Link key={area.slug} href={`/area/${area.slug}`}>
-              <a
-                className={`absolute ${area.position} inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-lg border border-primary bg-white/95 px-4 py-2.5 text-base font-extrabold text-primary shadow-md backdrop-blur transition-all duration-200 hover:bg-primary hover:text-white hover:shadow-lg`}
-                title={area.count}
-              >
-                <span>{area.name}</span>
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </Link>
+      {view === "map" ? (
+        <div className="relative mx-auto w-full max-w-4xl overflow-hidden rounded-3xl border border-blue-100 bg-blue-50/60">
+          <img
+            src="/images/2000map.png"
+            alt="이천 지역 지도"
+            className="mx-auto h-auto w-full opacity-95"
+          />
+          <div className={`absolute ${selected.position} -translate-x-1/2 -translate-y-1/2`}>
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-base font-extrabold text-white shadow-lg shadow-blue-900/20">
+              {selected.name}
+              <MapPin className="h-5 w-5 fill-current" />
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <p className="mb-3 flex items-center gap-1.5 text-sm font-bold text-primary">
+            <MapPin className="h-4 w-4" />
+            아래 지역은 홈페이지에 안내된 청소 가능지역입니다
+          </p>
+
+          <div className="grid grid-cols-2 gap-4">
+            {areaDetails.map((area, index) => {
+              const isSelected = index === selectedIndex;
+
+              return (
+                <button
+                  key={`${area.name}-${index}`}
+                  type="button"
+                  onClick={() => setSelectedIndex(index)}
+                  className={`flex items-center justify-between gap-3 rounded-2xl border bg-white px-6 py-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md ${
+                    isSelected ? "border-primary ring-1 ring-primary/30" : "border-blue-100"
+                  }`}
+                >
+                  <span>
+                    <span className="block text-xl font-extrabold text-foreground">
+                      {area.name}
+                    </span>
+                    <span className="mt-1 block text-sm font-medium text-muted-foreground">
+                      {area.description}
+                    </span>
+                  </span>
+                  {isSelected ? (
+                    <Check className="h-5 w-5 shrink-0 text-primary" />
+                  ) : (
+                    <ArrowRight className="h-5 w-5 shrink-0 text-primary" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6">
+        <p className="mb-3 flex items-center gap-1.5 text-sm font-bold text-primary">
+          <MapPin className="h-4 w-4" />
+          아래 동네를 누르면 지도에 위치가 표시됩니다
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {areaDetails.map((area, index) => (
+            <button
+              key={`pill-${area.name}-${index}`}
+              type="button"
+              onClick={() => setSelectedIndex(index)}
+              className={`inline-flex min-h-11 items-center justify-center rounded-full border px-5 text-sm font-extrabold transition ${
+                index === selectedIndex
+                  ? "border-primary bg-primary text-white shadow-md shadow-blue-900/15"
+                  : "border-blue-100 bg-white text-foreground hover:border-primary/40 hover:bg-blue-50"
+              }`}
+            >
+              {area.name}
+            </button>
           ))}
         </div>
       </div>
 
-      <div className="mx-auto mt-6 flex max-w-4xl items-center gap-3">
-        <a
-          href="https://pf.kakao.com/_IiNfn/chat"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-6 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00]"
-        >
-          <MessageCircle className="h-5 w-5 fill-current" />
-          카톡으로 견적 받기
-        </a>
-        <a
-          href="tel:01084381887"
-          aria-label="전화 문의하기"
-          className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-sm transition hover:bg-blue-50"
-        >
-          <Phone className="h-6 w-6" />
-        </a>
+      <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-blue-100 bg-blue-50/70 p-5 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="text-sm font-extrabold text-primary">{selected.name} 상담 선택됨</p>
+          <p className="mt-1 text-sm leading-relaxed text-slate-700">
+            {selected.description}. 건물 주소와 사진을 보내주시면 방문 가능 여부를 먼저 확인해드립니다.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Link href={`/area/${selected.slug}`}>
+            <a className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#FEE500] px-6 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00]">
+              <ArrowRight className="h-5 w-5" />
+              {selected.name} 작업현장 보러가기
+            </a>
+          </Link>
+          <a
+            href="tel:01084381887"
+            aria-label="전화 문의하기"
+            className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-sm transition hover:bg-blue-50"
+          >
+            <Phone className="h-6 w-6" />
+          </a>
+        </div>
       </div>
     </div>
   );
