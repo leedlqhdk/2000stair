@@ -3,6 +3,7 @@ import { desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { posts, postTags } from "../drizzle/schema.js";
 import { getDb } from "./db.js";
+import { invokeLLM } from "./_core/llm.js";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc.js";
 
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -119,6 +120,120 @@ function buildNaverDraft(input: { url: string; title?: string; description?: str
   };
 }
 
+// 네이버 블로그 본문 영역에서 텍스트만 추출 (Smart Editor ONE / 구 에디터 대응)
+function extractNaverBodyText(html: string) {
+  const containerPatterns = [
+    /<div[^>]+class="[^"]*se-main-container[^"]*"[^>]*>/i,
+    /<div[^>]+id="postViewArea"[^>]*>/i,
+  ];
+
+  const endMarkers = [
+    /<div[^>]+class="[^"]*(area_sympathy|post_btn|wrap_postcomment|area_reply|comment_area|area_recomm)[^"]*"/i,
+    /<\/html>/i,
+  ];
+
+  for (const pattern of containerPatterns) {
+    const match = html.match(pattern);
+    if (!match || match.index === undefined) continue;
+
+    let fragment = html.slice(match.index + match[0].length, match.index + match[0].length + 100000);
+
+    for (const endMarker of endMarkers) {
+      const endMatch = fragment.match(endMarker);
+      if (endMatch?.index !== undefined) fragment = fragment.slice(0, endMatch.index);
+    }
+
+    const text = stripHtml(fragment);
+    if (text.length > 100) return text.slice(0, 6000);
+  }
+
+  return "";
+}
+
+// 실제 글 내용을 읽고 AI로 홈페이지용 정보글 초안을 생성
+async function buildSmartNaverDraft(input: {
+  url: string;
+  title: string;
+  description?: string;
+  image?: string;
+  bodyText: string;
+}) {
+  const sourceText = input.bodyText || input.description || "";
+  if (!sourceText) throw new Error("추출된 본문이 없습니다.");
+
+  const prompt = `당신은 한국 이천 지역 계단·화장실·유리 정기청소 업체 "이천계단지기"의 콘텐츠 마케터입니다.
+아래는 사장님이 네이버 블로그에 올린 글의 실제 내용입니다. 이 내용을 바탕으로 홈페이지 방문자를 위한 관리정보 글을 새로 작성해주세요.
+
+[네이버 블로그 글 제목]
+${input.title}
+
+[네이버 블로그 글 내용]
+${sourceText}
+
+요구사항:
+- title: 홈페이지용 정보글 제목 (네이버 글 내용을 바탕으로 자연스럽게 다듬은 제목, 30자 이내 권장)
+- content: 마크다운 형식의 본문. 아래 구조를 그대로 따르세요.
+  1. "# 제목" 한 줄
+  2. 원문 내용을 바탕으로 한 핵심 정보를 2~4개의 "## 소제목" 섹션으로 정리 (실제 정보 위주로, 과장된 광고 문구는 자제)
+  3. 마지막에 빈 줄을 하나 넣고, 그 다음 줄에 정확히 "관련 네이버 블로그"라고 쓰고, 그 다음 줄에 정확히 "${input.url}"만 단독으로 써주세요.
+  - 전체 600~1000자 분량의 자연스러운 한국어로 작성하세요.
+- seoTitle: 60자 이내, "이천계단청소" 또는 "이천계단지기" 키워드 포함
+- seoDescription: 150자 이내 핵심 요약, 행동 유도 포함
+- seoKeywords: 쉼표로 구분된 키워드 5~8개 (지역명+서비스명 조합, 예: 이천계단청소, 이천빌라청소)
+- thumbnailAlt: 50자 이내 대표 사진 설명, "이천계단지기" 키워드 포함
+
+JSON 형식으로만 응답하세요.`;
+
+  const response = await invokeLLM({
+    messages: [
+      { role: "system", content: "You are a Korean local-business content marketer. Respond only with valid JSON." },
+      { role: "user", content: prompt },
+    ],
+    response_format: {
+      type: "json_schema",
+      json_schema: {
+        name: "naver_smart_draft",
+        strict: true,
+        schema: {
+          type: "object",
+          properties: {
+            title: { type: "string" },
+            content: { type: "string" },
+            seoTitle: { type: "string" },
+            seoDescription: { type: "string" },
+            seoKeywords: { type: "string" },
+            thumbnailAlt: { type: "string" },
+          },
+          required: ["title", "content", "seoTitle", "seoDescription", "seoKeywords", "thumbnailAlt"],
+          additionalProperties: false,
+        },
+      },
+    },
+  });
+
+  const message = response.choices[0]?.message.content;
+  const parsed = JSON.parse(typeof message === "string" ? message : JSON.stringify(message)) as {
+    title: string;
+    content: string;
+    seoTitle: string;
+    seoDescription: string;
+    seoKeywords: string;
+    thumbnailAlt: string;
+  };
+
+  if (!parsed.title?.trim() || !parsed.content?.trim()) throw new Error("AI 응답이 비어있습니다.");
+
+  return {
+    title: cleanNaverTitle(parsed.title.trim()),
+    content: parsed.content.trim(),
+    thumbnail: input.image || "",
+    thumbnailAlt: parsed.thumbnailAlt?.trim() || `${input.title} 이천계단지기 관리정보`,
+    seoTitle: parsed.seoTitle.slice(0, 90),
+    seoDescription: parsed.seoDescription.slice(0, 150),
+    seoKeywords: parsed.seoKeywords,
+  };
+}
+
 export const blogRouter = router({
   list: publicProcedure
     .input(
@@ -228,8 +343,13 @@ export const blogRouter = router({
           const description = pickMeta(html, "og:description") || pickMeta(html, "description");
           const validDescription = description && description.length > 20 ? description : undefined;
           const image = pickMeta(html, "og:image");
+          const bodyText = extractNaverBodyText(html);
 
-          return buildNaverDraft({ url: input.url, title, description: validDescription, image });
+          try {
+            return await buildSmartNaverDraft({ url: input.url, title, description: validDescription, image, bodyText });
+          } catch {
+            return buildNaverDraft({ url: input.url, title, description: validDescription, image });
+          }
         } catch {
           continue;
         }

@@ -42,16 +42,6 @@ export default function AdminBlogEdit() {
   const [seoKeywords, setSeoKeywords] = useState("");
   const [showSeo, setShowSeo] = useState(false);
   const [uploadNote, setUploadNote] = useState("");
-  const [guideSlug, setGuideSlug] = useState("");
-  const [guideH1, setGuideH1] = useState("");
-  const [guideH2A, setGuideH2A] = useState("");
-  const [guideH2B, setGuideH2B] = useState("");
-  const [guideH3A, setGuideH3A] = useState("");
-  const [guideH3B, setGuideH3B] = useState("");
-  const [photoNotes, setPhotoNotes] = useState(["", "", "", "", ""]);
-  const [relatedNaverUrl, setRelatedNaverUrl] = useState("");
-  const [ctaTitle, setCtaTitle] = useState("건물 관리가 고민이신가요?");
-  const [ctaDescription, setCtaDescription] = useState("주소와 현장 사진을 보내주시면 관리 가능 여부를 먼저 확인해드립니다.");
 
   const thumbInputRef = useRef<HTMLInputElement>(null);
   const imgInputRef = useRef<HTMLInputElement>(null);
@@ -157,12 +147,6 @@ export default function AdminBlogEdit() {
     generateSeo.mutate({ title, content });
   };
 
-  const applyGuideTemplate = () => {
-    const template = `메타 정보\nSEO 제목: ${seoTitle || title || "예: 이천 계단청소 관리 가이드"}\n메타 설명: ${seoDescription || "예: 이천 지역 빌라·상가 공용공간 관리에 필요한 내용을 실제 현장 기준으로 정리했습니다."}\n슬러그: ${guideSlug || "guide/icheon-stair-cleaning"}\n키워드: ${seoKeywords || "이천계단청소, 이천빌라청소, 공동현관청소, 계단정기관리"}\n\n# ${guideH1 || title || "H1 제목을 입력하세요"}\n\n도입글\n이 글은 이천 지역 빌라·상가·원룸 공용공간을 관리할 때 실제로 확인해야 할 내용을 기준으로 정리한 정보글입니다.\n\n[사진 1 자리]\n${photoNotes[0] || "사진 1 설명: 작업 전 전체 모습 또는 공동현관 상태"}\n\n## ${guideH2A || "H2 제목 1"}\n본문을 입력하세요.\n\n[사진 2 자리]\n${photoNotes[1] || "사진 2 설명: 계단 모서리, 난간, 유리 등 주요 오염 상태"}\n\n### ${guideH3A || "H3 소제목 1"}\n본문을 입력하세요.\n\n[사진 3 자리]\n${photoNotes[2] || "사진 3 설명: 세부 오염 또는 작업 중 모습"}\n\n## ${guideH2B || "H2 제목 2"}\n본문을 입력하세요.\n\n[사진 4 자리]\n${photoNotes[3] || "사진 4 설명: 관리 후 달라진 모습"}\n\n### ${guideH3B || "H3 소제목 2"}\n본문을 입력하세요.\n\n[사진 5 자리]\n${photoNotes[4] || "사진 5 설명: 마무리 확인 사진 또는 건물 전체 분위기"}\n\n정리\n공용공간 관리는 한 번 깨끗하게 만드는 것보다 꾸준히 유지되는 구조가 중요합니다. 건물 상태와 이용 빈도에 따라 관리 주기를 정하면 민원과 오염 누적을 줄일 수 있습니다.\n\nCTA\n${ctaTitle}\n${ctaDescription}\n전화: 010-8438-1887\n홈페이지: https://2000stair.kr\n\n관련 네이버 블로그\n${relatedNaverUrl || "https://blog.naver.com/icheonstair"}`;
-    setContent((prev) => (prev.trim() ? `${prev.trim()}\n\n${template}` : template));
-    toast.success("정보글 구조를 본문에 넣었어요.");
-  };
-
   const handleGenerateAlt = async (imageUrl: string, target: "thumbnail" | "image") => {
     if (imageUrl.startsWith("data:")) {
       toast.error("사진 설명은 사진 저장 후 직접 입력해주세요.");
@@ -242,54 +226,26 @@ export default function AdminBlogEdit() {
 
       <h1 className="text-2xl font-bold mb-8">{isEdit ? "정보글 수정" : "새 정보글 작성"}</h1>
 
-      {!isEdit && (
-        <section className="mb-8 rounded-2xl border border-blue-100 bg-blue-50/60 p-4">
-          <div className="mb-3 flex items-start gap-3">
-            <div className="mt-0.5 rounded-full bg-blue-600 p-2 text-white"><Sparkles className="h-4 w-4" /></div>
-            <div>
-              <h2 className="font-bold text-slate-900">네이버 블로그 글 자동 변환</h2>
-              <p className="mt-1 text-sm leading-6 text-slate-500">네이버 글 주소를 넣으면 홈페이지용 정보글 초안, SEO 제목, 설명, 키워드를 자동으로 채웁니다. 사진이 자동으로 안 잡히면 아래에서 직접 올리면 돼요.</p>
-            </div>
+      <section className="mb-8 rounded-2xl border border-blue-100 bg-blue-50/60 p-4">
+        <div className="mb-3 flex items-start gap-3">
+          <div className="mt-0.5 rounded-full bg-blue-600 p-2 text-white"><Sparkles className="h-4 w-4" /></div>
+          <div>
+            <h2 className="font-bold text-slate-900">네이버 블로그 글 자동 변환</h2>
+            <p className="mt-1 text-sm leading-6 text-slate-500">네이버 글 주소를 넣으면 글 내용을 읽고 홈페이지용 정보글로 요약해서 제목·본문·SEO 제목/설명/키워드·대표사진까지 자동으로 채워요. 본문 끝에는 네이버 블로그로 이동하는 버튼이 자동으로 들어갑니다.</p>
+            {isEdit && <p className="mt-1 text-xs font-medium text-amber-600">⚠ 변환하면 아래 제목·내용·SEO 정보가 새 내용으로 덮어씌워져요.</p>}
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <Input value={naverUrl} onChange={(event) => setNaverUrl(event.target.value)} placeholder="https://blog.naver.com/icheonstair/224306730819" className="h-11 bg-white" />
-            <Button type="button" onClick={handleImportNaver} disabled={importNaverDraft.isPending} className="h-11 shrink-0 bg-blue-600 text-white hover:bg-blue-700"><Wand2 className="mr-2 h-4 w-4" />{importNaverDraft.isPending ? "변환 중" : "정보글로 변환"}</Button>
-          </div>
-        </section>
-      )}
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <Input value={naverUrl} onChange={(event) => setNaverUrl(event.target.value)} placeholder="https://blog.naver.com/icheonstair/224306730819" className="h-11 bg-white" />
+          <Button type="button" onClick={handleImportNaver} disabled={importNaverDraft.isPending} className="h-11 shrink-0 bg-blue-600 text-white hover:bg-blue-700"><Wand2 className="mr-2 h-4 w-4" />{importNaverDraft.isPending ? "글 읽는 중" : "정보글로 변환"}</Button>
+        </div>
+      </section>
 
       <div className="space-y-6">
         <div>
           <Label className="mb-1 block">제목 *</Label>
           <Input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="예: 여름철 빌라 계단 냄새, 물청소만으로 해결 안 되는 이유" />
         </div>
-
-        <section className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
-          <div className="mb-4 flex items-start justify-between gap-3">
-            <div>
-              <h2 className="font-bold text-slate-900">정보글 상세 구조</h2>
-              <p className="mt-1 text-sm leading-6 text-slate-500">H1~H3, 사진 자리 5곳, CTA, 관련 네이버 블로그 버튼용 링크를 본문에 한 번에 넣습니다.</p>
-            </div>
-            <Button type="button" onClick={applyGuideTemplate} className="shrink-0 bg-blue-600 text-white hover:bg-blue-700">본문에 넣기</Button>
-          </div>
-          <div className="grid gap-3 md:grid-cols-2">
-            <div><Label className="mb-1 block text-xs">슬러그</Label><Input value={guideSlug} onChange={(e) => setGuideSlug(e.target.value)} placeholder="guide/icheon-stair-cleaning" /></div>
-            <div><Label className="mb-1 block text-xs">관련 네이버 블로그 주소</Label><Input value={relatedNaverUrl} onChange={(e) => setRelatedNaverUrl(e.target.value)} placeholder="https://blog.naver.com/icheonstair/..." /></div>
-            <div className="md:col-span-2"><Label className="mb-1 block text-xs">H1</Label><Input value={guideH1} onChange={(e) => setGuideH1(e.target.value)} placeholder="이천 계단청소, 정기관리가 필요한 이유" /></div>
-            <div><Label className="mb-1 block text-xs">H2-1</Label><Input value={guideH2A} onChange={(e) => setGuideH2A(e.target.value)} placeholder="현장에서 자주 보이는 문제" /></div>
-            <div><Label className="mb-1 block text-xs">H2-2</Label><Input value={guideH2B} onChange={(e) => setGuideH2B(e.target.value)} placeholder="관리할 때 확인할 부분" /></div>
-            <div><Label className="mb-1 block text-xs">H3-1</Label><Input value={guideH3A} onChange={(e) => setGuideH3A(e.target.value)} placeholder="공동현관 유리 오염" /></div>
-            <div><Label className="mb-1 block text-xs">H3-2</Label><Input value={guideH3B} onChange={(e) => setGuideH3B(e.target.value)} placeholder="계단 모서리 먼지" /></div>
-            {photoNotes.map((note, index) => (
-              <div key={index} className={index === 4 ? "md:col-span-2" : ""}>
-                <Label className="mb-1 block text-xs">사진 {index + 1} 자리 설명</Label>
-                <Input value={note} onChange={(e) => setPhotoNotes((prev) => prev.map((item, i) => (i === index ? e.target.value : item)))} placeholder={`사진 ${index + 1} 설명`} />
-              </div>
-            ))}
-            <div><Label className="mb-1 block text-xs">CTA 제목</Label><Input value={ctaTitle} onChange={(e) => setCtaTitle(e.target.value)} /></div>
-            <div><Label className="mb-1 block text-xs">CTA 설명</Label><Input value={ctaDescription} onChange={(e) => setCtaDescription(e.target.value)} /></div>
-          </div>
-        </section>
 
         <div>
           <Label className="mb-1 block">대표 사진</Label>
