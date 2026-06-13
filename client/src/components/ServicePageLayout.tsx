@@ -14,8 +14,10 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
+  Youtube,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import BlogReviews from "@/components/BlogReviews";
 
@@ -58,6 +60,10 @@ export interface PhotoGridItem {
 export interface ServicePageData {
   heroTitle: string;
   heroSubtitle: string;
+  heroEyebrow?: string;
+  heroBody?: string;
+  heroVideoUrl?: string;
+  breadcrumbLabel?: string;
   heroBgImage?: string;
   heroVideo?: string;
   heroStyle?: "default" | "fullscreenVideo";
@@ -234,13 +240,32 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           }`}
         >
           <div className="container mx-auto max-w-5xl text-center">
+            {isFullscreenVideo && data.breadcrumbLabel && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-4 flex items-center justify-center gap-1.5 text-xs font-semibold text-white/55 md:mb-6 md:text-sm"
+              >
+                <Link href="/">
+                  <a className="transition hover:text-white/80">홈</a>
+                </Link>
+                <span>·</span>
+                <Link href="/services">
+                  <a className="transition hover:text-white/80">서비스</a>
+                </Link>
+                <span>·</span>
+                <span className="text-white/80">{data.breadcrumbLabel}</span>
+              </motion.div>
+            )}
+
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55 }}
               className="mb-4 text-xs font-extrabold tracking-[0.25em] text-white/65 md:mb-5"
             >
-              2000 STAIR SERVICE
+              {data.heroEyebrow ?? "2000 STAIR SERVICE"}
             </motion.p>
 
             <motion.h1
@@ -256,64 +281,99 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.2 }}
-              className="mx-auto mt-5 max-w-2xl text-sm font-semibold leading-relaxed text-white/78 sm:text-lg md:mt-6 md:text-xl"
+              className="mx-auto mt-5 max-w-2xl whitespace-pre-line text-sm font-semibold leading-relaxed text-white/78 sm:text-lg md:mt-6 md:text-xl"
             >
-              {data.heroSubtitle}
+              {data.heroBody ?? data.heroSubtitle}
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.32 }}
-              className="mt-6 flex flex-wrap justify-center gap-1.5 md:mt-8 md:gap-2"
-            >
-              {[
-                "부부 직접 관리",
-                "하청 없이 직접 방문",
-                "작업 전후 사진 제공",
-                "무료 견적",
-              ].map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
+            {isFullscreenVideo ? (
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.32 }}
+                className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10"
+              >
+                {data.heroVideoUrl && (
+                  <a
+                    href={data.heroVideoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-8 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
+                  >
+                    <Youtube className="h-4 w-4" />
+                    전체 영상 보기
+                  </a>
+                )}
+                <a
+                  href="https://pf.kakao.com/_IiNfn/chat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fee500] px-8 py-3.5 text-sm font-extrabold text-[#3a1d00] shadow-lg transition-all hover:scale-105 hover:brightness-110"
                 >
-                  {badge}
-                </span>
-              ))}
-            </motion.div>
+                  <MessageCircle className="h-4 w-4" />
+                  카톡으로 사진 보내기
+                </a>
+              </motion.div>
+            ) : (
+              <>
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, delay: 0.32 }}
+                  className="mt-6 flex flex-wrap justify-center gap-1.5 md:mt-8 md:gap-2"
+                >
+                  {[
+                    "부부 직접 관리",
+                    "하청 없이 직접 방문",
+                    "작업 전후 사진 제공",
+                    "무료 견적",
+                  ].map((badge) => (
+                    <span
+                      key={badge}
+                      className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.44 }}
-              className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10"
-            >
-              <a
-                href="https://pf.kakao.com/_IiNfn/chat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fee500] px-8 py-3.5 text-sm font-extrabold text-[#3a1d00] shadow-lg transition-all hover:scale-105 hover:brightness-110"
-              >
-                <MessageCircle className="h-4 w-4" />
-                카카오톡 문의
-              </a>
-              <a
-                href="tel:01084381887"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-8 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
-              >
-                <Phone className="h-4 w-4" />
-                010-8438-1887
-              </a>
-            </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, delay: 0.44 }}
+                  className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10"
+                >
+                  <a
+                    href="https://pf.kakao.com/_IiNfn/chat"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fee500] px-8 py-3.5 text-sm font-extrabold text-[#3a1d00] shadow-lg transition-all hover:scale-105 hover:brightness-110"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    카카오톡 문의
+                  </a>
+                  <a
+                    href="tel:01084381887"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-8 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
+                  >
+                    <Phone className="h-4 w-4" />
+                    010-8438-1887
+                  </a>
+                </motion.div>
+              </>
+            )}
 
             {isFullscreenVideo && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1.2 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2"
+                className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
               >
-                <ArrowDown className="h-6 w-6 animate-bounce text-white/50" />
+                <span className="text-[10px] font-extrabold tracking-[0.3em] text-white/45">
+                  SCROLL
+                </span>
+                <ArrowDown className="h-5 w-5 animate-bounce text-white/50" />
               </motion.div>
             )}
           </div>
