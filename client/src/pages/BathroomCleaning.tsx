@@ -9,11 +9,10 @@ export default function BathroomCleaning() {
         breadcrumbLabel: "화장실청소",
         heroBgImage: "/images/services/restroom-cleaning/bathroom-02-after.webp",
         heroVideo: "/images/services/restroom-cleaning/bathroom-cleaning-video.mov",
-        heroEyebrow: "ICHEON STAIR KEEPER · 영상으로 보는 현장",
+        heroEyebrow: "ICHEON STAIR KEEPER · 정기 화장실청소",
         heroTitle: "쾌적한 화장실,\n건물 신뢰도를 높입니다",
         heroSubtitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
-        heroBody: "말로 설명하기보다, 영상 한 편으로 보여드립니다.\n하청 없이 부부가 직접 관리하는 정기청소 현장입니다.",
-        heroVideoUrl: "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
+        heroBody: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
         seoTitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리 – 이천계단지기",
         features: [
           {
@@ -66,7 +65,7 @@ export default function BathroomCleaning() {
 
 악취는 배수구, 변기 주변 오염, 벽면 타일 사이 곰팡이가 주요 원인입니다. 전문 약품과 장비를 사용하면 단순 청소로는 제거되지 않는 악취 원인을 근본적으로 해결할 수 있습니다.
 
-소독은 기본 옵션으로 포함되며, 사용자가 많은 다중이용시설의 경우 적어도 일주일에 한번씩은 정기관리를 권장합니다. 건물 입주자나 방문 고객에게 청결하고 쾌적한 화장실을 제공하는 것은 건물 전체의 신뢰도와 직결됩니다.`,
+소독은 기본 옵션으로 포함되며, 사용자가 많은 다중이용시설의 경우 적어도 일주일에 한 번씩은 정기관리를 권장합니다. 건물 입주자나 방문 고객에게 청결하고 쾌적한 화장실을 제공하는 것은 건물 전체의 신뢰도와 직결됩니다.`,
         },
         faq: [
           {
