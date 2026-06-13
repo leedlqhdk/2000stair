@@ -272,7 +272,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08 }}
-              className="mx-auto whitespace-pre-line font-['GmarketSans'] text-3xl font-extrabold leading-tight tracking-tight text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
+              className="mx-auto whitespace-pre-line font-['GmarketSans'] text-3xl font-bold leading-tight tracking-normal text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
             >
               {data.heroTitle}
             </motion.h1>
@@ -287,13 +287,13 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             </motion.p>
 
             {isFullscreenVideo ? (
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.32 }}
-                className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10"
-              >
-                {data.heroVideoUrl && (
+              data.heroVideoUrl ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, delay: 0.32 }}
+                  className="mt-8 flex justify-center md:mt-10"
+                >
                   <a
                     href={data.heroVideoUrl}
                     target="_blank"
@@ -303,64 +303,29 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     <Youtube className="h-4 w-4" />
                     전체 영상 보기
                   </a>
-                )}
-                <a
-                  href="https://pf.kakao.com/_IiNfn/chat"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fee500] px-8 py-3.5 text-sm font-extrabold text-[#3a1d00] shadow-lg transition-all hover:scale-105 hover:brightness-110"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  카톡으로 사진 보내기
-                </a>
-              </motion.div>
+                </motion.div>
+              ) : null
             ) : (
-              <>
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.65, delay: 0.32 }}
-                  className="mt-6 flex flex-wrap justify-center gap-1.5 md:mt-8 md:gap-2"
-                >
-                  {[
-                    "부부 직접 관리",
-                    "하청 없이 직접 방문",
-                    "작업 전후 사진 제공",
-                    "무료 견적",
-                  ].map((badge) => (
-                    <span
-                      key={badge}
-                      className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.65, delay: 0.44 }}
-                  className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10"
-                >
-                  <a
-                    href="https://pf.kakao.com/_IiNfn/chat"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#fee500] px-8 py-3.5 text-sm font-extrabold text-[#3a1d00] shadow-lg transition-all hover:scale-105 hover:brightness-110"
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.32 }}
+                className="mt-6 flex flex-wrap justify-center gap-1.5 md:mt-8 md:gap-2"
+              >
+                {[
+                  "부부 직접 관리",
+                  "하청 없이 직접 방문",
+                  "작업 전후 사진 제공",
+                  "무료 견적",
+                ].map((badge) => (
+                  <span
+                    key={badge}
+                    className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
                   >
-                    <MessageCircle className="h-4 w-4" />
-                    카카오톡 문의
-                  </a>
-                  <a
-                    href="tel:01084381887"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-8 py-3.5 text-sm font-extrabold text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20"
-                  >
-                    <Phone className="h-4 w-4" />
-                    010-8438-1887
-                  </a>
-                </motion.div>
-              </>
+                    {badge}
+                  </span>
+                ))}
+              </motion.div>
             )}
 
             {isFullscreenVideo && (
