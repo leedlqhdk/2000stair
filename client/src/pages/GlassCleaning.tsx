@@ -7,6 +7,7 @@ export default function GlassCleaning() {
         serviceFolder: "glass-cleaning",
         heroBgImage: "/images/services/glass-cleaning/glass-page01.webp",
         heroVideo: "/images/services/glass-cleaning/glass-cleaning-video.mov",
+        heroEyebrow: "ICHEON STAIR KEEPER · 유리청소",
         heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
         heroSubtitle: "이천 유리청소 전문업체 | 상가 유리·공동현관 유리·건물 유리관리",
         seoTitle: "이천 유리청소 전문업체 | 상가·건물 유리관리 – 이천계단지기",
