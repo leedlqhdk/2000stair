@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, Map, MapPin, MessageCircle, Phone, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Map, MapPin, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
@@ -352,11 +352,11 @@ function ResponsiveAreaSelector() {
 
       <div>
         <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
-          <div className="relative aspect-[1.16] bg-blue-50/80 md:h-[560px] md:aspect-auto">
+          <div className="relative aspect-square bg-white md:h-[560px] md:aspect-auto md:bg-blue-50/80">
             <img
               src="/images/2000map.png"
               alt="이천 생활권 청소 가능지역 지도"
-              className="h-full w-full object-cover object-center opacity-90"
+              className="h-full w-full object-contain object-center p-2 opacity-90 md:object-cover md:p-0"
             />
             <button
               type="button"
@@ -394,22 +394,19 @@ function ResponsiveAreaSelector() {
 
       <div className="rounded-3xl border border-blue-100 bg-blue-50/70 p-4 md:flex md:items-center md:justify-between md:gap-5">
         <div className="mb-4 md:mb-0">
-          <p className="text-sm font-extrabold text-primary">{selectedArea.name} 상담 선택됨</p>
+          <p className="text-sm font-extrabold text-primary">{selectedArea.name} 작업현장 선택됨</p>
           <p className="mt-1 text-sm font-semibold leading-relaxed text-slate-700">
-            {selectedArea.summary}. 건물 주소와 사진을 보내주시면 방문 가능 여부를 먼저 확인해드립니다.
+            {selectedArea.summary}. 해당 지역의 실제 관리 기록을 확인해보세요.
           </p>
         </div>
 
         <div className="flex items-center gap-3 md:min-w-[320px]">
-          <a
-            href="https://pf.kakao.com/_IiNfn/chat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00]"
-          >
-            <MessageCircle className="h-5 w-5 fill-current" />
-            {selectedArea.name} 견적 받기
-          </a>
+          <Link href={`/area/${selectedArea.slug}`}>
+            <a className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00]">
+              <ArrowRight className="h-5 w-5" />
+              {selectedArea.name} 작업현장 보러가기
+            </a>
+          </Link>
           <a
             href="tel:01084381887"
             aria-label="전화 문의하기"
