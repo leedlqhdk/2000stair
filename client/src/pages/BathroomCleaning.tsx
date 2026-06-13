@@ -6,10 +6,14 @@ export default function BathroomCleaning() {
       data={{
         serviceFolder: "restroom-cleaning",
         heroStyle: "fullscreenVideo",
+        breadcrumbLabel: "화장실청소",
         heroBgImage: "/images/services/restroom-cleaning/bathroom-02-after.webp",
         heroVideo: "/images/services/restroom-cleaning/bathroom-cleaning-video.mov",
+        heroEyebrow: "ICHEON STAIR KEEPER · 영상으로 보는 현장",
         heroTitle: "쾌적한 화장실,\n건물 신뢰도를 높입니다",
         heroSubtitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
+        heroBody: "말로 설명하기보다, 영상 한 편으로 보여드립니다.\n하청 없이 부부가 직접 관리하는 정기청소 현장입니다.",
+        heroVideoUrl: "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
         seoTitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리 – 이천계단지기",
         features: [
           {
