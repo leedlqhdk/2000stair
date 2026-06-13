@@ -6,8 +6,8 @@ const priceCards = [
   {
     title: "계단청소 정기관리",
     items: [
-      { badge: "월 2회", price: "44,000원~" },
-      { badge: "월 4회", price: "66,000원~", highlight: true },
+      { badge: "월 2회", price: "40,000원~" },
+      { badge: "월 4회", price: "70,000원~", highlight: true },
     ],
     note: "빌라 2~3층 공용계단 기준",
     href: "/services/stair",
@@ -148,6 +148,9 @@ export default function PricingOverview() {
         >
           <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
             위 가격은 대표적인 시작 가격이며, 정확한 견적은 건물 층수·세대수·오염 상태 확인 후 안내드립니다.
+          </p>
+          <p className="text-[11px] text-muted-foreground/70">
+            * 표시된 금액은 부가세(VAT) 별도입니다.
           </p>
           <a
             href="https://pf.kakao.com/_IiNfn/chat"

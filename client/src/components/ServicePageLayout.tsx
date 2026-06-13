@@ -70,6 +70,7 @@ export interface ServicePageData {
   features: ServiceFeature[];
   scopeItems: string[];
   pricingTiers: ServicePricingTier[];
+  pricingNote?: string;
   gallery?: GalleryPair[];
   serviceFolder: string;
   seoTitle?: string;
@@ -503,6 +504,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 </motion.div>
               ))}
             </div>
+
+            {data.pricingNote && (
+              <p className="mx-auto mt-4 max-w-3xl text-center text-[11px] text-white/45">
+                {data.pricingNote}
+              </p>
+            )}
           </div>
         </section>
 
