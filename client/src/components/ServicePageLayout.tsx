@@ -614,7 +614,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
 
         {/* CTA 섹션 (하단 불필요한 마진 슬림화) */}
         <section className="relative z-10 px-4 pb-12 md:pb-24">
-          <div className={`${glassCard} container mx-auto max-w-4xl px-5 py-10 text-center text-white md:px-10 md:py-16`}>
+          <div className="container mx-auto max-w-4xl px-5 py-10 text-center text-white md:px-10 md:py-16">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
