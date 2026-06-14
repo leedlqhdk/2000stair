@@ -59,7 +59,6 @@ export interface PhotoGridItem {
 export interface ServicePageData {
   heroTitle: string;
   heroSubtitle: string;
-  heroEyebrow?: string;
   heroBody?: string;
   heroVideoUrl?: string;
   breadcrumbLabel?: string;
@@ -258,15 +257,6 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 <span className="text-white/80">{data.breadcrumbLabel}</span>
               </motion.div>
             )}
-
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55 }}
-              className="mb-4 text-xs font-extrabold tracking-[0.25em] text-white/65 md:mb-5"
-            >
-              {data.heroEyebrow ?? "2000 STAIR SERVICE"}
-            </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 24 }}

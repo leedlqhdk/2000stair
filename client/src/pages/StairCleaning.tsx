@@ -9,7 +9,6 @@ export default function StairCleaning() {
         breadcrumbLabel: "계단청소",
         heroBgImage: "/images/services/stair-cleaning/icheon-stair-cleaning-service-main.webp",
         heroVideo: "/images/services/stair-cleaning/2000stair-youtube.mp4",
-        heroEyebrow: "ICHEON STAIR KEEPER · 정기 계단청소",
         heroTitle: "매일 오르는 계단,\n누가 관리하고 있나요?",
         heroSubtitle: "이천 계단청소 전문업체 | 빌라·상가·원룸 정기관리",
         heroBody: "이천 계단청소 전문업체 | 빌라·상가·원룸 정기관리",
