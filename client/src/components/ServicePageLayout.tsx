@@ -272,7 +272,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08 }}
-              className="mx-auto whitespace-pre-line font-sans text-3xl font-medium leading-tight tracking-normal text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
+              className="mx-auto whitespace-pre-line font-['GmarketSans'] text-3xl font-medium leading-tight tracking-normal text-white drop-shadow-2xl sm:text-5xl md:text-7xl"
             >
               {data.heroTitle}
             </motion.h1>
