@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Camera, ChevronDown, Home, MessageCircle, Sparkles } from "lucide-react";
+import { Camera, ChevronDown, ClipboardCheck, Home, MessageCircle, Sparkles } from "lucide-react";
 
 const steps = [
   {
@@ -12,16 +12,22 @@ const steps = [
     number: "02",
     icon: Home,
     title: "무료 방문 견적",
-    text: "현장 상황과 오염 상태를 확인해 관리 범위를 안내드립니다.",
+    text: "현장 상황과 오염 상태를 확인해 관리 범위와 주기를 안내드립니다.",
   },
   {
     number: "03",
+    icon: ClipboardCheck,
+    title: "관리 계획 안내",
+    text: "방문 견적 후 관리 범위와 주기를 정리한 견적서를 제공해드립니다. 고객님 편의에 따라 대면 또는 비대면 계약이 가능합니다.",
+  },
+  {
+    number: "04",
     icon: Sparkles,
     title: "정기 관리 시작",
     text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다.",
   },
   {
-    number: "04",
+    number: "05",
     icon: Camera,
     title: "작업 사진 공유",
     text: "관리 전후 사진으로 진행 내용을 확인하실 수 있습니다.",
