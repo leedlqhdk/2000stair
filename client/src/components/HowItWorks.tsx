@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { Camera, ChevronDown, ClipboardCheck, Home, MessageCircle, Sparkles } from "lucide-react";
+import { ChevronDown, ClipboardCheck, Home, MessageCircle, MessageSquareMore, Sparkles } from "lucide-react";
 
 const steps = [
   { number: "01", icon: MessageCircle, title: "문의하기", text: "카카오톡으로 건물 사진과 주소를 보내주시면 상담을 시작합니다." },
   { number: "02", icon: Home, title: "무료 방문 견적", text: "현장 상황과 오염 상태를 확인해 관리 범위와 주기를 안내드립니다." },
   { number: "03", icon: ClipboardCheck, title: "관리 계획 안내", text: "방문 견적 후 관리 범위와 주기를 정리한 견적서를 제공해드립니다. 고객님 편의에 따라 대면 또는 비대면 계약이 가능합니다." },
   { number: "04", icon: Sparkles, title: "정기 관리 시작", text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다." },
-  { number: "05", icon: Camera, title: "작업 사진 공유", text: "관리 전후 사진으로 진행 내용을 확인하실 수 있습니다." },
+  { number: "05", icon: MessageSquareMore, title: "원활한 피드백", text: "관리 전후 사진을 공유해드리며, 요청사항과 건의사항을 빠르게 반영해드립니다." },
 ];
 
 export default function HowItWorks() {
@@ -23,13 +23,7 @@ export default function HowItWorks() {
           <div className="space-y-2.5 md:space-y-3">
             {steps.map((step, index) => (
               <div key={step.number}>
-                <motion.div
-                  className="flex min-h-[8.5rem] md:min-h-[8rem] items-center rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-5"
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                >
+                <motion.div className="flex min-h-[8.5rem] md:min-h-[8rem] items-center rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md sm:p-5" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.08 }}>
                   <div className="flex w-full items-center gap-3 sm:gap-4">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-primary ring-1 ring-blue-100 sm:h-12 sm:w-12">
                       <step.icon className="h-5 w-5 sm:h-6 sm:w-6" />
