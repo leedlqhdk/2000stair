@@ -56,8 +56,11 @@ export default function GlassCleaning() {
           },
           {
             title: "유리 전용 세제로 깔끔한 마감을 추구합니다",
-  body: "유리는 먼지를 닦는 것보다 자국 없이 마무리하는 과정이 중요합니다. 이천계단지기는 유리 전용 수입 세제와 전문 장비를 활용해 얼룩을 최소화하고 건물의 첫인상을 더욱 깔끔하게 유지할 수 있도록 관리합니다.",
-  image: "/images/services/glass-cleaning/glass-page03.webp",
+            body: "유리는 먼지를 닦는 것보다 자국 없이 마무리하는 과정이 중요합니다. 이천계단지기는 유리 전용 수입 세제와 전문 장비를 활용해 얼룩을 최소화하고 건물의 첫인상을 더욱 깔끔하게 유지할 수 있도록 관리합니다. 아래 슬라이더를 좌우로 움직여 실제 공동현관 유리청소 전후를 비교해 보세요.",
+            beforeAfter: {
+              before: "/images/before-after/glass-clean-before01.webp",
+              after: "/images/before-after/glass-clean-after01.webp",
+            },
           },
         ],
 

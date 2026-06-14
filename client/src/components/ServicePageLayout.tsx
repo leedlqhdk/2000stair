@@ -49,6 +49,7 @@ export interface InfoSection {
   title: string;
   body: string;
   image?: string;
+  beforeAfter?: { before: string; after: string };
 }
 
 export interface PhotoGridItem {
@@ -557,12 +558,21 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                   transition={{ delay: i * 0.08 }}
                   className={`${glassCard} p-6 md:p-10`}
                 >
-                  {sec.image && (
-                    <img
-                      src={sec.image}
-                      alt={sec.title}
-                      className="mb-5 h-48 w-full rounded-2xl object-cover md:h-64"
-                    />
+                  {sec.beforeAfter ? (
+                    <div className="mb-5">
+                      <BeforeAfterSlider
+                        before={sec.beforeAfter.before}
+                        after={sec.beforeAfter.after}
+                      />
+                    </div>
+                  ) : (
+                    sec.image && (
+                      <img
+                        src={sec.image}
+                        alt={sec.title}
+                        className="mb-5 h-48 w-full rounded-2xl object-cover md:h-64"
+                      />
+                    )
                   )}
                   <h2 className="mb-3 text-lg font-extrabold text-white md:text-xl">
                     {sec.title}
