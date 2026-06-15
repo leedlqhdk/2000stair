@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { ArrowLeft, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import FaqSection from "@/components/FaqSection";
 
 export default function Qna() {
@@ -61,7 +60,6 @@ export default function Qna() {
         <FaqSection />
       </main>
 
-      <Footer />
     </div>
   );
 }
