@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { CheckCircle2, ClipboardCopy, MapPin, MessageCircle, Phone, RotateCcw, SendHorizonal } from "lucide-react";
+import { CheckCircle2, Mail, MapPin, Phone, SendHorizonal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Step = "form" | "ready";
+type Step = "form" | "sent";
 
 export default function QuickQuoteSection() {
   const [step, setStep] = useState<Step>("form");
@@ -10,32 +10,23 @@ export default function QuickQuoteSection() {
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const message = `[이천계단지기 간편 견적신청]\n📞 연락처: ${phone}\n📍 주소: ${address}${notes.trim() ? `\n📝 기타: ${notes}` : ""}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone.trim() || !address.trim()) return;
     setLoading(true);
 
-    navigator.clipboard.writeText(message).catch(() => {});
+    const subject = encodeURIComponent("[이천계단지기] 무료방문견적 신청");
+    const body = encodeURIComponent(
+      `[이천계단지기 무료방문견적 신청]\n\n📞 연락처: ${phone}\n📍 주소: ${address}${notes.trim() ? `\n📝 기타: ${notes}` : ""}`
+    );
+
+    window.location.href = `mailto:rbska3308@naver.com?subject=${subject}&body=${body}`;
 
     setTimeout(() => {
       setLoading(false);
-      setStep("ready");
-    }, 300);
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(message).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
-
-  const handleOpenKakao = () => {
-    window.open("https://pf.kakao.com/_IiNfn/chat", "_blank");
+      setStep("sent");
+    }, 400);
   };
 
   const handleReset = () => {
@@ -43,7 +34,6 @@ export default function QuickQuoteSection() {
     setPhone("");
     setAddress("");
     setNotes("");
-    setCopied(false);
   };
 
   return (
@@ -58,7 +48,6 @@ export default function QuickQuoteSection() {
         >
           <AnimatePresence mode="wait">
             {step === "form" ? (
-              /* ── STEP 1: 폼 ── */
               <motion.form
                 key="form"
                 onSubmit={handleSubmit}
@@ -74,11 +63,11 @@ export default function QuickQuoteSection() {
                       FREE ESTIMATE
                     </p>
                     <h2 className="mb-2 text-2xl font-extrabold leading-snug text-foreground md:text-3xl">
-                      간편 견적신청
+                      무료방문견적 신청
                     </h2>
                     <p className="mb-7 text-sm leading-relaxed text-muted-foreground">
                       연락처와 주소를 남겨주시면<br />
-                      빠른 시일 내에 직접 연락드립니다.
+                      직접 방문해 무료로 견적서를 드립니다.
                     </p>
 
                     <div className="space-y-4">
@@ -144,7 +133,7 @@ export default function QuickQuoteSection() {
                         ) : (
                           <SendHorizonal className="h-5 w-5" />
                         )}
-                        상담 신청하기
+                        무료방문견적 신청
                       </button>
 
                       <div className="flex items-center justify-center gap-4">
@@ -157,13 +146,11 @@ export default function QuickQuoteSection() {
                         </a>
                         <span className="text-muted-foreground/30">·</span>
                         <a
-                          href="https://pf.kakao.com/_IiNfn/chat"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          href="mailto:rbska3308@naver.com"
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition"
                         >
-                          <MessageCircle className="h-3.5 w-3.5" />
-                          카카오 바로가기
+                          <Mail className="h-3.5 w-3.5" />
+                          이메일 문의
                         </a>
                       </div>
                     </div>
@@ -171,76 +158,28 @@ export default function QuickQuoteSection() {
                 </div>
               </motion.form>
             ) : (
-              /* ── STEP 2: 카카오 전송 안내 ── */
               <motion.div
-                key="ready"
+                key="sent"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="p-7 md:p-10"
+                className="flex flex-col items-center justify-center py-16 px-7 text-center"
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <CheckCircle2 className="h-7 w-7 shrink-0 text-green-500" />
-                  <div>
-                    <p className="text-xs font-bold tracking-[0.25em] text-primary mb-0.5">STEP 2 / 2</p>
-                    <h2 className="text-xl font-extrabold text-foreground">
-                      카카오톡에 붙여넣기 해주세요
-                    </h2>
-                  </div>
-                </div>
-
-                {/* 복사된 메시지 미리보기 */}
-                <div className="mb-6 rounded-2xl border border-blue-100 bg-blue-50/60 p-4">
-                  <div className="mb-2 flex items-center justify-between">
-                    <p className="text-xs font-bold text-primary">전송될 내용</p>
-                    <button
-                      type="button"
-                      onClick={handleCopy}
-                      className="inline-flex items-center gap-1 rounded-lg bg-white px-2.5 py-1.5 text-xs font-bold text-primary border border-blue-100 hover:bg-primary hover:text-white transition"
-                    >
-                      <ClipboardCopy className="h-3 w-3" />
-                      {copied ? "복사됨 ✓" : "다시 복사"}
-                    </button>
-                  </div>
-                  <pre className="whitespace-pre-wrap text-sm text-foreground font-medium leading-relaxed">
-                    {message}
-                  </pre>
-                </div>
-
-                {/* 안내 스텝 */}
-                <div className="mb-6 grid grid-cols-3 gap-2 text-center text-xs font-bold text-muted-foreground">
-                  <div className="rounded-xl bg-blue-50 px-2 py-3">
-                    <p className="text-lg mb-1">①</p>
-                    아래 버튼으로<br />카카오톡 열기
-                  </div>
-                  <div className="rounded-xl bg-blue-50 px-2 py-3">
-                    <p className="text-lg mb-1">②</p>
-                    채팅창 길게 누르기<br />(모바일)
-                  </div>
-                  <div className="rounded-xl bg-blue-50 px-2 py-3">
-                    <p className="text-lg mb-1">③</p>
-                    붙여넣기 선택<br />(PC: Ctrl+V)
-                  </div>
-                </div>
-
-                {/* 카카오 열기 버튼 */}
-                <button
-                  type="button"
-                  onClick={handleOpenKakao}
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FEE500] px-6 py-4 text-base font-extrabold text-[#191919] shadow-lg transition hover:bg-[#F4DC00] active:scale-[0.98] mb-3"
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  카카오톡 채팅 열기
-                </button>
-
+                <CheckCircle2 className="h-14 w-14 text-green-500 mb-5" />
+                <h2 className="text-2xl font-extrabold text-foreground mb-2">
+                  신청이 완료됐습니다!
+                </h2>
+                <p className="text-sm leading-relaxed text-muted-foreground mb-8 max-w-sm">
+                  빠른 시일 내에 직접 연락드리겠습니다.<br />
+                  무료로 방문하여 정확한 견적서를 드립니다.
+                </p>
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl border border-blue-100 px-6 py-3 text-sm font-semibold text-muted-foreground hover:text-primary hover:border-primary/40 transition"
+                  className="text-sm font-semibold text-muted-foreground hover:text-primary transition"
                 >
-                  <RotateCcw className="h-4 w-4" />
-                  다시 작성하기
+                  다시 신청하기
                 </button>
               </motion.div>
             )}
