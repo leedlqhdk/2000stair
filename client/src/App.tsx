@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import QuickQuoteSection from "./components/QuickQuoteSection";
 
 const MyQuotes = lazy(() => import("./pages/MySubscription"));
 const Blog = lazy(() => import("./pages/Blog"));
@@ -196,6 +197,7 @@ function AppChrome() {
   return (
     <>
       <Router />
+      {!isAdminRoute && <QuickQuoteSection />}
       {!isAdminRoute && <Footer />}
       {!isAdminRoute && <KakaoChat />}
     </>
