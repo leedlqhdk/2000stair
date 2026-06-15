@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, Mail, MapPin, Phone, SendHorizonal } from "lucide-react";
+import { CheckCircle2, MapPin, Phone, SendHorizonal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Step = "form" | "sent";
@@ -10,23 +10,27 @@ export default function QuickQuoteSection() {
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone.trim() || !address.trim()) return;
     setLoading(true);
+    setError("");
 
-    const subject = encodeURIComponent("[이천계단지기] 무료방문견적 신청");
-    const body = encodeURIComponent(
-      `[이천계단지기 무료방문견적 신청]\n\n📞 연락처: ${phone}\n📍 주소: ${address}${notes.trim() ? `\n📝 기타: ${notes}` : ""}`
-    );
-
-    window.location.href = `mailto:rbska3308@naver.com?subject=${subject}&body=${body}`;
-
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, address, notes }),
+      });
+      if (!res.ok) throw new Error();
       setStep("sent");
-    }, 400);
+    } catch {
+      setError("전송에 실패했습니다. 잠시 후 다시 시도하거나 전화로 문의해 주세요.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
@@ -34,6 +38,7 @@ export default function QuickQuoteSection() {
     setPhone("");
     setAddress("");
     setNotes("");
+    setError("");
   };
 
   return (
@@ -123,6 +128,9 @@ export default function QuickQuoteSection() {
                     </div>
 
                     <div className="mt-5 space-y-3">
+                      {error && (
+                        <p className="text-xs text-red-500 text-center">{error}</p>
+                      )}
                       <button
                         type="submit"
                         disabled={loading}
@@ -143,14 +151,6 @@ export default function QuickQuoteSection() {
                         >
                           <Phone className="h-3.5 w-3.5" />
                           전화 문의
-                        </a>
-                        <span className="text-muted-foreground/30">·</span>
-                        <a
-                          href="mailto:rbska3308@naver.com"
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition"
-                        >
-                          <Mail className="h-3.5 w-3.5" />
-                          이메일 문의
                         </a>
                       </div>
                     </div>
