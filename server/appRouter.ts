@@ -73,8 +73,6 @@ export const appRouter = router({
           maxAge: Math.floor(ONE_YEAR_MS / 1000),
         });
         ctx.res.setHeader("Set-Cookie", cookieStr);
-        console.log("[LOGIN-DEBUG] Set-Cookie header:", cookieStr.substring(0, 120));
-        console.log("[LOGIN-DEBUG] secure:", cookieOptions.secure, "x-forwarded-proto:", ctx.req.headers?.["x-forwarded-proto"]);
         return { success: true, user: createAdminUser() } as const;
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
