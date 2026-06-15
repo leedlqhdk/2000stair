@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ExternalLink, GitCommitHorizontal, Rocket, ScrollText } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 type ReleaseNote = {
   date: string;
@@ -159,7 +158,6 @@ export default function OpsStatus() {
           </>
         ) : null}
       </main>
-      <Footer />
     </div>
   );
 }
