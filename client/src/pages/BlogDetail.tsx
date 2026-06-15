@@ -115,7 +115,7 @@ export default function BlogDetail() {
           <Skeleton className="h-5 w-32 mb-8" />
           <Skeleton className="h-10 w-3/4 mb-4" />
           <Skeleton className="h-5 w-1/3 mb-8" />
-          <Skeleton className="aspect-video w-full rounded-2xl mb-8" />
+          <Skeleton className="aspect-square max-w-xs mx-auto w-full rounded-2xl mb-8" />
           <Skeleton className="h-4 w-full mb-3" />
           <Skeleton className="h-4 w-5/6 mb-3" />
           <Skeleton className="h-4 w-4/6" />
@@ -198,7 +198,7 @@ export default function BlogDetail() {
 
           {/* 썸네일 */}
           {post.thumbnail && (
-            <div className="overflow-hidden rounded-2xl border border-blue-50 bg-blue-50 mb-8 aspect-video">
+            <div className="overflow-hidden rounded-2xl border border-blue-50 bg-blue-50 mb-8 aspect-square max-w-xs mx-auto">
               <img
                 src={post.thumbnail}
                 alt={(post as { thumbnailAlt?: string }).thumbnailAlt || post.title}
