@@ -48,41 +48,41 @@ export default function CareGuideSection({ limit, viewAllHref }: CareGuideSectio
           </p>
         ) : (
           <motion.div
-            className="grid gap-4 sm:grid-cols-2 md:grid-cols-3"
+            className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.08 } },
+              visible: { transition: { staggerChildren: 0.06 } },
             }}
           >
             {guides.map((guide) => (
               <motion.div
                 key={guide.id}
                 variants={{
-                  hidden: { opacity: 0, y: 24 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
                 }}
               >
                 <Link href={guide.href}>
-                  <article className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
-                    <div className="aspect-[4/3] w-full overflow-hidden bg-blue-50">
-                      {guide.thumbnail ? (
-                        <img
-                          src={guide.thumbnail}
-                          alt={guide.title}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center text-blue-200">
-                          <span className="text-4xl font-black">계단</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <h3 className="text-lg font-extrabold leading-snug text-foreground line-clamp-2">
+                  <article className="group relative aspect-square overflow-hidden rounded-2xl border border-blue-100 bg-blue-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl md:rounded-[1.5rem]">
+                    {guide.thumbnail ? (
+                      <img
+                        src={guide.thumbnail}
+                        alt={guide.title}
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center text-blue-200">
+                        <span className="text-4xl font-black">계단</span>
+                      </div>
+                    )}
+
+                    {/* 제목 오버레이: 모바일 항상 표시 / 데스크탑 호버 시 슬라이드업 */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent px-3 pb-3 pt-8 transition-transform duration-300 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 sm:px-4 sm:pb-4">
+                      <h3 className="text-xs font-extrabold leading-snug text-white line-clamp-2 sm:text-sm">
                         {guide.title}
                       </h3>
                     </div>
