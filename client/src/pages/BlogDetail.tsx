@@ -38,8 +38,8 @@ function renderContentWithLinks(text: string) {
           {isNaver
             ? "네이버 블로그에서 보기"
             : cleanUrl.length > 50
-              ? cleanUrl.slice(0, 50) + "..."
-              : cleanUrl}
+            ? cleanUrl.slice(0, 50) + "..."
+            : cleanUrl}
         </a>
       );
     }
@@ -110,11 +110,12 @@ export default function BlogDetail() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
-        <div className="container max-w-4xl py-16">
+        <Navbar />
+        <div className="container max-w-3xl py-16">
           <Skeleton className="h-5 w-32 mb-8" />
-          <Skeleton className="h-12 w-3/4 mb-4" />
+          <Skeleton className="h-10 w-3/4 mb-4" />
           <Skeleton className="h-5 w-1/3 mb-8" />
-          <Skeleton className="h-96 w-full rounded-[2rem] mb-10" />
+          <Skeleton className="aspect-video w-full rounded-2xl mb-8" />
           <Skeleton className="h-4 w-full mb-3" />
           <Skeleton className="h-4 w-5/6 mb-3" />
           <Skeleton className="h-4 w-4/6" />
@@ -126,6 +127,7 @@ export default function BlogDetail() {
   if (error || !post) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
+        <Navbar />
         <div className="container max-w-3xl py-24 text-center">
           <p className="text-muted-foreground text-lg mb-5">
             게시글을 찾을 수 없습니다.
@@ -144,75 +146,84 @@ export default function BlogDetail() {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-blue-50/30">
+    <main className="min-h-screen bg-white">
       <Navbar />
-      <article className="container max-w-4xl py-12 md:py-20">
+      <article className="container max-w-3xl px-4 pt-10 pb-16 md:pt-16 md:pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 34 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65 }}
+          transition={{ duration: 0.55 }}
         >
-          <Link href={isCareGuide ? "/#care-guide" : "/blog"}>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="mb-8 -ml-2 text-muted-foreground hover:text-primary"
-            >
-              <ArrowLeft className="w-4 h-4 mr-1" />
-              {isCareGuide ? "관리정보 목록" : "작업일지 목록"}
-            </Button>
-          </Link>
+          {/* 헤더 내비 */}
+          <div className="mb-7 flex items-center justify-between gap-4">
+            <Link href={isCareGuide ? "/guide" : "/blog"}>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="-ml-2 text-muted-foreground hover:text-primary"
+              >
+                <ArrowLeft className="w-4 h-4 mr-1" />
+                {isCareGuide ? "관리정보 목록" : "작업일지 목록"}
+              </Button>
+            </Link>
 
-          <p className="text-sm font-bold tracking-[0.25em] text-primary mb-5">
-            {isCareGuide ? "STAIR CARE GUIDE" : "FIELD ARCHIVE"}
-          </p>
-
-          <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-6">
-            {post.title}
-          </h1>
-
-          <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-6">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays className="w-4 h-4" />
-              {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+            <span className="text-xs font-bold tracking-[0.25em] text-primary">
+              {isCareGuide ? "STAIR CARE GUIDE" : "FIELD ARCHIVE"}
             </span>
-
-            {matchedTags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {matchedTags.map((t) => (
-                  <Badge key={t.id} variant="secondary" className="rounded-full">
-                    {t.name}
-                  </Badge>
-                ))}
-              </div>
-            )}
           </div>
 
+          {/* 제목 & 메타 */}
+          <div className="mb-6">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-foreground leading-snug mb-4">
+              {post.title}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5">
+                <CalendarDays className="w-3.5 h-3.5" />
+                {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+              </span>
+
+              {matchedTags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {matchedTags.map((t) => (
+                    <Badge key={t.id} variant="secondary" className="rounded-full text-xs">
+                      {t.name}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 썸네일 */}
           {post.thumbnail && (
-            <div className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-xl mb-12">
+            <div className="overflow-hidden rounded-2xl border border-blue-50 bg-blue-50 mb-8 aspect-video">
               <img
                 src={post.thumbnail}
                 alt={(post as { thumbnailAlt?: string }).thumbnailAlt || post.title}
-                className="w-full max-h-[520px] object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
           )}
 
+          {/* 관리정보 요약 박스 */}
           {isCareGuide && (
-            <div className="mb-8 rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm md:p-6">
-              <p className="text-sm font-extrabold text-primary mb-2">이 글에서 확인할 내용</p>
+            <div className="mb-7 rounded-xl border border-blue-100 bg-blue-50/60 px-5 py-4">
+              <p className="text-xs font-extrabold text-primary mb-1.5">이 글에서 확인할 내용</p>
               <p className="text-sm leading-7 text-muted-foreground">
                 현장에서 자주 확인하는 계단 관리 문제를 기준으로 원인과 관리 포인트를 쉽게 정리했습니다.
               </p>
             </div>
           )}
 
-          <div className="rounded-[2rem] border border-blue-100 bg-white shadow-sm p-6 md:p-10">
+          {/* 본문 */}
+          <div className="rounded-2xl border border-blue-50 bg-white shadow-sm p-5 md:p-8 mb-8">
             <div
               className="prose prose-gray max-w-none text-gray-700 leading-relaxed"
               style={{
-                fontSize: "1.05rem",
-                lineHeight: "1.95",
+                fontSize: "1rem",
+                lineHeight: "1.9",
                 whiteSpace: "pre-wrap",
               }}
             >
@@ -220,8 +231,9 @@ export default function BlogDetail() {
             </div>
           </div>
 
+          {/* 추가 이미지 */}
           {post.images.length > 0 && (
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {post.images.map((item, i) => {
                 const imgUrl =
                   typeof item === "string" ? item : (item as { url: string }).url;
@@ -237,32 +249,33 @@ export default function BlogDetail() {
                     src={imgUrl}
                     alt={imgAlt}
                     loading="lazy"
-                    className="w-full rounded-[1.5rem] border border-blue-100 object-cover shadow-sm"
+                    className="w-full rounded-2xl border border-blue-50 object-cover shadow-sm"
                   />
                 );
               })}
             </div>
           )}
 
-          <div className="mt-12 rounded-[2rem] bg-primary text-white p-7 md:p-9">
-            <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center">
+          {/* CTA */}
+          <div className="rounded-2xl bg-primary text-white p-6 md:p-8">
+            <div className="grid md:grid-cols-[1fr_auto] gap-5 items-center">
               <div>
-                <p className="text-sm font-bold tracking-[0.25em] text-white/70 mb-3">
+                <p className="text-xs font-bold tracking-[0.25em] text-white/70 mb-2">
                   CONTACT
                 </p>
-                <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
+                <h2 className="text-xl md:text-2xl font-extrabold mb-2">
                   건물 사진을 보내주시면 상담이 빨라집니다.
                 </h2>
-                <p className="text-white/75 text-sm md:text-base leading-relaxed">
+                <p className="text-white/75 text-sm leading-relaxed">
                   이천 빌라·원룸·상가 공용공간 정기관리 상담은 카카오톡으로 가능합니다.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row md:flex-col gap-3">
+              <div className="flex flex-row md:flex-col gap-3">
                 <Button
                   size="lg"
                   variant="secondary"
-                  className="rounded-xl font-bold"
+                  className="rounded-xl font-bold flex-1 md:flex-none"
                   onClick={() =>
                     window.open("https://pf.kakao.com/_IiNfn/chat", "_blank")
                   }
@@ -274,7 +287,7 @@ export default function BlogDetail() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-xl bg-transparent border-white/30 text-white hover:bg-white hover:text-primary"
+                  className="rounded-xl bg-transparent border-white/30 text-white hover:bg-white hover:text-primary flex-1 md:flex-none"
                   onClick={() => (window.location.href = "tel:010-8438-1887")}
                 >
                   <Phone className="w-4 h-4 mr-2" />
