@@ -275,6 +275,111 @@ function buildSubheading(seed: number, topic: string) {
   return pickVariant(byTopic[topic] ?? defaults, seed, 5);
 }
 
+function selectUniqueItems(items: readonly string[], seed: number, count: number) {
+  const ordered = rotateItems(Array.from(new Set(items)), seed);
+  return ordered.slice(0, count);
+}
+
+function buildCheckItems(topic: string, title: string, description: string, seed: number) {
+  const source = `${title} ${description}`;
+  const baseByTopic: Record<string, string[]> = {
+    odor: [
+      "계단실 창문 주변 결로와 습기 흔적",
+      "1층 현관 매트 아래 냄새 잔여감",
+      "분리수거장과 계단 입구 사이 냄새 유입",
+      "환기가 약한 복도 끝 먼지와 습기",
+      "비 오는 날 물기가 고이는 계단 모서리",
+      "하수구나 공용 화장실 방향 악취 동선",
+    ],
+    schedule: [
+      "일주일 뒤에도 먼지가 다시 쌓이는 구간",
+      "월 2회 관리로 충분한 층과 매주 관리가 필요한 층",
+      "비 오는 날 흙먼지가 몰리는 1층 진입부",
+      "입주민 출입이 많은 시간대의 오염 속도",
+      "정기관리 사이에 민원이 생기는 반복 지점",
+      "계절이 바뀔 때 오염이 늘어나는 현관 주변",
+    ],
+    entry: [
+      "공동현관 유리 손잡이 주변 손자국",
+      "출입문 하단 레일에 낀 모래와 먼지",
+      "우편함 위쪽과 광고물 주변 먼지",
+      "현관 바닥 물자국과 신발 자국",
+      "유리 프레임 모서리의 오래된 얼룩",
+      "출입문 옆 벽면 하단의 생활오염",
+    ],
+    commercial: [
+      "방문객이 처음 보는 입구 바닥 얼룩",
+      "상가 계단 난간의 손 닿는 구간",
+      "공용 화장실 앞 냄새와 바닥 오염",
+      "안내판과 출입문 주변 먼지",
+      "영업시간 전후로 오염이 몰리는 동선",
+      "점포 앞 복도와 계단 연결부",
+    ],
+    villa: [
+      "층마다 먼지가 몰리는 계단 코너",
+      "난간 아래 브래킷과 손잡이 하단",
+      "공동현관 문턱과 우편함 주변",
+      "복도 끝 창틀과 벽면 하단",
+      "계단참에 쌓이는 머리카락과 생활먼지",
+      "분리수거 후 흙먼지가 들어오는 입구",
+    ],
+    general: [
+      "계단 논슬립 모서리와 줄눈 틈새",
+      "공동현관 매트 아래와 유리 프레임 하단",
+      "난간 손잡이와 브래킷 주변",
+      "환기가 부족한 계단실의 습기와 냄새 잔여감",
+      "계단참 구석의 머리카락과 먼지 뭉침",
+      "출입문 주변 신발 자국과 물자국",
+    ],
+  };
+
+  const contextual: string[] = [];
+  if (/비용|효율|직접|업체|비교|말길|맡길/.test(source)) {
+    contextual.push(
+      "직접 청소할 때 빠지기 쉬운 계단 모서리",
+      "업체 관리 시 작업 전후 사진으로 확인할 구간",
+      "도구와 세제가 따로 필요한 묵은 오염",
+      "반복 작업 시간이 많이 드는 공동현관 주변"
+    );
+  }
+  if (/화장실|변기|세면대|타일/.test(source)) {
+    contextual.push(
+      "공용 화장실 바닥 배수구 주변",
+      "세면대 하단 물때와 거울 얼룩",
+      "화장실 출입문 손잡이와 문틀",
+      "냄새가 남기 쉬운 환풍구 주변"
+    );
+  }
+  if (/유리|창문|창틀|프레임/.test(source)) {
+    contextual.push(
+      "유리 하단 프레임의 먼지와 물때",
+      "손이 자주 닿는 유리문 중앙부",
+      "창틀 레일 안쪽의 흙먼지",
+      "햇빛에 더 잘 보이는 유리 얼룩"
+    );
+  }
+  if (/상가|사무실|업장|방문객/.test(source)) {
+    contextual.push(
+      "방문객 동선의 첫 계단과 입구",
+      "영업장 앞 복도 바닥의 발자국",
+      "간판이나 안내판 주변 먼지",
+      "상가 공용부 냄새가 머무는 구간"
+    );
+  }
+  if (/빌라|원룸|다세대|공동주택/.test(source)) {
+    contextual.push(
+      "입주민이 매일 지나는 1층 계단참",
+      "층별 우편함과 현관문 주변 먼지",
+      "복도 끝 환기창 아래 먼지",
+      "광고지나 택배 포장재가 쌓이는 구석"
+    );
+  }
+
+  const fallback = baseByTopic.general;
+  const pool = [...contextual, ...(baseByTopic[topic] ?? fallback), ...fallback];
+  return selectUniqueItems(pool, seed >> 1, 4);
+}
+
 function buildNaverDraft(input: { url: string; title?: string; description?: string; image?: string }) {
   const title = cleanNaverTitle(input.title || inferTitleFromUrl(input.url));
   const description =
@@ -287,7 +392,7 @@ function buildNaverDraft(input: { url: string; title?: string; description?: str
   const seoDescription = `${description} 이천계단지기가 현장 기준으로 관리 포인트를 정리했습니다.`.slice(0, 150);
   const seoKeywords = buildSeoKeywords(title, description);
   const orderedSummaryPoints = rotateItems(section.summaryPoints, seed);
-  const orderedChecks = rotateItems(section.checks, seed >> 1);
+  const orderedChecks = buildCheckItems(topic, title, description, seed);
 
   const content = [
     `# ${title}`,
