@@ -329,22 +329,22 @@ function ResponsiveAreaSelector() {
   return (
     <div className="mx-auto space-y-5 md:max-w-[920px]">
       <div>
-        <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
-          <div className="relative aspect-square bg-white md:h-[560px] md:aspect-auto md:bg-blue-50/80">
+        <div className="relative rounded-3xl border border-blue-100 bg-white shadow-sm">
+          <div className="aspect-square overflow-hidden rounded-3xl bg-white md:h-[560px] md:aspect-auto md:bg-blue-50/80">
             <img
               src="/images/2000map.png"
               alt="이천 생활권 청소 가능지역 지도"
               className="h-full w-full object-contain object-center p-2 opacity-90 md:object-cover md:p-0"
             />
-            <button
-              type="button"
-              onClick={() => setSelectedAreaName(selectedArea.name)}
-              className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-xl shadow-blue-900/25 transition md:px-8 md:py-5 md:text-2xl`}
-            >
-              {selectedArea.name}
-              <MapPin className="h-4 w-4 fill-current md:h-8 md:w-8" />
-            </button>
           </div>
+          <button
+            type="button"
+            onClick={() => setSelectedAreaName(selectedArea.name)}
+            className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-xl shadow-blue-900/25 transition md:px-8 md:py-5 md:text-2xl`}
+          >
+            {selectedArea.name}
+            <MapPin className="h-4 w-4 fill-current md:h-8 md:w-8" />
+          </button>
         </div>
 
         <div className="mt-3 flex items-center gap-2 text-sm font-extrabold text-slate-600 md:mt-5 md:text-lg">
