@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 const app = express();
 app.use(express.json());
 
-app.post("/", async (req, res) => {
+app.post("/api/quote", async (req, res) => {
   const { phone, address, notes } = (req.body ?? {}) as {
     phone?: string;
     address?: string;
