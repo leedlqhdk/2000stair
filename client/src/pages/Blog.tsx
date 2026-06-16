@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, MapPin, Phone, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
@@ -387,13 +387,6 @@ function ResponsiveAreaSelector() {
               {selectedArea.name} 작업현장 보러가기
             </a>
           </Link>
-          <a
-            href="tel:01084381887"
-            aria-label="전화 문의하기"
-            className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-sm transition hover:bg-blue-50"
-          >
-            <Phone className="h-6 w-6" />
-          </a>
         </div>
       </div>
     </div>
