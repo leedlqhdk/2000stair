@@ -79,10 +79,10 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
               aria-label={review.platform}
             >
               <Card className={`h-full rounded-[1.5rem] border transition-all duration-300 hover:-translate-y-1 ${cardClass}`}>
-                <CardContent className="flex h-full flex-col p-4 md:p-6">
-                  <div className="mb-3 flex items-center justify-between gap-3">
+                <CardContent className="flex h-full flex-col p-3 md:p-6">
+                  <div className="mb-2 flex items-center justify-between gap-3">
                     <span
-                      className={`flex h-9 w-9 shrink-0 items-center justify-center text-sm font-black leading-none shadow-[0_10px_18px_rgba(15,23,42,0.18)] ring-1 ring-white/60 ${review.logoClass}`}
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center text-sm font-black leading-none shadow-[0_10px_18px_rgba(15,23,42,0.18)] ring-1 ring-white/60 ${review.logoClass}`}
                     >
                       {review.mark}
                     </span>
@@ -91,18 +91,18 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
                     </span>
                   </div>
 
-                  <div className="mb-3 flex items-center gap-1.5 text-yellow-400">
+                  <div className="mb-2 flex items-center gap-1.5 text-yellow-400">
                     <span className={`mr-1 text-xs font-bold ${scoreClass}`}>5.0</span>
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="h-3.5 w-3.5 fill-current" />
                     ))}
                   </div>
 
-                  <p className={`flex-1 text-sm font-bold leading-relaxed md:text-base ${quoteClass}`}>
+                  <p className={`flex-1 text-sm font-bold leading-snug md:text-base ${quoteClass}`}>
                     {review.quote}
                   </p>
 
-                  <p className={`mt-3 text-xs font-medium ${detailClass}`}>
+                  <p className={`mt-2 text-xs font-medium ${detailClass}`}>
                     {review.detail}
                   </p>
                 </CardContent>
