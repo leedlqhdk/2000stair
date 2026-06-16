@@ -12,7 +12,6 @@ import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import QuickQuoteSection from "./components/QuickQuoteSection";
 
 const MyQuotes = lazy(() => import("./pages/MySubscription"));
 const Blog = lazy(() => import("./pages/Blog"));
@@ -132,7 +131,7 @@ function AdminNoIndex() {
     }
 
     if (isAdminRoute) {
-      document.title = "관리자 페이지 | 이천계단지기";
+      document.title = "ê´ë¦¬ì íì´ì§ | ì´ì²ê³ë¨ì§ê¸°";
       robots.setAttribute("content", "noindex, nofollow, noarchive");
       return;
     }
@@ -197,7 +196,6 @@ function AppChrome() {
   return (
     <>
       <Router />
-      {!isAdminRoute && <QuickQuoteSection />}
       {!isAdminRoute && <Footer />}
       {!isAdminRoute && <KakaoChat />}
     </>
