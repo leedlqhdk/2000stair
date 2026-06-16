@@ -134,36 +134,9 @@ export default function Blog() {
             </p>
           </motion.div>
 
-          <motion.div
-            className="mx-auto mb-12 w-full max-w-[430px] overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm md:mb-16 md:max-w-none"
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.08 }}
-          >
-            <div className="relative bg-white px-4 py-7 md:bg-gradient-to-b md:from-blue-50/50 md:via-white md:to-blue-50/30 md:px-10 md:py-12">
-              <div className="mb-7 flex flex-col gap-2 md:mb-8 md:flex-row md:items-end md:justify-between">
-                <div>
-                  <p className="mb-3 text-sm font-extrabold text-primary">
-                    홈 · 방문지역
-                  </p>
-                  <h2 className="text-[2rem] font-extrabold leading-tight tracking-normal text-foreground md:text-3xl">
-                    이천 생활권
-                    <br />
-                    직접 관리합니다
-                  </h2>
-                  <p className="mt-4 text-base font-medium leading-relaxed text-muted-foreground md:max-w-xl">
-                    홈페이지에 안내된 청소 가능지역을 기준으로 주소와 사진을 확인한 뒤 무료 방문 견적을 안내드립니다.
-                  </p>
-                </div>
-
-                <p className="hidden md:block text-sm font-medium text-primary">
-                  지역을 누르면 지도와 문의 버튼이 함께 반응합니다
-                </p>
-              </div>
-
-              <ResponsiveAreaSelector />
-            </div>
-          </motion.div>
+          <div className="mx-auto mb-12 w-full max-w-[430px] md:mb-16 md:max-w-none">
+            <ResponsiveAreaSelector />
+          </div>
 
           <section className="mb-12 md:mb-16">
             <div className="mb-5 flex items-center justify-between gap-4">
