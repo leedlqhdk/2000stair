@@ -1,4 +1,4 @@
-import { Loader2, Phone, Sparkles, X } from "lucide-react";
+import { Loader2, MessageCircle, Phone, Sparkles, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -201,6 +201,17 @@ export default function KakaoChat() {
           >
             <Phone className="h-4 w-4 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
             <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>전화문의</span>
+          </a>
+
+          <a
+            href={KAKAO_CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-xs font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            aria-label="카카오톡 상담하기"
+          >
+            <MessageCircle className="h-4 w-4 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
+            <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>카톡상담</span>
           </a>
 
         </div>
