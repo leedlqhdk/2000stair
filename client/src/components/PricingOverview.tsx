@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const priceCards = [
   {
@@ -140,7 +140,7 @@ export default function PricingOverview() {
         </div>
 
         <motion.div
-          className="mt-8 flex flex-col items-center gap-4 rounded-[1.5rem] border border-blue-100 bg-white p-6 text-center shadow-sm md:mt-10 md:p-8"
+          className="mt-8 space-y-1.5 text-center md:mt-10"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -152,15 +152,6 @@ export default function PricingOverview() {
           <p className="text-[11px] text-muted-foreground/70">
             * 표시된 금액은 부가세(VAT) 별도입니다.
           </p>
-          <a
-            href="https://pf.kakao.com/_IiNfn/chat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5"
-          >
-            <MessageCircle className="h-4 w-4" />
-            카톡으로 무료 견적 받기
-          </a>
         </motion.div>
       </div>
     </section>

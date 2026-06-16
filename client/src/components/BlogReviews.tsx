@@ -79,8 +79,8 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
               aria-label={review.platform}
             >
               <Card className={`h-full rounded-[1.5rem] border transition-all duration-300 hover:-translate-y-1 ${cardClass}`}>
-                <CardContent className="flex h-full flex-col p-5 md:p-6">
-                  <div className="mb-4 flex items-center justify-between gap-3">
+                <CardContent className="flex h-full flex-col p-4 md:p-6">
+                  <div className="mb-3 flex items-center justify-between gap-3">
                     <span
                       className={`flex h-9 w-9 shrink-0 items-center justify-center text-sm font-black leading-none shadow-[0_10px_18px_rgba(15,23,42,0.18)] ring-1 ring-white/60 ${review.logoClass}`}
                     >
@@ -102,7 +102,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
                     {review.quote}
                   </p>
 
-                  <p className={`mt-5 text-xs font-medium ${detailClass}`}>
+                  <p className={`mt-3 text-xs font-medium ${detailClass}`}>
                     {review.detail}
                   </p>
                 </CardContent>
