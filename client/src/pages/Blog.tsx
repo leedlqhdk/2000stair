@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, Map, MapPin, Phone, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, MapPin, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
@@ -328,16 +328,6 @@ function ResponsiveAreaSelector() {
 
   return (
     <div className="mx-auto space-y-5 md:max-w-[920px]">
-      <div className="rounded-full border border-blue-100 bg-blue-50/70 p-1">
-        <button
-          type="button"
-          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-extrabold text-white shadow-md shadow-blue-900/15 transition md:min-h-16 md:text-xl"
-        >
-          <Map className="h-4 w-4 md:h-6 md:w-6" />
-          지도 보기
-        </button>
-      </div>
-
       <div>
         <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
           <div className="relative aspect-square bg-white md:h-[560px] md:aspect-auto md:bg-blue-50/80">
@@ -391,7 +381,7 @@ function ResponsiveAreaSelector() {
         <div className="flex items-center gap-3 md:min-w-[320px]">
           <Link href={`/area/${selectedArea.slug}`}>
             <a
-            className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full bg-[#FEE500] px-5 text-base font-extrabold text-[#191919] shadow-sm transition hover:bg-[#F4DC00]"
+            className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full border border-white/60 bg-white/80 px-5 text-base font-extrabold text-primary shadow-md backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white"
             >
               <ArrowRight className="h-5 w-5" />
               {selectedArea.name} 작업현장 보러가기
