@@ -70,7 +70,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5 sm:w-auto"
               >
-                카톡으로 사진 보내기
+                카톡으로 주소 보내기
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
@@ -101,7 +101,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group absolute bottom-[3.8%] left-[11%] right-[7%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
-                aria-label="카카오톡으로 계단 사진 보내기"
+                aria-label="카카오톡으로 계단 주소 보내기"
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}
                 animate={{ opacity: 1, y: [0, -5, 0], scale: 1 }}
                 transition={{
