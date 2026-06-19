@@ -68,7 +68,7 @@ export default function KakaoChat() {
           {!isScrolling && (
             <div className="pointer-events-none mb-1 mr-1 rounded-2xl bg-white/95 px-4 py-3 shadow-lg shadow-blue-900/8 ring-1 ring-blue-100 backdrop-blur">
               <p className="text-center text-xs font-extrabold leading-snug text-slate-700 md:text-sm">
-                사진 보내주시면
+                주소 보내주시면
                 <br />
                 빠르게 답변드려요 :)
               </p>

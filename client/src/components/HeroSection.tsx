@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Camera, Check, MapPin } from "lucide-react";
+import { ArrowRight, Check, MapPin } from "lucide-react";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -50,7 +50,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               하고 계신가요?
             </h1>
             <div className="md:hidden w-[45%] shrink-0">
-              <img src="/images/main-phone.webp" alt="카카오톡으로 계단 사진을 보내는 상담 화면" className="w-full object-contain" />
+              <img src="/images/main-phone.webp" alt="카카오톡으로 계단 주소를 보내는 상담 화면" className="w-full object-contain" />
             </div>
             </div>
             <motion.p
@@ -61,7 +61,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             >
               이천 빌라 · 상가 계단청소
               <br />
-              사진 한 장이면 빠르게 안내드립니다.
+              주소만 보내주시면 빠르게 안내드립니다.
             </motion.p>
             <div className="mt-5 flex max-w-md flex-col gap-3 sm:mt-6 sm:flex-row sm:flex-wrap">
               <a
@@ -93,7 +93,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             <div className="relative mx-auto w-full">
               <img
                 src="/images/main-phone.webp"
-                alt="카카오톡으로 계단 사진을 보내는 상담 화면"
+                alt="카카오톡으로 계단 주소를 보내는 상담 화면"
                 className="w-full object-contain"
               />
               <motion.a
@@ -111,10 +111,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 }}
               >
                 <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors duration-300 group-hover:bg-white/95 group-hover:text-primary">
-                  <Camera className="h-[54%] w-[54%]" />
+                  <MapPin className="h-[54%] w-[54%]" />
                 </span>
                 <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.45vw,14px)] font-extrabold leading-none text-foreground transition-colors duration-300 group-hover:text-white">
-                  4층 빌라 계단사진 보내드려요
+                  4층 빌라 계단 주소 보내드려요
                 </span>
                 <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors duration-300 group-hover:bg-white group-hover:text-primary">
                   <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
