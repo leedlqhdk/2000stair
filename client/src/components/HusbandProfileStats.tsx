@@ -2,8 +2,8 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "5", unit: "years", label: "대표 직접 방문" },
-  { value: "99.9%", unit: "", label: "고객 만족도" },
+  { value: "5년+", unit: "", label: "대표 직접 방문" },
+  { value: "90%+", unit: "", label: "재계약률" },
   { value: "21600+", unit: "", label: "누적 관리 세대" },
 ];
 
@@ -95,7 +95,7 @@ export default function HusbandProfileStats() {
 
             <div className="mt-6 flex justify-center lg:max-w-2xl lg:justify-end">
               <Link href="/about">
-                <a className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]">
+                <a className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bo-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]">
                   부부소개 보기
                   <span className="ml-2">→</span>
                 </a>
