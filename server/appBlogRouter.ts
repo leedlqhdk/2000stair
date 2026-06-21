@@ -29,7 +29,15 @@ function stripHtml(value: string) {
     .replace(/&#39;/g, "'")
     .replace(/&ldquo;|&rdquo;/g, '"')
     .replace(/&lsquo;|&rsquo;/g, "'")
+    .replace(/&middot;/g, "·")
+    .replace(/&mdash;/g, "—")
+    .replace(/&ndash;/g, "–")
+    .replace(/&hellip;/g, "…")
     .replace(/&nbsp;/g, " ")
+    .replace(/&#x?[0-9a-f]+;/gi, (entity) => {
+      const code = entity[2] === "x" || entity[2] === "X" ? parseInt(entity.slice(3, -1), 16) : parseInt(entity.slice(2, -1), 10);
+      return Number.isFinite(code) ? String.fromCodePoint(code) : entity;
+    })
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
