@@ -17,6 +17,8 @@ const areaSectionItems = [
   { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리", slug: "downtown" },
 ];
 
+const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
+
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   void isAuthenticated;
 
@@ -30,29 +32,30 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="mb-3 hidden md:inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-bold text-primary sm:mb-4 sm:text-sm">
-              <MapPin className="h-3.5 w-3.5" />
-              이천 빌라�상가 전문
-            </p>
             <div className="flex items-center gap-3 md:block">
-            <h1 className="flex-1 min-w-0 mb-3 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-extrabold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
-              계단청소
-              <br />
-              <motion.span
-                className="inline-block text-primary"
-                initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              >
-                직접 관리
-              </motion.span>
-              <br />
-              하고 계신가요?
-            </h1>
-            <div className="md:hidden w-[45%] shrink-0">
-              <img src="/images/main-phone.webp" alt="카카오톡으로 계단 주소를 보내는 상담 화면" className="w-full object-contain" />
+              <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-extrabold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
+                계단청소
+                <br />
+                <motion.span
+                  className="inline-block text-primary"
+                  initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  직접 관리
+                </motion.span>
+                <br />
+                하고 계신가요?
+              </h1>
+              <div className="w-[45%] shrink-0 md:hidden">
+                <img
+                  src="/images/main-phone.webp"
+                  alt="카카오톡으로 계단 주소를 보내는 상담 화면"
+                  className="w-full object-contain"
+                />
+              </div>
             </div>
-            </div>
+
             <motion.p
               className="text-[clamp(0.95rem,2vw,1.22rem)] font-semibold leading-relaxed text-gray-700"
               initial={{ opacity: 0, y: 14 }}
@@ -63,9 +66,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               <br />
               주소만 보내주시면 빠르게 안내드립니다.
             </motion.p>
+
             <div className="mt-5 flex max-w-md flex-col gap-3 sm:mt-6 sm:flex-row sm:flex-wrap">
               <a
-                href="https://pf.kakao.com/_IiNfn/chat"
+                href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5 sm:w-auto"
@@ -74,18 +78,22 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
-            <div className="mt-4 flex max-w-xl flex-wrap gap-x-6 gap-y-2">
-              {["하청 없이 부부가 직접", "무료 방문 견적", "작업 전후 사진 보고"].map(badge => (
-               <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
-  {["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"].map(badge => (
-    <span key={badge} className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground sm:text-sm">
-      <Check className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
-      {badge}
-    </span>
-  ))}
-</div>
+
+            <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
+              {heroBadges.map((badge) => (
+                <span
+                  key={badge}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground sm:text-sm"
+                >
+                  <Check className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
           <motion.div
-            className="hidden md:block relative mx-auto w-full max-w-[360px] md:max-w-[430px] lg:max-w-[470px]"
+            className="relative mx-auto hidden w-full max-w-[360px] md:block md:max-w-[430px] lg:max-w-[470px]"
             initial={{ opacity: 0, y: 34, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
