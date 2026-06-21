@@ -132,6 +132,54 @@ export const seoByAreaSlug = {
 } satisfies Record<string, SeoProps>;
 
 export const generalSeoByPath = {
+  "/": {
+    title: "이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소",
+    description:
+      "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 하청 없이 부부가 직접 정기관리합니다. 세금계산서·계약서·사업자보험 완비.",
+    canonical: `${SITE_URL}/`,
+    keywords: `이천계단청소, 이천계단청소업체, 이천빌라청소, 이천상가청소, 계단청소업체, 이천계단지기, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/og-image.png"),
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": ["LocalBusiness", "HomeAndConstructionBusiness", "ProfessionalService"],
+        "@id": `${SITE_URL}/#business`,
+        name: "이천계단지기",
+        url: `${SITE_URL}/`,
+        telephone: "+82-10-8438-1887",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "이천시",
+          addressRegion: "경기도",
+          addressCountry: "KR",
+        },
+        areaServed: [
+          { "@type": "AdministrativeArea", name: "이천시" },
+          { "@type": "AdministrativeArea", name: "신둔면" },
+          { "@type": "AdministrativeArea", name: "마장면" },
+          { "@type": "AdministrativeArea", name: "부발읍" },
+          { "@type": "AdministrativeArea", name: "증포동" },
+          { "@type": "AdministrativeArea", name: "중리동" },
+          { "@type": "AdministrativeArea", name: "관고동" },
+          { "@type": "AdministrativeArea", name: "대월면" },
+        ],
+        priceRange: "₩₩",
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          opens: "09:00",
+          closes: "18:00",
+        },
+        image: toAbsoluteUrl("/og-image.png"),
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          bestRating: "5",
+          reviewCount: 3,
+        },
+      },
+    ],
+  },
   "/about": {
     title: "부부가 직접 관리하는 이천 계단청소 업체 | 이천계단지기",
     description:
