@@ -76,24 +76,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
             <div className="mt-4 flex max-w-xl flex-wrap gap-x-6 gap-y-2">
               {["하청 없이 부부가 직접", "무료 방문 견적", "작업 전후 사진 보고"].map(badge => (
-                <span key={badge} className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground sm:text-sm">
-                  <Check className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
-                  {badge}
-                </span>
-              ))}
-            </div>
-            {/* B2B 신뢰 배지 */}
-            <div className="mt-3 flex max-w-xl flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border border-primary/15 bg-primary/5 px-3 py-2">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-primary/50">B2B</span>
-              {["세금계산서 발행", "계약서 제공", "사업자보험 가입", "정기 작업보고서"].map(badge => (
-                <span key={badge} className="inline-flex items-center gap-1 text-xs font-semibold text-foreground/65">
-                  <Check className="h-3 w-3 flex-shrink-0 text-primary/70" />
-                  {badge}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
+               <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
+  {["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"].map(badge => (
+    <span key={badge} className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground sm:text-sm">
+      <Check className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
+      {badge}
+    </span>
+  ))}
+</div>
           <motion.div
             className="hidden md:block relative mx-auto w-full max-w-[360px] md:max-w-[430px] lg:max-w-[470px]"
             initial={{ opacity: 0, y: 34, scale: 0.96 }}
