@@ -103,6 +103,30 @@ export const seoByAreaSlug = {
     localities: ["창전동", "관고동", "증포동", "중리동", "송정동"],
     image: "/images/icheon-downtown-stair-cleaning.webp",
   }),
+  gwango: areaSeo({
+    slug: "gwango",
+    areaName: "관고동",
+    title: "관고동 계단청소·상가 공용공간 관리 | 이천계단지기",
+    description:
+      "관고동 상가·빌라·소형 건물의 계단, 현관, 복도 공용공간을 현장 상태에 맞춰 직접 정기관리합니다.",
+    localities: ["관고동", "설봉공원 인근", "관고시장 인근"],
+  }),
+  changjeon: areaSeo({
+    slug: "changjeon",
+    areaName: "창전동",
+    title: "창전동 계단청소·원룸 빌라 정기관리 | 이천계단지기",
+    description:
+      "창전동 빌라·원룸·상가주택의 계단, 복도, 공동현관을 월 2회·4회 정기관리 기준으로 상담합니다.",
+    localities: ["창전동", "이천 시내 주거지", "상가주택 밀집 구역"],
+  }),
+  songjeong: areaSeo({
+    slug: "songjeong",
+    areaName: "송정동",
+    title: "송정동 계단청소·건물 공용부 관리 | 이천계단지기",
+    description:
+      "송정동 빌라·상가 공용부의 현관, 계단, 복도 상태를 사진으로 확인하고 정기관리 범위를 안내합니다.",
+    localities: ["송정동", "송정동 주거 밀집 구역", "상가주택 주변"],
+  }),
   bubal: areaSeo({
     slug: "bubal",
     areaName: "부발읍",

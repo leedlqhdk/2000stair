@@ -1,5 +1,4 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "../shared/const.js";
-import { serialize as serializeCookie } from "cookie";
 import { getSessionCookieOptions } from "./_core/cookies.js";
 import { systemRouter } from "./_core/systemRouter.js";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc.js";
@@ -17,6 +16,30 @@ import { sdk } from "./_core/sdk.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
+function serializeSessionCookie(
+  name: string,
+  value: string,
+  options: {
+    httpOnly?: boolean;
+    path?: string;
+    sameSite?: string;
+    secure?: boolean;
+    maxAge?: number;
+    expires?: Date;
+  }
+) {
+  const parts = [`${name}=${encodeURIComponent(value)}`];
+
+  if (options.maxAge !== undefined) parts.push(`Max-Age=${options.maxAge}`);
+  if (options.expires) parts.push(`Expires=${options.expires.toUTCString()}`);
+  if (options.path) parts.push(`Path=${options.path}`);
+  if (options.httpOnly) parts.push("HttpOnly");
+  if (options.secure) parts.push("Secure");
+  if (options.sameSite) parts.push(`SameSite=${options.sameSite}`);
+
+  return parts.join("; ");
+}
+
 const createAdminUser = () => {
   const now = new Date();
   return {
@@ -65,10 +88,10 @@ export const appRouter = router({
           { expiresInMs: ONE_YEAR_MS }
         );
         const cookieOptions = getSessionCookieOptions(ctx.req);
-        const cookieStr = serializeCookie(COOKIE_NAME, sessionToken, {
+        const cookieStr = serializeSessionCookie(COOKIE_NAME, sessionToken, {
           httpOnly: cookieOptions.httpOnly,
           path: cookieOptions.path,
-          sameSite: cookieOptions.sameSite as "lax" | "strict" | "none",
+          sameSite: cookieOptions.sameSite as string,
           secure: cookieOptions.secure,
           maxAge: Math.floor(ONE_YEAR_MS / 1000),
         });
@@ -78,10 +101,10 @@ export const appRouter = router({
     logout: publicProcedure.mutation(({ ctx }) => {
       ctx.res.setHeader(
         "Set-Cookie",
-        serializeCookie(COOKIE_NAME, "", {
-          httpOnly: true,
-          path: "/",
-          maxAge: 0,
+          serializeSessionCookie(COOKIE_NAME, "", {
+            httpOnly: true,
+            path: "/",
+            maxAge: 0,
           expires: new Date(0),
         })
       );
@@ -139,6 +162,15 @@ export const appRouter = router({
         }
         return { success: true };
       }),
+    myRequests: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return [];
+      return await db
+        .select()
+        .from(quoteRequests)
+        .where(eq(quoteRequests.userId, ctx.user.id))
+        .orderBy(desc(quoteRequests.createdAt));
+    }),
     list: protectedProcedure.query(async ({ ctx }) => {
       if (ctx.user.role !== "admin") {
         throw new Error("Admin access required");

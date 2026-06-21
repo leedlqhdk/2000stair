@@ -1,5 +1,6 @@
 import { Building2, ClipboardCheck, Home, Store } from "lucide-react";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 const needCards = [
   {
@@ -24,29 +25,31 @@ const needCards = [
   },
 ];
 
-const textVariants = {
+const smoothEase = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+const textVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: smoothEase },
   },
 };
 
-const cardListVariants = {
+const cardListVariants: Variants = {
   hidden: {},
   visible: {
     transition: { staggerChildren: 0.1, delayChildren: 0.12 },
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 22, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.56, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.56, ease: smoothEase },
   },
 };
 

@@ -1,5 +1,6 @@
 import { MessageCircle, Phone } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { trackConversion } from "@/lib/analytics";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -77,6 +78,7 @@ export default function KakaoChat() {
 
           <a
             href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
+            onClick={() => trackConversion("phone_click", { location: "floating_cta", label: "전화문의" })}
             className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-primary text-xs font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
             aria-label="전화 문의하기"
           >
@@ -88,6 +90,7 @@ export default function KakaoChat() {
             href={KAKAO_CHANNEL_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackConversion("kakao_click", { location: "floating_cta", label: "카톡상담" })}
             className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-xs font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
             aria-label="카카오톡 상담하기"
           >

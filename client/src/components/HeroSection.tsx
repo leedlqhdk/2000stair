@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, Check, MapPin } from "lucide-react";
+import { trackConversion } from "@/lib/analytics";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -11,10 +12,10 @@ const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const areaSectionItems = [
   { src: "/images/icheon-sindun-stair-cleaning.webp", title: "신둔면", subtitle: "공동현관 관리", slug: "sindun" },
   { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 공용부 관리", slug: "bubal" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리", slug: "downtown" },
+  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리", slug: "changjeon" },
   { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리", slug: "majang" },
-  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리", slug: "downtown" },
-  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리", slug: "downtown" },
+  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리", slug: "gwango" },
+  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리", slug: "songjeong" },
 ];
 
 const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
@@ -72,9 +73,18 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackConversion("kakao_click", { location: "home_hero", label: "카톡으로 주소 보내기" })}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5 sm:w-auto"
               >
                 카톡으로 주소 보내기
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="#quote-form"
+                onClick={() => trackConversion("quote_form_view", { location: "home_hero", label: "법인 견적 폼 보기" })}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-white px-5 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-50 sm:w-auto"
+              >
+                법인 견적 폼 보기
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
@@ -108,6 +118,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackConversion("kakao_click", { location: "home_phone_mockup", label: "휴대폰 목업 CTA" })}
                 className="group absolute bottom-[3.8%] left-[11%] right-[7%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
                 aria-label="카카오톡으로 계단 주소 보내기"
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}

@@ -55,7 +55,7 @@ export class Sdk {
 
   constructor() {
     this.client = axios.create({
-      baseURL: ENV.manusApiUrl,
+      baseURL: ENV.oAuthServerUrl,
       timeout: AXIOS_TIMEOUT_MS,
     });
   }
@@ -115,8 +115,10 @@ export class Sdk {
 
   async exchangeToken(code: string): Promise<ExchangeTokenResponse> {
     const payload: ExchangeTokenRequest = {
+      grantType: "authorization_code",
       code,
-      projectId: ENV.appId,
+      clientId: ENV.appId,
+      redirectUri: "",
     };
 
     const { data } = await this.client.post<ExchangeTokenResponse>("/auth/exchange-token", payload);
@@ -167,7 +169,7 @@ export class Sdk {
     if (!user) {
       try {
         const userInfo = await this.getUserInfoWithJwt(sessionCookie ?? "");
-        user = await db.upsertUser({
+        await db.upsertUser({
           openId: session.openId,
           name: userInfo.name || session.name || null,
           email: userInfo.email || null,
@@ -175,11 +177,16 @@ export class Sdk {
           role: "user",
           lastSignedIn: signedInAt,
         });
+        user = await db.getUserByOpenId(session.openId);
       } catch (error) {
         throw ForbiddenError("Invalid session cookie");
       }
     } else {
       await db.updateLastSignedIn(user.id, signedInAt);
+    }
+
+    if (!user) {
+      throw ForbiddenError("Invalid session cookie");
     }
 
     return user;

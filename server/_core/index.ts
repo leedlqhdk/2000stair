@@ -37,6 +37,9 @@ const STATIC_SITEMAP_ROUTES = [
   { path: "/area/daewol", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/sindun", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/downtown", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
+  { path: "/area/gwango", lastmod: "2026-06-21", changefreq: "monthly", priority: "0.7" },
+  { path: "/area/changjeon", lastmod: "2026-06-21", changefreq: "monthly", priority: "0.7" },
+  { path: "/area/songjeong", lastmod: "2026-06-21", changefreq: "monthly", priority: "0.7" },
   { path: "/area/bubal", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/baeksa", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
 ] as const;

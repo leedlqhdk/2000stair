@@ -44,6 +44,24 @@ const serviceAreas = [
   },
 ];
 
+const downtownDetailCards = [
+  {
+    name: "관고동",
+    slug: "gwango",
+    text: "상가·빌라 공용공간 관리",
+  },
+  {
+    name: "창전동",
+    slug: "changjeon",
+    text: "빌라·원룸 계단 정기관리",
+  },
+  {
+    name: "송정동",
+    slug: "songjeong",
+    text: "현관·복도 사진 보고 관리",
+  },
+];
+
 const reviews = [
   {
     source: "당근 후기",
@@ -73,6 +91,9 @@ const areaLabels: Record<string, string> = {
   daewol: "대월면",
   sindun: "신둔면",
   downtown: "시내권",
+  gwango: "관고동",
+  changjeon: "창전동",
+  songjeong: "송정동",
   gonjiam: "곤지암",
 };
 
@@ -137,6 +158,34 @@ export default function Blog() {
           <div className="mx-auto mb-12 w-full max-w-[430px] md:mb-16 md:max-w-none">
             <ResponsiveAreaSelector />
           </div>
+
+          <section className="mb-12 md:mb-16">
+            <div className="mb-5 flex items-end justify-between gap-4">
+              <div>
+                <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+                  시내권 세부 지역
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  관고동·창전동·송정동은 별도 안내 페이지로 정리했습니다.
+                </p>
+              </div>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {downtownDetailCards.map((area) => (
+                <Link key={area.slug} href={`/area/${area.slug}`}>
+                  <article className="group flex h-full items-center justify-between gap-4 rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div>
+                      <h3 className="text-lg font-extrabold text-foreground">{area.name}</h3>
+                      <p className="mt-1 text-sm leading-6 text-muted-foreground">{area.text}</p>
+                    </div>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50 text-primary transition group-hover:bg-primary group-hover:text-white">
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </article>
+                </Link>
+              ))}
+            </div>
+          </section>
 
           <section className="mb-12 md:mb-16">
             <div className="mb-5 flex items-center justify-between gap-4">

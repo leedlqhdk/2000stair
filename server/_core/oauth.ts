@@ -20,7 +20,8 @@ export function registerOAuthRoutes(app: Express) {
     }
 
     try {
-      const tokenResponse = await sdk.exchangeCodeForToken(code, state);
+      void state;
+      const tokenResponse = await sdk.exchangeToken(code);
       const userInfo = await sdk.getUserInfo(tokenResponse.accessToken);
 
       if (!userInfo.openId) {
@@ -36,8 +37,11 @@ export function registerOAuthRoutes(app: Express) {
         lastSignedIn: new Date(),
       });
 
-      const sessionToken = await sdk.createSessionToken(userInfo.openId, {
+      const sessionToken = await sdk.signSession({
+        openId: userInfo.openId,
+        appId: userInfo.projectId,
         name: userInfo.name || "",
+      }, {
         expiresInMs: ONE_YEAR_MS,
       });
 

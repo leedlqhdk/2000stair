@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Send, MapPin, Phone, User, Mail } from "lucide-react";
+import { trackConversion } from "@/lib/analytics";
 
 export default function QuoteForm() {
   const [name, setName] = useState("");
@@ -22,6 +23,8 @@ export default function QuoteForm() {
 
   // Listen for plan selection from PricingSection
   useEffect(() => {
+    trackConversion("quote_form_view", { location: "quote_form_section", label: "견적 폼 노출" });
+
     const handleSelectPlan = (e: Event) => {
       const customEvent = e as CustomEvent;
       if (customEvent.detail?.planId) {
@@ -59,6 +62,7 @@ export default function QuoteForm() {
         message: message.trim() || undefined,
       });
 
+      trackConversion("quote_form_submit", { location: "quote_form", label: planId });
       toast.success("견적 신청이 완료되었습니다! 빠른 시일 내에 연락드리겠습니다.");
       // Reset form
       setName("");
