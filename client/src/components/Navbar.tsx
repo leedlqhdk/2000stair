@@ -33,7 +33,7 @@ const navGroups: NavGroup[] = [
       { label: "계단청소", href: "/services/stair" },
       { label: "유리청소", href: "/services/glass" },
       { label: "화장실청소", href: "/services/bathroom" },
-      { label: "사무실청소(예정)", href: "/services/office" },
+      
     ],
   },
   {
