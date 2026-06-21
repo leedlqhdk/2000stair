@@ -25,6 +25,9 @@ function stripHtml(value: string) {
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ")
+    // Naver markup is sometimes double-encoded (e.g. "&amp;middot;" standing
+    // for the entity "&middot;"), so unescape "&amp;" before the rest.
+    .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&ldquo;|&rdquo;/g, '"')
@@ -38,7 +41,6 @@ function stripHtml(value: string) {
       const code = entity[2] === "x" || entity[2] === "X" ? parseInt(entity.slice(3, -1), 16) : parseInt(entity.slice(2, -1), 10);
       return Number.isFinite(code) ? String.fromCodePoint(code) : entity;
     })
-    .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/\s+/g, " ")
