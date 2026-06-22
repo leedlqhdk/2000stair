@@ -2,8 +2,8 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "5년+", unit: "", label: "대표 직접 방문" },
-  { value: "90%+", unit: "", label: "재계약률" },
+  { value: "5년+", unit: "", label: "청소 경력" },
+  { value: "5.0", unit: "", label: "리뷰 평균" },
   { value: "21600+", unit: "", label: "누적 관리 세대" },
 ];
 
