@@ -11,6 +11,7 @@ const reviewCards = [
     scoreColor: "text-[#35b957]",
     scoreBg: "bg-[#35b957]/10",
     quote: "정기관리 맡기고 나서 계단이 훨씬 안정적으로 깔끔해졌어요.",
+    detail: "신둔면 · 네이버 플레이스",
     buttonColor: "border-[#35b957] text-[#35b957] hover:bg-[#35b957]/5",
     url: "https://naver.me/xmB4q3oq",
     buttonLabel: "네이버 리뷰 전체보기",
@@ -23,6 +24,7 @@ const reviewCards = [
     scoreColor: "text-[#6b4eff]",
     scoreBg: "bg-[#6b4eff]/10",
     quote: "오래된 빌라 청소도 결과물 완성도가 높았어요.",
+    detail: "마장면 · 숨고",
     buttonColor: "border-[#6b4eff] text-[#6b4eff] hover:bg-[#6b4eff]/5",
     url: "https://soomgo.com/profile/users/3729049",
     buttonLabel: "숨고 후기 전체보기",
@@ -35,6 +37,7 @@ const reviewCards = [
     scoreColor: "text-[#f47a22]",
     scoreBg: "bg-[#f47a22]/10",
     quote: "사진 보내고 바로 상담돼서 편했고 응대도 부담 없이 빨랐어요.",
+    detail: "동네 주민 후기 · 당근",
     buttonColor: "border-[#f47a22] text-[#f47a22] hover:bg-[#f47a22]/5",
     url: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
     buttonLabel: "당근 후기 전체보기",
@@ -55,12 +58,13 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
     : "border-gray-100 bg-white shadow-[0_4px_24px_rgba(15,23,42,0.06)]";
   const quoteClass = isDark ? "text-white/85" : "text-gray-700";
   const platformTextClass = isDark ? "text-white/80" : "text-gray-700";
+  const detailClass = isDark ? "text-white/45" : "text-muted-foreground";
   const footerClass = isDark ? "text-white/38" : "text-gray-400";
 
   return (
     <div id="blog-reviews" className="space-y-14 md:space-y-20">
       <motion.div
-        className="mx-auto max-w-xl"
+        className="mx-auto max-w-5xl"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -86,8 +90,8 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
           </p>
         </div>
 
-        {/* Review Cards */}
-        <div className="space-y-3">
+        {/* Review Cards — 모바일 세로, 데스크탑 3열 */}
+        <div className="grid gap-4 md:grid-cols-3">
           {reviewCards.map((review, i) => (
             <motion.div
               key={review.platform}
@@ -95,13 +99,14 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
+              className="flex flex-col"
             >
-              <div className={`rounded-2xl border p-5 transition-all duration-200 ${cardClass}`}>
+              <div className={`flex flex-1 flex-col rounded-2xl border p-5 transition-all duration-200 ${cardClass}`}>
                 {/* Platform row */}
                 <div className="mb-3 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-black text-white shadow-sm ${review.bgColor}`}
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black text-white shadow-sm ${review.bgColor}`}
                     >
                       {review.mark}
                     </span>
@@ -119,14 +124,17 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
                 {/* Stars */}
                 <div className="mb-3 flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
 
                 {/* Quote */}
-                <p className={`mb-4 text-sm font-semibold leading-relaxed ${quoteClass}`}>
+                <p className={`mb-2 flex-1 text-sm font-semibold leading-relaxed ${quoteClass}`}>
                   "{review.quote}"
                 </p>
+
+                {/* Detail */}
+                <p className={`mb-4 text-xs ${detailClass}`}>{review.detail}</p>
 
                 {/* Button */}
                 <a
