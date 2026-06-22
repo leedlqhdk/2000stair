@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -10,37 +9,60 @@ import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import CareGuideSection from "@/components/CareGuideSection";
 
-const serviceAreas = [
+const managedAreaCards = [
   {
-    name: "신둔면",
-    slug: "sindun",
-    summary: "공동현관 · 계단 정기관리",
-    position: "top-[25%] left-[32%]",
+    src: "/images/shorts-1.webp",
+    title: "창전동",
+    subtitle: "계단 · 복도 관리",
+    href: "/area/downtown",
   },
   {
-    name: "마장면",
-    slug: "majang",
-    summary: "빌라 · 상가 공용부 관리",
-    position: "top-[52%] left-[24%]",
+    src: "/images/shorts-2.webp",
+    title: "증포동",
+    subtitle: "빌라 정기관리",
+    href: "/area/downtown",
   },
   {
-    name: "부발읍",
-    slug: "bubal",
-    summary: "상가 · 소형 건물 관리",
-    position: "top-[46%] left-[74%]",
+    src: "/images/shorts-3.webp",
+    title: "중리동",
+    subtitle: "공동현관 관리",
+    href: "/area/downtown",
   },
   {
-    name: "시내권",
-    slug: "downtown",
-    summary: "증포동 · 창전동 · 관고동 공용부 관리",
-    position: "top-[40%] left-[52%]",
+    src: "/images/shorts-4.webp",
+    title: "관고동",
+    subtitle: "건물 공용부 관리",
+    href: "/area/downtown",
   },
   {
-    name: "대월면",
-    slug: "daewol",
-    summary: "빌라 계단 · 정기관리",
-    position: "top-[68%] left-[65%]",
-    featured: true,
+    src: "/images/shorts-5.webp",
+    title: "송정동",
+    subtitle: "현관 · 복도 관리",
+    href: "/area/downtown",
+  },
+  {
+    src: "/images/shorts-6.webp",
+    title: "부발읍",
+    subtitle: "상가 공용부 관리",
+    href: "/area/bubal",
+  },
+  {
+    src: "/images/shorts-1.webp",
+    title: "신둔면",
+    subtitle: "공동현관 관리",
+    href: "/area/sindun",
+  },
+  {
+    src: "/images/shorts-5.webp",
+    title: "백사면",
+    subtitle: "빌라 · 원룸 관리",
+    href: "/area/baeksa",
+  },
+  {
+    src: "/images/shorts-3.webp",
+    title: "대월면",
+    subtitle: "계단 · 정기관리",
+    href: "/area/daewol",
   },
 ];
 
@@ -130,12 +152,12 @@ export default function Blog() {
             </h1>
 
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              이천 지역 공용공간을 깨끔하게 관리합니다. 원하는 지역을 선택해 관리 현장을 확인하세요.
+              이천 북부권을 중심으로 공용공간을 깨끗하게 관리합니다. 실제 관리 현장을 확인해보세요.
             </p>
           </motion.div>
 
-          <div className="mx-auto mb-12 w-full max-w-[430px] md:mb-16 md:max-w-none">
-            <ResponsiveAreaSelector />
+          <div className="mx-auto mb-12 w-full md:mb-16">
+            <ManagedAreaShowcase />
           </div>
 
           <section className="mb-12 md:mb-16">
@@ -293,75 +315,62 @@ export default function Blog() {
   );
 }
 
-function ResponsiveAreaSelector() {
-  const [selectedAreaName, setSelectedAreaName] = useState(
-    serviceAreas.find((area) => area.featured)?.name ?? serviceAreas[0].name
-  );
-  const selectedArea = serviceAreas.find((area) => area.name === selectedAreaName) ?? serviceAreas[0];
-
+function ManagedAreaShowcase() {
   return (
-    <div className="mx-auto space-y-5 md:max-w-[920px]">
-      <div>
-        <div className="relative rounded-3xl border border-blue-100 bg-white shadow-sm">
-          <div className="aspect-square overflow-hidden rounded-3xl bg-white md:h-[560px] md:aspect-auto md:bg-blue-50/80">
-            <img
-              src="/images/2000map.png"
-              alt="이천 생활권 청소 가능지역 지도"
-              className="h-full w-full object-contain object-center p-2 opacity-90 md:object-cover md:p-0"
-            />
-          </div>
-          <button
-            type="button"
-            onClick={() => setSelectedAreaName(selectedArea.name)}
-            className={`absolute ${selectedArea.position} z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-xl shadow-blue-900/25 transition md:px-8 md:py-5 md:text-2xl`}
-          >
-            {selectedArea.name}
-            <MapPin className="h-4 w-4 fill-current md:h-8 md:w-8" />
-          </button>
-        </div>
-
-        <div className="mt-3 flex items-center gap-2 text-sm font-extrabold text-slate-600 md:mt-5 md:text-lg">
-          <MapPin className="h-4 w-4 shrink-0 text-primary md:h-6 md:w-6" />
-          아래 동네를 누르면 지도에 위치가 표시됩니다
-        </div>
-
-        <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 md:mt-5 md:flex-wrap md:gap-4 md:overflow-visible">
-          {serviceAreas.map((area) => (
-            <button
-              key={area.name}
-              type="button"
-              onClick={() => setSelectedAreaName(area.name)}
-              className={`shrink-0 rounded-full border px-5 py-3 text-sm font-extrabold shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 md:min-w-32 md:px-7 md:py-4 md:text-lg ${
-                area.name === selectedArea.name
-                  ? "border-primary bg-primary text-white shadow-blue-900/15"
-                  : "border-blue-100 bg-white text-foreground hover:bg-blue-50"
-              }`}
-            >
-              {area.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-3xl border border-blue-100 bg-blue-50/70 p-4 md:flex md:items-center md:justify-between md:gap-5">
-        <div className="mb-4 md:mb-0">
-          <p className="text-sm font-extrabold text-primary">{selectedArea.name} 작업현장 선택됨</p>
-          <p className="mt-1 text-sm font-semibold leading-relaxed text-slate-700">
-            {selectedArea.summary}. 해당 지역의 실제 관리 기록을 확인해보세요.
+    <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-blue-50/70 py-10 shadow-sm md:py-14">
+      <div className="grid gap-8 md:grid-cols-[260px_minmax(0,1fr)] md:items-center">
+        <div className="px-6 md:px-10">
+          <p className="mb-5 inline-flex items-center gap-2 text-sm font-extrabold tracking-[0.2em] text-primary">
+            <MapPin className="h-5 w-5" />
+            MAP
+          </p>
+          <h2 className="text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
+            실제 관리 지역
+          </h2>
+          <p className="mt-5 text-base font-semibold leading-relaxed text-muted-foreground">
+            이천 북부 지역을 부부가 직접 관리합니다.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 md:min-w-[320px]">
-          <Link href={`/area/${selectedArea.slug}`}>
-            <a
-            className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-full border border-white/60 bg-white/80 px-5 text-base font-extrabold text-primary shadow-md backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white"
-            >
-              <ArrowRight className="h-5 w-5" />
-              {selectedArea.name} 작업현장 보러가기
-            </a>
-          </Link>
+        <div className="relative overflow-hidden pb-2">
+          <div
+            className="flex w-max gap-4 px-6 md:gap-5 md:px-0"
+            style={{ animation: "slideLeft 30s linear infinite" }}
+          >
+            {[...managedAreaCards, ...managedAreaCards].map((item, index) => (
+              <motion.div
+                key={`${item.title}-${index}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: (index % managedAreaCards.length) * 0.04 }}
+              >
+                <Link href={item.href}>
+                  <a className="group relative block h-56 w-44 overflow-hidden rounded-2xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-60 md:w-48">
+                    <img
+                      src={item.src}
+                      alt={`${item.title} 관리 현장`}
+                      className="h-full w-full scale-[1.18] object-cover object-center brightness-[1.03] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.24]"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-[#f5f9ff]/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/12 to-white/8" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <MapPin className="mb-2 h-5 w-5 text-white drop-shadow" />
+                      <h3 className="text-lg font-extrabold leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="mt-1 text-sm font-semibold text-white/82">
+                        {item.subtitle}
+                      </p>
+                    </div>
+                  </a>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
