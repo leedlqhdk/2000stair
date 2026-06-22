@@ -103,6 +103,33 @@ export const seoByAreaSlug = {
     localities: ["창전동", "관고동", "증포동", "중리동", "송정동"],
     image: "/images/icheon-downtown-stair-cleaning.webp",
   }),
+  gwango: areaSeo({
+    slug: "gwango",
+    areaName: "관고동",
+    title: "관고동 계단청소·상가 공용공간 관리 | 이천계단지기",
+    description:
+      "관고동 상가·빌라·소형 건물의 계단, 공동현관, 복도, 유리 등 공용공간을 현장 상태에 맞춰 직접 관리합니다.",
+    localities: ["관고동", "설봉공원 인근", "관고시장 인근"],
+    image: "/images/icheon-gwango-building-cleaning.webp",
+  }),
+  changjeon: areaSeo({
+    slug: "changjeon",
+    areaName: "창전동",
+    title: "창전동 계단청소·빌라 원룸 정기관리 | 이천계단지기",
+    description:
+      "창전동 빌라·원룸·상가주택의 계단, 복도, 공동현관을 월 2회·4회 정기 방문 기준으로 상담합니다.",
+    localities: ["창전동", "시내 주거지", "상가주택 밀집 구역"],
+    image: "/images/icheon-downtown-stair-cleaning.webp",
+  }),
+  songjeong: areaSeo({
+    slug: "songjeong",
+    areaName: "송정동",
+    title: "송정동 계단청소·빌라 상가 공용부 관리 | 이천계단지기",
+    description:
+      "송정동 빌라·상가 공용부의 현관, 계단, 복도 상태를 사진과 주소 기준으로 확인하고 관리 범위를 안내합니다.",
+    localities: ["송정동", "주거 밀집 구역", "상가주택 주변"],
+    image: "/images/icheon-songjeong-villa-cleaning.webp",
+  }),
   bubal: areaSeo({
     slug: "bubal",
     areaName: "부발읍",
@@ -135,7 +162,7 @@ export const generalSeoByPath = {
   "/": {
     title: "이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소",
     description:
-      "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 하청 없이 부부가 직접 정기관리합니다. 세금계산서·계약서·사업자보험 완비.",
+      "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 하청 없이 부부가 직접 정기관리합니다. 세금계산서와 계약 기준 상담이 가능합니다.",
     canonical: `${SITE_URL}/`,
     keywords: `이천계단청소, 이천계단청소업체, 이천빌라청소, 이천상가청소, 계단청소업체, 이천계단지기, ${BASE_KEYWORDS}`,
     image: toAbsoluteUrl("/og-image.png"),
@@ -161,6 +188,8 @@ export const generalSeoByPath = {
           { "@type": "AdministrativeArea", name: "증포동" },
           { "@type": "AdministrativeArea", name: "중리동" },
           { "@type": "AdministrativeArea", name: "관고동" },
+          { "@type": "AdministrativeArea", name: "창전동" },
+          { "@type": "AdministrativeArea", name: "송정동" },
           { "@type": "AdministrativeArea", name: "대월면" },
         ],
         priceRange: "₩₩",
