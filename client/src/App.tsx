@@ -28,6 +28,7 @@ const Downtown = lazy(() => import("@/pages/Downtown"));
 const Bubal = lazy(() => import("@/pages/Bubal"));
 const Baeksa = lazy(() => import("@/pages/Baeksa"));
 const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
+const NeighborhoodArea = lazy(() => import("@/pages/NeighborhoodArea"));
 const About = lazy(() => import("@/pages/About"));
 const Qna = lazy(() => import("@/pages/Qna"));
 const Reviews = lazy(() => import("./pages/Reviews"));
@@ -109,6 +110,18 @@ function AdminRedirect() {
   return null;
 }
 
+function GwangoArea() {
+  return <NeighborhoodArea areaSlug="gwango" />;
+}
+
+function ChangjeonArea() {
+  return <NeighborhoodArea areaSlug="changjeon" />;
+}
+
+function SongjeongArea() {
+  return <NeighborhoodArea areaSlug="songjeong" />;
+}
+
 function PageLoader() {
   return (
     <div className="flex min-h-[60vh] w-full items-center justify-center">
@@ -174,6 +187,9 @@ function Router() {
           <Route path="/area/daewol" component={Daewol} />
           <Route path="/area/sindun" component={Sindun} />
           <Route path="/area/downtown" component={Downtown} />
+          <Route path="/area/gwango" component={GwangoArea} />
+          <Route path="/area/changjeon" component={ChangjeonArea} />
+          <Route path="/area/songjeong" component={SongjeongArea} />
           <Route path="/area/bubal" component={Bubal} />
           <Route path="/area/baeksa" component={Baeksa} />
           <Route path="/area/gonjiam" component={Gonjiam} />
