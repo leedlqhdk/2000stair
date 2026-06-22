@@ -2,7 +2,21 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const priceCards = [
+type PriceItem = {
+  badge: string;
+  price: string;
+  mobile?: boolean;
+  highlight?: boolean;
+};
+
+type PriceCard = {
+  title: string;
+  items: PriceItem[];
+  note: string;
+  href: string;
+};
+
+const priceCards: PriceCard[] = [
   {
     title: "계단청소 정기관리",
     items: [
