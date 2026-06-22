@@ -1,10 +1,11 @@
 import express from "express";
 import nodemailer from "nodemailer";
+import type { Request, Response } from "express";
 
 const app = express();
 app.use(express.json());
 
-app.post("/api/quote", async (req, res) => {
+app.post("/api/quote", async (req: Request, res: Response) => {
   const { phone, address, notes } = (req.body ?? {}) as {
     phone?: string;
     address?: string;
