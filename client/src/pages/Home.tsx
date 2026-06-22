@@ -7,6 +7,7 @@ import Services from "@/pages/Services";
 import PricingOverview from "@/components/PricingOverview";
 import BlogReviews from "@/components/BlogReviews";
 import FaqSection from "@/components/FaqSection";
+import QuoteForm from "@/components/QuoteForm";
 
 export default function Home() {
   return (
@@ -30,6 +31,8 @@ export default function Home() {
 
         {/* 정기관리 요금 안내 */}
         <PricingOverview />
+
+        <QuoteForm />
 
         {/* 실제 후기 요약 */}
         <div className="container max-w-6xl py-16 md:py-24">
