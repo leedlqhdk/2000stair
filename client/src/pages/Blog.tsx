@@ -17,18 +17,6 @@ const managedAreaCards = [
     href: "/area/changjeon",
   },
   {
-    src: "/images/icheon-downtown-stair-cleaning.webp",
-    title: "증포동",
-    subtitle: "빌라 정기관리",
-    href: "/area/downtown",
-  },
-  {
-    src: "/images/icheon-downtown-stair-cleaning.webp",
-    title: "중리동",
-    subtitle: "공동현관 관리",
-    href: "/area/downtown",
-  },
-  {
     src: "/images/icheon-gwango-building-cleaning.webp",
     title: "관고동",
     subtitle: "건물 공용부 관리",
@@ -60,6 +48,18 @@ const managedAreaCards = [
   },
   {
     src: "/images/icheon-downtown-stair-cleaning.webp",
+    title: "증포동",
+    subtitle: "빌라 정기관리",
+    href: "/area/downtown",
+  },
+  {
+    src: "/images/icheon-gwango-building-cleaning.webp",
+    title: "중리동",
+    subtitle: "공동현관 관리",
+    href: "/area/downtown",
+  },
+  {
+    src: "/images/icheon-songjeong-villa-cleaning.webp",
     title: "대월면",
     subtitle: "계단 · 정기관리",
     href: "/area/daewol",
@@ -161,155 +161,109 @@ export default function Blog() {
           </div>
 
           <section className="mb-12 md:mb-16">
-            <div className="mb-5 flex items-center justify-between gap-4">
+            <div className="mb-6 flex items-end justify-between gap-4">
               <div>
                 <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
-                  고객님들의 실제 후기
+                  최근 관리 현장
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  실제 관리 경험을 바탕으로 남겨주신 후기입니다.
+                  이천 지역 공용공간 관리 기록입니다.
                 </p>
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {reviews.map((review) => (
-                <a
-                  key={review.source}
-                  href={review.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <div className="mb-3 flex items-center gap-1 text-yellow-400">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <Star key={index} className="h-4 w-4 fill-current" />
-                    ))}
-                  </div>
-
-                  <p className={`text-sm font-bold mb-2 ${review.sourceClass}`}>
-                    {review.source}
-                  </p>
-
-                  <p className="text-sm leading-relaxed text-foreground">
-                    {review.text}
-                  </p>
-
-                  <div className="mt-4 flex items-center justify-between gap-3">
-                    <p className="text-xs text-muted-foreground">
-                      {review.area}
-                    </p>
-                    <span className="inline-flex items-center text-xs font-bold text-primary">
-                      후기 보기
-                      <ArrowRight className="ml-1 h-3.5 w-3.5" />
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
-                최근 관리 현장
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                이천 지역 공용공간 관리 기록입니다.
-              </p>
-            </div>
-          </div>
-
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white"
-                >
-                  <Skeleton className="h-64 w-full" />
-                  <div className="p-5">
-                    <Skeleton className="h-6 w-3/4 mb-3" />
-                    <Skeleton className="h-4 w-1/3" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.08,
-                  },
-                },
-              }}
-            >
-              {recentPosts.slice(0, 6).map((post, index) => {
-                const areaSlug = post.area ?? "downtown";
-                const areaName = areaLabels[areaSlug] ?? areaSlug;
-                const description = post.description || "실제 이천 지역 계단청소 현장 기록입니다.";
-
-                return (
-                  <motion.div
-                    key={`${areaSlug}-${post.title}-${index}`}
-                    className="h-full"
-                    variants={{
-                      hidden: { opacity: 0, y: 28 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration: 0.45 },
-                      },
-                    }}
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white"
                   >
-                    <Link href={`/area/${areaSlug}`}>
-                      <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
-                        <div className="relative h-72 overflow-hidden bg-blue-50">
-                          <img
-                            src={post.image}
-                            alt={post.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
+                    <Skeleton className="h-64 w-full" />
+                    <div className="p-5">
+                      <Skeleton className="h-6 w-3/4 mb-3" />
+                      <Skeleton className="h-4 w-1/3" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.08,
+                    },
+                  },
+                }}
+              >
+                {recentPosts.slice(0, 6).map((post, index) => {
+                  const areaSlug = post.area ?? "downtown";
+                  const areaName = areaLabels[areaSlug] ?? areaSlug;
+                  const description = post.description || "실제 이천 지역 계단청소 현장 기록입니다.";
 
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                  return (
+                    <motion.div
+                      key={`${areaSlug}-${post.title}-${index}`}
+                      className="h-full"
+                      variants={{
+                        hidden: { opacity: 0, y: 28 },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          transition: { duration: 0.45 },
+                        },
+                      }}
+                    >
+                      <Link href={`/area/${areaSlug}`}>
+                        <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
+                          <div className="relative h-72 overflow-hidden bg-blue-50">
+                            <img
+                              src={post.image}
+                              alt={post.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
 
-                          <div className="absolute left-5 bottom-5 right-5">
-                            <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
-                              <CalendarDays className="w-3 h-3" />
-                              <span>{post.date}</span>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+
+                            <div className="absolute left-5 bottom-5 right-5">
+                              <div className="flex items-center gap-1 text-xs text-white/80 mb-2">
+                                <CalendarDays className="w-3 h-3" />
+                                <span>{post.date}</span>
+                              </div>
+
+                              <h2 className="text-white text-xl font-extrabold leading-snug line-clamp-2">
+                                {post.title}
+                              </h2>
                             </div>
-
-                            <h2 className="text-white text-xl font-extrabold leading-snug line-clamp-2">
-                              {post.title}
-                            </h2>
                           </div>
-                        </div>
 
-                        <div className="p-5">
-                          <p className="text-sm font-bold text-primary mb-2">
-                            {areaName}
-                          </p>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
-                            {description}
-                          </p>
-                        </div>
-                      </article>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          )}
+                          <div className="p-5">
+                            <p className="text-sm font-bold text-primary mb-2">
+                              {areaName}
+                            </p>
+                            <p className="text-sm text-muted-foreground line-clamp-2">
+                              {description}
+                            </p>
+                          </div>
+                        </article>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            )}
+          </section>
         </section>
 
         <CareGuideSection limit={3} viewAllHref="/guide" />
+        <ReviewSection />
       </main>
     </div>
   );
@@ -374,6 +328,59 @@ function ManagedAreaShowcase() {
             ))}
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ReviewSection() {
+  return (
+    <section className="container max-w-6xl pb-16 md:pb-24">
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <div>
+          <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+            고객님들의 실제 후기
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            실제 관리 경험을 바탕으로 남겨주신 후기입니다.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {reviews.map((review) => (
+          <a
+            key={review.source}
+            href={review.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div className="mb-3 flex items-center gap-1 text-yellow-400">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Star key={index} className="h-4 w-4 fill-current" />
+              ))}
+            </div>
+
+            <p className={`text-sm font-bold mb-2 ${review.sourceClass}`}>
+              {review.source}
+            </p>
+
+            <p className="text-sm leading-relaxed text-foreground">
+              {review.text}
+            </p>
+
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <p className="text-xs text-muted-foreground">
+                {review.area}
+              </p>
+              <span className="inline-flex items-center text-xs font-bold text-primary">
+                후기 보기
+                <ArrowRight className="ml-1 h-3.5 w-3.5" />
+              </span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   );
