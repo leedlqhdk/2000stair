@@ -1,5 +1,4 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "../shared/const.js";
-import * as cookie from "cookie";
 import { getSessionCookieOptions } from "./_core/cookies.js";
 import { systemRouter } from "./_core/systemRouter.js";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc.js";
@@ -17,6 +16,33 @@ import { sdk } from "./_core/sdk.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
+function serializeCookie(
+  name: string,
+  value: string,
+  options: {
+    httpOnly?: boolean;
+    path?: string;
+    sameSite?: "lax" | "strict" | "none";
+    secure?: boolean;
+    maxAge?: number;
+    expires?: Date;
+  } = {}
+) {
+  const parts = [`${encodeURIComponent(name)}=${encodeURIComponent(value)}`];
+
+  if (options.maxAge !== undefined) parts.push(`Max-Age=${Math.floor(options.maxAge)}`);
+  if (options.expires) parts.push(`Expires=${options.expires.toUTCString()}`);
+  if (options.path) parts.push(`Path=${options.path}`);
+  if (options.httpOnly) parts.push("HttpOnly");
+  if (options.secure) parts.push("Secure");
+  if (options.sameSite) {
+    const sameSite = options.sameSite === "none" ? "None" : options.sameSite === "strict" ? "Strict" : "Lax";
+    parts.push(`SameSite=${sameSite}`);
+  }
+
+  return parts.join("; ");
+}
+
 const createAdminUser = () => {
   const now = new Date();
   return {
@@ -65,7 +91,7 @@ export const appRouter = router({
           { expiresInMs: ONE_YEAR_MS }
         );
         const cookieOptions = getSessionCookieOptions(ctx.req);
-        const cookieStr = cookie.serialize(COOKIE_NAME, sessionToken, {
+        const cookieStr = serializeCookie(COOKIE_NAME, sessionToken, {
           httpOnly: cookieOptions.httpOnly,
           path: cookieOptions.path,
           sameSite: cookieOptions.sameSite as "lax" | "strict" | "none",
@@ -80,7 +106,7 @@ export const appRouter = router({
     logout: publicProcedure.mutation(({ ctx }) => {
       ctx.res.setHeader(
         "Set-Cookie",
-        cookie.serialize(COOKIE_NAME, "", {
+        serializeCookie(COOKIE_NAME, "", {
           httpOnly: true,
           path: "/",
           maxAge: 0,
