@@ -21,6 +21,7 @@ const WorkDetail = lazy(() => import("./pages/WorkDetail"));
 const LocationLanding = lazy(() => import("./pages/LocationLanding"));
 const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
+const AdminQuotes = lazy(() => import("./pages/AdminQuotes"));
 const Majang = lazy(() => import("@/pages/Majang"));
 const Daewol = lazy(() => import("@/pages/Daewol"));
 const Sindun = lazy(() => import("@/pages/Sindun"));
@@ -28,7 +29,6 @@ const Downtown = lazy(() => import("@/pages/Downtown"));
 const Bubal = lazy(() => import("@/pages/Bubal"));
 const Baeksa = lazy(() => import("@/pages/Baeksa"));
 const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
-const NeighborhoodArea = lazy(() => import("@/pages/NeighborhoodArea"));
 const About = lazy(() => import("@/pages/About"));
 const Qna = lazy(() => import("@/pages/Qna"));
 const Reviews = lazy(() => import("./pages/Reviews"));
@@ -104,22 +104,10 @@ function AdminRedirect() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    setLocation("/admin/blog");
+    setLocation("/admin/quotes");
   }, [setLocation]);
 
   return null;
-}
-
-function GwangoArea() {
-  return <NeighborhoodArea areaSlug="gwango" />;
-}
-
-function ChangjeonArea() {
-  return <NeighborhoodArea areaSlug="changjeon" />;
-}
-
-function SongjeongArea() {
-  return <NeighborhoodArea areaSlug="songjeong" />;
 }
 
 function PageLoader() {
@@ -144,7 +132,7 @@ function AdminNoIndex() {
     }
 
     if (isAdminRoute) {
-      document.title = "ê´ë¦¬ì íì´ì§ | ì´ì²ê³ë¨ì§ê¸°";
+      document.title = "관리자 페이지 | 이천계단지기";
       robots.setAttribute("content", "noindex, nofollow, noarchive");
       return;
     }
@@ -187,14 +175,12 @@ function Router() {
           <Route path="/area/daewol" component={Daewol} />
           <Route path="/area/sindun" component={Sindun} />
           <Route path="/area/downtown" component={Downtown} />
-          <Route path="/area/gwango" component={GwangoArea} />
-          <Route path="/area/changjeon" component={ChangjeonArea} />
-          <Route path="/area/songjeong" component={SongjeongArea} />
           <Route path="/area/bubal" component={Bubal} />
           <Route path="/area/baeksa" component={Baeksa} />
           <Route path="/area/gonjiam" component={Gonjiam} />
           <Route path="/area/:slug" component={LocationLanding} />
           <Route path="/admin" component={AdminRedirect} />
+          <Route path="/admin/quotes" component={AdminQuotes} />
           <Route path="/admin/blog" component={AdminBlog} />
           <Route path="/admin/blog/new" component={AdminBlogEdit} />
           <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
