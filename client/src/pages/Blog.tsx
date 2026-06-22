@@ -11,55 +11,55 @@ import CareGuideSection from "@/components/CareGuideSection";
 
 const managedAreaCards = [
   {
-    src: "/images/shorts-1.webp",
+    src: "/images/icheon-downtown-stair-cleaning.webp",
     title: "창전동",
     subtitle: "계단 · 복도 관리",
-    href: "/area/downtown",
+    href: "/area/changjeon",
   },
   {
-    src: "/images/shorts-2.webp",
+    src: "/images/icheon-downtown-stair-cleaning.webp",
     title: "증포동",
     subtitle: "빌라 정기관리",
     href: "/area/downtown",
   },
   {
-    src: "/images/shorts-3.webp",
+    src: "/images/icheon-downtown-stair-cleaning.webp",
     title: "중리동",
     subtitle: "공동현관 관리",
     href: "/area/downtown",
   },
   {
-    src: "/images/shorts-4.webp",
+    src: "/images/icheon-gwango-building-cleaning.webp",
     title: "관고동",
     subtitle: "건물 공용부 관리",
-    href: "/area/downtown",
+    href: "/area/gwango",
   },
   {
-    src: "/images/shorts-5.webp",
+    src: "/images/icheon-songjeong-villa-cleaning.webp",
     title: "송정동",
     subtitle: "현관 · 복도 관리",
-    href: "/area/downtown",
+    href: "/area/songjeong",
   },
   {
-    src: "/images/shorts-6.webp",
+    src: "/images/icheon-bubal-store-cleaning.webp",
     title: "부발읍",
     subtitle: "상가 공용부 관리",
     href: "/area/bubal",
   },
   {
-    src: "/images/shorts-1.webp",
+    src: "/images/icheon-sindun-stair-cleaning.webp",
     title: "신둔면",
     subtitle: "공동현관 관리",
     href: "/area/sindun",
   },
   {
-    src: "/images/shorts-5.webp",
+    src: "/images/icheon-majang-villa-cleaning.webp",
     title: "백사면",
     subtitle: "빌라 · 원룸 관리",
     href: "/area/baeksa",
   },
   {
-    src: "/images/shorts-3.webp",
+    src: "/images/icheon-downtown-stair-cleaning.webp",
     title: "대월면",
     subtitle: "계단 · 정기관리",
     href: "/area/daewol",
@@ -317,50 +317,54 @@ export default function Blog() {
 
 function ManagedAreaShowcase() {
   return (
-    <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-blue-50/70 py-10 shadow-sm md:py-14">
-      <div className="grid gap-8 md:grid-cols-[260px_minmax(0,1fr)] md:items-center">
-        <div className="px-6 md:px-10">
-          <p className="mb-5 inline-flex items-center gap-2 text-sm font-extrabold tracking-[0.2em] text-primary">
-            <MapPin className="h-5 w-5" />
+    <section className="overflow-hidden py-2 md:py-4">
+      <div className="grid items-center gap-5 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
+        <motion.div
+          initial={{ opacity: 0, x: -18 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.16em] text-primary md:text-sm">
+            <MapPin className="h-4 w-4 text-primary stroke-[3]" />
             MAP
           </p>
-          <h2 className="text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
+
+          <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
             실제 관리 지역
           </h2>
-          <p className="mt-5 text-base font-semibold leading-relaxed text-muted-foreground">
+
+          <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
             이천 북부 지역을 부부가 직접 관리합니다.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="relative overflow-hidden pb-2">
-          <div
-            className="flex w-max gap-4 px-6 md:gap-5 md:px-0"
-            style={{ animation: "slideLeft 30s linear infinite" }}
-          >
+        <div className="relative overflow-hidden pb-3 pt-1 md:pb-2 md:pt-0">
+          <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 26s linear infinite" }}>
             {[...managedAreaCards, ...managedAreaCards].map((item, index) => (
               <motion.div
-                key={`${item.title}-${index}`}
+                key={`${item.src}-${item.title}-${index}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: (index % managedAreaCards.length) * 0.04 }}
               >
                 <Link href={item.href}>
-                  <a className="group relative block h-56 w-44 overflow-hidden rounded-2xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-60 md:w-48">
+                  <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
                     <img
                       src={item.src}
                       alt={`${item.title} 관리 현장`}
-                      className="h-full w-full scale-[1.18] object-cover object-center brightness-[1.03] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.24]"
+                      className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-[#f5f9ff]/10" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/12 to-white/8" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <MapPin className="mb-2 h-5 w-5 text-white drop-shadow" />
-                      <h3 className="text-lg font-extrabold leading-tight">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
+                      <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
+                      <h3 className="text-sm font-extrabold leading-tight md:text-base">
                         {item.title}
                       </h3>
-                      <p className="mt-1 text-sm font-semibold text-white/82">
+                      <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
                         {item.subtitle}
                       </p>
                     </div>
