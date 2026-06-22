@@ -74,7 +74,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     {
       id: "stair_2_3",
       name: "2~3층 계단 정기관리",
-      price: "66,000원~",
+      price: "40,000원~",
       description:
         "빌라·상가 공용계단 관리합니다. 엘레베이터, 공동현관 유리코팅 모든 서비스가 포함된 가격입니다.",
       popular: false,
@@ -82,7 +82,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     {
       id: "stair_4",
       name: "4층 계단 정기관리",
-      price: "77,000원~",
+      price: "50,000원~",
       description:
         "이천 지역 빌라에서 가장 많이 문의되는 기본 관리형입니다. 하청 없이 부부가 직접 방문합니다.",
       popular: true,
@@ -90,7 +90,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     {
       id: "stair_5_6",
       name: "5~6층 계단 정기관리",
-      price: "88,000원~",
+      price: "60,000원~",
       description:
         "층수가 높거나 오염이 반복되는 건물에 맞춘 관리입니다. 정기 방문으로 깔끔한 상태를 유지합니다.",
       popular: false,
@@ -133,7 +133,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         </motion.div>
 
         <motion.div
-          className="mx-auto mb-8 grid max-w-md grid-cols-3 gap-2 md:max-w-6xl md:gap-5 xl:grid-cols-6"
+          className="mx-auto mb-8 grid max-w-md grid-cols-6 gap-2 md:max-w-6xl md:grid-cols-3 md:gap-5 xl:grid-cols-6"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -142,12 +142,12 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
           {includedServices.map((service) => (
             <div
               key={service.label}
-              className="flex min-h-[76px] flex-col items-center justify-center gap-1.5 rounded-2xl px-1 py-2 text-center md:min-h-[96px] md:gap-3 md:px-2"
+              className="flex min-h-12 items-center justify-center rounded-2xl px-1 py-2 md:min-h-[96px] md:flex-col md:gap-3 md:px-2 md:text-center"
               aria-label={service.label}
               title={service.label}
             >
               <service.icon className="h-7 w-7 shrink-0 text-primary md:h-9 md:w-9" strokeWidth={1.8} />
-              <p className="text-xs font-extrabold text-foreground md:text-sm">{service.label}</p>
+              <p className="hidden text-sm font-extrabold text-foreground md:block">{service.label}</p>
             </div>
           ))}
         </motion.div>
