@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, ArrowRight, CalendarDays, MapPin, Star } from "lucide-react";
+import { ArrowRight, CalendarDays, ChevronDown, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { daewolPosts } from "@/data/areas/daewol";
 import { majangPosts } from "@/data/areas/majang";
@@ -153,15 +154,6 @@ export default function Blog() {
 
       <main>
         <section className="container max-w-6xl pt-24 pb-14 md:pt-32 md:pb-20">
-          <div className="mb-8 text-center md:mb-12">
-            <Link href="/">
-              <a className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-primary shadow-sm transition hover:border-primary/40 hover:bg-blue-50">
-                <ArrowLeft className="h-4 w-4" />
-                메인으로 돌아가기
-              </a>
-            </Link>
-          </div>
-
           <div className="mx-auto mb-12 w-full md:mb-16">
             <ManagedAreaShowcase />
           </div>
@@ -394,6 +386,8 @@ function ReviewSection() {
 }
 
 function FaqSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   return (
     <section className="container max-w-6xl pb-20 md:pb-28">
       <div className="mb-6">
@@ -405,20 +399,41 @@ function FaqSection() {
         </p>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-2">
-        {faqItems.map((item) => (
-          <div
-            key={item.question}
-            className="rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm"
-          >
-            <h3 className="text-base font-extrabold text-foreground">
-              {item.question}
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              {item.answer}
-            </p>
-          </div>
-        ))}
+      <div className="grid gap-3">
+        {faqItems.map((item, index) => {
+          const isOpen = openIndex === index;
+
+          return (
+            <div
+              key={item.question}
+              className="overflow-hidden rounded-[1.25rem] border border-blue-100 bg-white shadow-sm transition-all duration-300"
+            >
+              <button
+                type="button"
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                aria-expanded={isOpen}
+              >
+                <span className="text-base font-extrabold text-foreground">
+                  {item.question}
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 shrink-0 text-primary transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              <div
+                className={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+              >
+                <div className="overflow-hidden">
+                  <p className="px-5 pb-5 text-sm leading-7 text-muted-foreground">
+                    {item.answer}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
