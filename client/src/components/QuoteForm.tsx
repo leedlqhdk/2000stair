@@ -8,7 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Send, MapPin, Phone, User, Mail } from "lucide-react";
-import { trackConversion } from "@/lib/analytics";
 
 export default function QuoteForm() {
   const [name, setName] = useState("");
@@ -23,8 +22,6 @@ export default function QuoteForm() {
 
   // Listen for plan selection from PricingSection
   useEffect(() => {
-    trackConversion("quote_form_view", { location: "quote_form_section", label: "견적 폼 노출" });
-
     const handleSelectPlan = (e: Event) => {
       const customEvent = e as CustomEvent;
       if (customEvent.detail?.planId) {
@@ -62,7 +59,6 @@ export default function QuoteForm() {
         message: message.trim() || undefined,
       });
 
-      trackConversion("quote_form_submit", { location: "quote_form", label: planId });
       toast.success("견적 신청이 완료되었습니다! 빠른 시일 내에 연락드리겠습니다.");
       // Reset form
       setName("");
@@ -199,9 +195,9 @@ export default function QuoteForm() {
                       <SelectValue placeholder="서비스를 선택하세요" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="stair_2_3">2-3층 계단 (66,000원~)</SelectItem>
-                      <SelectItem value="stair_4">4층 계단 (77,000원~)</SelectItem>
-                      <SelectItem value="stair_5_6">5-6층 계단 (88,000원~)</SelectItem>
+                      <SelectItem value="stair_2_3">2-3층 계단 (40,000원~)</SelectItem>
+                      <SelectItem value="stair_4">4층 계단 (50,000원~)</SelectItem>
+                      <SelectItem value="stair_5_6">5-6층 계단 (60,000원~)</SelectItem>
                       <SelectItem value="bathroom">화장실/사무실/상가 유리청소 (별도 문의)</SelectItem>
                     </SelectContent>
                   </Select>
@@ -236,7 +232,7 @@ export default function QuoteForm() {
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground">
-                  신청 후 24시간 이내에 연락드립니다. 견적은 무료이며 부담 없이 상담 받으세요.
+                  신청 후 �4시간 이내에 연락드립니다. 견적은 무료이며 부담 없이 상담 받으세요.
                 </p>
               </form>
             </CardContent>
