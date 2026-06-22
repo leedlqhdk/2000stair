@@ -90,6 +90,29 @@ const reviews = [
   },
 ];
 
+const faqItems = [
+  {
+    question: "계단청소는 얼마나 자주 해야 하나요?",
+    answer: "원룸은 월 2회, 빌라와 공동주택은 주 1회 기준인 월 4회 관리를 가장 많이 선택합니다.",
+  },
+  {
+    question: "초벌청소 후 정기관리가 가능한가요?",
+    answer: "가능합니다. 처음 오염이 심한 현장은 초벌청소로 기준을 잡은 뒤 정기관리로 이어가는 방식이 좋습니다.",
+  },
+  {
+    question: "공동현관 유리도 관리해주시나요?",
+    answer: "네. 공동현관 출입문, 유리 손자국, 손잡이, 입구 주변 먼지까지 관리 범위에 맞춰 함께 확인합니다.",
+  },
+  {
+    question: "엘리베이터가 있어도 추가요금이 있나요?",
+    answer: "기본 정기관리 기준 안에서 함께 안내드립니다. 다만 건물 상태와 관리 범위가 넓은 경우 현장 확인 후 조정될 수 있습니다.",
+  },
+  {
+    question: "방문견적 비용이 있나요?",
+    answer: "현재 관리권역 내 이천 지역은 무료 방문견적으로 안내드립니다. 주소와 사진을 보내주시면 먼저 확인해드릴게요.",
+  },
+];
+
 const areaLabels: Record<string, string> = {
   majang: "마장면",
   daewol: "대월면",
@@ -130,31 +153,14 @@ export default function Blog() {
 
       <main>
         <section className="container max-w-6xl pt-24 pb-14 md:pt-32 md:pb-20">
-          <motion.div
-            className="mb-10 md:mb-14 text-center"
-            initial={{ opacity: 0, y: 34 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65 }}
-          >
+          <div className="mb-8 text-center md:mb-12">
             <Link href="/">
-              <a className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-primary shadow-sm transition hover:border-primary/40 hover:bg-blue-50">
+              <a className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-primary shadow-sm transition hover:border-primary/40 hover:bg-blue-50">
                 <ArrowLeft className="h-4 w-4" />
                 메인으로 돌아가기
               </a>
             </Link>
-
-            <p className="text-xs md:text-sm font-bold tracking-[0.35em] text-primary mb-4">
-              FIELD ARCHIVE
-            </p>
-
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-[1.12] text-foreground mb-4">
-              관리 지역
-            </h1>
-
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              이천 북부권을 중심으로 공용공간을 깨끗하게 관리합니다. 실제 관리 현장을 확인해보세요.
-            </p>
-          </motion.div>
+          </div>
 
           <div className="mx-auto mb-12 w-full md:mb-16">
             <ManagedAreaShowcase />
@@ -264,6 +270,7 @@ export default function Blog() {
 
         <CareGuideSection limit={3} viewAllHref="/guide" />
         <ReviewSection />
+        <FaqSection />
       </main>
     </div>
   );
@@ -284,9 +291,9 @@ function ManagedAreaShowcase() {
             MAP
           </p>
 
-          <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
+          <h1 className="mb-3 text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
             실제 관리 지역
-          </h2>
+          </h1>
 
           <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
             이천 북부 지역을 부부가 직접 관리합니다.
@@ -335,7 +342,7 @@ function ManagedAreaShowcase() {
 
 function ReviewSection() {
   return (
-    <section className="container max-w-6xl pb-16 md:pb-24">
+    <section className="container max-w-6xl pb-16 md:pb-20">
       <div className="mb-5 flex items-center justify-between gap-4">
         <div>
           <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
@@ -380,6 +387,37 @@ function ReviewSection() {
               </span>
             </div>
           </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  return (
+    <section className="container max-w-6xl pb-20 md:pb-28">
+      <div className="mb-6">
+        <h2 className="text-xl md:text-2xl font-extrabold text-foreground">
+          자주 묻는 질문
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          관리 지역과 정기청소 문의 전에 많이 확인하시는 내용입니다.
+        </p>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2">
+        {faqItems.map((item) => (
+          <div
+            key={item.question}
+            className="rounded-[1.25rem] border border-blue-100 bg-white p-5 shadow-sm"
+          >
+            <h3 className="text-base font-extrabold text-foreground">
+              {item.question}
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              {item.answer}
+            </p>
+          </div>
         ))}
       </div>
     </section>
