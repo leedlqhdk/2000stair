@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Link } from "wouter";
 import { ArrowRight, Check, MapPin } from "lucide-react";
 import { trackConversion } from "@/lib/analytics";
 
@@ -177,27 +176,25 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
-                    <Link href={`/area/${item.slug}`}>
-                      <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
-                        <img
-                          src={item.src}
-                          alt={`${item.title} 관리 현장`}
-                          className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-[#f5f9ff]/10" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
-                        <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                          <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
-                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
-                            {item.title}
-                          </h3>
-                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
-                            {item.subtitle}
-                          </p>
-                        </div>
-                      </a>
-                    </Link>
+                    <div className="relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] md:h-52 md:w-44">
+                      <img
+                        src={item.src}
+                        alt={`${item.title} 관리 현장`}
+                        className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88]"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-[#f5f9ff]/10" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
+                      <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
+                        <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
+                        <h3 className="text-sm font-extrabold leading-tight md:text-base">
+                          {item.title}
+                        </h3>
+                        <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
+                          {item.subtitle}
+                        </p>
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </div>
