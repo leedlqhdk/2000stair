@@ -76,7 +76,7 @@ export default function MobileQuote() {
 
   if (done) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background px-8 py-16 text-center lg:hidden">
+      <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center bg-background px-8 py-16 text-center">
         <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-blue-100 bg-blue-50 text-primary">
           <Check className="h-9 w-9" strokeWidth={2.4} />
         </div>
@@ -119,7 +119,7 @@ export default function MobileQuote() {
   }
 
   return (
-    <div className="min-h-screen bg-background lg:hidden">
+    <div className="mx-auto min-h-screen max-w-md bg-background">
       <header className="sticky top-0 z-20 flex h-14 items-center gap-2 border-b border-blue-100 bg-white/95 px-2 backdrop-blur">
         <button
           type="button"

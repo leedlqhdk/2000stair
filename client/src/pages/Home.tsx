@@ -7,7 +7,6 @@ import Services from "@/pages/Services";
 import PricingOverview from "@/components/PricingOverview";
 import BlogReviews from "@/components/BlogReviews";
 import FaqSection from "@/components/FaqSection";
-import QuoteForm from "@/components/QuoteForm";
 import MobileHome from "@/components/MobileHome";
 
 export default function Home() {
@@ -43,8 +42,6 @@ return (
 
 <FaqSection />
 </div>
-
-<QuoteForm />
 </main>
 </div>
 );
