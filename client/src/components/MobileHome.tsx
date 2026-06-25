@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import {
   ArrowRight,
   Camera,
@@ -60,19 +60,14 @@ const areaChips = [
   { label: "대월면", href: "/area/daewol" },
 ];
 
-function scrollToQuoteForm() {
-  document.getElementById("quote-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 export default function MobileHome() {
+  const [, setLocation] = useLocation();
+  const goToQuote = () => setLocation("/quote");
+
   return (
     <div className="lg:hidden">
       {/* HERO */}
       <section className="px-5 pb-7 pt-7">
-        <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-1.5 text-[11.5px] font-extrabold text-primary">
-          <Sparkles className="h-3.5 w-3.5" />
-          이천 계단청소 · 정기관리 전문
-        </span>
         <h1 className="font-['GmarketSans'] text-[2rem] font-extrabold leading-[1.15] text-foreground">
           <span className="block bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
             이천계단지기
@@ -89,7 +84,7 @@ export default function MobileHome() {
             type="button"
             onClick={() => {
               trackConversion("quote_form_view", { location: "mobile_hero", label: "무료 견적 문의" });
-              scrollToQuoteForm();
+              goToQuote();
             }}
             className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-extrabold text-white shadow-lg shadow-primary/25"
           >
@@ -128,9 +123,6 @@ export default function MobileHome() {
                 {index > 0 && <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-primary/35 stroke-[2.6]" />}
                 <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
                   <step.icon className="h-5 w-5" />
-                  <span className="absolute -right-1.5 -top-1.5 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-primary text-[10px] font-extrabold text-white shadow-sm">
-                    {index + 1}
-                  </span>
                 </span>
               </div>
               <span className="text-center text-[11.5px] font-bold leading-tight text-gray-700">
@@ -239,7 +231,7 @@ export default function MobileHome() {
             type="button"
             onClick={() => {
               trackConversion("quote_form_view", { location: "mobile_promo", label: "견적 문의하기" });
-              scrollToQuoteForm();
+              goToQuote();
             }}
             className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-white px-5 py-2.5 text-sm font-extrabold text-primary shadow-lg"
           >
@@ -289,7 +281,7 @@ export default function MobileHome() {
           type="button"
           onClick={() => {
             trackConversion("quote_form_view", { location: "mobile_dock", label: "문의하기" });
-            scrollToQuoteForm();
+            goToQuote();
           }}
           className="flex flex-col items-center justify-center gap-0.5 border-l border-blue-100 py-2.5"
         >

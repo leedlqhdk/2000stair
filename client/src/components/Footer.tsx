@@ -46,7 +46,7 @@ function linkTarget(external?: boolean) {
 
 export default function Footer() {
   return (
-    <footer id="site-footer" className="relative z-10 bg-[#1B2F57] text-white">
+    <footer id="site-footer" className="relative z-10 hidden bg-[#1B2F57] text-white lg:block">
       <div className="container mx-auto px-4 py-10 md:py-14">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
