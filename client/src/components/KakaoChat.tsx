@@ -1,5 +1,6 @@
 import { MessageCircle, Phone } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "wouter";
 import { trackConversion } from "@/lib/analytics";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -11,6 +12,8 @@ const expandedTextClass = "max-w-[72px] opacity-100 md:max-w-[80px]";
 const collapsedTextClass = "max-w-0 opacity-0";
 
 export default function KakaoChat() {
+  const [location] = useLocation();
+  const isHome = location === "/";
   const [isScrolling, setIsScrolling] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const scrollTimer = useRef<number | null>(null);
@@ -65,7 +68,11 @@ export default function KakaoChat() {
   return (
     <>
       {!isFooterVisible && (
-        <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3">
+        <div
+          className={`fixed bottom-4 right-4 z-50 flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3 ${
+            isHome ? "hidden lg:flex" : "flex"
+          }`}
+        >
           {!isScrolling && (
             <div className="pointer-events-none mb-1 mr-1 rounded-2xl bg-white/95 px-4 py-3 shadow-lg shadow-blue-900/8 ring-1 ring-blue-100 backdrop-blur">
               <p className="text-center text-xs font-extrabold leading-snug text-slate-700 md:text-sm">
