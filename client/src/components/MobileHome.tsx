@@ -104,9 +104,6 @@ export default function MobileHome() {
 
       {/* PROCESS FLOW */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
-          이렇게 진행됩니다
-        </h2>
         <div className="flex items-start gap-1">
           {processSteps.map((step, index) => (
             <motion.div

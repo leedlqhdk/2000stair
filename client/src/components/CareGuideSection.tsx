@@ -80,8 +80,8 @@ export default function CareGuideSection({ limit, viewAllHref }: CareGuideSectio
                       </div>
                     )}
 
-                    {/* 제목 오버레이: 모바일 항상 표시 / 데스크탑 호버 시 슬라이드업 */}
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent px-3 pb-3 pt-8 transition-transform duration-300 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 sm:px-4 sm:pb-4">
+                    {/* 제목 오버레이: 모바일에서는 숨김 / 데스크탑 호버 시 슬라이드업 */}
+                    <div className="absolute inset-x-0 bottom-0 hidden bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent px-3 pb-3 pt-8 transition-transform duration-300 md:block md:translate-y-full md:group-hover:translate-y-0 sm:px-4 sm:pb-4">
                       <h3 className="text-xs font-extrabold leading-snug text-white line-clamp-2 sm:text-sm">
                         {guide.title}
                       </h3>
