@@ -233,6 +233,42 @@ export default function Areas() {
               이천이라면 <span className="text-primary">어디든</span><br />부부가 직접 갑니다
             </h1>
             <p className="text-sm font-medium leading-relaxed text-muted-foreground mb-5">9개 읍·면·동 전 지역, 하청 없이 부부가 직접 방문합니다.</p>
+            <div
+              style={{
+                position: "relative",
+                background: "radial-gradient(120% 120% at 30% 10%, #f4f8ff 0%, var(--blue-50, #f4f8ff) 60%, #eaf1fc 100%)",
+                border: "1px solid var(--blue-100, #e4ecfb)",
+                borderRadius: "var(--radius-card, 1.25rem)",
+                padding: 14,
+                marginBottom: 20,
+                boxShadow: "var(--shadow-card)",
+              }}
+            >
+              <InteractiveMap
+                activeRegion={activeRegion}
+                onEnter={setActiveRegion}
+                onLeave={() => setActiveRegion(null)}
+                onClick={handleNavigate}
+              />
+              <div
+                style={{
+                  marginTop: 10,
+                  display: "flex",
+                  gap: 14,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11.5, fontWeight: 700, color: "var(--muted-foreground)" }}>
+                  <span style={{ width: 12, height: 12, borderRadius: 4, background: "var(--primary)", border: "1px solid var(--blue-100, #e4ecfb)", flexShrink: 0 }} />
+                  시내 (동지역)
+                </span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11.5, fontWeight: 700, color: "var(--muted-foreground)" }}>
+                  <span style={{ width: 12, height: 12, borderRadius: 4, background: "#ffffff", border: "1px solid var(--blue-100, #e4ecfb)", flexShrink: 0 }} />
+                  읍·면
+                </span>
+              </div>
+            </div>
             <div className="mb-4">
               <GroupHeader label="시내 (동지역)" />
               <div className="flex flex-wrap gap-2">{DONG_LIST.map((name) => <RegionChip key={name} name={name} size="sm" />)}</div>
