@@ -25,8 +25,8 @@ const MAP_REGIONS = [
 ];
 
 const DONG_LIST = ["증포동", "창전동", "중리동", "관고동"];
-const EUP_LIST  = ["부발읍", "장호원읍"];
-const MYEON_LIST = ["신둔면", "백사면", "마장면", "호법면", "대월면", "모가면", "설성면", "율면"];
+const EUP_LIST  = ["부발읍"];
+const MYEON_LIST = ["신둔면", "백사면", "마장면", "대월면"];
 
 const LABEL_POS: Record<string, { cx: number; cy: number; sm?: boolean }> = {
   신둔면: { cx: 251, cy: 236 },
@@ -232,17 +232,17 @@ export default function Areas() {
             <h1 className="text-foreground mb-3 leading-snug" style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 700, lineHeight: 1.26 }}>
               이천이라면 <span className="text-primary">어디든</span><br />부부가 직접 갑니다
             </h1>
-            <p className="text-sm font-medium leading-relaxed text-muted-foreground mb-5">14개 읍·면·동 전 지역, 하청 없이 부부가 직접 방문합니다.</p>
+            <p className="text-sm font-medium leading-relaxed text-muted-foreground mb-5">9개 읍·면·동 전 지역, 하청 없이 부부가 직접 방문합니다.</p>
             <div className="mb-4">
               <GroupHeader label="시내 (동지역)" />
               <div className="flex flex-wrap gap-2">{DONG_LIST.map((name) => <RegionChip key={name} name={name} size="sm" />)}</div>
             </div>
             <div className="mb-4">
-              <GroupHeader label="읍" count={2} />
+              <GroupHeader label="읍" count={1} />
               <div className="flex flex-wrap gap-2">{EUP_LIST.map((name) => <RegionChip key={name} name={name} size="sm" />)}</div>
             </div>
             <div className="mb-5">
-              <GroupHeader label="면" count={8} />
+              <GroupHeader label="면" count={4} />
               <div className="flex flex-wrap gap-2">{MYEON_LIST.map((name) => <RegionChip key={name} name={name} size="sm" />)}</div>
             </div>
             <div className="flex gap-3 items-start rounded-2xl mb-6" style={{ padding: "14px 16px", background: "var(--blue-50, #f4f8ff)", border: "1px solid var(--blue-100, #e4ecfb)" }}>
