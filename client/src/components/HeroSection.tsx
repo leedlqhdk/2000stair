@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Check, MapPin } from "lucide-react";
+import { Link } from "wouter";
 import { trackConversion } from "@/lib/analytics";
 
 interface HeroSectionProps {
@@ -78,14 +79,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 카톡으로 주소 보내기
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <a
-                href="#quote-form"
+              <Link
+                href="/quote"
                 onClick={() => trackConversion("quote_form_view", { location: "home_hero", label: "법인 견적 폼 보기" })}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-white px-5 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-50 sm:w-auto"
               >
                 무료 견적 폼 보기
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
 
             <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
