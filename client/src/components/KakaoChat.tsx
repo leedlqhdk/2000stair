@@ -14,6 +14,7 @@ const collapsedTextClass = "max-w-0 opacity-0";
 export default function KakaoChat() {
   const [location] = useLocation();
   const isHome = location === "/";
+  const isAreas = location === "/areas";
   const [isScrolling, setIsScrolling] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const scrollTimer = useRef<number | null>(null);
@@ -70,7 +71,7 @@ export default function KakaoChat() {
       {!isFooterVisible && (
         <div
           className={`fixed bottom-4 right-4 z-50 flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3 ${
-            isHome ? "hidden lg:flex" : "flex"
+            isHome || isAreas ? "hidden lg:flex" : "flex"
           }`}
         >
           {!isScrolling && (
