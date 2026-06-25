@@ -102,8 +102,6 @@ export default function MobileHome() {
         </div>
       </section>
 
-      <div className="h-2 border-y border-blue-100 bg-blue-50" />
-
       {/* PROCESS FLOW */}
       <section className="px-5 py-7">
         <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
@@ -133,8 +131,6 @@ export default function MobileHome() {
         </div>
       </section>
 
-      <div className="h-2 border-y border-blue-100 bg-blue-50" />
-
       {/* POPULAR SERVICES */}
       <section className="px-5 py-7">
         <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
@@ -161,8 +157,6 @@ export default function MobileHome() {
           ))}
         </div>
       </section>
-
-      <div className="h-2 border-y border-blue-100 bg-blue-50" />
 
       {/* REVIEWS */}
       <section className="py-7">
@@ -192,8 +186,6 @@ export default function MobileHome() {
           ))}
         </div>
       </section>
-
-      <div className="h-2 border-y border-blue-100 bg-blue-50" />
 
       {/* AREAS */}
       <section className="px-5 py-7">
