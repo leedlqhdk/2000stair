@@ -1,15 +1,16 @@
 import { Link, useLocation } from "wouter";
 import {
+  AppWindow,
   ArrowRight,
+  Bath,
+  Building2,
   Camera,
   Check,
   ChevronRight,
-  Droplets,
   Home as HomeIcon,
   MapPin,
   MessageCircle,
   Phone,
-  ShowerHead,
   Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -26,9 +27,9 @@ const processSteps = [
 ];
 
 const popularServices = [
-  { title: "계단 청소", subtitle: "빌라/상가 건물", icon: ArrowRight, free: false, href: "/services/stair" },
-  { title: "유리창 청소", subtitle: "무료 방문 견적", icon: Droplets, free: true, href: "/services/glass" },
-  { title: "화장실 청소", subtitle: "친환경 약품 사용", icon: ShowerHead, free: false, href: "/services/bathroom" },
+  { title: "계단 청소", subtitle: "빌라/상가 건물", icon: Building2, free: false, href: "/services/stair" },
+  { title: "유리창 청소", subtitle: "무료 방문 견적", icon: AppWindow, free: true, href: "/services/glass" },
+  { title: "화장실 청소", subtitle: "친환경 약품 사용", icon: Bath, free: false, href: "/services/bathroom" },
 ];
 
 const reviews = [
@@ -244,14 +245,14 @@ export default function MobileHome() {
       </section>
 
       {/* BOTTOM DOCK */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[1.4fr_1fr_1fr] border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.06)]">
+      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[1.7fr_1fr_1fr] border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.06)]">
         <a
           href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
           onClick={() => trackConversion("phone_click", { location: "mobile_dock", label: "전화상담" })}
-          className="flex flex-col items-start justify-center gap-0.5 py-2.5 pl-5"
+          className="flex flex-col items-start justify-center gap-0.5 py-2.5 pl-4"
         >
-          <span className="flex items-center gap-1.5 text-[15px] font-extrabold text-primary">
-            <Phone className="h-4 w-4" />
+          <span className="flex items-center gap-1.5 whitespace-nowrap text-[14px] font-extrabold text-primary">
+            <Phone className="h-4 w-4 shrink-0" />
             {PHONE_NUMBER}
           </span>
           <span className="text-[10.5px] font-semibold text-muted-foreground">평일 09:00 - 18:00</span>
