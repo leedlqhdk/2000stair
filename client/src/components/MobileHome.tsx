@@ -2,15 +2,17 @@ import { Link } from "wouter";
 import {
   ArrowRight,
   Camera,
+  Check,
   ChevronRight,
+  Droplets,
   Home as HomeIcon,
   MapPin,
   MessageCircle,
   Phone,
+  ShowerHead,
   Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import BlogReviews from "@/components/BlogReviews";
 import { trackConversion } from "@/lib/analytics";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -24,9 +26,27 @@ const processSteps = [
 ];
 
 const popularServices = [
-  { title: "계단 청소", subtitle: "빌라 · 원룸 · 상가 공용계단", href: "/services/stair" },
-  { title: "유리창 청소", subtitle: "상가 · 사무실 · 매장 유리관리", href: "/services/glass" },
-  { title: "화장실 청소", subtitle: "상가 · 사무실 공용화장실", href: "/services/bathroom" },
+  { title: "계단 청소", subtitle: "빌라/상가 건물", icon: ArrowRight, free: false, href: "/services/stair" },
+  { title: "유리창 청소", subtitle: "무료 방문 견적", icon: Droplets, free: true, href: "/services/glass" },
+  { title: "화장실 청소", subtitle: "친환경 약품 사용", icon: ShowerHead, free: false, href: "/services/bathroom" },
+];
+
+const reviews = [
+  {
+    source: "숨고 후기",
+    text: "정말 꼼꼼하게 청소해주셔서 너무 만족합니다!",
+    href: "https://soomgo.com/profile/users/3729049",
+  },
+  {
+    source: "당근 후기",
+    text: "약속 시간 잘 지켜주시고 작업도 깔끔해요!",
+    href: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
+  },
+  {
+    source: "블로그 후기",
+    text: "사진으로 보니 더 깔끔하고 믿음이 가네요 :)",
+    href: "https://map.naver.com/p/entry/place/2097250452?placePath=%2Fhome",
+  },
 ];
 
 const areaChips = [
@@ -136,11 +156,13 @@ export default function MobileHome() {
               className="flex items-center gap-3.5 rounded-2xl border border-blue-100 bg-white p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
             >
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
-                <Sparkles className="h-5 w-5" />
+                <service.icon className="h-5 w-5" />
               </span>
               <span className="min-w-0 flex-1">
                 <h3 className="text-[15px] font-extrabold text-foreground">{service.title}</h3>
-                <p className="mt-0.5 text-[12.5px] font-semibold text-muted-foreground">{service.subtitle}</p>
+                <p className={`mt-0.5 text-[12.5px] font-semibold ${service.free ? "text-primary" : "text-muted-foreground"}`}>
+                  {service.subtitle}
+                </p>
               </span>
               <ChevronRight className="h-4.5 w-4.5 shrink-0 text-blue-300" />
             </Link>
@@ -151,8 +173,32 @@ export default function MobileHome() {
       <div className="h-2 border-y border-blue-100 bg-blue-50" />
 
       {/* REVIEWS */}
-      <section className="px-5 py-7">
-        <BlogReviews />
+      <section className="py-7">
+        <h2 className="mb-5 px-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
+          작업 후기
+        </h2>
+        <div className="flex gap-3 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {reviews.map((review) => (
+            <a
+              key={review.source}
+              href={review.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackConversion("review_click", { location: "mobile_reviews", label: review.source })}
+              className="block w-[230px] shrink-0 rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold tracking-wide text-amber-500">★★★★★</span>
+                <span className="text-[13px] font-extrabold text-foreground">5.0</span>
+              </div>
+              <p className="mt-2.5 text-[13.5px] font-semibold leading-relaxed text-foreground">{review.text}</p>
+              <span className="mt-3.5 inline-flex items-center gap-1 text-xs font-bold text-muted-foreground">
+                {review.source}
+                <ArrowRight className="h-3 w-3" />
+              </span>
+            </a>
+          ))}
+        </div>
       </section>
 
       <div className="h-2 border-y border-blue-100 bg-blue-50" />
@@ -200,6 +246,19 @@ export default function MobileHome() {
             견적 문의하기
             <ArrowRight className="h-4 w-4" />
           </button>
+
+          <div className="absolute bottom-3.5 right-3.5 w-[78px] rounded-[10px] bg-white px-[11px] pt-3.5 shadow-[0_10px_24px_rgba(0,0,0,0.22)]">
+            <div className="absolute -top-[7px] left-1/2 h-3 w-[34px] -translate-x-1/2 rounded-[5px] bg-blue-200" />
+            <div className="mb-2 h-1.5 w-[70%] rounded-full bg-blue-100" />
+            <div className="mb-2 h-1.5 w-[90%] rounded-full bg-blue-100" />
+            <div className="mb-2 h-1.5 w-[55%] rounded-full bg-blue-100" />
+            <div className="mb-3.5 flex items-center gap-1.5">
+              <span className="flex h-3.5 w-3.5 items-center justify-center rounded-[4px] bg-primary">
+                <Check className="h-2 w-2 text-white" strokeWidth={3.5} />
+              </span>
+              <div className="h-1.5 flex-1 rounded-full bg-blue-100" />
+            </div>
+          </div>
         </div>
       </section>
 
