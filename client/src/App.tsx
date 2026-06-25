@@ -41,6 +41,7 @@ const OfficeCleaning = lazy(() => import("./pages/OfficeCleaning"));
 const OpsStatus = lazy(() => import("@/pages/OpsStatus"));
 const Guide = lazy(() => import("@/pages/Guide"));
 const Areas = lazy(() => import("@/pages/Areas"));
+const MobileQuote = lazy(() => import("@/pages/MobileQuote"));
 
 
 function ScrollToTop() {
@@ -182,6 +183,7 @@ function Router() {
           <Route path="/records" component={Records} />
           <Route path="/work/:slug" component={WorkDetail} />
           <Route path="/areas" component={Areas} />
+          <Route path="/quote" component={MobileQuote} />
           <Route path="/blog/category/:slug" component={Blog} />
           <Route path="/blog/:id" component={BlogDetail} />
           <Route path="/area/majang" component={Majang} />
