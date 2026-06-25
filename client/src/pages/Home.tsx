@@ -8,6 +8,7 @@ import PricingOverview from "@/components/PricingOverview";
 import BlogReviews from "@/components/BlogReviews";
 import FaqSection from "@/components/FaqSection";
 import QuoteForm from "@/components/QuoteForm";
+import MobileHome from "@/components/MobileHome";
 
 export default function Home() {
 return (
@@ -15,6 +16,9 @@ return (
 <Navbar />
 
 <main className="flex-1">
+<MobileHome />
+
+<div className="hidden lg:block">
 <HeroSection isAuthenticated={false} />
 
 {/* 제공 서비스 */}
@@ -38,6 +42,7 @@ return (
 <PricingOverview />
 
 <FaqSection />
+</div>
 
 <QuoteForm />
 </main>
