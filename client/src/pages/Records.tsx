@@ -39,6 +39,7 @@ function useAllAreaPosts() {
       if (!response.ok) return [];
       return (await response.json()) as AreaPost[];
     },
+    placeholderData: fallbackPosts,
     staleTime: 0,
     refetchOnMount: "always",
     refetchOnWindowFocus: true,
@@ -52,7 +53,7 @@ function goToRecords(area: string) {
 }
 
 export default function Records() {
-  const { data, isLoading } = useAllAreaPosts();
+  const { data, isPending } = useAllAreaPosts();
   const selectedArea = new URLSearchParams(window.location.search).get("area") ?? "all";
 
   useEffect(() => {
@@ -101,7 +102,7 @@ export default function Records() {
               </a>
             </Link>
 
-            <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
+            <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
               FIELD RECORDS
             </p>
             <h1 className="mb-5 text-3xl font-extrabold leading-[1.12] text-foreground md:text-4xl">
@@ -125,7 +126,7 @@ export default function Records() {
             ))}
           </div>
 
-          {isLoading ? (
+          {isPending ? (
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
                 <div key={index} className="overflow-hidden rounded-[0.95rem] border border-blue-100 bg-white md:rounded-[1.1rem]">
