@@ -172,7 +172,7 @@ export default function AreaTimeline({
           )}
         </div>
 
-        <aside className="rounded-2xl border border-blue-100 bg-blue-50/70 p-6 text-center shadow-sm lg:sticky lg:top-24">
+        <aside className="hidden rounded-2xl border border-blue-100 bg-blue-50/70 p-6 text-center shadow-sm lg:block lg:sticky lg:top-24">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-primary shadow-sm">
             <Home className="h-7 w-7" />
           </div>
