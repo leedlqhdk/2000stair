@@ -19,10 +19,7 @@ function formatPhone(raw: string) {
 
 export default function MobileQuote() {
   const [, setLocation] = useLocation();
-  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [addr, setAddr] = useState("");
-  const [addr2, setAddr2] = useState("");
   const [buildingType, setBuildingType] = useState("");
   const [services, setServices] = useState<string[]>([]);
   const [message, setMessage] = useState("");
@@ -39,18 +36,14 @@ export default function MobileQuote() {
   async function handleSubmit() {
     const phoneOk = phone.replace(/\D/g, "").length >= 10;
     const nextErrors = {
-      name: !name.trim(),
       phone: !phoneOk,
-      addr: !addr.trim(),
-      buildingType: !buildingType,
       agree: !agree,
     };
     setErrors(nextErrors);
     if (Object.values(nextErrors).some(Boolean)) return;
 
-    const fullAddress = addr.trim() + (addr2.trim() ? ` ${addr2.trim()}` : "");
     const extraNote = [
-      `건물유형: ${buildingType}`,
+      buildingType ? `건물유형: ${buildingType}` : null,
       services.length ? `청소항목: ${services.join(", ")}` : null,
       message.trim() || null,
     ]
@@ -61,9 +54,9 @@ export default function MobileQuote() {
 
     try {
       await submitQuote.mutateAsync({
-        name: name.trim(),
+        name: "모바일 간편문의",
         phone: phone.trim(),
-        address: fullAddress,
+        address: "전화 상담 요청",
         serviceType: "in_person",
         planId: services.length ? services.join(",") : "상담 후 결정",
         message: extraNote || undefined,
@@ -91,21 +84,15 @@ export default function MobileQuote() {
 
         <div className="mt-6 w-full rounded-2xl border border-blue-100 bg-blue-50 p-4 text-left">
           <div className="flex gap-2 py-1 text-[13px]">
-            <span className="w-16 shrink-0 font-bold text-muted-foreground">이름</span>
-            <span className="font-semibold text-foreground">{name}</span>
-          </div>
-          <div className="flex gap-2 py-1 text-[13px]">
             <span className="w-16 shrink-0 font-bold text-muted-foreground">연락처</span>
             <span className="font-semibold text-foreground">{phone}</span>
           </div>
-          <div className="flex gap-2 py-1 text-[13px]">
-            <span className="w-16 shrink-0 font-bold text-muted-foreground">주소</span>
-            <span className="font-semibold text-foreground">{addr}{addr2 ? ` ${addr2}` : ""}</span>
-          </div>
-          <div className="flex gap-2 py-1 text-[13px]">
-            <span className="w-16 shrink-0 font-bold text-muted-foreground">건물</span>
-            <span className="font-semibold text-foreground">{buildingType}</span>
-          </div>
+          {buildingType && (
+            <div className="flex gap-2 py-1 text-[13px]">
+              <span className="w-16 shrink-0 font-bold text-muted-foreground">건물</span>
+              <span className="font-semibold text-foreground">{buildingType}</span>
+            </div>
+          )}
         </div>
 
         <Link
@@ -149,19 +136,6 @@ export default function MobileQuote() {
       <div className="flex flex-col gap-5 px-5 py-4">
         <div className="flex flex-col gap-2">
           <label className="text-[13.5px] font-bold text-foreground">
-            이름 <span className="text-primary">*</span>
-          </label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="성함을 입력해 주세요"
-            className={`h-[52px] rounded-xl border-[1.5px] px-4 text-[15px] font-medium outline-none focus:border-primary ${errors.name ? "border-destructive" : "border-blue-200"}`}
-          />
-          {errors.name && <span className="text-xs font-bold text-destructive">이름을 입력해 주세요.</span>}
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <label className="text-[13.5px] font-bold text-foreground">
             연락처 <span className="text-primary">*</span>
           </label>
           <input
@@ -177,26 +151,7 @@ export default function MobileQuote() {
 
         <div className="flex flex-col gap-2">
           <label className="text-[13.5px] font-bold text-foreground">
-            주소 <span className="text-primary">*</span>
-          </label>
-          <input
-            value={addr}
-            onChange={(e) => setAddr(e.target.value)}
-            placeholder="건물 주소 (예: 이천시 증포동 ○○로 12)"
-            className={`h-[52px] rounded-xl border-[1.5px] px-4 text-[15px] font-medium outline-none focus:border-primary ${errors.addr ? "border-destructive" : "border-blue-200"}`}
-          />
-          <input
-            value={addr2}
-            onChange={(e) => setAddr2(e.target.value)}
-            placeholder="상세 주소 · 동/호 (선택)"
-            className="h-[52px] rounded-xl border-[1.5px] border-blue-200 px-4 text-[15px] font-medium outline-none focus:border-primary"
-          />
-          {errors.addr && <span className="text-xs font-bold text-destructive">주소를 입력해 주세요.</span>}
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <label className="text-[13.5px] font-bold text-foreground">
-            건물 유형 <span className="text-primary">*</span>
+            건물 유형 <span className="text-muted-foreground">(선택)</span>
           </label>
           <div className="flex flex-wrap gap-2">
             {buildingTypes.map((type) => (
@@ -214,9 +169,6 @@ export default function MobileQuote() {
               </button>
             ))}
           </div>
-          {errors.buildingType && (
-            <span className="text-xs font-bold text-destructive">건물 유형을 선택해 주세요.</span>
-          )}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -267,7 +219,7 @@ export default function MobileQuote() {
           <span className="text-[12.5px] font-semibold leading-relaxed text-gray-700">
             <b className="text-foreground">개인정보 수집·이용에 동의합니다.</b>
             <br />
-            문의 응대 목적에 한해 이름·연락처·주소를 수집하며, 응대 완료 후 파기합니다.
+            문의 응대 목적에 한해 연락처를 수집하며, 응대 완료 후 파기합니다.
           </span>
         </label>
         {errors.agree && (
