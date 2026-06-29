@@ -19,6 +19,10 @@ const nearbyAreaNames: Record<string, string[]> = {
   daewol: ["사동리", "초지리", "장평리", "대대리"],
   sindun: ["수광리", "도암리", "남정리", "지석리"],
   downtown: ["관고동", "창전동", "증포동", "중리동"],
+  gwango: ["설봉공원 인근", "관고시장 인근", "사음동 방향"],
+  changjeon: ["창전동 시내 주거지", "상가주택 밀집 구역", "중리동 방향"],
+  jungni: ["이천 시내 생활권", "상가주택 주변", "창전동 방향"],
+  jeungpo: ["갈산동 인근", "안흥동 인근", "중리동 방향"],
 };
 
 function getPostType(post: AreaPost) {

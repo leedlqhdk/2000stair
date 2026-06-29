@@ -7,7 +7,7 @@ const replacements: Array<[RegExp, string]> = [
   [/신둔면|신둔/g, "sindun"],
   [/시내권|시내/g, "downtown"],
   [/부발읍|부발/g, "bubal"],
-  [/송정동|송정/g, "songjeong-dong"],
+  [/송정동|송정/g, "jungni-dong"],
   [/관고동|관고/g, "gwango-dong"],
   [/창전동|창전/g, "changjeon-dong"],
   [/증포동|증포/g, "jeungpo-dong"],
@@ -45,6 +45,10 @@ const areaPrefix: Record<string, string> = {
   daewol: "daewol",
   sindun: "sindun",
   downtown: "downtown",
+  gwango: "gwango",
+  changjeon: "changjeon",
+  jungni: "jungni",
+  jeungpo: "jeungpo",
 };
 
 function normalizeDate(date: string) {

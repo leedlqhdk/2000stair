@@ -17,7 +17,11 @@ const areaRoutes: Record<string, string> = {
   majang: "/area/majang",
   daewol: "/area/daewol",
   sindun: "/area/sindun",
-  downtown: "/area/downtown",
+  downtown: "/areas",
+  gwango: "/area/gwango",
+  changjeon: "/area/changjeon",
+  jungni: "/area/jungni",
+  jeungpo: "/area/jeungpo",
   bubal: "/area/bubal",
   baeksa: "/area/baeksa",
 };
@@ -157,7 +161,10 @@ export default function WorkDetail() {
 
   const posts = useMemo(() => {
     const notionPosts = data ?? [];
-    return notionPosts.length > 0 ? notionPosts : fallbackPosts;
+    const seenSlugs = new Set(notionPosts.map(getWorkSlug));
+    const missingFallbackPosts = fallbackPosts.filter((fallbackPost) => !seenSlugs.has(getWorkSlug(fallbackPost)));
+
+    return [...notionPosts, ...missingFallbackPosts];
   }, [data]);
 
   const post = posts.find((item) => getWorkSlug(item) === slug);

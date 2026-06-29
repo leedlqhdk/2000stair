@@ -52,10 +52,10 @@ const reviews = [
 
 const areaChips = [
   { label: "신둔면", href: "/area/sindun" },
-  { label: "증포동", href: "/area/downtown" },
-  { label: "창전동", href: "/area/downtown" },
-  { label: "관고동", href: "/area/downtown" },
-  { label: "중리동", href: "/area/downtown" },
+  { label: "증포동", href: "/area/jeungpo" },
+  { label: "창전동", href: "/area/changjeon" },
+  { label: "관고동", href: "/area/gwango" },
+  { label: "중리동", href: "/area/jungni" },
   { label: "부발읍", href: "/area/bubal" },
   { label: "마장면", href: "/area/majang" },
   { label: "대월면", href: "/area/daewol" },

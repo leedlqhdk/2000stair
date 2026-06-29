@@ -71,6 +71,10 @@ const AREA_LABELS: Record<string, string> = {
   daewol: "대월면",
   sindun: "신둔면",
   downtown: "시내권",
+  gwango: "관고동",
+  changjeon: "창전동",
+  jungni: "중리동",
+  jeungpo: "증포동",
 };
 
 function getProperty(properties: Record<string, NotionProperty | undefined>, names: readonly string[]) {
@@ -120,7 +124,11 @@ function normalizeArea(value: string) {
   if (["majang", "마장", "마장면"].some((keyword) => normalized.includes(keyword))) return "majang";
   if (["daewol", "대월", "대월면"].some((keyword) => normalized.includes(keyword))) return "daewol";
   if (["sindun", "신둔", "신둔면"].some((keyword) => normalized.includes(keyword))) return "sindun";
-  if (["downtown", "시내", "시내권", "관고", "창전", "증포", "중리", "갈산", "안흥", "송정", "사음"].some((keyword) => normalized.includes(keyword))) return "downtown";
+  if (["gwango", "관고", "관고동", "사음", "사음동"].some((keyword) => normalized.includes(keyword))) return "gwango";
+  if (["changjeon", "창전", "창전동"].some((keyword) => normalized.includes(keyword))) return "changjeon";
+  if (["jungni", "중리", "중리동", "songjeong", "송정", "송정동"].some((keyword) => normalized.includes(keyword))) return "jungni";
+  if (["jeungpo", "증포", "증포동", "갈산", "갈산동", "안흥", "안흥동"].some((keyword) => normalized.includes(keyword))) return "jeungpo";
+  if (["downtown", "시내", "시내권"].some((keyword) => normalized.includes(keyword))) return "downtown";
 
   return normalized;
 }

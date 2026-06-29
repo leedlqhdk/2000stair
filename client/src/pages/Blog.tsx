@@ -24,10 +24,10 @@ const managedAreaCards = [
     href: "/area/gwango",
   },
   {
-    src: "/images/icheon-songjeong-villa-cleaning.webp",
-    title: "송정동",
+    src: "/images/icheon-downtown-stair-cleaning.webp",
+    title: "중리동",
     subtitle: "현관 · 복도 관리",
-    href: "/area/songjeong",
+    href: "/area/jungni",
   },
   {
     src: "/images/icheon-bubal-store-cleaning.webp",
@@ -51,16 +51,10 @@ const managedAreaCards = [
     src: "/images/icheon-downtown-stair-cleaning.webp",
     title: "증포동",
     subtitle: "빌라 정기관리",
-    href: "/area/downtown",
+    href: "/area/jeungpo",
   },
   {
-    src: "/images/icheon-gwango-building-cleaning.webp",
-    title: "중리동",
-    subtitle: "공동현관 관리",
-    href: "/area/downtown",
-  },
-  {
-    src: "/images/icheon-songjeong-villa-cleaning.webp",
+    src: "/images/icheon-daewol-stair-cleaning.webp",
     title: "대월면",
     subtitle: "계단 · 정기관리",
     href: "/area/daewol",
@@ -118,7 +112,11 @@ const areaLabels: Record<string, string> = {
   majang: "마장면",
   daewol: "대월면",
   sindun: "신둔면",
-  downtown: "시내권",
+  downtown: "이천 시내권",
+  gwango: "관고동",
+  changjeon: "창전동",
+  jungni: "중리동",
+  jeungpo: "증포동",
   gonjiam: "곤지암",
 };
 
@@ -204,6 +202,7 @@ export default function Blog() {
                   const areaSlug = post.area ?? "downtown";
                   const areaName = areaLabels[areaSlug] ?? areaSlug;
                   const description = post.description || "실제 이천 지역 계단청소 현장 기록입니다.";
+                  const areaHref = areaSlug === "downtown" ? "/areas" : `/area/${areaSlug}`;
 
                   return (
                     <motion.div
@@ -218,7 +217,7 @@ export default function Blog() {
                         },
                       }}
                     >
-                      <Link href={`/area/${areaSlug}`}>
+                      <Link href={areaHref}>
                         <article className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
                           <div className="relative h-72 overflow-hidden bg-blue-50">
                             <img
