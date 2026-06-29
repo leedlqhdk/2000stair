@@ -1,8 +1,9 @@
 import { Link } from "wouter";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import SeoIntroSection from "@/components/SeoIntroSection";
+import BlogPostCards from "@/components/BlogPostCards";
 
 const values = [
   { title: "같은 사람이 봅니다", text: "건물 상태를 기억하고 이어서 관리합니다." },
@@ -92,28 +93,7 @@ export default function About() {
               <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">실제 작업 기록도 확인해보세요</h2>
               <p className="text-sm leading-7 text-muted-foreground md:text-base">이천계단지기의 현장 기록은 네이버 블로그에 꾸준히 남기고 있습니다.</p>
             </div>
-            <motion.a
-              href="https://blog.naver.com/icheonstair"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="이천계단지기 네이버 블로그에서 실제 작업 기록 보기"
-              className="group block rounded-xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-            >
-              <div className="relative overflow-hidden rounded-xl bg-blue-50">
-                <img src="/images/blog-banner-main.png" alt="이천계단지기 실제 작업 기록 보러가기" className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.01]" loading="lazy" />
-                <div className="absolute inset-0 bg-white/0 transition-colors duration-300 group-hover:bg-white/10" />
-              </div>
-            </motion.a>
-            <div className="mt-6 flex justify-center md:justify-end">
-              <a href="https://blog.naver.com/icheonstair" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1">
-                블로그 바로가기
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
+            <BlogPostCards />
           </section>
         </section>
 
