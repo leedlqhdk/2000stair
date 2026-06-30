@@ -2,7 +2,8 @@
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "vite build && tsx scripts/prerender-seo.ts",
   "redirects": [
-    { "source": "/area", "destination": "/areas", "permanent": true }
+    { "source": "/area", "destination": "/areas", "permanent": true },
+    { "source": "/work", "destination": "/records", "permanent": true }
   ],
   "rewrites": [
     { "source": "/api/trpc/:path*", "destination": "/api/trpc" },

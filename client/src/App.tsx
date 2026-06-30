@@ -8,6 +8,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Seo from "./components/Seo";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { getSeoForPath } from "@/data/areaSeo";
+import { initAnalytics, trackPageview } from "@/lib/analytics";
 import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
 import Navbar from "./components/Navbar";
@@ -86,6 +87,20 @@ function ScrollToTop() {
   return null;
 }
 
+function AnalyticsTracker() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  useEffect(() => {
+    trackPageview(location);
+  }, [location]);
+
+  return null;
+}
+
 function RouteSeo() {
   const [location] = useLocation();
   const seo = getSeoForPath(location);
@@ -108,6 +123,18 @@ function AdminRedirect() {
 
   useEffect(() => {
     setLocation("/admin/quotes");
+  }, [setLocation]);
+
+  return null;
+}
+
+// "작업정보" 네임스페이스의 인덱스(/work)는 별도 페이지가 없으므로
+// 작업기록 목록(/records)으로 보내 404를 방지합니다. (개별 글은 /work/:slug)
+function WorkRedirect() {
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    setLocation("/records");
   }, [setLocation]);
 
   return null;
@@ -162,6 +189,7 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <AnalyticsTracker />
       <AdminNoIndex />
       <RouteSeo />
       <AreaNavbar />
@@ -181,6 +209,7 @@ function Router() {
           <Route path="/my-quotes" component={MyQuotes} />
           <Route path="/blog" component={Records} />
           <Route path="/records" component={Records} />
+          <Route path="/work" component={WorkRedirect} />
           <Route path="/work/:slug" component={WorkDetail} />
           <Route path="/areas" component={Areas} />
           <Route path="/quote" component={MobileQuote} />
