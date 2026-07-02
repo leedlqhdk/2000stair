@@ -16,7 +16,7 @@ type NeighborhoodConfig = {
 const neighborhoodData: Record<string, NeighborhoodConfig> = {
   gwango: {
     name: "관고동",
-    headline: "관고동 상가·빌라 공용공간을 정기관리합니다",
+    headline: "관고동 관활(사음동)",
     description:
       "관고동 생활권의 상가, 빌라, 소형 건물 공용공간을 현장 상태에 맞춰 직접 관리합니다.",
     focus: "상가 출입구, 계단, 공동현관처럼 방문객이 먼저 보는 공간을 중심으로 관리 범위를 안내합니다.",
@@ -30,14 +30,14 @@ const neighborhoodData: Record<string, NeighborhoodConfig> = {
   },
   jungni: {
     name: "중리동",
-    headline: "중리동 빌라·상가 공용부를 사진으로 확인하며 관리합니다",
+    headline: "중리동 관활(증일동, 율현동, 진리동, 단월동, 대포동, 고담동, 장록동)",
     description:
       "중리동 건물의 현관, 계단, 복도 상태를 사진으로 확인한 뒤 필요한 관리 범위를 안내합니다.",
     focus: "건물주가 현장에 자주 오기 어려운 경우에도 작업 전후 사진으로 관리 상태를 확인할 수 있게 돕습니다.",
   },
   jeungpo: {
     name: "증포동",
-    headline: "증포동 빌라·상가 공용공간을 꾸준히 관리합니다",
+    headline: "증포동 관할(안흥동, 갈산동, 증포동, 송정동)",
     description:
       "증포동 생활권의 빌라, 원룸, 상가주택 공용공간을 주소와 사진 기준으로 확인하고 직접 관리합니다.",
     focus: "주거 밀집 구역의 계단, 복도, 공동현관처럼 입주민이 매일 보는 공간을 중심으로 관리 주기를 안내합니다.",
