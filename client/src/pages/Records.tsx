@@ -15,14 +15,20 @@ const areaLabels: Record<string, string> = {
   majang: "마장면",
   daewol: "대월면",
   sindun: "신둔면",
-  downtown: "시내권",
+  gwango: "관고동",
+  changjeon: "창전동",
+  jungni: "중리동",
+  jeungpo: "증포동",
 };
 
 const areaRoutes: Record<string, string> = {
   majang: "/area/majang",
   daewol: "/area/daewol",
   sindun: "/area/sindun",
-  downtown: "/area/downtown",
+  gwango: "/area/gwango",
+  changjeon: "/area/changjeon",
+  jungni: "/area/jungni",
+  jeungpo: "/area/jeungpo",
 };
 
 const fallbackPosts: AreaPost[] = [

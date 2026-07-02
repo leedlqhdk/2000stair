@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 
 // ── 지역 → 페이지 URL 매핑 ──────────────────────────────────────────
 const REGION_LINKS: Record<string, string> = {
-  증포동: "/area/downtown",
-  창전동: "/area/downtown",
-  중리동: "/area/downtown",
-  관고동: "/area/downtown",
+  관고동: "/area/gwango",
+  창전동: "/area/changjeon",
+  중리동: "/area/jungni",
+  증포동: "/area/jeungpo",
   부발읍: "/area/bubal",
   신둔면: "/area/sindun",
   백사면: "/area/baeksa",
@@ -17,26 +17,26 @@ const REGION_LINKS: Record<string, string> = {
   대월면: "/area/daewol",
 };
 
-const DONG = ["증포동", "창전동", "중리동", "관고동"];
+const DONG = ["관고동", "창전동", "중리동", "증포동"];
 
 const MAP_REGIONS = [
   "증포동", "창전동", "중리동", "관고동",
   "부발읍", "신둔면", "백사면", "마장면", "대월면",
 ];
 
-const DONG_LIST = ["증포동", "창전동", "중리동", "관고동"];
+const DONG_LIST = ["관고동", "창전동", "중리동", "증포동"];
 const EUP_LIST  = ["부발읍"];
 const MYEON_LIST = ["신둔면", "백사면", "마장면", "대월면"];
 
-const LABEL_POS: Record<string, { cx: number; cy: number; sm?: boolean }> = {
+const LABEL_POS: Record<string, { cx: number; cy: number; sm?: boolean; labelCx?: number; labelCy?: number }> = {
   신둔면: { cx: 251, cy: 236 },
   백사면: { cx: 435, cy: 198 },
   부발읍: { cx: 496, cy: 366 },
   마장면: { cx: 150, cy: 441 },
-  증포동: { cx: 362, cy: 312, sm: true },
-  창전동: { cx: 340, cy: 333, sm: true },
+  증포동: { cx: 362, cy: 312, sm: true, labelCx: 374, labelCy: 300 },
+  창전동: { cx: 340, cy: 333, sm: true, labelCx: 365, labelCy: 342 },
   중리동: { cx: 352, cy: 461, sm: true },
-  관고동: { cx: 280, cy: 318, sm: true },
+  관고동: { cx: 280, cy: 318, sm: true, labelCx: 278, labelCy: 332 },
   대월면: { cx: 473, cy: 559 },
 };
 
@@ -81,15 +81,37 @@ function InteractiveMap({ activeRegion, onEnter, onLeave, onClick, viewBox = "0 
         if (!pos) return null;
         const isActive = activeRegion === name;
         const isSm = pos.sm;
+        const labelCx = pos.labelCx ?? pos.cx;
+        const labelCy = pos.labelCy ?? pos.cy;
+        const width = isSm ? 48 : 58;
+        const height = isSm ? 23 : 26;
         return (
-          <g key={`label-${name}`} style={{ pointerEvents: "none" }}>
-            {isSm && <circle cx={pos.cx} cy={pos.cy - 9} r={2.6} fill="var(--primary)" />}
-            <text x={pos.cx} y={pos.cy + (isSm ? 4 : 6)} textAnchor="middle"
+          <g key={`label-${name}`} className="cursor-pointer"
+            onMouseEnter={() => onEnter(name)}
+            onMouseLeave={onLeave}
+            onClick={() => onClick(name)}
+          >
+            <rect
+              x={labelCx - width / 2}
+              y={labelCy - height / 2}
+              width={width}
+              height={height}
+              rx={height / 2}
+              fill={isActive ? "var(--primary)" : "#ffffff"}
+              stroke={isActive ? "var(--primary)" : "var(--blue-100, #e4ecfb)"}
+              strokeWidth={1.4}
               style={{
-                fontFamily: "var(--font-display)", fontWeight: 700, fontSize: isSm ? 13 : 19,
-                fill: isActive ? "var(--primary)" : "var(--foreground)",
-                paintOrder: "stroke" as "stroke", stroke: "#ffffff", strokeWidth: 3,
-                strokeLinejoin: "round" as "round", transition: "fill 0.18s ease",
+                filter: "drop-shadow(0 4px 9px rgba(15, 23, 42, 0.12))",
+                transition: "fill 0.18s ease, stroke 0.18s ease, transform 0.18s ease",
+              }}
+            />
+            <text x={labelCx} y={labelCy + (isSm ? 4 : 4.5)} textAnchor="middle"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: isSm ? 11.5 : 12.5,
+                fill: isActive ? "#ffffff" : "var(--primary)",
+                pointerEvents: "none",
               }}>
               {name}
             </text>
@@ -195,7 +217,7 @@ export default function Areas() {
                 <div style={{ marginBottom: 18 }}>
                   <p className="text-xs font-extrabold tracking-[0.22em] text-primary uppercase mb-3" style={{ fontFamily: "var(--font-eyebrow)" }}>SERVICE AREA</p>
                   <h1 className="text-foreground" style={{ margin: "0 0 8px", fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 700, lineHeight: 1.25 }}>지역을 선택하세요</h1>
-                  <p style={{ margin: 0, fontSize: 14.5, fontWeight: 500, lineHeight: 1.6, color: "var(--muted-foreground)" }}>지도를 누르거나 아래에서 동네를 선택하면 해당 지역 안내 페이지로 이동합니다.</p>
+                  <p style={{ margin: 0, fontSize: 14.5, fontWeight: 500, lineHeight: 1.6, color: "var(--muted-foreground)" }}>지도 또는 목록에서 동네를 선택하면 해당 지역 안내 페이지로 이동합니다.</p>
                 </div>
                 <GroupHeader label="시내 (동지역)" />
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 18 }}>

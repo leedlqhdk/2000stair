@@ -27,7 +27,6 @@ const AdminQuotes = lazy(() => import("./pages/AdminQuotes"));
 const Majang = lazy(() => import("@/pages/Majang"));
 const Daewol = lazy(() => import("@/pages/Daewol"));
 const Sindun = lazy(() => import("@/pages/Sindun"));
-const Downtown = lazy(() => import("@/pages/Downtown"));
 const Bubal = lazy(() => import("@/pages/Bubal"));
 const Baeksa = lazy(() => import("@/pages/Baeksa"));
 const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
@@ -140,6 +139,16 @@ function WorkRedirect() {
   return null;
 }
 
+function RouteRedirect({ to }: { to: string }) {
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    setLocation(to);
+  }, [setLocation, to]);
+
+  return null;
+}
+
 function PageLoader() {
   return (
     <div className="flex min-h-[60vh] w-full items-center justify-center">
@@ -156,8 +165,12 @@ function ChangjeonArea() {
   return <NeighborhoodArea areaSlug="changjeon" />;
 }
 
-function SongjeongArea() {
-  return <NeighborhoodArea areaSlug="songjeong" />;
+function JungniArea() {
+  return <NeighborhoodArea areaSlug="jungni" />;
+}
+
+function JeungpoArea() {
+  return <NeighborhoodArea areaSlug="jeungpo" />;
 }
 
 function AdminNoIndex() {
@@ -219,10 +232,16 @@ function Router() {
           <Route path={"/area/Majang"} component={Majang} />
           <Route path="/area/daewol" component={Daewol} />
           <Route path="/area/sindun" component={Sindun} />
-          <Route path="/area/downtown" component={Downtown} />
+          <Route path="/area/downtown">
+            <RouteRedirect to="/areas" />
+          </Route>
           <Route path="/area/gwango" component={GwangoArea} />
           <Route path="/area/changjeon" component={ChangjeonArea} />
-          <Route path="/area/songjeong" component={SongjeongArea} />
+          <Route path="/area/jungni" component={JungniArea} />
+          <Route path="/area/jeungpo" component={JeungpoArea} />
+          <Route path="/area/songjeong">
+            <RouteRedirect to="/area/jungni" />
+          </Route>
           <Route path="/area/bubal" component={Bubal} />
           <Route path="/area/baeksa" component={Baeksa} />
           <Route path="/area/gonjiam" component={Gonjiam} />

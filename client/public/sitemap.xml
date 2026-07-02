@@ -97,8 +97,26 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://2000stair.kr/area/downtown</loc>
-    <lastmod>2026-05-31</lastmod>
+    <loc>https://2000stair.kr/area/gwango</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://2000stair.kr/area/changjeon</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://2000stair.kr/area/jungni</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://2000stair.kr/area/jeungpo</loc>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

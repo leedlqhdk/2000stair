@@ -15,7 +15,11 @@ const areaLabels: Record<string, string> = {
   majang: "마장면",
   daewol: "대월면",
   sindun: "신둔면",
-  downtown: "시내권",
+  downtown: "이천 시내권",
+  gwango: "관고동",
+  changjeon: "창전동",
+  jungni: "중리동",
+  jeungpo: "증포동",
 };
 
 function getCardTitle(title: string, areaLabel?: string) {
