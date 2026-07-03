@@ -103,7 +103,7 @@ function normalizeArea(value: string) {
   if (["majang", "마장", "마장면"].some((keyword) => normalized.includes(keyword))) return "majang";
   if (["daewol", "대월", "대월면"].some((keyword) => normalized.includes(keyword))) return "daewol";
   if (["sindun", "신둔", "신둔면"].some((keyword) => normalized.includes(keyword))) return "sindun";
-  if (["gwango", "관고", "관고동"].some((keyword) => normalized.includes(keyword))) return "gwango";
+  if (["gwango", "관고", "관고동", "사음", "사음동"].some((keyword) => normalized.includes(keyword))) return "gwango";
   if (["changjeon", "창전", "창전동"].some((keyword) => normalized.includes(keyword))) return "changjeon";
   if (["jungni", "중리", "중리동", "songjeong", "송정", "송정동"].some((keyword) => normalized.includes(keyword))) return "jungni";
   if (["jeungpo", "증포", "증포동", "갈산", "갈산동", "안흥", "안흥동"].some((keyword) => normalized.includes(keyword))) return "jeungpo";
