@@ -100,8 +100,11 @@ useEffect(() => {
 
   const linkClass = "text-sm font-semibold text-muted-foreground hover:text-primary transition-colors";
   const dropdownButtonClass = "inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary";
-  const dropdownPanelClass =
-  "invisible absolute left-1/2 top-full z-50 mt-4 min-w-52 -translate-x-1/2 rounded-3xl border border-blue-100/70 bg-white/95 p-3 opacity-0 backdrop-blur-xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:visible group-hover:opacity-100";
+  const dropdownPanelBaseClass =
+  "invisible absolute top-full z-50 mt-4 min-w-52 rounded-3xl border border-blue-100/70 bg-white/95 p-3 opacity-0 backdrop-blur-xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:visible group-hover:opacity-100";
+  // 마지막 메뉴는 화면 오른쪽 끝에 있어 중앙 정렬 패널이 화면 밖으로 넘쳐 가로 스크롤을 만들므로 오른쪽 정렬
+  const dropdownPanelClass = `${dropdownPanelBaseClass} left-1/2 -translate-x-1/2`;
+  const dropdownPanelRightClass = `${dropdownPanelBaseClass} right-0`;
   const dropdownItemClass = "block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-blue-50 hover:text-primary";
 
   return (
@@ -130,7 +133,7 @@ useEffect(() => {
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/" className={linkClass}>홈</Link>
 
-          {navGroups.map((group) =>
+          {navGroups.map((group, idx) =>
             group.href ? (
               <Link key={group.label} href={group.href} className={linkClass}>
                 {group.label}
@@ -141,7 +144,7 @@ useEffect(() => {
                 {group.label}
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
               </button>
-              <div className={dropdownPanelClass}>
+              <div className={idx === navGroups.length - 1 ? dropdownPanelRightClass : dropdownPanelClass}>
                 {group.items.map((item) =>
                   item.sectionId ? (
                     <a key={item.label} href={item.href} className={dropdownItemClass} onClick={(e) => handleSectionClick(e, item.sectionId)}>

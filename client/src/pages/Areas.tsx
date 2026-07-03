@@ -269,13 +269,16 @@ export default function Areas() {
                 boxShadow: "var(--shadow-card)",
               }}
             >
-              <InteractiveMap
-                activeRegion={activeRegion}
-                onEnter={setActiveRegion}
-                onLeave={() => setActiveRegion(null)}
-                onClick={handleNavigate}
-                viewBox="39 74 568 625"
-              />
+              {/* 창이 어중간하게 넓을 때 지도가 화면보다 커지지 않도록 높이 기준으로 최대 폭 제한 */}
+              <div style={{ maxWidth: "min(100%, 62vh)", margin: "0 auto" }}>
+                <InteractiveMap
+                  activeRegion={activeRegion}
+                  onEnter={setActiveRegion}
+                  onLeave={() => setActiveRegion(null)}
+                  onClick={handleNavigate}
+                  viewBox="39 74 568 625"
+                />
+              </div>
               <div
                 style={{
                   marginTop: 10,
