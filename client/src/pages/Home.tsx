@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
 import PricingOverview from "@/components/PricingOverview";
 import BlogReviews from "@/components/BlogReviews";
+import LatestBlogPosts from "@/components/LatestBlogPosts";
 import FaqSection from "@/components/FaqSection";
 import MobileHome from "@/components/MobileHome";
 
@@ -36,6 +37,9 @@ return (
 <div className="container max-w-6xl py-16 md:py-24">
 <BlogReviews />
 </div>
+
+{/* 블로그 최신 소식 (타임라인) */}
+<LatestBlogPosts variant="timeline" />
 
 {/* 정기관리 요금 안내 */}
 <PricingOverview />
