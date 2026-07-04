@@ -21,6 +21,11 @@ const archiveLinks = [
     external: true,
   },
   {
+    href: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
+    label: "당근마켓",
+    external: true,
+  },
+  {
     href: "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
     label: "유튜브 채널",
     external: true,
