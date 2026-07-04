@@ -18,7 +18,7 @@ return (
 <main className="flex-1">
 <MobileHome />
 
-<div className="hidden lg:block">
+<div className="hidden md:block">
 <HeroSection isAuthenticated={false} />
 
 {/* 제공 서비스 */}

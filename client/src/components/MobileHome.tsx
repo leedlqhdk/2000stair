@@ -68,7 +68,7 @@ export default function MobileHome() {
   const goToQuote = () => setLocation("/quote");
 
   return (
-    <div className="lg:hidden">
+    <div className="md:hidden">
       {/* HERO */}
       <section className="px-5 pb-7 pt-7">
         <h1 className="font-['GmarketSans'] text-[2rem] font-extrabold leading-[1.15] text-foreground">

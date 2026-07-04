@@ -193,7 +193,7 @@ export default function Areas() {
       <Navbar />
 
       {/* ── 데스크톱: 인터랙티브 지도 (lg 이상) */}
-      <main className="hidden lg:block">
+      <main className="hidden md:block">
         <div className="container max-w-6xl pt-24 pb-20">
           <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <div style={{ display: "grid", gridTemplateColumns: "1.32fr 1fr", gap: 40, alignItems: "start" }}>
@@ -244,7 +244,7 @@ export default function Areas() {
       </main>
 
       {/* ── 모바일: 칩 리스트형 (lg 미만) */}
-      <main className="block lg:hidden">
+      <main className="block md:hidden">
         <div className="px-5 pt-20 pb-16">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <div className="flex gap-2 text-xs font-bold text-muted-foreground mb-3 mt-2">
