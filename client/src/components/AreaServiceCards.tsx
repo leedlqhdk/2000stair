@@ -1,20 +1,34 @@
+import { Camera, MapPin, Users, type LucideIcon } from "lucide-react";
+
 interface AreaServiceCardsProps {
   cards: { title: string; text: string }[];
+}
+
+function iconFor(title: string): LucideIcon {
+  if (/기록|사진|현장/.test(title)) return Camera;
+  if (/부부|직접/.test(title)) return Users;
+  return MapPin;
 }
 
 export default function AreaServiceCards({ cards }: AreaServiceCardsProps) {
   return (
     <section className="-mx-4 mb-12 px-4 md:mx-0 md:px-0 md:mb-16">
       <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:pb-0">
-        {cards.map((card) => (
-          <div
-            key={card.title}
-            className="w-[78%] flex-shrink-0 snap-start rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm sm:w-[46%] md:w-auto md:p-6"
-          >
-            <p className="mb-2 text-sm font-extrabold text-primary md:mb-3">{card.title}</p>
-            <p className="text-sm leading-6 text-muted-foreground md:leading-7">{card.text}</p>
-          </div>
-        ))}
+        {cards.map((card) => {
+          const Icon = iconFor(card.title);
+          return (
+            <div
+              key={card.title}
+              className="w-[78%] flex-shrink-0 snap-start rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm sm:w-[46%] md:w-auto md:p-6"
+            >
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-primary md:mb-4 md:h-12 md:w-12">
+                <Icon className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.2} />
+              </div>
+              <p className="mb-1.5 text-sm font-extrabold text-primary md:mb-2 md:text-base">{card.title}</p>
+              <p className="text-sm leading-6 text-muted-foreground md:leading-7">{card.text}</p>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
