@@ -25,14 +25,16 @@ function useLatestBlogPosts() {
   });
 }
 
-function PostCard({ post, location }: { post: BlogPost; location: string }) {
+function PostCard({ post, location, fluid = false }: { post: BlogPost; location: string; fluid?: boolean }) {
   return (
     <a
       href={post.link}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackConversion("review_click", { location, label: post.title })}
-      className="flex w-[250px] shrink-0 flex-col rounded-2xl border border-blue-100 bg-white p-5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition hover:border-blue-300 hover:shadow-md active:scale-[0.99] md:w-auto"
+      className={`flex flex-col rounded-2xl border border-blue-100 bg-white p-5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition hover:border-blue-300 hover:shadow-md active:scale-[0.99] ${
+        fluid ? "w-full" : "w-[250px] shrink-0 md:w-auto"
+      }`}
     >
       <div className="mb-3 flex items-center justify-between">
         <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#03c75a]">
@@ -57,7 +59,11 @@ function PostCard({ post, location }: { post: BlogPost; location: string }) {
   );
 }
 
-export default function LatestBlogPosts({ variant = "desktop" }: { variant?: "desktop" | "mobile" }) {
+export default function LatestBlogPosts({
+  variant = "desktop",
+}: {
+  variant?: "desktop" | "mobile";
+}) {
   const { data } = useLatestBlogPosts();
   const posts = (data ?? []).slice(0, 3);
 
@@ -107,7 +113,7 @@ export default function LatestBlogPosts({ variant = "desktop" }: { variant?: "de
 
       <div className="grid gap-4 md:grid-cols-3">
         {posts.map((post) => (
-          <PostCard key={post.link} post={post} location="home_latest_posts" />
+          <PostCard key={post.link} post={post} location="latest_posts" fluid />
         ))}
       </div>
 

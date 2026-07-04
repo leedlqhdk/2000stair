@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import { CalendarDays, Home, MessageCircle } from "lucide-react";
+import { CalendarDays, ChevronDown, Home, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaBlogArchive from "@/components/AreaBlogArchive";
 import type { AreaPost } from "@/hooks/useAreaPosts";
@@ -56,10 +56,16 @@ export default function AreaTimeline({
     return ["전체", ...Array.from(new Set(types)).slice(0, 5)];
   }, [posts]);
   const [selectedFilter, setSelectedFilter] = useState("전체");
+  const [expanded, setExpanded] = useState(false);
 
   const filteredPosts = selectedFilter === "전체"
     ? posts
     : posts.filter((post) => getPostType(post) === selectedFilter);
+
+  // 타임라인이 너무 길어지지 않도록 처음에는 일부만 보여주고 버튼으로 펼친다
+  const INITIAL_VISIBLE = 4;
+  const hasMore = filteredPosts.length > INITIAL_VISIBLE;
+  const visiblePosts = expanded ? filteredPosts : filteredPosts.slice(0, INITIAL_VISIBLE);
   const nearbyText = (nearbyAreaNames[areaSlug] ?? [areaName]).join(", ");
   const displayAreaName = areaSlug === "downtown" && areaName === "시내권" ? "이천 시내권" : areaName;
 
@@ -88,7 +94,10 @@ export default function AreaTimeline({
                 <button
                   key={filter}
                   type="button"
-                  onClick={() => setSelectedFilter(filter)}
+                  onClick={() => {
+                    setSelectedFilter(filter);
+                    setExpanded(false);
+                  }}
                   className={`flex-shrink-0 rounded-full px-4 py-2 text-xs font-extrabold transition-all md:text-sm ${
                     isActive
                       ? "bg-primary text-white shadow-sm"
@@ -107,7 +116,7 @@ export default function AreaTimeline({
           <div className="relative">
             {filteredPosts.length > 0 ? (
               <div className="relative space-y-4 before:absolute before:left-3 before:top-1 before:h-[calc(100%-0.5rem)] before:w-px before:bg-blue-100 md:space-y-5 md:before:left-[85px] md:before:top-0 md:before:h-full">
-                {filteredPosts.map((post, index) => {
+                {visiblePosts.map((post, index) => {
                   const type = getPostType(post);
                   const summary = getSummary(post, areaName);
 
@@ -176,6 +185,21 @@ export default function AreaTimeline({
                 />
                 <p className="text-base font-extrabold text-foreground md:text-lg">업데이트 중입니다.</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{emptyMessage}</p>
+              </div>
+            )}
+
+            {hasMore && (
+              <div className="mt-7 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setExpanded((value) => !value)}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-white px-6 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:bg-blue-50 active:scale-[0.98]"
+                >
+                  {expanded ? "작업 기록 접기" : `작업 기록 ${filteredPosts.length - INITIAL_VISIBLE}개 더보기`}
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+                  />
+                </button>
               </div>
             )}
           </div>
