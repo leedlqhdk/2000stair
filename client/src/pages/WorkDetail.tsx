@@ -291,11 +291,6 @@ export default function WorkDetail() {
             </div>
           </section>
 
-          <section className="mt-12">
-            <h2 className="mb-6 text-2xl font-extrabold text-foreground">현장 사진</h2>
-            <WorkPhotoCollage images={images} title={post.title} />
-          </section>
-
           {descriptionParagraphs.length > 1 ? (
             <section className="mt-12">
               <h2 className="mb-6 text-2xl font-extrabold text-foreground">작업 이야기</h2>
@@ -311,6 +306,11 @@ export default function WorkDetail() {
               </div>
             </section>
           ) : null}
+
+          <section className="mt-12">
+            <h2 className="mb-6 text-2xl font-extrabold text-foreground">현장 사진</h2>
+            <WorkPhotoCollage images={images} title={post.title} />
+          </section>
 
           <section className="mt-14 rounded-[1.5rem] bg-primary p-7 text-white md:p-9">
             <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
