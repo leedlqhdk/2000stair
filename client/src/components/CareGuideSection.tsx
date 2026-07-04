@@ -1,15 +1,16 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 
 interface CareGuideSectionProps {
   limit?: number;
   viewAllHref?: string;
+  layout?: "grid" | "list";
 }
 
-export default function CareGuideSection({ limit, viewAllHref }: CareGuideSectionProps) {
+export default function CareGuideSection({ limit, viewAllHref, layout = "grid" }: CareGuideSectionProps) {
   const { data: postData } = trpc.blog.list.useQuery({ limit: 50, offset: 0 });
 
   const allGuides = (postData?.posts ?? []).map((post) => ({
@@ -46,6 +47,50 @@ export default function CareGuideSection({ limit, viewAllHref }: CareGuideSectio
           <p className="text-center text-muted-foreground py-10">
             등록된 관리정보가 아직 없습니다.
           </p>
+        ) : layout === "list" ? (
+          <motion.ul
+            className="mx-auto max-w-2xl divide-y divide-blue-100 overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.05 } },
+            }}
+          >
+            {guides.map((guide) => (
+              <motion.li
+                key={guide.id}
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+                }}
+              >
+                <Link href={guide.href}>
+                  <a className="group flex items-center gap-3.5 p-3 transition-colors duration-200 hover:bg-blue-50/60 sm:gap-4 sm:p-4">
+                    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-blue-100 bg-blue-50 sm:h-[70px] sm:w-[70px]">
+                      {guide.thumbnail ? (
+                        <img
+                          src={guide.thumbnail}
+                          alt={guide.title}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-blue-200">
+                          <span className="text-lg font-black">계단</span>
+                        </div>
+                      )}
+                    </div>
+                    <h3 className="min-w-0 flex-1 text-sm font-bold leading-snug text-foreground line-clamp-2 transition-colors group-hover:text-primary sm:text-base">
+                      {guide.title}
+                    </h3>
+                    <ChevronRight className="h-5 w-5 shrink-0 text-blue-300 transition-colors group-hover:text-primary" />
+                  </a>
+                </Link>
+              </motion.li>
+            ))}
+          </motion.ul>
         ) : (
           <motion.div
             className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3"

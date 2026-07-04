@@ -6,7 +6,7 @@ export default function Guide() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <CareGuideSection />
+        <CareGuideSection layout="list" />
       </main>
     </div>
   );
