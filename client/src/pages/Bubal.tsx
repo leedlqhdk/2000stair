@@ -3,7 +3,7 @@ import { ArrowLeft, CheckCircle2, MessageCircle, Phone, Star } from "lucide-reac
 import { motion } from "framer-motion";
 import AreaServiceCards from "@/components/AreaServiceCards";
 import AreaTimeline from "@/components/AreaTimeline";
-import LatestBlogPosts from "@/components/LatestBlogPosts";
+import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: AreaPost[] = [];
@@ -48,14 +48,8 @@ const { posts } = useAreaPosts("bubal", fallbackPosts);
 
 return (
 <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
-
 <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-<motion.div
-className="mb-8 md:mb-10"
-initial={{ opacity: 0, y: 28 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 0.65 }}
->
+<motion.div className="mb-8 md:mb-10" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
 <Link href="/areas">
 <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary transition hover:opacity-80">
 <ArrowLeft className="h-4 w-4" />
@@ -66,9 +60,7 @@ transition={{ duration: 0.65 }}
 <div className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm">
 <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_320px]">
 <div className="p-6 md:p-8">
-<p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
-AREA ARCHIVE
-</p>
+<p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">AREA ARCHIVE</p>
 <h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
 부발읍 계단청소와 공용공간 관리를 준비하고 있습니다
 </h1>
@@ -90,22 +82,13 @@ AREA ARCHIVE
 
 <AreaServiceCards cards={serviceCards} />
 
-<AreaTimeline
-areaName="부발읍"
-areaSlug="bubal"
-posts={posts}
-title="부발읍 작업 일지"
-description="부발읍 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다."
-emptyMessage="부발읍 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다."
-/>
+<AreaTimeline areaName="부발읍" areaSlug="bubal" posts={posts} title="부발읍 작업 일지" description="부발읍 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="부발읍 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
 
 <section className="mb-12 grid gap-4 md:grid-cols-2 md:mb-16">
 {reviews.map((review) => (
 <div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
 <div className="mb-3 flex items-center gap-1 text-yellow-400">
-{Array.from({ length: 5 }).map((_, index) => (
-<Star key={index} className="h-4 w-4 fill-current" />
-))}
+{Array.from({ length: 5 }).map((_, index) => (<Star key={index} className="h-4 w-4 fill-current" />))}
 </div>
 <p className="text-base leading-relaxed text-foreground">"{review}"</p>
 <p className="mt-4 text-sm text-muted-foreground">부발읍 인근 건물 관리 피드백</p>
@@ -125,10 +108,8 @@ emptyMessage="부발읍 작업 기록은 사진 정리 후 순서대로 추가�
 </div>
 </section>
 
-{/* 블로그 최신 소식 */}
-<div className="mb-12 md:mb-16">
-  <LatestBlogPosts />
-</div>
+<AreaBlogArchive areaName="부발읍" />
+
 <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
 <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">부발읍 청소 관리가 필요하신가요?</h2>
 <p className="mb-8 text-muted-foreground">계단·복도·공동현관 사진을 보내주시면 관리 가능 범위부터 확인해드립니다.</p>
