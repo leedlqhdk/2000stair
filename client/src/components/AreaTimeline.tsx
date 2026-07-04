@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import { CalendarDays, ChevronDown } from "lucide-react";
+import { CalendarDays, ChevronDown, Home, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import { getWorkPath } from "@/lib/workSlug";
@@ -12,6 +12,20 @@ type AreaTimelineProps = {
   title?: string;
   description?: string;
   emptyMessage?: string;
+};
+
+const nearbyAreaNames: Record<string, string[]> = {
+  majang: ["오천리", "관리리", "양촌사거리", "덕평리"],
+  daewol: ["사동리", "초지리", "장평리", "대대리"],
+  sindun: ["수광리", "도암리", "남정리", "지석리"],
+  bubal: ["아미리", "무촌리", "신하리", "가좌리"],
+  baeksa: ["모전리", "조읍리", "현방리", "송말리"],
+  gonjiam: ["신둔 방향", "실촌 생활권", "곤지암읍 주변"],
+  downtown: ["관고동", "창전동", "증포동", "중리동"],
+  gwango: ["설봉공원 인근", "관고시장 인근", "사음동 방향"],
+  changjeon: ["창전동 시내 주거지", "상가주택 밀집 구역", "중리동 방향"],
+  jungni: ["이천 시내 생활권", "상가주택 주변", "창전동 방향"],
+  jeungpo: ["갈산동 인근", "안흥동 인근", "송정동 방향"],
 };
 
 function getPostType(post: AreaPost) {
@@ -53,6 +67,8 @@ export default function AreaTimeline({
   const INITIAL_VISIBLE = 4;
   const hasMore = filteredPosts.length > INITIAL_VISIBLE;
   const visiblePosts = expanded ? filteredPosts : filteredPosts.slice(0, INITIAL_VISIBLE);
+  const displayAreaName = areaSlug === "downtown" && areaName === "시내권" ? "이천 시내권" : areaName;
+  const nearbyText = (nearbyAreaNames[areaSlug] ?? [areaName]).join(", ");
 
   return (
     <section className="mb-12 md:mb-16">
@@ -94,7 +110,8 @@ export default function AreaTimeline({
         </div>
       )}
 
-      <div className="relative">
+      <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
+        <div className="relative">
         {filteredPosts.length > 0 ? (
           <div className="relative space-y-4 before:absolute before:left-3 before:top-1 before:h-[calc(100%-0.5rem)] before:w-px before:bg-blue-100 md:space-y-5 md:before:left-[85px] md:before:top-0 md:before:h-full">
             {visiblePosts.map((post, index) => {
@@ -183,6 +200,30 @@ export default function AreaTimeline({
             </button>
           </div>
         )}
+        </div>
+
+        <aside className="hidden rounded-2xl border border-blue-100 bg-blue-50/70 p-6 text-center shadow-sm lg:sticky lg:top-24 lg:block">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-primary shadow-sm">
+            <Home className="h-7 w-7" />
+          </div>
+          <h3 className="text-lg font-extrabold leading-snug text-foreground">
+            {displayAreaName} 전 지역
+            <br />
+            관리 가능합니다
+          </h3>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            {nearbyText} 등 인근 건물도 상담 가능합니다.
+          </p>
+          <a
+            href="https://pf.kakao.com/_IiNfn/chat"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-primary px-5 py-3 text-sm font-extrabold text-white transition hover:opacity-90"
+          >
+            <MessageCircle className="mr-2 h-4 w-4" />
+            문의하기
+          </a>
+        </aside>
       </div>
     </section>
   );

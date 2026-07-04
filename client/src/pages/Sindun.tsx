@@ -1,18 +1,10 @@
-import { Link } from "wouter";
-import { ArrowLeft, FileText, MessageCircle, Phone, Star } from "lucide-react";
-import { motion } from "framer-motion";
-import AreaServiceCards from "@/components/AreaServiceCards";
+import { MessageCircle, Phone, Star } from "lucide-react";
+import AreaIntro from "@/components/AreaIntro";
 import AreaTimeline from "@/components/AreaTimeline";
 import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: never[] = [];
-
-const serviceCards = [
-  { title: "이천 현지 관리", text: "가까운 거리, 빠른 대응" },
-  { title: "현장 기록 제공", text: "작업 전후 사진 공유" },
-  { title: "부부 직접관리", text: "하청 없이 책임 관리" },
-];
 
 const reviews = [
   { text: "관리 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.", source: "신둔면 빌라 동대표님 후기" },
@@ -40,36 +32,11 @@ const { posts } = useAreaPosts("sindun", fallbackPosts);
 return (
 <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
 <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-<motion.div className="mb-8 md:mb-10" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-<Link href="/areas">
-<a className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
-<ArrowLeft className="h-4 w-4" />
-관리지역으로 돌아가기
-</a>
-</Link>
-
-<div className="relative overflow-hidden rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/40 to-white p-7 shadow-sm md:p-10">
-<div className="pointer-events-none absolute -right-8 bottom-0 hidden h-56 w-56 rounded-full bg-blue-100/30 md:block" />
-<div className="pointer-events-none absolute right-28 bottom-10 hidden h-24 w-44 border-l-[18px] border-t-[18px] border-blue-100/45 md:block" />
-<div className="relative flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-<div>
-<p className="mb-4 text-xs font-extrabold tracking-[0.35em] text-primary md:text-sm">AREA ARCHIVE</p>
-<h1 className="mb-5 text-4xl font-extrabold leading-[1.15] text-foreground md:text-5xl">
-신둔면의<br className="hidden md:block" /> <span className="text-primary">공용공간을 꾸준히 관리합니다</span>
-</h1>
-<p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-부부가 직접, 신둔면 빌라·원룸·상가 공용공간을 관리합니다.
-</p>
-</div>
-<div className="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-4 text-sm font-bold text-white shadow-sm md:text-base">
-<FileText className="h-5 w-5" />
-최근 작업 기록
-</div>
-</div>
-</div>
-</motion.div>
-
-<AreaServiceCards cards={serviceCards} />
+<AreaIntro
+headline="신둔면의 공용공간을 꾸준히 관리합니다"
+description="부부가 직접, 신둔면 빌라·원룸·상가 공용공간을 관리합니다."
+focus="수광리·도암리·남정리 등 신둔면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
+/>
 
 <AreaTimeline
 areaName="신둔면"
