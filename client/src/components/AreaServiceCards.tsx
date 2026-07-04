@@ -19,7 +19,7 @@ export default function AreaServiceCards({ cards }: AreaServiceCardsProps) {
           return (
             <div
               key={card.title}
-              className="w-[78%] flex-shrink-0 snap-start rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-sm sm:w-[46%] md:w-auto md:p-6"
+              className="w-[78%] flex-shrink-0 snap-start px-1 sm:w-[46%] md:w-auto md:px-0"
             >
               <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-primary md:mb-4 md:h-12 md:w-12">
                 <Icon className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.2} />
