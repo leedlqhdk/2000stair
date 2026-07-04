@@ -1,6 +1,5 @@
 import { Star, ShieldCheck, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import BlogPostCards from "@/components/BlogPostCards";
 
 const reviewCards = [
   {
@@ -70,7 +69,6 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        {/* Header */}
         <div className="mb-8 text-center">
           <p className="mb-2 text-xs font-extrabold tracking-[0.28em] text-primary">
             REAL REVIEW
@@ -90,7 +88,6 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
           </p>
         </div>
 
-        {/* Review Cards — 모바일 세로, 데스크탑 3열 */}
         <div className="grid gap-4 md:grid-cols-3">
           {reviewCards.map((review, i) => (
             <motion.div
@@ -102,7 +99,6 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
               className="flex flex-col"
             >
               <div className={`flex flex-1 flex-col rounded-2xl border p-5 transition-all duration-200 ${cardClass}`}>
-                {/* Platform row */}
                 <div className="mb-3 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <span
@@ -121,22 +117,18 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
                   </span>
                 </div>
 
-                {/* Stars */}
                 <div className="mb-3 flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
 
-                {/* Quote */}
                 <p className={`mb-2 flex-1 text-sm font-semibold leading-relaxed ${quoteClass}`}>
                   "{review.quote}"
                 </p>
 
-                {/* Detail */}
                 <p className={`mb-4 text-xs ${detailClass}`}>{review.detail}</p>
 
-                {/* Button */}
                 <a
                   href={review.url}
                   target="_blank"
@@ -151,34 +143,10 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
           ))}
         </div>
 
-        {/* Trust footer */}
         <p className={`mt-4 flex items-center justify-center gap-1.5 text-xs ${footerClass}`}>
           <ShieldCheck className="h-3.5 w-3.5" />
           실제 플랫폼에 등록된 고객 후기만 보여드립니다.
         </p>
-      </motion.div>
-
-      {/* Field Archive */}
-      <motion.div
-        className="mx-auto max-w-6xl"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="mb-8 text-center">
-          <p className="mb-3 text-sm font-bold tracking-[0.25em] text-primary">
-            FIELD ARCHIVE
-          </p>
-          <h2 className={`mb-4 text-3xl font-bold md:text-4xl ${titleClass}`}>
-            실제 작업 기록
-          </h2>
-          <p className={`text-base leading-relaxed md:text-lg ${descriptionClass}`}>
-            이천계단지기의 현장 기록은 네이버 블로그에 꾸준히 남기고 있습니다.
-          </p>
-        </div>
-
-        <BlogPostCards />
       </motion.div>
     </div>
   );
