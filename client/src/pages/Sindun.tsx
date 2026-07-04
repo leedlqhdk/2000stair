@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
+import { ArrowLeft, FileText, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaServiceCards from "@/components/AreaServiceCards";
 import AreaTimeline from "@/components/AreaTimeline";
@@ -10,15 +10,15 @@ const fallbackPosts: never[] = [];
 const serviceCards = [
   {
     title: "이천 현지 관리",
-    text: "이천시 신둔면 빌라·원룸·상가의 계단과 공용공간을 정기적으로 관리합니다.",
+    text: "가까운 거리, 빠른 대응",
   },
   {
     title: "현장 기록 제공",
-    text: "방문마다 작업 전후 사진을 직접 촬영해 기록합니다. 멀리 있어도 현장 상태를 확인하실 수 있습니다.",
+    text: "작업 전후 사진 공유",
   },
   {
     title: "부부 직접관리",
-    text: "외주 없이 부부가 직접 작업합니다. 담당자가 바뀌지 않아 꾸준한 품질을 유지합니다.",
+    text: "하청 없이 책임 관리",
   },
 ];
 
@@ -64,26 +64,29 @@ animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.65 }}
 >
 <Link href="/areas">
-<a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
+<a className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
 <ArrowLeft className="h-4 w-4" />
 관리지역으로 돌아가기
 </a>
 </Link>
 
-<div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
-<p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
+<div className="relative overflow-hidden rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/40 to-white p-7 shadow-sm md:p-10">
+<div className="pointer-events-none absolute -right-8 bottom-0 hidden h-56 w-56 rounded-full bg-blue-100/30 md:block" />
+<div className="pointer-events-none absolute right-28 bottom-10 hidden h-24 w-44 border-l-[18px] border-t-[18px] border-blue-100/45 md:block" />
+<div className="relative flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+<div>
+<p className="mb-4 text-xs font-extrabold tracking-[0.35em] text-primary md:text-sm">
 AREA ARCHIVE
 </p>
-<div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-<div>
-<h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
-신둔면의 공용공간을 꾸준히 관리합니다
+<h1 className="mb-5 text-4xl font-extrabold leading-[1.15] text-foreground md:text-5xl">
+신둔면의<br className="hidden md:block" /> <span className="text-primary">공용공간을 꾸준히 관리합니다</span>
 </h1>
-<p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
+<p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
 부부가 직접, 신둔면 빌라·원룸·상가 공용공간을 관리합니다.
 </p>
 </div>
-<div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
+<div className="inline-flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-4 text-sm font-bold text-white shadow-sm md:text-base">
+<FileText className="h-5 w-5" />
 최근 작업 기록
 </div>
 </div>
