@@ -3,7 +3,7 @@ import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaServiceCards from "@/components/AreaServiceCards";
 import AreaTimeline from "@/components/AreaTimeline";
-import LatestBlogPosts from "@/components/LatestBlogPosts";
+import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { majangPosts, majangReviews } from "@/data/areas/majang";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
@@ -21,8 +21,6 @@ const serviceCards = [
     text: "외주 없이 부부가 직접 작업합니다. 담당자가 바뀌지 않아 꾸준한 품질을 유지합니다.",
   },
 ];
-
-const localities = ["마장면", "오천리", "양촌리", "장암리"];
 
 const faqs = [
   {
@@ -110,15 +108,6 @@ description="마장면에서 진행한 작업들을 날짜순으로 확인해보
 </section>
 
 <section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
-<h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">관리 가능 지역</h2>
-<div className="flex flex-wrap gap-2">
-{localities.map((name) => (
-<span key={name} className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-primary">{name}</span>
-))}
-</div>
-</section>
-
-<section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
 <h2 className="mb-5 text-xl font-extrabold text-foreground md:text-2xl">자주 묻는 질문</h2>
 <div className="grid gap-4 md:grid-cols-2">
 {faqs.map((faq) => (
@@ -130,10 +119,8 @@ description="마장면에서 진행한 작업들을 날짜순으로 확인해보
 </div>
 </section>
 
-{/* 블로그 최신 소식 */}
-<div className="mb-12 md:mb-16">
-  <LatestBlogPosts />
-</div>
+<AreaBlogArchive areaName="마장면" />
+
 <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
 <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">마장면 청소 관리가 필요하신가요?</h2>
 <p className="mb-8 text-muted-foreground">정기관리·일회성 청소 모두 문의 가능합니다.</p>
