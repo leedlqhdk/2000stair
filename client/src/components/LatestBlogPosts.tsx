@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
@@ -15,7 +16,7 @@ function useLatestBlogPosts() {
   return useQuery({
     queryKey: ["blog-rss"],
     queryFn: async () => {
-      const response = await fetch("/api/blog-rss?limit=3");
+      const response = await fetch("/api/blog-rss?limit=8");
       if (!response.ok) return [];
       const data = (await response.json()) as { posts?: BlogPost[] };
       return data.posts ?? [];
@@ -65,15 +66,49 @@ export default function LatestBlogPosts({
   variant?: "desktop" | "mobile" | "timeline";
 }) {
   const { data } = useLatestBlogPosts();
-  const posts = (data ?? []).slice(0, 3);
+  const [paused, setPaused] = useState(false);
+  const allPosts = data ?? [];
+  const posts = allPosts.slice(0, 3);
 
-  if (posts.length === 0) return null;
+  if (allPosts.length === 0) return null;
 
   const blogChannel = OFFICIAL_CHANNELS[0];
   const daangnChannel = OFFICIAL_CHANNELS[1];
 
-  // PC 메인 페이지용: 옅은 파란 배경 위 흰 카드 안에 날짜 타임라인으로 표시
+  // PC 메인 페이지용: 흰 카드 안에서 최신 글이 아래에서 위로 자동 스크롤(무한 루프)
   if (variant === "timeline") {
+    // 끊김 없는 루프를 위해 목록을 두 번 이어 붙이고 -50%까지 이동시킨다
+    const loopPosts = [...allPosts, ...allPosts];
+    const scrollDuration = Math.max(allPosts.length * 5, 20);
+
+    const renderRow = (post: (typeof allPosts)[number], key: string) => (
+      <a
+        key={key}
+        href={post.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => trackConversion("review_click", { location: "home_latest_posts", label: post.title })}
+        className="group grid grid-cols-[80px_minmax(0,1fr)] gap-4 md:grid-cols-[116px_minmax(0,1fr)] md:gap-8"
+      >
+        <p className="pt-0.5 text-sm font-bold text-slate-500 md:text-base">{post.date}</p>
+        <div className="relative pb-9 pl-7 before:absolute before:left-[5px] before:top-3 before:h-full before:w-px before:bg-blue-100 md:pl-8">
+          <span className="absolute left-0 top-[5px] h-[11px] w-[11px] rounded-full bg-primary ring-4 ring-blue-50" />
+          <h4 className="text-lg font-extrabold leading-snug text-foreground transition-colors group-hover:text-primary md:text-xl">
+            {post.title}
+          </h4>
+          {post.summary ? (
+            <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+              {post.summary}
+            </p>
+          ) : null}
+          <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-primary">
+            글 보러가기
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </div>
+      </a>
+    );
+
     return (
       <section className="bg-blue-50/60 py-16 md:py-24">
         <motion.div
@@ -93,41 +128,24 @@ export default function LatestBlogPosts({
             </p>
           </div>
 
-          <div className="mx-auto max-w-4xl rounded-[2rem] bg-white p-8 shadow-[0_4px_24px_rgba(15,23,42,0.05)] md:p-12">
-            {posts.map((post, index) => (
-              <div key={post.link} className="grid grid-cols-[96px_minmax(0,1fr)] gap-5 md:grid-cols-[120px_minmax(0,1fr)] md:gap-8">
-                <p className="pt-0.5 text-sm font-bold text-slate-500 md:text-base">{post.date}</p>
-                <div
-                  className={`relative pl-7 md:pl-8 ${index < posts.length - 1 ? "pb-10 md:pb-12" : ""} ${
-                    index < posts.length - 1
-                      ? "before:absolute before:left-[5px] before:top-3 before:h-full before:w-px before:bg-blue-100"
-                      : ""
-                  }`}
-                >
-                  <span className="absolute left-0 top-[5px] h-[11px] w-[11px] rounded-full bg-primary" />
-                  <a
-                    href={post.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackConversion("review_click", { location: "home_latest_posts", label: post.title })}
-                    className="group block"
-                  >
-                    <h4 className="text-lg font-extrabold leading-snug text-foreground transition-colors group-hover:text-primary md:text-xl">
-                      {post.title}
-                    </h4>
-                    {post.summary ? (
-                      <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
-                        {post.summary}
-                      </p>
-                    ) : null}
-                    <span className="mt-3.5 inline-flex items-center gap-1.5 text-sm font-bold text-primary">
-                      글 보러가기
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </span>
-                  </a>
-                </div>
-              </div>
-            ))}
+          <div
+            className="relative mx-auto h-[360px] max-w-4xl overflow-hidden rounded-[2rem] bg-white px-8 shadow-[0_4px_24px_rgba(15,23,42,0.05)] md:h-[420px] md:px-12"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            <div
+              className="pt-10 md:pt-12"
+              style={{
+                animation: `blogScrollUp ${scrollDuration}s linear infinite`,
+                animationPlayState: paused ? "paused" : "running",
+              }}
+            >
+              {loopPosts.map((post, index) => renderRow(post, `${post.link}-${index}`))}
+            </div>
+
+            {/* 위·아래 페이드로 글이 자연스럽게 사라지고 나타나게 */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white to-transparent md:h-20" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent md:h-20" />
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
