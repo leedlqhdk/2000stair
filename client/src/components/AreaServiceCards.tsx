@@ -24,8 +24,7 @@ export default function AreaServiceCards({ cards }: AreaServiceCardsProps) {
               <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-primary md:mb-4 md:h-12 md:w-12">
                 <Icon className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.2} />
               </div>
-              <p className="mb-1.5 text-sm font-extrabold text-primary md:mb-2 md:text-base">{card.title}</p>
-              <p className="text-sm leading-6 text-muted-foreground md:leading-7">{card.text}</p>
+              <p className="text-sm font-extrabold text-primary md:text-base">{card.title}</p>
             </div>
           );
         })}
