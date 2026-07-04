@@ -3,7 +3,7 @@ import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaServiceCards from "@/components/AreaServiceCards";
 import AreaTimeline from "@/components/AreaTimeline";
-import LatestBlogPosts from "@/components/LatestBlogPosts";
+import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { daewolPosts, daewolReviews } from "@/data/areas/daewol";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
@@ -21,8 +21,6 @@ const serviceCards = [
     text: "외주 없이 부부가 직접 작업합니다. 담당자가 바뀌지 않아 꾸준한 품질을 유지합니다.",
   },
 ];
-
-const localities = ["대월면", "사동리", "초지리", "군량리"];
 
 const faqs = [
   {
@@ -97,10 +95,7 @@ export default function DaewolAreaPage() {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {daewolReviews.map((review) => (
-              <div
-                key={review}
-                className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm"
-              >
+              <div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
                 <div className="mb-3 flex items-center gap-1 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className="h-4 w-4 fill-current" />
@@ -109,15 +104,6 @@ export default function DaewolAreaPage() {
                 <p className="text-base leading-relaxed text-foreground">"{review}"</p>
                 <p className="mt-4 text-sm text-muted-foreground">대월면 건물주 후기</p>
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
-          <h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">관리 가능 지역</h2>
-          <div className="flex flex-wrap gap-2">
-            {localities.map((name) => (
-              <span key={name} className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-primary">{name}</span>
             ))}
           </div>
         </section>
@@ -134,10 +120,8 @@ export default function DaewolAreaPage() {
           </div>
         </section>
 
-        {/* 블로그 최신 소식 */}
-        <div className="mb-12 md:mb-16">
-          <LatestBlogPosts />
-        </div>
+        <AreaBlogArchive areaName="대월면" />
+
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
           <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
             대월면 청소 관리가 필요하신가요?
