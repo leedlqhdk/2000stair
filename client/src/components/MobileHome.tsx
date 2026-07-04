@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
+import ChannelLinks from "@/components/ChannelLinks";
+import LatestBlogPosts from "@/components/LatestBlogPosts";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -185,6 +187,9 @@ export default function MobileHome() {
         </div>
       </section>
 
+      {/* LATEST BLOG POSTS */}
+      <LatestBlogPosts variant="mobile" />
+
       {/* AREAS */}
       <section className="px-5 py-7">
         <div className="mb-5 flex items-center justify-between">
@@ -242,6 +247,12 @@ export default function MobileHome() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* OFFICIAL CHANNELS */}
+      <section className="px-5 pb-9">
+        <h2 className="mb-4 font-['GmarketSans'] text-lg font-extrabold text-foreground">공식 채널</h2>
+        <ChannelLinks location="mobile_home_channels" />
       </section>
 
       {/* BOTTOM DOCK */}

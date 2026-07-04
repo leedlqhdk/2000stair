@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { ArrowLeft, Check, MessageCircle, Send } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { trackConversion } from "@/lib/analytics";
+import ChannelLinks from "@/components/ChannelLinks";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -248,9 +249,16 @@ export default function MobileQuote() {
           카카오톡으로 바로 문의
         </a>
       </div>
-      <p className="px-5 pb-9 pt-3.5 text-center text-xs font-semibold text-muted-foreground">
+      <p className="px-5 pt-3.5 text-center text-xs font-semibold text-muted-foreground">
         전화 상담 <b className="text-foreground">{PHONE_NUMBER}</b> · 평일 09:00 - 18:00
       </p>
+
+      <div className="px-5 pb-9 pt-6">
+        <p className="mb-3 text-center text-xs font-bold text-muted-foreground">
+          후기가 궁금하다면 공식 채널에서 확인해보세요
+        </p>
+        <ChannelLinks location="mobile_quote_channels" />
+      </div>
     </div>
   );
 }
