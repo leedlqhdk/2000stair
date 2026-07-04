@@ -9,6 +9,10 @@ type InfoPost = {
   url: string;
 };
 
+type BlogPostCardsProps = {
+  hideMoreLink?: boolean;
+};
+
 const fallbackInfoPosts: InfoPost[] = [
   {
     id: "naver-guide-1",
@@ -18,7 +22,7 @@ const fallbackInfoPosts: InfoPost[] = [
   },
 ];
 
-export default function BlogPostCards() {
+export default function BlogPostCards({ hideMoreLink = false }: BlogPostCardsProps) {
   const [infoPosts, setInfoPosts] = useState<InfoPost[]>(fallbackInfoPosts);
   const visiblePosts = infoPosts.slice(0, 6);
   const scrollingPosts = visiblePosts.length > 1 ? [...visiblePosts, ...visiblePosts] : visiblePosts;
@@ -97,17 +101,19 @@ export default function BlogPostCards() {
         ))}
       </motion.div>
 
-      <div className="mt-6 flex justify-center md:justify-end">
-        <a
-          href="https://blog.naver.com/icheonstair"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1"
-        >
-          블로그 더 보기
-          <ArrowRight className="h-4 w-4" />
-        </a>
-      </div>
+      {!hideMoreLink && (
+        <div className="mt-6 flex justify-center md:justify-end">
+          <a
+            href="https://blog.naver.com/icheonstair"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-sm font-extrabold text-primary transition hover:translate-x-1"
+          >
+            블로그 더 보기
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      )}
     </motion.div>
   );
 }
