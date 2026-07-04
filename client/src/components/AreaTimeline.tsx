@@ -65,6 +65,8 @@ export default function AreaTimeline({
 
   return (
     <>
+      <AreaBlogArchive areaName={displayAreaName} />
+
       <section className="mb-12 md:mb-16">
         <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
@@ -202,8 +204,6 @@ export default function AreaTimeline({
           </aside>
         </div>
       </section>
-
-      <AreaBlogArchive areaName={displayAreaName} />
     </>
   );
 }
