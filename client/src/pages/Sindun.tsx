@@ -3,6 +3,7 @@ import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaServiceCards from "@/components/AreaServiceCards";
 import AreaTimeline from "@/components/AreaTimeline";
+import LatestBlogPosts from "@/components/LatestBlogPosts";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: never[] = [];
@@ -142,6 +143,10 @@ emptyMessage="신둔면 작업 기록은 노션 작업일지 등록 후 표시�
 </div>
 </section>
 
+{/* 블로그 최신 소식 */}
+<div className="mb-12 md:mb-16">
+  <LatestBlogPosts />
+</div>
 <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
 <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">신둔면 청소 관리가 필요하신가요?</h2>
 <p className="mb-8 text-muted-foreground">정기관리·일회성 청소 모두 문의 가능합니다.</p>

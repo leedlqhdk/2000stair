@@ -3,6 +3,7 @@ import { ArrowLeft, CheckCircle2, MessageCircle, Phone, Star } from "lucide-reac
 import { motion } from "framer-motion";
 import AreaServiceCards from "@/components/AreaServiceCards";
 import AreaTimeline from "@/components/AreaTimeline";
+import LatestBlogPosts from "@/components/LatestBlogPosts";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: AreaPost[] = [];
@@ -124,6 +125,10 @@ emptyMessage="부발읍 작업 기록은 사진 정리 후 순서대로 추가�
 </div>
 </section>
 
+{/* 블로그 최신 소식 */}
+<div className="mb-12 md:mb-16">
+  <LatestBlogPosts />
+</div>
 <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
 <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">부발읍 청소 관리가 필요하신가요?</h2>
 <p className="mb-8 text-muted-foreground">계단·복도·공동현관 사진을 보내주시면 관리 가능 범위부터 확인해드립니다.</p>
