@@ -10,6 +10,9 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
+import CountUp from "@/components/CountUp";
+
+const floatTransition = { duration: 4.5, repeat: Infinity, ease: "easeInOut" as const };
 
 const stats = [
   { value: "5년+", label: "청소 경력" },
@@ -66,11 +69,14 @@ export default function MobileAbout() {
               깨끗한 계단은 건물의 첫인상입니다. 이천에서 하청 없이 직접 관리합니다.
             </p>
           </div>
-          <img
+          <motion.img
             src="/images/couple-profile.jpg"
             alt="이천계단지기 부부"
             className="w-[148px] shrink-0 rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)] md:w-[320px] md:rounded-[2rem]"
             loading="lazy"
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1, y: [0, -9, 0] }}
+            transition={{ opacity: { duration: 0.6 }, scale: { duration: 0.6 }, y: floatTransition }}
           />
         </div>
         <button
@@ -114,12 +120,13 @@ export default function MobileAbout() {
             <motion.div
               key={stat.label}
               className="rounded-2xl border border-blue-100 bg-white p-4 text-center shadow-[0_2px_10px_rgba(15,23,42,0.04)] md:p-6"
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: index * 0.06 }}
+              transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
             >
-              <p className="font-['GmarketSans'] text-xl font-extrabold text-primary md:text-3xl">{stat.value}</p>
+              <CountUp value={stat.value} className="font-['GmarketSans'] text-xl font-extrabold text-primary md:text-3xl" />
               <p className="mt-1 text-xs font-bold text-muted-foreground md:mt-2 md:text-sm">{stat.label}</p>
             </motion.div>
           ))}
@@ -152,11 +159,13 @@ export default function MobileAbout() {
               </ul>
             </div>
 
-            <img
+            <motion.img
               src="/booboo.webp"
               alt="이천계단지기 부부 캐릭터"
               className="w-[150px] shrink-0 object-contain md:w-[230px]"
               loading="lazy"
+              animate={{ y: [0, -8, 0] }}
+              transition={floatTransition}
             />
 
             <div className="flex flex-col items-start">
@@ -188,11 +197,12 @@ export default function MobileAbout() {
           {principles.map((principle, index) => (
             <motion.div
               key={principle.title}
-              className="rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] md:p-6"
-              initial={{ opacity: 0, y: 12 }}
+              className="rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition-colors hover:border-primary/40 md:p-6"
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: index * 0.06 }}
+              transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 text-primary md:h-12 md:w-12">
                 <principle.icon className="h-4.5 w-4.5" />
@@ -236,8 +246,15 @@ export default function MobileAbout() {
         <div className="relative hidden md:block">
           <div className="absolute left-[10%] right-[10%] top-[18px] h-px bg-blue-100" />
           <div className="relative grid grid-cols-5 gap-6">
-            {processSteps.map((step) => (
-              <div key={step.step} className="flex flex-col items-center text-center">
+            {processSteps.map((step, index) => (
+              <motion.div
+                key={step.step}
+                className="flex flex-col items-center text-center"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-[12px] font-extrabold text-white ring-4 ring-blue-50">
                   {step.step}
                 </span>
@@ -245,7 +262,7 @@ export default function MobileAbout() {
                 <p className="mt-1.5 break-keep text-[12.5px] font-medium leading-relaxed text-muted-foreground">
                   {step.text}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
