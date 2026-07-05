@@ -47,13 +47,13 @@ export default function MobileAbout() {
   const [, setLocation] = useLocation();
 
   return (
-    <div className="md:hidden">
+    <div className="mx-auto max-w-5xl md:px-6">
       {/* HERO */}
-      <section className="px-5 pb-4 pt-7">
-        <div className="flex items-center gap-4">
+      <section className="px-5 pb-4 pt-7 md:pb-8 md:pt-14">
+        <div className="flex items-center gap-4 md:gap-12">
           <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-extrabold tracking-[0.25em] text-primary">ABOUT US</p>
-            <h1 className="mt-3 break-keep font-['GmarketSans'] text-[1.55rem] font-extrabold leading-[1.25] text-foreground">
+            <p className="text-[11px] font-extrabold tracking-[0.25em] text-primary md:text-sm">ABOUT US</p>
+            <h1 className="mt-3 break-keep font-['GmarketSans'] text-[1.55rem] font-extrabold leading-[1.25] text-foreground md:mt-5 md:text-[2.7rem] md:leading-[1.2]">
               우리는
               <br />
               <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
@@ -62,14 +62,14 @@ export default function MobileAbout() {
               <br />
               부부입니다.
             </h1>
-            <p className="mt-3 break-keep text-[13px] font-semibold leading-relaxed text-gray-700">
+            <p className="mt-3 break-keep text-[13px] font-semibold leading-relaxed text-gray-700 md:mt-5 md:max-w-md md:text-lg md:leading-8">
               깨끗한 계단은 건물의 첫인상입니다. 이천에서 하청 없이 직접 관리합니다.
             </p>
           </div>
           <img
             src="/images/couple-profile.jpg"
             alt="이천계단지기 부부"
-            className="w-[148px] shrink-0 rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
+            className="w-[148px] shrink-0 rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)] md:w-[320px] md:rounded-[2rem]"
             loading="lazy"
           />
         </div>
@@ -79,7 +79,7 @@ export default function MobileAbout() {
             trackConversion("quote_form_view", { location: "mobile_about_hero", label: "무료 방문견적 문의하기" });
             setLocation("/quote");
           }}
-          className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-extrabold text-white shadow-lg shadow-primary/25"
+          className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-extrabold text-white shadow-lg shadow-primary/25 md:mt-7 md:h-[52px] md:w-auto md:px-8 md:text-base"
         >
           무료 방문견적 문의하기
           <ArrowRight className="h-4 w-4" />
@@ -89,17 +89,17 @@ export default function MobileAbout() {
       {/* 우리가 시작한 이유 */}
       <section className="px-5 py-7">
         <motion.div
-          className="rounded-3xl border border-blue-100 bg-blue-50/60 p-6"
+          className="rounded-3xl border border-blue-100 bg-blue-50/60 p-6 md:p-10"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
-          <h2 className="font-['GmarketSans'] text-lg font-extrabold text-foreground">우리가 시작한 이유</h2>
-          <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700">
+          <h2 className="font-['GmarketSans'] text-lg font-extrabold text-foreground md:text-2xl">우리가 시작한 이유</h2>
+          <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700 md:mt-4 md:text-base md:leading-8">
             우리가 살던 빌라도 청소 상태가 좋지 않았습니다. 늘 지저분한 계단을 오르며 생각했습니다.
           </p>
-          <p className="mt-3 break-keep font-['GmarketSans'] text-[15px] font-extrabold text-primary">
+          <p className="mt-3 break-keep font-['GmarketSans'] text-[15px] font-extrabold text-primary md:mt-4 md:text-xl">
             "왜 계단청소는 항상 아쉬울까?"
           </p>
           <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700">
@@ -109,18 +109,18 @@ export default function MobileAbout() {
         </motion.div>
 
         {/* 통계 */}
-        <div className="mt-4 grid grid-cols-2 gap-2.5">
+        <div className="mt-4 grid grid-cols-2 gap-2.5 md:mt-5 md:grid-cols-4 md:gap-4">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              className="rounded-2xl border border-blue-100 bg-white p-4 text-center shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
+              className="rounded-2xl border border-blue-100 bg-white p-4 text-center shadow-[0_2px_10px_rgba(15,23,42,0.04)] md:p-6"
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: index * 0.06 }}
             >
-              <p className="font-['GmarketSans'] text-xl font-extrabold text-primary">{stat.value}</p>
-              <p className="mt-1 text-xs font-bold text-muted-foreground">{stat.label}</p>
+              <p className="font-['GmarketSans'] text-xl font-extrabold text-primary md:text-3xl">{stat.value}</p>
+              <p className="mt-1 text-xs font-bold text-muted-foreground md:mt-2 md:text-sm">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -128,7 +128,7 @@ export default function MobileAbout() {
 
       {/* 부부 소개 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
+        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">
           부부가 함께 관리합니다
         </h2>
         <motion.div
@@ -137,7 +137,7 @@ export default function MobileAbout() {
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
-          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 md:mx-auto md:max-w-3xl md:gap-10">
             <div className="flex flex-col items-end">
               <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
                 {husbandRole.badge}
@@ -158,7 +158,7 @@ export default function MobileAbout() {
             <img
               src="/booboo.webp"
               alt="이천계단지기 부부 캐릭터"
-              className="w-[150px] shrink-0 object-contain"
+              className="w-[150px] shrink-0 object-contain md:w-[230px]"
               loading="lazy"
             />
 
@@ -180,7 +180,7 @@ export default function MobileAbout() {
             </div>
           </div>
 
-          <p className="mt-4 text-center text-[11.5px] font-semibold text-muted-foreground">
+          <p className="mt-4 text-center text-[11.5px] font-semibold text-muted-foreground md:mt-7 md:text-sm">
             상담부터 현장까지, 부부가 함께 책임집니다.
           </p>
         </motion.div>
@@ -188,24 +188,24 @@ export default function MobileAbout() {
 
       {/* 4가지 원칙 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
+        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">
           이천계단지기의 4가지 원칙
         </h2>
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4 md:gap-4">
           {principles.map((principle, index) => (
             <motion.div
               key={principle.title}
-              className="rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
+              className="rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] md:p-6"
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: index * 0.06 }}
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 text-primary">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 text-primary md:h-12 md:w-12">
                 <principle.icon className="h-4.5 w-4.5" />
               </span>
-              <h3 className="mt-2.5 text-[13.5px] font-extrabold text-foreground">{principle.title}</h3>
-              <p className="mt-1 break-keep text-[11.5px] font-medium leading-relaxed text-muted-foreground">
+              <h3 className="mt-2.5 text-[13.5px] font-extrabold text-foreground md:mt-3.5 md:text-base">{principle.title}</h3>
+              <p className="mt-1 break-keep text-[11.5px] font-medium leading-relaxed text-muted-foreground md:mt-1.5 md:text-[13px] md:leading-6">
                 {principle.text}
               </p>
             </motion.div>
@@ -215,8 +215,8 @@ export default function MobileAbout() {
 
       {/* 관리 프로세스 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">관리 프로세스</h2>
-        <div className="relative space-y-4 before:absolute before:left-[15px] before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-blue-100">
+        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">관리 프로세스</h2>
+        <div className="relative space-y-4 before:absolute before:left-[15px] before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-blue-100 md:hidden">
           {processSteps.map((step, index) => (
             <motion.div
               key={step.step}
@@ -238,12 +238,30 @@ export default function MobileAbout() {
             </motion.div>
           ))}
         </div>
+
+        {/* PC: 가로 5단계 */}
+        <div className="relative hidden md:block">
+          <div className="absolute left-[10%] right-[10%] top-[18px] h-px bg-blue-100" />
+          <div className="relative grid grid-cols-5 gap-6">
+            {processSteps.map((step) => (
+              <div key={step.step} className="flex flex-col items-center text-center">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-[12px] font-extrabold text-white ring-4 ring-blue-50">
+                  {step.step}
+                </span>
+                <h3 className="mt-3.5 text-[15px] font-extrabold text-foreground">{step.title}</h3>
+                <p className="mt-1.5 break-keep text-[12.5px] font-medium leading-relaxed text-muted-foreground">
+                  {step.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* 작업 전후 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">작업 전후 사진</h2>
-        <div className="grid grid-cols-2 gap-2.5">
+        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">작업 전후 사진</h2>
+        <div className="grid grid-cols-2 gap-2.5 md:mx-auto md:max-w-3xl md:gap-4">
           {[
             { src: "/images/before-after/majang-villa-stair-rust-removal-before.webp", label: "BEFORE" },
             { src: "/images/before-after/majang-villa-stair-rust-removal-after.webp", label: "AFTER" },
@@ -263,14 +281,14 @@ export default function MobileAbout() {
       </section>
 
       {/* CTA */}
-      <section className="px-5 pb-10 pt-2">
-        <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-800 p-6 text-center text-white">
-          <p className="break-keep font-['GmarketSans'] text-[16px] font-extrabold leading-snug">
+      <section className="px-5 pb-10 pt-2 md:pb-16 md:pt-4">
+        <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-800 p-6 text-center text-white md:mx-auto md:max-w-3xl md:rounded-[2rem] md:p-10">
+          <p className="break-keep font-['GmarketSans'] text-[16px] font-extrabold leading-snug md:text-2xl">
             계단청소는 단순한 청소가 아닙니다.
             <br />
             건물의 첫인상을 관리하는 일입니다.
           </p>
-          <div className="mt-5 grid grid-cols-2 gap-2.5">
+          <div className="mt-5 grid grid-cols-2 gap-2.5 md:mx-auto md:mt-7 md:max-w-md md:gap-3">
             <a
               href="tel:01084381887"
               onClick={() => trackConversion("phone_click", { location: "mobile_about_cta", label: "전화문의" })}
