@@ -1,4 +1,4 @@
-import { Instagram } from "lucide-react";
+import { Carrot, Instagram } from "lucide-react";
 import { trackConversion } from "@/lib/analytics";
 
 type Channel = {
@@ -62,7 +62,13 @@ export default function ChannelLinks({
           <span
             className={`flex h-8 w-8 items-center justify-center rounded-lg text-sm font-black text-white shadow-sm ${channel.badgeClass}`}
           >
-            {channel.key === "instagram" ? <Instagram className="h-4.5 w-4.5" strokeWidth={2.4} /> : channel.badge}
+            {channel.key === "instagram" ? (
+              <Instagram className="h-4.5 w-4.5" strokeWidth={2.4} />
+            ) : channel.key === "daangn" ? (
+              <Carrot className="h-4.5 w-4.5" strokeWidth={2.4} />
+            ) : (
+              channel.badge
+            )}
           </span>
           <span className="text-[12.5px] font-extrabold text-foreground">{channel.label}</span>
         </a>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Carrot } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
 import { OFFICIAL_CHANNELS } from "@/components/ChannelLinks";
@@ -238,8 +238,8 @@ export default function LatestBlogPosts({
           onClick={() => trackConversion("review_click", { location: "home_latest_posts", label: "당근마켓" })}
           className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-6 py-3 text-sm font-bold text-primary transition hover:bg-blue-50"
         >
-          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#ff6f0f] text-[10px] font-black text-white">
-            당
+          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#ff6f0f] text-white">
+            <Carrot className="h-3 w-3" strokeWidth={2.6} />
           </span>
           당근마켓에서 보기
         </a>
