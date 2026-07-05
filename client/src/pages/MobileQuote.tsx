@@ -4,6 +4,7 @@ import { ArrowLeft, Check, MessageCircle, Send } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { trackConversion } from "@/lib/analytics";
 import ChannelLinks from "@/components/ChannelLinks";
+import Navbar from "@/components/Navbar";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -107,8 +108,45 @@ export default function MobileQuote() {
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-md bg-background">
-      <header className="sticky top-0 z-20 flex h-14 items-center gap-2 border-b border-blue-100 bg-white/95 px-2 backdrop-blur">
+    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+      <div className="hidden md:block">
+        <Navbar />
+      </div>
+      <div className="mx-auto max-w-md md:max-w-5xl md:px-6 md:py-14">
+        <div className="md:grid md:grid-cols-[minmax(0,1fr)_460px] md:items-start md:gap-12">
+          {/* PC 안내 패널 */}
+          <aside className="hidden md:sticky md:top-28 md:block">
+            <p className="text-xs font-extrabold tracking-[0.28em] text-primary">FREE ESTIMATE</p>
+            <h1 className="mt-3 break-keep text-3xl font-extrabold leading-[1.25] text-foreground lg:text-4xl">
+              건물 상태만 알려주시면
+              <br />
+              최적의 견적을 보내드려요
+            </h1>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
+              1분이면 신청 끝. 평일 기준 빠르게 연락드립니다. 건물 사진이 있다면 카카오톡으로 함께 보내주세요.
+            </p>
+            <ul className="mt-7 space-y-3">
+              {["하청 없이 부부가 직접 방문합니다", "방문 견적은 무료입니다", "세금계산서·현금영수증 발행 가능", "연락처는 응대 완료 후 파기합니다"].map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm font-semibold text-slate-700">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-primary">
+                    <Check className="h-3 w-3" strokeWidth={3} />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
+              <p className="text-xs font-bold text-muted-foreground">전화가 더 편하시다면</p>
+              <a href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`} className="mt-1 block text-xl font-extrabold text-primary">
+                {PHONE_NUMBER}
+              </a>
+              <p className="mt-0.5 text-xs font-semibold text-muted-foreground">평일 09:00 - 18:00</p>
+            </div>
+          </aside>
+
+          {/* 폼 카드 */}
+          <div className="bg-background md:overflow-hidden md:rounded-[1.75rem] md:border md:border-blue-100 md:bg-white md:shadow-sm">
+      <header className="sticky top-0 z-20 flex h-14 items-center gap-2 border-b border-blue-100 bg-white/95 px-2 backdrop-blur md:hidden">
         <button
           type="button"
           onClick={() => setLocation("/")}
@@ -120,7 +158,7 @@ export default function MobileQuote() {
         <h1 className="font-['GmarketSans'] text-[17px] font-extrabold text-foreground">무료 견적 문의</h1>
       </header>
 
-      <div className="px-5 pb-2 pt-5">
+      <div className="px-5 pb-2 pt-5 md:hidden">
         <p className="font-['Pretendard'] text-[11px] font-extrabold tracking-[0.2em] text-primary">
           FREE ESTIMATE
         </p>
@@ -258,6 +296,9 @@ export default function MobileQuote() {
           후기가 궁금하다면 공식 채널에서 확인해보세요
         </p>
         <ChannelLinks location="mobile_quote_channels" />
+      </div>
+          </div>
+        </div>
       </div>
     </div>
   );
