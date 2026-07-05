@@ -67,7 +67,12 @@ export const OFFICIAL_CHANNELS: readonly Channel[] = [
 function ChannelIcon({ channelKey }: { channelKey: string }) {
   switch (channelKey) {
     case "blog":
-      return <span className="font-['GmarketSans'] text-[19px] font-extrabold leading-none text-[#00c73c]">b</span>;
+      return (
+        <span className="flex items-center gap-[3px] leading-none text-[#00c73c]">
+          <span className="font-['GmarketSans'] text-[19px] font-extrabold">b</span>
+          <span className="h-[15px] w-[2.5px] rounded-full bg-[#00c73c]" />
+        </span>
+      );
     case "youtube":
       return <Play className="h-5 w-5 translate-x-[1px] fill-white text-white" />;
     case "instagram":
