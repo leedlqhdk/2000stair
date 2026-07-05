@@ -137,16 +137,16 @@ export default function MobileAbout() {
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
-          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 md:mx-auto md:max-w-3xl md:gap-10">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 md:mx-auto md:w-fit md:grid-cols-[auto_auto_auto] md:gap-12">
             <div className="flex flex-col items-end">
-              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
+              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary md:px-3 md:text-xs">
                 {husbandRole.badge}
               </span>
-              <ul className="mt-3 space-y-2.5">
+              <ul className="mt-3 space-y-2.5 md:mt-4 md:space-y-3">
                 {husbandRole.items.map((item) => (
                   <li
                     key={item}
-                    className="flex items-center justify-end gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
+                    className="flex items-center justify-end gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700 md:gap-2 md:text-[15px]"
                   >
                     {item}
                     <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
@@ -163,14 +163,14 @@ export default function MobileAbout() {
             />
 
             <div className="flex flex-col items-start">
-              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
+              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary md:px-3 md:text-xs">
                 {wifeRole.badge}
               </span>
-              <ul className="mt-3 space-y-2.5">
+              <ul className="mt-3 space-y-2.5 md:mt-4 md:space-y-3">
                 {wifeRole.items.map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
+                    className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700 md:gap-2 md:text-[15px]"
                   >
                     <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
                     {item}
@@ -280,9 +280,9 @@ export default function MobileAbout() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="px-5 pb-10 pt-2 md:pb-16 md:pt-4">
-        <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-800 p-6 text-center text-white md:mx-auto md:max-w-3xl md:rounded-[2rem] md:p-10">
+      {/* CTA (모바일 전용 — PC는 푸터가 대신함) */}
+      <section className="px-5 pb-10 pt-2 md:hidden">
+        <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-800 p-6 text-center text-white">
           <p className="break-keep font-['GmarketSans'] text-[16px] font-extrabold leading-snug md:text-2xl">
             계단청소는 단순한 청소가 아닙니다.
             <br />
