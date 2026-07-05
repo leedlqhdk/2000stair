@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Link, useLocation } from "wouter";
 import {
   AppWindow,
@@ -107,26 +108,29 @@ export default function MobileHome() {
 
       {/* PROCESS FLOW */}
       <section className="px-5 py-7">
-        <div className="flex items-start gap-1">
+        <div className="flex items-start">
           {processSteps.map((step, index) => (
-            <motion.div
-              key={step.title}
-              className="flex flex-1 flex-col items-center gap-2"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-            >
-              <div className="flex items-center gap-1">
-                {index > 0 && <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-primary/35 stroke-[2.6]" />}
+            <Fragment key={step.title}>
+              {index > 0 && (
+                <div className="flex h-11 w-5 shrink-0 items-center justify-center">
+                  <ArrowRight className="h-3.5 w-3.5 text-primary/35 stroke-[2.6]" />
+                </div>
+              )}
+              <motion.div
+                className="flex flex-1 flex-col items-center gap-2"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+              >
                 <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
                   <step.icon className="h-5 w-5" />
                 </span>
-              </div>
-              <span className="text-center text-[11.5px] font-bold leading-tight text-gray-700">
-                {step.title}
-              </span>
-            </motion.div>
+                <span className="text-center text-[11.5px] font-bold leading-tight text-gray-700">
+                  {step.title}
+                </span>
+              </motion.div>
+            </Fragment>
           ))}
         </div>
       </section>
