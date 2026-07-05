@@ -99,7 +99,7 @@ export default function MobileAbout() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className="font-['GmarketSans'] text-lg font-extrabold text-foreground md:text-2xl">우리가 시작한 이유</h2>
           <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700 md:mt-4 md:text-base md:leading-8">
@@ -123,7 +123,7 @@ export default function MobileAbout() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.16, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.7, delay: index * 0.18, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -4 }}
             >
               <CountUp value={stat.value} className="font-['GmarketSans'] text-xl font-extrabold text-primary md:text-3xl" />
@@ -139,7 +139,7 @@ export default function MobileAbout() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 md:mx-auto md:w-fit md:grid-cols-[auto_auto_auto] md:gap-12">
             <div className="flex flex-col items-end">
@@ -154,7 +154,7 @@ export default function MobileAbout() {
                     initial={{ opacity: 0, x: 12 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.15 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.55, delay: 0.2 + i * 0.16, ease: [0.22, 1, 0.36, 1] }}
                   >
                     {item}
                     <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
@@ -184,7 +184,7 @@ export default function MobileAbout() {
                     initial={{ opacity: 0, x: -12 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.15 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.55, delay: 0.2 + i * 0.16, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
                     {item}
@@ -209,7 +209,7 @@ export default function MobileAbout() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.16, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.7, delay: index * 0.18, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -4 }}
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 text-primary md:h-12 md:w-12">
@@ -235,7 +235,7 @@ export default function MobileAbout() {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.16, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.7, delay: index * 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-extrabold text-white ring-4 ring-blue-50">
                 {step.step}
@@ -261,7 +261,7 @@ export default function MobileAbout() {
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.16, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, delay: index * 0.18, ease: [0.22, 1, 0.36, 1] }}
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-[12px] font-extrabold text-white ring-4 ring-blue-50">
                   {step.step}

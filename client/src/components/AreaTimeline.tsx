@@ -125,7 +125,7 @@ export default function AreaTimeline({
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
+                  transition={{ duration: 0.6, delay: Math.min(index * 0.14, 0.7), ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className="absolute left-[5px] top-8 z-10 h-3.5 w-3.5 rounded-full border-[3px] border-white bg-primary shadow-sm ring-[3px] ring-blue-100 md:hidden" />
 

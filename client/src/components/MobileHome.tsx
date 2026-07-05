@@ -18,6 +18,7 @@ import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
 import ChannelLinks, { INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS } from "@/components/ChannelLinks";
 import VisitorCounter from "@/components/VisitorCounter";
+import Reveal from "@/components/Reveal";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -125,7 +126,7 @@ export default function MobileHome() {
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.06 }}
+                transition={{ duration: 0.6, delay: index * 0.16, ease: [0.22, 1, 0.36, 1] }}
               >
                 <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
                   <step.icon className="h-5 w-5" />
@@ -145,23 +146,24 @@ export default function MobileHome() {
           요즘 많이 찾는 서비스
         </h2>
         <div className="flex flex-col gap-3">
-          {popularServices.map((service) => (
-            <Link
-              key={service.title}
-              href={service.href}
-              className="flex items-center gap-3.5 rounded-2xl border border-blue-100 bg-white p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
-            >
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
-                <service.icon className="h-5 w-5" />
-              </span>
-              <span className="min-w-0 flex-1">
-                <h3 className="text-[15px] font-extrabold text-foreground">{service.title}</h3>
-                <p className={`mt-0.5 text-[12.5px] font-semibold ${service.free ? "text-primary" : "text-muted-foreground"}`}>
-                  {service.subtitle}
-                </p>
-              </span>
-              <ChevronRight className="h-4.5 w-4.5 shrink-0 text-blue-300" />
-            </Link>
+          {popularServices.map((service, i) => (
+            <Reveal key={service.title} index={i}>
+              <Link
+                href={service.href}
+                className="flex items-center gap-3.5 rounded-2xl border border-blue-100 bg-white p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
+                  <service.icon className="h-5 w-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <h3 className="text-[15px] font-extrabold text-foreground">{service.title}</h3>
+                  <p className={`mt-0.5 text-[12.5px] font-semibold ${service.free ? "text-primary" : "text-muted-foreground"}`}>
+                    {service.subtitle}
+                  </p>
+                </span>
+                <ChevronRight className="h-4.5 w-4.5 shrink-0 text-blue-300" />
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -207,14 +209,15 @@ export default function MobileHome() {
           </Link>
         </div>
         <div className="flex flex-wrap gap-2">
-          {areaChips.map((area) => (
-            <Link
-              key={area.label}
-              href={area.href}
-              className="rounded-full border border-blue-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-gray-700 transition active:bg-primary active:text-white active:border-primary"
-            >
-              {area.label}
-            </Link>
+          {areaChips.map((area, i) => (
+            <Reveal key={area.label} index={i} y={14}>
+              <Link
+                href={area.href}
+                className="block rounded-full border border-blue-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-gray-700 transition active:bg-primary active:text-white active:border-primary"
+              >
+                {area.label}
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
