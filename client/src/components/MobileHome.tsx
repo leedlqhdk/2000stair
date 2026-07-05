@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
-import ChannelLinks, { INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS } from "@/components/ChannelLinks";
+import ChannelLinks from "@/components/ChannelLinks";
 import VisitorCounter from "@/components/VisitorCounter";
 import Reveal from "@/components/Reveal";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
@@ -225,10 +225,7 @@ export default function MobileHome() {
       {/* OFFICIAL CHANNELS */}
       <section className="px-5 py-7">
         <h2 className="mb-4 font-['GmarketSans'] text-lg font-extrabold text-foreground">공식 채널</h2>
-        <ChannelLinks
-          location="mobile_home_channels"
-          channels={[INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS[1], OFFICIAL_CHANNELS[2]]}
-        />
+        <ChannelLinks location="mobile_home_channels" />
       </section>
 
       {/* PROMO */}

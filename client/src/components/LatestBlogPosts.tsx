@@ -72,8 +72,8 @@ export default function LatestBlogPosts({
 
   if (allPosts.length === 0) return null;
 
-  const blogChannel = OFFICIAL_CHANNELS[0];
-  const daangnChannel = OFFICIAL_CHANNELS[1];
+  const blogChannel = OFFICIAL_CHANNELS.find((c) => c.key === "blog") ?? OFFICIAL_CHANNELS[0];
+  const daangnChannel = OFFICIAL_CHANNELS.find((c) => c.key === "daangn") ?? OFFICIAL_CHANNELS[0];
 
   // PC 메인 페이지용: 흰 카드 안에서 최신 글이 아래에서 위로 자동 스크롤(무한 루프)
   if (variant === "timeline") {
