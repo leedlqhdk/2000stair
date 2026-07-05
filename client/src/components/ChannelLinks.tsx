@@ -70,7 +70,7 @@ function ChannelIcon({ channelKey }: { channelKey: string }) {
       return (
         <span className="flex items-center gap-[3px] leading-none text-[#00c73c]">
           <span className="font-['GmarketSans'] text-[19px] font-extrabold">b</span>
-          <span className="h-[15px] w-[2.5px] rounded-full bg-[#00c73c]" />
+          <span className="h-[15px] w-px rounded-full bg-[#00c73c]" />
         </span>
       );
     case "youtube":
