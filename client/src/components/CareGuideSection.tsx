@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CareGuideSectionProps {
   limit?: number;
@@ -11,7 +12,10 @@ interface CareGuideSectionProps {
 }
 
 export default function CareGuideSection({ limit, viewAllHref, layout = "grid" }: CareGuideSectionProps) {
-  const { data: postData } = trpc.blog.list.useQuery({ limit: 50, offset: 0 });
+  const { data: postData, isPending } = trpc.blog.list.useQuery(
+    { limit: 50, offset: 0 },
+    { staleTime: 5 * 60_000 }
+  );
 
   const allGuides = (postData?.posts ?? []).map((post) => ({
     id: String(post.id),
@@ -43,7 +47,33 @@ export default function CareGuideSection({ limit, viewAllHref, layout = "grid" }
           </p>
         </motion.div>
 
-        {guides.length === 0 ? (
+        {isPending ? (
+          layout === "list" ? (
+            <div className="mx-auto max-w-2xl divide-y divide-blue-100 overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="flex items-center gap-3.5 p-3 sm:gap-4 sm:p-4">
+                  <Skeleton className="h-14 w-14 shrink-0 rounded-xl sm:h-16 sm:w-16" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-3 w-1/3" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid gap-5 md:grid-cols-3">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
+                  <Skeleton className="aspect-[16/10] w-full rounded-none" />
+                  <div className="space-y-2 p-5">
+                    <Skeleton className="h-4 w-5/6" />
+                    <Skeleton className="h-3 w-1/2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        ) : guides.length === 0 ? (
           <p className="text-center text-muted-foreground py-10">
             등록된 관리정보가 아직 없습니다.
           </p>
