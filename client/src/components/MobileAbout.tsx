@@ -137,19 +137,19 @@ export default function MobileAbout() {
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
-          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
-            <div className="flex flex-col items-end">
-              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
-                {wifeRole.badge}
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2">
+            <div className="rounded-2xl border border-blue-100 bg-white p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.04)]">
+              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-extrabold text-primary">
+                {husbandRole.badge}
               </span>
               <ul className="mt-3 space-y-2.5">
-                {wifeRole.items.map((item) => (
+                {husbandRole.items.map((item) => (
                   <li
                     key={item}
-                    className="flex items-center justify-end gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
+                    className="flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-bold leading-tight text-slate-700"
                   >
-                    {item}
                     <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -158,19 +158,19 @@ export default function MobileAbout() {
             <img
               src="/booboo.webp"
               alt="이천계단지기 부부 캐릭터"
-              className="w-[150px] shrink-0 object-contain"
+              className="w-[92px] shrink-0 object-contain"
               loading="lazy"
             />
 
-            <div className="flex flex-col items-start">
-              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
-                {husbandRole.badge}
+            <div className="rounded-2xl border border-blue-100 bg-white p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.04)]">
+              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-extrabold text-primary">
+                {wifeRole.badge}
               </span>
               <ul className="mt-3 space-y-2.5">
-                {husbandRole.items.map((item) => (
+                {wifeRole.items.map((item) => (
                   <li
                     key={item}
-                    className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
+                    className="flex items-center gap-1.5 whitespace-nowrap text-[11.5px] font-bold leading-tight text-slate-700"
                   >
                     <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
                     {item}
