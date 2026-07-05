@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
-import ChannelLinks from "@/components/ChannelLinks";
+import ChannelLinks, { INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS } from "@/components/ChannelLinks";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -252,7 +252,10 @@ export default function MobileHome() {
       {/* OFFICIAL CHANNELS */}
       <section className="px-5 pb-9">
         <h2 className="mb-4 font-['GmarketSans'] text-lg font-extrabold text-foreground">공식 채널</h2>
-        <ChannelLinks location="mobile_home_channels" />
+        <ChannelLinks
+          location="mobile_home_channels"
+          channels={[INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS[1], OFFICIAL_CHANNELS[2]]}
+        />
       </section>
 
       {/* BOTTOM DOCK */}
