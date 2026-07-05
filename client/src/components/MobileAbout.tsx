@@ -3,6 +3,7 @@ import {
   ArrowRight,
   BadgeCheck,
   Camera,
+  Check,
   MessageCircle,
   Phone,
   UserCheck,
@@ -18,13 +19,13 @@ const stats = [
 ];
 
 const husbandRole = {
-  badge: "남편 | 현장 담당",
-  items: ["청소 경로 설계", "정기 청소 관리", "장비·세제 관리", "현장 품질 체크"],
+  badge: "남편 · 현장",
+  items: ["경로 설계", "정기 청소", "장비 관리", "품질 체크"],
 };
 
 const wifeRole = {
-  badge: "아내 | 운영 담당",
-  items: ["상담 및 견적", "스케줄 관리", "블로그·SNS 운영", "고객 관리"],
+  badge: "아내 · 운영",
+  items: ["상담·견적", "스케줄 관리", "SNS 운영", "고객 관리"],
 };
 
 const principles = [
@@ -126,40 +127,58 @@ export default function MobileAbout() {
           부부 소개
         </h2>
         <motion.div
-          className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3"
+          className="rounded-3xl border border-blue-100 bg-white p-5 shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
-          <div className="text-right">
-            <p className="break-keep text-[12px] font-extrabold text-foreground">{husbandRole.badge}</p>
-            <ul className="mt-2.5 space-y-2">
-              {husbandRole.items.map((item) => (
-                <li key={item} className="break-keep text-[11.5px] font-semibold text-muted-foreground">
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
+            <div className="flex flex-col items-end">
+              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
+                {wifeRole.badge}
+              </span>
+              <ul className="mt-3 space-y-2.5">
+                {wifeRole.items.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center justify-end gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
+                  >
+                    {item}
+                    <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <img
+              src="/images/couple-profile.jpg"
+              alt="이천계단지기 부부"
+              className="w-[138px] rounded-2xl object-cover ring-4 ring-blue-50"
+              loading="lazy"
+            />
+
+            <div className="flex flex-col items-start">
+              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
+                {husbandRole.badge}
+              </span>
+              <ul className="mt-3 space-y-2.5">
+                {husbandRole.items.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
+                  >
+                    <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <img
-            src="/images/couple-profile.jpg"
-            alt="이천계단지기 부부"
-            className="w-[150px] rounded-3xl border border-blue-100 object-cover shadow-[0_8px_24px_rgba(15,23,42,0.1)]"
-            loading="lazy"
-          />
-
-          <div>
-            <p className="break-keep text-[12px] font-extrabold text-foreground">{wifeRole.badge}</p>
-            <ul className="mt-2.5 space-y-2">
-              {wifeRole.items.map((item) => (
-                <li key={item} className="break-keep text-[11.5px] font-semibold text-muted-foreground">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <p className="mt-4 border-t border-blue-50 pt-3.5 text-center text-[11.5px] font-semibold text-muted-foreground">
+            상담부터 현장까지, 부부가 함께 책임집니다.
+          </p>
         </motion.div>
       </section>
 
