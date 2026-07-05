@@ -176,9 +176,6 @@ export default function MobileAbout() {
               </ul>
             </div>
           </div>
-
-      
-          </p>
         </motion.div>
       </section>
 
