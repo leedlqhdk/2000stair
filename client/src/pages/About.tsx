@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import MobileAbout from "@/components/MobileAbout";
 import SeoIntroSection from "@/components/SeoIntroSection";
 import BlogPostCards from "@/components/BlogPostCards";
 
@@ -17,7 +18,9 @@ export default function About() {
       <Navbar />
 
       <main>
-        <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
+        <MobileAbout />
+
+        <section className="hidden container max-w-6xl pt-24 pb-16 md:block md:pt-32 md:pb-24">
           <motion.section
             className="mb-14 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-7 shadow-sm md:mb-20 md:p-10"
             initial={{ opacity: 0, y: 28 }}
@@ -97,7 +100,9 @@ export default function About() {
           </section>
         </section>
 
-        <SeoIntroSection />
+        <div className="hidden md:block">
+          <SeoIntroSection />
+        </div>
       </main>
 
     </div>
