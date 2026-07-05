@@ -20,12 +20,12 @@ const stats = [
 
 const husbandRole = {
   badge: "남편 · 현장",
-  items: ["경로 설계", "정기 청소", "장비 관리", "품질 체크"],
+  items: ["상담·견적", "정기 청소", "장비 관리", "품질 체크"],
 };
 
 const wifeRole = {
   badge: "아내 · 운영",
-  items: ["상담·견적", "스케줄 관리", "SNS 운영", "고객 관리"],
+  items: ["마케팅", "홈페이지 운영", "블로그·SNS", "디자인"],
 };
 
 const principles = [
@@ -49,36 +49,41 @@ export default function MobileAbout() {
   return (
     <div className="md:hidden">
       {/* HERO */}
-      <section className="px-5 pb-2 pt-7">
-        <p className="text-[11px] font-extrabold tracking-[0.25em] text-primary">ABOUT US</p>
-        <h1 className="mt-3 break-keep font-['GmarketSans'] text-[1.9rem] font-extrabold leading-[1.2] text-foreground">
-          우리는
-          <br />
-          <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
-            계단을 지키는
-          </span>
-          <br />
-          부부입니다.
-        </h1>
-        <p className="mt-3.5 break-keep text-sm font-semibold leading-relaxed text-gray-700">
-          깨끗한 계단은 건물의 첫인상입니다.
-          <br />
-          이천에서 하청 없이 직접 관리합니다.
-        </p>
+      <section className="px-5 pb-4 pt-7">
+        <div className="flex items-center gap-4">
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-extrabold tracking-[0.25em] text-primary">ABOUT US</p>
+            <h1 className="mt-3 break-keep font-['GmarketSans'] text-[1.55rem] font-extrabold leading-[1.25] text-foreground">
+              우리는
+              <br />
+              <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
+                계단을 지키는
+              </span>
+              <br />
+              부부입니다.
+            </h1>
+            <p className="mt-3 break-keep text-[13px] font-semibold leading-relaxed text-gray-700">
+              깨끗한 계단은 건물의 첫인상입니다. 이천에서 하청 없이 직접 관리합니다.
+            </p>
+          </div>
+          <img
+            src="/images/couple-profile.jpg"
+            alt="이천계단지기 부부"
+            className="w-[148px] shrink-0 rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
+            loading="lazy"
+          />
+        </div>
         <button
           type="button"
           onClick={() => {
             trackConversion("quote_form_view", { location: "mobile_about_hero", label: "무료 방문견적 문의하기" });
             setLocation("/quote");
           }}
-          className="mt-5 inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-primary px-6 text-sm font-extrabold text-white shadow-lg shadow-primary/25"
+          className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-extrabold text-white shadow-lg shadow-primary/25"
         >
           무료 방문견적 문의하기
           <ArrowRight className="h-4 w-4" />
         </button>
-        <div className="mt-2 flex justify-center">
-          <img src="/booboo.webp" alt="이천계단지기 부부 캐릭터" className="w-64" loading="lazy" />
-        </div>
       </section>
 
       {/* 우리가 시작한 이유 */}
@@ -123,60 +128,40 @@ export default function MobileAbout() {
 
       {/* 부부 소개 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 text-center font-['GmarketSans'] text-lg font-extrabold text-foreground">
-          부부 소개
+        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
+          부부가 함께 관리합니다
         </h2>
         <motion.div
-          className="rounded-3xl border border-blue-100 bg-white p-5 shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
         >
-          <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
-            <div className="flex flex-col items-end">
-              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
-                {wifeRole.badge}
-              </span>
-              <ul className="mt-3 space-y-2.5">
-                {wifeRole.items.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center justify-end gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
-                  >
-                    {item}
-                    <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <img
-              src="/images/couple-profile.jpg"
-              alt="이천계단지기 부부"
-              className="w-[138px] rounded-2xl object-cover ring-4 ring-blue-50"
-              loading="lazy"
-            />
-
-            <div className="flex flex-col items-start">
-              <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
-                {husbandRole.badge}
-              </span>
-              <ul className="mt-3 space-y-2.5">
-                {husbandRole.items.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
-                  >
-                    <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="grid grid-cols-2 gap-2.5">
+            {[wifeRole, husbandRole].map((role) => (
+              <div
+                key={role.badge}
+                className="rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)]"
+              >
+                <span className="whitespace-nowrap rounded-full bg-blue-50 px-2.5 py-1 text-[10.5px] font-extrabold text-primary">
+                  {role.badge}
+                </span>
+                <ul className="mt-3 space-y-2.5">
+                  {role.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center gap-1.5 whitespace-nowrap text-[12px] font-bold leading-tight text-slate-700"
+                    >
+                      <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3.2} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
-          <p className="mt-4 border-t border-blue-50 pt-3.5 text-center text-[11.5px] font-semibold text-muted-foreground">
+          <p className="mt-4 text-center text-[11.5px] font-semibold text-muted-foreground">
             상담부터 현장까지, 부부가 함께 책임집니다.
           </p>
         </motion.div>
