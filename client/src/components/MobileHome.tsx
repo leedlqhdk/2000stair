@@ -219,6 +219,15 @@ export default function MobileHome() {
         </div>
       </section>
 
+      {/* OFFICIAL CHANNELS */}
+      <section className="px-5 py-7">
+        <h2 className="mb-4 font-['GmarketSans'] text-lg font-extrabold text-foreground">공식 채널</h2>
+        <ChannelLinks
+          location="mobile_home_channels"
+          channels={[INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS[1], OFFICIAL_CHANNELS[2]]}
+        />
+      </section>
+
       {/* PROMO */}
       <section className="px-5 pb-9 pt-2">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-blue-800 p-6 text-white">
@@ -255,15 +264,6 @@ export default function MobileHome() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* OFFICIAL CHANNELS */}
-      <section className="px-5 pb-9">
-        <h2 className="mb-4 font-['GmarketSans'] text-lg font-extrabold text-foreground">공식 채널</h2>
-        <ChannelLinks
-          location="mobile_home_channels"
-          channels={[INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS[1], OFFICIAL_CHANNELS[2]]}
-        />
       </section>
 
       {/* BOTTOM DOCK */}
