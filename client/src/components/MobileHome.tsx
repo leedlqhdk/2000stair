@@ -17,6 +17,7 @@ import {
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
 import ChannelLinks, { INSTAGRAM_CHANNEL, OFFICIAL_CHANNELS } from "@/components/ChannelLinks";
+import VisitorCounter from "@/components/VisitorCounter";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -103,6 +104,9 @@ export default function MobileHome() {
             <Phone className="h-4 w-4 text-primary" />
             전화 상담
           </a>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <VisitorCounter />
         </div>
       </section>
 

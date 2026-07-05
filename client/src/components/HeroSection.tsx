@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import { trackConversion } from "@/lib/analytics";
+import VisitorCounter from "@/components/VisitorCounter";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -89,7 +90,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </Link>
             </div>
 
-            <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
+            <VisitorCounter className="mt-4" />
+
+            <div className="mt-3 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
               {heroBadges.map((badge) => (
                 <span
                   key={badge}
