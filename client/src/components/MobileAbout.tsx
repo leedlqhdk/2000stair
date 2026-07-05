@@ -128,9 +128,6 @@ export default function MobileAbout() {
 
       {/* 부부 소개 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">
-          부부가 함께 관리합니다
-        </h2>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -179,10 +176,6 @@ export default function MobileAbout() {
               </ul>
             </div>
           </div>
-
-          <p className="mt-4 text-center text-[11.5px] font-semibold text-muted-foreground md:mt-7 md:text-sm">
-            상담부터 현장까지, 부부가 함께 책임집니다.
-          </p>
         </motion.div>
       </section>
 
