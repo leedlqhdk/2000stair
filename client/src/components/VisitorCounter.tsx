@@ -3,7 +3,7 @@
 // 실제 누적 방문자와 크게 어긋나면 BASE_COUNT를 Vercel 애널리틱스 수치로 맞춰주세요.
 const BASE_COUNT = 1245;
 const BASE_DATE = new Date("2026-07-05T00:00:00+09:00").getTime();
-const DAILY_GROWTH = 17;
+const DAILY_GROWTH = 24;
 
 export function getVisitorCount() {
   const days = Math.max(0, Math.floor((Date.now() - BASE_DATE) / 86_400_000));
