@@ -1,5 +1,5 @@
 import { Link, useParams } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
@@ -228,7 +228,8 @@ export default function BlogDetail() {
 
   const otherPosts = (listData?.posts ?? [])
     .filter((p) => p.id !== postId)
-    .slice(0, 4);
+    .slice(0, 8);
+  const [relatedPaused, setRelatedPaused] = useState(false);
 
   useEffect(() => {
     if (!post) return;
@@ -425,28 +426,51 @@ export default function BlogDetail() {
                 </Link>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-                {otherPosts.map((p) => (
-                  <Link
-                    key={p.id}
-                    href={`/blog/${p.id}`}
-                    aria-label={p.title}
-                    className="group aspect-square overflow-hidden rounded-2xl border border-blue-50 bg-blue-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
-                  >
-                    {p.thumbnail ? (
-                      <img
-                        src={p.thumbnail}
-                        alt={p.title}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center">
-                        <FileText className="h-7 w-7 text-blue-300" />
-                      </div>
-                    )}
-                  </Link>
-                ))}
+              {/* 1:1 썸네일 한 줄 가로 자동 스크롤 (무한 루프, 터치/호버 시 일시정지) */}
+              <div
+                className="relative overflow-hidden"
+                onMouseEnter={() => setRelatedPaused(true)}
+                onMouseLeave={() => setRelatedPaused(false)}
+                onTouchStart={() => setRelatedPaused(true)}
+                onTouchEnd={() => setRelatedPaused(false)}
+              >
+                <div
+                  className="flex w-max"
+                  style={{
+                    animation: `slideLeft ${Math.max(otherPosts.length * 4, 16)}s linear infinite`,
+                    animationPlayState: relatedPaused ? "paused" : "running",
+                  }}
+                >
+                  {[0, 1].map((half) => (
+                    <div key={half} className="flex gap-3 pr-3">
+                      {otherPosts.map((p) => (
+                        <Link
+                          key={`${half}-${p.id}`}
+                          href={`/blog/${p.id}`}
+                          aria-label={p.title}
+                          className="group block h-32 w-32 shrink-0 overflow-hidden rounded-2xl border border-blue-50 bg-blue-50 shadow-sm md:h-40 md:w-40"
+                        >
+                          {p.thumbnail ? (
+                            <img
+                              src={p.thumbnail}
+                              alt={p.title}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center">
+                              <FileText className="h-7 w-7 text-blue-300" />
+                            </div>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+
+                {/* 좌우 페이드 */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent" />
               </div>
             </div>
           )}
