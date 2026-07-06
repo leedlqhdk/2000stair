@@ -10,6 +10,7 @@ import {
   CalendarDays,
   Check,
   ExternalLink,
+  FileText,
   MessageCircle,
   Phone,
 } from "lucide-react";
@@ -220,6 +221,14 @@ export default function BlogDetail() {
 
   const { data: post, isLoading, error } = trpc.blog.getById.useQuery({ id: postId });
   const { data: allTags } = trpc.blog.tags.useQuery();
+  const { data: listData } = trpc.blog.list.useQuery(
+    { limit: 12, offset: 0 },
+    { staleTime: 5 * 60_000 }
+  );
+
+  const otherPosts = (listData?.posts ?? [])
+    .filter((p) => p.id !== postId)
+    .slice(0, 4);
 
   useEffect(() => {
     if (!post) return;
@@ -398,6 +407,51 @@ export default function BlogDetail() {
                   />
                 );
               })}
+            </div>
+          )}
+
+          {/* 다른 정보글 — 썸네일 카드 (CTA 위) */}
+          {otherPosts.length > 0 && (
+            <div className="mb-8">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-base font-extrabold text-foreground md:text-lg">
+                  다른 정보글도 확인해보세요
+                </h2>
+                <Link
+                  href="/guide"
+                  className="text-[13px] font-bold text-muted-foreground transition hover:text-primary"
+                >
+                  전체보기 →
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                {otherPosts.map((p) => (
+                  <Link
+                    key={p.id}
+                    href={`/blog/${p.id}`}
+                    className="group overflow-hidden rounded-2xl border border-blue-50 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden bg-blue-50">
+                      {p.thumbnail ? (
+                        <img
+                          src={p.thumbnail}
+                          alt={p.title}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                          <FileText className="h-7 w-7 text-blue-300" />
+                        </div>
+                      )}
+                    </div>
+                    <p className="line-clamp-2 p-3 text-[13px] font-bold leading-snug text-foreground transition-colors group-hover:text-primary md:text-sm">
+                      {p.title}
+                    </p>
+                  </Link>
+                ))}
+              </div>
             </div>
           )}
 
