@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import MobileAbout from "@/components/MobileAbout";
-import SeoIntroSection from "@/components/SeoIntroSection";
 
 export default function About() {
   return (
@@ -9,10 +8,6 @@ export default function About() {
 
       <main>
         <MobileAbout />
-
-        <div className="hidden md:block">
-          <SeoIntroSection />
-        </div>
       </main>
     </div>
   );

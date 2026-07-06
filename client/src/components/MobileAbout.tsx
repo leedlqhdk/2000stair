@@ -298,9 +298,9 @@ export default function MobileAbout() {
         </div>
       </section>
 
-      {/* CTA (모바일 전용 — PC는 푸터가 대신함) */}
-      <section className="px-5 pb-10 pt-2 md:hidden">
-        <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-800 p-6 text-center text-white">
+      {/* CTA — 소개 페이지 마무리 (모바일·PC 공통) */}
+      <section className="px-5 pb-10 pt-2 md:mx-auto md:max-w-5xl md:px-6 md:pb-20 md:pt-6">
+        <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-800 p-6 text-center text-white md:rounded-[2rem] md:p-12">
           <p className="break-keep font-['GmarketSans'] text-[16px] font-extrabold leading-snug md:text-2xl">
             계단청소는 단순한 청소가 아닙니다.
             <br />
