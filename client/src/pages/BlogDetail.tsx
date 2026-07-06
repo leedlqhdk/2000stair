@@ -91,11 +91,10 @@ function renderInline(text: string) {
 
 // 관리자 페이지에서 올린 마크다운 느낌의 본문을 보기 좋게 렌더링
 function renderContent(raw: string) {
-  // 괄호로 감싼 URL은 괄호를 벗겨 별도 줄로 분리 → 버튼으로 렌더링
-  const content = decodeEntities(raw).replace(
-    /\(\s*(https?:\/\/[^\s)]+)\s*\)/g,
-    "\n$1\n"
-  );
+  // [라벨](URL) 마크다운 링크와 괄호로 감싼 URL은 URL만 별도 줄로 분리 → 버튼으로 렌더링
+  const content = decodeEntities(raw)
+    .replace(/\[[^\]]*\]\s*\(\s*(https?:\/\/[^\s)]+)\s*\)/g, "\n$1\n")
+    .replace(/\(\s*(https?:\/\/[^\s)]+)\s*\)/g, "\n$1\n");
 
   const blocks: ReactNode[] = [];
   let listItems: string[] = [];
@@ -187,7 +186,8 @@ function renderContent(raw: string) {
       continue;
     }
 
-    if (trimmed === "") {
+    // 링크 라벨만 남은 줄([네이버 블로그 원문 보기] 등)은 표시하지 않음
+    if (trimmed === "" || /^\[[^\]]*\]$/.test(trimmed)) {
       flushList();
       flushPara();
       continue;
