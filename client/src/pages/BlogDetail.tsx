@@ -430,25 +430,21 @@ export default function BlogDetail() {
                   <Link
                     key={p.id}
                     href={`/blog/${p.id}`}
-                    className="group overflow-hidden rounded-2xl border border-blue-50 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+                    aria-label={p.title}
+                    className="group aspect-square overflow-hidden rounded-2xl border border-blue-50 bg-blue-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
                   >
-                    <div className="aspect-[4/3] overflow-hidden bg-blue-50">
-                      {p.thumbnail ? (
-                        <img
-                          src={p.thumbnail}
-                          alt={p.title}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                          <FileText className="h-7 w-7 text-blue-300" />
-                        </div>
-                      )}
-                    </div>
-                    <p className="line-clamp-2 p-3 text-[13px] font-bold leading-snug text-foreground transition-colors group-hover:text-primary md:text-sm">
-                      {p.title}
-                    </p>
+                    {p.thumbnail ? (
+                      <img
+                        src={p.thumbnail}
+                        alt={p.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <FileText className="h-7 w-7 text-blue-300" />
+                      </div>
+                    )}
                   </Link>
                 ))}
               </div>
