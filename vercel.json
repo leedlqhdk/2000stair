@@ -7,6 +7,8 @@
   ],
   "rewrites": [
     { "source": "/api/trpc/:path*", "destination": "/api/trpc" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/blog/:id(\\d+)", "destination": "/api/blog-og?id=:id" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

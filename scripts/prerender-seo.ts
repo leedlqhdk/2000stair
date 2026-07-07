@@ -6,7 +6,6 @@ import { daewolPosts } from "../client/src/data/areas/daewol";
 import { downtownPosts } from "../client/src/data/areas/downtown";
 import { majangPosts } from "../client/src/data/areas/majang";
 import type { AreaPost } from "../client/src/hooks/useAreaPosts";
-import type { SeoProps } from "../client/src/components/Seo";
 import { getWorkSeo } from "../client/src/lib/workSeo";
 import { getWorkSlug } from "../client/src/lib/workSlug";
 
@@ -15,7 +14,8 @@ const SITE_URL = "https://2000stair.kr";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPublic = path.resolve(__dirname, "../dist/public");
 const indexHtmlPath = path.join(distPublic, "index.html");
-const sitemapPath = path.join(distPublic, "sitemap.xml");
+// 최종 /sitemap.xml은 api/sitemap.ts가 이 베이스에 DB 정보글을 합쳐 동적으로 응답한다
+const sitemapPath = path.join(distPublic, "sitemap-base.xml");
 
 const routes = [
   ...Object.keys(generalSeoByPath),
@@ -221,114 +221,6 @@ async function fetchWorkPosts(): Promise<AreaPost[]> {
   }
 }
 
-// --- DB blog posts fetch (via the public tRPC endpoint on the live site) ---
-
-type BlogPost = {
-  id: number;
-  title: string;
-  content: string;
-  thumbnail?: string | null;
-  seoTitle?: string | null;
-  seoDescription?: string | null;
-  seoKeywords?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-};
-
-async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const databaseUrl = process.env.DATABASE_URL;
-
-  if (!databaseUrl) return [];
-
-  try {
-    const { neon } = await import("@neondatabase/serverless");
-    const sql = neon(databaseUrl);
-
-    const rows = (await sql`
-      SELECT id, title, content, thumbnail,
-             seo_title AS "seoTitle",
-             seo_description AS "seoDescription",
-             seo_keywords AS "seoKeywords",
-             "createdAt", "updatedAt"
-      FROM posts
-      WHERE published = 'published'
-      ORDER BY "createdAt" DESC
-      LIMIT 50
-    `) as Array<Record<string, unknown>>;
-
-    return rows.map((row) => ({
-      id: Number(row.id),
-      title: String(row.title ?? ""),
-      content: String(row.content ?? ""),
-      thumbnail: (row.thumbnail as string | null) ?? null,
-      seoTitle: (row.seoTitle as string | null) ?? null,
-      seoDescription: (row.seoDescription as string | null) ?? null,
-      seoKeywords: (row.seoKeywords as string | null) ?? null,
-      createdAt: row.createdAt ? new Date(row.createdAt as string).toISOString() : null,
-      updatedAt: row.updatedAt ? new Date(row.updatedAt as string).toISOString() : null,
-    }));
-  } catch (error) {
-    console.warn("prerender-seo: DB blog fetch failed, skipping blog pages", error);
-    return [];
-  }
-}
-
-function blogExcerpt(content: string) {
-  const text = content
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/[#>*`_]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  return text.length > 140 ? `${text.slice(0, 140)}…` : text;
-}
-
-function toIsoDate(value: string | null | undefined) {
-  if (!value) return undefined;
-
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
-}
-
-function getBlogSeo(post: BlogPost): SeoProps {
-  const canonical = `${SITE_URL}/blog/${post.id}`;
-  const title = post.seoTitle || `${post.title} | 이천계단지기`;
-  const description =
-    post.seoDescription || `이천계단청소 전문 이천계단지기. ${blogExcerpt(post.content)}`;
-  // Thumbnails may be stored as data: URIs (inline base64) which are invalid
-  // as og:image and would bloat the <head>; only use real http(s) or path URLs.
-  const thumb = post.thumbnail ?? "";
-  const image = thumb.startsWith("http")
-    ? thumb
-    : thumb.startsWith("/")
-      ? `${SITE_URL}${thumb}`
-      : undefined;
-  const datePublished = toIsoDate(post.createdAt);
-  const dateModified = toIsoDate(post.updatedAt ?? post.createdAt);
-
-  return {
-    title,
-    description,
-    canonical,
-    keywords: post.seoKeywords || undefined,
-    image,
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "@id": `${canonical}#post`,
-      headline: post.title,
-      description,
-      url: canonical,
-      mainEntityOfPage: canonical,
-      ...(image ? { image } : {}),
-      ...(datePublished ? { datePublished } : {}),
-      ...(dateModified ? { dateModified } : {}),
-      author: { "@type": "Organization", name: "이천계단지기", url: `${SITE_URL}/` },
-      publisher: { "@id": `${SITE_URL}/#business` },
-    },
-  };
-}
-
 // --- HTML helpers ---
 
 function escapeHtml(value: string) {
@@ -452,28 +344,12 @@ async function main() {
     sitemapEntries.push({ path: `/work/${slug}`, lastmod: post.date.replace(/\./g, "-") });
   }
 
-  const blogPosts = await fetchBlogPosts();
-  let blogCount = 0;
-
-  for (const post of blogPosts) {
-    const seo = getBlogSeo(post);
-    const html = applySeoToHtml(baseHtml, seo);
-    const outDir = path.join(distPublic, "blog", String(post.id));
-    mkdirSync(outDir, { recursive: true });
-    writeFileSync(path.join(outDir, "index.html"), html, "utf-8");
-    count += 1;
-    blogCount += 1;
-
-    sitemapEntries.push({
-      path: `/blog/${post.id}`,
-      lastmod: toIsoDate(post.updatedAt ?? post.createdAt) ?? new Date().toISOString().slice(0, 10),
-    });
-  }
-
+  // 정보글(/blog/:id)은 api/blog-og.ts가 요청 시점에 메타를 주입하므로
+  // 빌드 시점 프리렌더에서 제외한다 (새 글·수정이 재배포 없이 반영되도록).
   appendWorkUrlsToSitemap(sitemapEntries);
 
   console.log(
-    `prerender-seo: wrote ${count} static SEO pages (${seenSlugs.size} work records, ${blogCount} blog posts)`
+    `prerender-seo: wrote ${count} static SEO pages (${seenSlugs.size} work records)`
   );
 }
 
