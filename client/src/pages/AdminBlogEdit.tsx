@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, ChevronDown, ChevronUp, ExternalLink, Plus, Sparkles, Upload, Wand2, X } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronUp, ExternalLink, Eye, Plus, Sparkles, Upload, Wand2, X } from "lucide-react";
 import { optimizeImage, formatBytes } from "@/lib/imageOptimizer";
+import PostContent from "@/components/PostContent";
 
 type ImageItem = { url: string; alt: string };
 
@@ -42,6 +43,7 @@ export default function AdminBlogEdit() {
   const [seoKeywords, setSeoKeywords] = useState("");
   const [showSeo, setShowSeo] = useState(false);
   const [uploadNote, setUploadNote] = useState("");
+  const [showPreview, setShowPreview] = useState(true);
 
   const thumbInputRef = useRef<HTMLInputElement>(null);
   const imgInputRef = useRef<HTMLInputElement>(null);
@@ -266,7 +268,41 @@ export default function AdminBlogEdit() {
         <div>
           <Label className="mb-1 block">내용 *</Label>
           <Textarea value={content} onChange={(event) => setContent(event.target.value)} rows={18} placeholder="정보글 본문을 작성하거나 네이버 링크로 자동 변환해보세요." />
+          <p className="mt-1.5 text-xs text-gray-400">
+            ## 소제목 · - 목록 · **굵게** · 링크는 홈페이지에서 자동으로 예쁘게 표시돼요.
+          </p>
         </div>
+
+        {/* 홈페이지 미리보기 — 실제 정보글 페이지와 동일한 렌더링 */}
+        <section className="overflow-hidden rounded-xl border border-gray-200">
+          <button
+            type="button"
+            onClick={() => setShowPreview(!showPreview)}
+            className="flex w-full items-center justify-between bg-gray-50 px-4 py-3"
+          >
+            <span className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <Eye className="h-4 w-4 text-blue-500" />
+              홈페이지 미리보기
+            </span>
+            {showPreview ? <ChevronUp className="h-4 w-4 text-gray-400" /> : <ChevronDown className="h-4 w-4 text-gray-400" />}
+          </button>
+          {showPreview && (
+            <div className="bg-blue-50/40 p-4">
+              {content.trim() ? (
+                <div className="rounded-2xl border border-blue-50 bg-white p-5 shadow-sm md:p-8">
+                  {title && (
+                    <h1 className="mb-6 text-2xl font-extrabold leading-snug text-foreground">{title}</h1>
+                  )}
+                  <PostContent content={content} />
+                </div>
+              ) : (
+                <p className="py-8 text-center text-sm text-gray-400">
+                  내용을 입력하면 홈페이지에 보이는 모습 그대로 미리보기가 나타나요.
+                </p>
+              )}
+            </div>
+          )}
+        </section>
 
         <div>
           <Label className="mb-1 block">추가 사진</Label>
