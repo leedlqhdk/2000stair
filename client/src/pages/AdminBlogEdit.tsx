@@ -101,6 +101,7 @@ export default function AdminBlogEdit() {
       toast.success("게시글이 저장됐어요.");
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
+      utils.blog.listLite.invalidate();
       navigate("/admin/blog");
     },
     onError: (e) => toast.error(e.message),
@@ -111,6 +112,7 @@ export default function AdminBlogEdit() {
       toast.success("게시글이 수정됐어요.");
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
+      utils.blog.listLite.invalidate();
       navigate("/admin/blog");
     },
     onError: (e) => toast.error(e.message),

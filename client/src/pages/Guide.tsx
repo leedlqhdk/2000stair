@@ -29,7 +29,7 @@ function toSummary(seoDescription?: string | null, content?: string | null) {
 }
 
 export default function Guide() {
-  const { data, isPending } = trpc.blog.list.useQuery(
+  const { data, isPending } = trpc.blog.listLite.useQuery(
     { limit: 50, offset: 0 },
     { staleTime: 5 * 60_000 }
   );
@@ -41,7 +41,7 @@ export default function Guide() {
         id: String(post.id),
         title: post.title,
         thumbnail: post.thumbnail || "",
-        summary: toSummary(post.seoDescription, post.content),
+        summary: toSummary(post.seoDescription, post.excerpt),
         category: getCategory(post.title),
         href: `/blog/${post.id}`,
       })),

@@ -34,6 +34,7 @@ export default function AdminBlog() {
       toast.success("게시글이 삭제되었습니다.");
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
+      utils.blog.listLite.invalidate();
     },
     onError: (e) => toast.error(e.message),
   });
@@ -42,6 +43,7 @@ export default function AdminBlog() {
     onSuccess: () => {
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
+      utils.blog.listLite.invalidate();
     },
     onError: (e) => toast.error(e.message),
   });

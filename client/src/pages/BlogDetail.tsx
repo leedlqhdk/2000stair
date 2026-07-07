@@ -221,7 +221,7 @@ export default function BlogDetail() {
 
   const { data: post, isLoading, error } = trpc.blog.getById.useQuery({ id: postId });
   const { data: allTags } = trpc.blog.tags.useQuery();
-  const { data: listData } = trpc.blog.list.useQuery(
+  const { data: listData } = trpc.blog.listLite.useQuery(
     { limit: 12, offset: 0 },
     { staleTime: 5 * 60_000 }
   );

@@ -12,7 +12,7 @@ interface CareGuideSectionProps {
 }
 
 export default function CareGuideSection({ limit, viewAllHref, layout = "grid" }: CareGuideSectionProps) {
-  const { data: postData, isPending } = trpc.blog.list.useQuery(
+  const { data: postData, isPending } = trpc.blog.listLite.useQuery(
     { limit: 50, offset: 0 },
     { staleTime: 5 * 60_000 }
   );
