@@ -11,6 +11,7 @@ import { notifyOwner } from "./_core/notification.js";
 import { blogRouter } from "./appBlogRouter.js";
 import { areaPostsRouter } from "./appAreaPostsRouter.js";
 import { contentPostsRouter } from "./appContentPostsRouter.js";
+import { reviewsRouter } from "./appReviewsRouter.js";
 import { ENV } from "./_core/env.js";
 import { sdk } from "./_core/sdk.js";
 
@@ -63,6 +64,7 @@ export const appRouter = router({
   blog: blogRouter,
   areaPosts: areaPostsRouter,
   contentPosts: contentPostsRouter,
+  reviews: reviewsRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     passwordLogin: publicProcedure

@@ -120,6 +120,9 @@ export default function AdminBlog() {
           <p className="text-sm text-gray-400 mt-1">총 {posts?.length ?? 0}개의 게시글</p>
         </div>
         <div className="flex gap-2">
+          <Link href="/admin/reviews">
+            <Button variant="outline" size="sm">후기 관리</Button>
+          </Link>
           <Link href="/admin/quotes">
             <Button variant="outline" size="sm">견적 관리</Button>
           </Link>

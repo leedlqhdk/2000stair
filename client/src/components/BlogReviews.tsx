@@ -1,10 +1,12 @@
 import { Star, ShieldCheck, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { trpc } from "@/lib/trpc";
 
-const reviewCards = [
+// DB에 후기가 없을 때 사용하는 기본 후기 (관리자 페이지 /admin/reviews 에서 관리)
+const fallbackReviews = [
   {
     platform: "네이버 리뷰",
-    dotColor: "bg-[#35b957]",
+    dotColor: "#35b957",
     score: "4.9",
     quote: "정기관리 맡기고 나서 계단이 훨씬 안정적으로 깔끔해졌어요.",
     detail: "신둔면",
@@ -12,7 +14,7 @@ const reviewCards = [
   },
   {
     platform: "숨고 리뷰",
-    dotColor: "bg-[#6b4eff]",
+    dotColor: "#6b4eff",
     score: "5.0",
     quote: "오래된 빌라 청소도 결과물 완성도가 높았어요.",
     detail: "마장면",
@@ -20,7 +22,7 @@ const reviewCards = [
   },
   {
     platform: "당근 후기",
-    dotColor: "bg-[#f47a22]",
+    dotColor: "#f47a22",
     score: "5.0",
     quote: "사진 보내고 바로 상담돼서 편했고 빠르게 답변드려요 :)",
     detail: "동네 주민 후기",
@@ -34,6 +36,12 @@ type BlogReviewsProps = {
 
 export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
   const isDark = variant === "dark";
+
+  const { data: dbReviews } = trpc.reviews.list.useQuery(undefined, {
+    staleTime: 5 * 60_000,
+    retry: 1,
+  });
+  const reviewCards = dbReviews && dbReviews.length > 0 ? dbReviews : fallbackReviews;
 
   const titleClass = isDark ? "text-white" : "text-foreground";
   const descriptionClass = isDark ? "text-white/68" : "text-muted-foreground";
@@ -75,7 +83,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
         <div className="grid gap-4 md:grid-cols-3">
           {reviewCards.map((review, i) => (
             <motion.div
-              key={review.platform}
+              key={`${review.platform}-${i}`}
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -85,7 +93,10 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
               <div className={`flex flex-1 flex-col rounded-[1.5rem] border p-6 transition-all duration-200 md:p-7 ${cardClass}`}>
                 <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${review.dotColor}`} />
+                    <span
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: review.dotColor }}
+                    />
                     <span className={`text-[15px] font-extrabold ${platformTextClass}`}>
                       {review.platform}
                     </span>
