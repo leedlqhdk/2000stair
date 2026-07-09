@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
-const DEFAULT_TITLE = "이천계단청소 전문관리 | 이천계단지기";
+const DEFAULT_TITLE = "이천계단지기 | 이천 계단청소·유리창청소·사무실청소 전문";
 const DEFAULT_DESCRIPTION =
-  "이천계단지기는 빌라·상가 공동현관, 계단, 유리, 화장실을 하청 없이 부부가 직접 관리하는 공용공간 정기청소 전문 브랜드입니다.";
+  "이천 계단청소, 유리창청소, 사무실청소 전문. 대표가 직접 관리하며 정기관리, 작업 전후 사진 제공, 깔끔한 건물 관리를 약속합니다.";
 const DEFAULT_KEYWORDS =
-  "이천계단청소, 이천계단청소업체, 이천계단청소비용, 계단청소, 이천빌라청소, 상가청소, 이천청소, 계단청소업체, 계단청소비용, 이천청소업체, 정기청소, 계단청소구독, 빌라계단청소, 상가계단청소, 유리청소, 화장실청소, 이천유리청소";
+  "이천계단청소, 이천계단청소업체, 이천계단청소비용, 계단청소, 이천빌라청소, 사무실청소, 이천사무실청소, 유리창청소, 이천유리창청소, 이천청소, 계단청소업체, 계단청소비용, 이천청소업체, 정기청소, 계단청소구독, 빌라계단청소, 유리청소, 이천유리청소";
 const DEFAULT_URL = "https://2000stair.kr/";
-const DEFAULT_IMAGE = "https://2000stair.kr/images/icheon-sindun-stair-cleaning.webp";
+const DEFAULT_IMAGE = "https://2000stair.kr/images/og-image.webp";
 
 export type SeoProps = {
   title: string;
@@ -69,6 +69,7 @@ function applySeo({ title, description, canonical, keywords, image, jsonLd }: Se
   setMeta('meta[property="og:description"]', { property: "og:description" }, description);
   setMeta('meta[property="og:url"]', { property: "og:url" }, canonical);
   setMeta('meta[property="og:image"]', { property: "og:image" }, image ?? DEFAULT_IMAGE);
+  setMeta('meta[property="og:image:type"]', { property: "og:image:type" }, "image/webp");
   setMeta('meta[name="twitter:title"]', { name: "twitter:title" }, title);
   setMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description);
   setMeta('meta[name="twitter:image"]', { name: "twitter:image" }, image ?? DEFAULT_IMAGE);
