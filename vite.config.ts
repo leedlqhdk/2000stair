@@ -21,6 +21,19 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // 초기 로딩 속도를 위해 큰 라이브러리를 별도 청크로 분리 (병렬 다운로드 + 캐시 재사용)
+        manualChunks(id: string) {
+          if (!id.includes("node_modules")) return undefined;
+          if (id.includes("framer-motion")) return "vendor-motion";
+          if (id.includes("@tanstack") || id.includes("@trpc") || id.includes("superjson")) return "vendor-query";
+          if (id.includes("lucide-react")) return "vendor-icons";
+          if (/node_modules\/(react|react-dom|scheduler)\//.test(id) || id.includes("wouter")) return "vendor-react";
+          return undefined;
+        },
+      },
+    },
   },
   server: {
     host: true,

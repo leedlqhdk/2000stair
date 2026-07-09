@@ -1,46 +1,32 @@
-import { Star, ShieldCheck, ChevronRight } from "lucide-react";
+import { Star, ShieldCheck, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import BlogPostCards from "@/components/BlogPostCards";
+import { trpc } from "@/lib/trpc";
 
-const reviewCards = [
+// DB에 후기가 없을 때 사용하는 기본 후기 (관리자 페이지 /admin/reviews 에서 관리)
+const fallbackReviews = [
   {
     platform: "네이버 리뷰",
-    mark: "N",
-    bgColor: "bg-[#35b957]",
+    dotColor: "#35b957",
     score: "4.9",
-    scoreColor: "text-[#35b957]",
-    scoreBg: "bg-[#35b957]/10",
     quote: "정기관리 맡기고 나서 계단이 훨씬 안정적으로 깔끔해졌어요.",
-    detail: "신둔면 · 네이버 플레이스",
-    buttonColor: "border-[#35b957] text-[#35b957] hover:bg-[#35b957]/5",
+    detail: "신둔면",
     url: "https://naver.me/xmB4q3oq",
-    buttonLabel: "네이버 리뷰 전체보기",
   },
   {
     platform: "숨고 리뷰",
-    mark: "S",
-    bgColor: "bg-[#6b4eff]",
+    dotColor: "#6b4eff",
     score: "5.0",
-    scoreColor: "text-[#6b4eff]",
-    scoreBg: "bg-[#6b4eff]/10",
     quote: "오래된 빌라 청소도 결과물 완성도가 높았어요.",
-    detail: "마장면 · 숨고",
-    buttonColor: "border-[#6b4eff] text-[#6b4eff] hover:bg-[#6b4eff]/5",
+    detail: "마장면",
     url: "https://soomgo.com/profile/users/3729049",
-    buttonLabel: "숨고 후기 전체보기",
   },
   {
     platform: "당근 후기",
-    mark: "d",
-    bgColor: "bg-[#f47a22]",
+    dotColor: "#f47a22",
     score: "5.0",
-    scoreColor: "text-[#f47a22]",
-    scoreBg: "bg-[#f47a22]/10",
-    quote: "사진 보내고 바로 상담돼서 편했고 응대도 부담 없이 빨랐어요.",
-    detail: "동네 주민 후기 · 당근",
-    buttonColor: "border-[#f47a22] text-[#f47a22] hover:bg-[#f47a22]/5",
+    quote: "사진 보내고 바로 상담돼서 편했고 빠르게 답변드려요 :)",
+    detail: "동네 주민 후기",
     url: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
-    buttonLabel: "당근 후기 전체보기",
   },
 ];
 
@@ -51,12 +37,18 @@ type BlogReviewsProps = {
 export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
   const isDark = variant === "dark";
 
+  const { data: dbReviews } = trpc.reviews.list.useQuery(undefined, {
+    staleTime: 5 * 60_000,
+    retry: 1,
+  });
+  const reviewCards = dbReviews && dbReviews.length > 0 ? dbReviews : fallbackReviews;
+
   const titleClass = isDark ? "text-white" : "text-foreground";
   const descriptionClass = isDark ? "text-white/68" : "text-muted-foreground";
   const cardClass = isDark
     ? "border-white/15 bg-white/[0.08] backdrop-blur-xl"
     : "border-gray-100 bg-white shadow-[0_4px_24px_rgba(15,23,42,0.06)]";
-  const quoteClass = isDark ? "text-white/85" : "text-gray-700";
+  const quoteClass = isDark ? "text-white/85" : "text-slate-800";
   const platformTextClass = isDark ? "text-white/80" : "text-gray-700";
   const detailClass = isDark ? "text-white/45" : "text-muted-foreground";
   const footerClass = isDark ? "text-white/38" : "text-gray-400";
@@ -70,18 +62,16 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        {/* Header */}
         <div className="mb-8 text-center">
           <p className="mb-2 text-xs font-extrabold tracking-[0.28em] text-primary">
             REAL REVIEW
           </p>
           <h3 className={`text-2xl font-extrabold leading-tight md:text-3xl ${titleClass}`}>
-            고객이 먼저 추천하는{" "}
-            <span className="text-primary">이천계단지기</span>
+            고객이 <span className="text-primary">먼저 추천하는</span> 이유
           </h3>
-          <div className="mt-4 flex items-center justify-center gap-1">
+          <div className="mt-4 flex items-center justify-center gap-1.5">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
+              <Star key={i} className="h-6 w-6 fill-primary text-primary" />
             ))}
             <span className={`ml-2 text-2xl font-extrabold ${titleClass}`}>5.0</span>
           </div>
@@ -90,95 +80,68 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
           </p>
         </div>
 
-        {/* Review Cards — 모바일 세로, 데스크탑 3열 */}
         <div className="grid gap-4 md:grid-cols-3">
           {reviewCards.map((review, i) => (
             <motion.div
-              key={review.platform}
+              key={`${review.platform}-${i}`}
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
               className="flex flex-col"
             >
-              <div className={`flex flex-1 flex-col rounded-2xl border p-5 transition-all duration-200 ${cardClass}`}>
-                {/* Platform row */}
-                <div className="mb-3 flex items-center justify-between">
+              <div className={`flex flex-1 flex-col rounded-[1.5rem] border p-6 transition-all duration-200 md:p-7 ${cardClass}`}>
+                <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black text-white shadow-sm ${review.bgColor}`}
-                    >
-                      {review.mark}
-                    </span>
-                    <span className={`text-sm font-bold ${platformTextClass}`}>
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: review.dotColor }}
+                    />
+                    <span className={`text-[15px] font-extrabold ${platformTextClass}`}>
                       {review.platform}
                     </span>
                   </div>
-                  <span
-                    className={`rounded-full px-2.5 py-0.5 text-sm font-extrabold ${review.scoreColor} ${review.scoreBg}`}
-                  >
+                  <span className="inline-flex items-center gap-1 text-[15px] font-extrabold text-primary">
+                    <Star className="h-4 w-4 fill-primary text-primary" />
                     {review.score}
                   </span>
                 </div>
 
-                {/* Stars */}
-                <div className="mb-3 flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-
-                {/* Quote */}
-                <p className={`mb-2 flex-1 text-sm font-semibold leading-relaxed ${quoteClass}`}>
-                  "{review.quote}"
+                <p className={`mb-5 flex-1 text-[16.5px] font-bold leading-relaxed ${quoteClass}`}>
+                  “{review.quote}”
                 </p>
 
-                {/* Detail */}
-                <p className={`mb-4 text-xs ${detailClass}`}>{review.detail}</p>
+                <div className="mb-6 flex items-center gap-2.5">
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
+                    ))}
+                  </div>
+                  <span className={`text-[13px] font-semibold ${detailClass}`}>{review.detail}</span>
+                </div>
 
-                {/* Button */}
                 <a
                   href={review.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex w-full items-center justify-center gap-1 rounded-xl border py-2.5 text-sm font-bold transition-all duration-200 ${review.buttonColor}`}
+                  className={`flex w-full items-center justify-center gap-1.5 rounded-full border py-3.5 text-[15px] font-bold transition-all duration-200 ${
+                    isDark
+                      ? "border-white/25 text-white hover:bg-white/10"
+                      : "border-slate-200 text-primary hover:bg-blue-50"
+                  }`}
                 >
-                  {review.buttonLabel}
-                  <ChevronRight className="h-3.5 w-3.5" />
+                  전체보기
+                  <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Trust footer */}
         <p className={`mt-4 flex items-center justify-center gap-1.5 text-xs ${footerClass}`}>
           <ShieldCheck className="h-3.5 w-3.5" />
           실제 플랫폼에 등록된 고객 후기만 보여드립니다.
         </p>
-      </motion.div>
-
-      {/* Field Archive */}
-      <motion.div
-        className="mx-auto max-w-6xl"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="mb-8 text-center">
-          <p className="mb-3 text-sm font-bold tracking-[0.25em] text-primary">
-            FIELD ARCHIVE
-          </p>
-          <h2 className={`mb-4 text-3xl font-bold md:text-4xl ${titleClass}`}>
-            실제 작업 기록
-          </h2>
-          <p className={`text-base leading-relaxed md:text-lg ${descriptionClass}`}>
-            이천계단지기의 현장 기록은 네이버 블로그에 꾸준히 남기고 있습니다.
-          </p>
-        </div>
-
-        <BlogPostCards />
       </motion.div>
     </div>
   );

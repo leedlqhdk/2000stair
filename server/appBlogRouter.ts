@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { posts, postTags } from "../drizzle/schema.js";
 import { getDb } from "./db.js";
@@ -475,6 +475,42 @@ export const blogRouter = router({
 
       const filtered = parsed.filter((post) => post.tags.includes(tag[0].id));
       return { posts: filtered, total: filtered.length };
+    }),
+
+  // 목록 화면용 경량 응답 — 전체 본문 대신 요약용 앞부분(300자)만 내려보낸다
+  listLite: publicProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(50).default(12),
+        offset: z.number().min(0).default(0),
+      })
+    )
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return { posts: [] };
+
+      const rows = await db
+        .select({
+          id: posts.id,
+          title: posts.title,
+          thumbnail: posts.thumbnail,
+          seoDescription: posts.seoDescription,
+          excerpt: sql<string>`left(${posts.content}, 300)`,
+          tags: posts.tags,
+          createdAt: posts.createdAt,
+        })
+        .from(posts)
+        .where(eq(posts.published, "published"))
+        .orderBy(desc(posts.createdAt))
+        .limit(input.limit)
+        .offset(input.offset);
+
+      return {
+        posts: rows.map((row) => ({
+          ...row,
+          tags: row.tags ? (JSON.parse(row.tags) as number[]) : [],
+        })),
+      };
     }),
 
   getById: publicProcedure

@@ -1,52 +1,22 @@
 import { Link, useParams } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import BlogReviews from "@/components/BlogReviews";
 import {
   ArrowLeft,
   CalendarDays,
-  ExternalLink,
+  FileText,
   MessageCircle,
   Phone,
 } from "lucide-react";
+import PostContent from "@/components/PostContent";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 
 const SITE_URL = "https://2000stair.kr";
 
-function renderContentWithLinks(text: string) {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const parts = text.split(urlRegex);
-
-  return parts.map((part, i) => {
-    if (urlRegex.test(part)) {
-      const cleanUrl = part.replace(/[.,!?;:)"']+$/, "");
-      const isNaver = cleanUrl.includes("blog.naver.com");
-
-      return (
-        <a
-          key={i}
-          href={cleanUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 my-1 px-3 py-1.5 rounded-xl text-sm font-semibold bg-blue-50 text-primary border border-blue-100 hover:bg-primary hover:text-white hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 no-underline"
-        >
-          <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
-          {isNaver
-            ? "네이버 블로그에서 보기"
-            : cleanUrl.length > 50
-            ? cleanUrl.slice(0, 50) + "..."
-            : cleanUrl}
-        </a>
-      );
-    }
-
-    return <span key={i}>{part}</span>;
-  });
-}
 
 function setCanonical(url: string) {
   let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -66,6 +36,15 @@ export default function BlogDetail() {
 
   const { data: post, isLoading, error } = trpc.blog.getById.useQuery({ id: postId });
   const { data: allTags } = trpc.blog.tags.useQuery();
+  const { data: listData } = trpc.blog.listLite.useQuery(
+    { limit: 12, offset: 0 },
+    { staleTime: 5 * 60_000 }
+  );
+
+  const otherPosts = (listData?.posts ?? [])
+    .filter((p) => p.id !== postId)
+    .slice(0, 8);
+  const [relatedPaused, setRelatedPaused] = useState(false);
 
   useEffect(() => {
     if (!post) return;
@@ -218,17 +197,8 @@ export default function BlogDetail() {
           )}
 
           {/* 본문 */}
-          <div className="rounded-2xl border border-blue-50 bg-white shadow-sm p-5 md:p-8 mb-8">
-            <div
-              className="prose prose-gray max-w-none text-gray-700 leading-relaxed"
-              style={{
-                fontSize: "1rem",
-                lineHeight: "1.9",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              {renderContentWithLinks(post.content)}
-            </div>
+          <div className="mb-8 rounded-2xl border border-blue-50 bg-white p-5 shadow-sm md:p-8">
+            <PostContent content={post.content} />
           </div>
 
           {/* 추가 이미지 */}
@@ -253,6 +223,70 @@ export default function BlogDetail() {
                   />
                 );
               })}
+            </div>
+          )}
+
+          {/* 다른 정보글 — 썸네일 카드 (CTA 위) */}
+          {otherPosts.length > 0 && (
+            <div className="mb-8">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-base font-extrabold text-foreground md:text-lg">
+                  다른 정보글도 확인해보세요
+                </h2>
+                <Link
+                  href="/guide"
+                  className="text-[13px] font-bold text-muted-foreground transition hover:text-primary"
+                >
+                  전체보기 →
+                </Link>
+              </div>
+
+              {/* 1:1 썸네일 한 줄 가로 자동 스크롤 (무한 루프, 터치/호버 시 일시정지) */}
+              <div
+                className="relative overflow-hidden"
+                onMouseEnter={() => setRelatedPaused(true)}
+                onMouseLeave={() => setRelatedPaused(false)}
+                onTouchStart={() => setRelatedPaused(true)}
+                onTouchEnd={() => setRelatedPaused(false)}
+              >
+                <div
+                  className="flex w-max"
+                  style={{
+                    animation: `slideLeft ${Math.max(otherPosts.length * 4, 16)}s linear infinite`,
+                    animationPlayState: relatedPaused ? "paused" : "running",
+                  }}
+                >
+                  {[0, 1].map((half) => (
+                    <div key={half} className="flex gap-3 pr-3">
+                      {otherPosts.map((p) => (
+                        <Link
+                          key={`${half}-${p.id}`}
+                          href={`/blog/${p.id}`}
+                          aria-label={p.title}
+                          className="group block h-32 w-32 shrink-0 overflow-hidden rounded-2xl border border-blue-50 bg-blue-50 shadow-sm md:h-40 md:w-40"
+                        >
+                          {p.thumbnail ? (
+                            <img
+                              src={p.thumbnail}
+                              alt={p.title}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center">
+                              <FileText className="h-7 w-7 text-blue-300" />
+                            </div>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+
+                {/* 좌우 페이드 */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent" />
+              </div>
             </div>
           )}
 
@@ -298,8 +332,6 @@ export default function BlogDetail() {
           </div>
         </motion.div>
       </article>
-
-      {isCareGuide && <BlogReviews />}
     </main>
   );
 }

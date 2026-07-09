@@ -19,10 +19,12 @@ declare global {
 }
 
 // 유입 경로 추적 (Google Analytics 4)
-// Vercel 프로젝트 환경변수에 VITE_GA_MEASUREMENT_ID (예: G-XXXXXXXXXX) 를 추가하면
 // 페이지뷰와 유입 경로(referrer / UTM)가 자동으로 수집되고,
 // 아래 trackConversion 으로 보내는 전환 이벤트도 함께 기록됩니다.
-const MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
+// 측정 ID는 어차피 페이지 소스에 공개되는 값이라 기본값으로 넣어둔다.
+// (Vercel 환경변수 VITE_GA_MEASUREMENT_ID 로 덮어쓸 수 있음)
+const MEASUREMENT_ID =
+  (import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined) || "G-ZJQ4RCD4E1";
 
 function analyticsEnabled() {
   // 측정 ID가 설정되어 있고 프로덕션 빌드일 때만 실제로 전송합니다.

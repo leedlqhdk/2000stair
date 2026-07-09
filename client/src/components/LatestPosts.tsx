@@ -6,7 +6,7 @@ import { CalendarDays, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LatestPosts() {
-  const { data } = trpc.blog.list.useQuery({ limit: 3, offset: 0 });
+  const { data } = trpc.blog.listLite.useQuery({ limit: 3, offset: 0 });
   const { data: allTags } = trpc.blog.tags.useQuery();
 
   const posts = data?.posts ?? [];

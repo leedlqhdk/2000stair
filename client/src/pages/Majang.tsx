@@ -1,27 +1,9 @@
-import { Link } from "wouter";
-import { ArrowLeft, MessageCircle, Phone, Star } from "lucide-react";
-import { motion } from "framer-motion";
-import AreaServiceCards from "@/components/AreaServiceCards";
+import { MessageCircle, Phone, Star } from "lucide-react";
+import AreaIntro from "@/components/AreaIntro";
 import AreaTimeline from "@/components/AreaTimeline";
+import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { majangPosts, majangReviews } from "@/data/areas/majang";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
-
-const serviceCards = [
-  {
-    title: "이천 현지 관리",
-    text: "이천시 마장면 빌라·원룸·상가의 계단과 공용공간을 정기적으로 관리합니다.",
-  },
-  {
-    title: "현장 기록 제공",
-    text: "방문마다 작업 전후 사진을 직접 촬영해 기록합니다. 멀리 있어도 현장 상태를 확인하실 수 있습니다.",
-  },
-  {
-    title: "부부 직접관리",
-    text: "외주 없이 부부가 직접 작업합니다. 담당자가 바뀌지 않아 꾸준한 품질을 유지합니다.",
-  },
-];
-
-const localities = ["마장면", "오천리", "양촌리", "장암리"];
 
 const faqs = [
   {
@@ -45,40 +27,11 @@ return (
 <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
 
 <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-<motion.div
-className="mb-8 md:mb-10"
-initial={{ opacity: 0, y: 28 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 0.65 }}
->
-<Link href="/areas">
-<a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition">
-<ArrowLeft className="h-4 w-4" />
-관리지역으로 돌아가기
-</a>
-</Link>
-
-<div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:p-8">
-<p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
-AREA ARCHIVE
-</p>
-<div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-<div>
-<h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
-마장면의 깨끗한 일상을 만들고 있습니다
-</h1>
-<p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-부부가 직접, 마장면 빌라·원룸·상가 공용공간을 관리합니다.
-</p>
-</div>
-<div className="inline-flex w-fit items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-white shadow-sm">
-최근 작업 {posts.length}건
-</div>
-</div>
-</div>
-</motion.div>
-
-<AreaServiceCards cards={serviceCards} />
+<AreaIntro
+headline="마장면의 깨끗한 일상을 만들고 있습니다"
+description="부부가 직접, 마장면 빌라·원룸·상가 공용공간을 관리합니다."
+focus="오천리·양촌리·장암리 등 마장면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
+/>
 
 <AreaTimeline
 areaName="마장면"
@@ -109,15 +62,6 @@ description="마장면에서 진행한 작업들을 날짜순으로 확인해보
 </section>
 
 <section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
-<h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">관리 가능 지역</h2>
-<div className="flex flex-wrap gap-2">
-{localities.map((name) => (
-<span key={name} className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-primary">{name}</span>
-))}
-</div>
-</section>
-
-<section className="mb-12 rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm md:mb-16 md:p-8">
 <h2 className="mb-5 text-xl font-extrabold text-foreground md:text-2xl">자주 묻는 질문</h2>
 <div className="grid gap-4 md:grid-cols-2">
 {faqs.map((faq) => (
@@ -128,6 +72,8 @@ description="마장면에서 진행한 작업들을 날짜순으로 확인해보
 ))}
 </div>
 </section>
+
+<AreaBlogArchive areaName="마장면" />
 
 <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
 <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">마장면 청소 관리가 필요하신가요?</h2>

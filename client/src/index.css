@@ -210,3 +210,12 @@
     transform: translateX(-50%);
   }
 }
+
+@keyframes blogScrollUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}

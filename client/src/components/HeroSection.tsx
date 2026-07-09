@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import { trackConversion } from "@/lib/analytics";
+import VisitorCounter from "@/components/VisitorCounter";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -15,7 +16,7 @@ const areaSectionItems = [
   { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리", slug: "changjeon" },
   { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리", slug: "majang" },
   { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리", slug: "gwango" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "중리동", subtitle: "현관 · 복도 관리", slug: "jungni" },
+  { src: "/images/before-after/stair-railing-after.webp", title: "중리동", subtitle: "현관 · 복도 관리", slug: "jungni" },
 ];
 
 const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
@@ -89,7 +90,9 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </Link>
             </div>
 
-            <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
+            <VisitorCounter className="mt-4" />
+
+            <div className="mt-3 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
               {heroBadges.map((badge) => (
                 <span
                   key={badge}

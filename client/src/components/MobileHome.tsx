@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Link, useLocation } from "wouter";
 import {
   AppWindow,
@@ -15,6 +16,10 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
+import ChannelLinks from "@/components/ChannelLinks";
+import VisitorCounter from "@/components/VisitorCounter";
+import Reveal from "@/components/Reveal";
+import LatestBlogPosts from "@/components/LatestBlogPosts";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -66,7 +71,7 @@ export default function MobileHome() {
   const goToQuote = () => setLocation("/quote");
 
   return (
-    <div className="lg:hidden">
+    <div className="md:hidden">
       {/* HERO */}
       <section className="px-5 pb-7 pt-7">
         <h1 className="font-['GmarketSans'] text-[2rem] font-extrabold leading-[1.15] text-foreground">
@@ -101,30 +106,36 @@ export default function MobileHome() {
             전화 상담
           </a>
         </div>
+        <div className="mt-4 flex justify-center">
+          <VisitorCounter />
+        </div>
       </section>
 
       {/* PROCESS FLOW */}
       <section className="px-5 py-7">
-        <div className="flex items-start gap-1">
+        <div className="flex items-start">
           {processSteps.map((step, index) => (
-            <motion.div
-              key={step.title}
-              className="flex flex-1 flex-col items-center gap-2"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-            >
-              <div className="flex items-center gap-1">
-                {index > 0 && <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-primary/35 stroke-[2.6]" />}
+            <Fragment key={step.title}>
+              {index > 0 && (
+                <div className="flex h-11 w-5 shrink-0 items-center justify-center">
+                  <ArrowRight className="h-3.5 w-3.5 text-primary/35 stroke-[2.6]" />
+                </div>
+              )}
+              <motion.div
+                className="flex flex-1 flex-col items-center gap-2"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.16, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
                   <step.icon className="h-5 w-5" />
                 </span>
-              </div>
-              <span className="text-center text-[11.5px] font-bold leading-tight text-gray-700">
-                {step.title}
-              </span>
-            </motion.div>
+                <span className="text-center text-[11.5px] font-bold leading-tight text-gray-700">
+                  {step.title}
+                </span>
+              </motion.div>
+            </Fragment>
           ))}
         </div>
       </section>
@@ -135,23 +146,24 @@ export default function MobileHome() {
           요즘 많이 찾는 서비스
         </h2>
         <div className="flex flex-col gap-3">
-          {popularServices.map((service) => (
-            <Link
-              key={service.title}
-              href={service.href}
-              className="flex items-center gap-3.5 rounded-2xl border border-blue-100 bg-white p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
-            >
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
-                <service.icon className="h-5 w-5" />
-              </span>
-              <span className="min-w-0 flex-1">
-                <h3 className="text-[15px] font-extrabold text-foreground">{service.title}</h3>
-                <p className={`mt-0.5 text-[12.5px] font-semibold ${service.free ? "text-primary" : "text-muted-foreground"}`}>
-                  {service.subtitle}
-                </p>
-              </span>
-              <ChevronRight className="h-4.5 w-4.5 shrink-0 text-blue-300" />
-            </Link>
+          {popularServices.map((service, i) => (
+            <Reveal key={service.title} index={i}>
+              <Link
+                href={service.href}
+                className="flex items-center gap-3.5 rounded-2xl border border-blue-100 bg-white p-3.5 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
+                  <service.icon className="h-5 w-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <h3 className="text-[15px] font-extrabold text-foreground">{service.title}</h3>
+                  <p className={`mt-0.5 text-[12.5px] font-semibold ${service.free ? "text-primary" : "text-muted-foreground"}`}>
+                    {service.subtitle}
+                  </p>
+                </span>
+                <ChevronRight className="h-4.5 w-4.5 shrink-0 text-blue-300" />
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -185,6 +197,9 @@ export default function MobileHome() {
         </div>
       </section>
 
+      {/* LATEST BLOG POSTS */}
+      <LatestBlogPosts variant="mobile" />
+
       {/* AREAS */}
       <section className="px-5 py-7">
         <div className="mb-5 flex items-center justify-between">
@@ -194,16 +209,23 @@ export default function MobileHome() {
           </Link>
         </div>
         <div className="flex flex-wrap gap-2">
-          {areaChips.map((area) => (
-            <Link
-              key={area.label}
-              href={area.href}
-              className="rounded-full border border-blue-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-gray-700 transition active:bg-primary active:text-white active:border-primary"
-            >
-              {area.label}
-            </Link>
+          {areaChips.map((area, i) => (
+            <Reveal key={area.label} index={i} y={14}>
+              <Link
+                href={area.href}
+                className="block rounded-full border border-blue-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-gray-700 transition active:bg-primary active:text-white active:border-primary"
+              >
+                {area.label}
+              </Link>
+            </Reveal>
           ))}
         </div>
+      </section>
+
+      {/* OFFICIAL CHANNELS */}
+      <section className="px-5 py-7">
+        <h2 className="mb-4 font-['GmarketSans'] text-lg font-extrabold text-foreground">공식 채널</h2>
+        <ChannelLinks location="mobile_home_channels" />
       </section>
 
       {/* PROMO */}

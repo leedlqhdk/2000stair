@@ -74,6 +74,21 @@ async function ensureSchema(db: ReturnType<typeof drizzle>) {
     )
   `);
 
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS "reviews" (
+      "id" serial PRIMARY KEY,
+      "platform" varchar(50) NOT NULL,
+      "dot_color" varchar(20) NOT NULL DEFAULT '#35b957',
+      "score" varchar(10) NOT NULL DEFAULT '5.0',
+      "quote" text NOT NULL,
+      "detail" varchar(100) NOT NULL DEFAULT '',
+      "url" text NOT NULL,
+      "sort_order" integer NOT NULL DEFAULT 0,
+      "createdAt" timestamp NOT NULL DEFAULT now(),
+      "updatedAt" timestamp NOT NULL DEFAULT now()
+    )
+  `);
+
   _schemaReady = true;
 }
 
