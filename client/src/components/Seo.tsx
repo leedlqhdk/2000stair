@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
-const DEFAULT_TITLE = "이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소";
+const DEFAULT_TITLE = "이천계단청소 전문관리 | 이천계단지기";
 const DEFAULT_DESCRIPTION =
-  "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 부부가 하청 없이 직접 정기관리합니다.";
+  "이천계단지기는 빌라·상가 공동현관, 계단, 유리, 화장실을 하청 없이 부부가 직접 관리하는 공용공간 정기청소 전문 브랜드입니다.";
 const DEFAULT_KEYWORDS =
   "이천계단청소, 이천계단청소업체, 이천계단청소비용, 계단청소, 이천빌라청소, 상가청소, 이천청소, 계단청소업체, 계단청소비용, 이천청소업체, 정기청소, 계단청소구독, 빌라계단청소, 상가계단청소, 유리청소, 화장실청소, 이천유리청소";
 const DEFAULT_URL = "https://2000stair.kr/";
-const DEFAULT_IMAGE = "https://2000stair.kr/og-image.png";
+const DEFAULT_IMAGE = "https://2000stair.kr/images/icheon-sindun-stair-cleaning.webp";
 
 export type SeoProps = {
   title: string;
