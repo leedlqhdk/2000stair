@@ -43,6 +43,7 @@ const OpsStatus = lazy(() => import("@/pages/OpsStatus"));
 const Guide = lazy(() => import("@/pages/Guide"));
 const Areas = lazy(() => import("@/pages/Areas"));
 const MobileQuote = lazy(() => import("@/pages/MobileQuote"));
+const Card = lazy(() => import("@/pages/Card"));
 
 
 function ScrollToTop() {
@@ -227,6 +228,7 @@ function Router() {
           <Route path="/work/:slug" component={WorkDetail} />
           <Route path="/areas" component={Areas} />
           <Route path="/quote" component={MobileQuote} />
+          <Route path="/card" component={Card} />
           <Route path="/blog/category/:slug" component={Blog} />
           <Route path="/blog/:id" component={BlogDetail} />
           <Route path="/area/majang" component={Majang} />
@@ -263,12 +265,14 @@ function Router() {
 function AppChrome() {
   const [location] = useLocation();
   const isAdminRoute = location.startsWith("/admin");
+  const isBareRoute = location === "/card";
+  const hideChrome = isAdminRoute || isBareRoute;
 
   return (
     <>
       <Router />
-      {!isAdminRoute && <Footer />}
-      {!isAdminRoute && <KakaoChat />}
+      {!hideChrome && <Footer />}
+      {!hideChrome && <KakaoChat />}
     </>
   );
 }
