@@ -24,7 +24,7 @@ export default function OfficeCleaning() {
         ],
         pricingTiers: [
           { badge: "1회 청소", price: "현장 방문 견적", note: "면적 · 공간 구성 · 작업 범위 확인 후 안내" },
-          { badge: "정기 관리", price: "맞춤 관리 견적", note: "주 1회~5회 / 월별 관리 계획 제공", highlight: true },
+          { badge: "정기 관리", price: "맞춤 관리 견적", note: "주 1회~2회 / 월별 관리 계획 제공", highlight: true },
         ],
         pricingMessage: [
           "사무실마다 구조와 관리 범위가 모두 다르기 때문에,",
