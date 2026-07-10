@@ -90,9 +90,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </Link>
             </div>
 
-            <VisitorCounter className="mt-4" />
-
-            <div className="mt-3 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
+            <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
               {heroBadges.map((badge) => (
                 <span
                   key={badge}
@@ -146,6 +144,19 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </motion.div>
         </div>
       </div>
+
+      {/* 방문자 수 신뢰 바 (PC 전용 — 모바일은 MobileHome 히어로에 표시) */}
+      <motion.div
+        className="border-t border-blue-100/60 bg-white py-3.5"
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="container flex max-w-6xl justify-center">
+          <VisitorCounter />
+        </div>
+      </motion.div>
 
       <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
         <div className="container max-w-7xl">
