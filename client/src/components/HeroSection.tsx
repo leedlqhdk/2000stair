@@ -39,7 +39,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 이천 건물
                 <br />
                 <motion.span
-                  className="inline-block text-primary"
+                  className="inline-block font-bold text-primary"
                   initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
@@ -59,7 +59,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
 
             <motion.p
-              className="text-[clamp(0.95rem,2vw,1.22rem)] font-medium leading-relaxed text-gray-700"
+              className="text-[clamp(0.95rem,2vw,1.22rem)] font-semibold leading-relaxed text-gray-700"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
