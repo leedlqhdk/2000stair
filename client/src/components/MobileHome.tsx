@@ -1,10 +1,8 @@
 import { Fragment } from "react";
 import { Link, useLocation } from "wouter";
 import {
-  AppWindow,
   ArrowRight,
   Bath,
-  Briefcase,
   Building2,
   Camera,
   Check,
@@ -25,6 +23,46 @@ import LatestBlogPosts from "@/components/LatestBlogPosts";
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
 
+function StairsIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M4 20h4v-4h4v-4h4V8h4V4" />
+      <path d="M4 20h16" />
+    </svg>
+  );
+}
+
+function GlassSparkleIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="3" y="5" width="15" height="16" rx="2" />
+      <path d="M7 14.5 10.5 11" />
+      <path d="M7 18l6.5-6.5" />
+      <path
+        d="M19 1.8l.85 2.1 2.1.85-2.1.85L19 7.7l-.85-2.1-2.1-.85 2.1-.85z"
+        fill="currentColor"
+        stroke="none"
+      />
+    </svg>
+  );
+}
+
 const processSteps = [
   { icon: MessageCircle, title: "문의하기" },
   { icon: HomeIcon, title: "방문 견적" },
@@ -33,9 +71,9 @@ const processSteps = [
 ];
 
 const popularServices = [
-  { title: "계단 청소", subtitle: "빌라/상가 건물", icon: Building2, free: false, href: "/services/stair" },
-  { title: "사무실 청소", subtitle: "정기 방문관리", icon: Briefcase, free: false, href: "/services/office" },
-  { title: "유리창 청소", subtitle: "무료 방문 견적", icon: AppWindow, free: true, href: "/services/glass" },
+  { title: "계단 청소", subtitle: "빌라/상가 건물", icon: StairsIcon, free: false, href: "/services/stair" },
+  { title: "사무실 청소", subtitle: "정기 방문관리", icon: Building2, free: false, href: "/services/office" },
+  { title: "유리창 청소", subtitle: "무료 방문 견적", icon: GlassSparkleIcon, free: true, href: "/services/glass" },
   { title: "화장실 청소", subtitle: "친환경 약품 사용", icon: Bath, free: false, href: "/services/bathroom" },
 ];
 
