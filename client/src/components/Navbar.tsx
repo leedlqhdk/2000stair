@@ -31,6 +31,7 @@ const navGroups: NavGroup[] = [
     label: "청소서비스",
     items: [
       { label: "계단청소", href: "/services/stair" },
+      { label: "사무실청소", href: "/services/office" },
       { label: "유리청소", href: "/services/glass" },
       { label: "화장실청소", href: "/services/bathroom" },
       

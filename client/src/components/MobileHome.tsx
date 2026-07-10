@@ -4,6 +4,7 @@ import {
   AppWindow,
   ArrowRight,
   Bath,
+  Briefcase,
   Building2,
   Camera,
   Check,
@@ -33,6 +34,7 @@ const processSteps = [
 
 const popularServices = [
   { title: "계단 청소", subtitle: "빌라/상가 건물", icon: Building2, free: false, href: "/services/stair" },
+  { title: "사무실 청소", subtitle: "정기 방문관리", icon: Briefcase, free: false, href: "/services/office" },
   { title: "유리창 청소", subtitle: "무료 방문 견적", icon: AppWindow, free: true, href: "/services/glass" },
   { title: "화장실 청소", subtitle: "친환경 약품 사용", icon: Bath, free: false, href: "/services/bathroom" },
 ];
@@ -74,7 +76,7 @@ export default function MobileHome() {
     <div className="md:hidden">
       {/* HERO */}
       <section className="px-5 pb-7 pt-7">
-        <h1 className="font-['GmarketSans'] text-[2rem] font-extrabold leading-[1.15] text-foreground">
+        <h1 className="font-['GmarketSans'] text-[2rem] font-bold leading-[1.15] text-foreground">
           <span className="block bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
             이천계단지기
           </span>
