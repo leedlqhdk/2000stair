@@ -36,7 +36,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           >
             <div className="flex items-center gap-3 md:block">
               <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-extrabold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
-                계단청소
+                이천 건물
                 <br />
                 <motion.span
                   className="inline-block text-primary"
@@ -44,10 +44,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  직접 관리
+                  정기 청소관리
                 </motion.span>
                 <br />
-                하고 계신가요?
+                전문입니다
               </h1>
               <div className="w-[45%] shrink-0 md:hidden">
                 <img
@@ -64,7 +64,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
-              이천 빌라 · 상가 계단청소
+              계단청소 · 사무실청소 · 화장실청소 · 유리청소
               <br />
               주소만 보내주시면 빠르게 안내드립니다.
             </motion.p>

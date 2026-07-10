@@ -78,10 +78,10 @@ export default function MobileHome() {
           <span className="block bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
             이천계단지기
           </span>
-          깨끗한 공간의 시작
+          건물 정기 청소관리 전문
         </h1>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-gray-700">
-          계단청소 전문, 정기관리까지
+          계단청소 · 사무실청소 · 화장실청소 · 유리청소
           <br />
           믿고 맡길 수 있는 <strong className="text-foreground">청소 파트너</strong>
         </p>
