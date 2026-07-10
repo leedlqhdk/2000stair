@@ -30,6 +30,15 @@ const priceCards = [
     note: "출입문·고정창 기준, 일회성 가능",
     href: "/services/glass",
   },
+  {
+    title: "사무실청소",
+    items: [
+      { badge: "1회 청소", price: "방문 견적" },
+      { badge: "정기 관리", price: "맞춤 견적", highlight: true },
+    ],
+    note: "면적·공간 구성 확인 후 안내, 주 1~2회 정기 방문",
+    href: "/services/office",
+  },
 ];
 
 export default function PricingOverview() {
@@ -55,7 +64,7 @@ export default function PricingOverview() {
           </p>
         </motion.div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {priceCards.map((card, index) => (
             <motion.div
               key={card.title}
