@@ -23,7 +23,7 @@ const serviceCards = [
   {
     title: "사무실청소",
     subtitle: "사무실·상가 정기 방문관리",
-    image: "/images/icheon-gwango-building-cleaning.webp",
+    image: "/images/main-service-office.webp",
     href: "/services/office",
   },
 ];
