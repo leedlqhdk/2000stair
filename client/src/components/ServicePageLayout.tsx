@@ -83,6 +83,7 @@ export interface ServicePageData {
   scopeItems: string[];
   pricingTiers: ServicePricingTier[];
   pricingNote?: string;
+  pricingMessage?: string[];
   gallery?: GalleryPair[];
   serviceFolder: string;
   seoTitle?: string;
@@ -449,7 +450,13 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               요금 안내
             </motion.h2>
 
-            <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
+            <div
+              className={`mx-auto grid gap-4 ${
+                data.pricingTiers.length === 2
+                  ? "max-w-2xl sm:grid-cols-2"
+                  : "max-w-3xl sm:grid-cols-3"
+              }`}
+            >
               {data.pricingTiers.map((tier, i) => (
                 <motion.div
                   key={i}
@@ -487,6 +494,29 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 </motion.div>
               ))}
             </div>
+
+            {data.pricingMessage && data.pricingMessage.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="mx-auto mt-6 max-w-2xl rounded-[1.6rem] border border-white/16 bg-white/[0.08] px-6 py-6 text-center backdrop-blur-xl md:px-8 md:py-7"
+              >
+                {data.pricingMessage.map((line, i) => (
+                  <p
+                    key={i}
+                    className={
+                      i === data.pricingMessage!.length - 1
+                        ? "mt-3 text-sm font-extrabold text-white md:text-base"
+                        : "text-[13px] leading-6 text-white/75 md:text-sm md:leading-7"
+                    }
+                  >
+                    {line}
+                  </p>
+                ))}
+              </motion.div>
+            )}
 
             {data.pricingNote && (
               <p className="mx-auto mt-4 max-w-3xl text-center text-[11px] text-white/45">

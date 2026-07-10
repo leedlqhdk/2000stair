@@ -23,8 +23,13 @@ export default function OfficeCleaning() {
           "정기 방문",
         ],
         pricingTiers: [
-          { badge: "1회 청소", price: "별도 견적", note: "면적·층수에 따라 산정" },
-          { badge: "정기 관리", price: "월 별도 견적", note: "주 1회~월 2회 조정 가능", highlight: true },
+          { badge: "1회 청소", price: "현장 방문 견적", note: "면적 · 공간 구성 · 작업 범위 확인 후 안내" },
+          { badge: "정기 관리", price: "맞춤 관리 견적", note: "주 1회~5회 / 월별 관리 계획 제공", highlight: true },
+        ],
+        pricingMessage: [
+          "사무실마다 구조와 관리 범위가 모두 다르기 때문에,",
+          "현장 확인 후 가장 합리적인 견적을 안내드립니다.",
+          "불필요한 비용 없이 필요한 작업만 제안하고, 매회 작업 전후 사진을 남겨 담당자분이 현장에 오지 않아도 관리 상태를 바로 확인하실 수 있습니다.",
         ],
       }}
     />
