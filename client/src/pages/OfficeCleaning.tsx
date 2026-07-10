@@ -5,7 +5,7 @@ export default function OfficeCleaning() {
     <ServicePageLayout
       data={{
         serviceFolder: "office-cleaning",
-        heroBgImage: "/images/icheon-gwango-building-cleaning.webp",
+        heroBgImage: "/images/main-service-office.webp",
         heroTitle: "깨끗한 사무실이\n업무 효율을 높입니다",
         heroSubtitle: "이천 소규모 사무실·상가 정기 청소 서비스",
         features: [
