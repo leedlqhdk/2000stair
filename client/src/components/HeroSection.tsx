@@ -35,7 +35,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="flex items-center gap-3 md:block">
-              <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-bold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
+              <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-medium leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
                 이천 건물
                 <br />
                 <motion.span
@@ -59,7 +59,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             </div>
 
             <motion.p
-              className="text-[clamp(0.95rem,2vw,1.22rem)] font-semibold leading-relaxed text-gray-700"
+              className="text-[clamp(0.95rem,2vw,1.22rem)] font-medium leading-relaxed text-gray-700"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
