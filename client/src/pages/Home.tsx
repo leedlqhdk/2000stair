@@ -1,3 +1,4 @@
+import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
@@ -9,12 +10,25 @@ import BlogReviews from "@/components/BlogReviews";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
 import FaqSection from "@/components/FaqSection";
 import MobileHome from "@/components/MobileHome";
+import IntroLoader, { shouldShowIntro } from "@/components/IntroLoader";
 
 export default function Home() {
+const [intro, setIntro] = useState<"loading" | "reveal" | "done">(() =>
+shouldShowIntro() ? "loading" : "done"
+);
+
 return (
 <div className="min-h-screen flex flex-col bg-background">
+{intro !== "done" && (
+<IntroLoader
+onReveal={() => setIntro((state) => (state === "loading" ? "reveal" : state))}
+onDone={() => setIntro("done")}
+/>
+)}
+
 <Navbar />
 
+{intro !== "loading" && (
 <main className="flex-1">
 <MobileHome />
 
@@ -47,6 +61,7 @@ return (
 <FaqSection />
 </div>
 </main>
+)}
 </div>
 );
 }
