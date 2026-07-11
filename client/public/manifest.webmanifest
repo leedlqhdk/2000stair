@@ -4,7 +4,7 @@
   "description": "이천 빌라·상가 계단청소 정기관리",
   "start_url": "/",
   "scope": "/",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#3155a4",
   "theme_color": "#3155a4",
   "icons": [
