@@ -52,6 +52,11 @@ function formatDate(value: string) {
   return `${year}.${month}.${day}`;
 }
 
+// 청소 관련 글만 노출 (일상글 제외)
+const CLEANING_PATTERN =
+  /청소|계단|유리|화장실|사무실|공용|현관|건물|정기\s*관리|방문\s*견적|견적서|세제|위생|곰팡이|물때|왁스|관리업체/;
+const EXCLUDED_CATEGORY = /일상|리뷰|취미|여행|맛집/;
+
 function parseFeed(xml: string): BlogPost[] {
   const items = xml.match(/<item>[\s\S]*?<\/item>/g) ?? [];
 
@@ -61,10 +66,17 @@ function parseFeed(xml: string): BlogPost[] {
       const link = extractTag(item, "link");
       const date = formatDate(extractTag(item, "pubDate"));
       const summary = stripTags(extractTag(item, "description")).slice(0, 140);
+      const category = stripTags(extractTag(item, "category"));
 
-      return { title, link, date, summary };
+      return { title, link, date, summary, category };
     })
-    .filter((post) => post.title && post.link);
+    .filter((post) => post.title && post.link)
+    .filter(
+      (post) =>
+        !EXCLUDED_CATEGORY.test(post.category) &&
+        CLEANING_PATTERN.test(`${post.title} ${post.summary}`)
+    )
+    .map(({ category: _category, ...post }) => post);
 }
 
 async function fetchBlogPosts() {
