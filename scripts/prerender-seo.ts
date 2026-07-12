@@ -247,12 +247,44 @@ function replaceOrThrow(html: string, pattern: RegExp, replacement: string, labe
   return html.replace(pattern, () => replacement);
 }
 
+// JS를 실행하지 않는 AI 검색·크롤러가 본문을 읽을 수 있도록
+// <div id="root"> 안에 정적 요약 본문을 넣는다 (React 마운트 시 교체됨).
+const STATIC_BODY_COMMON = `
+  <section>
+    <h2>서비스 및 시작 요금</h2>
+    <ul>
+      <li>계단청소 정기관리: 월 2회 40,000원~, 월 4회 70,000원~ (빌라 2~3층 공용계단 기준)</li>
+      <li>화장실청소 정기관리: 월 2회 20,000원~, 월 4회 40,000원~ (소형 상가·공용화장실 기준)</li>
+      <li>유리청소: 공동현관 30,000원~, 상가 전면 50,000원~ (일회성 가능)</li>
+      <li>사무실청소: 현장 방문 후 맞춤 견적, 주 1~2회 정기 방문</li>
+    </ul>
+  </section>
+  <section>
+    <h2>관리 지역</h2>
+    <p>경기도 이천시 신둔면, 마장면, 부발읍, 대월면, 백사면, 증포동, 중리동, 관고동, 창전동 일대를 부부가 직접 방문해 관리합니다.</p>
+  </section>
+  <section>
+    <h2>업체 정보</h2>
+    <p>이천계단지기는 이천 빌라·상가·원룸 공용공간(계단·사무실·화장실·유리) 정기 청소관리 전문 업체입니다. 대표 김규남이 하청 없이 직접 작업하며, 작업 전후 사진 제공과 세금계산서 발행이 가능합니다. 문의 010-8438-1887, 카카오톡 채널 상담 가능. 사업자등록번호 234-23-02318, 경기도 이천시 경충대로3160번길 21.</p>
+  </section>`;
+
+function buildStaticBody(seo: NonNullable<ReturnType<typeof getSeoForPath>>) {
+  const h1 = escapeHtml(seo.title.split("|")[0].trim());
+  const description = escapeHtml(seo.description);
+
+  return `<div id="root"><main data-prerender="seo" style="max-width:720px;margin:0 auto;padding:48px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a2b4a">
+  <h1 style="font-size:1.45rem">${h1}</h1>
+  <p>${description}</p>${STATIC_BODY_COMMON}
+</main></div>`;
+}
+
 function applySeoToHtml(html: string, seo: NonNullable<ReturnType<typeof getSeoForPath>>) {
   const title = escapeHtml(seo.title);
   const description = escapeHtml(seo.description);
   const canonical = escapeHtml(seo.canonical);
 
   let result = html;
+  result = replaceOrThrow(result, /<div id="root"><\/div>/, buildStaticBody(seo), "root static body");
   result = replaceOrThrow(result, /<title>.*?<\/title>/s, `<title>${title}</title>`, "title");
   result = replaceOrThrow(result, /<meta name="description" content="[^"]*"/, `<meta name="description" content="${description}"`, "description");
 
