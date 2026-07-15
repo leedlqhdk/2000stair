@@ -1,7 +1,6 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
 import AreaTimeline from "@/components/AreaTimeline";
-import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { majangPosts, majangReviews } from "@/data/areas/majang";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
@@ -73,7 +72,6 @@ description="마장면에서 진행한 작업들을 날짜순으로 확인해보
 </div>
 </section>
 
-<AreaBlogArchive areaName="마장면" />
 
 <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
 <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">마장면 청소 관리가 필요하신가요?</h2>

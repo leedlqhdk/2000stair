@@ -1,7 +1,6 @@
 import { useParams } from "wouter";
 import { MessageCircle, Phone } from "lucide-react";
 import AreaTimeline from "@/components/AreaTimeline";
-import AreaBlogArchive from "@/components/AreaBlogArchive";
 import AreaIntro from "@/components/AreaIntro";
 import { downtownPosts } from "@/data/areas/downtown";
 import { trackConversion } from "@/lib/analytics";
@@ -74,7 +73,6 @@ export default function NeighborhoodAreaPage({ areaSlug }: NeighborhoodAreaPageP
           />
         )}
 
-        <AreaBlogArchive areaName={data.name} />
 
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
           <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">

@@ -1,7 +1,6 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
 import AreaTimeline from "@/components/AreaTimeline";
-import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: AreaPost[] = [];
@@ -55,7 +54,6 @@ export default function GonjiamAreaPage() {
           </div>
         </section>
 
-        <AreaBlogArchive areaName="곤지암" />
 
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
           <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">곤지암 청소 관리가 필요하신가요?</h2>
