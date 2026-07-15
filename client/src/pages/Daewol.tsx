@@ -1,7 +1,6 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
 import AreaTimeline from "@/components/AreaTimeline";
-import AreaBlogArchive from "@/components/AreaBlogArchive";
 import { daewolPosts, daewolReviews } from "@/data/areas/daewol";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
@@ -74,7 +73,6 @@ export default function DaewolAreaPage() {
           </div>
         </section>
 
-        <AreaBlogArchive areaName="대월면" />
 
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
           <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
