@@ -3,15 +3,20 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>대표 김규남</title>
+<title>이천계단지기 | 대표 김규남</title>
 <meta name="description" content="✔ 하청 없는 부부 직영 ✔ 대표가 직접 정기관리 ✔ 작업 후 관리사진 제공 ✔ 이천 전 지역 방문" />
-<meta name="theme-color" content="#2B4C9D" />
+<meta name="theme-color" content="#0F1F45" />
+<!-- 카카오톡/SNS 공유 미리보기 (OG) -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="대표 김규남" />
-<meta property="og:description" content="✔ 하청 없는 부부 직영&#10;✔ 대표가 직접 정기관리&#10;✔ 작업 후 관리사진 제공&#10;✔ 이천 전 지역 방문" />
-<meta property="og:image" content="images/profile.jpg" />
-<link rel="icon" href="images/profile.jpg" />
-<link rel="apple-touch-icon" href="images/profile.jpg" />
+<meta property="og:url" content="https://card.2000stair.kr" />
+<meta property="og:title" content="이천계단지기 | 대표 김규남" />
+<meta property="og:description" content="하청 없는 부부 직영 · 대표가 직접 정기관리 · 작업 후 관리사진 제공 · 이천 전 지역 방문" />
+<meta property="og:image" content="https://card.2000stair.kr/images/cover.jpg" />
+<meta property="og:image:width" content="480" />
+<meta property="og:image:height" content="480" />
+<meta property="og:site_name" content="이천계단지기" />
+<link rel="icon" href="images/cover.jpg" />
+<link rel="apple-touch-icon" href="images/cover.jpg" />
 <style>
   @font-face {
     font-family: 'paybooc';
@@ -30,10 +35,12 @@
   }
 
   :root {
-    --bg: #2B4C9D;
-    --btn: #FFC928;
-    --btn-text: #1a1a1a;
+    --bg: #0F1F45;        /* 딥 네이비 배경 */
+    --brand: #2B4C9D;     /* 브랜드 블루 */
+    --accent: #FFC928;    /* 브랜드 옐로우 */
     --text: #ffffff;
+    --muted: rgba(255,255,255,0.72);
+    --line: rgba(255,255,255,0.14);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,7 +58,7 @@
     width: 100%;
     max-width: 473px; /* litt.ly 기본 컬럼 폭 */
     min-height: 100vh;
-    padding-bottom: 48px;
+    padding-bottom: 40px;
   }
 
   /* 데스크톱에서도 모바일(폰) 프레임으로만 표시 — litt.ly 실측 규격 */
@@ -61,33 +68,33 @@
       align-items: flex-start;
     }
     .page {
-      max-width: 473px;              /* litt.ly 컬럼 폭 */
+      max-width: 473px;
       background: var(--bg);
-      margin: 14px 0 0;              /* litt.ly 상단 여백 */
+      margin: 14px 0 0;
       min-height: calc(100vh - 14px);
-      border-radius: 60px 60px 0 0;  /* 위 모서리만 60px */
+      border-radius: 60px 60px 0 0;
       overflow: hidden;
-      box-shadow: 0 0 0 14px #2E51A8, 0 10px 24px rgba(0,0,0,0.08); /* 14px 링 + 그림자 */
+      box-shadow: 0 0 0 14px #21386F, 0 10px 24px rgba(0,0,0,0.18);
     }
   }
 
-  /* ── 프로필 (배경이미지형) ───────────────────── */
-  .profile-cover {
+  a { color: inherit; text-decoration: none; }
+
+  /* ── 히어로 + 네임카드 ─────────────────────── */
+  .hero {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
-    background: url('images/cover.jpg') center / cover no-repeat;
   }
-  .profile-cover::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(43,76,157,0.9) 96%, var(--bg) 100%);
+  .hero > img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 4.6;
+    object-fit: cover;
   }
   .share-btn {
     position: absolute;
     top: 16px; right: 16px;
-    z-index: 2;
+    z-index: 3;
     width: 38px; height: 38px;
     border: none; border-radius: 50%;
     background: rgba(0,0,0,0.35);
@@ -95,169 +102,97 @@
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
   }
-  .profile-head {
-    position: relative;
-    margin-top: -56px;
+  .name-card {
+    position: absolute;
+    left: 20px; right: 20px; bottom: 20px;
     z-index: 2;
-    text-align: center;
-    padding: 0 20px;
+    background: var(--accent);
+    color: #14213D;
+    border-radius: 16px;
+    padding: 20px 20px 18px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.28);
   }
-  .profile-img {
-    width: 96px; height: 96px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid rgba(255,255,255,0.9);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-  }
-  .profile-name {
-    margin-top: 12px;
-    font-size: 22px;
+  .name-card h1 {
+    font-size: 24px;
     font-weight: 800;
     letter-spacing: -0.02em;
   }
-  .profile-sub {
-    margin: 12px auto 0;
-    font-size: 14.5px;
-    font-weight: 500;
-    line-height: 1.85;
-    opacity: 0.95;
-    white-space: pre-line;
-    text-align: center;
-  }
-
-  .blocks { padding: 8px 20px 0; }
-
-  /* ── 구분선 / 여백 ─────────────────────────── */
-  .divider {
-    border: none;
-    border-top: 1px solid rgba(255,255,255,0.28);
-    margin: 22px 0;
-  }
-  .spacer { height: 18px; }
-
-  /* ── 텍스트 블록 ───────────────────────────── */
-  .text-block { text-align: center; margin: 6px 0 14px; }
-  .text-block .t-title {
-    font-size: 15.5px;
-    font-weight: 700;
-    line-height: 1.7;
-    white-space: pre-line;
-  }
-  .text-block .t-body {
-    margin-top: 10px;
+  .name-card .role {
+    margin-top: 7px;
     font-size: 13.5px;
-    font-weight: 500;
-    line-height: 1.9;
-    opacity: 0.92;
-    white-space: pre-line;
-  }
-
-  /* ── 버튼 ─────────────────────────────────── */
-  .btn {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-    color: var(--btn-text);
-    text-decoration: none;
-    border-radius: 14px;
     font-weight: 700;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
-    transition: transform .15s ease, background-color .25s ease;
+    opacity: 0.85;
   }
-  .btn:hover { background: var(--btn); }
-  .btn:active { transform: scale(0.97); }
-  .btn.small {
-    width: fit-content;
-    margin: 6px auto 18px;
-    padding: 12px 26px;
-    font-size: 15px;
-    border-radius: 999px;
-  }
-  .btn.card {
-    width: 100%;
-    padding: 18px 16px;
-    font-size: 16px;
-    margin: 12px 0;
-  }
-  /* swipe(빛 지나가는) 효과 */
-  .btn::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -75%;
-    width: 50%; height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%);
-    transform: skewX(-25deg);
-    animation: swipe 2.8s ease infinite;
-  }
-  @keyframes swipe {
-    0% { left: -75%; }
-    60% { left: 125%; }
-    100% { left: 125%; }
-  }
-
-  /* ── 서비스(상품) 블록 ─────────────────────── */
-  .product-block { margin: 12px 0; }
-  .product-toggle {
-    width: 100%;
-    background: #ffffff;
-    color: var(--btn-text);
-    border: none;
-    border-radius: 14px;
-    padding: 18px 16px;
-    font-size: 16px;
-    font-family: inherit;
-    font-weight: 700;
-    cursor: pointer;
+  .chips {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
-    transition: background-color .25s ease;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 13px;
   }
-  .product-toggle:hover { background: var(--btn); }
-  .product-toggle .chev {
-    transition: transform .25s ease;
+  .chip {
+    background: var(--brand);
+    color: #fff;
     font-size: 12px;
-  }
-  .product-block.open .chev { transform: rotate(180deg); }
-  .product-list {
-    display: none;
-    gap: 12px;
-    overflow-x: auto;
-    padding: 14px 2px 6px;
-    scrollbar-width: none;
-  }
-  .product-list::-webkit-scrollbar { display: none; }
-  .product-block.open .product-list { display: flex; }
-  .product-card {
-    flex: 0 0 132px;
-    text-decoration: none;
-    color: var(--text);
-  }
-  .product-card img {
-    width: 132px; height: 132px;
-    object-fit: cover;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.12);
-    display: block;
-  }
-  .product-card .p-title {
-    margin-top: 8px;
-    font-size: 14px;
     font-weight: 700;
-    text-align: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  /* ── 행(Row) 공통 ──────────────────────────── */
+  section { padding: 0 20px; }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .row:last-child { border-bottom: none; }
+  .row .label { color: var(--muted); font-weight: 500; font-size: 14px; }
+  .row .value { margin-left: auto; font-weight: 700; }
+  .row .chev {
+    flex: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 15px;
+    margin-left: 4px;
+  }
+  .row .value + .chev { margin-left: 8px; }
+  .row .icon {
+    flex: none;
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .row .icon svg { width: 21px; height: 21px; fill: currentColor; }
+  .row .thumb {
+    flex: none;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .row .grow { margin-right: auto; }
+  .row.cta { color: var(--accent); }
+
+  .section-gap {
+    height: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-title {
+    padding: 22px 20px 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
   }
 
   /* ── 동영상 ───────────────────────────────── */
   .video-block {
-    margin: 14px 0;
+    margin: 18px 20px 6px;
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
   }
   .video-block iframe {
     display: block;
@@ -266,143 +201,168 @@
     border: 0;
   }
 
-  /* ── SNS 아이콘 ───────────────────────────── */
-  .sns {
-    display: flex;
-    justify-content: center;
-    gap: 22px;
-    margin: 20px 0 4px;
+  /* ── 소개 ─────────────────────────────────── */
+  .intro {
+    padding: 26px 22px 8px;
   }
-  .sns a {
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px; height: 34px;
-    opacity: 0.95;
+  .intro h2 {
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.5;
+    margin-bottom: 14px;
   }
-  .sns svg { width: 26px; height: 26px; fill: currentColor; }
-
-  /* ── 갤러리 ───────────────────────────────── */
-  .gallery { margin: 14px 0; }
-  .gallery img {
-    width: 100%;
-    height: auto;
-    border-radius: 14px;
-    display: block;
+  .intro p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.95;
+    color: var(--muted);
+    margin-bottom: 14px;
+    word-break: keep-all;
   }
 
   /* ── 푸터 ─────────────────────────────────── */
+  .brand-banner {
+    display: block;
+    width: 62%;
+    margin: 22px auto 0;
+    opacity: 0.9;
+  }
   .footer-note {
-    margin-top: 30px;
+    margin-top: 18px;
     text-align: center;
     font-size: 11.5px;
-    opacity: 0.55;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.5);
   }
-  .footer-note a { color: inherit; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- 프로필 -->
-  <header>
-    <div class="profile-cover">
-      <button class="share-btn" onclick="sharePage()" aria-label="공유하기">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg>
-      </button>
-    </div>
-    <div class="profile-head">
-      <img class="profile-img" src="images/profile.jpg" alt="대표 김규남 프로필" />
-      <h1 class="profile-name">대표 김규남</h1>
-      <p class="profile-sub">✔ 하청 없는 부부 직영
-✔ 대표가 직접 정기관리
-✔ 작업 후 관리사진 제공
-✔ 이천 전 지역 방문</p>
+  <!-- 히어로 + 네임카드 -->
+  <header class="hero">
+    <img src="images/hero.jpg" alt="이천계단지기 대표 김규남" />
+    <button class="share-btn" onclick="sharePage()" aria-label="공유하기">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg>
+    </button>
+    <div class="name-card">
+      <h1>김규남</h1>
+      <div class="role">이천계단지기 대표 ｜ 계단·유리·사무실 청소</div>
+      <div class="chips">
+        <span class="chip">부부 직영</span>
+        <span class="chip">대표 직접 정기관리</span>
+        <span class="chip">작업 후 사진 제공</span>
+      </div>
     </div>
   </header>
 
-  <main class="blocks">
+  <!-- 연락처 -->
+  <section>
+    <a class="row" href="tel:010-8438-1887">
+      <span class="label">휴대전화</span>
+      <span class="value">010-8438-1887</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="mailto:rbska3308@naver.com">
+      <span class="label">이메일</span>
+      <span class="value">rbska3308@naver.com</span>
+      <span class="chev">›</span>
+    </a>
+  </section>
 
-    <hr class="divider" />
+  <div class="section-gap"></div>
 
-    <div class="text-block">
-      <p class="t-title">👇 아래에서 서비스와 요금을 확인하고
-편하게 견적을 문의해 주세요.</p>
-    </div>
+  <!-- 견적/서비스 -->
+  <div class="section-title">서비스 및 견적</div>
+  <section>
+    <a class="row cta" href="https://2000stair.kr/quote" target="_blank" rel="noopener">
+      <span class="icon">💬</span>
+      <span class="grow">무료 방문견적 신청</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://2000stair.kr/services/stair" target="_blank" rel="noopener">
+      <img class="thumb" src="images/service-stair.jpg" alt="" />
+      <span class="grow">계단청소</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://2000stair.kr/services/glass" target="_blank" rel="noopener">
+      <img class="thumb" src="images/service-glass.jpg" alt="" />
+      <span class="grow">유리청소</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://2000stair.kr/services/office" target="_blank" rel="noopener">
+      <img class="thumb" src="images/service-office.jpg" alt="" />
+      <span class="grow">사무실청소</span>
+      <span class="chev">›</span>
+    </a>
+  </section>
 
-    <div class="spacer"></div>
+  <div class="section-gap"></div>
 
-    <a class="btn small" href="https://2000stair.kr/quote" target="_blank" rel="noopener">💬 무료 방문견적 신청</a>
+  <!-- 링크 -->
+  <div class="section-title">더 알아보기</div>
+  <section>
+    <a class="row" href="https://m.blog.naver.com/icheonstair" target="_blank" rel="noopener">
+      <span class="icon">📸</span>
+      <span class="grow">실제 작업후기 보기</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://2000stair.kr" target="_blank" rel="noopener">
+      <span class="icon">🏠</span>
+      <span class="grow">홈페이지 · 소개 및 관리방식</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noopener">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 6.54 2 10.9c0 2.8 1.86 5.25 4.64 6.65-.2.75-.74 2.72-.85 3.14-.13.52.19.51.4.37.17-.11 2.62-1.78 3.68-2.5.68.1 1.39.16 2.13.16 5.52 0 10-3.55 10-7.92S17.52 3 12 3z"/></svg></span>
+      <span class="grow">카카오톡 채널</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://www.instagram.com/2000stair/" target="_blank" rel="noopener">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.84-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></span>
+      <span class="grow">인스타그램</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7" target="_blank" rel="noopener">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 22.2c-2.1-4.2-4-10.1-4-12.9a4 4 0 1 1 8 0c0 2.8-1.9 8.7-4 12.9Z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M12 5V2M12 5 9.2 3.2M12 5l2.8-1.8"/></svg></span>
+      <span class="grow">당근마켓</span>
+      <span class="chev">›</span>
+    </a>
+    <a class="row" href="https://www.youtube.com/@2000stair" target="_blank" rel="noopener">
+      <span class="icon"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg></span>
+      <span class="grow">유튜브</span>
+      <span class="chev">›</span>
+    </a>
+  </section>
 
-    <div class="product-block" id="productBlock">
-      <button class="product-toggle" onclick="document.getElementById('productBlock').classList.toggle('open')">
-        🧹 서비스 및 요금 보기 <span class="chev">▼</span>
-      </button>
-      <div class="product-list">
-        <a class="product-card" href="https://2000stair.kr/services/stair" target="_blank" rel="noopener">
-          <img src="images/service-stair.jpg" alt="계단청소" />
-          <div class="p-title">계단청소</div>
-        </a>
-        <a class="product-card" href="https://2000stair.kr/services/glass" target="_blank" rel="noopener">
-          <img src="images/service-glass.jpg" alt="유리청소" />
-          <div class="p-title">유리청소</div>
-        </a>
-        <a class="product-card" href="https://2000stair.kr/services/office" target="_blank" rel="noopener">
-          <img src="images/service-office.jpg" alt="사무실청소" />
-          <div class="p-title">사무실청소</div>
-        </a>
-      </div>
-    </div>
+  <div class="section-gap"></div>
 
-    <a class="btn card" href="https://m.blog.naver.com/icheonstair" target="_blank" rel="noopener">📸 실제 작업후기 보기</a>
+  <!-- 영상 -->
+  <div class="video-block">
+    <iframe src="https://www.youtube.com/embed/46SwsYgKy9c" title="이천계단지기 소개 영상" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
 
-    <a class="btn card" href="https://2000stair.kr" target="_blank" rel="noopener">✅ 소개 및 관리방식</a>
+  <!-- 소개 -->
+  <div class="intro">
+    <h2>깨끗한 계단은<br />건물의 첫인상입니다</h2>
+    <p>저희는 하청 없이 부부가 직접 운영하는 이천 지역 전문 청소 업체입니다. 계약만 하고 사라지는 관리가 아니라, 대표가 직접 방문해 정기적으로 상태를 확인합니다.</p>
+    <p>모든 작업 후에는 관리사진을 보내드립니다. 건물주님이 현장에 오지 않아도 어떻게 관리되고 있는지 눈으로 확인하실 수 있습니다.</p>
+    <p>이천 전 지역 어디든 방문합니다. 편하게 견적을 문의해 주세요.</p>
+  </div>
 
-    <div class="video-block">
-      <iframe src="https://www.youtube.com/embed/46SwsYgKy9c" title="이천계단지기 소개 영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+  <img class="brand-banner" src="images/gallery1.png" alt="2000stair.kr" />
 
-    <div class="sns">
-      <a href="tel:010-8438-1887" aria-label="전화 문의">
-        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-      </a>
-      <a href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noopener" aria-label="카카오톡 채널">
-        <svg viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 6.54 2 10.9c0 2.8 1.86 5.25 4.64 6.65-.2.75-.74 2.72-.85 3.14-.13.52.19.51.4.37.17-.11 2.62-1.78 3.68-2.5.68.1 1.39.16 2.13.16 5.52 0 10-3.55 10-7.92S17.52 3 12 3z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/2000stair/" target="_blank" rel="noopener" aria-label="인스타그램">
-        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.84-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
-      </a>
-      <a href="https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7" target="_blank" rel="noopener" aria-label="당근마켓">
-        <svg viewBox="0 0 24 24"><path d="M12 22.2c-2.1-4.2-4-10.1-4-12.9a4 4 0 1 1 8 0c0 2.8-1.9 8.7-4 12.9Z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M12 5V2M12 5 9.2 3.2M12 5l2.8-1.8"/></svg>
-      </a>
-      <a href="https://www.youtube.com/@2000stair" target="_blank" rel="noopener" aria-label="유튜브">
-        <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
-      </a>
-    </div>
+  <p class="footer-note">
+    전화 문의 010-8438-1887 · 이메일 rbska3308@naver.com<br />
+    사업자등록번호 234-23-02318<br />
+    © 이천계단지기 · 대표 김규남
+  </p>
 
-    <hr class="divider" />
-
-    <div class="gallery">
-      <img src="images/gallery1.png" alt="이천계단지기 작업 사진" />
-    </div>
-
-    <div class="text-block">
-      <p class="t-title">깨끗한 계단은 건물의 첫인상입니다</p>
-      <p class="t-body">전화 문의 : 010-8438-1887
-이메일 문의 : rbska3308@naver.com
-사업자등록번호 : 234-23-02318</p>
-    </div>
-
-    <p class="footer-note">© 이천계단지기 · 대표 김규남</p>
-
-  </main>
 </div>
 
 <script>
   function sharePage() {
     if (navigator.share) {
-      navigator.share({ title: '대표 김규남', url: location.href });
+      navigator.share({ title: '이천계단지기 | 대표 김규남', url: location.href });
     } else {
       navigator.clipboard.writeText(location.href);
       alert('링크가 복사되었습니다.');
