@@ -54,20 +54,20 @@
     padding-bottom: 48px;
   }
 
-  /* 데스크톱에서도 모바일(폰) 프레임으로만 표시 — litt.ly와 동일 규격 */
+  /* 데스크톱에서도 모바일(폰) 프레임으로만 표시 — litt.ly 실측 규격 */
   @media (min-width: 640px) {
     body {
-      background: #F1F3F6; /* litt.ly phone-bezel 색 */
+      background: var(--bg);
       align-items: flex-start;
     }
     .page {
-      max-width: 420px; /* litt.ly 데스크톱 폰 프레임 폭 */
+      max-width: 473px;              /* litt.ly 컬럼 폭 */
       background: var(--bg);
-      margin: 32px 0;
-      min-height: calc(100vh - 64px);
-      border-radius: 32px;
+      margin: 14px 0 0;              /* litt.ly 상단 여백 */
+      min-height: calc(100vh - 14px);
+      border-radius: 60px 60px 0 0;  /* 위 모서리만 60px */
       overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      box-shadow: 0 0 0 14px #2E51A8, 0 10px 24px rgba(0,0,0,0.08); /* 14px 링 + 그림자 */
     }
   }
 
