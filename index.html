@@ -49,25 +49,25 @@
 
   .page {
     width: 100%;
-    max-width: 480px;
+    max-width: 473px; /* litt.ly 기본 컬럼 폭 */
     min-height: 100vh;
     padding-bottom: 48px;
   }
 
-  /* 데스크톱에서도 모바일(폰) 프레임으로만 표시 */
+  /* 데스크톱에서도 모바일(폰) 프레임으로만 표시 — litt.ly와 동일 규격 */
   @media (min-width: 640px) {
     body {
-      background: #1e3672;
+      background: #F1F3F6; /* litt.ly phone-bezel 색 */
       align-items: flex-start;
     }
     .page {
-      max-width: 420px;
+      max-width: 420px; /* litt.ly 데스크톱 폰 프레임 폭 */
       background: var(--bg);
       margin: 32px 0;
       min-height: calc(100vh - 64px);
-      border-radius: 28px;
+      border-radius: 32px;
       overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
     }
   }
 
