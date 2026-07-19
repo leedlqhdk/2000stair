@@ -1,6 +1,14 @@
 {
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "vite build && tsx scripts/prerender-seo.ts",
+  "headers": [
+    {
+      "source": "/card/2000stair.vcf",
+      "headers": [
+        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" }
+      ]
+    }
+  ],
   "redirects": [
     {
       "source": "/",
