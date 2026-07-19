@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /my-quotes
+
+# AI 검색·어시스턴트 크롤러 명시 허용
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: CCBot
+Allow: /
+Disallow: /admin/
+Disallow: /my-quotes
+
+Sitemap: https://2000stair.kr/sitemap.xml

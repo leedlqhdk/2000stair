@@ -1,0 +1,16 @@
+{
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "buildCommand": "vite build && tsx scripts/prerender-seo.ts",
+  "redirects": [
+    { "source": "/area", "destination": "/areas", "permanent": true },
+    { "source": "/work", "destination": "/records", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/api/trpc/:path*", "destination": "/api/trpc" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/rss.xml", "destination": "/api/rss" },
+    { "source": "/blog/:id(\\d+)", "destination": "/api/blog-og?id=:id" },
+    { "source": "/work/:slug", "destination": "/api/work-og?slug=:slug" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

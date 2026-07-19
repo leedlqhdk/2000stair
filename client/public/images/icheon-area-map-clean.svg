@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" role="img" aria-label="이천 지역 지도">
+  <defs>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#7ea6d9" flood-opacity="0.16"/>
+    </filter>
+    <linearGradient id="regionA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef5ff"/>
+      <stop offset="1" stop-color="#dceafa"/>
+    </linearGradient>
+    <linearGradient id="regionB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eaf3ff"/>
+      <stop offset="1" stop-color="#d4e4f8"/>
+    </linearGradient>
+    <linearGradient id="regionC" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e4effd"/>
+      <stop offset="1" stop-color="#c8dcf6"/>
+    </linearGradient>
+    <style>
+      .region{stroke:#fff;stroke-width:10;stroke-linejoin:round;stroke-linecap:round;filter:url(#softShadow)}
+    </style>
+  </defs>
+  <rect width="1000" height="1000" fill="transparent"/>
+  <g transform="translate(84 62)">
+    <path class="region" fill="url(#regionA)" d="M271 85c43-32 116-44 159-18 43 26 56 88 40 142-13 42-51 74-92 103-54 38-116 67-177 49-54-16-89-67-103-121-14-56 17-119 69-142 35-15 68 12 104-13z"/>
+    <path class="region" fill="url(#regionB)" d="M497 78c51-25 119-9 160 29 40 36 48 94 62 146 16 61 49 121 22 177-23 48-84 58-137 57-58-1-106-26-146-67-36-37-67-83-57-134 9-45 62-63 80-105 15-35-20-83 16-103z"/>
+    <path class="region" fill="url(#regionA)" d="M72 309c38-43 101-54 155-36 53 18 87 64 113 113 27 51 60 111 36 164-24 55-91 75-150 74-65 0-126-29-163-82-33-47-28-110-16-166 5-25 8-49 25-67z"/>
+    <path class="region" fill="url(#regionC)" d="M365 312c50-30 111-32 163-6 50 25 75 77 93 130 20 57 35 121 1 171-34 49-97 67-155 55-58-11-98-54-133-101-31-42-55-93-39-142 14-43 30-83 70-107z"/>
+    <path class="region" fill="url(#regionB)" d="M607 472c59-17 131-5 173 40 43 45 43 117 21 175-22 60-75 108-138 119-63 12-129-17-166-69-35-50-35-118-10-174 21-47 70-77 120-91z"/>
+  </g>
+</svg>

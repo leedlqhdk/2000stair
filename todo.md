@@ -1,0 +1,80 @@
+# Project TODO
+
+- [x] 글로벌 테마 설정 (코발트 블루 색상 팔레트, 폰트, 스타일)
+- [x] Hero 섹션 (구독 가치 제안 + CTA 버튼)
+- [x] '작동 방식' 3단계 그리드 (주문 → 배송 → 청소)
+- [x] 박스 미리보기 캐러셀 (이미지 + 상품 설명)
+- [x] 월간/연간 토글 포함 가격 티어 (Basic / Standard / Premium)
+- [x] Stripe 구독 결제 통합 (체크아웃 플로우)
+- [x] 사용자 인증 (로그인/회원가입) 연동
+- [x] 구독 관리 페이지 (현재 구독 상태 확인/취소)
+- [x] 푸터 (브랜드 정보, 링크, SNS)
+- [x] 반응형 모바일 최적화 레이아웃
+- [x] DB 스키마 (subscriptions 테이블 + users.stripeCustomerId, 플랜은 products.ts에서 정적 정의)
+- [x] Vitest 테스트 작성
+
+- [x] Stripe 구독 결제 방식 제거 (체크아웃, 웹훅, 가격 티어 결제 버튼)
+- [x] 무료 방문 견적 신청 폼 구현 (이름, 연락처, 주소, 희망 서비스 유형 등)
+- [x] 대면/비대면 2년 청소 구독 서비스 모델로 변경
+- [x] 가격 섹션을 서비스 플랜 소개 + 견적 CTA로 변경
+- [x] Hero 섹션 CTA를 '무료 견적 신청'으로 변경
+- [x] 견적 신청 데이터 DB 저장 및 관리자 알림
+- [x] 구독 관리 페이지를 견적 신청 내역 페이지로 변경
+- [x] 이천계단지기 블로그 후기글을 웹사이트에 연결 (각 후기별 링크)
+- [x] BoxPreview 섹션을 서비스 소개/작업 사진 섹션으로 교체
+- [x] quote.submit에서 notifyOwner 실패 시 로깅 처리 추가
+- [x] 블로그 후기 섹션에서 실제 확인된 글만 선별하여 연결
+- [x] PeanutCrate 브랜드명을 이천계단지기로 변경
+- [x] 이천계단지기 로고 이미지를 Navbar에 적용
+- [x] VITE_APP_TITLE을 이천계단지기로 변경 (index.html title 직접 변경)
+- [x] Basic/Standard/Premium 플랜 제거 (badge 필드 완전 제거 포함)
+- [x] 실제 서비스 메뉴로 교체 (2-3층 66,000원~, 4층 77,000원~, 5-6층 88,000원~, 화장실/사무실/유리창 별도문의)
+- [x] PricingSection UI를 새 서비스 메뉴에 맞게 재설계
+- [x] 견적 신청 폼의 플랜 선택 옵션 업데이트
+- [x] products.ts 서비스 플랜 데이터 업데이트
+- [x] 카카오톡 채널 상담 버튼 추가 (https://pf.kakao.com/_IiNfn)
+- [x] 실제 청소 전/후 비교 사진 갤러리 섹션 추가 (6세트: 창틀, 계단바닥, 계단바닥2, 창문레일, 난간, 유리)
+- [x] server/_core/storageProxy.ts TypeScript 오류 수정 (req.params[0] 타입 캐스팅)
+- [x] Hero 섹션 이미지를 실제 작업 현장 사진으로 교체 (색감 통일)
+- [x] 청소 전/후 비교 갤러리를 마우스 드래그 슬라이더 방식으로 변경 (공간 절약)
+- [x] 블로그 후기 섹션에 썸네일 이미지 표시
+- [x] Hero 섹션을 조끼 사진 하나만 크게 표시하도록 변경
+- [x] 서비스 특징 섹션에 현장 사진 배치 + '빠른 피드백' 항목 추가 (카카오톡 채널 결과 보고)
+- [x] 서비스 요금 안내에서 화장실/사무실/유리를 하나의 박스로 통합
+- [x] 블로그 섹션 썸네일을 실제 네이버 블로그 썸네일로 교체
+- [x] 네이버 서치어드바이저 인증 파일(naver0b3b676b9d240746c49353be6e86df61.html) 배포
+- [x] 구글 서치콘솔 DNS TXT 인증 확인
+
+## 블로그/작업일지 기능
+
+- [x] DB 스키마: posts 테이블 (id, title, content, thumbnail, images, tags, published, createdAt)
+- [x] DB 스키마: post_tags 테이블 (id, name, slug)
+- [x] tRPC 프로시저: 블로그 목록/상세 조회 (publicProcedure)
+- [x] tRPC 프로시저: 블로그 작성/수정/삭제 (adminProcedure)
+- [x] tRPC 프로시저: 사진 업로드 (S3)
+- [x] tRPC 프로시저: 태그 목록/생성
+- [x] 블로그 목록 페이지 (/blog)
+- [x] 블로그 상세 페이지 (/blog/:id)
+- [x] 관리자 글 작성/수정 페이지 (/admin/blog/new, /admin/blog/:id/edit)
+- [x] 홈페이지 최신 블로그 미리보기 섹션 추가
+- [x] 네비게이션에 블로그 메뉴 등록
+
+## 작업일지 SEO 메타 태그 자동 생성 기능
+
+- [ ] DB: posts 테이블에 seo_title, seo_description, seo_keywords 필드 추가
+- [ ] 서버: AI SEO 자동 생성 tRPC 프로시저 추가 (invokeLLM 활용)
+- [ ] 관리자 UI: SEO 자동 생성 버튼 및 편집 패널 추가
+- [ ] 블로그 상세 페이지: 동적 SEO 메타 태그 적용 (react-helmet 또는 document.title)
+
+## 작업일지 SEO 메타 태그 자동 생성 기능
+- [ ] DB: posts 테이블에 seo_title, seo_description, seo_keywords 필드 추가
+- [ ] 서버: AI SEO 자동 생성 tRPC 프로시저 추가
+- [ ] 관리자 UI: SEO 자동 생성 버튼 및 편집 패널 추가
+- [ ] 블로그 상세 페이지: 동적 SEO 메타 태그 적용
+
+## 이미지 alt 태그 AI 자동 생성
+
+- [ ] posts 테이블 images 컬럼을 {url, alt} 객체 배열로 확장
+- [ ] 서버 blog.generateAlt 프로시저 (LLM 이미지 분석 → alt 텍스트 반환)
+- [ ] 관리자 글 작성 UI: 이미지 업로드 후 AI alt 자동 생성 + 수동 편집
+- [ ] 블로그 상세 페이지: 저장된 alt 태그 img에 적용
