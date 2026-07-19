@@ -1,373 +1,331 @@
-<!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>이천계단지기 | 대표 김규남</title>
-<meta name="description" content="✔ 하청 없는 부부 직영 ✔ 대표가 직접 정기관리 ✔ 작업 후 관리사진 제공 ✔ 이천 전 지역 방문" />
-<meta name="theme-color" content="#0F1F45" />
-<!-- 카카오톡/SNS 공유 미리보기 (OG) -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://card.2000stair.kr" />
-<meta property="og:title" content="이천계단지기 | 대표 김규남" />
-<meta property="og:description" content="하청 없는 부부 직영 · 대표가 직접 정기관리 · 작업 후 관리사진 제공 · 이천 전 지역 방문" />
-<meta property="og:image" content="https://card.2000stair.kr/images/cover.jpg" />
-<meta property="og:image:width" content="480" />
-<meta property="og:image:height" content="480" />
-<meta property="og:site_name" content="이천계단지기" />
-<link rel="icon" href="images/cover.jpg" />
-<link rel="apple-touch-icon" href="images/cover.jpg" />
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이천계단지기 디지털명함 v3</title>
+<meta name="description" content="하청 없는 부부 직영 · 대표가 직접 정기관리 · 작업 후 관리사진 제공 · 이천 전 지역 방문">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://card.2000stair.kr">
+<meta property="og:title" content="이천계단지기 | 대표 김규남">
+<meta property="og:description" content="하청 없는 부부 직영 · 대표가 직접 정기관리 · 작업 후 관리사진 제공 · 이천 전 지역 방문">
+<meta property="og:image" content="https://card.2000stair.kr/images/logo.png">
+<meta property="og:site_name" content="이천계단지기">
+<link rel="icon" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+
 <style>
-  @font-face {
-    font-family: 'paybooc';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/payboocMedium.woff') format('woff');
-    font-weight: 500; font-style: normal; font-display: swap;
-  }
-  @font-face {
-    font-family: 'paybooc';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/payboocBold.woff') format('woff');
-    font-weight: 700; font-style: normal; font-display: swap;
-  }
-  @font-face {
-    font-family: 'paybooc';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/payboocExtraBold.woff') format('woff');
-    font-weight: 800; font-style: normal; font-display: swap;
-  }
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+@font-face { font-family: "Pretendard"; font-style: normal; font-weight: 400 800; font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations"); }
+@font-face { font-family: "GmarketSans"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansBold.woff2") format("woff2"); }
+@font-face { font-family: "GmarketSans"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansMedium.woff2") format("woff2"); }
 
-  :root {
-    --bg: #0F1F45;        /* 딥 네이비 배경 */
-    --brand: #2B4C9D;     /* 브랜드 블루 */
-    --accent: #FFC928;    /* 브랜드 옐로우 */
-    --text: #ffffff;
-    --muted: rgba(255,255,255,0.72);
-    --line: rgba(255,255,255,0.14);
-  }
+</style>
+<style>/* ───────────────────────────────────────────────────────────
+   이천계단지기 — Color tokens
+   Source of truth: client/src/index.css (Cobalt Blue theme, oklch)
+   Hue 260 throughout = warm, trustworthy cobalt blue from the logo.
+   ─────────────────────────────────────────────────────────── */
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  /* ---- Brand blue ramp (hex, for quick reference / imagery) ---- */
+  --blue-50:  #f4f8ff;   /* section wash, chip bg */
+  --blue-100: #e4ecfb;   /* hairline borders, rings */
+  --blue-200: #c9d8f5;
+  --blue-300: #9db8ec;
+  --blue-400: #6389dd;
+  --blue-500: #3a5dc0;
+  --blue-600: #3155a4;   /* brand primary — logo / theme-color */
+  --blue-700: #284a8f;
+  --blue-800: #213c73;
+  --blue-900: #1b2f57;
 
-  body {
-    background: var(--bg);
-    font-family: 'paybooc', 'SUIT', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    justify-content: center;
-  }
+  /* ---- Core semantic palette (oklch, authoritative) ---- */
+  --primary:               oklch(0.45 0.18 260);   /* #2f50a8 cobalt */
+  --primary-foreground:    oklch(0.98 0 0);         /* near-white */
 
-  .page {
-    width: 100%;
-    max-width: 473px; /* litt.ly 기본 컬럼 폭 */
-    min-height: 100vh;
-    padding-bottom: 40px;
-  }
+  --background:            oklch(1 0 0);            /* #ffffff */
+  --foreground:            oklch(0.18 0.02 260);    /* ink, near-black blue */
 
-  /* 데스크톱에서도 모바일(폰) 프레임으로만 표시 — litt.ly 실측 규격 */
-  @media (min-width: 640px) {
-    body {
-      background: var(--bg);
-      align-items: flex-start;
-    }
-    .page {
-      max-width: 473px;
-      background: var(--bg);
-      margin: 14px 0 0;
-      min-height: calc(100vh - 14px);
-      border-radius: 60px 60px 0 0;
-      overflow: hidden;
-      box-shadow: 0 0 0 14px #21386F, 0 10px 24px rgba(0,0,0,0.18);
-    }
-  }
+  --card:                  oklch(1 0 0);
+  --card-foreground:       oklch(0.18 0.02 260);
 
-  a { color: inherit; text-decoration: none; }
+  --popover:               oklch(1 0 0);
+  --popover-foreground:    oklch(0.18 0.02 260);
 
-  /* ── 히어로 + 네임카드 ─────────────────────── */
-  .hero {
-    position: relative;
-    width: 100%;
-  }
-  .hero > img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 4.6;
-    object-fit: cover;
-  }
-  .share-btn {
-    position: absolute;
-    top: 16px; right: 16px;
-    z-index: 3;
-    width: 38px; height: 38px;
-    border: none; border-radius: 50%;
-    background: rgba(0,0,0,0.35);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-  }
-  .name-card {
-    position: absolute;
-    left: 20px; right: 20px; bottom: 20px;
-    z-index: 2;
-    background: var(--accent);
-    color: #14213D;
-    border-radius: 16px;
-    padding: 20px 20px 18px;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.28);
-  }
-  .name-card h1 {
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-  }
-  .name-card .role {
-    margin-top: 7px;
-    font-size: 13.5px;
-    font-weight: 700;
-    opacity: 0.85;
-  }
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 13px;
-  }
-  .chip {
-    background: var(--brand);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 6px 10px;
-    border-radius: 8px;
-  }
+  --secondary:             oklch(0.96 0.02 260);    /* pale blue fill */
+  --secondary-foreground:  oklch(0.35 0.12 260);
 
-  /* ── 행(Row) 공통 ──────────────────────────── */
-  section { padding: 0 20px; }
-  .row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 17px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 15px;
-    font-weight: 700;
-  }
-  .row:last-child { border-bottom: none; }
-  .row .label { color: var(--muted); font-weight: 500; font-size: 14px; }
-  .row .value { margin-left: auto; font-weight: 700; }
-  .row .chev {
-    flex: none;
-    color: rgba(255,255,255,0.45);
-    font-size: 15px;
-    margin-left: 4px;
-  }
-  .row .value + .chev { margin-left: 8px; }
-  .row .icon {
-    flex: none;
-    width: 24px; height: 24px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .row .icon svg { width: 21px; height: 21px; fill: currentColor; }
-  .row .thumb {
-    flex: none;
-    width: 42px; height: 42px;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-  .row .grow { margin-right: auto; }
-  .row.cta { color: var(--accent); }
+  --muted:                 oklch(0.96 0.01 260);    /* subtle surface */
+  --muted-foreground:      oklch(0.50 0.05 260);    /* slate caption text */
 
-  .section-gap {
-    height: 8px;
-    border-bottom: 1px solid var(--line);
-  }
+  --accent:                oklch(0.94 0.03 260);
+  --accent-foreground:     oklch(0.30 0.14 260);
 
-  .section-title {
-    padding: 22px 20px 4px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-  }
+  --destructive:           oklch(0.577 0.245 27.325); /* warning red */
+  --destructive-foreground: oklch(0.985 0 0);
 
-  /* ── 동영상 ───────────────────────────────── */
-  .video-block {
-    margin: 18px 20px 6px;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  }
-  .video-block iframe {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border: 0;
-  }
+  --border:                oklch(0.92 0.02 260);    /* blue-100 hairline */
+  --input:                 oklch(0.92 0.02 260);
+  --ring:                  oklch(0.45 0.18 260);    /* = primary */
 
-  /* ── 소개 ─────────────────────────────────── */
-  .intro {
-    padding: 26px 22px 8px;
-  }
-  .intro h2 {
-    font-size: 17px;
-    font-weight: 800;
-    line-height: 1.5;
-    margin-bottom: 14px;
-  }
-  .intro p {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.95;
-    color: var(--muted);
-    margin-bottom: 14px;
-    word-break: keep-all;
-  }
+  /* ---- Data viz (cool, monochromatic blues) ---- */
+  --chart-1: oklch(0.55 0.20 260);
+  --chart-2: oklch(0.60 0.18 240);
+  --chart-3: oklch(0.65 0.15 220);
+  --chart-4: oklch(0.70 0.12 200);
+  --chart-5: oklch(0.75 0.10 280);
 
-  /* ── 푸터 ─────────────────────────────────── */
-  .brand-banner {
-    display: block;
-    width: 62%;
-    margin: 22px auto 0;
-    opacity: 0.9;
-  }
-  .footer-note {
-    margin-top: 18px;
-    text-align: center;
-    font-size: 11.5px;
-    line-height: 1.9;
-    color: rgba(255,255,255,0.5);
-  }
+  /* ---- Sidebar / dashboard surfaces ---- */
+  --sidebar:                    oklch(0.98 0.005 260);
+  --sidebar-foreground:         oklch(0.18 0.02 260);
+  --sidebar-primary:            oklch(0.45 0.18 260);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent:             oklch(0.94 0.03 260);
+  --sidebar-accent-foreground:  oklch(0.30 0.14 260);
+  --sidebar-border:             oklch(0.92 0.02 260);
+  --sidebar-ring:               oklch(0.45 0.18 260);
+
+  /* ---- Convenience aliases (plain-English names) ---- */
+  --text-strong:   var(--foreground);
+  --text-body:     oklch(0.30 0.03 260);   /* gray-700 body copy */
+  --text-muted:    var(--muted-foreground);
+  --surface-page:  var(--background);
+  --surface-card:  var(--card);
+  --surface-wash:  var(--blue-50);         /* tinted section bg */
+  --footer-bg:     var(--blue-900);        /* deep navy footer (진한 네이비) */
+}
+
+/* Dark theme (carried from the source app; used by dashboard) */
+.dark {
+  --primary:               oklch(0.60 0.20 260);
+  --primary-foreground:    oklch(0.98 0 0);
+  --background:            oklch(0.14 0.02 260);
+  --foreground:            oklch(0.92 0.01 260);
+  --card:                  oklch(0.18 0.02 260);
+  --card-foreground:       oklch(0.92 0.01 260);
+  --popover:               oklch(0.18 0.02 260);
+  --popover-foreground:    oklch(0.92 0.01 260);
+  --secondary:             oklch(0.22 0.03 260);
+  --secondary-foreground:  oklch(0.80 0.05 260);
+  --muted:                 oklch(0.25 0.03 260);
+  --muted-foreground:      oklch(0.65 0.05 260);
+  --accent:                oklch(0.25 0.04 260);
+  --accent-foreground:     oklch(0.92 0.01 260);
+  --destructive:           oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border:                oklch(0.30 0.03 260);
+  --input:                 oklch(0.30 0.03 260);
+  --ring:                  oklch(0.60 0.20 260);
+}
+</style>
+<style>/* ───────────────────────────────────────────────────────────
+   이천계단지기 — Typography tokens
+   Korean copy → Pretendard · Latin & numerals → Plus Jakarta Sans
+   The brand leans HEAVY: display headings are 800 (extrabold),
+   labels 700, body 500–600. Eyebrows are tracked-out uppercase.
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* ---- Families ---- */
+  --font-sans: "Pretendard", "Plus Jakarta Sans", system-ui, -apple-system,
+               "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-display: "GmarketSans", "Pretendard", system-ui, sans-serif; /* headings, titles, prices */
+  --font-latin: "Plus Jakarta Sans", "Pretendard", system-ui, sans-serif;
+  --font-eyebrow: "Plus Jakarta Sans", "Pretendard", system-ui, sans-serif;
+
+  /* ---- Weights ---- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-extrabold: 800;
+
+  /* ---- Type scale (px) ---- */
+  --text-display:  4.5rem;   /* 72 — hero h1 (clamps down on mobile) */
+  --text-h1:       3rem;     /* 48 */
+  --text-h2:       2.25rem;  /* 36 — section titles */
+  --text-h3:       1.5rem;   /* 24 — card titles */
+  --text-h4:       1.25rem;  /* 20 */
+  --text-lg:       1.125rem; /* 18 — lead paragraph */
+  --text-base:     1rem;     /* 16 — body */
+  --text-sm:       0.875rem; /* 14 — secondary / nav */
+  --text-xs:       0.75rem;  /* 12 — captions, eyebrow */
+
+  /* ---- Line heights ---- */
+  --leading-tight:   1.08;   /* display headings */
+  --leading-snug:    1.18;   /* h2 / h3 */
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;   /* body copy */
+
+  /* ---- Letter spacing ---- */
+  --tracking-display:  0.045em;  /* headlines breathe slightly */
+  --tracking-tight:   -0.01em;   /* price / numerals */
+  --tracking-normal:   0;
+  --tracking-eyebrow:  0.28em;   /* PROCESS / MAP labels */
+  --tracking-eyebrow-sm: 0.16em;
+}
+</style>
+<style>/* ───────────────────────────────────────────────────────────
+   이천계단지기 — Spacing, radius, elevation
+   Base radius 0.75rem. Cards round generously (xl → 2xl).
+   Elevation is BLUE-TINTED, never neutral grey — shadows carry
+   a cobalt cast (rgba(15,76,169,…)) so cards feel part of the brand.
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* ---- Spacing scale (4px base) ---- */
+  --space-1:  0.25rem;  /*  4 */
+  --space-2:  0.5rem;   /*  8 */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.25rem;  /* 20 */
+  --space-6:  1.5rem;   /* 24 — card padding (sm) */
+  --space-8:  2rem;     /* 32 — card padding (lg) */
+  --space-10: 2.5rem;   /* 40 */
+  --space-12: 3rem;     /* 48 */
+  --space-16: 4rem;     /* 64 — section padding (mobile) */
+  --space-20: 5rem;     /* 80 */
+  --space-28: 7rem;     /* 112 — section padding (desktop) */
+
+  /* ---- Radius ---- */
+  --radius:    0.75rem;                    /* 12 — base */
+  --radius-sm: calc(var(--radius) - 4px);  /*  8 */
+  --radius-md: calc(var(--radius) - 2px);  /* 10 */
+  --radius-lg: var(--radius);              /* 12 — inputs, buttons-lg */
+  --radius-xl: calc(var(--radius) + 4px);  /* 16 — cards */
+  --radius-2xl: 1.25rem;                   /* 20 — dropdowns, nav panels */
+  --radius-card: 1.6rem;                   /* 25.6 — pricing / feature cards */
+  --radius-pill: 9999px;                   /* chips, CTAs, avatars */
+
+  /* ---- Elevation (cobalt-tinted) ---- */
+  --shadow-xs:   0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-sm:   0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-md:   0 8px 18px rgba(15, 23, 42, 0.12);
+  --shadow-card: 0 16px 42px rgba(15, 76, 169, 0.08);   /* resting card */
+  --shadow-card-hover: 0 20px 48px rgba(0, 81, 199, 0.12); /* lifted card */
+  --shadow-dropdown: 0 18px 40px rgba(8, 18, 48, 0.10);
+  --shadow-footer: 0 16px 36px rgba(0, 0, 0, 0.18);
+
+  /* ---- Layout ---- */
+  --container-max: 1280px;
+  --container-pad: 1rem;     /* 2rem at lg */
+
+  /* ---- Motion ---- */
+  --ease-out-brand: cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --dur-fast:   200ms; /* @kind other */
+  --dur-base:   300ms; /* @kind other */
+  --dur-slow:   550ms; /* @kind other */
+  --hover-lift: -2px; /* @kind other */
+}
+</style>
+
+<style>
+*{box-sizing:border-box}
+:root{--ink:#0f1b33;--cobalt:#3155A4;--blue-50:#F4F8FF;--blue-100:#dce8fb;--muted:rgba(255,255,255,.66);--ease:cubic-bezier(0.22,1,0.36,1)}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--font-sans);background:#0d1b36;word-break:keep-all;display:flex;justify-content:center}
+a{color:#bcd3ff;text-decoration:none}
+a:hover{color:#fff}
+.page{position:relative;width:100%;max-width:420px;min-height:100vh;background:url("images/blue-bg.jpg") center/cover no-repeat;display:flex;flex-direction:column;padding:16px}
+.sheet{flex:1;display:flex;flex-direction:column;padding:30px 20px 26px;border-radius:32px;background:rgba(255,255,255,.08);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 16px 42px rgba(0,0,0,.22)}
+@media (min-width:768px){
+body{background:#fff;padding:40px 0;align-items:flex-start}
+.page{min-height:0;border-radius:44px;border:10px solid #0a1530;box-shadow:0 30px 80px rgba(13,27,54,.45);overflow:hidden}
+}
+.avatar{width:126px;height:126px;margin:0 auto;border-radius:999px;overflow:hidden;background:#22355c;box-shadow:0 16px 42px rgba(0,0,0,.30)}
+.avatar image-slot{display:block;width:100%;height:100%}
+h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight:700;font-size:26px;color:#fff;letter-spacing:0.02em;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.role{margin:8px 0 0;text-align:center;font-size:13.5px;font-weight:700;color:rgba(255,255,255,.88);text-shadow:0 1px 6px rgba(0,0,0,.25)}
+.role a{text-decoration:underline;font-weight:700}
+.save{display:flex;align-items:center;justify-content:center;gap:9px;margin:26px 0 0;min-height:50px;width:100%;border:none;border-radius:16px;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-family:var(--font-sans);font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.12);transition:transform 300ms var(--ease),box-shadow 300ms,background 300ms}
+.save:hover{transform:translateY(-2px);background:rgba(255,255,255,.24);box-shadow:0 12px 28px rgba(0,0,0,.18)}
+.save:active{transform:scale(0.98)}
+.save svg{width:19px;height:19px}
+.links{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.link{display:flex;align-items:center;gap:12px;min-height:54px;padding:0 14px;border-radius:13px;background:rgba(0,0,0,.16);transition:transform 250ms var(--ease),box-shadow 250ms,background 250ms}
+.link:hover{transform:translateY(-2px);background:rgba(0,0,0,.26);box-shadow:0 10px 26px rgba(0,0,0,.18);color:inherit}
+.link:active{transform:scale(0.98)}
+.tile{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#fff;color:#101828}
+.tile svg{width:24px;height:24px}
+.t-kakao{color:#1a1a1a}
+.link .tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.link .tk{font-size:13.5px;font-weight:700;color:#fff}
+.link .tv{font-size:11.5px;font-weight:500;color:rgba(255,255,255,.70);font-family:var(--font-latin);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link .arrow{margin-left:auto;width:14px;height:14px;color:rgba(255,255,255,.75);flex-shrink:0}
+.foot{margin-top:32px;text-align:center}
+.foot img{width:30px;height:34px;object-fit:contain}
+.foot p{margin:10px 0 0;font-family:var(--font-latin);font-size:11px;color:rgba(255,255,255,.45);letter-spacing:0.04em}
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- 히어로 + 네임카드 -->
-  <header class="hero">
-    <img src="images/hero.jpg" alt="이천계단지기 대표 김규남" />
-    <button class="share-btn" onclick="sharePage()" aria-label="공유하기">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg>
-    </button>
-    <div class="name-card">
-      <h1>김규남</h1>
-      <div class="role">이천계단지기 대표 ｜ 계단·유리·사무실 청소</div>
-      <div class="chips">
-        <span class="chip">부부 직영</span>
-        <span class="chip">대표 직접 정기관리</span>
-        <span class="chip">작업 후 사진 제공</span>
-      </div>
-    </div>
-  </header>
 
-  <!-- 연락처 -->
-  <section>
-    <a class="row" href="tel:010-8438-1887">
-      <span class="label">휴대전화</span>
-      <span class="value">010-8438-1887</span>
-      <span class="chev">›</span>
+<div class="page" data-screen-label="디지털명함 v3 라이트 링크형">
+<div class="sheet">
+  <div class="avatar"><img src="images/avatar.jpg" alt="대표 프로필 사진" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+  <h1>김규남</h1>
+  <p class="role">이천계단지기 대표</p>
+  <button class="save" id="save-contact">
+    Save Contact
+  </button>
+  <div class="links">
+    <a class="link" href="tel:010-8438-1887">
+      <span class="tile t-call"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
+      <span class="tx"><span class="tk">전화 문의</span><span class="tv">010-8438-1887</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-    <a class="row" href="mailto:rbska3308@naver.com">
-      <span class="label">이메일</span>
-      <span class="value">rbska3308@naver.com</span>
-      <span class="chev">›</span>
+    <a class="link" href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noreferrer">
+      <span class="tile t-kakao"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.2 4.5 6.6L5.5 21l3.9-2.2c.8.2 1.7.3 2.6.3 5.5 0 10-3.6 10-8s-4.5-8-10-8Z"></path></svg></span>
+      <span class="tx"><span class="tk">KakaoTalk</span><span class="tv">카카오톡으로 상담문의</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-  </section>
-
-  <div class="section-gap"></div>
-
-  <!-- 견적/서비스 -->
-  <div class="section-title">서비스 및 견적</div>
-  <section>
-    <a class="row cta" href="https://2000stair.kr/quote" target="_blank" rel="noopener">
-      <span class="icon">💬</span>
-      <span class="grow">무료 방문견적 신청</span>
-      <span class="chev">›</span>
+    <a class="link" href="https://2000stair.kr" target="_blank" rel="noreferrer">
+      <span class="tile t-web"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" fill-rule="evenodd"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm-8.4 11.6h4.2c.1 2.3.6 4.5 1.5 6.5a8.4 8.4 0 0 1-5.7-6.5zm4.2-2.2H3.6a8.4 8.4 0 0 1 5.7-6.5c-.9 2-1.4 4.2-1.5 6.5zm2.2 0c.1-2.5.8-4.8 2-6.8 1.2 2 1.9 4.3 2 6.8h-4zm4 2.2a13.7 13.7 0 0 1-2 6.8 13.7 13.7 0 0 1-2-6.8h4zm2.2 0h4.2a8.4 8.4 0 0 1-5.7 6.5c.9-2 1.4-4.2 1.5-6.5zm0-2.2c-.1-2.3-.6-4.5-1.5-6.5a8.4 8.4 0 0 1 5.7 6.5h-4.2z"></path></svg></span>
+      <span class="tx"><span class="tk">Website</span><span class="tv">공식홈페이지 보러가기</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-    <a class="row" href="https://2000stair.kr/services/stair" target="_blank" rel="noopener">
-      <img class="thumb" src="images/service-stair.jpg" alt="" />
-      <span class="grow">계단청소</span>
-      <span class="chev">›</span>
+    <a class="link" href="mailto:rbska3308@naver.com">
+      <span class="tile t-mail"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2 6.2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.2l-9.47 6a1.94 1.94 0 0 1-2.06 0L2 6.2z"></path><path d="M22 8.6V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.6l8.4 5.3a3.94 3.94 0 0 0 4.2 0L22 8.6z"></path></svg></span>
+      <span class="tx"><span class="tk">E-mail</span><span class="tv">rbska3308@naver.com</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-    <a class="row" href="https://2000stair.kr/services/glass" target="_blank" rel="noopener">
-      <img class="thumb" src="images/service-glass.jpg" alt="" />
-      <span class="grow">유리청소</span>
-      <span class="chev">›</span>
+    <a class="link" href="https://instagram.com/icheon_stair" target="_blank" rel="noreferrer">
+      <span class="tile t-insta"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" fill-rule="evenodd"><path d="M7 1.5h10A5.5 5.5 0 0 1 22.5 7v10a5.5 5.5 0 0 1-5.5 5.5H7A5.5 5.5 0 0 1 1.5 17V7A5.5 5.5 0 0 1 7 1.5zm5 5.6a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zm0 2.2a2.7 2.7 0 1 1 0 5.4 2.7 2.7 0 0 1 0-5.4zm5.4-3.6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"></path></svg></span>
+      <span class="tx"><span class="tk">Instagram</span><span class="tv">@icheon_stair</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-    <a class="row" href="https://2000stair.kr/services/office" target="_blank" rel="noopener">
-      <img class="thumb" src="images/service-office.jpg" alt="" />
-      <span class="grow">사무실청소</span>
-      <span class="chev">›</span>
+    <a class="link" href="https://youtube.com/@2000stair" target="_blank" rel="noreferrer">
+      <span class="tile t-yt"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12z"></path></svg></span>
+      <span class="tx"><span class="tk">YouTube</span><span class="tv">@2000stair</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-  </section>
-
-  <div class="section-gap"></div>
-
-  <!-- 링크 -->
-  <div class="section-title">더 알아보기</div>
-  <section>
-    <a class="row" href="https://m.blog.naver.com/icheonstair" target="_blank" rel="noopener">
-      <span class="icon">📸</span>
-      <span class="grow">실제 작업후기 보기</span>
-      <span class="chev">›</span>
+    <a class="link" href="https://www.daangn.com" target="_blank" rel="noreferrer">
+      <span class="tile t-carrot"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4.3 19.7c3.2-.2 8.7-1.6 11.7-4.6 2.4-2.4 2.6-6.1.5-8.2s-5.8-1.9-8.2.5c-3 3-4.4 8.5-4.6 11.7 0 .3.3.6.6.6z"></path><path d="M17.6 6.1c.4-2 2.1-3.5 4.2-3.6.1 2.1-1.4 4-3.4 4.3-.4.1-.8-.3-.8-.7z"></path></svg></span>
+      <span class="tx"><span class="tk">당근 프로필</span><span class="tv">이천 북부지역 관리 가능</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-    <a class="row" href="https://2000stair.kr" target="_blank" rel="noopener">
-      <span class="icon">🏠</span>
-      <span class="grow">홈페이지 · 소개 및 관리방식</span>
-      <span class="chev">›</span>
-    </a>
-    <a class="row" href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noopener">
-      <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 6.54 2 10.9c0 2.8 1.86 5.25 4.64 6.65-.2.75-.74 2.72-.85 3.14-.13.52.19.51.4.37.17-.11 2.62-1.78 3.68-2.5.68.1 1.39.16 2.13.16 5.52 0 10-3.55 10-7.92S17.52 3 12 3z"/></svg></span>
-      <span class="grow">카카오톡 채널</span>
-      <span class="chev">›</span>
-    </a>
-    <a class="row" href="https://www.instagram.com/2000stair/" target="_blank" rel="noopener">
-      <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.84-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></span>
-      <span class="grow">인스타그램</span>
-      <span class="chev">›</span>
-    </a>
-    <a class="row" href="https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7" target="_blank" rel="noopener">
-      <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 22.2c-2.1-4.2-4-10.1-4-12.9a4 4 0 1 1 8 0c0 2.8-1.9 8.7-4 12.9Z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M12 5V2M12 5 9.2 3.2M12 5l2.8-1.8"/></svg></span>
-      <span class="grow">당근마켓</span>
-      <span class="chev">›</span>
-    </a>
-    <a class="row" href="https://www.youtube.com/@2000stair" target="_blank" rel="noopener">
-      <span class="icon"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg></span>
-      <span class="grow">유튜브</span>
-      <span class="chev">›</span>
-    </a>
-  </section>
-
-  <div class="section-gap"></div>
-
-  <!-- 영상 -->
-  <div class="video-block">
-    <iframe src="https://www.youtube.com/embed/46SwsYgKy9c" title="이천계단지기 소개 영상" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
-
-  <!-- 소개 -->
-  <div class="intro">
-    <h2>깨끗한 계단은<br />건물의 첫인상입니다</h2>
-    <p>저희는 하청 없이 부부가 직접 운영하는 이천 지역 전문 청소 업체입니다. 계약만 하고 사라지는 관리가 아니라, 대표가 직접 방문해 정기적으로 상태를 확인합니다.</p>
-    <p>모든 작업 후에는 관리사진을 보내드립니다. 건물주님이 현장에 오지 않아도 어떻게 관리되고 있는지 눈으로 확인하실 수 있습니다.</p>
-    <p>이천 전 지역 어디든 방문합니다. 편하게 견적을 문의해 주세요.</p>
+  <div class="foot">
+    <img src="images/logo.png" alt="이천계단지기 로고">
+    <p>© Icheon Stair Keeper</p>
   </div>
-
-  <img class="brand-banner" src="images/gallery1.png" alt="2000stair.kr" />
-
-  <p class="footer-note">
-    전화 문의 010-8438-1887 · 이메일 rbska3308@naver.com<br />
-    사업자등록번호 234-23-02318<br />
-    © 이천계단지기 · 대표 김규남
-  </p>
-
+</div>
 </div>
 
 <script>
-  function sharePage() {
-    if (navigator.share) {
-      navigator.share({ title: '이천계단지기 | 대표 김규남', url: location.href });
-    } else {
-      navigator.clipboard.writeText(location.href);
-      alert('링크가 복사되었습니다.');
-    }
-  }
+document.getElementById("save-contact").addEventListener("click", () => {
+  const vcard = ["BEGIN:VCARD","VERSION:3.0","N:김;규남;;;","FN:김규남 (이천계단지기)","ORG:이천계단지기","TITLE:대표","TEL;TYPE=CELL:010-8438-1887","EMAIL:rbska3308@naver.com","URL:https://2000stair.kr","END:VCARD"].join("\r\n");
+  const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "이천계단지기_김규남.vcf";
+  document.body.appendChild(a); a.click(); a.remove();
+});
 </script>
-</body>
-</html>
+<template id="__bundler_thumbnail" data-bg-color="#1b2b45"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1b2b45"></rect><g stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"><path d="M25 74h14v-13h14v-13h14v-13h8"></path></g><circle cx="33" cy="32" r="9" fill="#ffffff"></circle></svg></template>
+
+
+</body></html>
