@@ -260,7 +260,7 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
 .t-call{color:#2563EB}
 .t-kakao{background:#FEE500;color:#191919}
 .t-web{color:#3155A4}
-.t-blog{background:#03C75A;color:#fff}
+.t-blog{color:#3155A4}
 .t-mail{color:#3155A4}
 .t-insta{background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);color:#fff}
 .t-yt{background:#FF0000;color:#fff}
@@ -269,6 +269,24 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
 .link .tk{font-size:13.5px;font-weight:700;color:#fff}
 .link .tv{font-size:11.5px;font-weight:500;color:rgba(255,255,255,.70);font-family:var(--font-latin);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .link .arrow{margin-left:auto;width:14px;height:14px;color:rgba(255,255,255,.75);flex-shrink:0}
+
+.sns-row{display:flex;justify-content:center;gap:28px;margin-top:24px}
+.sns-row a{color:rgba(255,255,255,.85);display:flex;transition:color 200ms}
+.sns-row a:hover{color:#fff}
+.sns-row svg{width:24px;height:24px;fill:currentColor}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);margin-top:26px;padding:16px 4px;border-radius:16px;background:rgba(0,0,0,.25)}
+.badge{display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 5px;text-align:center}
+.badge + .badge{border-left:1px solid rgba(255,255,255,.12)}
+.badge svg{width:22px;height:22px;color:#6389dd}
+.badge .b1{font-size:11.5px;font-weight:800;color:#fff;word-break:keep-all}
+.badge .b2{font-size:10px;font-weight:500;color:rgba(255,255,255,.6);word-break:keep-all}
+.foot2{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:22px}
+.foot2 .brandline{display:flex;align-items:center;gap:8px}
+.foot2 .brandline img{width:26px;height:30px;object-fit:contain}
+.foot2 .wordmark{font-family:var(--font-display);font-weight:700;font-size:17px;color:#fff}
+.foot2 .wordmark b{color:#6389dd;font-weight:700}
+.foot2 .slogan{margin-top:7px;font-size:11px;color:rgba(255,255,255,.55)}
+.foot2 .biz{text-align:right;font-size:11px;line-height:1.8;color:rgba(255,255,255,.6)}
 .foot{margin-top:32px;text-align:center}
 .foot img{width:30px;height:34px;object-fit:contain}
 .foot p{margin:10px 0 0;font-family:var(--font-latin);font-size:11px;color:rgba(255,255,255,.45);letter-spacing:0.04em}
@@ -288,16 +306,27 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
     <span class="chip">✨ 유리창 청소</span>
     <span class="chip">🏢 사무실 청소</span>
   </div>
-  <button class="save" id="save-contact">
-    연락처 저장
-  </button>
+  <a class="save" href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noreferrer" style="text-decoration:none">
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:19px;height:19px"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.2 4.5 6.6L5.5 21l3.9-2.2c.8.2 1.7.3 2.6.3 5.5 0 10-3.6 10-8s-4.5-8-10-8Z"></path></svg>
+    카카오톡 상담
+  </a>
   <div class="links">
     <a class="link" href="https://2000stair.kr/quote" target="_blank" rel="noreferrer">
       <span class="tile t-quote"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-5 4V6a2 2 0 0 1 1-1.73A2 2 0 0 1 4 4z"></path></svg></span>
       <span class="tx"><span class="tk">무료 방문견적 신청</span><span class="tv">이천 전지역 무료 방문견적</span></span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-    <a class="link" href="tel:010-8438-1887">
+    <a class="link" href="https://2000stair.kr/services" target="_blank" rel="noreferrer">
+      <span class="tile t-web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path><path d="M9 21v-6h6v6"></path></svg></span>
+      <span class="tx"><span class="tk">서비스·요금 확인</span><span class="tv">청소 서비스와 요금안내 보기</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+    </a>
+    <a class="link" href="https://m.blog.naver.com/icheonstair" target="_blank" rel="noreferrer">
+      <span class="tile t-blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></span>
+      <span class="tx"><span class="tk">실제 작업후기 보기</span><span class="tv">청소 전·후 사진과 고객후기 확인</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+    </a>
+    <a class="link" href="tel:010-8438-1887" target="_blank" rel="noreferrer">
       <span class="tile t-call"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
       <span class="tx"><span class="tk">전화 문의</span><span class="tv">010-8438-1887</span></span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
@@ -307,54 +336,33 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
       <span class="tx"><span class="tk">카카오톡 상담</span><span class="tv">빠른 상담이 필요하시면 톡주세요!</span></span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
-    <a class="link" href="https://2000stair.kr" target="_blank" rel="noreferrer">
-      <span class="tile t-web"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" fill-rule="evenodd"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm-8.4 11.6h4.2c.1 2.3.6 4.5 1.5 6.5a8.4 8.4 0 0 1-5.7-6.5zm4.2-2.2H3.6a8.4 8.4 0 0 1 5.7-6.5c-.9 2-1.4 4.2-1.5 6.5zm2.2 0c.1-2.5.8-4.8 2-6.8 1.2 2 1.9 4.3 2 6.8h-4zm4 2.2a13.7 13.7 0 0 1-2 6.8 13.7 13.7 0 0 1-2-6.8h4zm2.2 0h4.2a8.4 8.4 0 0 1-5.7 6.5c.9-2 1.4-4.2 1.5-6.5zm0-2.2c-.1-2.3-.6-4.5-1.5-6.5a8.4 8.4 0 0 1 5.7 6.5h-4.2z"></path></svg></span>
-      <span class="tx"><span class="tk">서비스·요금 확인</span><span class="tv">청소 서비스와 요금안내 보기</span></span>
-      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-    </a>
-    <a class="link" href="https://m.blog.naver.com/icheonstair" target="_blank" rel="noreferrer">
-      <span class="tile t-blog"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4.5 4.5h4.9l5.1 7.6V4.5h5v15h-4.9l-5.1-7.6v7.6h-5v-15z"></path></svg></span>
-      <span class="tx"><span class="tk">실제 작업후기 보기</span><span class="tv">청소 전·후 사진과 고객후기 확인</span></span>
-      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-    </a>
-    <a class="link" href="mailto:rbska3308@naver.com">
-      <span class="tile t-mail"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M2 6.2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.2l-9.47 6a1.94 1.94 0 0 1-2.06 0L2 6.2z"></path><path d="M22 8.6V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.6l8.4 5.3a3.94 3.94 0 0 0 4.2 0L22 8.6z"></path></svg></span>
-      <span class="tx"><span class="tk">이메일 문의</span><span class="tv">rbska3308@naver.com</span></span>
-      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-    </a>
-    <a class="link" href="https://instagram.com/icheon_stair" target="_blank" rel="noreferrer">
-      <span class="tile t-insta"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" fill-rule="evenodd"><path d="M7 1.5h10A5.5 5.5 0 0 1 22.5 7v10a5.5 5.5 0 0 1-5.5 5.5H7A5.5 5.5 0 0 1 1.5 17V7A5.5 5.5 0 0 1 7 1.5zm5 5.6a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zm0 2.2a2.7 2.7 0 1 1 0 5.4 2.7 2.7 0 0 1 0-5.4zm5.4-3.6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"></path></svg></span>
-      <span class="tx"><span class="tk">인스타그램</span><span class="tv">@icheon_stair</span></span>
-      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-    </a>
-    <a class="link" href="https://youtube.com/@2000stair" target="_blank" rel="noreferrer">
-      <span class="tile t-yt"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12z"></path></svg></span>
-      <span class="tx"><span class="tk">유튜브 채널</span><span class="tv">이천계단지기</span></span>
-      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-    </a>
-    <a class="link" href="https://www.daangn.com" target="_blank" rel="noreferrer">
-      <span class="tile t-carrot"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4.3 19.7c3.2-.2 8.7-1.6 11.7-4.6 2.4-2.4 2.6-6.1.5-8.2s-5.8-1.9-8.2.5c-3 3-4.4 8.5-4.6 11.7 0 .3.3.6.6.6z"></path><path d="M17.6 6.1c.4-2 2.1-3.5 4.2-3.6.1 2.1-1.4 4-3.4 4.3-.4.1-.8-.3-.8-.7z"></path></svg></span>
-      <span class="tx"><span class="tk">당근 프로필</span><span class="tv">이천 북부지역 관리 가능</span></span>
+    <a class="link" href="https://2000stair.kr/about" target="_blank" rel="noreferrer">
+      <span class="tile t-web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"></path></svg></span>
+      <span class="tx"><span class="tk">회사소개</span><span class="tv">이천계단지기가 일하는 방식</span></span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
   </div>
-  <div class="foot">
-    <img src="/card/images/logo.png" alt="이천계단지기 로고">
-    <p style="line-height:1.9">깨끗한 계단은 건물의 첫인상입니다<br>이천계단지기｜대표 김규남<br>사업자등록번호 234-23-02318</p>
+  <div class="sns-row">
+    <a href="https://instagram.com/icheon_stair" target="_blank" rel="noreferrer" aria-label="인스타그램"><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 1.5h10A5.5 5.5 0 0 1 22.5 7v10a5.5 5.5 0 0 1-5.5 5.5H7A5.5 5.5 0 0 1 1.5 17V7A5.5 5.5 0 0 1 7 1.5zm5 5.6a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zm0 2.2a2.7 2.7 0 1 1 0 5.4 2.7 2.7 0 0 1 0-5.4zm5.4-3.6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"></path></svg></a>
+    <a href="https://youtube.com/@2000stair" target="_blank" rel="noreferrer" aria-label="유튜브"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12z"></path></svg></a>
+    <a href="https://www.daangn.com" target="_blank" rel="noreferrer" aria-label="당근"><svg viewBox="0 0 24 24"><path d="M4.3 19.7c3.2-.2 8.7-1.6 11.7-4.6 2.4-2.4 2.6-6.1.5-8.2s-5.8-1.9-8.2.5c-3 3-4.4 8.5-4.6 11.7 0 .3.3.6.6.6z"></path><path d="M17.6 6.1c.4-2 2.1-3.5 4.2-3.6.1 2.1-1.4 4-3.4 4.3-.4.1-.8-.3-.8-.7z"></path></svg></a>
+  </div>
+  <div class="badges">
+    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="b1">대표 직접 관리</span><span class="b2">하청 없는 직영 운영</span></div>
+    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg><span class="b1">작업 후 사진 제공</span><span class="b2">투명한 관리 시스템</span></div>
+    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg><span class="b1">세금계산서 발행</span><span class="b2">정식 사업자 등록업체</span></div>
+    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg><span class="b1">정기관리 전문</span><span class="b2">꾸준하고 책임감 있게</span></div>
+  </div>
+  <div class="foot2">
+    <div>
+      <div class="brandline"><img src="/card/images/logo.png" alt="이천계단지기 로고"><span class="wordmark">이천<b>계단지기</b></span></div>
+      <div class="slogan">깨끗한 계단은 건물의 첫인상입니다</div>
+    </div>
+    <div class="biz">이천계단지기｜대표 김규남<br>사업자등록번호 234-23-02318<br>rbska3308@naver.com</div>
   </div>
 </div>
 </div>
 
-<script>
-document.getElementById("save-contact").addEventListener("click", () => {
-  const vcard = ["BEGIN:VCARD","VERSION:3.0","N:김;규남;;;","FN:김규남 (이천계단지기)","ORG:이천계단지기","TITLE:대표","TEL;TYPE=CELL:010-8438-1887","EMAIL:rbska3308@naver.com","URL:https://2000stair.kr","END:VCARD"].join("\r\n");
-  const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "이천계단지기_김규남.vcf";
-  document.body.appendChild(a); a.click(); a.remove();
-});
-</script>
 <template id="__bundler_thumbnail" data-bg-color="#1b2b45"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1b2b45"></rect><g stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"><path d="M25 74h14v-13h14v-13h14v-13h8"></path></g><circle cx="33" cy="32" r="9" fill="#ffffff"></circle></svg></template>
 
 
