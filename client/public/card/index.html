@@ -281,7 +281,7 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
 .badge .b1{font-size:11.5px;font-weight:800;color:#fff;word-break:keep-all}
 .badge .b2{font-size:10px;font-weight:500;color:rgba(255,255,255,.6);word-break:keep-all}
 .foot2{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:22px}
-.foot2 .brandline{display:flex;align-items:center;gap:8px}
+.foot2 .brandline{display:flex;align-items:center;gap:4px}
 .foot2 .brandline img{width:26px;height:30px;object-fit:contain}
 .foot2 .wordmark{font-family:var(--font-display);font-weight:700;font-size:17px;color:#fff}
 .foot2 .wordmark b{color:#6389dd;font-weight:700}
@@ -290,6 +290,26 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
 .foot{margin-top:32px;text-align:center}
 .foot img{width:30px;height:34px;object-fit:contain}
 .foot p{margin:10px 0 0;font-family:var(--font-latin);font-size:11px;color:rgba(255,255,255,.45);letter-spacing:0.04em}
+
+/* ── 등장 모션 ── */
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+.avatar{animation:pop .65s var(--ease) both}
+h1{animation:rise .6s var(--ease) .12s both}
+.role{animation:rise .6s var(--ease) .2s both}
+.tagline{animation:rise .6s var(--ease) .28s both}
+.chips{animation:rise .6s var(--ease) .36s both}
+.save{animation:rise .6s var(--ease) .46s both;position:relative;overflow:hidden}
+.save::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:sweep 3.2s ease 1.4s infinite}
+@keyframes sweep{0%{left:-60%}55%{left:130%}100%{left:130%}}
+.links .link{animation:rise .6s var(--ease) both}
+.links .link:nth-child(1){animation-delay:.56s}
+.links .link:nth-child(2){animation-delay:.64s}
+.links .link:nth-child(3){animation-delay:.72s}
+.badges{animation:rise .7s var(--ease) .82s both}
+.sns-row{animation:rise .7s var(--ease) .92s both}
+.foot2{animation:rise .7s var(--ease) 1s both}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -302,9 +322,9 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
   <p class="role">이천계단지기 대표</p>
   <p class="tagline">부부가 직접 관리하는 청소전문업체</p>
   <div class="chips">
-    <span class="chip">🧹 계단 정기관리</span>
-    <span class="chip">✨ 유리창 청소</span>
-    <span class="chip">🏢 사무실 청소</span>
+    <span class="chip">계단 정기관리</span>
+    <span class="chip">유리창 청소</span>
+    <span class="chip">사무실 청소</span>
   </div>
   <a class="save" href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noreferrer" style="text-decoration:none;background:#FEE500;color:#191919">
     <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:19px;height:19px"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.2 4.5 6.6L5.5 21l3.9-2.2c.8.2 1.7.3 2.6.3 5.5 0 10-3.6 10-8s-4.5-8-10-8Z"></path></svg>
