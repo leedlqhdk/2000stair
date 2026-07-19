@@ -273,10 +273,6 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
   <button class="save" id="save-contact">
     Save Contact
   </button>
-  <button class="save kakao-share" id="kakao-share" style="margin-top:10px;background:#FEE500;color:#191919">
-    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:19px;height:19px"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.2 4.5 6.6L5.5 21l3.9-2.2c.8.2 1.7.3 2.6.3 5.5 0 10-3.6 10-8s-4.5-8-10-8Z"></path></svg>
-    카카오톡으로 명함 보내기
-  </button>
   <div class="links">
     <a class="link" href="tel:010-8438-1887">
       <span class="tile t-call"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
@@ -326,38 +322,7 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
 </div>
 </div>
 
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
 <script>
-// ── 카카오톡 공유 (developers.kakao.com 앱의 JavaScript 키 입력) ──
-const KAKAO_JS_KEY = ""; // 예: "a1b2c3d4..." — 키를 넣으면 리치 카드 공유 활성화
-const CARD_URL = "https://card.2000stair.kr";
-
-if (KAKAO_JS_KEY && window.Kakao && !Kakao.isInitialized()) {
-  Kakao.init(KAKAO_JS_KEY);
-}
-
-document.getElementById("kakao-share").addEventListener("click", () => {
-  if (KAKAO_JS_KEY && window.Kakao && Kakao.isInitialized()) {
-    Kakao.Share.sendDefault({
-      objectType: "feed",
-      content: {
-        title: "김규남 | 이천계단지기 대표",
-        description: "계단·유리·사무실 청소 전문 ｜ 하청 없는 부부 직영 ｜ 무료 방문견적",
-        imageUrl: CARD_URL + "/card/images/avatar.jpg",
-        link: { webUrl: CARD_URL, mobileWebUrl: CARD_URL }
-      },
-      buttons: [
-        { title: "명함 확인", link: { webUrl: CARD_URL, mobileWebUrl: CARD_URL } }
-      ]
-    });
-  } else if (navigator.share) {
-    navigator.share({ title: "김규남 | 이천계단지기 대표", url: CARD_URL });
-  } else {
-    navigator.clipboard.writeText(CARD_URL);
-    alert("명함 링크가 복사되었습니다.");
-  }
-});
-
 document.getElementById("save-contact").addEventListener("click", () => {
   const vcard = ["BEGIN:VCARD","VERSION:3.0","N:김;규남;;;","FN:김규남 (이천계단지기)","ORG:이천계단지기","TITLE:대표","TEL;TYPE=CELL:010-8438-1887","EMAIL:rbska3308@naver.com","URL:https://2000stair.kr","END:VCARD"].join("\r\n");
   const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
