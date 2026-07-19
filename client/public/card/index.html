@@ -313,9 +313,9 @@ h1{animation:rise .6s var(--ease) .12s both}
 
 /* ── 모바일 줄바꿈 보정 ── */
 @media (max-width: 430px){
-  .badges{grid-template-columns:repeat(2,1fr);row-gap:18px;padding:18px 8px}
-  .badge + .badge{border-left:none}
-  .badge:nth-child(even){border-left:1px solid rgba(255,255,255,.12)}
+  .badge svg{width:19px;height:19px}
+  .badge .b1{font-size:10.5px}
+  .badge .b2{font-size:9px}
   .foot2{flex-direction:column;align-items:flex-start;gap:14px}
   .foot2 .biz{text-align:left}
 }
