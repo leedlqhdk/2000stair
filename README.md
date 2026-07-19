@@ -1,11 +1,12 @@
-# 이천계단지기 — 대표 김규남 링크 페이지
+# 이천계단지기 디지털명함
 
-[litt.ly/2000stair](https://litt.ly/2000stair) 페이지를 정적 HTML로 재현한 링크인바이오 페이지입니다.
+대표 김규남의 디지털 명함 페이지입니다. 글래스모피즘 카드 디자인으로,
+연락처 저장(vCard), 전화·카카오톡·홈페이지·네이버 블로그·이메일·인스타그램·유튜브·당근 링크를 제공합니다.
 
 ## 구성
 
-- `index.html` — 페이지 전체 (HTML + CSS + 약간의 JS, 단일 파일)
-- `images/` — 프로필·커버·서비스·갤러리 이미지
+- `index.html` — 페이지 전체 (단일 파일, 폰트는 CDN)
+- `images/` — 배경, 프로필, 로고 이미지
 
 ## 로컬에서 보기
 
@@ -14,7 +15,7 @@ python3 -m http.server 8000
 # 브라우저에서 http://localhost:8000 접속
 ```
 
-## GitHub Pages 배포
+## 배포
 
-저장소 **Settings → Pages → Branch: `main` / root** 로 설정하면
-`https://<계정명>.github.io/<저장소명>/` 주소로 공개됩니다.
+- Vercel(2000stair 팀) 배포 후 `card.2000stair.kr` 도메인 연결 예정
+- GitHub Pages 사용 시: Settings → Pages → Branch `main` / root
