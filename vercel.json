@@ -2,15 +2,16 @@
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "vite build && tsx scripts/prerender-seo.ts",
   "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "card.2000stair.kr" }],
+      "destination": "/card/",
+      "permanent": false
+    },
     { "source": "/area", "destination": "/areas", "permanent": true },
     { "source": "/work", "destination": "/records", "permanent": true }
   ],
   "rewrites": [
-    {
-      "source": "/",
-      "has": [{ "type": "host", "value": "card.2000stair.kr" }],
-      "destination": "/card/index.html"
-    },
     { "source": "/api/trpc/:path*", "destination": "/api/trpc" },
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/rss.xml", "destination": "/api/rss" },
