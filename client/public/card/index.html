@@ -245,11 +245,7 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
 .tagline{margin:10px 0 0;text-align:center;font-size:13px;font-weight:700;color:#bcd3ff;text-shadow:0 1px 6px rgba(0,0,0,.25)}
 .chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 .chip{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;background:rgba(0,0,0,.28);color:#fff;font-size:12px;font-weight:700}
-.save{display:flex;align-items:center;justify-content:center;gap:9px;margin:26px 0 0;min-height:50px;width:100%;border:none;border-radius:16px;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-family:var(--font-sans);font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.12);transition:transform 300ms var(--ease),box-shadow 300ms,background 300ms}
-.save:hover{transform:translateY(-2px);background:#FEE500;color:#191919;box-shadow:0 12px 28px rgba(0,0,0,.18)}
-.save:active{transform:scale(0.98);background:#FEE500;color:#191919}
-.save svg{width:19px;height:19px}
-.links{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.links{display:flex;flex-direction:column;gap:10px;margin-top:26px}
 .link{display:flex;align-items:center;gap:12px;min-height:54px;padding:0 14px;border-radius:13px;background:rgba(0,0,0,.16);transition:transform 250ms var(--ease),box-shadow 250ms,background 250ms}
 .link:hover{transform:translateY(-2px);background:rgba(0,0,0,.26);box-shadow:0 10px 26px rgba(0,0,0,.18);color:inherit}
 .link:active{transform:scale(0.98)}
@@ -292,6 +288,13 @@ h1{margin:20px 0 0;text-align:center;font-family:var(--font-display);font-weight
 .foot img{width:30px;height:34px;object-fit:contain}
 .foot p{margin:10px 0 0;font-family:var(--font-latin);font-size:11px;color:rgba(255,255,255,.45);letter-spacing:0.04em}
 
+/* ── 하단 고정 연락처 저장 바 ── */
+.savebar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;width:min(100% - 32px,388px);display:flex;align-items:center;justify-content:center;gap:9px;min-height:54px;border-radius:16px;background:#0f1b33;color:#fff;font-family:var(--font-sans);font-size:15.5px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.38);transition:transform 250ms var(--ease),background 250ms}
+.savebar:hover{transform:translateX(-50%) translateY(-2px);background:#16254a;color:#fff}
+.savebar:active{transform:translateX(-50%) scale(0.98)}
+.savebar svg{width:19px;height:19px}
+.page{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+
 /* ── 등장 모션 ── */
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
@@ -300,13 +303,11 @@ h1{animation:rise .6s var(--ease) .12s both}
 .role{animation:rise .6s var(--ease) .2s both}
 .tagline{animation:rise .6s var(--ease) .28s both}
 .chips{animation:rise .6s var(--ease) .36s both}
-.save{animation:rise .6s var(--ease) .46s both;position:relative;overflow:hidden}
-.save::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:sweep 3.2s ease 1.4s infinite}
-@keyframes sweep{0%{left:-60%}55%{left:130%}100%{left:130%}}
 .links .link{animation:rise .6s var(--ease) both}
-.links .link:nth-child(1){animation-delay:.56s}
-.links .link:nth-child(2){animation-delay:.64s}
-.links .link:nth-child(3){animation-delay:.72s}
+.links .link:nth-child(1){animation-delay:.46s}
+.links .link:nth-child(2){animation-delay:.56s}
+.links .link:nth-child(3){animation-delay:.64s}
+.links .link:nth-child(4){animation-delay:.72s}
 .badges{animation:rise .7s var(--ease) .82s both}
 .sns-row{animation:rise .7s var(--ease) .92s both}
 .foot2{animation:rise .7s var(--ease) 1s both}
@@ -334,11 +335,12 @@ h1{animation:rise .6s var(--ease) .12s both}
     <span class="chip">유리창 청소</span>
     <span class="chip">사무실 청소</span>
   </div>
-  <a class="save" href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noreferrer" style="text-decoration:none">
-    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:19px;height:19px"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.2 4.5 6.6L5.5 21l3.9-2.2c.8.2 1.7.3 2.6.3 5.5 0 10-3.6 10-8s-4.5-8-10-8Z"></path></svg>
-    카카오톡 상담 신청
-  </a>
   <div class="links">
+    <a class="link" href="https://pf.kakao.com/_IiNfn" target="_blank" rel="noreferrer">
+      <span class="tile t-kakao"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.2 4.5 6.6L5.5 21l3.9-2.2c.8.2 1.7.3 2.6.3 5.5 0 10-3.6 10-8s-4.5-8-10-8Z"></path></svg></span>
+      <span class="tx"><span class="tk">카카오톡 상담 신청</span><span class="tv">주소 보내주시면 빠르게 답변드려요</span></span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+    </a>
     <a class="link" href="https://2000stair.kr" target="_blank" rel="noreferrer">
       <span class="tile t-web"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" fill-rule="evenodd"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm-8.4 11.6h4.2c.1 2.3.6 4.5 1.5 6.5a8.4 8.4 0 0 1-5.7-6.5zm4.2-2.2H3.6a8.4 8.4 0 0 1 5.7-6.5c-.9 2-1.4 4.2-1.5 6.5zm2.2 0c.1-2.5.8-4.8 2-6.8 1.2 2 1.9 4.3 2 6.8h-4zm4 2.2a13.7 13.7 0 0 1-2 6.8 13.7 13.7 0 0 1-2-6.8h4zm2.2 0h4.2a8.4 8.4 0 0 1-5.7 6.5c.9-2 1.4-4.2 1.5-6.5zm0-2.2c-.1-2.3-.6-4.5-1.5-6.5a8.4 8.4 0 0 1 5.7 6.5h-4.2z"></path></svg></span>
       <span class="tx"><span class="tk">공식홈페이지 바로가기</span><span class="tv">서비스·요금 안내 한눈에 보기</span></span>
@@ -375,6 +377,11 @@ h1{animation:rise .6s var(--ease) .12s both}
     <div class="biz">이천계단지기｜대표 김규남<br><a href="tel:010-8438-1887" style="color:inherit">전화 010-8438-1887</a><br>사업자등록번호 234-23-02318<br>rbska3308@naver.com</div>
   </div>
 </div>
+
+<a class="savebar" href="/card/2000stair.vcf" download="이천계단지기_김규남.vcf">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M19 8v6"></path><path d="M22 11h-6"></path></svg>
+  연락처 저장
+</a>
 </div>
 
 <template id="__bundler_thumbnail" data-bg-color="#1b2b45"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1b2b45"></rect><g stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"><path d="M25 74h14v-13h14v-13h14v-13h8"></path></g><circle cx="33" cy="32" r="9" fill="#ffffff"></circle></svg></template>
