@@ -310,6 +310,15 @@ h1{animation:rise .6s var(--ease) .12s both}
 .sns-row{animation:rise .7s var(--ease) .92s both}
 .foot2{animation:rise .7s var(--ease) 1s both}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ── 모바일 줄바꿈 보정 ── */
+@media (max-width: 430px){
+  .badges{grid-template-columns:repeat(2,1fr);row-gap:18px;padding:18px 8px}
+  .badge + .badge{border-left:none}
+  .badge:nth-child(even){border-left:1px solid rgba(255,255,255,.12)}
+  .foot2{flex-direction:column;align-items:flex-start;gap:14px}
+  .foot2 .biz{text-align:left}
+}
 </style>
 </head>
 <body>
@@ -332,7 +341,7 @@ h1{animation:rise .6s var(--ease) .12s both}
   </a>
   <div class="links">
     <a class="link" href="https://2000stair.kr" target="_blank" rel="noreferrer">
-      <span class="tile t-web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path><path d="M9 21v-6h6v6"></path></svg></span>
+      <span class="tile t-web"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" fill-rule="evenodd"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm-8.4 11.6h4.2c.1 2.3.6 4.5 1.5 6.5a8.4 8.4 0 0 1-5.7-6.5zm4.2-2.2H3.6a8.4 8.4 0 0 1 5.7-6.5c-.9 2-1.4 4.2-1.5 6.5zm2.2 0c.1-2.5.8-4.8 2-6.8 1.2 2 1.9 4.3 2 6.8h-4zm4 2.2a13.7 13.7 0 0 1-2 6.8 13.7 13.7 0 0 1-2-6.8h4zm2.2 0h4.2a8.4 8.4 0 0 1-5.7 6.5c.9-2 1.4-4.2 1.5-6.5zm0-2.2c-.1-2.3-.6-4.5-1.5-6.5a8.4 8.4 0 0 1 5.7 6.5h-4.2z"></path></svg></span>
       <span class="tx"><span class="tk">공식홈페이지 바로가기</span><span class="tv">서비스·요금 안내 한눈에 보기</span></span>
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
     </a>
