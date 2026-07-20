@@ -290,12 +290,14 @@ h1{margin:0;text-align:right;font-family:var(--font-display);font-weight:700;fon
 .foot img{width:30px;height:34px;object-fit:contain}
 .foot p{margin:10px 0 0;font-family:var(--font-latin);font-size:11px;color:rgba(255,255,255,.45);letter-spacing:0.04em}
 
-/* ── 하단 고정 연락처 저장 바 ── */
-.savebar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;width:min(100% - 32px,388px);display:flex;align-items:center;justify-content:center;gap:9px;min-height:54px;border-radius:16px;background:#0f1b33;color:#fff;font-family:var(--font-sans);font-size:15.5px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.38);transition:transform 250ms var(--ease),background 250ms}
-.savebar:hover{transform:translateX(-50%) translateY(-2px);background:#16254a;color:#fff}
-.savebar:active{transform:translateX(-50%) scale(0.98)}
+/* ── 하단 도킹 연락처 저장 (스크롤 따라옴) ── */
+.savedock{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:60;width:min(100%,420px);padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,rgba(13,27,54,.98) 56%,rgba(13,27,54,0));pointer-events:none}
+.savebar{pointer-events:auto;display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:54px;border-radius:16px;background:#0f1b33;color:#fff;font-family:var(--font-sans);font-size:15.5px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.28);transition:transform 250ms var(--ease),background 250ms}
+.savebar:hover{transform:translateY(-2px);background:#16254a;color:#fff}
+.savebar:active{transform:scale(0.98)}
 .savebar svg{width:19px;height:19px}
-.page{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.page{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+@media (min-width:768px){.savedock{position:absolute}}
 
 /* ── 등장 모션 ── */
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -313,6 +315,7 @@ h1{animation:rise .6s var(--ease) .12s both}
 .badges{animation:rise .7s var(--ease) .82s both}
 .sns-row{animation:rise .7s var(--ease) .92s both}
 .foot2{animation:rise .7s var(--ease) 1s both}
+.savebar{animation:rise .7s var(--ease) 1.08s both}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 
 /* ── 모바일 줄바꿈 보정 ── */
@@ -383,11 +386,11 @@ h1{animation:rise .6s var(--ease) .12s both}
     <div class="biz">이천계단지기｜대표 김규남<br><a href="tel:010-8438-1887" style="color:inherit">전화 010-8438-1887</a><br>사업자등록번호 234-23-02318<br>rbska3308@naver.com</div>
   </div>
 </div>
-
-<a class="savebar" href="/card/2000stair.vcf">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M19 8v6"></path><path d="M22 11h-6"></path></svg>
-  연락처 저장
-</a>
+<div class="savedock">
+  <a class="savebar" href="/card/2000stair.vcf">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M19 8v6"></path><path d="M22 11h-6"></path></svg>
+    연락처 저장
+  </a>
 </div>
 
 <template id="__bundler_thumbnail" data-bg-color="#1b2b45"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1b2b45"></rect><g stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"><path d="M25 74h14v-13h14v-13h14v-13h8"></path></g><circle cx="33" cy="32" r="9" fill="#ffffff"></circle></svg></template>
