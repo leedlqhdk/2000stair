@@ -5,7 +5,6 @@ import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import HusbandProfileStats from "@/components/HusbandProfileStats";
 import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
-import PricingOverview from "@/components/PricingOverview";
 import BlogReviews from "@/components/BlogReviews";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
 import FaqSection from "@/components/FaqSection";
@@ -54,9 +53,6 @@ onDone={() => setIntro("done")}
 
 {/* 블로그 최신 소식 (타임라인) */}
 <LatestBlogPosts variant="timeline" />
-
-{/* 정기관리 요금 안내 */}
-<PricingOverview />
 
 <FaqSection />
 </div>
