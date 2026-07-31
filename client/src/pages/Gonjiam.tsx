@@ -11,7 +11,7 @@ const reviews = [
 ];
 
 const faqs = [
-  { question: "곤지암도 정기관리 가능한가요?", answer: "현재 작업 기록은 업데이트 중입니다. 주소와 사진을 보내주시면 방문 가능 여부를 먼저 확인해 안내드립니다." },
+  { question: "곤지암도 정기관리 가능한가요?", answer: "곤지암읍 전 지역이 아니라 신둔면과 가까운 인접 지역을 중심으로 상담하고 있습니다. 주소와 사진을 보내주시면 방문 가능 여부를 먼저 확인해 안내드립니다." },
   { question: "작업 전 어떤 사진을 보내면 좋을까요?", answer: "계단 전체, 공동현관, 유리문, 먼지나 얼룩이 많은 구간을 함께 보내주시면 1차 상담이 더 정확합니다." },
   { question: "계단청소 외 다른 관리도 가능한가요?", answer: "공동현관 유리청소, 화장실청소 등은 현장 범위와 일정 확인 후 함께 안내드립니다." },
 ];
@@ -23,12 +23,12 @@ export default function GonjiamAreaPage() {
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
         <AreaIntro
-          headline="곤지암 작업 기록과 공용공간 관리를 업데이트 중입니다"
-          description="곤지암 빌라·원룸·상가 공용공간 관리 기록을 정리하고 있습니다. 작업 기록은 업데이트 중이며, 상담과 견적 안내는 바로 가능합니다."
-          focus="주소와 현장 사진을 먼저 확인한 뒤 곤지암 지역의 방문 가능 여부와 계단·복도·공동현관 관리 범위를 안내합니다."
+          headline="신둔면과 가까운 곤지암읍 인근 지역을 관리합니다"
+          description="곤지암읍 전체가 아닌 신둔면과 가까운 인접 지역을 중심으로 빌라·원룸·상가 공용공간 상담과 정기관리를 진행합니다."
+          focus="주소와 현장 사진을 먼저 확인한 뒤 신둔면에서 이동하기 좋은 곤지암읍 인근 지역인지 확인하고 계단·복도·공동현관 관리 범위를 안내합니다."
         />
 
-        <AreaTimeline areaName="곤지암" areaSlug="gonjiam" posts={posts} title="곤지암 작업 일지" description="곤지암 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="곤지암 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
+        <AreaTimeline areaName="곤지암" areaSlug="gonjiam" posts={posts} title="곤지암 작업 일지" description="신둔면 인접 곤지암 현장에서 진행한 작업 기록을 날짜순으로 확인해보세요." emptyMessage="곤지암 작업 기록은 노션 작업일지 등록 후 표시됩니다. 상담은 주소 확인 후 가능합니다." />
 
         <section className="mb-12 grid gap-4 md:grid-cols-2 md:mb-16">
           {reviews.map((review) => (
@@ -54,10 +54,9 @@ export default function GonjiamAreaPage() {
           </div>
         </section>
 
-
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
-          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">곤지암 청소 관리가 필요하신가요?</h2>
-          <p className="mb-8 text-muted-foreground">계단·복도·공동현관 사진을 보내주시면 관리 가능 범위부터 확인해드립니다.</p>
+          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">신둔면 인접 곤지암 지역 청소가 필요하신가요?</h2>
+          <p className="mb-8 text-muted-foreground">주소와 계단·복도·공동현관 사진을 보내주시면 방문 가능 여부부터 확인해드립니다.</p>
           <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
             <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
               <MessageCircle className="mr-2 h-4 w-4" />
