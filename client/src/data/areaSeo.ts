@@ -150,11 +150,11 @@ export const seoByAreaSlug = {
   }),
   gonjiam: areaSeo({
     slug: "gonjiam",
-    areaName: "곤지암",
-    title: "곤지암 계단청소·공용공간 정기관리 | 이천계단지기",
+    areaName: "곤지암읍",
+    title: "곤지암읍 신둔 인근 계단청소·공용공간 관리 | 이천계단지기",
     description:
-      "곤지암 빌라·상가 공용공간의 계단, 복도, 공동현관, 유리청소 상담을 현장 사진과 주소 확인 후 안내드립니다.",
-    localities: ["곤지암", "곤지암읍"],
+      "곤지암읍 전 지역이 아닌 신둔면과 가까운 인접 지역의 빌라·상가 공용공간을 주소와 현장 사진 확인 후 상담합니다.",
+    localities: ["곤지암읍 신둔면 인접 지역"],
   }),
 } satisfies Record<string, SeoProps>;
 
