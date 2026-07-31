@@ -19,6 +19,9 @@ const areaLabels: Record<string, string> = {
   changjeon: "창전동",
   jungni: "중리동",
   jeungpo: "증포동",
+  bubal: "부발읍",
+  baeksa: "백사면",
+  gonjiam: "곤지암",
 };
 
 const areaRoutes: Record<string, string> = {
@@ -29,6 +32,9 @@ const areaRoutes: Record<string, string> = {
   changjeon: "/area/changjeon",
   jungni: "/area/jungni",
   jeungpo: "/area/jeungpo",
+  bubal: "/area/bubal",
+  baeksa: "/area/baeksa",
+  gonjiam: "/area/gonjiam",
 };
 
 const fallbackPosts: AreaPost[] = [
