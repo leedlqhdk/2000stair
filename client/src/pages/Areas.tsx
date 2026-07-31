@@ -15,6 +15,7 @@ const REGION_LINKS: Record<string, string> = {
   백사면: "/area/baeksa",
   마장면: "/area/majang",
   대월면: "/area/daewol",
+  곤지암읍: "/area/gonjiam",
 };
 
 const DONG = ["관고동", "창전동", "중리동", "증포동"];
@@ -231,6 +232,12 @@ export default function Areas() {
                     <RegionLink key={name} name={name} active={activeRegion === name} onEnter={() => setActiveRegion(name)} onLeave={() => setActiveRegion(null)} />
                   ))}
                 </div>
+                <div style={{ marginTop: 18 }}>
+                  <GroupHeader label="이천 인접 관리지역" />
+                  <div style={{ maxWidth: "calc(50% - 4px)" }}>
+                    <RegionLink name="곤지암읍" active={activeRegion === "곤지암읍"} onEnter={() => setActiveRegion("곤지암읍")} onLeave={() => setActiveRegion(null)} />
+                  </div>
+                </div>
                 <div style={{ marginTop: 22, display: "flex", gap: 12, alignItems: "flex-start", padding: "16px 18px", borderRadius: 16, background: "var(--blue-50, #f4f8ff)", border: "1px solid var(--blue-100, #e4ecfb)" }}>
                   <MapPin size={20} style={{ flexShrink: 0, color: "var(--primary)", marginTop: 1 }} />
                   <p style={{ margin: 0, fontSize: 13.5, fontWeight: 600, lineHeight: 1.6, color: "var(--foreground)" }}>
@@ -309,6 +316,10 @@ export default function Areas() {
             <div className="mb-5">
               <GroupHeader label="면" count={4} />
               <div className="flex flex-wrap gap-2">{MYEON_LIST.map((name) => <RegionChip key={name} name={name} size="sm" />)}</div>
+            </div>
+            <div className="mb-5">
+              <GroupHeader label="이천 인접 관리지역" />
+              <div className="flex flex-wrap gap-2"><RegionChip name="곤지암읍" size="sm" /></div>
             </div>
             <div className="flex gap-3 items-start rounded-2xl mb-6" style={{ padding: "14px 16px", background: "var(--blue-50, #f4f8ff)", border: "1px solid var(--blue-100, #e4ecfb)" }}>
               <MapPin size={18} style={{ flexShrink: 0, color: "var(--primary)", marginTop: 1 }} />
