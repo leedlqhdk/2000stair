@@ -241,7 +241,7 @@ export default function Areas() {
                 <div style={{ marginTop: 22, display: "flex", gap: 12, alignItems: "flex-start", padding: "16px 18px", borderRadius: 16, background: "var(--blue-50, #f4f8ff)", border: "1px solid var(--blue-100, #e4ecfb)" }}>
                   <MapPin size={20} style={{ flexShrink: 0, color: "var(--primary)", marginTop: 1 }} />
                   <p style={{ margin: 0, fontSize: 13.5, fontWeight: 600, lineHeight: 1.6, color: "var(--foreground)" }}>
-                    <strong style={{ fontWeight: 800 }}>우리 동네가 지도에 없나요?</strong>{" "}인근 지역도 대부분 방문 가능합니다. 카톡으로 주소를 보내주시면 바로 안내드려요.
+                    <strong style={{ fontWeight: 800 }}>우리 동네가 지도에 없나요?</strong>{" "}목록에 없는 지역은 주소를 확인한 뒤 방문 가능 여부를 안내드립니다.
                   </p>
                 </div>
               </div>
@@ -260,9 +260,9 @@ export default function Areas() {
               <span className="text-primary">방문지역</span>
             </div>
             <h1 className="text-foreground mb-3 leading-snug" style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 700, lineHeight: 1.26 }}>
-              이천이라면 <span className="text-primary">어디든</span><br />부부가 직접 갑니다
+              이천 <span className="text-primary">주요 관리지역</span><br />부부가 직접 갑니다
             </h1>
-            <p className="text-sm font-medium leading-relaxed text-muted-foreground mb-5">9개 읍·면·동 전 지역, 하청 없이 부부가 직접 방문합니다.</p>
+            <p className="text-sm font-medium leading-relaxed text-muted-foreground mb-5">표시된 이천 관리지역과 신둔면 인접 곤지암을 중심으로, 하청 없이 부부가 직접 방문합니다.</p>
             <div
               style={{
                 position: "relative",
