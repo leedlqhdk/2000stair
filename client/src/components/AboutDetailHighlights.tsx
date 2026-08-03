@@ -86,7 +86,7 @@ export default function AboutDetailHighlights() {
               transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -4 }}
             >
-              <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-primary md:h-13 md:w-13">
+              <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-primary md:h-14 md:w-14">
                 <reason.icon className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.2} />
               </span>
               <h3 className="mt-3 break-keep text-[13px] font-extrabold leading-snug text-foreground md:text-base">
