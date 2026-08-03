@@ -11,6 +11,7 @@ import {
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
 import CountUp from "@/components/CountUp";
+import AboutDetailHighlights from "@/components/AboutDetailHighlights";
 
 const floatTransition = { duration: 4.5, repeat: Infinity, ease: "easeInOut" as const };
 
@@ -91,6 +92,8 @@ export default function MobileAbout() {
           <ArrowRight className="h-4 w-4" />
         </button>
       </section>
+
+      <AboutDetailHighlights />
 
       {/* 우리가 시작한 이유 */}
       <section className="px-5 py-7">
