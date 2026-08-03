@@ -27,7 +27,7 @@ const careReasons = [
 export default function AboutDetailHighlights() {
   return (
     <>
-      {/* 소개 상세페이지 2번 이미지 내용을 코드로 구현 */}
+      {/* 부부 소개 */}
       <section className="px-5 py-7 md:py-10">
         <motion.div
           className="grid items-center gap-5 md:grid-cols-[220px_minmax(0,1fr)] md:gap-8"
@@ -37,9 +37,9 @@ export default function AboutDetailHighlights() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.img
-            src="/booboo.webp"
-            alt="이천계단지기 부부 캐릭터"
-            className="mx-auto w-[170px] object-contain md:w-[210px]"
+            src="/character-wife.png"
+            alt="이천계단지기 상담과 운영을 맡은 아내 캐릭터"
+            className="mx-auto w-[170px] object-contain md:w-[215px]"
             loading="lazy"
             animate={{ y: [0, -7, 0] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
@@ -60,19 +60,33 @@ export default function AboutDetailHighlights() {
         </motion.div>
       </section>
 
-      {/* 소개 상세페이지 3번 이미지 내용을 코드로 구현 */}
+      {/* 정기관리 철학 */}
       <section className="bg-blue-50/65 px-5 py-10 md:rounded-[2rem] md:px-10 md:py-14">
-        <div className="text-center">
-          <span className="inline-flex rounded-full bg-primary px-4 py-2 text-[11px] font-extrabold text-white md:text-xs">
-            그래서 정기관리입니다
-          </span>
-          <h2 className="mt-4 break-keep font-['GmarketSans'] text-2xl font-extrabold leading-tight text-foreground md:text-4xl">
-            한 번 청소로는 <span className="text-primary">오래 못 갑니다</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl break-keep text-sm font-medium leading-7 text-gray-600 md:text-base md:leading-8">
-            계단과 공동현관은 매일 사람이 오가는 공간입니다. 깨끗함을 오래 유지하려면 오염이 쌓인 뒤가 아니라,
-            쌓이기 전부터 주기적으로 관리해야 합니다.
-          </p>
+        <div className="grid items-center gap-4 md:grid-cols-[minmax(0,1fr)_220px] md:gap-8">
+          <div className="text-center md:text-left">
+            <span className="inline-flex rounded-full bg-primary px-4 py-2 text-[11px] font-extrabold text-white md:text-xs">
+              그래서 정기관리입니다
+            </span>
+            <h2 className="mt-4 break-keep font-['GmarketSans'] text-2xl font-extrabold leading-tight text-foreground md:text-4xl">
+              한 번 청소로는 <span className="text-primary">오래 못 갑니다</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl break-keep text-sm font-medium leading-7 text-gray-600 md:mx-0 md:text-base md:leading-8">
+              계단과 공동현관은 매일 사람이 오가는 공간입니다. 깨끗함을 오래 유지하려면 오염이 쌓인 뒤가 아니라,
+              쌓이기 전부터 주기적으로 관리해야 합니다.
+            </p>
+          </div>
+
+          <motion.img
+            src="/character-husband.png"
+            alt="계단을 직접 관리하는 이천계단지기 대표 캐릭터"
+            className="mx-auto w-[150px] object-contain md:w-[215px]"
+            loading="lazy"
+            initial={{ opacity: 0, scale: 0.94 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            animate={{ y: [0, -6, 0] }}
+            transition={{ opacity: { duration: 0.6 }, scale: { duration: 0.6 }, y: { duration: 4.8, repeat: Infinity, ease: "easeInOut" } }}
+          />
         </div>
 
         <div className="mt-7 grid grid-cols-2 gap-3 md:mt-10 md:grid-cols-4 md:gap-4">
