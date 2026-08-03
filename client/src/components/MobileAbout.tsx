@@ -1,13 +1,5 @@
 import { useLocation } from "wouter";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Camera,
-  Check,
-  MessageCircle,
-  Phone,
-  UserCheck,
-} from "lucide-react";
+import { ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
 import CountUp from "@/components/CountUp";
@@ -31,13 +23,6 @@ const wifeRole = {
   badge: "아내 · 운영",
   items: ["마케팅", "홈페이지 운영", "블로그·SNS", "디자인"],
 };
-
-const principles = [
-  { icon: UserCheck, title: "대표 직접관리", text: "하청 없이 부부가 직접 관리합니다." },
-  { icon: Camera, title: "전후사진 제공", text: "작업 전후 사진을 투명하게 드립니다." },
-  { icon: MessageCircle, title: "비대면 소통", text: "전화·카톡으로 편하게 소통합니다." },
-  { icon: BadgeCheck, title: "정직한 가격", text: "필요한 서비스만 정직하게 안내합니다." },
-];
 
 const processSteps = [
   { step: "01", title: "방문 견적", text: "건물 상태를 직접 확인하고 맞춤 견적을 안내합니다." },
@@ -197,34 +182,6 @@ export default function MobileAbout() {
             </div>
           </div>
         </motion.div>
-      </section>
-
-      {/* 4가지 원칙 */}
-      <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">
-          이천계단지기의 4가지 원칙
-        </h2>
-        <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4 md:gap-4">
-          {principles.map((principle, index) => (
-            <motion.div
-              key={principle.title}
-              className="rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition-colors hover:border-primary/40 md:p-6"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: index * 0.18, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -4 }}
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 text-primary md:h-12 md:w-12">
-                <principle.icon className="h-4.5 w-4.5" />
-              </span>
-              <h3 className="mt-2.5 text-[13.5px] font-extrabold text-foreground md:mt-3.5 md:text-base">{principle.title}</h3>
-              <p className="mt-1 break-keep text-[11.5px] font-medium leading-relaxed text-muted-foreground md:mt-1.5 md:text-[13px] md:leading-6">
-                {principle.text}
-              </p>
-            </motion.div>
-          ))}
-        </div>
       </section>
 
       {/* 관리 프로세스 */}
