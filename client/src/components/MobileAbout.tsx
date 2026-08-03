@@ -36,7 +36,17 @@ export default function MobileAbout() {
   const [, setLocation] = useLocation();
 
   return (
-    <div className="mx-auto max-w-5xl md:px-6">
+    <div className="about-page mx-auto max-w-5xl md:px-6">
+      <style>{`
+        .about-page img[alt="계단을 직접 관리하는 이천계단지기 대표 캐릭터"] {
+          display: none;
+        }
+
+        .about-page section:has(img[alt="계단을 직접 관리하는 이천계단지기 대표 캐릭터"]) > div:first-child {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      `}</style>
+
       {/* HERO */}
       <section className="px-5 pb-4 pt-7 md:pb-8 md:pt-14">
         <div className="flex items-center gap-4 md:gap-12">
@@ -83,23 +93,43 @@ export default function MobileAbout() {
       {/* 우리가 시작한 이유 */}
       <section className="px-5 py-7">
         <motion.div
-          className="rounded-3xl border border-blue-100 bg-blue-50/60 p-6 md:p-10"
+          className="overflow-hidden rounded-3xl border border-blue-100 bg-blue-50/60 p-6 md:p-10"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="font-['GmarketSans'] text-lg font-extrabold text-foreground md:text-2xl">우리가 시작한 이유</h2>
-          <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700 md:mt-4 md:text-base md:leading-8">
-            우리가 살던 빌라도 청소 상태가 좋지 않았습니다. 늘 지저분한 계단을 오르며 생각했습니다.
-          </p>
-          <p className="mt-3 break-keep font-['GmarketSans'] text-[15px] font-extrabold text-primary md:mt-4 md:text-xl">
-            "왜 계단청소는 항상 아쉬울까?"
-          </p>
-          <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700">
-            그래서 직접 시작했습니다. 계단청소는 한 번보다 꾸준함이 중요하기에, 처음 확인한 건물 상태를
-            기억하고 이어서 관리합니다.
-          </p>
+          <div className="grid items-center gap-4 md:grid-cols-[minmax(0,1fr)_190px] md:gap-8">
+            <div className="min-w-0">
+              <h2 className="font-['GmarketSans'] text-lg font-extrabold text-foreground md:text-2xl">우리가 시작한 이유</h2>
+              <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700 md:mt-4 md:text-base md:leading-8">
+                우리가 살던 빌라도 청소 상태가 좋지 않았습니다. 늘 지저분한 계단을 오르며 생각했습니다.
+              </p>
+              <p className="mt-3 break-keep font-['GmarketSans'] text-[15px] font-extrabold text-primary md:mt-4 md:text-xl">
+                "왜 계단청소는 항상 아쉬울까?"
+              </p>
+              <p className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700">
+                그래서 직접 시작했습니다. 계단청소는 한 번보다 꾸준함이 중요하기에, 처음 확인한 건물 상태를
+                기억하고 이어서 관리합니다.
+              </p>
+            </div>
+
+            <motion.img
+              src="/character-husband.png"
+              alt="청소를 시작한 이유를 소개하는 이천계단지기 대표 캐릭터"
+              className="mx-auto w-[138px] object-contain mix-blend-multiply md:w-[190px]"
+              loading="lazy"
+              initial={{ opacity: 0, scale: 0.94 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              animate={{ y: [0, -6, 0] }}
+              transition={{
+                opacity: { duration: 0.6 },
+                scale: { duration: 0.6 },
+                y: { duration: 4.8, repeat: Infinity, ease: "easeInOut" },
+              }}
+            />
+          </div>
         </motion.div>
 
         {/* 통계 */}
