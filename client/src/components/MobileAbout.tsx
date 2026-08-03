@@ -45,6 +45,24 @@ export default function MobileAbout() {
         .about-page section:has(img[alt="계단을 직접 관리하는 이천계단지기 대표 캐릭터"]) > div:first-child {
           grid-template-columns: minmax(0, 1fr);
         }
+
+        .about-page img[alt="이천계단지기 상담과 운영을 맡은 아내 캐릭터"] {
+          width: 90px;
+        }
+
+        .about-page section:has(img[alt="이천계단지기 상담과 운영을 맡은 아내 캐릭터"]) > div:first-child {
+          grid-template-columns: minmax(0, 1fr) 96px;
+        }
+
+        @media (min-width: 768px) {
+          .about-page img[alt="이천계단지기 상담과 운영을 맡은 아내 캐릭터"] {
+            width: 170px;
+          }
+
+          .about-page section:has(img[alt="이천계단지기 상담과 운영을 맡은 아내 캐릭터"]) > div:first-child {
+            grid-template-columns: minmax(0, 1fr) 180px;
+          }
+        }
       `}</style>
 
       {/* HERO */}
