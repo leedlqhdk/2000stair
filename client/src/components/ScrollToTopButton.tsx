@@ -1,29 +1,44 @@
-import { ArrowUp } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const SHOW_AFTER_PX = 600;
 
+function browserHasNativeScrollTop() {
+  if (typeof window === "undefined" || typeof navigator === "undefined") return false;
+
+  const isSamsungInternet = /SamsungBrowser/i.test(navigator.userAgent);
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
+  // 삼성 인터넷은 모바일 화면 하단에 자체 '맨 위로' 버튼을 제공하므로
+  // 같은 위치에 홈페이지 버튼을 중복 노출하지 않습니다.
+  return isSamsungInternet && isTouchDevice;
+}
+
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasNativeButton, setHasNativeButton] = useState(false);
 
   useEffect(() => {
     let frameId: number | null = null;
 
-    const updateVisibility = () => {
+    const updateState = () => {
       setIsVisible(window.scrollY >= SHOW_AFTER_PX);
+      setHasNativeButton(browserHasNativeScrollTop());
       frameId = null;
     };
 
-    const handleScroll = () => {
+    const handleUpdate = () => {
       if (frameId !== null) return;
-      frameId = window.requestAnimationFrame(updateVisibility);
+      frameId = window.requestAnimationFrame(updateState);
     };
 
-    updateVisibility();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateState();
+    window.addEventListener("scroll", handleUpdate, { passive: true });
+    window.addEventListener("resize", handleUpdate);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleUpdate);
+      window.removeEventListener("resize", handleUpdate);
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
   }, []);
@@ -38,17 +53,21 @@ export default function ScrollToTopButton() {
     });
   };
 
+  const shouldShow = isVisible && !hasNativeButton;
+
   return (
     <button
       type="button"
       onClick={scrollToTop}
       aria-label="페이지 맨 위로 이동"
       title="맨 위로"
-      className={`fixed bottom-36 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-blue-100 bg-white/95 text-primary shadow-[0_8px_24px_rgba(15,23,42,0.14)] backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:bottom-44 md:right-6 md:h-12 md:w-12 ${
-        isVisible ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+      className={`fixed bottom-[4.5rem] left-1/2 z-40 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border border-white/80 bg-white/72 text-slate-800 shadow-[0_5px_18px_rgba(15,23,42,0.14)] backdrop-blur-md transition-[opacity,transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:bottom-8 md:h-14 md:w-14 md:border-slate-200/70 md:bg-white/68 ${
+        shouldShow
+          ? "pointer-events-auto -translate-x-1/2 translate-y-0 opacity-100"
+          : "pointer-events-none -translate-x-1/2 translate-y-3 opacity-0"
       }`}
     >
-      <ArrowUp className="h-5 w-5 stroke-[2.6] md:h-[22px] md:w-[22px]" />
+      <ChevronUp className="h-6 w-6 stroke-[2.3] md:h-7 md:w-7" />
     </button>
   );
 }
