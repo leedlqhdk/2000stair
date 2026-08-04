@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { X } from "lucide-react";
 
 /** 공지 교체 시 이 키를 함께 변경하면 이전에 "오늘 하루 닫기"한 사용자도 새 공지를 본다. */
 const STORAGE_KEY = "popup_notice_2026_08";
@@ -159,15 +158,6 @@ export default function PopupNotice() {
             style={{ borderRadius: 25, boxShadow: "0 30px 70px rgba(15,76,169,0.28)" }}
             {...panelAnim}
           >
-            <button
-              type="button"
-              onClick={close}
-              aria-label="닫기"
-              className="absolute right-[14px] top-[14px] flex h-[30px] w-[30px] items-center justify-center rounded-full border border-[#E4EDFB] bg-white text-[#7A8698] transition-colors duration-200 hover:bg-[#F4F8FF] hover:text-[#3155A4]"
-              style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
-            >
-              <X size={15} strokeWidth={2} />
-            </button>
 
             <div className="flex items-start gap-[18px] px-8 pb-5 pt-7">
               <div className="flex flex-1 flex-col gap-[10px]">
@@ -253,14 +243,6 @@ export default function PopupNotice() {
             style={{ borderRadius: 25, boxShadow: "0 24px 56px rgba(15,76,169,0.3)" }}
             {...panelAnim}
           >
-            <button
-              type="button"
-              onClick={close}
-              aria-label="닫기"
-              className="absolute right-3 top-3 z-10 flex h-[30px] w-[30px] items-center justify-center rounded-full border border-[#E4EDFB] bg-white text-[#7A8698] transition-colors hover:bg-[#F4F8FF] hover:text-[#3155A4]"
-            >
-              <X size={15} strokeWidth={2} />
-            </button>
 
             <div className="px-5 pt-5">
               <div className="flex flex-col gap-[6px]">
