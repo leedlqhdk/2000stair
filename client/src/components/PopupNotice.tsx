@@ -262,8 +262,8 @@ export default function PopupNotice() {
               <X size={15} strokeWidth={2} />
             </button>
 
-            <div className="flex items-end justify-between gap-2 px-5 pt-5">
-              <div className="flex flex-col gap-[6px] pb-1">
+            <div className="px-5 pt-5">
+              <div className="flex flex-col gap-[6px]">
                 <p className="font-['Plus_Jakarta_Sans'] text-[11px] font-extrabold uppercase tracking-[0.28em] text-[#3155A4]">
                   NOTICE
                 </p>
@@ -277,12 +277,6 @@ export default function PopupNotice() {
                   문의 접수 중단 안내
                 </h2>
               </div>
-              <img
-                src="/character-husband.png"
-                alt="이천계단지기 캐릭터"
-                className="h-[118px] w-[106px] shrink-0"
-                style={{ objectFit: "contain", objectPosition: "bottom", marginBottom: -6 }}
-              />
             </div>
 
             <div
