@@ -11,6 +11,7 @@ import { getSeoForPath } from "@/data/areaSeo";
 import { initAnalytics, trackPageview } from "@/lib/analytics";
 import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -44,7 +45,6 @@ const Guide = lazy(() => import("@/pages/Guide"));
 const Areas = lazy(() => import("@/pages/Areas"));
 const MobileQuote = lazy(() => import("@/pages/MobileQuote"));
 const Card = lazy(() => import("@/pages/Card"));
-
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -129,8 +129,6 @@ function AdminRedirect() {
   return null;
 }
 
-// "작업정보" 네임스페이스의 인덱스(/work)는 별도 페이지가 없으므로
-// 작업기록 목록(/records)으로 보내 404를 방지합니다. (개별 글은 /work/:slug)
 function WorkRedirect() {
   const [, setLocation] = useLocation();
 
@@ -272,6 +270,7 @@ function AppChrome() {
     <>
       <Router />
       {!hideChrome && <Footer />}
+      {!hideChrome && <ScrollToTopButton />}
       {!hideChrome && <KakaoChat />}
     </>
   );
