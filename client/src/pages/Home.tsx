@@ -10,6 +10,7 @@ import LatestBlogPosts from "@/components/LatestBlogPosts";
 import FaqSection from "@/components/FaqSection";
 import MobileHome from "@/components/MobileHome";
 import IntroLoader, { shouldShowIntro } from "@/components/IntroLoader";
+import PopupNotice from "@/components/PopupNotice";
 
 export default function Home() {
 const [intro, setIntro] = useState<"loading" | "reveal" | "done">(() =>
@@ -29,6 +30,7 @@ onDone={() => setIntro("done")}
 
 {intro !== "loading" && (
 <main className="flex-1">
+<PopupNotice />
 <MobileHome />
 
 <div className="hidden md:block">
