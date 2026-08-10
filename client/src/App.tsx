@@ -26,6 +26,7 @@ const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
 const AdminQuotes = lazy(() => import("./pages/AdminQuotes"));
 const AdminReviews = lazy(() => import("./pages/AdminReviews"));
+const AdminField = lazy(() => import("./pages/AdminField"));
 const Majang = lazy(() => import("@/pages/Majang"));
 const Daewol = lazy(() => import("@/pages/Daewol"));
 const Sindun = lazy(() => import("@/pages/Sindun"));
@@ -48,245 +49,79 @@ const Card = lazy(() => import("@/pages/Card"));
 
 function ScrollToTop() {
   const [location] = useLocation();
-
-  useEffect(() => {
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
-  }, []);
-
+  useEffect(() => { if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual"; }, []);
   useEffect(() => {
     if (location === "/") {
-      if (window.location.hash) {
-        window.history.replaceState(null, "", "/");
-      }
-
+      if (window.location.hash) window.history.replaceState(null, "", "/");
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       return;
     }
-
     const hash = window.location.hash;
-
     if (hash) {
       setTimeout(() => {
         const element = document.querySelector(hash);
-
-        if (element) {
-          element.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
+        if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 120);
-
       return;
     }
-
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [location]);
-
   return null;
 }
 
 function AnalyticsTracker() {
   const [location] = useLocation();
-
-  useEffect(() => {
-    initAnalytics();
-  }, []);
-
-  useEffect(() => {
-    trackPageview(location);
-  }, [location]);
-
+  useEffect(() => { initAnalytics(); }, []);
+  useEffect(() => { trackPageview(location); }, [location]);
   return null;
 }
 
-function RouteSeo() {
-  const [location] = useLocation();
-  const seo = getSeoForPath(location);
-
-  if (!seo) return null;
-
-  return <Seo {...seo} />;
-}
-
-function AreaNavbar() {
-  const [location] = useLocation();
-
-  if (!location.startsWith("/area/")) return null;
-
-  return <Navbar />;
-}
-
-function AdminRedirect() {
-  const [, setLocation] = useLocation();
-
-  useEffect(() => {
-    setLocation("/admin/quotes");
-  }, [setLocation]);
-
-  return null;
-}
-
-function WorkRedirect() {
-  const [, setLocation] = useLocation();
-
-  useEffect(() => {
-    setLocation("/records");
-  }, [setLocation]);
-
-  return null;
-}
-
-function RouteRedirect({ to }: { to: string }) {
-  const [, setLocation] = useLocation();
-
-  useEffect(() => {
-    setLocation(to);
-  }, [setLocation, to]);
-
-  return null;
-}
-
-function PageLoader() {
-  return (
-    <div className="flex min-h-[60vh] w-full items-center justify-center">
-      <Spinner className="size-8 text-primary" />
-    </div>
-  );
-}
-
-function GwangoArea() {
-  return <NeighborhoodArea areaSlug="gwango" />;
-}
-
-function ChangjeonArea() {
-  return <NeighborhoodArea areaSlug="changjeon" />;
-}
-
-function JungniArea() {
-  return <NeighborhoodArea areaSlug="jungni" />;
-}
-
-function JeungpoArea() {
-  return <NeighborhoodArea areaSlug="jeungpo" />;
-}
+function RouteSeo() { const [location] = useLocation(); const seo = getSeoForPath(location); return seo ? <Seo {...seo} /> : null; }
+function AreaNavbar() { const [location] = useLocation(); return location.startsWith("/area/") ? <Navbar /> : null; }
+function AdminRedirect() { const [, setLocation] = useLocation(); useEffect(() => { setLocation("/admin/field"); }, [setLocation]); return null; }
+function WorkRedirect() { const [, setLocation] = useLocation(); useEffect(() => { setLocation("/records"); }, [setLocation]); return null; }
+function RouteRedirect({ to }: { to: string }) { const [, setLocation] = useLocation(); useEffect(() => { setLocation(to); }, [setLocation, to]); return null; }
+function PageLoader() { return <div className="flex min-h-[60vh] w-full items-center justify-center"><Spinner className="size-8 text-primary" /></div>; }
+function GwangoArea() { return <NeighborhoodArea areaSlug="gwango" />; }
+function ChangjeonArea() { return <NeighborhoodArea areaSlug="changjeon" />; }
+function JungniArea() { return <NeighborhoodArea areaSlug="jungni" />; }
+function JeungpoArea() { return <NeighborhoodArea areaSlug="jeungpo" />; }
 
 function AdminNoIndex() {
   const [location] = useLocation();
   const isAdminRoute = location.startsWith("/admin");
-
   useEffect(() => {
     let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
-
-    if (!robots) {
-      robots = document.createElement("meta");
-      robots.setAttribute("name", "robots");
-      document.head.appendChild(robots);
-    }
-
-    if (isAdminRoute) {
-      document.title = "관리자 페이지 | 이천계단지기";
-      robots.setAttribute("content", "noindex, nofollow, noarchive");
-      return;
-    }
-
+    if (!robots) { robots = document.createElement("meta"); robots.setAttribute("name", "robots"); document.head.appendChild(robots); }
+    if (isAdminRoute) { document.title = "관리자 페이지 | 이천계단지기"; robots.setAttribute("content", "noindex, nofollow, noarchive"); return; }
     robots.setAttribute("content", "index, follow");
   }, [isAdminRoute]);
-
   return null;
 }
 
 function Router() {
-  return (
-    <>
-      <ScrollToTop />
-      <AnalyticsTracker />
-      <AdminNoIndex />
-      <RouteSeo />
-      <AreaNavbar />
-      <Suspense fallback={<PageLoader />}>
-        <Switch>
-          <Route path={"/"} component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/qna" component={Qna} />
-          <Route path="/reviews" component={Reviews} />
-          <Route path="/services" component={Services} />
-          <Route path="/services/stair" component={StairCleaning} />
-          <Route path="/services/bathroom" component={BathroomCleaning} />
-          <Route path="/services/glass" component={GlassCleaning} />
-          <Route path="/services/office" component={OfficeCleaning} />
-          <Route path="/ops" component={OpsStatus} />
-          <Route path="/guide" component={Guide} />
-          <Route path="/my-quotes" component={MyQuotes} />
-          <Route path="/blog" component={Records} />
-          <Route path="/records" component={Records} />
-          <Route path="/work" component={WorkRedirect} />
-          <Route path="/work/:slug" component={WorkDetail} />
-          <Route path="/areas" component={Areas} />
-          <Route path="/quote" component={MobileQuote} />
-          <Route path="/card" component={Card} />
-          <Route path="/blog/category/:slug" component={Blog} />
-          <Route path="/blog/:id" component={BlogDetail} />
-          <Route path="/area/majang" component={Majang} />
-          <Route path={"/area/Majang"} component={Majang} />
-          <Route path="/area/daewol" component={Daewol} />
-          <Route path="/area/sindun" component={Sindun} />
-          <Route path="/area/downtown">
-            <RouteRedirect to="/areas" />
-          </Route>
-          <Route path="/area/gwango" component={GwangoArea} />
-          <Route path="/area/changjeon" component={ChangjeonArea} />
-          <Route path="/area/jungni" component={JungniArea} />
-          <Route path="/area/jeungpo" component={JeungpoArea} />
-          <Route path="/area/songjeong">
-            <RouteRedirect to="/area/jungni" />
-          </Route>
-          <Route path="/area/bubal" component={Bubal} />
-          <Route path="/area/baeksa" component={Baeksa} />
-          <Route path="/area/gonjiam" component={Gonjiam} />
-          <Route path="/area/:slug" component={LocationLanding} />
-          <Route path="/admin" component={AdminRedirect} />
-          <Route path="/admin/quotes" component={AdminQuotes} />
-          <Route path="/admin/blog" component={AdminBlog} />
-          <Route path="/admin/reviews" component={AdminReviews} />
-          <Route path="/admin/blog/new" component={AdminBlogEdit} />
-          <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
-          <Route component={NotFound} />
-        </Switch>
-      </Suspense>
-    </>
-  );
+  return <>
+    <ScrollToTop /><AnalyticsTracker /><AdminNoIndex /><RouteSeo /><AreaNavbar />
+    <Suspense fallback={<PageLoader />}><Switch>
+      <Route path={"/"} component={Home} />
+      <Route path="/about" component={About} /><Route path="/qna" component={Qna} /><Route path="/reviews" component={Reviews} />
+      <Route path="/services" component={Services} /><Route path="/services/stair" component={StairCleaning} /><Route path="/services/bathroom" component={BathroomCleaning} /><Route path="/services/glass" component={GlassCleaning} /><Route path="/services/office" component={OfficeCleaning} />
+      <Route path="/ops" component={OpsStatus} /><Route path="/guide" component={Guide} /><Route path="/my-quotes" component={MyQuotes} />
+      <Route path="/blog" component={Records} /><Route path="/records" component={Records} /><Route path="/work" component={WorkRedirect} /><Route path="/work/:slug" component={WorkDetail} />
+      <Route path="/areas" component={Areas} /><Route path="/quote" component={MobileQuote} /><Route path="/card" component={Card} /><Route path="/blog/category/:slug" component={Blog} /><Route path="/blog/:id" component={BlogDetail} />
+      <Route path="/area/majang" component={Majang} /><Route path={"/area/Majang"} component={Majang} /><Route path="/area/daewol" component={Daewol} /><Route path="/area/sindun" component={Sindun} />
+      <Route path="/area/downtown"><RouteRedirect to="/areas" /></Route><Route path="/area/gwango" component={GwangoArea} /><Route path="/area/changjeon" component={ChangjeonArea} /><Route path="/area/jungni" component={JungniArea} /><Route path="/area/jeungpo" component={JeungpoArea} /><Route path="/area/songjeong"><RouteRedirect to="/area/jungni" /></Route>
+      <Route path="/area/bubal" component={Bubal} /><Route path="/area/baeksa" component={Baeksa} /><Route path="/area/gonjiam" component={Gonjiam} /><Route path="/area/:slug" component={LocationLanding} />
+      <Route path="/admin" component={AdminRedirect} /><Route path="/admin/field" component={AdminField} /><Route path="/admin/quotes" component={AdminQuotes} /><Route path="/admin/blog" component={AdminBlog} /><Route path="/admin/reviews" component={AdminReviews} /><Route path="/admin/blog/new" component={AdminBlogEdit} /><Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
+      <Route component={NotFound} />
+    </Switch></Suspense>
+  </>;
 }
 
 function AppChrome() {
-  const [location] = useLocation();
-  const isAdminRoute = location.startsWith("/admin");
-  const isBareRoute = location === "/card";
-  const hideChrome = isAdminRoute || isBareRoute;
-
-  return (
-    <>
-      <Router />
-      {!hideChrome && <Footer />}
-      {!hideChrome && <ScrollToTopButton />}
-      {!hideChrome && <KakaoChat />}
-    </>
-  );
+  const [location] = useLocation(); const isAdminRoute = location.startsWith("/admin"); const isBareRoute = location === "/card"; const hideChrome = isAdminRoute || isBareRoute;
+  return <><Router />{!hideChrome && <Footer />}{!hideChrome && <ScrollToTopButton />}{!hideChrome && <KakaoChat />}</>;
 }
 
-function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster />
-          <AppChrome />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
-}
-
+function App() { return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><AppChrome /></TooltipProvider></ThemeProvider></ErrorBoundary>; }
 export default App;
