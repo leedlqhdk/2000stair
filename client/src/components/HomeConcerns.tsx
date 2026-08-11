@@ -117,12 +117,17 @@ export default function HomeConcerns({ onComplete }: Props) {
         )}
 
         {/* 부부 답장 */}
-        <div className={`flex justify-end ${ENTER} ${on(6)}`}>
+        <div className={`flex items-end justify-end gap-2 ${ENTER} ${on(6)}`}>
           <p
             className={`${BUBBLE} rounded-[15px_5px_15px_15px] bg-primary text-white shadow-[0_10px_24px_rgba(15,76,169,0.2)]`}
           >
             문제는 청소보다 ‘관리의 지속성’이었습니다.
           </p>
+          <img
+            src="/favicon-192.png"
+            alt="이천계단지기"
+            className="h-9 w-9 shrink-0 rounded-full bg-white p-1 shadow-sm ring-1 ring-blue-100"
+          />
         </div>
       </div>
     </section>
