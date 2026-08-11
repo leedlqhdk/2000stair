@@ -77,7 +77,7 @@ export default function HomeWorkSlider({ revealed = false }: Props) {
       </Reveal>
 
       <div className="mt-7 flex gap-3 overflow-hidden" aria-label="이천계단지기 실제 작업 사진">
-        <div className="home-work-track flex gap-3">
+        <div className="home-work-track flex shrink-0 gap-3">
           {track.map((photo, i) => (
             <figure
               key={`${photo.src}-${i}`}
