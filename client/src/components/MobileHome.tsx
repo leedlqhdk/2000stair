@@ -247,27 +247,42 @@ export default function MobileHome() {
         <h2 className="mb-5 px-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
           작업 후기
         </h2>
-        <div className="flex gap-3 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {reviews.map((review) => (
-            <a
-              key={review.source}
-              href={review.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackConversion("review_click", { location: "mobile_reviews", label: review.source })}
-              className="block w-[230px] shrink-0 rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-bold tracking-wide text-amber-500">★★★★★</span>
-                <span className="text-[13px] font-extrabold text-foreground">5.0</span>
-              </div>
-              <p className="mt-2.5 text-[13.5px] font-semibold leading-relaxed text-foreground">{review.text}</p>
-              <span className="mt-3.5 inline-flex items-center gap-1 text-xs font-bold text-muted-foreground">
-                {review.source}
-                <ArrowRight className="h-3 w-3" />
-              </span>
-            </a>
-          ))}
+        <style>{`
+          @keyframes home-review-marquee {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-50%, 0, 0); }
+          }
+          .home-review-track { animation: home-review-marquee 28s linear infinite; width: max-content; }
+          @media (prefers-reduced-motion: reduce) { .home-review-track { animation: none; } }
+        `}</style>
+        <div className="flex overflow-hidden" aria-label="고객 후기">
+          <div className="home-review-track flex shrink-0">
+            {[...reviews, ...reviews].map((review, i) => {
+              const clone = i >= reviews.length;
+              return (
+                <a
+                  key={`${review.source}-${i}`}
+                  href={review.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-hidden={clone || undefined}
+                  tabIndex={clone ? -1 : undefined}
+                  onClick={() => trackConversion("review_click", { location: "mobile_reviews", label: review.source })}
+                  className="mr-3 block w-[230px] shrink-0 rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold tracking-wide text-amber-500">★★★★★</span>
+                    <span className="text-[13px] font-extrabold text-foreground">5.0</span>
+                  </div>
+                  <p className="mt-2.5 text-[13.5px] font-semibold leading-relaxed text-foreground">{review.text}</p>
+                  <span className="mt-3.5 inline-flex items-center gap-1 text-xs font-bold text-muted-foreground">
+                    {review.source}
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
+                </a>
+              );
+            })}
+          </div>
         </div>
       </section>
 
