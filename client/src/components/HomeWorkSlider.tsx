@@ -57,7 +57,7 @@ export default function HomeWorkSlider({ revealed = false }: Props) {
           to { transform: translate3d(-50%, 0, 0); }
         }
         .home-work-track {
-          animation: home-work-marquee 15s linear infinite;
+          animation: home-work-marquee 40s linear infinite;
           width: max-content;
         }
         @media (prefers-reduced-motion: reduce) {
