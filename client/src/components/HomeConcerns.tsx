@@ -4,9 +4,9 @@ import { motion, useReducedMotion } from "framer-motion";
 /**
  * 모바일 메인 — "혹시, 이런 고민 있으신가요?" 고민 섹션 (카톡 상담창 형태).
  *
- * 스크롤에 따라 고민 말풍선이 하나씩 자연스럽게 떠오르고(whileInView),
- * 마지막 부부 답장이 화면에 들어오면 onComplete로 다음 섹션 등장을 알립니다.
- * 콘텐츠는 항상 DOM에 있으므로 검색엔진은 처음부터 읽을 수 있습니다.
+ * 섹션이 화면에 들어오면 고민 말풍선이 0.45초 간격으로 하나씩 순차로 떠오르고
+ * (staggerChildren), 마지막 부부 답장까지 나오면 onComplete로 다음 섹션 등장을
+ * 알립니다. 콘텐츠는 항상 DOM에 있으므로 검색엔진은 처음부터 읽을 수 있습니다.
  * prefers-reduced-motion: reduce 이면 모션 없이 최종 상태만 보여줍니다.
  */
 
@@ -21,9 +21,10 @@ const lines: Line[] = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const BUBBLE = "max-w-[82%] break-keep px-3.5 py-2.5 text-[13px] font-semibold leading-[1.6]";
+const STEP = 0.55; // 말풍선 사이 등장 간격(초)
 
 type Props = {
-  /** 마지막 답장이 화면에 들어오면 호출됩니다. 다음 섹션 등장 신호로 씁니다. */
+  /** 마지막 답장까지 나오면 호출됩니다. 다음 섹션 등장 신호로 씁니다. */
   onComplete?: () => void;
 };
 
@@ -40,7 +41,7 @@ export default function HomeConcerns({ onComplete }: Props) {
     onCompleteRef.current?.();
   };
 
-  // 어떤 이유로든 답장이 화면에 안 들어와도 다음 섹션이 영영 숨겨지지 않도록 하는 안전장치.
+  // 답장이 끝내 화면에 안 들어와도 다음 섹션이 막히지 않도록 하는 안전장치.
   useEffect(() => {
     if (reduce) {
       fire();
@@ -51,15 +52,6 @@ export default function HomeConcerns({ onComplete }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduce]);
 
-  const rise = reduce
-    ? {}
-    : {
-        initial: { opacity: 0, y: 16 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.6, margin: "0px 0px -12% 0px" },
-        transition: { duration: 0.7, ease: EASE },
-      };
-
   return (
     <section className="px-5 py-9">
       <h2 className="mb-6 break-keep font-['GmarketSans'] text-lg font-extrabold leading-snug text-foreground">
@@ -67,8 +59,19 @@ export default function HomeConcerns({ onComplete }: Props) {
       </h2>
 
       <div className="flex flex-col gap-2.5">
-        {lines.map((line) => (
-          <motion.div key={line.accent} className="flex" {...rise}>
+        {lines.map((line, i) => (
+          <motion.div
+            key={line.accent}
+            className="flex"
+            {...(reduce
+              ? {}
+              : {
+                  initial: { opacity: 0, y: 16 },
+                  whileInView: { opacity: 1, y: 0 },
+                  viewport: { once: true, amount: 0.5 },
+                  transition: { duration: 0.6, ease: EASE, delay: i * STEP },
+                })}
+          >
             <p className={`${BUBBLE} rounded-[5px_15px_15px_15px] bg-[#f2f4f8] text-foreground`}>
               &ldquo;{line.lead}
               {line.breakAfterLead && <br />}
@@ -86,9 +89,9 @@ export default function HomeConcerns({ onComplete }: Props) {
             : {
                 initial: { opacity: 0, y: 16 },
                 whileInView: { opacity: 1, y: 0 },
-                viewport: { once: true, amount: 0.6 },
-                transition: { duration: 0.7, ease: EASE },
-                onViewportEnter: fire,
+                viewport: { once: true, amount: 0.5 },
+                transition: { duration: 0.6, ease: EASE, delay: lines.length * STEP },
+                onAnimationComplete: fire,
               })}
         >
           <p
