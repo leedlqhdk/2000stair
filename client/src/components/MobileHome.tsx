@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Link, useLocation } from "wouter";
 import {
   ArrowRight,
@@ -18,6 +18,8 @@ import { trackConversion } from "@/lib/analytics";
 import ChannelLinks from "@/components/ChannelLinks";
 import VisitorCounter from "@/components/VisitorCounter";
 import Reveal from "@/components/Reveal";
+import HomeConcerns from "@/components/HomeConcerns";
+import HomeWorkSlider from "@/components/HomeWorkSlider";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -109,34 +111,53 @@ const areaChips = [
 export default function MobileHome() {
   const [, setLocation] = useLocation();
   const goToQuote = () => setLocation("/quote");
+  const [chatDone, setChatDone] = useState(false);
 
   return (
     <div className="md:hidden">
       {/* HERO */}
       <section className="px-5 pb-7 pt-7">
-        <h1 className="break-keep font-['GmarketSans'] text-[clamp(1.5rem,8vw,2rem)] font-bold leading-[1.2] text-foreground">
-          <span className="block bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
-            이천계단지기
-          </span>
-          건물 정기 청소관리 전문
-        </h1>
-        <p className="mt-3 break-keep text-sm font-semibold leading-relaxed text-gray-700">
-          계단청소 · 사무실청소 · 화장실청소 · 유리청소
-          <br />
-          믿고 맡길 수 있는 <strong className="text-foreground">청소 파트너</strong>
-        </p>
-        <div className="mt-5 flex gap-2.5">
-          <button
-            type="button"
-            onClick={() => {
-              trackConversion("quote_form_view", { location: "mobile_hero", label: "무료 견적 문의" });
-              goToQuote();
+        <div className="flex items-center gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="break-keep font-['GmarketSans'] text-[1.5rem] font-bold leading-[1.22] text-foreground">
+              우리는
+              <br />
+              <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
+                계단을 지키는
+              </span>
+              <br />
+              부부입니다
+              <span className="mt-2 block text-[0.63em] leading-snug">이천 건물 정기 청소관리 전문</span>
+            </h1>
+            <p className="mt-2.5 break-keep text-[13px] font-semibold leading-relaxed text-gray-700">
+              하청 없이 <strong className="text-foreground">부부가 직접</strong> 관리합니다
+            </p>
+          </div>
+          <motion.img
+            src="/images/couple-profile.jpg"
+            alt="이천계단지기 부부"
+            className="w-[132px] shrink-0 rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
+            loading="eager"
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
+            transition={{
+              opacity: { duration: 0.6 },
+              scale: { duration: 0.6 },
+              y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
             }}
+          />
+        </div>
+        <div className="mt-5 flex gap-2.5">
+          <a
+            href={KAKAO_CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackConversion("kakao_click", { location: "mobile_hero", label: "카카오톡 상담" })}
             className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-extrabold text-white shadow-lg shadow-primary/25"
           >
-            무료 견적 문의
-            <ArrowRight className="h-4 w-4" />
-          </button>
+            <MessageCircle className="h-4 w-4" />
+            카카오톡 상담
+          </a>
           <a
             href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
             onClick={() => trackConversion("phone_click", { location: "mobile_hero", label: "전화 상담" })}
@@ -150,6 +171,19 @@ export default function MobileHome() {
           <VisitorCounter />
         </div>
       </section>
+
+      <HomeConcerns onComplete={() => setChatDone(true)} />
+
+      <HomeWorkSlider revealed={chatDone} />
+
+      {/* 아래 본문 전체 — 대화가 끝난 뒤 이어서 펼쳐집니다 (하단 독은 항상 노출) */}
+      <div
+        className={`grid transition-[grid-template-rows,opacity] delay-500 duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          chatDone ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        {/* key: 펼쳐지는 순간 리마운트해서 각 섹션의 기존 등장 모션이 처음부터 재생되게 함 */}
+        <div className="overflow-hidden" key={chatDone ? "revealed" : "hidden"}>
 
       {/* PROCESS FLOW */}
       <section className="px-5 py-7">
@@ -305,6 +339,9 @@ export default function MobileHome() {
           </div>
         </div>
       </section>
+
+        </div>
+      </div>
 
       {/* BOTTOM DOCK */}
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[1.7fr_1fr_1fr] border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.06)]">
