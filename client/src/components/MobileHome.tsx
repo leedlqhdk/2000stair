@@ -178,7 +178,7 @@ export default function MobileHome() {
 
       {/* 아래 본문 전체 — 대화가 끝난 뒤 이어서 펼쳐집니다 (하단 독은 항상 노출) */}
       <div
-        className={`grid transition-[grid-template-rows,opacity] delay-500 duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`grid transition-[grid-template-rows,opacity] delay-300 duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           chatDone ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >

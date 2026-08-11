@@ -22,7 +22,7 @@ const lines: Line[] = [
 ];
 
 // 섹션 진입(0ms) 기준 타임라인 → step 값
-const TIMELINE = [300, 1450, 2600, 3750, 5000, 6700];
+const TIMELINE = [150, 850, 1550, 2250, 2900, 3800];
 
 const ENTER = "transition-[opacity,transform] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
 const BUBBLE = "max-w-[82%] break-keep px-3.5 py-2.5 text-[13px] font-semibold leading-[1.6]";
@@ -59,7 +59,7 @@ export default function HomeConcerns({ onComplete }: Props) {
         obs.disconnect();
         TIMELINE.forEach((ms, i) => timers.push(setTimeout(() => setStep(i + 1), ms)));
         // 마지막 말풍선이 자리를 잡은 뒤 다음 섹션에 신호를 보냅니다.
-        timers.push(setTimeout(() => onCompleteRef.current?.(), TIMELINE[TIMELINE.length - 1] + 700));
+        timers.push(setTimeout(() => onCompleteRef.current?.(), TIMELINE[TIMELINE.length - 1] + 500));
       },
       { threshold: 0.25 },
     );
