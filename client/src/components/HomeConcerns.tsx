@@ -22,9 +22,9 @@ const lines: Line[] = [
 ];
 
 // 섹션 진입(0ms) 기준 타임라인 → step 값
-const TIMELINE = [150, 850, 1550, 2250, 2900, 3800];
+const TIMELINE = [300, 1400, 2500, 3600, 4700, 6000];
 
-const ENTER = "transition-[opacity,transform] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
+const ENTER = "transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
 const BUBBLE = "max-w-[82%] break-keep px-3.5 py-2.5 text-[13px] font-semibold leading-[1.6]";
 
 type Props = {
@@ -71,7 +71,7 @@ export default function HomeConcerns({ onComplete }: Props) {
     };
   }, []);
 
-  const on = (n: number) => (step >= n ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[14px]");
+  const on = (n: number) => (step >= n ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[18px]");
   const showTyping = !reduceMotion && step >= 5 && step < 6;
 
   return (
