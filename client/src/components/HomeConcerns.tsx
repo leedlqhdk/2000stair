@@ -23,9 +23,11 @@ const lines: Line[] = [
 const EASE = [0.22, 1, 0.36, 1] as const;
 const BUBBLE = "max-w-[82%] break-keep px-3.5 py-2.5 text-[13px] font-semibold leading-[1.6]";
 
-// 답장까지 총 5개. 스크롤 진행도(0~1)에서 각 항목이 나타나는 지점.
+// 답장까지 총 5개. 각 말풍선이 약 한 화면 스크롤마다 하나씩 나타나도록,
+// 섹션을 길게 두고 진행도(0~1)를 넓게 벌려 매핑한다.
 const TOTAL = lines.length + 1;
-const THRESHOLDS = [0.14, 0.29, 0.44, 0.59, 0.74];
+const SECTION_VH = 480; // 섹션 전체 높이(뷰포트 대비 %) — 클수록 한 개당 스크롤이 길어짐
+const THRESHOLDS = [0.08, 0.27, 0.46, 0.65, 0.84];
 
 type Props = {
   /** 마지막 답장까지 나오면 호출됩니다. 다음 섹션 등장 신호로 씁니다. */
@@ -78,7 +80,7 @@ export default function HomeConcerns({ onComplete }: Props) {
         };
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: reduce ? "auto" : "260vh" }}>
+    <section ref={sectionRef} className="relative" style={{ height: reduce ? "auto" : `${SECTION_VH}vh` }}>
       <div
         className={
           reduce
