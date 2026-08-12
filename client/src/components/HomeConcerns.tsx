@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * 모바일 메인 — "혹시, 이런 고민 있으신가요?" 고민 섹션 (카톡 상담창 형태).
  *
- * 섹션이 화면에 들어오면 고민 말풍선이 하나씩 순차로(채팅이 오는 것처럼) 떠오르고,
+ * 스크롤을 내리면서 각 말풍선이 화면 하단 트리거 라인을 지나 올라올 때
+ * 위에서부터 순서대로 하나씩 떠오릅니다. (여백 없이 일반 높이 섹션, 스크롤 연동)
  * 마지막 부부 답장까지 나오면 onComplete로 다음 섹션 등장을 알립니다.
  * 콘텐츠는 항상 DOM에 있으므로 검색엔진은 처음부터 읽을 수 있습니다.
  * prefers-reduced-motion: reduce 이면 모션 없이 최종 상태만 보여줍니다.
@@ -21,7 +22,8 @@ const lines: Line[] = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const BUBBLE = "max-w-[82%] break-keep px-3.5 py-2.5 text-[13px] font-semibold leading-[1.6]";
-const STEP = 0.6; // 말풍선 사이 등장 간격(초)
+const TOTAL = lines.length + 1; // 답장 포함
+const TRIGGER = 0.72; // 말풍선 top이 화면 높이의 72% 지점을 지나 올라오면 등장
 
 type Props = {
   /** 마지막 답장까지 나오면 호출됩니다. 다음 섹션 등장 신호로 씁니다. */
@@ -30,6 +32,8 @@ type Props = {
 
 export default function HomeConcerns({ onComplete }: Props) {
   const reduce = useReducedMotion();
+  const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [shown, setShown] = useState(0);
   const firedRef = useRef(false);
 
   const onCompleteRef = useRef(onComplete);
@@ -41,16 +45,42 @@ export default function HomeConcerns({ onComplete }: Props) {
     onCompleteRef.current?.();
   };
 
-  // 답장이 끝내 화면에 안 들어와도 다음 섹션이 막히지 않도록 하는 안전장치.
   useEffect(() => {
     if (reduce) {
+      setShown(TOTAL);
       fire();
       return;
     }
-    const t = setTimeout(fire, 14000);
-    return () => clearTimeout(t);
+
+    const update = () => {
+      const line = window.innerHeight * TRIGGER;
+      let n = 0;
+      for (const el of itemRefs.current) {
+        if (el && el.getBoundingClientRect().top <= line) n += 1;
+        else break; // 위에서부터 순서대로만 노출
+      }
+      setShown((prev) => (n > prev ? n : prev)); // 한 번 뜬 건 유지
+      if (n >= TOTAL) fire();
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduce]);
+
+  const anim = (visible: boolean) =>
+    reduce
+      ? {}
+      : {
+          initial: false as const,
+          animate: { opacity: visible ? 1 : 0, y: visible ? 0 : 16 },
+          transition: { duration: 0.45, ease: EASE },
+        };
 
   return (
     <section className="px-5 py-10">
@@ -62,15 +92,11 @@ export default function HomeConcerns({ onComplete }: Props) {
         {lines.map((line, i) => (
           <motion.div
             key={line.accent}
+            ref={(el) => {
+              itemRefs.current[i] = el;
+            }}
             className="flex"
-            {...(reduce
-              ? {}
-              : {
-                  initial: { opacity: 0, y: 16 },
-                  whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, amount: 0.5 },
-                  transition: { duration: 0.55, ease: EASE, delay: i * STEP },
-                })}
+            {...anim(shown > i)}
           >
             <p className={`${BUBBLE} rounded-[5px_15px_15px_15px] bg-[#f2f4f8] text-foreground`}>
               &ldquo;{line.lead}
@@ -83,16 +109,11 @@ export default function HomeConcerns({ onComplete }: Props) {
 
         {/* 부부 답장 */}
         <motion.div
+          ref={(el) => {
+            itemRefs.current[lines.length] = el;
+          }}
           className="flex items-start justify-end gap-2"
-          {...(reduce
-            ? {}
-            : {
-                initial: { opacity: 0, y: 16 },
-                whileInView: { opacity: 1, y: 0 },
-                viewport: { once: true, amount: 0.5 },
-                transition: { duration: 0.55, ease: EASE, delay: lines.length * STEP },
-                onAnimationComplete: fire,
-              })}
+          {...anim(shown >= TOTAL)}
         >
           <p
             className={`${BUBBLE} rounded-[15px_5px_15px_15px] bg-primary text-white shadow-[0_10px_24px_rgba(15,76,169,0.2)]`}
