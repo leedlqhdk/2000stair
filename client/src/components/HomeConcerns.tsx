@@ -101,7 +101,7 @@ export default function HomeConcerns({ onComplete }: Props) {
             <p className={`${BUBBLE} rounded-[5px_15px_15px_15px] bg-[#f2f4f8] text-foreground`}>
               &ldquo;{line.lead}
               {line.breakAfterLead && <br />}
-              <span className="text-primary">{line.accent}</span>
+              <span className="font-extrabold text-primary">{line.accent}</span>
               {line.tail}&rdquo;
             </p>
           </motion.div>
