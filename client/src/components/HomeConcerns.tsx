@@ -4,8 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 /**
  * 모바일 메인 — "혹시, 이런 고민 있으신가요?" 고민 섹션 (카톡 상담창 형태).
  *
- * 스크롤을 내리면서 각 말풍선이 화면 하단 트리거 라인을 지나 올라올 때
- * 위에서부터 순서대로 하나씩 떠오릅니다. (여백 없이 일반 높이 섹션, 스크롤 연동)
+ * 섹션이 화면에 들어오면 말풍선이 위에서부터 순서대로 자동으로 떠오릅니다.
+ * (스크롤을 멈춰도 계속 재생되며, 한 번 재생한 뒤에는 다시 재생하지 않습니다)
  * 마지막 부부 답장까지 나오면 onComplete로 다음 섹션 등장을 알립니다.
  * 콘텐츠는 항상 DOM에 있으므로 검색엔진은 처음부터 읽을 수 있습니다.
  * prefers-reduced-motion: reduce 이면 모션 없이 최종 상태만 보여줍니다.
@@ -23,7 +23,8 @@ const lines: Line[] = [
 const EASE = [0.22, 1, 0.36, 1] as const;
 const BUBBLE = "max-w-[82%] break-keep px-3.5 py-2.5 text-[13px] font-semibold leading-[1.6]";
 const TOTAL = lines.length + 1; // 답장 포함
-const TRIGGER = 0.72; // 말풍선 top이 화면 높이의 72% 지점을 지나 올라오면 등장
+const START_DELAY = 250; // 섹션이 보이고 첫 말풍선까지
+const STEP = 900; // 말풍선 사이 간격
 
 type Props = {
   /** 마지막 답장까지 나오면 호출됩니다. 다음 섹션 등장 신호로 씁니다. */
@@ -32,6 +33,7 @@ type Props = {
 
 export default function HomeConcerns({ onComplete }: Props) {
   const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [shown, setShown] = useState(0);
   const firedRef = useRef(false);
@@ -52,23 +54,28 @@ export default function HomeConcerns({ onComplete }: Props) {
       return;
     }
 
-    const update = () => {
-      const line = window.innerHeight * TRIGGER;
-      let n = 0;
-      for (const el of itemRefs.current) {
-        if (el && el.getBoundingClientRect().top <= line) n += 1;
-        else break; // 위에서부터 순서대로만 노출
-      }
-      setShown((prev) => (n > prev ? n : prev)); // 한 번 뜬 건 유지
-      if (n >= TOTAL) fire();
-    };
+    const node = sectionRef.current;
+    if (!node) return;
 
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    // 섹션이 화면에 들어오면 한 번만 재생 시작. 이후에는 스크롤과 무관하게 진행됩니다.
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        if (!entries[0]?.isIntersecting) return;
+        obs.disconnect();
+        for (let i = 0; i < TOTAL; i += 1) {
+          timers.push(setTimeout(() => setShown(i + 1), START_DELAY + i * STEP));
+        }
+        timers.push(setTimeout(fire, START_DELAY + (TOTAL - 1) * STEP + 400));
+      },
+      { threshold: 0.25 },
+    );
+
+    observer.observe(node);
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      observer.disconnect();
+      timers.forEach(clearTimeout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduce]);
@@ -83,7 +90,7 @@ export default function HomeConcerns({ onComplete }: Props) {
         };
 
   return (
-    <section className="px-5 py-10">
+    <section ref={sectionRef} className="px-5 py-10">
       <h2 className="mb-6 break-keep font-['GmarketSans'] text-lg font-extrabold leading-snug text-foreground">
         혹시, 이런 고민 있으신가요?
       </h2>
