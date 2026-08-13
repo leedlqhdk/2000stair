@@ -21,6 +21,7 @@ const WorkDetail = lazy(() => import("./pages/WorkDetail"));
 const LocationLanding = lazy(() => import("./pages/LocationLanding"));
 const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
+const AdminField = lazy(() => import("./pages/AdminField"));
 const Majang = lazy(() => import("@/pages/Majang"));
 const Daewol = lazy(() => import("@/pages/Daewol"));
 const Sindun = lazy(() => import("@/pages/Sindun"));
@@ -180,6 +181,7 @@ function Router() {
           <Route path="/area/:slug" component={LocationLanding} />
           <Route path="/admin" component={AdminRedirect} />
           <Route path="/admin/blog" component={AdminBlog} />
+          <Route path="/admin/field" component={AdminField} />
           <Route path="/admin/blog/new" component={AdminBlogEdit} />
           <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
           <Route component={NotFound} />

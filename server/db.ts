@@ -74,6 +74,9 @@ async function ensureSchema(db: ReturnType<typeof drizzle>) {
     )
   `);
 
+  await db.execute(sql`CREATE TABLE IF NOT EXISTS "field_sites" ("id" serial PRIMARY KEY, "name" varchar(200) NOT NULL, "address" text NOT NULL, "phone" varchar(30), "status" varchar(30) NOT NULL DEFAULT 'inquiry', "note" text, "createdAt" timestamp NOT NULL DEFAULT now(), "updatedAt" timestamp NOT NULL DEFAULT now())`);
+  await db.execute(sql`CREATE TABLE IF NOT EXISTS "field_schedules" ("id" serial PRIMARY KEY, "siteId" integer REFERENCES "field_sites"("id") ON DELETE SET NULL, "startAt" timestamp NOT NULL, "type" varchar(40) NOT NULL, "status" varchar(30) NOT NULL DEFAULT 'scheduled', "amount" integer NOT NULL DEFAULT 0, "assignee" varchar(60), "note" text, "checklist" text, "createdAt" timestamp NOT NULL DEFAULT now(), "updatedAt" timestamp NOT NULL DEFAULT now())`);
+
   _schemaReady = true;
 }
 
