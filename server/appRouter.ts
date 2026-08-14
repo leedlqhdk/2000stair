@@ -14,6 +14,7 @@ import { contentPostsRouter } from "./appContentPostsRouter.js";
 import { reviewsRouter } from "./appReviewsRouter.js";
 import { ENV } from "./_core/env.js";
 import { sdk } from "./_core/sdk.js";
+import { fieldRouter } from "./appFieldRouter.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
@@ -64,6 +65,7 @@ export const appRouter = router({
   blog: blogRouter,
   areaPosts: areaPostsRouter,
   contentPosts: contentPostsRouter,
+  field: fieldRouter,
   reviews: reviewsRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
