@@ -22,6 +22,7 @@ const LocationLanding = lazy(() => import("./pages/LocationLanding"));
 const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
 const AdminField = lazy(() => import("./pages/AdminField"));
+const AreaPlaceholder = lazy(() => import("./pages/AreaPlaceholder"));
 const Majang = lazy(() => import("@/pages/Majang"));
 const Daewol = lazy(() => import("@/pages/Daewol"));
 const Sindun = lazy(() => import("@/pages/Sindun"));
@@ -178,6 +179,10 @@ function Router() {
           <Route path="/area/bubal" component={Bubal} />
           <Route path="/area/baeksa" component={Baeksa} />
           <Route path="/area/gonjiam" component={Gonjiam} />
+          <Route path="/area/gwango" component={AreaPlaceholder} />
+          <Route path="/area/changjeon" component={AreaPlaceholder} />
+          <Route path="/area/jungni" component={AreaPlaceholder} />
+          <Route path="/area/jeungpo" component={AreaPlaceholder} />
           <Route path="/area/:slug" component={LocationLanding} />
           <Route path="/admin" component={AdminRedirect} />
           <Route path="/admin/blog" component={AdminBlog} />
