@@ -100,23 +100,11 @@ export default function DesktopHomeConcerns({ onComplete }: Props) {
         }
       `}</style>
 
-      <motion.div
-        className="mb-5"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.15, ease: EASE }}
-      >
-        <p className="text-xs font-extrabold tracking-[0.17em] text-primary">BUILDING OWNER'S VOICE</p>
-        <h2 className="mt-2 font-['GmarketSans'] text-[1.55rem] font-extrabold leading-snug text-foreground lg:text-[1.8rem]">
-          혹시, 이런 고민 있으신가요?
-        </h2>
-      </motion.div>
-
-      <div className="flex min-h-[390px] flex-col gap-2.5 lg:min-h-[420px]">
+      <div className="flex min-h-[360px] flex-col gap-3 lg:min-h-[390px]">
         {lines.map((line, index) => (
           <motion.div
             key={line.accent}
-            className={`flex ${index % 2 === 1 ? "justify-end pr-3" : "justify-start pl-1"}`}
+            className="flex justify-start pl-1"
             {...anim(shown > index)}
           >
             <p className="max-w-[88%] break-keep rounded-[7px_18px_18px_18px] bg-[#f2f4f8] px-5 py-3.5 text-[14px] font-semibold leading-[1.6] text-foreground shadow-[0_5px_18px_rgba(15,23,42,0.04)] lg:text-[15px]">
