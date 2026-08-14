@@ -50,11 +50,11 @@ export default function Home() {
                 {/* 대표 직접관리 */}
                 <HusbandProfileStats />
 
-                {/* 제공 서비스 */}
-                <Services />
-
                 {/* 왜 이천계단지기인가 */}
                 <HowItWorks />
+
+                {/* 제공 서비스 */}
+                <Services />
 
                 {/* 실제 작업 결과 */}
                 <BeforeAfterGallery />
