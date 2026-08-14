@@ -9,6 +9,8 @@ export const fieldSites = pgTable("field_sites", {
   id: serial("id").primaryKey(), name: varchar("name", { length: 200 }).notNull(), address: text("address").notNull(),
   phone: varchar("phone", { length: 30 }), status: varchar("status", { length: 30 }).default("inquiry").notNull(), note: text("note"),
   latitude: real("latitude"), longitude: real("longitude"),
+  contractStartDate: varchar("contractStartDate", { length: 10 }), contractEndDate: varchar("contractEndDate", { length: 10 }),
+  weeklyFrequency: integer("weeklyFrequency").default(1).notNull(), visitWeekdays: text("visitWeekdays"),
   createdAt: timestamp("createdAt").defaultNow().notNull(), updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
 export type FieldSite = typeof fieldSites.$inferSelect;

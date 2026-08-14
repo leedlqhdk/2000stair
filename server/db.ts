@@ -78,6 +78,10 @@ async function ensureSchema(db: ReturnType<typeof drizzle>) {
   await db.execute(sql`CREATE TABLE IF NOT EXISTS "field_schedules" ("id" serial PRIMARY KEY, "siteId" integer REFERENCES "field_sites"("id") ON DELETE SET NULL, "startAt" timestamp NOT NULL, "type" varchar(40) NOT NULL, "status" varchar(30) NOT NULL DEFAULT 'scheduled', "amount" integer NOT NULL DEFAULT 0, "assignee" varchar(60), "note" text, "checklist" text, "createdAt" timestamp NOT NULL DEFAULT now(), "updatedAt" timestamp NOT NULL DEFAULT now())`);
   await db.execute(sql`ALTER TABLE "field_sites" ADD COLUMN IF NOT EXISTS "latitude" real`);
   await db.execute(sql`ALTER TABLE "field_sites" ADD COLUMN IF NOT EXISTS "longitude" real`);
+  await db.execute(sql`ALTER TABLE "field_sites" ADD COLUMN IF NOT EXISTS "contractStartDate" varchar(10)`);
+  await db.execute(sql`ALTER TABLE "field_sites" ADD COLUMN IF NOT EXISTS "contractEndDate" varchar(10)`);
+  await db.execute(sql`ALTER TABLE "field_sites" ADD COLUMN IF NOT EXISTS "weeklyFrequency" integer NOT NULL DEFAULT 1`);
+  await db.execute(sql`ALTER TABLE "field_sites" ADD COLUMN IF NOT EXISTS "visitWeekdays" text`);
   await db.execute(sql`CREATE TABLE IF NOT EXISTS "field_route_settings" ("id" integer PRIMARY KEY DEFAULT 1, "startAddress" text, "startLatitude" real, "startLongitude" real, "endAddress" text, "endLatitude" real, "endLongitude" real, "updatedAt" timestamp NOT NULL DEFAULT now())`);
   await db.execute(sql`
     CREATE TABLE IF NOT EXISTS "reviews" (
