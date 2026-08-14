@@ -78,28 +78,7 @@ export default function HeroSection({ isAuthenticated, onConcernsComplete }: Her
               주소만 보내주시면 빠르게 안내드립니다.
             </motion.p>
 
-            <div className="mt-5 flex max-w-md flex-col gap-3 sm:mt-6 sm:flex-row sm:flex-wrap">
-              <a
-                href={KAKAO_CHANNEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackConversion("kakao_click", { location: "home_hero", label: "카톡으로 주소 보내기" })}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5 sm:w-auto"
-              >
-                카톡으로 주소 보내기
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <Link
-                href="/quote"
-                onClick={() => trackConversion("quote_form_view", { location: "home_hero", label: "법인 견적 폼 보기" })}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-white px-5 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-50 sm:w-auto"
-              >
-                무료 견적 폼 보기
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
+            <div className="mt-5 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
               {heroBadges.map((badge) => (
                 <span
                   key={badge}
@@ -151,17 +130,12 @@ export default function HeroSection({ isAuthenticated, onConcernsComplete }: Her
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                  <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.16em] text-primary md:text-sm">
-                    <MapPin className="h-4 w-4 text-primary stroke-[3]" />
-                    MAP
-                  </p>
-
                   <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
-                    실제 관리 지역
+                    같은 사람이, 꾸준히
                   </h2>
 
                   <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
-                    이천 북부 지역을 부부가 직접 관리합니다.
+                    처음 본 건물 상태를 기억하고 다음 방문도 이어서 관리합니다.
                   </p>
                 </motion.div>
 
