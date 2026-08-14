@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, real, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", ["user", "admin"]);
 export const serviceTypeEnum = pgEnum("serviceType", ["in_person", "non_contact"]);
@@ -8,6 +8,7 @@ export const publishedEnum = pgEnum("published", ["draft", "published"]);
 export const fieldSites = pgTable("field_sites", {
   id: serial("id").primaryKey(), name: varchar("name", { length: 200 }).notNull(), address: text("address").notNull(),
   phone: varchar("phone", { length: 30 }), status: varchar("status", { length: 30 }).default("inquiry").notNull(), note: text("note"),
+  latitude: real("latitude"), longitude: real("longitude"),
   createdAt: timestamp("createdAt").defaultNow().notNull(), updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
 export type FieldSite = typeof fieldSites.$inferSelect;
@@ -21,6 +22,14 @@ export const fieldSchedules = pgTable("field_schedules", {
 });
 export type FieldSchedule = typeof fieldSchedules.$inferSelect;
 export type InsertFieldSchedule = typeof fieldSchedules.$inferInsert;
+
+export const fieldRouteSettings = pgTable("field_route_settings", {
+  id: integer("id").primaryKey().default(1),
+  startAddress: text("startAddress"), startLatitude: real("startLatitude"), startLongitude: real("startLongitude"),
+  endAddress: text("endAddress"), endLatitude: real("endLatitude"), endLongitude: real("endLongitude"),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type FieldRouteSettings = typeof fieldRouteSettings.$inferSelect;
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
