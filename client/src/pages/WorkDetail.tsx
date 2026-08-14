@@ -17,7 +17,11 @@ const areaRoutes: Record<string, string> = {
   majang: "/area/majang",
   daewol: "/area/daewol",
   sindun: "/area/sindun",
-  downtown: "/area/downtown",
+  downtown: "/areas",
+  gwango: "/area/gwango",
+  changjeon: "/area/changjeon",
+  jungni: "/area/jungni",
+  jeungpo: "/area/jeungpo",
   bubal: "/area/bubal",
   baeksa: "/area/baeksa",
 };
@@ -157,10 +161,18 @@ export default function WorkDetail() {
 
   const posts = useMemo(() => {
     const notionPosts = data ?? [];
-    return notionPosts.length > 0 ? notionPosts : fallbackPosts;
+    const seenSlugs = new Set(notionPosts.map(getWorkSlug));
+    const missingFallbackPosts = fallbackPosts.filter((fallbackPost) => !seenSlugs.has(getWorkSlug(fallbackPost)));
+
+    return [...notionPosts, ...missingFallbackPosts];
   }, [data]);
 
   const post = posts.find((item) => getWorkSlug(item) === slug);
+  // 노션 설명은 빈 줄 기준으로 문단을 나눠, 첫 문단은 상단 소개로 쓰고 나머지는 본문 섹션에 표시
+  const descriptionParagraphs = (post?.description ?? "")
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
   const images = post?.images?.length ? post.images : post ? [post.image] : [];
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
   const backHref = post?.area ? areaRoutes[post.area] ?? "/records" : "/records";
@@ -251,8 +263,8 @@ export default function WorkDetail() {
                     사진 {images.length}장
                   </span>
                 </div>
-                <p className="mb-7 max-w-2xl text-base leading-7 text-muted-foreground">
-                  {getIntroText(post, areaLabel)}
+                <p className="mb-7 max-w-2xl whitespace-pre-line text-base leading-7 text-muted-foreground">
+                  {descriptionParagraphs[0] ?? getIntroText(post, areaLabel)}
                 </p>
 
                 <div className="overflow-hidden rounded-xl border border-blue-100 bg-white text-sm shadow-sm">
@@ -278,6 +290,22 @@ export default function WorkDetail() {
               </div>
             </div>
           </section>
+
+          {descriptionParagraphs.length > 1 ? (
+            <section className="mt-12">
+              <h2 className="mb-6 text-2xl font-extrabold text-foreground">작업 이야기</h2>
+              <div className="rounded-[1.5rem] border border-blue-100 bg-white p-7 shadow-sm md:p-10">
+                {descriptionParagraphs.slice(1).map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="mb-5 whitespace-pre-line text-base leading-8 text-slate-700 last:mb-0"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <section className="mt-12">
             <h2 className="mb-6 text-2xl font-extrabold text-foreground">현장 사진</h2>

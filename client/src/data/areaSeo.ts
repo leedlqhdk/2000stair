@@ -94,13 +94,40 @@ export const seoByAreaSlug = {
     localities: ["신둔면", "수광리", "도암리", "남정리"],
     image: "/images/icheon-sindun-stair-cleaning.webp",
   }),
-  downtown: areaSeo({
-    slug: "downtown",
-    areaName: "이천 시내권",
-    title: "이천 시내권 계단청소·상가청소 | 이천계단지기",
+  gwango: areaSeo({
+    slug: "gwango",
+    areaName: "관고동",
+    title: "관고동 계단청소·상가 공용공간 관리 | 이천계단지기",
     description:
-      "창전동·관고동·증포동·중리동 등 이천 시내권 빌라·상가 계단청소와 공용공간 정기관리를 직접 진행합니다.",
-    localities: ["창전동", "관고동", "증포동", "중리동", "송정동"],
+      "관고동 상가·빌라·소형 건물의 계단, 공동현관, 복도, 유리 등 공용공간을 현장 상태에 맞춰 직접 관리합니다.",
+    localities: ["관고동", "설봉공원 인근", "관고시장 인근"],
+    image: "/images/icheon-gwango-building-cleaning.webp",
+  }),
+  changjeon: areaSeo({
+    slug: "changjeon",
+    areaName: "창전동",
+    title: "창전동 계단청소·빌라 원룸 정기관리 | 이천계단지기",
+    description:
+      "창전동 빌라·원룸·상가주택의 계단, 복도, 공동현관을 월 2회·4회 정기 방문 기준으로 상담합니다.",
+    localities: ["창전동", "시내 주거지", "상가주택 밀집 구역"],
+    image: "/images/icheon-downtown-stair-cleaning.webp",
+  }),
+  jungni: areaSeo({
+    slug: "jungni",
+    areaName: "중리동",
+    title: "중리동 계단청소·빌라 상가 공용부 관리 | 이천계단지기",
+    description:
+      "중리동 빌라·상가 공용부의 현관, 계단, 복도 상태를 사진과 주소 기준으로 확인하고 관리 범위를 안내합니다.",
+    localities: ["중리동", "이천 시내 생활권", "상가주택 주변"],
+    image: "/images/icheon-downtown-stair-cleaning.webp",
+  }),
+  jeungpo: areaSeo({
+    slug: "jeungpo",
+    areaName: "증포동",
+    title: "증포동 계단청소·빌라 상가 정기관리 | 이천계단지기",
+    description:
+      "증포동 빌라·원룸·상가주택의 계단, 복도, 공동현관 등 공용공간을 주소와 사진 기준으로 확인하고 직접 관리합니다.",
+    localities: ["증포동", "갈산동 인근", "중리동 방향 생활권"],
     image: "/images/icheon-downtown-stair-cleaning.webp",
   }),
   bubal: areaSeo({
@@ -123,11 +150,11 @@ export const seoByAreaSlug = {
   }),
   gonjiam: areaSeo({
     slug: "gonjiam",
-    areaName: "곤지암",
-    title: "곤지암 계단청소·공용공간 정기관리 | 이천계단지기",
+    areaName: "곤지암읍",
+    title: "곤지암읍 신둔 인근 계단청소·공용공간 관리 | 이천계단지기",
     description:
-      "곤지암 빌라·상가 공용공간의 계단, 복도, 공동현관, 유리청소 상담을 현장 사진과 주소 확인 후 안내드립니다.",
-    localities: ["곤지암", "곤지암읍"],
+      "곤지암읍 전 지역이 아닌 신둔면과 가까운 인접 지역의 빌라·상가 공용공간을 주소와 현장 사진 확인 후 상담합니다.",
+    localities: ["곤지암읍 신둔면 인접 지역"],
   }),
 } satisfies Record<string, SeoProps>;
 
@@ -135,7 +162,7 @@ export const generalSeoByPath = {
   "/": {
     title: "이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소",
     description:
-      "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 하청 없이 부부가 직접 정기관리합니다. 세금계산서·계약서·사업자보험 완비.",
+      "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 하청 없이 부부가 직접 정기관리합니다. 세금계산서와 계약 기준 상담이 가능합니다.",
     canonical: `${SITE_URL}/`,
     keywords: `이천계단청소, 이천계단청소업체, 이천빌라청소, 이천상가청소, 계단청소업체, 이천계단지기, ${BASE_KEYWORDS}`,
     image: toAbsoluteUrl("/og-image.png"),
@@ -161,6 +188,7 @@ export const generalSeoByPath = {
           { "@type": "AdministrativeArea", name: "증포동" },
           { "@type": "AdministrativeArea", name: "중리동" },
           { "@type": "AdministrativeArea", name: "관고동" },
+          { "@type": "AdministrativeArea", name: "창전동" },
           { "@type": "AdministrativeArea", name: "대월면" },
         ],
         priceRange: "₩₩",
@@ -313,9 +341,9 @@ export const generalSeoByPath = {
   "/areas": {
     title: "이천 지역별 계단청소 가능 지역 | 이천계단지기",
     description:
-      "신둔면, 마장면, 부발읍, 증포동, 중리동, 관고동, 대월면 계단청소·빌라청소 가능 지역을 확인하세요.",
+      "신둔면, 마장면, 부발읍, 관고동, 창전동, 중리동, 증포동, 대월면 계단청소·빌라청소 가능 지역을 확인하세요.",
     canonical: `${SITE_URL}/areas`,
-    keywords: `이천 지역별 계단청소, 신둔면 계단청소, 마장면 계단청소, 부발읍 계단청소, 증포동 계단청소, 중리동 계단청소, 관고동 계단청소, 대월면 계단청소, ${BASE_KEYWORDS}`,
+    keywords: `이천 지역별 계단청소, 신둔면 계단청소, 마장면 계단청소, 부발읍 계단청소, 관고동 계단청소, 창전동 계단청소, 중리동 계단청소, 증포동 계단청소, 대월면 계단청소, ${BASE_KEYWORDS}`,
   },
   "/records": {
     title: "이천계단지기 청소 기록 | 계단청소 현장 사례",

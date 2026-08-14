@@ -15,6 +15,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
@@ -52,6 +53,18 @@ export interface InfoSection {
   beforeAfter?: { before: string; after: string };
 }
 
+export interface NeedCard {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+}
+
+export interface NeedSection {
+  title: string;
+  subtitle?: string;
+  cards: NeedCard[];
+}
+
 export interface PhotoGridItem {
   src: string;
   alt: string;
@@ -70,10 +83,12 @@ export interface ServicePageData {
   scopeItems: string[];
   pricingTiers: ServicePricingTier[];
   pricingNote?: string;
+  pricingMessage?: string[];
   gallery?: GalleryPair[];
   serviceFolder: string;
   seoTitle?: string;
   infoContent?: { title: string; body: string };
+  needSection?: NeedSection;
   infoSections?: InfoSection[];
   faq?: FaqItem[];
   showReviews?: boolean;
@@ -435,7 +450,13 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               요금 안내
             </motion.h2>
 
-            <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
+            <div
+              className={`mx-auto grid gap-4 ${
+                data.pricingTiers.length === 2
+                  ? "max-w-2xl sm:grid-cols-2"
+                  : "max-w-3xl sm:grid-cols-3"
+              }`}
+            >
               {data.pricingTiers.map((tier, i) => (
                 <motion.div
                   key={i}
@@ -473,6 +494,29 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 </motion.div>
               ))}
             </div>
+
+            {data.pricingMessage && data.pricingMessage.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="mx-auto mt-6 max-w-2xl rounded-[1.6rem] border border-white/16 bg-white/[0.08] px-6 py-6 text-center backdrop-blur-xl md:px-8 md:py-7"
+              >
+                {data.pricingMessage.map((line, i) => (
+                  <p
+                    key={i}
+                    className={
+                      i === data.pricingMessage!.length - 1
+                        ? "mt-3 text-sm font-extrabold text-white md:text-base"
+                        : "text-[13px] leading-6 text-white/75 md:text-sm md:leading-7"
+                    }
+                  >
+                    {line}
+                  </p>
+                ))}
+              </motion.div>
+            )}
 
             {data.pricingNote && (
               <p className="mx-auto mt-4 max-w-3xl text-center text-[11px] text-white/45">
@@ -540,6 +584,53 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 >
                   {data.infoContent.body}
                 </motion.p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 어떤 건물에 필요할까요 섹션 (선택) */}
+        {data.needSection && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-6xl px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="mb-8 text-center md:mb-12"
+              >
+                <h2 className="whitespace-pre-line text-xl font-extrabold leading-snug text-white sm:text-2xl md:text-3xl">
+                  {data.needSection.title}
+                </h2>
+                {data.needSection.subtitle && (
+                  <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-white/70 md:text-base">
+                    {data.needSection.subtitle}
+                  </p>
+                )}
+              </motion.div>
+
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-5">
+                {data.needSection.cards.map((card, i) => (
+                  <motion.div
+                    key={card.title}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    className={`${glassCard} flex flex-col p-5 md:p-6`}
+                  >
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25">
+                      <card.icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-base font-extrabold leading-snug text-white md:text-lg">
+                      {card.title}
+                    </h3>
+                    <p className="mt-2.5 text-[13px] leading-6 text-white/70 md:text-sm">
+                      {card.text}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </section>

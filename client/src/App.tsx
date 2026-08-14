@@ -8,8 +8,10 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Seo from "./components/Seo";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { getSeoForPath } from "@/data/areaSeo";
+import { initAnalytics, trackPageview } from "@/lib/analytics";
 import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -19,14 +21,15 @@ const BlogDetail = lazy(() => import("./pages/BlogDetail"));
 const Records = lazy(() => import("./pages/Records"));
 const WorkDetail = lazy(() => import("./pages/WorkDetail"));
 const LocationLanding = lazy(() => import("./pages/LocationLanding"));
+const NeighborhoodArea = lazy(() => import("./pages/NeighborhoodArea"));
 const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
 const AdminField = lazy(() => import("./pages/AdminField"));
-const AreaPlaceholder = lazy(() => import("./pages/AreaPlaceholder"));
+const AdminQuotes = lazy(() => import("./pages/AdminQuotes"));
+const AdminReviews = lazy(() => import("./pages/AdminReviews"));
 const Majang = lazy(() => import("@/pages/Majang"));
 const Daewol = lazy(() => import("@/pages/Daewol"));
 const Sindun = lazy(() => import("@/pages/Sindun"));
-const Downtown = lazy(() => import("@/pages/Downtown"));
 const Bubal = lazy(() => import("@/pages/Bubal"));
 const Baeksa = lazy(() => import("@/pages/Baeksa"));
 const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
@@ -40,7 +43,9 @@ const GlassCleaning = lazy(() => import("./pages/GlassCleaning"));
 const OfficeCleaning = lazy(() => import("./pages/OfficeCleaning"));
 const OpsStatus = lazy(() => import("@/pages/OpsStatus"));
 const Guide = lazy(() => import("@/pages/Guide"));
-
+const Areas = lazy(() => import("@/pages/Areas"));
+const MobileQuote = lazy(() => import("@/pages/MobileQuote"));
+const Card = lazy(() => import("@/pages/Card"));
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -84,6 +89,20 @@ function ScrollToTop() {
   return null;
 }
 
+function AnalyticsTracker() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  useEffect(() => {
+    trackPageview(location);
+  }, [location]);
+
+  return null;
+}
+
 function RouteSeo() {
   const [location] = useLocation();
   const seo = getSeoForPath(location);
@@ -105,8 +124,28 @@ function AdminRedirect() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    setLocation("/admin/blog");
+    setLocation("/admin/quotes");
   }, [setLocation]);
+
+  return null;
+}
+
+function WorkRedirect() {
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    setLocation("/records");
+  }, [setLocation]);
+
+  return null;
+}
+
+function RouteRedirect({ to }: { to: string }) {
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    setLocation(to);
+  }, [setLocation, to]);
 
   return null;
 }
@@ -117,6 +156,22 @@ function PageLoader() {
       <Spinner className="size-8 text-primary" />
     </div>
   );
+}
+
+function GwangoArea() {
+  return <NeighborhoodArea areaSlug="gwango" />;
+}
+
+function ChangjeonArea() {
+  return <NeighborhoodArea areaSlug="changjeon" />;
+}
+
+function JungniArea() {
+  return <NeighborhoodArea areaSlug="jungni" />;
+}
+
+function JeungpoArea() {
+  return <NeighborhoodArea areaSlug="jeungpo" />;
 }
 
 function AdminNoIndex() {
@@ -133,7 +188,7 @@ function AdminNoIndex() {
     }
 
     if (isAdminRoute) {
-      document.title = "ê´ë¦¬ì íì´ì§ | ì´ì²ê³ë¨ì§ê¸°";
+      document.title = "관리자 페이지 | 이천계단지기";
       robots.setAttribute("content", "noindex, nofollow, noarchive");
       return;
     }
@@ -148,6 +203,7 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <AnalyticsTracker />
       <AdminNoIndex />
       <RouteSeo />
       <AreaNavbar />
@@ -167,26 +223,36 @@ function Router() {
           <Route path="/my-quotes" component={MyQuotes} />
           <Route path="/blog" component={Records} />
           <Route path="/records" component={Records} />
+          <Route path="/work" component={WorkRedirect} />
           <Route path="/work/:slug" component={WorkDetail} />
-          <Route path="/areas" component={Blog} />
+          <Route path="/areas" component={Areas} />
+          <Route path="/quote" component={MobileQuote} />
+          <Route path="/card" component={Card} />
           <Route path="/blog/category/:slug" component={Blog} />
           <Route path="/blog/:id" component={BlogDetail} />
           <Route path="/area/majang" component={Majang} />
           <Route path={"/area/Majang"} component={Majang} />
           <Route path="/area/daewol" component={Daewol} />
           <Route path="/area/sindun" component={Sindun} />
-          <Route path="/area/downtown" component={Downtown} />
+          <Route path="/area/downtown">
+            <RouteRedirect to="/areas" />
+          </Route>
+          <Route path="/area/gwango" component={GwangoArea} />
+          <Route path="/area/changjeon" component={ChangjeonArea} />
+          <Route path="/area/jungni" component={JungniArea} />
+          <Route path="/area/jeungpo" component={JeungpoArea} />
+          <Route path="/area/songjeong">
+            <RouteRedirect to="/area/jungni" />
+          </Route>
           <Route path="/area/bubal" component={Bubal} />
           <Route path="/area/baeksa" component={Baeksa} />
           <Route path="/area/gonjiam" component={Gonjiam} />
-          <Route path="/area/gwango" component={AreaPlaceholder} />
-          <Route path="/area/changjeon" component={AreaPlaceholder} />
-          <Route path="/area/jungni" component={AreaPlaceholder} />
-          <Route path="/area/jeungpo" component={AreaPlaceholder} />
           <Route path="/area/:slug" component={LocationLanding} />
           <Route path="/admin" component={AdminRedirect} />
+          <Route path="/admin/quotes" component={AdminQuotes} />
           <Route path="/admin/blog" component={AdminBlog} />
           <Route path="/admin/field" component={AdminField} />
+          <Route path="/admin/reviews" component={AdminReviews} />
           <Route path="/admin/blog/new" component={AdminBlogEdit} />
           <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
           <Route component={NotFound} />
@@ -199,12 +265,15 @@ function Router() {
 function AppChrome() {
   const [location] = useLocation();
   const isAdminRoute = location.startsWith("/admin");
+  const isBareRoute = location === "/card";
+  const hideChrome = isAdminRoute || isBareRoute;
 
   return (
     <>
       <Router />
-      {!isAdminRoute && <Footer />}
-      {!isAdminRoute && <KakaoChat />}
+      {!hideChrome && <Footer />}
+      {!hideChrome && <ScrollToTopButton />}
+      {!hideChrome && <KakaoChat />}
     </>
   );
 }

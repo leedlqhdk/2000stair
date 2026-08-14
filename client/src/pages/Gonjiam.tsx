@@ -1,26 +1,9 @@
-import { Link } from "wouter";
-import { ArrowLeft, CheckCircle2, MessageCircle, Phone, Star } from "lucide-react";
-import { motion } from "framer-motion";
-import AreaServiceCards from "@/components/AreaServiceCards";
+import { MessageCircle, Phone, Star } from "lucide-react";
+import AreaIntro from "@/components/AreaIntro";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
 const fallbackPosts: AreaPost[] = [];
-
-const serviceCards = [
-  {
-    title: "관리 대상",
-    text: "곤지암 빌라, 다세대, 원룸, 상가 건물의 계단·복도·공동현관 관리 문의를 받고 있습니다.",
-  },
-  {
-    title: "청소 범위",
-    text: "계단 바닥, 난간, 공동현관, 유리문, 우편함 주변처럼 입주민이 자주 보는 공용부를 확인합니다.",
-  },
-  {
-    title: "진행 방식",
-    text: "주소와 현장 사진을 먼저 확인한 뒤 방문 가능 여부와 관리 범위를 차분히 안내합니다.",
-  },
-];
 
 const reviews = [
   "사진으로 먼저 안내해주셔서 관리 범위를 이해하기 쉬웠습니다.",
@@ -28,18 +11,9 @@ const reviews = [
 ];
 
 const faqs = [
-  {
-    question: "곤지암도 정기관리 가능한가요?",
-    answer: "현재 작업 기록은 업데이트 중입니다. 주소와 사진을 보내주시면 방문 가능 여부를 먼저 확인해 안내드립니다.",
-  },
-  {
-    question: "작업 전 어떤 사진을 보내면 좋을까요?",
-    answer: "계단 전체, 공동현관, 유리문, 먼지나 얼룩이 많은 구간을 함께 보내주시면 1차 상담이 더 정확합니다.",
-  },
-  {
-    question: "계단청소 외 다른 관리도 가능한가요?",
-    answer: "공동현관 유리청소, 화장실청소 등은 현장 범위와 일정 확인 후 함께 안내드립니다.",
-  },
+  { question: "곤지암도 정기관리 가능한가요?", answer: "곤지암읍 전 지역이 아니라 신둔면과 가까운 인접 지역을 중심으로 상담하고 있습니다. 주소와 사진을 보내주시면 방문 가능 여부를 먼저 확인해 안내드립니다." },
+  { question: "작업 전 어떤 사진을 보내면 좋을까요?", answer: "계단 전체, 공동현관, 유리문, 먼지나 얼룩이 많은 구간을 함께 보내주시면 1차 상담이 더 정확합니다." },
+  { question: "계단청소 외 다른 관리도 가능한가요?", answer: "공동현관 유리청소, 화장실청소 등은 현장 범위와 일정 확인 후 함께 안내드립니다." },
 ];
 
 export default function GonjiamAreaPage() {
@@ -48,62 +22,19 @@ export default function GonjiamAreaPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-        <motion.div
-          className="mb-8 md:mb-10"
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65 }}
-        >
-          <Link href="/areas">
-            <a className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-primary transition hover:opacity-80">
-              <ArrowLeft className="h-4 w-4" />
-              관리지역으로 돌아가기
-            </a>
-          </Link>
-
-          <div className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-sm">
-            <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_320px]">
-              <div className="p-6 md:p-8">
-                <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
-                  AREA ARCHIVE
-                </p>
-                <h1 className="mb-4 text-3xl font-extrabold leading-[1.18] text-foreground md:text-4xl">
-                  곤지암 작업 기록과 공용공간 관리를 업데이트 중입니다
-                </h1>
-                <p className="max-w-2xl text-base leading-8 text-muted-foreground">
-                  곤지암 빌라·원룸·상가 공용공간 관리 기록을 정리하고 있습니다. 작업 기록은 업데이트 중이며, 상담과 견적 안내는 바로 가능합니다.
-                </p>
-              </div>
-              <div className="border-t border-blue-100 bg-blue-50/70 p-6 lg:border-l lg:border-t-0 md:p-8">
-                <p className="text-sm font-extrabold text-primary">상담 전 보내주시면 좋은 사진</p>
-                <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
-                  <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />계단과 복도 전체</li>
-                  <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />공동현관과 유리문</li>
-                  <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />먼지·얼룩이 많은 구간</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <AreaServiceCards cards={serviceCards} />
-
-        <AreaTimeline
-          areaName="곤지암"
-          areaSlug="gonjiam"
-          posts={posts}
-          title="곤지암 작업 일지"
-          description="곤지암 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다."
-          emptyMessage="곤지암 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다."
+        <AreaIntro
+          headline="신둔면과 가까운 곤지암읍 인근 지역을 관리합니다"
+          description="곤지암읍 전체가 아닌 신둔면과 가까운 인접 지역을 중심으로 빌라·원룸·상가 공용공간 상담과 정기관리를 진행합니다."
+          focus="주소와 현장 사진을 먼저 확인한 뒤 신둔면에서 이동하기 좋은 곤지암읍 인근 지역인지 확인하고 계단·복도·공동현관 관리 범위를 안내합니다."
         />
+
+        <AreaTimeline areaName="곤지암" areaSlug="gonjiam" posts={posts} title="곤지암 작업 일지" description="신둔면 인접 곤지암 현장에서 진행한 작업 기록을 날짜순으로 확인해보세요." emptyMessage="곤지암 작업 기록은 노션 작업일지 등록 후 표시됩니다. 상담은 주소 확인 후 가능합니다." />
 
         <section className="mb-12 grid gap-4 md:grid-cols-2 md:mb-16">
           {reviews.map((review) => (
             <div key={review} className="rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-sm">
               <div className="mb-3 flex items-center gap-1 text-yellow-400">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <Star key={index} className="h-4 w-4 fill-current" />
-                ))}
+                {Array.from({ length: 5 }).map((_, index) => (<Star key={index} className="h-4 w-4 fill-current" />))}
               </div>
               <p className="text-base leading-relaxed text-foreground">"{review}"</p>
               <p className="mt-4 text-sm text-muted-foreground">곤지암 인근 건물 관리 피드백</p>
@@ -124,8 +55,8 @@ export default function GonjiamAreaPage() {
         </section>
 
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">
-          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">곤지암 청소 관리가 필요하신가요?</h2>
-          <p className="mb-8 text-muted-foreground">계단·복도·공동현관 사진을 보내주시면 관리 가능 범위부터 확인해드립니다.</p>
+          <h2 className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">신둔면 인접 곤지암 지역 청소가 필요하신가요?</h2>
+          <p className="mb-8 text-muted-foreground">주소와 계단·복도·공동현관 사진을 보내주시면 방문 가능 여부부터 확인해드립니다.</p>
           <div className="mx-auto grid max-w-xl gap-3 sm:grid-cols-2">
             <a href="https://pf.kakao.com/_IiNfn/chat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-4 text-sm font-bold text-white transition hover:opacity-90">
               <MessageCircle className="mr-2 h-4 w-4" />

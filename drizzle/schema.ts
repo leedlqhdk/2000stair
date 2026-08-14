@@ -62,6 +62,22 @@ export const postTags = pgTable("post_tags", {
 export type PostTag = typeof postTags.$inferSelect;
 export type InsertPostTag = typeof postTags.$inferInsert;
 
+// 메인·서비스 페이지에 노출되는 고객 후기 (관리자 페이지에서 관리)
+export const reviews = pgTable("reviews", {
+  id: serial("id").primaryKey(),
+  platform: varchar("platform", { length: 50 }).notNull(),
+  dotColor: varchar("dot_color", { length: 20 }).default("#35b957").notNull(),
+  score: varchar("score", { length: 10 }).default("5.0").notNull(),
+  quote: text("quote").notNull(),
+  detail: varchar("detail", { length: 100 }).default("").notNull(),
+  url: text("url").notNull(),
+  sortOrder: integer("sort_order").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type Review = typeof reviews.$inferSelect;
+export type InsertReview = typeof reviews.$inferInsert;
+
 export const posts = pgTable("posts", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 200 }).notNull(),

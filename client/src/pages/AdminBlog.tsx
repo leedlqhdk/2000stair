@@ -34,6 +34,7 @@ export default function AdminBlog() {
       toast.success("게시글이 삭제되었습니다.");
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
+      utils.blog.listLite.invalidate();
     },
     onError: (e) => toast.error(e.message),
   });
@@ -42,6 +43,7 @@ export default function AdminBlog() {
     onSuccess: () => {
       utils.blog.adminList.invalidate();
       utils.blog.list.invalidate();
+      utils.blog.listLite.invalidate();
     },
     onError: (e) => toast.error(e.message),
   });
@@ -119,12 +121,20 @@ export default function AdminBlog() {
           <h1 className="text-2xl font-bold">작업일지·관리정보 관리</h1>
           <p className="text-sm text-gray-400 mt-1">총 {posts?.length ?? 0}개의 게시글</p>
         </div>
-        <Link href="/admin/blog/new">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white gap-1">
-            <Plus className="w-4 h-4" />
-            새 글 작성
-          </Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/admin/reviews">
+            <Button variant="outline" size="sm">후기 관리</Button>
+          </Link>
+          <Link href="/admin/quotes">
+            <Button variant="outline" size="sm">견적 관리</Button>
+          </Link>
+          <Link href="/admin/blog/new">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white gap-1">
+              <Plus className="w-4 h-4" />
+              새 글 작성
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {isLoading ? (

@@ -1,43 +1,63 @@
+import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import HusbandProfileStats from "@/components/HusbandProfileStats";
 import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
-import PricingOverview from "@/components/PricingOverview";
 import BlogReviews from "@/components/BlogReviews";
+import LatestBlogPosts from "@/components/LatestBlogPosts";
 import FaqSection from "@/components/FaqSection";
+import MobileHome from "@/components/MobileHome";
+import IntroLoader, { shouldShowIntro } from "@/components/IntroLoader";
 
 export default function Home() {
-  return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
+const [intro, setIntro] = useState<"loading" | "reveal" | "done">(() =>
+shouldShowIntro() ? "loading" : "done"
+);
 
-      <main className="flex-1">
-        <HeroSection isAuthenticated={false} />
+return (
+<div className="min-h-screen flex flex-col bg-background">
+{intro !== "done" && (
+<IntroLoader
+onReveal={() => setIntro((state) => (state === "loading" ? "reveal" : state))}
+onDone={() => setIntro("done")}
+/>
+)}
 
-        {/* 제공 서비스 */}
-        <Services />
+<Navbar />
 
-        {/* 왜 이천계단지기인가 */}
-        <HowItWorks />
+{intro !== "loading" && (
+<main className="flex-1">
+<MobileHome />
 
-        {/* 대표 직접관리 */}
-        <HusbandProfileStats />
+<div className="hidden md:block">
+<HeroSection isAuthenticated={false} />
 
-        {/* 실제 작업 결과 */}
-        <BeforeAfterGallery />
+{/* 제공 서비스 */}
+<Services />
 
-        {/* 정기관리 요금 안내 */}
-        <PricingOverview />
+{/* 왜 이천계단지기인가 */}
+<HowItWorks />
 
-        {/* 실제 후기 요약 */}
-        <div className="container max-w-6xl py-16 md:py-24">
-          <BlogReviews />
-        </div>
+{/* 대표 직접관리 */}
+<HusbandProfileStats />
 
-        <FaqSection />
-      </main>
-    </div>
-  );
+{/* 실제 작업 결과 */}
+<BeforeAfterGallery />
+
+{/* 실제 후기 요약 */}
+<div className="container max-w-6xl py-16 md:py-24">
+<BlogReviews />
+</div>
+
+{/* 블로그 최신 소식 (타임라인) */}
+<LatestBlogPosts variant="timeline" />
+
+<FaqSection />
+</div>
+</main>
+)}
+</div>
+);
 }

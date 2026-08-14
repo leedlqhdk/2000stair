@@ -99,7 +99,7 @@ export default function MyQuotes() {
               <p className="text-muted-foreground mb-6">
                 무료 방문 견적을 신청하고 맞춤 청소 서비스를 시작하세요.
               </p>
-              <Button onClick={() => setLocation("/#quote-form")}>
+              <Button onClick={() => setLocation("/quote")}>
                 무료 견적 신청하기
               </Button>
             </CardContent>

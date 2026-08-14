@@ -21,6 +21,11 @@ const archiveLinks = [
     external: true,
   },
   {
+    href: "https://www.daangn.com/kr/local-profile/%EC%9D%B4%EC%B2%9C%EA%B3%84%EB%8B%A8%EC%A7%80%EA%B8%B0-umrc7zg26w1h/",
+    label: "당근마켓",
+    external: true,
+  },
+  {
     href: "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU",
     label: "유튜브 채널",
     external: true,
@@ -46,7 +51,7 @@ function linkTarget(external?: boolean) {
 
 export default function Footer() {
   return (
-    <footer id="site-footer" className="relative z-10 bg-[#1B2F57] text-white">
+    <footer id="site-footer" className="relative z-10 hidden bg-[#1B2F57] text-white md:block">
       <div className="container mx-auto px-4 py-10 md:py-14">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">

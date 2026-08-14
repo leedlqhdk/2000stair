@@ -1,5 +1,4 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "../shared/const.js";
-import { serialize as serializeCookie } from "cookie";
 import { getSessionCookieOptions } from "./_core/cookies.js";
 import { systemRouter } from "./_core/systemRouter.js";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc.js";
@@ -12,12 +11,40 @@ import { notifyOwner } from "./_core/notification.js";
 import { blogRouter } from "./appBlogRouter.js";
 import { areaPostsRouter } from "./appAreaPostsRouter.js";
 import { contentPostsRouter } from "./appContentPostsRouter.js";
+import { reviewsRouter } from "./appReviewsRouter.js";
 import { ENV } from "./_core/env.js";
 import { sdk } from "./_core/sdk.js";
 import { fieldRouter } from "./appFieldRouter.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
+function serializeCookie(
+  name: string,
+  value: string,
+  options: {
+    httpOnly?: boolean;
+    path?: string;
+    sameSite?: "lax" | "strict" | "none";
+    secure?: boolean;
+    maxAge?: number;
+    expires?: Date;
+  } = {}
+) {
+  const parts = [`${encodeURIComponent(name)}=${encodeURIComponent(value)}`];
+
+  if (options.maxAge !== undefined) parts.push(`Max-Age=${Math.floor(options.maxAge)}`);
+  if (options.expires) parts.push(`Expires=${options.expires.toUTCString()}`);
+  if (options.path) parts.push(`Path=${options.path}`);
+  if (options.httpOnly) parts.push("HttpOnly");
+  if (options.secure) parts.push("Secure");
+  if (options.sameSite) {
+    const sameSite = options.sameSite === "none" ? "None" : options.sameSite === "strict" ? "Strict" : "Lax";
+    parts.push(`SameSite=${sameSite}`);
+  }
+
+  return parts.join("; ");
+}
+
 const createAdminUser = () => {
   const now = new Date();
   return {
@@ -39,6 +66,7 @@ export const appRouter = router({
   areaPosts: areaPostsRouter,
   contentPosts: contentPostsRouter,
   field: fieldRouter,
+  reviews: reviewsRouter,
   auth: router({
     me: publicProcedure.query((opts) => opts.ctx.user),
     passwordLogin: publicProcedure
@@ -75,6 +103,8 @@ export const appRouter = router({
           maxAge: Math.floor(ONE_YEAR_MS / 1000),
         });
         ctx.res.setHeader("Set-Cookie", cookieStr);
+        console.log("[LOGIN-DEBUG] Set-Cookie header:", cookieStr.substring(0, 120));
+        console.log("[LOGIN-DEBUG] secure:", cookieOptions.secure, "x-forwarded-proto:", ctx.req.headers?.["x-forwarded-proto"]);
         return { success: true, user: createAdminUser() } as const;
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
@@ -134,7 +164,7 @@ export const appRouter = router({
             content: "이름: " + input.name + "\n연락처: " + input.phone + "\n주소: " + input.address + "\n서비스: " + (input.serviceType === "in_person" ? "대면" : "비대면") + "\n플랜: " + (plan?.name || input.planId),
           });
           if (!notified) {
-            console.warn("견적 신청 알림을 전송하지 못했습니다.");
+            console.warn("견적 신청 알림을 전송하지 못했⊵니다.");
           }
         } catch (error) {
           console.error("견적 신청 알림 전송 중 오류", error);
@@ -158,6 +188,27 @@ export const appRouter = router({
       const result = await db.select().from(quoteRequests).where(eq(quoteRequests.id, input.id)).limit(1);
       return result[0] || null;
     }),
+    myRequests: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db || !ctx.user?.id) return [];
+      return await db.select().from(quoteRequests).where(eq(quoteRequests.userId, ctx.user.id)).orderBy(desc(quoteRequests.createdAt));
+    }),
+    updateStatus: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        status: z.enum(["pending", "contacted", "confirmed", "canceled"]),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Admin access required");
+        }
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+        await db.update(quoteRequests)
+          .set({ status: input.status, updatedAt: new Date() })
+          .where(eq(quoteRequests.id, input.id));
+        return { success: true };
+      }),
   }),
 });
 

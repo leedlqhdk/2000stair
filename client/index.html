@@ -2,6 +2,15 @@
 <html lang="ko">
 
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJQ4RCD4E1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ZJQ4RCD4E1');
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png?v=4" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=4" />
@@ -11,8 +20,8 @@
     <meta name="theme-color" content="#3155a4" />
     <meta name="msapplication-TileColor" content="#3155a4" />
     <meta name="msapplication-TileImage" content="/favicon-192.png?v=4" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="계단지기" />
+    <link rel="preload" as="image" href="/images/icheon-logo-white.png" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -21,9 +30,9 @@
 <meta name="supported-color-schemes" content="light" />
 
     <!-- Primary SEO -->
-    <title>이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소</title>
-    <meta name="description" content="이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 부부가 하청 없이 직접 정기관리합니다." />
-    <meta name="keywords" content="이천계단청소, 이천계단청소업체, 이천계단청소비용, 계단청소, 이천빌라청소, 상가청소, 이천청소, 계단청소업체, 계단청소비용, 이천청소업체, 정기청소, 계단청소구독, 빌라계단청소, 상가계단청소, 유리청소, 화장실청소, 이천유리청소" />
+    <title>이천계단지기 | 이천 계단청소·유리창청소·사무실청소 전문</title>
+    <meta name="description" content="이천 계단청소, 유리창청소, 사무실청소 전문. 대표가 직접 관리하며 정기관리, 작업 전후 사진 제공, 깔끔한 건물 관리를 약속합니다." />
+    <meta name="keywords" content="이천계단청소, 이천계단청소업체, 이천계단청소비용, 계단청소, 이천빌라청소, 사무실청소, 이천사무실청소, 유리창청소, 이천유리창청소, 이천청소, 계단청소업체, 계단청소비용, 이천청소업체, 정기청소, 계단청소구독, 빌라계단청소, 유리청소, 이천유리청소" />
     <meta name="author" content="이천계단지기" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://2000stair.kr/" />
@@ -34,20 +43,21 @@
 
     <!-- Open Graph (카카오톡·페이스북 공유) -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소" />
-    <meta property="og:description" content="이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 부부가 하청 없이 직접 정기관리합니다." />
+    <meta property="og:title" content="이천계단지기 | 이천 계단청소·유리창청소·사무실청소 전문" />
+    <meta property="og:description" content="이천 계단청소, 유리창청소, 사무실청소 전문. 대표가 직접 관리하며 정기관리와 작업 전후 사진을 제공합니다." />
     <meta property="og:url" content="https://2000stair.kr/" />
     <meta property="og:site_name" content="이천계단지기" />
     <meta property="og:locale" content="ko_KR" />
-    <meta property="og:image" content="https://2000stair.kr/og-image.png" />
+    <meta property="og:image" content="https://2000stair.kr/images/og-image.webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/webp" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="이천계단청소 전문 이천계단지기 | 빌라·상가 정기청소" />
-    <meta name="twitter:description" content="이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 부부가 하청 없이 직접 정기관리합니다." />
-    <meta name="twitter:image" content="https://2000stair.kr/og-image.png" />
+    <meta name="twitter:title" content="이천계단지기 | 이천 계단청소·유리창청소·사무실청소 전문" />
+    <meta name="twitter:description" content="이천 계단청소, 유리창청소, 사무실청소 전문. 대표가 직접 관리하며 정기관리와 작업 전후 사진을 제공합니다." />
+    <meta name="twitter:image" content="https://2000stair.kr/images/og-image.webp" />
 
     <!-- JSON-LD 구조화 데이터 (구글·네이버 리치 스니펫) -->
     <script type="application/ld+json">
@@ -57,11 +67,11 @@
       "@id": "https://2000stair.kr/#business",
       "name": "이천계단지기",
       "alternateName": "이천계단청소 이천계단지기",
-      "description": "이천계단청소 전문업체. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 부부가 하청 없이 직접 정기관리합니다.",
+      "description": "이천 계단청소, 유리창청소, 사무실청소 전문업체. 대표가 직접 관리하며 정기관리와 작업 전후 사진을 제공합니다.",
       "url": "https://2000stair.kr/",
       "telephone": "+82-10-8438-1887",
       "image": [
-        "https://2000stair.kr/og-image.png",
+        "https://2000stair.kr/images/og-image.webp",
         "https://2000stair.kr/images/icheon-logo-main.png",
         "https://2000stair.kr/images/main-phone.webp"
       ],
@@ -89,7 +99,7 @@
         { "@type": "AdministrativeArea", "name": "증포동" },
         { "@type": "AdministrativeArea", "name": "중리동" }
       ],
-      "serviceType": ["계단청소", "유리청소", "화장실청소", "빌라청소", "상가청소", "공용공간 정기관리"],
+      "serviceType": ["계단청소", "유리창청소", "유리청소", "사무실청소", "빌라청소", "공용공간 정기관리"],
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -114,11 +124,11 @@
       "@type": "WebPage",
       "@id": "https://2000stair.kr/#webpage",
       "url": "https://2000stair.kr/",
-      "name": "이천계단청소 전문 이천계단지기",
-      "description": "이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 부부가 하청 없이 직접 정기관리합니다.",
+      "name": "이천계단지기 | 이천 계단청소·유리창청소·사무실청소 전문",
+      "description": "이천 계단청소, 유리창청소, 사무실청소 전문. 대표가 직접 관리하며 정기관리와 작업 전후 사진을 제공합니다.",
       "primaryImageOfPage": {
         "@type": "ImageObject",
-        "url": "https://2000stair.kr/og-image.png",
+        "url": "https://2000stair.kr/images/og-image.webp",
         "width": 1200,
         "height": 630
       },

@@ -1,12 +1,12 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 
 const priceCards = [
   {
     title: "계단청소 정기관리",
     items: [
-      { badge: "월 2회", price: "40,000원~", mobile: true },
+      { badge: "월 2회", price: "40,000원~" },
       { badge: "월 4회", price: "70,000원~", highlight: true },
     ],
     note: "빌라 2~3층 공용계단 기준",
@@ -15,7 +15,7 @@ const priceCards = [
   {
     title: "화장실청소 정기관리",
     items: [
-      { badge: "월 2회", price: "20,000원~", mobile: true },
+      { badge: "월 2회", price: "20,000원~" },
       { badge: "월 4회", price: "40,000원~", highlight: true },
     ],
     note: "소형 상가·공용화장실 기준",
@@ -30,6 +30,15 @@ const priceCards = [
     note: "출입문·고정창 기준, 일회성 가능",
     href: "/services/glass",
   },
+  {
+    title: "사무실청소",
+    items: [
+      { badge: "1회 청소", price: "방문 견적" },
+      { badge: "정기 관리", price: "맞춤 견적", highlight: true },
+    ],
+    note: "면적·공간 구성 확인 후 안내, 주 1~2회 정기 방문",
+    href: "/services/office",
+  },
 ];
 
 export default function PricingOverview() {
@@ -43,7 +52,7 @@ export default function PricingOverview() {
           viewport={{ once: true }}
           transition={{ duration: 0.65 }}
         >
-          <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
+          <p className="mb-4 text-xs font-bold tracking-[0.35em] text-primary md:text-sm">
             PRICING
           </p>
           <h2 className="mb-4 text-3xl font-extrabold leading-[1.14] text-foreground md:text-4xl">
@@ -55,48 +64,7 @@ export default function PricingOverview() {
           </p>
         </motion.div>
 
-        <div className="space-y-3 md:hidden">
-          {priceCards.map((card, index) => {
-            const mobilePrice = card.items.find((item) => item.mobile) ?? card.items.find((item) => item.highlight) ?? card.items[0];
-
-            return (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.06 }}
-              >
-                <Link href={card.href}>
-                  <a className="flex items-center justify-between gap-3 rounded-2xl border border-blue-100 bg-white px-4 py-4 shadow-sm transition hover:border-primary/30">
-                    <div className="min-w-0">
-                      <h3 className="text-base font-extrabold text-foreground">
-                        {card.title}
-                      </h3>
-                      <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                        {card.note}
-                      </p>
-                    </div>
-
-                    <div className="flex shrink-0 items-center gap-2.5">
-                      <span className="text-right">
-                        <span className="block text-[11px] font-bold text-primary">
-                          {mobilePrice.badge}
-                        </span>
-                        <span className="block text-base font-extrabold text-foreground">
-                          {mobilePrice.price}
-                        </span>
-                      </span>
-                      <ArrowRight className="h-4 w-4 text-primary" />
-                    </div>
-                  </a>
-                </Link>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        <div className="hidden gap-4 md:grid md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {priceCards.map((card, index) => (
             <motion.div
               key={card.title}
@@ -140,7 +108,7 @@ export default function PricingOverview() {
         </div>
 
         <motion.div
-          className="mt-8 space-y-1.5 text-center md:mt-10"
+          className="mt-8 flex flex-col items-center gap-4 rounded-[1.5rem] border border-blue-100 bg-white p-6 text-center shadow-sm md:mt-10 md:p-8"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -149,9 +117,15 @@ export default function PricingOverview() {
           <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
             위 가격은 대표적인 시작 가격이며, 정확한 견적은 건물 층수·세대수·오염 상태 확인 후 안내드립니다.
           </p>
-          <p className="text-[11px] text-muted-foreground/70">
-            * 표시된 금액은 부가세(VAT) 별도입니다.
-          </p>
+          <a
+            href="https://pf.kakao.com/_IiNfn/chat"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5"
+          >
+            <MessageCircle className="h-4 w-4" />
+            카톡으로 무료 견적 받기
+          </a>
         </motion.div>
       </div>
     </section>

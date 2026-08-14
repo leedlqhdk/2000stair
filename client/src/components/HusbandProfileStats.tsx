@@ -2,8 +2,8 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "5년+", unit: "", label: "대표 직접 방문" },
-  { value: "90%+", unit: "", label: "재계약률" },
+  { value: "5년+", unit: "", label: "청소 경력" },
+  { value: "5.0", unit: "", label: "리뷰 평균" },
   { value: "21600+", unit: "", label: "누적 관리 세대" },
 ];
 
@@ -53,7 +53,7 @@ export default function HusbandProfileStats() {
             <p className="mx-auto mt-5 max-w-2xl text-sm font-semibold leading-7 text-foreground/90 md:text-[15px] lg:mx-0">
               건물마다 오염 원인과 관리 방법이 다르기 때문에 직접 현장을 확인하고 관리하는 것이 중요합니다.
               <br className="hidden md:block" />
-              이천계단지기는 외주나 하청 없이 대표가 직접 방문하여 건물 상태를 확인하고, 관리 주기와 작업 범위를 안내해드립니다.
+              이천계단지기는 외주나 하청 없이 대표가 직접 방문하여 건물 상태를 확인하고, 관리 주기와 작업 범위를 안내해드립니다. 관리사무소와 법인 고객도 계약·증빙 기준에 맞춰 상담합니다.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-2xl gap-5 sm:grid-cols-3 lg:mx-0">
@@ -71,7 +71,7 @@ export default function HusbandProfileStats() {
                   }}
                 >
                   <motion.p
-                    className="text-[2.2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.45rem]"
+                    className="text-[2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.2rem]"
                     initial={{ scale: 0.9 }}
                     whileInView={{ scale: [0.9, 1.08, 1] }}
                     viewport={{ once: true }}
@@ -95,7 +95,7 @@ export default function HusbandProfileStats() {
 
             <div className="mt-6 flex justify-center lg:max-w-2xl lg:justify-end">
               <Link href="/about">
-                <a className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bo-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]">
+                <a className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]">
                   부부소개 보기
                   <span className="ml-2">→</span>
                 </a>

@@ -20,6 +20,12 @@ const serviceCards = [
     image: "/images/main-service-restroom.webp",
     href: "/services/bathroom",
   },
+  {
+    title: "사무실청소",
+    subtitle: "사무실·상가 정기 방문관리",
+    image: "/images/main-service-office.webp",
+    href: "/services/office",
+  },
 ];
 
 export default function Services() {
@@ -39,7 +45,7 @@ export default function Services() {
             </p>
           </div>
 
-          <div className="grid gap-3 md:grid-cols-3 md:gap-5">
+          <div className="grid gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-4">
             {serviceCards.map((card) => (
               <Link key={card.title} href={card.href}>
                 <a className="group relative block h-[240px] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-[0_8px_24px_rgba(15,76,169,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(15,76,169,0.14)] sm:h-[280px] md:h-[520px] md:rounded-[1.8rem] md:shadow-[0_18px_45px_rgba(15,76,169,0.10)]">

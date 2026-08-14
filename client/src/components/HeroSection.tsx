@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { Link } from "wouter";
 import { ArrowRight, Check, MapPin } from "lucide-react";
+import { Link } from "wouter";
+import { trackConversion } from "@/lib/analytics";
+import VisitorCounter from "@/components/VisitorCounter";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -11,10 +13,10 @@ const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const areaSectionItems = [
   { src: "/images/icheon-sindun-stair-cleaning.webp", title: "신둔면", subtitle: "공동현관 관리", slug: "sindun" },
   { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 공용부 관리", slug: "bubal" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리", slug: "downtown" },
+  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리", slug: "changjeon" },
   { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리", slug: "majang" },
-  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리", slug: "downtown" },
-  { src: "/images/icheon-songjeong-villa-cleaning.webp", title: "송정동", subtitle: "현관 · 복도 관리", slug: "downtown" },
+  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리", slug: "gwango" },
+  { src: "/images/before-after/stair-railing-after.webp", title: "중리동", subtitle: "현관 · 복도 관리", slug: "jungni" },
 ];
 
 const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
@@ -33,19 +35,19 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="flex items-center gap-3 md:block">
-              <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-extrabold leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
-                계단청소
+              <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-medium leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
+                이천 건물
                 <br />
                 <motion.span
-                  className="inline-block text-primary"
+                  className="inline-block font-bold text-primary"
                   initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  직접 관리
+                  정기 청소관리
                 </motion.span>
                 <br />
-                하고 계신가요?
+                전문입니다
               </h1>
               <div className="w-[45%] shrink-0 md:hidden">
                 <img
@@ -62,7 +64,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
-              이천 빌라 · 상가 계단청소
+              계단청소 · 사무실청소 · 화장실청소 · 유리청소
               <br />
               주소만 보내주시면 빠르게 안내드립니다.
             </motion.p>
@@ -72,11 +74,20 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackConversion("kakao_click", { location: "home_hero", label: "카톡으로 주소 보내기" })}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5 sm:w-auto"
               >
                 카톡으로 주소 보내기
                 <ArrowRight className="h-4 w-4" />
               </a>
+              <Link
+                href="/quote"
+                onClick={() => trackConversion("quote_form_view", { location: "home_hero", label: "법인 견적 폼 보기" })}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-white px-5 py-3 text-sm font-extrabold text-primary shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-50 sm:w-auto"
+              >
+                무료 견적 폼 보기
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
 
             <div className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
@@ -108,6 +119,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackConversion("kakao_click", { location: "home_phone_mockup", label: "휴대폰 목업 CTA" })}
                 className="group absolute bottom-[3.8%] left-[11%] right-[7%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
                 aria-label="카카오톡으로 계단 주소 보내기"
                 initial={{ opacity: 0, y: 12, scale: 0.96 }}
@@ -132,6 +144,19 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </motion.div>
         </div>
       </div>
+
+      {/* 방문자 수 신뢰 바 (PC 전용 — 모바일은 MobileHome 히어로에 표시) */}
+      <motion.div
+        className="border-t border-blue-100/60 bg-white py-3.5"
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="container flex max-w-6xl justify-center">
+          <VisitorCounter />
+        </div>
+      </motion.div>
 
       <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
         <div className="container max-w-7xl">
@@ -166,27 +191,25 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
                   >
-                    <Link href={`/area/${item.slug}`}>
-                      <a className="group relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_18px_rgba(15,23,42,0.12)] md:h-52 md:w-44">
-                        <img
-                          src={item.src}
-                          alt={`${item.title} 관리 현장`}
-                          className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88] transition-transform duration-500 group-hover:scale-[1.27]"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-[#f5f9ff]/10" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
-                        <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                          <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
-                          <h3 className="text-sm font-extrabold leading-tight md:text-base">
-                            {item.title}
-                          </h3>
-                          <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
-                            {item.subtitle}
-                          </p>
-                        </div>
-                      </a>
-                    </Link>
+                    <div className="relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] md:h-52 md:w-44">
+                      <img
+                        src={item.src}
+                        alt={`${item.title} 관리 현장`}
+                        className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88]"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-[#f5f9ff]/10" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
+                      <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
+                        <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
+                        <h3 className="text-sm font-extrabold leading-tight md:text-base">
+                          {item.title}
+                        </h3>
+                        <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
+                          {item.subtitle}
+                        </p>
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </div>

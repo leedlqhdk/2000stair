@@ -6,7 +6,6 @@ import { daewolPosts } from "../client/src/data/areas/daewol";
 import { downtownPosts } from "../client/src/data/areas/downtown";
 import { majangPosts } from "../client/src/data/areas/majang";
 import type { AreaPost } from "../client/src/hooks/useAreaPosts";
-import type { SeoProps } from "../client/src/components/Seo";
 import { getWorkSeo } from "../client/src/lib/workSeo";
 import { getWorkSlug } from "../client/src/lib/workSlug";
 
@@ -15,7 +14,8 @@ const SITE_URL = "https://2000stair.kr";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPublic = path.resolve(__dirname, "../dist/public");
 const indexHtmlPath = path.join(distPublic, "index.html");
-const sitemapPath = path.join(distPublic, "sitemap.xml");
+// 최종 /sitemap.xml은 api/sitemap.ts가 이 베이스에 DB 정보글을 합쳐 동적으로 응답한다
+const sitemapPath = path.join(distPublic, "sitemap-base.xml");
 
 const routes = [
   ...Object.keys(generalSeoByPath),
@@ -71,6 +71,10 @@ const AREA_LABELS: Record<string, string> = {
   daewol: "대월면",
   sindun: "신둔면",
   downtown: "시내권",
+  gwango: "관고동",
+  changjeon: "창전동",
+  jungni: "중리동",
+  jeungpo: "증포동",
 };
 
 function getProperty(properties: Record<string, NotionProperty | undefined>, names: readonly string[]) {
@@ -120,7 +124,11 @@ function normalizeArea(value: string) {
   if (["majang", "마장", "마장면"].some((keyword) => normalized.includes(keyword))) return "majang";
   if (["daewol", "대월", "대월면"].some((keyword) => normalized.includes(keyword))) return "daewol";
   if (["sindun", "신둔", "신둔면"].some((keyword) => normalized.includes(keyword))) return "sindun";
-  if (["downtown", "시내", "시내권", "관고", "창전", "증포", "중리", "갈산", "안흥", "송정", "사음"].some((keyword) => normalized.includes(keyword))) return "downtown";
+  if (["gwango", "관고", "관고동", "사음", "사음동"].some((keyword) => normalized.includes(keyword))) return "gwango";
+  if (["changjeon", "창전", "창전동"].some((keyword) => normalized.includes(keyword))) return "changjeon";
+  if (["jungni", "중리", "중리동", "songjeong", "송정", "송정동"].some((keyword) => normalized.includes(keyword))) return "jungni";
+  if (["jeungpo", "증포", "증포동", "갈산", "갈산동", "안흥", "안흥동"].some((keyword) => normalized.includes(keyword))) return "jeungpo";
+  if (["downtown", "시내", "시내권"].some((keyword) => normalized.includes(keyword))) return "downtown";
 
   return normalized;
 }
@@ -213,114 +221,6 @@ async function fetchWorkPosts(): Promise<AreaPost[]> {
   }
 }
 
-// --- DB blog posts fetch (via the public tRPC endpoint on the live site) ---
-
-type BlogPost = {
-  id: number;
-  title: string;
-  content: string;
-  thumbnail?: string | null;
-  seoTitle?: string | null;
-  seoDescription?: string | null;
-  seoKeywords?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-};
-
-async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const databaseUrl = process.env.DATABASE_URL;
-
-  if (!databaseUrl) return [];
-
-  try {
-    const { neon } = await import("@neondatabase/serverless");
-    const sql = neon(databaseUrl);
-
-    const rows = (await sql`
-      SELECT id, title, content, thumbnail,
-             seo_title AS "seoTitle",
-             seo_description AS "seoDescription",
-             seo_keywords AS "seoKeywords",
-             "createdAt", "updatedAt"
-      FROM posts
-      WHERE published = 'published'
-      ORDER BY "createdAt" DESC
-      LIMIT 50
-    `) as Array<Record<string, unknown>>;
-
-    return rows.map((row) => ({
-      id: Number(row.id),
-      title: String(row.title ?? ""),
-      content: String(row.content ?? ""),
-      thumbnail: (row.thumbnail as string | null) ?? null,
-      seoTitle: (row.seoTitle as string | null) ?? null,
-      seoDescription: (row.seoDescription as string | null) ?? null,
-      seoKeywords: (row.seoKeywords as string | null) ?? null,
-      createdAt: row.createdAt ? new Date(row.createdAt as string).toISOString() : null,
-      updatedAt: row.updatedAt ? new Date(row.updatedAt as string).toISOString() : null,
-    }));
-  } catch (error) {
-    console.warn("prerender-seo: DB blog fetch failed, skipping blog pages", error);
-    return [];
-  }
-}
-
-function blogExcerpt(content: string) {
-  const text = content
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/[#>*`_]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  return text.length > 140 ? `${text.slice(0, 140)}…` : text;
-}
-
-function toIsoDate(value: string | null | undefined) {
-  if (!value) return undefined;
-
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
-}
-
-function getBlogSeo(post: BlogPost): SeoProps {
-  const canonical = `${SITE_URL}/blog/${post.id}`;
-  const title = post.seoTitle || `${post.title} | 이천계단지기`;
-  const description =
-    post.seoDescription || `이천계단청소 전문 이천계단지기. ${blogExcerpt(post.content)}`;
-  // Thumbnails may be stored as data: URIs (inline base64) which are invalid
-  // as og:image and would bloat the <head>; only use real http(s) or path URLs.
-  const thumb = post.thumbnail ?? "";
-  const image = thumb.startsWith("http")
-    ? thumb
-    : thumb.startsWith("/")
-      ? `${SITE_URL}${thumb}`
-      : undefined;
-  const datePublished = toIsoDate(post.createdAt);
-  const dateModified = toIsoDate(post.updatedAt ?? post.createdAt);
-
-  return {
-    title,
-    description,
-    canonical,
-    keywords: post.seoKeywords || undefined,
-    image,
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "@id": `${canonical}#post`,
-      headline: post.title,
-      description,
-      url: canonical,
-      mainEntityOfPage: canonical,
-      ...(image ? { image } : {}),
-      ...(datePublished ? { datePublished } : {}),
-      ...(dateModified ? { dateModified } : {}),
-      author: { "@type": "Organization", name: "이천계단지기", url: `${SITE_URL}/` },
-      publisher: { "@id": `${SITE_URL}/#business` },
-    },
-  };
-}
-
 // --- HTML helpers ---
 
 function escapeHtml(value: string) {
@@ -347,12 +247,44 @@ function replaceOrThrow(html: string, pattern: RegExp, replacement: string, labe
   return html.replace(pattern, () => replacement);
 }
 
+// JS를 실행하지 않는 AI 검색·크롤러가 본문을 읽을 수 있도록
+// <div id="root"> 안에 정적 요약 본문을 넣는다 (React 마운트 시 교체됨).
+const STATIC_BODY_COMMON = `
+  <section>
+    <h2>서비스 및 시작 요금</h2>
+    <ul>
+      <li>계단청소 정기관리: 월 2회 40,000원~, 월 4회 70,000원~ (빌라 2~3층 공용계단 기준)</li>
+      <li>화장실청소 정기관리: 월 2회 20,000원~, 월 4회 40,000원~ (소형 상가·공용화장실 기준)</li>
+      <li>유리청소: 공동현관 30,000원~, 상가 전면 50,000원~ (일회성 가능)</li>
+      <li>사무실청소: 현장 방문 후 맞춤 견적, 주 1~2회 정기 방문</li>
+    </ul>
+  </section>
+  <section>
+    <h2>관리 지역</h2>
+    <p>경기도 이천시 신둔면, 마장면, 부발읍, 대월면, 백사면, 증포동, 중리동, 관고동, 창전동 일대를 부부가 직접 방문해 관리합니다.</p>
+  </section>
+  <section>
+    <h2>업체 정보</h2>
+    <p>이천계단지기는 이천 빌라·상가·원룸 공용공간(계단·사무실·화장실·유리) 정기 청소관리 전문 업체입니다. 대표 김규남이 하청 없이 직접 작업하며, 작업 전후 사진 제공과 세금계산서 발행이 가능합니다. 문의 010-8438-1887, 카카오톡 채널 상담 가능. 사업자등록번호 234-23-02318, 경기도 이천시 경충대로3160번길 21.</p>
+  </section>`;
+
+function buildStaticBody(seo: NonNullable<ReturnType<typeof getSeoForPath>>) {
+  const h1 = escapeHtml(seo.title.split("|")[0].trim());
+  const description = escapeHtml(seo.description);
+
+  return `<div id="root"><main data-prerender="seo" style="max-width:720px;margin:0 auto;padding:48px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a2b4a">
+  <h1 style="font-size:1.45rem">${h1}</h1>
+  <p>${description}</p>${STATIC_BODY_COMMON}
+</main></div>`;
+}
+
 function applySeoToHtml(html: string, seo: NonNullable<ReturnType<typeof getSeoForPath>>) {
   const title = escapeHtml(seo.title);
   const description = escapeHtml(seo.description);
   const canonical = escapeHtml(seo.canonical);
 
   let result = html;
+  result = replaceOrThrow(result, /<div id="root"><\/div>/, buildStaticBody(seo), "root static body");
   result = replaceOrThrow(result, /<title>.*?<\/title>/s, `<title>${title}</title>`, "title");
   result = replaceOrThrow(result, /<meta name="description" content="[^"]*"/, `<meta name="description" content="${description}"`, "description");
 
@@ -444,28 +376,12 @@ async function main() {
     sitemapEntries.push({ path: `/work/${slug}`, lastmod: post.date.replace(/\./g, "-") });
   }
 
-  const blogPosts = await fetchBlogPosts();
-  let blogCount = 0;
-
-  for (const post of blogPosts) {
-    const seo = getBlogSeo(post);
-    const html = applySeoToHtml(baseHtml, seo);
-    const outDir = path.join(distPublic, "blog", String(post.id));
-    mkdirSync(outDir, { recursive: true });
-    writeFileSync(path.join(outDir, "index.html"), html, "utf-8");
-    count += 1;
-    blogCount += 1;
-
-    sitemapEntries.push({
-      path: `/blog/${post.id}`,
-      lastmod: toIsoDate(post.updatedAt ?? post.createdAt) ?? new Date().toISOString().slice(0, 10),
-    });
-  }
-
+  // 정보글(/blog/:id)은 api/blog-og.ts가 요청 시점에 메타를 주입하므로
+  // 빌드 시점 프리렌더에서 제외한다 (새 글·수정이 재배포 없이 반영되도록).
   appendWorkUrlsToSitemap(sitemapEntries);
 
   console.log(
-    `prerender-seo: wrote ${count} static SEO pages (${seenSlugs.size} work records, ${blogCount} blog posts)`
+    `prerender-seo: wrote ${count} static SEO pages (${seenSlugs.size} work records)`
   );
 }
 
