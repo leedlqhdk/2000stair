@@ -41,29 +41,34 @@ const includedServices = [
   { label: "난간·손잡이", icon: Hand },
   { label: "공동현관 유리", icon: DoorOpen },
   { label: "거미줄 제거", icon: SpiderWebIcon },
-  { label: "엘리베이터 포함", icon: ArrowUpDown },
+  { label: "엘리베이터", icon: ArrowUpDown },
   { label: "전후 사진 기록", icon: Camera },
 ];
 
 const planFeatures: Record<string, string[]> = {
   stair_2_3: [
-    "빌라·상가 공용계단 관리",
-    "계단 바닥, 난간·손잡이, 공동현관 유리",
-    "거미줄 제거, 엘리베이터 포함",
+    "추천 주기: 월 4회 · 주 1회",
+    "2층 60,000원 · 3층 70,000원",
+    "층별 정찰제로 미리 비용 확인",
   ],
   stair_4: [
-    "가장 많이 문의되는 기본 관리",
-    "계단 바닥, 난간·손잡이, 공동현관 유리",
-    "거미줄 제거, 엘리베이터 포함",
+    "추천 주기: 월 4회 · 주 1회",
+    "4층 80,000원",
+    "층별 정찰제로 미리 비용 확인",
   ],
   stair_5_6: [
-    "층수가 높은 건물 맞춤 관리",
-    "계단 바닥, 난간·손잡이, 공동현관 유리",
-    "거미줄 제거, 엘리베이터 포함",
+    "추천 주기: 월 4회 · 주 1회",
+    "5층 90,000원 · 6층 100,000원",
+    "층별 정찰제로 미리 비용 확인",
+  ],
+  stair_7_8: [
+    "추천 주기: 월 4회 · 주 1회",
+    "7층 110,000원 · 8층 120,000원",
+    "최대 8층까지 작업",
   ],
 };
 
-export default function PricingSection({ isAuthenticated }: PricingSectionProps) {
+export default function PricingSection({ isAuthenticated: _isAuthenticated }: PricingSectionProps) {
   const { data: plans } = trpc.quote.plans.useQuery();
 
   const handleQuoteRequest = () => {
@@ -74,25 +79,29 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
     {
       id: "stair_2_3",
       name: "2~3층 계단 정기관리",
-      price: "40,000원~",
-      description:
-        "빌라·상가 공용계단 관리합니다. 엘레베이터, 공동현관 유리코팅 모든 서비스가 포함된 가격입니다.",
+      price: "60,000원~",
+      description: "월 4회(주 1회) 기준으로 2층 60,000원, 3층 70,000원입니다.",
       popular: false,
     },
     {
       id: "stair_4",
       name: "4층 계단 정기관리",
-      price: "50,000원~",
-      description:
-        "이천 지역 빌라에서 가장 많이 문의되는 기본 관리형입니다. 하청 없이 부부가 직접 방문합니다.",
-      popular: true,
+      price: "80,000원",
+      description: "월 4회(주 1회) 기준 4층 정찰가는 80,000원입니다.",
+      popular: false,
     },
     {
       id: "stair_5_6",
       name: "5~6층 계단 정기관리",
-      price: "60,000원~",
-      description:
-        "층수가 높거나 오염이 반복되는 건물에 맞춘 관리입니다. 정기 방문으로 깔끔한 상태를 유지합니다.",
+      price: "90,000원~",
+      description: "월 4회(주 1회) 기준으로 5층 90,000원, 6층 100,000원입니다.",
+      popular: false,
+    },
+    {
+      id: "stair_7_8",
+      name: "7~8층 계단 정기관리",
+      price: "110,000원~",
+      description: "월 4회(주 1회) 기준으로 7층 110,000원, 8층 120,000원입니다.",
       popular: false,
     },
     {
@@ -120,15 +129,16 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         >
           <div className="mb-4 inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-bold text-white">
             <span className="mr-2">✓</span>
-            엘리베이터·공동현관 관리 포함
+            추천 관리 주기 · 월 4회(주 1회)
           </div>
 
           <h2 className="text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
-            서비스는 <span className="text-primary">모두 동일합니다</span>
+            계단청소는 <span className="text-primary">층별 정찰제</span>로 안내합니다
           </h2>
 
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            건물 <strong className="font-bold text-primary">층수</strong>와 <strong className="font-bold text-primary">작업시간</strong>에 따라 비용이 달라집니다.
+            2층 60,000원부터 시작해 한 층 올라갈 때마다 10,000원씩 올라가며,
+            최대 8층까지 작업합니다.
           </p>
         </motion.div>
 
@@ -153,13 +163,13 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
         </motion.div>
 
         <motion.div
-          className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3"
+          className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.18 } },
+            visible: { transition: { staggerChildren: 0.12 } },
           }}
         >
           {stairPlans.map((plan) => (
@@ -170,19 +180,7 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
                 visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
               }}
             >
-              <Card
-                className={`relative h-full overflow-visible rounded-[1.6rem] border bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${
-                  plan.popular
-                    ? "border-primary shadow-[0_20px_48px_rgba(0,81,199,0.12)] ring-2 ring-primary/10"
-                    : "border-blue-100 shadow-[0_16px_42px_rgba(15,76,169,0.08)]"
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary px-5 py-1.5 text-xs font-extrabold text-white shadow-sm">
-                    BEST
-                  </div>
-                )}
-
+              <Card className="relative h-full overflow-visible rounded-[1.6rem] border border-blue-100 bg-white shadow-[0_16px_42px_rgba(15,76,169,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
                 <CardContent className="flex h-full flex-col p-7 md:p-8">
                   <h3 className="mb-4 text-xl font-extrabold text-foreground">
                     {plan.name}
@@ -210,10 +208,10 @@ export default function PricingSection({ isAuthenticated }: PricingSectionProps)
 
                   <Button
                     className="w-full rounded-xl"
-                    variant={plan.popular ? "default" : "outline"}
+                    variant="outline"
                     onClick={handleQuoteRequest}
                   >
-                    카톡으로 요금 문의
+                    카톡으로 관리 문의
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardContent>

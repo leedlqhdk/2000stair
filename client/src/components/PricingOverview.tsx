@@ -6,10 +6,10 @@ const priceCards = [
   {
     title: "계단청소 정기관리",
     items: [
-      { badge: "월 2회", price: "40,000원~" },
-      { badge: "월 4회", price: "70,000원~", highlight: true },
+      { badge: "추천 · 월 4회", price: "60,000원~", highlight: true },
+      { badge: "관리 범위", price: "2~8층" },
     ],
-    note: "빌라 2~3층 공용계단 기준",
+    note: "주 1회 정기관리 · 층별 정찰제 (2층 6만원부터 층당 1만원 추가)",
     href: "/services/stair",
   },
   {
@@ -59,8 +59,8 @@ export default function PricingOverview() {
             정기관리 요금 안내
           </h2>
           <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            건물 층수·세대수·오염도에 따라 견적이 달라집니다. 사진과 주소를 보내주시면
-            아래 기준으로 무료 견적을 안내해드립니다.
+            계단청소는 월 4회(주 1회) 기준 층별 정찰제로 안내합니다. 다른 서비스는
+            현장 조건을 확인한 뒤 견적을 안내해드립니다.
           </p>
         </motion.div>
 
@@ -115,7 +115,7 @@ export default function PricingOverview() {
           transition={{ duration: 0.5, delay: 0.24 }}
         >
           <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-            위 가격은 대표적인 시작 가격이며, 정확한 견적은 건물 층수·세대수·오염 상태 확인 후 안내드립니다.
+            계단청소 정찰가는 월 4회(주 1회) 기준이며 2층부터 8층까지 적용합니다. 사진과 층수·세대수를 보내주시면 관리 가능 여부를 안내드립니다.
           </p>
           <a
             href="https://pf.kakao.com/_IiNfn/chat"
@@ -124,7 +124,7 @@ export default function PricingOverview() {
             className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5"
           >
             <MessageCircle className="h-4 w-4" />
-            카톡으로 무료 견적 받기
+            카톡으로 관리 가능 여부 확인
           </a>
         </motion.div>
       </div>
