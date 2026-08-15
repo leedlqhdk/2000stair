@@ -25,6 +25,7 @@ const NeighborhoodArea = lazy(() => import("./pages/NeighborhoodArea"));
 const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
 const AdminField = lazy(() => import("./pages/AdminField"));
+const AdminFieldArea = lazy(() => import("./pages/AdminFieldArea"));
 const AdminQuotes = lazy(() => import("./pages/AdminQuotes"));
 const AdminReviews = lazy(() => import("./pages/AdminReviews"));
 const Majang = lazy(() => import("@/pages/Majang"));
@@ -251,6 +252,7 @@ function Router() {
           <Route path="/admin" component={AdminRedirect} />
           <Route path="/admin/quotes" component={AdminQuotes} />
           <Route path="/admin/blog" component={AdminBlog} />
+          <Route path="/admin/field/areas/:slug" component={AdminFieldArea} />
           <Route path="/admin/field" component={AdminField} />
           <Route path="/admin/reviews" component={AdminReviews} />
           <Route path="/admin/blog/new" component={AdminBlogEdit} />
