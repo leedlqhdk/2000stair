@@ -75,6 +75,62 @@ const AREA_LABELS: Record<string, string> = {
   changjeon: "창전동",
   jungni: "중리동",
   jeungpo: "증포동",
+  bubal: "부발읍",
+  baeksa: "백사면",
+  gonjiam: "곤지암읍 인근",
+};
+
+const AREA_STATIC_DETAILS: Record<string, { intro: string; scopes: string[]; checks: string[] }> = {
+  majang: {
+    intro: "마장면 빌라·원룸·상가 공용공간을 부부가 직접 관리합니다. 오천리, 양촌리, 장암리, 덕평리 등은 주소와 사진을 먼저 확인한 뒤 방문 가능 여부와 관리 주기를 안내합니다.",
+    scopes: ["계단 바닥과 모서리 먼지", "원룸·빌라 복도 오염", "공동현관 유리와 손자국", "난간·손잡이", "출입구 주변 거미줄"],
+    checks: ["마장면 주소 확인", "건물 층수와 공용부 범위 확인", "초도청소 후 청소 전후 사진 제공", "정기관리 주기 상담"],
+  },
+  daewol: {
+    intro: "대월면 빌라·상가·원룸 공용공간을 현장 상태에 맞춰 관리합니다. 사동리, 초지리, 군량리, 장평리 주변은 계단과 창틀, 공동현관 상태를 함께 확인합니다.",
+    scopes: ["계단 바닥", "난간과 손잡이", "창틀 먼지", "공동현관 유리", "복도 모서리와 거미줄"],
+    checks: ["대월면 방문 가능 여부 확인", "4층 이상 빌라 공용부 범위 확인", "계단·창틀·공동현관 초도청소", "정기관리 계약 전 상담"],
+  },
+  sindun: {
+    intro: "신둔면 빌라·다세대·상가 공용공간을 정기관리합니다. 수광리, 도암리, 남정리, 지석리 등은 이동 동선과 현장 사진을 기준으로 상담합니다.",
+    scopes: ["빌라 계단 바닥", "공동현관 출입부", "복도 먼지", "난간·창틀", "외부 먼지 유입 구간"],
+    checks: ["신둔면 주소 확인", "방문 동선과 일정 확인", "정기청소 가능 주기 안내", "작업 후 사진 공유"],
+  },
+  gwango: {
+    intro: "관고동 상가·빌라·소형 건물 공용공간을 관리합니다. 관고시장, 설봉공원 인근처럼 방문객이 오가는 구역은 출입구와 공동현관 첫인상을 우선 확인합니다.",
+    scopes: ["상가 출입구", "공동현관 유리", "계단 난간", "복도 바닥", "화장실 포함 여부"],
+    checks: ["관고동 현장 사진 확인", "상가·빌라 공용부 범위 구분", "초도청소 후 청소 전후 사진 제공", "사업자 증빙 상담"],
+  },
+  changjeon: {
+    intro: "창전동 빌라·원룸·상가주택 공용공간을 정기 방문 기준으로 상담합니다. 입주민 이동이 잦은 계단과 복도, 공동현관 관리 주기를 먼저 정리합니다.",
+    scopes: ["빌라 계단", "원룸 복도", "공동현관 바닥", "출입문 유리", "상가주택 공용부"],
+    checks: ["창전동 건물 위치 확인", "입주민 이동 동선 확인", "월 2회·4회 관리 주기 상담", "작업 범위와 계약 조건 안내"],
+  },
+  jungni: {
+    intro: "중리동 빌라·상가 공용부를 사진 기준으로 확인하며 관리합니다. 건물주가 현장에 자주 오기 어려운 경우에도 초도청소 후 청소 전후 사진 제공으로 관리 상태를 공유합니다.",
+    scopes: ["공용계단", "복도와 현관", "출입부 바닥", "공동현관 유리", "난간·손잡이"],
+    checks: ["중리동과 인접 생활권 확인", "비대면 사진 상담", "정기관리 범위 정리", "작업 후 상태 공유"],
+  },
+  jeungpo: {
+    intro: "증포동·안흥동·갈산동·송정동 일대 빌라·원룸·상가주택 공용공간을 상담합니다. 주거 밀집 구역은 입주민이 매일 보는 계단, 복도, 공동현관 중심으로 관리합니다.",
+    scopes: ["빌라·원룸 계단", "공동현관 바닥", "복도 먼지", "출입문 유리", "난간과 모서리"],
+    checks: ["증포동 권역 주소 확인", "안흥동·갈산동 인근 상담", "정기관리 주기 안내", "초도청소 후 청소 전후 사진 제공"],
+  },
+  bubal: {
+    intro: "부발읍 빌라·상가·원룸 건물의 계단과 공동현관을 정기관리합니다. 아미리, 무촌리, 신하리 생활권은 상가 공용부와 주거지 공용부를 나눠 확인합니다.",
+    scopes: ["상가 출입부", "빌라 공용계단", "공동현관 유리", "복도 바닥", "화장실 포함 여부"],
+    checks: ["부발읍 주소 확인", "상가·주거 공용부 구분", "유리·화장실 포함 상담", "정기 방문 주기 안내"],
+  },
+  baeksa: {
+    intro: "백사면 빌라·상가 공용공간은 건물 위치와 외부 먼지 유입 정도를 함께 확인합니다. 모전리, 조읍리, 현방리 주변은 계단과 현관 상태를 기준으로 상담합니다.",
+    scopes: ["외부 먼지 유입 구간", "계단 바닥", "공동현관", "난간·손잡이", "복도 모서리"],
+    checks: ["백사면 방문 가능 여부 확인", "건물 주변 오염 요인 확인", "필요한 관리 범위 정리", "작업 기록 순차 안내"],
+  },
+  gonjiam: {
+    intro: "곤지암읍 인근은 전 지역이 아니라 신둔면과 가까운 구역 중심으로 방문 가능 여부를 확인합니다. 주소와 사진을 먼저 보고 이동 동선과 작업 범위를 안내합니다.",
+    scopes: ["계단·복도 상태", "공동현관 출입부", "유리 포함 여부", "방문 가능 동선", "정기관리 적합 여부"],
+    checks: ["곤지암읍 인접 지역 주소 확인", "신둔면 방향 동선 확인", "현장 사진 기준 상담", "가능 범위 우선 안내"],
+  },
 };
 
 function getProperty(properties: Record<string, NotionProperty | undefined>, names: readonly string[]) {
@@ -124,6 +180,9 @@ function normalizeArea(value: string) {
   if (["majang", "마장", "마장면"].some((keyword) => normalized.includes(keyword))) return "majang";
   if (["daewol", "대월", "대월면"].some((keyword) => normalized.includes(keyword))) return "daewol";
   if (["sindun", "신둔", "신둔면"].some((keyword) => normalized.includes(keyword))) return "sindun";
+  if (["bubal", "부발", "부발읍"].some((keyword) => normalized.includes(keyword))) return "bubal";
+  if (["baeksa", "백사", "백사면"].some((keyword) => normalized.includes(keyword))) return "baeksa";
+  if (["gonjiam", "곤지암", "곤지암읍"].some((keyword) => normalized.includes(keyword))) return "gonjiam";
   if (["gwango", "관고", "관고동", "사음", "사음동"].some((keyword) => normalized.includes(keyword))) return "gwango";
   if (["changjeon", "창전", "창전동"].some((keyword) => normalized.includes(keyword))) return "changjeon";
   if (["jungni", "중리", "중리동", "songjeong", "송정", "송정동"].some((keyword) => normalized.includes(keyword))) return "jungni";
@@ -277,38 +336,53 @@ function getAreaPosts(area: string, posts: AreaPost[]) {
   return posts.filter((post) => post.area === area).slice(0, 6);
 }
 
+function getPostListLabel(post: AreaPost) {
+  const extras = [post.buildingType, post.workType, post.workScope]
+    .filter((value): value is string => Boolean(value?.trim()))
+    .filter((value) => !post.title.includes(value));
+  const detail = [post.title, ...extras.slice(0, 2)].join(" - ");
+  return `${post.date ? `${post.date} ` : ""}${detail}`;
+}
+
 function getAreaStaticSections(area: string, posts: AreaPost[]) {
   const areaName = AREA_LABELS[area] ?? area;
+  const detail = AREA_STATIC_DETAILS[area] ?? {
+    intro: `${areaName} 빌라·원룸·상가 공용공간을 주소와 사진 기준으로 확인하고 관리 범위를 안내합니다.`,
+    scopes: ["계단 바닥", "난간·손잡이", "공동현관", "복도", "유리 포함 여부"],
+    checks: ["주소 확인", "현장 사진 확인", "정기관리 주기 상담", "작업 후 상태 공유"],
+  };
   const areaPosts = getAreaPosts(area, posts);
   const workItems = areaPosts.map((post) => ({
     href: `/work/${getWorkSlug(post)}`,
-    label: `${post.date ? `${post.date} ` : ""}${post.title}`,
+    label: getPostListLabel(post),
   }));
+  const primaryWorkLink = workItems[0]
+    ? [{ href: workItems[0].href, label: `${areaName} 실제 작업사례 보기` }]
+    : [];
 
   return [
     section(
-      `${areaName} 관리 범위`,
-      paragraph(
-        `${areaName} 빌라, 원룸, 상가 공용공간의 계단 바닥, 난간, 공동현관, 복도, 유리 상태를 주소와 사진 기준으로 확인한 뒤 관리 범위를 안내합니다.`
-      )
+      `${areaName} 계단청소`,
+      paragraph(detail.intro)
+    ),
+    section(
+      `최근 ${areaName} 작업`,
+      workItems.length > 0
+        ? linkList(workItems)
+        : paragraph(`${areaName} 작업 기록은 현장 사진 정리 후 순서대로 추가합니다.`)
+    ),
+    section(
+      "주요 관리범위",
+      list(detail.scopes)
     ),
     section(
       `${areaName} 상담 기준`,
-      list([
-        "하청 없이 부부가 직접 현장을 확인하고 관리합니다.",
-        "정기관리 주기와 작업 범위는 건물 상태에 맞춰 안내합니다.",
-        "초도청소 후 청소 전후 사진 제공과 사업자 증빙 상담이 가능합니다.",
-      ])
+      list(detail.checks)
     ),
     section(
-      `최근 ${areaName} 작업 기록`,
-      workItems.length > 0
-        ? linkList(workItems)
-        : paragraph(`${areaName} 인근 작업 기록은 주소 확인 후 관련 사례와 함께 안내합니다.`)
-    ),
-    section(
-      `${areaName} 관련 안내`,
+      `${areaName} 내부 연결`,
       linkList([
+        ...primaryWorkLink,
         { href: "/services/stair", label: "계단청소 범위·주기·비용 안내" },
         { href: "/records", label: "이천계단지기 작업 기록 보기" },
         { href: "/areas", label: "다른 이천 관리 가능 지역 보기" },
@@ -336,6 +410,15 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
         list(["계단·복도·공동현관 정기관리", "상가 유리와 공용화장실 관리", "초도청소 후 청소 전후 사진 제공", "세금계산서와 계약 기준 상담"])
       ),
       section(
+        "서비스 안내",
+        linkList([
+          { href: "/services/stair", label: "계단청소 범위·주기·비용" },
+          { href: "/services/glass", label: "유리청소 안내" },
+          { href: "/services/bathroom", label: "화장실청소 안내" },
+          { href: "/services/office", label: "사무실·상가 정기청소 안내" },
+        ])
+      ),
+      section(
         "지역별 안내",
         linkList([
           { href: "/areas", label: "이천 지역별 관리 가능 지역" },
@@ -343,6 +426,10 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
           { href: "/area/majang", label: "마장면 계단청소" },
           { href: "/area/jeungpo", label: "증포동 계단청소" },
         ])
+      ),
+      section(
+        "실제 작업일지",
+        recentWorkItems.length > 0 ? linkList(recentWorkItems.slice(0, 4)) : paragraph("지역별 작업 사례를 순서대로 정리하고 있습니다.")
       ),
     ].join("");
   }
@@ -492,6 +579,7 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
 
 function getWorkStaticSections(post: AreaPost) {
   const areaName = AREA_LABELS[post.area] ?? post.area;
+  const areaHref = post.area === "downtown" ? "/areas" : `/area/${post.area}`;
   const details = [
     post.date ? `작업일: ${post.date}` : "",
     post.buildingType ? `건물 유형: ${post.buildingType}` : "",
@@ -508,7 +596,7 @@ function getWorkStaticSections(post: AreaPost) {
     section(
       "관련 안내",
       linkList([
-        { href: `/area/${post.area}`, label: `${areaName} 계단청소 안내` },
+        { href: areaHref, label: `${areaName} 계단청소 안내` },
         { href: "/services/stair", label: "계단청소 범위·주기·비용 안내" },
         { href: "/records", label: "다른 작업 기록 보기" },
       ])

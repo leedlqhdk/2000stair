@@ -15,6 +15,7 @@ export const workAreaLabels: Record<string, string> = {
   jeungpo: "증포동",
   bubal: "부발읍",
   baeksa: "백사면",
+  gonjiam: "곤지암읍 인근",
 };
 
 export const workAreaRoutes: Record<string, string> = {
@@ -28,11 +29,16 @@ export const workAreaRoutes: Record<string, string> = {
   jeungpo: "/area/jeungpo",
   bubal: "/area/bubal",
   baeksa: "/area/baeksa",
+  gonjiam: "/area/gonjiam",
 };
 
 export function getWorkAreaLabel(area?: string) {
   if (!area) return "이천";
   return workAreaLabels[area] ?? area;
+}
+
+function withAreaPrefix(areaLabel: string, title: string) {
+  return title.includes(areaLabel) ? title : `${areaLabel} ${title}`;
 }
 
 function toAbsoluteUrl(url: string) {
@@ -46,7 +52,7 @@ export function getWorkSeo(post: AreaPost): SeoProps {
   const title = `${post.title} | ${areaLabel} 계단청소 작업일지 | 이천계단지기`;
   const description =
     post.description ||
-    `${areaLabel} ${post.title} 현장 기록입니다. 이천계단지기가 직접 관리한 계단청소 작업 사진과 날짜를 확인할 수 있습니다.`;
+    `${withAreaPrefix(areaLabel, post.title)} 현장 기록입니다. 이천계단지기가 직접 관리한 계단청소 작업 사진과 날짜를 확인할 수 있습니다.`;
   const image = toAbsoluteUrl(post.image);
   const areaPath = post.area ? workAreaRoutes[post.area] : undefined;
 
