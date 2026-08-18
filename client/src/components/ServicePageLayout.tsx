@@ -301,7 +301,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               {[
                 "부부 직접 관리",
                 "하청 없이 직접 방문",
-                "작업 전후 사진 제공",
+                "초도청소 후 청소 전후 사진 제공",
                 "무료 견적",
               ].map((badge) => (
                 <span

@@ -32,7 +32,6 @@ const STATIC_SITEMAP_ROUTES = [
   { path: "/guide", lastmod: "2026-06-10", changefreq: "monthly", priority: "0.6" },
   { path: "/areas", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.9" },
   { path: "/records", lastmod: "2026-05-31", changefreq: "weekly", priority: "0.8" },
-  { path: "/blog", lastmod: "2026-05-31", changefreq: "weekly", priority: "0.8" },
   { path: "/area/majang", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/daewol", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/sindun", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
@@ -43,6 +42,13 @@ const STATIC_SITEMAP_ROUTES = [
   { path: "/area/bubal", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/baeksa", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
 ] as const;
+const LEGACY_PATH_REDIRECTS: Record<string, string> = {
+  "/blog": "/records",
+  "/work": "/records",
+  "/area/Majang": "/area/majang",
+  "/area/downtown": "/areas",
+  "/area/songjeong": "/area/jungni",
+};
 const RELEASE_NOTES = [
   {
     date: "2026-06-01",
@@ -93,6 +99,13 @@ function getRequestHost(req: express.Request) {
 
 function buildCanonicalUrl(req: express.Request) {
   return `${SITE_URL}${req.originalUrl}`;
+}
+
+function buildRedirectUrl(req: express.Request, targetPath: string) {
+  const queryIndex = req.originalUrl.indexOf("?");
+  const queryString = queryIndex >= 0 ? req.originalUrl.slice(queryIndex) : "";
+
+  return `${SITE_URL}${targetPath}${queryString}`;
 }
 
 function toLastMod(value: Date | string | null | undefined) {
@@ -244,6 +257,15 @@ async function startServer() {
 
     if (LEGACY_HOSTS.has(host) || (host === CANONICAL_HOST && req.protocol !== "https")) {
       return res.redirect(301, buildCanonicalUrl(req));
+    }
+
+    return next();
+  });
+  app.use((req, res, next) => {
+    const targetPath = LEGACY_PATH_REDIRECTS[req.path];
+
+    if (targetPath) {
+      return res.redirect(301, buildRedirectUrl(req, targetPath));
     }
 
     return next();

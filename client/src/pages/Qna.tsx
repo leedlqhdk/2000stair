@@ -32,7 +32,7 @@ export default function Qna() {
               먼저 정리해두었습니다
             </h1>
             <p className="max-w-2xl text-base leading-8 text-muted-foreground">
-              정기관리, 작업 범위, 사진 기록, 세금계산서처럼 문의 전 많이 물어보시는 내용을 모았습니다.
+              정기관리, 작업 범위, 초도청소 후 청소 전후 사진 제공, 세금계산서처럼 문의 전 많이 물어보시는 내용을 모았습니다.
               더 궁금한 부분은 사진과 함께 보내주시면 빠르게 안내드릴게요.
             </p>
 

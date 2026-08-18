@@ -46,7 +46,7 @@ export default function AboutDetailHighlights() {
               안녕하세요, 이천계단지기 부부입니다!
             </h2>
             <p className="mt-2.5 break-keep text-[11px] font-medium leading-[1.65] text-gray-700 sm:text-[12px] md:mt-4 md:text-base md:leading-8">
-              상담부터 현장 확인, 작업 후 사진 기록까지 부부가 직접 챙깁니다. 하청 없이 저희 둘이 관리하기에
+              상담부터 현장 확인, 초도청소 후 청소 전후 사진 제공까지 부부가 직접 챙깁니다. 하청 없이 저희 둘이 관리하기에
               매번 같은 사람이 같은 기준으로 건물 상태를 이어서 살필 수 있습니다.
             </p>
           </div>

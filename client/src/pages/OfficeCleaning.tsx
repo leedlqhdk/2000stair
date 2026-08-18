@@ -11,7 +11,7 @@ export default function OfficeCleaning() {
         features: [
           { title: "부부 직접 관리", description: "처음부터 끝까지 부부가 직접 관리합니다." },
           { title: "하청 없이", description: "100% 직접 담당으로 관리합니다." },
-          { title: "전후 사진 제공", description: "매회 작업 후 전후 사진을 전달해드립니다." },
+          { title: "초도청소 후 청소 전후 사진 제공", description: "초도청소 후 청소 전후 사진으로 관리 상태를 전달해드립니다." },
           { title: "유연한 일정", description: "업무 시간 전후로 방문 시간을 조정합니다." },
         ],
         scopeItems: [

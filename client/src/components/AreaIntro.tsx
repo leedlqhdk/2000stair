@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const proofItems = [
   { icon: Building2, title: "지역별 상담", shortTitle: "상담", text: "주소와 사진을 기준으로 방문 가능 여부를 먼저 확인합니다." },
-  { icon: Camera, title: "사진 기록", shortTitle: "사진", text: "정기관리 현장은 작업 전후 상태를 사진으로 공유합니다." },
+  { icon: Camera, title: "초도청소 후 청소 전후 사진 제공", shortTitle: "사진", text: "초도청소 후 청소 전후 사진으로 관리 상태를 공유합니다." },
   { icon: ReceiptText, title: "사업자 증빙", shortTitle: "증빙", text: "세금계산서와 현금영수증 발행이 가능합니다." },
   { icon: FileText, title: "계약 기준", shortTitle: "계약", text: "관리 범위와 주기를 정리해 계약 조건을 안내합니다." },
 ];

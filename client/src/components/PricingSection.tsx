@@ -42,7 +42,7 @@ const includedServices = [
   { label: "공동현관 유리", icon: DoorOpen },
   { label: "거미줄 제거", icon: SpiderWebIcon },
   { label: "엘리베이터 포함", icon: ArrowUpDown },
-  { label: "전후 사진 기록", icon: Camera },
+  { label: "초도청소 후 청소 전후 사진 제공", icon: Camera },
 ];
 
 const planFeatures: Record<string, string[]> = {

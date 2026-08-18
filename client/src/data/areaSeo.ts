@@ -162,7 +162,7 @@ export const generalSeoByPath = {
   "/": {
     title: "이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소",
     description:
-      "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 하청 없이 부부가 직접 정기관리합니다. 세금계산서와 계약 기준 상담이 가능합니다.",
+      "이천계단지기. 이천 빌라·상가 계단청소, 유리·화장실 청소를 부부가 직접 관리합니다.",
     canonical: `${SITE_URL}/`,
     keywords: `이천계단청소, 이천계단청소업체, 이천빌라청소, 이천상가청소, 계단청소업체, 이천계단지기, ${BASE_KEYWORDS}`,
     image: toAbsoluteUrl("/og-image.png"),
@@ -209,11 +209,11 @@ export const generalSeoByPath = {
     ],
   },
   "/about": {
-    title: "부부가 직접 관리하는 이천 계단청소 업체 | 이천계단지기",
+    title: "이천계단지기 소개 | 부부 직영·하청 없는 청소관리",
     description:
-      "이천계단지기는 하청 없이 부부가 직접 빌라·상가 계단, 유리, 화장실 공용공간을 정기관리하는 이천 지역 청소 업체입니다. 같은 담당자가 꾸준히 관리하고 작업 전후 사진으로 결과를 확인하실 수 있습니다.",
+      "이천계단지기는 하청 없이 부부가 직접 관리하는 청소관리 업체입니다. 상담, 현장 확인, 정기관리 기준과 초도청소 후 청소 전후 사진 제공 방식을 안내합니다.",
     canonical: `${SITE_URL}/about`,
-    keywords: `이천계단청소 업체, 부부 직영 청소업체, 이천계단지기 소개, ${BASE_KEYWORDS}`,
+    keywords: `이천계단지기 소개, 부부 직영 청소관리, 하청 없는 청소관리, 이천 공용공간 관리`,
     image: toAbsoluteUrl("/images/main-phone.webp"),
   },
   "/qna": {
@@ -231,11 +231,11 @@ export const generalSeoByPath = {
     keywords: `이천 청소 서비스, 계단청소 서비스, 유리청소 서비스, 화장실청소 서비스, ${BASE_KEYWORDS}`,
   },
   "/services/stair": {
-    title: "이천 계단청소 전문업체 | 빌라·상가 정기관리 – 이천계단지기",
+    title: "계단청소 범위·주기·비용 안내 | 이천계단지기",
     description:
-      "빌라·원룸·상가 계단 바닥, 난간·손잡이, 공동현관 유리, 거미줄 제거까지 월 2회·4회 정기관리합니다. 월 44,000원부터 현장 확인 후 견적을 안내드립니다.",
+      "이천 빌라·원룸·상가 계단청소의 관리 범위, 월 2회·4회 방문 주기, 비용 기준과 초도청소 후 청소 전후 사진 제공 방식을 안내합니다.",
     canonical: `${SITE_URL}/services/stair`,
-    keywords: `이천 계단청소, 계단정기청소, 빌라계단청소, 상가계단청소, 계단청소 비용, ${BASE_KEYWORDS}`,
+    keywords: `계단청소 범위, 계단청소 주기, 계단청소 비용, 빌라계단청소 관리방법, 상가계단청소 정기관리, ${BASE_KEYWORDS}`,
     image: toAbsoluteUrl("/images/services/stair-cleaning/icheon-stair-cleaning-service-main.webp"),
     jsonLd: serviceJsonLd({
       slug: "stair",
@@ -352,19 +352,13 @@ export const generalSeoByPath = {
     canonical: `${SITE_URL}/records`,
     keywords: `이천계단청소 후기, 계단청소 기록, 청소 현장 사례, ${BASE_KEYWORDS}`,
   },
-  "/blog": {
-    title: "이천계단지기 청소 기록 | 계단청소 현장 사례",
-    description:
-      "이천계단지기의 빌라·상가 계단청소, 유리청소, 화장실청소 현장 기록과 관리 사례를 확인하세요.",
-    canonical: `${SITE_URL}/blog`,
-    keywords: `이천계단청소 후기, 계단청소 기록, 청소 현장 사례, ${BASE_KEYWORDS}`,
-  },
   "/ops": {
     title: "운영 · 배포 상태 | 이천계단지기",
     description:
       "현재 배포 SHA, 브랜치, 최근 반영한 변경 로그를 외부에서 확인할 수 있는 운영 상태 페이지입니다.",
     canonical: `${SITE_URL}/ops`,
     keywords: "이천계단지기 운영 상태, 배포 sha, 변경 로그, 사이트 업데이트",
+    robots: "noindex, follow",
   },
 } satisfies Record<string, SeoProps>;
 

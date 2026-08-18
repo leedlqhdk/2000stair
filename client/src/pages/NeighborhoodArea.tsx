@@ -30,7 +30,7 @@ const neighborhoodData: Record<string, NeighborhoodConfig> = {
     name: "중리동",
     headline: "중리동 빌라·상가 공용부를 사진으로 확인하며 관리합니다",
     description: "관할 구역은 증일동, 율현동, 진리동, 단월동, 대포동, 고담동, 장록동 일대를 포함합니다.",
-    focus: "건물주가 현장에 자주 오기 어려운 경우에도 작업 전후 사진으로 관리 상태를 확인할 수 있게 돕습니다.",
+    focus: "건물주가 현장에 자주 오기 어려운 경우에도 초도청소 후 청소 전후 사진 제공으로 관리 상태를 확인할 수 있게 돕습니다.",
   },
   jeungpo: {
     name: "증포동",

@@ -169,11 +169,14 @@ export default function HomeConcerns({ onComplete }: Props) {
           className="flex items-start justify-end gap-2"
           {...anim(shown >= TOTAL)}
         >
-          <p
+          <a
+            href="https://pf.kakao.com/_IiNfn/chat"
+            target="_blank"
+            rel="noopener noreferrer"
             className={`${BUBBLE} rounded-[15px_5px_15px_15px] bg-primary text-white shadow-[0_10px_24px_rgba(15,76,169,0.2)]`}
           >
             문제는 청소보다 ‘관리의 지속성’이었습니다.
-          </p>
+          </a>
           <img
             src="/favicon-192.png"
             alt="이천계단지기"

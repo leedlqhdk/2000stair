@@ -69,7 +69,7 @@ const processSteps = [
   { icon: MessageCircle, title: "문의하기" },
   { icon: HomeIcon, title: "방문 견적" },
   { icon: Sparkles, title: "정기 관리" },
-  { icon: Camera, title: "사진 공유" },
+  { icon: Camera, title: "초도 전후사진" },
 ];
 
 const popularServices = [

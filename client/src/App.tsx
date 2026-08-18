@@ -178,6 +178,8 @@ function JeungpoArea() {
 function AdminNoIndex() {
   const [location] = useLocation();
   const isAdminRoute = location.startsWith("/admin");
+  const routeSeo = getSeoForPath(location);
+  const routeRobots = routeSeo && "robots" in routeSeo ? routeSeo.robots : undefined;
 
   useEffect(() => {
     let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
@@ -194,8 +196,8 @@ function AdminNoIndex() {
       return;
     }
 
-    robots.setAttribute("content", "index, follow");
-  }, [isAdminRoute]);
+    robots.setAttribute("content", routeRobots ?? "index, follow");
+  }, [isAdminRoute, routeRobots]);
 
   return null;
 }
@@ -222,7 +224,9 @@ function Router() {
           <Route path="/ops" component={OpsStatus} />
           <Route path="/guide" component={Guide} />
           <Route path="/my-quotes" component={MyQuotes} />
-          <Route path="/blog" component={Records} />
+          <Route path="/blog">
+            <RouteRedirect to="/records" />
+          </Route>
           <Route path="/records" component={Records} />
           <Route path="/work" component={WorkRedirect} />
           <Route path="/work/:slug" component={WorkDetail} />
@@ -232,7 +236,9 @@ function Router() {
           <Route path="/blog/category/:slug" component={Blog} />
           <Route path="/blog/:id" component={BlogDetail} />
           <Route path="/area/majang" component={Majang} />
-          <Route path={"/area/Majang"} component={Majang} />
+          <Route path={"/area/Majang"}>
+            <RouteRedirect to="/area/majang" />
+          </Route>
           <Route path="/area/daewol" component={Daewol} />
           <Route path="/area/sindun" component={Sindun} />
           <Route path="/area/downtown">

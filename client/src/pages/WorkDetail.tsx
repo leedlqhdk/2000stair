@@ -100,7 +100,7 @@ function getRecommendedTargets(post: AreaPost) {
     return ["물때와 얼룩이 눈에 띄는 화장실", "수전·타일 틈 오염을 정리하고 싶은 공간", "사진 기준으로 빠른 안내가 필요한 현장"];
   }
 
-  return ["공용공간 상태를 꾸준히 관리하고 싶은 건물", "사진 기록으로 관리 상태를 확인하고 싶은 현장", "계단·복도·공동현관을 함께 맡기고 싶은 곳"];
+  return ["공용공간 상태를 꾸준히 관리하고 싶은 건물", "초도청소 후 청소 전후 사진으로 관리 상태를 확인하고 싶은 현장", "계단·복도·공동현관을 함께 맡기고 싶은 곳"];
 }
 
 function getBlogAreaLabel(post: AreaPost, areaLabel: string) {

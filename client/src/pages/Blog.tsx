@@ -277,17 +277,12 @@ function ManagedAreaShowcase() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-extrabold tracking-[0.16em] text-primary md:text-sm">
-            <MapPin className="h-4 w-4 text-primary stroke-[3]" />
-            MAP
-          </p>
-
           <h1 className="mb-3 text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
-            실제 관리 지역
+            같은 사람이, 꾸준히
           </h1>
 
           <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
-            이천 북부 지역을 부부가 직접 관리합니다.
+            처음 본 건물 상태를 기억하고 다음 방문도 이어서 관리합니다.
           </p>
         </motion.div>
 

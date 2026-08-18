@@ -347,7 +347,7 @@ function buildCheckItems(topic: string, title: string, description: string, seed
   if (/비용|효율|직접|업체|비교|말길|맡길/.test(source)) {
     contextual.push(
       "직접 청소할 때 빠지기 쉬운 계단 모서리",
-      "업체 관리 시 작업 전후 사진으로 확인할 구간",
+      "업체 관리 시 초도청소 후 청소 전후 사진 제공으로 확인할 구간",
       "도구와 세제가 따로 필요한 묵은 오염",
       "반복 작업 시간이 많이 드는 공동현관 주변"
     );

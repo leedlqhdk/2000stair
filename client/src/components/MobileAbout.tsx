@@ -29,7 +29,7 @@ const processSteps = [
   { step: "02", title: "계약", text: "관리 범위와 주기를 정리해 계약을 진행합니다." },
   { step: "03", title: "초벌 관리", text: "묵은 오염을 집중 정리해 기본 상태를 만듭니다." },
   { step: "04", title: "정기 관리", text: "체계적인 주기 관리로 깨끗함을 유지합니다." },
-  { step: "05", title: "작업 보고", text: "전후 사진과 함께 결과를 보고드립니다." },
+  { step: "05", title: "사진제공", text: "초도청소 후 청소 전후 사진으로 결과를 보고드립니다." },
 ];
 
 export default function MobileAbout() {
@@ -284,9 +284,9 @@ export default function MobileAbout() {
         </div>
       </section>
 
-      {/* 작업 전후 */}
+      {/* 초도청소 후 청소 전후 사진 제공 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">작업 전후 사진</h2>
+        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">초도청소 후 청소 전후 사진 제공</h2>
         <div className="grid grid-cols-2 gap-2.5 md:mx-auto md:max-w-3xl md:gap-4">
           {[
             { src: "/images/before-after/majang-villa-stair-rust-removal-before.webp", label: "BEFORE" },

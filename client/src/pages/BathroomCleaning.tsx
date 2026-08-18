@@ -27,8 +27,8 @@ export default function BathroomCleaning() {
             description: "외주·하청 없이 대표가 직접 방문하여 품질을 보장합니다.",
           },
           {
-            title: "전후사진 제공",
-            description: "요청시 청소 전·후 사진을 카카오톡으로 전달해드립니다.",
+            title: "초도청소 후 청소 전후 사진 제공",
+            description: "요청시 초도청소 후 청소 전후 사진을 카카오톡으로 전달해드립니다.",
           },
         ],
         scopeItems: [

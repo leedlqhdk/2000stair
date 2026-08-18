@@ -6,7 +6,7 @@ import { useAreaPosts } from "@/hooks/useAreaPosts";
 const fallbackPosts: never[] = [];
 
 const reviews = [
-  { text: "관리 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.", source: "신둔면 빌라 동대표님 후기" },
+  { text: "초도청소 후 청소 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.", source: "신둔면 빌라 동대표님 후기" },
   { text: "공용공간이 꾸준히 깔끔하게 유지돼서 만족합니다.", source: "신둔면 원룸 입주민 후기" },
 ];
 

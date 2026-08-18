@@ -16,7 +16,7 @@ const services = [
   { label: "화장실청소", href: "/services/bathroom" },
 ];
 
-const trustPoints = ["대표 직접 관리", "하청·용역 미사용", "전후 사진 제공", "세금계산서 발행"];
+const trustPoints = ["대표 직접 관리", "하청·용역 미사용", "초도청소 후 청소 전후 사진 제공", "세금계산서 발행"];
 
 const socials = [
   { label: "전화", href: `tel:${PHONE_NUMBER.replace(/-/g, "")}`, icon: Phone, external: false },
