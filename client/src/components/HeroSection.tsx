@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import { trackConversion } from "@/lib/analytics";
 import VisitorCounter from "@/components/VisitorCounter";
+import DesktopHomeConcerns from "@/components/DesktopHomeConcerns";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
+  onConcernsComplete?: () => void;
 }
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -21,8 +24,14 @@ const areaSectionItems = [
 
 const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
 
-export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
+export default function HeroSection({ isAuthenticated, onConcernsComplete }: HeroSectionProps) {
   void isAuthenticated;
+  const [concernsDone, setConcernsDone] = useState(false);
+
+  const handleConcernsComplete = () => {
+    setConcernsDone(true);
+    onConcernsComplete?.();
+  };
 
   return (
     <section className="relative overflow-hidden bg-white">
@@ -83,109 +92,86 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           </motion.div>
 
           <motion.div
-            className="relative mx-auto hidden w-full max-w-[360px] md:block md:max-w-[430px] lg:max-w-[470px]"
-            initial={{ opacity: 0, y: 34, scale: 0.96 }}
+            className="relative mx-auto hidden w-full md:block"
+            initial={{ opacity: 0, y: 28, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative mx-auto w-full">
-              <img
-                src="/images/main-phone.webp"
-                alt="카카오톡으로 계단 주소를 보내는 상담 화면"
-                className="w-full object-contain"
-              />
-              <motion.a
-                href={KAKAO_CHANNEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackConversion("kakao_click", { location: "home_phone_mockup", label: "휴대폰 목업 CTA" })}
-                className="group absolute bottom-[3.8%] left-[11%] right-[7%] flex h-[10.4%] items-center gap-[1.5%] rounded-full bg-white px-[2%] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:shadow-md"
-                aria-label="카카오톡으로 계단 주소 보내기"
-                initial={{ opacity: 0, y: 12, scale: 0.96 }}
-                animate={{ opacity: 1, y: [0, -5, 0], scale: 1 }}
-                transition={{
-                  opacity: { duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] },
-                  scale: { duration: 0.55, delay: 0.55, ease: [0.22, 1, 0.36, 1] },
-                  y: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
-                }}
-              >
-                <span className="flex aspect-square h-[68%] shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors duration-300 group-hover:bg-white/95 group-hover:text-primary">
-                  <MapPin className="h-[54%] w-[54%]" />
-                </span>
-                <span className="min-w-0 flex-1 truncate text-[clamp(8px,1.45vw,14px)] font-extrabold leading-none text-foreground transition-colors duration-300 group-hover:text-white">
-                  4층 빌라 계단 주소 보내드려요
-                </span>
-                <span className="flex aspect-square h-[78%] shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors duration-300 group-hover:bg-white group-hover:text-primary">
-                  <ArrowRight className="h-[55%] w-[55%] -rotate-45 stroke-[3]" />
-                </span>
-              </motion.a>
-            </div>
+            <DesktopHomeConcerns onComplete={handleConcernsComplete} />
           </motion.div>
         </div>
       </div>
 
-      {/* 방문자 수 신뢰 바 (PC 전용 — 모바일은 MobileHome 히어로에 표시) */}
-      <motion.div
-        className="border-t border-blue-100/60 bg-white py-3.5"
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+      <div
+        className={`grid transition-[grid-template-rows,opacity] delay-150 duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          concernsDone ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
       >
-        <div className="container flex max-w-6xl justify-center">
-          <VisitorCounter />
-        </div>
-      </motion.div>
+        <div className="overflow-hidden" key={concernsDone ? "desktop-hero-revealed" : "desktop-hero-hidden"}>
+          {/* 방문자 수 신뢰 바 (PC 전용 — 모바일은 MobileHome 히어로에 표시) */}
+          <motion.div
+            className="border-t border-blue-100/60 bg-white py-3.5"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="container flex max-w-6xl justify-center">
+              <VisitorCounter />
+            </div>
+          </motion.div>
 
-      <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
-        <div className="container max-w-7xl">
-          <div className="grid items-center gap-5 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
-            <motion.div
-              initial={{ opacity: 0, x: -18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
-                같은 사람이, 꾸준히
-              </h2>
+          <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
+            <div className="container max-w-7xl">
+              <div className="grid items-center gap-5 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
+                <motion.div
+                  initial={{ opacity: 0, x: -18 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
+                    같은 사람이, 꾸준히
+                  </h2>
 
-              <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
-                처음 본 건물 상태를 기억하고 다음 방문도 이어서 관리합니다.
-              </p>
-            </motion.div>
+                  <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
+                    처음 본 건물 상태를 기억하고 다음 방문도 이어서 관리합니다.
+                  </p>
+                </motion.div>
 
-            <div className="relative overflow-hidden pb-3 pt-1 md:pb-2 md:pt-0">
-              <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 26s linear infinite" }}>
-                {[...areaSectionItems, ...areaSectionItems].map((item, index) => (
-                  <motion.div
-                    key={`${item.src}-${index}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
-                  >
-                    <div className="relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] md:h-52 md:w-44">
-                      <img
-                        src={item.src}
-                        alt={`${item.title} 관리 현장`}
-                        className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88]"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-[#f5f9ff]/10" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
-                      <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                        <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
-                        <h3 className="text-sm font-extrabold leading-tight md:text-base">
-                          {item.title}
-                        </h3>
-                        <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
-                          {item.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+                <div className="relative overflow-hidden pb-3 pt-1 md:pb-2 md:pt-0">
+                  <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 26s linear infinite" }}>
+                    {[...areaSectionItems, ...areaSectionItems].map((item, index) => (
+                      <motion.div
+                        key={`${item.src}-${index}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
+                      >
+                        <div className="relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] md:h-52 md:w-44">
+                          <img
+                            src={item.src}
+                            alt={`${item.title} 관리 현장`}
+                            className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88]"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-[#f5f9ff]/10" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
+                          <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
+                            <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
+                            <h3 className="text-sm font-extrabold leading-tight md:text-base">
+                              {item.title}
+                            </h3>
+                            <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
+                              {item.subtitle}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
