@@ -120,17 +120,17 @@ export default function MobileHome() {
         <div className="flex items-center gap-4">
           <div className="min-w-0 flex-1">
             <h1 className="break-keep font-['GmarketSans'] text-[1.5rem] font-bold leading-[1.22] text-foreground">
-              우리는
+              이천
               <br />
               <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
-                계단을 지키는
+                계단청소를
               </span>
               <br />
-              부부입니다
-              <span className="mt-2 block text-[0.63em] leading-snug">이천 건물 정기 청소관리 전문</span>
+              지키는 부부입니다
+              <span className="mt-2 block text-[0.63em] leading-snug">빌라·상가 공용공간 정기관리</span>
             </h1>
             <p className="mt-2.5 break-keep text-[13px] font-semibold leading-relaxed text-gray-700">
-              하청 없이 <strong className="text-foreground">부부가 직접</strong> 관리합니다
+              하청 없이 <strong className="text-foreground">부부가 직접</strong>, 주소와 사진 기준으로 상담합니다
             </p>
           </div>
           <motion.img

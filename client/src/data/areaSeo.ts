@@ -162,7 +162,7 @@ export const generalSeoByPath = {
   "/": {
     title: "이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소",
     description:
-      "이천계단지기. 이천 빌라·상가 계단청소, 유리·화장실 청소를 부부가 직접 관리합니다.",
+      "이천 빌라·상가 계단청소 정기관리. 부부가 직접 관리하고 초도청소 후 청소 전후 사진을 제공합니다.",
     canonical: `${SITE_URL}/`,
     keywords: `이천계단청소, 이천계단청소업체, 이천빌라청소, 이천상가청소, 계단청소업체, 이천계단지기, ${BASE_KEYWORDS}`,
     image: toAbsoluteUrl("/og-image.png"),

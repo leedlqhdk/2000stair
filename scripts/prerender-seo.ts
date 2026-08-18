@@ -402,7 +402,7 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
       section(
         "이천 계단청소 상담 기준",
         paragraph(
-          "이천 빌라·상가·원룸 공용공간을 하청 없이 직접 관리하며, 주소와 사진을 기준으로 방문 가능 여부와 정기관리 주기를 안내합니다."
+          "이천 계단청소를 중심으로 빌라·상가·원룸의 계단, 복도, 공동현관을 하청 없이 직접 관리합니다. 주소와 사진을 기준으로 방문 가능 여부와 정기관리 주기를 안내합니다."
         )
       ),
       section(
