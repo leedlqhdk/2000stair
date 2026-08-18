@@ -17,11 +17,17 @@
       "permanent": false
     },
     { "source": "/area", "destination": "/areas", "permanent": true },
+    { "source": "/area/", "destination": "/areas", "permanent": true },
     { "source": "/blog", "destination": "/records", "permanent": true },
+    { "source": "/blog/", "destination": "/records", "permanent": true },
     { "source": "/work", "destination": "/records", "permanent": true },
+    { "source": "/work/", "destination": "/records", "permanent": true },
     { "source": "/area/Majang", "destination": "/area/majang", "permanent": true },
+    { "source": "/area/Majang/", "destination": "/area/majang", "permanent": true },
     { "source": "/area/downtown", "destination": "/areas", "permanent": true },
-    { "source": "/area/songjeong", "destination": "/area/jungni", "permanent": true }
+    { "source": "/area/downtown/", "destination": "/areas", "permanent": true },
+    { "source": "/area/songjeong", "destination": "/area/jungni", "permanent": true },
+    { "source": "/area/songjeong/", "destination": "/area/jungni", "permanent": true }
   ],
   "rewrites": [
     { "source": "/api/trpc/:path*", "destination": "/api/trpc" },

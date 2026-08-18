@@ -44,11 +44,18 @@ const STATIC_SITEMAP_ROUTES = [
   { path: "/area/gonjiam", lastmod: "2026-06-24", changefreq: "monthly", priority: "0.7" },
 ] as const;
 const LEGACY_PATH_REDIRECTS: Record<string, string> = {
+  "/area": "/areas",
+  "/area/": "/areas",
   "/blog": "/records",
+  "/blog/": "/records",
   "/work": "/records",
+  "/work/": "/records",
   "/area/Majang": "/area/majang",
+  "/area/Majang/": "/area/majang",
   "/area/downtown": "/areas",
+  "/area/downtown/": "/areas",
   "/area/songjeong": "/area/jungni",
+  "/area/songjeong/": "/area/jungni",
 };
 const RELEASE_NOTES = [
   {
