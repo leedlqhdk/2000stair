@@ -41,6 +41,7 @@ const STATIC_SITEMAP_ROUTES = [
   { path: "/area/jeungpo", lastmod: "2026-06-24", changefreq: "monthly", priority: "0.8" },
   { path: "/area/bubal", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
   { path: "/area/baeksa", lastmod: "2026-05-31", changefreq: "monthly", priority: "0.8" },
+  { path: "/area/gonjiam", lastmod: "2026-06-24", changefreq: "monthly", priority: "0.7" },
 ] as const;
 const LEGACY_PATH_REDIRECTS: Record<string, string> = {
   "/blog": "/records",

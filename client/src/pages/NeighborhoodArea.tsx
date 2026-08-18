@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { MessageCircle, Phone } from "lucide-react";
 import AreaTimeline from "@/components/AreaTimeline";
 import AreaIntro from "@/components/AreaIntro";
+import AreaLocalDetails from "@/components/AreaLocalDetails";
 import { downtownPosts } from "@/data/areas/downtown";
 import { trackConversion } from "@/lib/analytics";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
@@ -17,13 +18,13 @@ const neighborhoodData: Record<string, NeighborhoodConfig> = {
   gwango: {
     name: "관고동",
     headline: "관고동 상가·빌라 공용공간을 정기관리합니다",
-    description: "관할 구역은 사음동 일대를 포함합니다.",
-    focus: "상가 출입구, 계단, 공동현관처럼 방문객이 먼저 보는 공간을 중심으로 관리 범위를 안내합니다.",
+    description: "관고시장, 설봉공원 인근, 사음동 방향의 상가·빌라 공용공간을 현장 상태에 맞춰 상담합니다.",
+    focus: "상가 출입구, 계단, 공동현관처럼 방문객이 먼저 보는 공간을 중심으로 사진과 주소를 확인합니다.",
   },
   changjeon: {
     name: "창전동",
-    headline: "창전동 구역을 꾸준히 관리합니다",
-    description: "창전동 빌라와 원룸의 계단, 복도, 공동현관을 정기 방문 기준으로 상담합니다.",
+    headline: "창전동 빌라·원룸 계단과 복도를 꾸준히 관리합니다",
+    description: "창전동 시내 주거지와 상가주택 밀집 구역의 계단, 복도, 공동현관을 정기 방문 기준으로 상담합니다.",
     focus: "입주민 이동이 잦은 계단과 복도 위주로 오염 상태를 확인하고 월 2회·4회 주기를 안내합니다.",
   },
   jungni: {
@@ -35,7 +36,7 @@ const neighborhoodData: Record<string, NeighborhoodConfig> = {
   jeungpo: {
     name: "증포동",
     headline: "증포동 빌라·상가 공용공간을 꾸준히 관리합니다",
-    description: "관할 구역은 안흥동, 갈산동, 송정동 일대를 포함합니다.",
+    description: "증포동, 안흥동, 갈산동, 송정동 일대의 빌라·원룸·상가주택 공용공간을 상담합니다.",
     focus: "주거 밀집 구역의 계단, 복도, 공동현관처럼 입주민이 매일 보는 공간을 중심으로 관리 주기를 안내합니다.",
   },
 };
@@ -55,6 +56,7 @@ export default function NeighborhoodAreaPage({ areaSlug }: NeighborhoodAreaPageP
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
         <AreaIntro headline={data.headline} description={data.description} focus={data.focus} />
+        <AreaLocalDetails areaSlug={slug} />
 
         {isLoading ? (
           <section className="mb-12 md:mb-16">

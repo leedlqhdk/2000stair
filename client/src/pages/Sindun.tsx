@@ -1,5 +1,6 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
+import AreaLocalDetails from "@/components/AreaLocalDetails";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
 
@@ -36,6 +37,7 @@ headline="신둔면의 공용공간을 꾸준히 관리합니다"
 description="부부가 직접, 신둔면 빌라·원룸·상가 공용공간을 관리합니다."
 focus="수광리·도암리·남정리 등 신둔면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
 />
+<AreaLocalDetails areaSlug="sindun" />
 
 <AreaTimeline
 areaName="신둔면"

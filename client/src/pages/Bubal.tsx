@@ -1,5 +1,6 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
+import AreaLocalDetails from "@/components/AreaLocalDetails";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
@@ -36,6 +37,7 @@ headline="부발읍 계단청소와 공용공간 관리를 준비하고 있습�
 description="부발읍 빌라·원룸·상가 공용공간을 하청 없이 직접 관리합니다. 작업 기록은 순차적으로 정리 중이며, 상담은 바로 가능합니다."
 focus="아미리·무촌리·신하리 등 부발읍 생활권의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
 />
+<AreaLocalDetails areaSlug="bubal" />
 
 <AreaTimeline areaName="부발읍" areaSlug="bubal" posts={posts} title="부발읍 작업 일지" description="부발읍 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="부발읍 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
 

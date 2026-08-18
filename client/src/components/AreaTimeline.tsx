@@ -71,7 +71,7 @@ export default function AreaTimeline({
   const nearbyText = (nearbyAreaNames[areaSlug] ?? [areaName]).join(", ");
 
   return (
-    <section className="mb-12 md:mb-16">
+    <section id="area-records" className="mb-12 scroll-mt-24 md:mb-16">
       <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
@@ -214,6 +214,26 @@ export default function AreaTimeline({
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
             {nearbyText} 등 인근 건물도 상담 가능합니다.
           </p>
+          <div className="mt-5 space-y-2 rounded-2xl bg-white p-3 text-left">
+            <Link href={`/area/${areaSlug}`}>
+              <a className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-extrabold text-slate-600 transition hover:bg-blue-50 hover:text-primary">
+                {displayAreaName} 지역 안내
+                <ChevronDown className="-rotate-90 h-3.5 w-3.5" />
+              </a>
+            </Link>
+            <Link href="/services/stair">
+              <a className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-extrabold text-slate-600 transition hover:bg-blue-50 hover:text-primary">
+                계단청소 범위·주기
+                <ChevronDown className="-rotate-90 h-3.5 w-3.5" />
+              </a>
+            </Link>
+            <Link href="/records">
+              <a className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-extrabold text-slate-600 transition hover:bg-blue-50 hover:text-primary">
+                전체 작업기록
+                <ChevronDown className="-rotate-90 h-3.5 w-3.5" />
+              </a>
+            </Link>
+          </div>
           <a
             href="https://pf.kakao.com/_IiNfn/chat"
             target="_blank"
