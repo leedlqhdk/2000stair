@@ -36,30 +36,32 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
 
   return (
     <div className="relative mb-12 md:mb-16">
-      {/* ① 헤더 밴드 */}
-      <motion.div
-        className="rounded-[1.5rem] bg-[#1b2f57] px-5 pb-20 pt-5 md:rounded-[1.75rem] md:px-14 md:pb-28 md:pt-8"
-        {...rise(0)}
-      >
-        <Link href="/areas">
-          <a className="inline-flex items-center gap-2 text-sm font-bold text-white/70 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9db8ec]">
-            <ArrowLeft className="h-4 w-4" />
-            관리지역으로 돌아가기
-          </a>
-        </Link>
+      {/* ① 헤더 밴드 (화면 좌우 끝까지 풀블리드, 위 여백까지 채움) */}
+      <div className="mx-[calc(50%-50vw)] -mt-16 bg-[#1b2f57] md:-mt-24">
+        <motion.div
+          className="mx-auto max-w-6xl px-5 pb-20 pt-24 md:px-8 md:pb-28 md:pt-36 lg:px-10"
+          {...rise(0)}
+        >
+          <Link href="/areas">
+            <a className="inline-flex items-center gap-2 text-sm font-bold text-white/70 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9db8ec]">
+              <ArrowLeft className="h-4 w-4" />
+              관리지역으로 돌아가기
+            </a>
+          </Link>
 
-        <p className="mt-6 text-[11px] font-extrabold tracking-[0.28em] text-[#9db8ec] md:mt-7">
-          AREA ARCHIVE
-        </p>
+          <p className="mt-6 text-[11px] font-extrabold tracking-[0.28em] text-[#9db8ec] md:mt-7">
+            AREA ARCHIVE
+          </p>
 
-        <h1 className="mt-3 font-['GmarketSans'] text-[1.6rem] font-bold leading-[1.25] text-white md:text-[2.5rem]">
-          {headline}
-        </h1>
+          <h1 className="mt-3 font-['GmarketSans'] text-[1.6rem] font-bold leading-[1.25] text-white md:text-[2.5rem]">
+            {headline}
+          </h1>
 
-        <p className="mt-4 max-w-[520px] break-keep text-[15px] leading-7 text-white/75 md:mt-5 md:text-base md:leading-8">
-          {description}
-        </p>
-      </motion.div>
+          <p className="mt-4 max-w-[520px] break-keep text-[15px] leading-7 text-white/75 md:mt-5 md:text-base md:leading-8">
+            {description}
+          </p>
+        </motion.div>
+      </div>
 
       {/* ② 요약 카드 (밴드 위에 겹침) */}
       <motion.div
