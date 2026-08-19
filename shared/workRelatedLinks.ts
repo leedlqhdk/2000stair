@@ -43,18 +43,37 @@ function getWorkSearchText(post: WorkPostLike) {
 }
 
 export function getPrimaryWorkService(post: WorkPostLike): WorkServiceKey {
+  const primaryText = [post.title, post.workType]
+    .filter(Boolean)
+    .join(" ");
   const text = getWorkSearchText(post);
+
+  if (/화장실|욕실|변기|세면대|수전|배수구|악취/.test(primaryText)) {
+    return "bathroom";
+  }
+
+  if (/유리|창문|창틀|코팅|출입문|전면/.test(primaryText)) {
+    return "glass";
+  }
+
+  if (/사무실|오피스|탕비실|책상|휴지통/.test(primaryText)) {
+    return "office";
+  }
+
+  if (/계단|복도|공동현관|정기관리|정기청소/.test(primaryText)) {
+    return "stair";
+  }
 
   if (/화장실|욕실|변기|세면대|수전|배수구|악취/.test(text)) {
     return "bathroom";
   }
 
-  if (/유리|창문|창틀|코팅|출입문|전면/.test(text)) {
-    return "glass";
-  }
-
   if (/사무실|오피스|탕비실|책상|휴지통/.test(text)) {
     return "office";
+  }
+
+  if (/유리청소|창문청소|창틀|유리코팅|전면\s*유리/.test(text)) {
+    return "glass";
   }
 
   return "stair";
