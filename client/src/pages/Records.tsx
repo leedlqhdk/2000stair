@@ -1,15 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import AreaPostCard from "@/components/AreaPostCard";
 import Navbar from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { daewolPosts } from "@/data/areas/daewol";
-import { downtownPosts } from "@/data/areas/downtown";
-import { majangPosts } from "@/data/areas/majang";
-import type { AreaPost } from "@/hooks/useAreaPosts";
+import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
 
 const areaLabels: Record<string, string> = {
   majang: "마장면",
@@ -37,35 +33,12 @@ const areaRoutes: Record<string, string> = {
   gonjiam: "/area/gonjiam",
 };
 
-const fallbackPosts: AreaPost[] = [
-  ...majangPosts.map((post) => ({ ...post, area: "majang" })),
-  ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
-  ...downtownPosts,
-].sort((a, b) => b.date.localeCompare(a.date));
-
-function useAllAreaPosts() {
-  return useQuery({
-    queryKey: ["area-posts", "all-records"],
-    queryFn: async () => {
-      const response = await fetch("/api/area-posts?limit=50", { cache: "no-store" });
-      if (!response.ok) return [];
-      return (await response.json()) as AreaPost[];
-    },
-    placeholderData: fallbackPosts,
-    staleTime: 0,
-    refetchOnMount: "always",
-    refetchOnWindowFocus: true,
-    refetchInterval: 15_000,
-    retry: 1,
-  });
-}
-
 function goToRecords(area: string) {
   window.location.href = area === "all" ? "/records" : areaRoutes[area] ?? "/records";
 }
 
 export default function Records() {
-  const { data, isPending } = useAllAreaPosts();
+  const { posts: allPosts, isLoading } = useAllWorkPosts("all-records");
   const selectedArea = new URLSearchParams(window.location.search).get("area") ?? "all";
 
   useEffect(() => {
@@ -83,8 +56,6 @@ export default function Records() {
   }
 
   const selectedAreaName = areaLabels[selectedArea] ?? "전체";
-  const notionPosts = data ?? [];
-  const allPosts = notionPosts.length > 0 ? notionPosts : fallbackPosts;
   const posts = selectedArea === "all"
     ? allPosts
     : allPosts.filter((post) => post.area === selectedArea);
@@ -138,7 +109,7 @@ export default function Records() {
             ))}
           </div>
 
-          {isPending ? (
+          {isLoading ? (
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
                 <div key={index} className="overflow-hidden rounded-[0.95rem] border border-blue-100 bg-white md:rounded-[1.1rem]">

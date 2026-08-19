@@ -8,7 +8,8 @@ import { majangPosts } from "../client/src/data/areas/majang";
 import type { AreaPost } from "../client/src/hooks/useAreaPosts";
 import { getWorkSeo } from "../client/src/lib/workSeo";
 import { getWorkSlug } from "../client/src/lib/workSlug";
-import { getWorkRelatedLinks } from "../shared/workRelatedLinks";
+import { getPrimaryWorkService, getWorkRelatedLinks } from "../shared/workRelatedLinks";
+import type { WorkServiceKey } from "../shared/workRelatedLinks";
 
 const SITE_URL = "https://2000stair.kr";
 
@@ -397,6 +398,44 @@ function getAreaStaticSections(area: string, posts: AreaPost[]) {
   ].join("");
 }
 
+function getServiceWorkItems(posts: AreaPost[], serviceKey: WorkServiceKey) {
+  return posts
+    .filter((post) => getPrimaryWorkService(post) === serviceKey)
+    .slice(0, 6)
+    .map((post) => ({
+      href: `/work/${getWorkSlug(post)}`,
+      label: getAreaPrefixedWorkLabel(post),
+    }));
+}
+
+function getServiceStaticSections(
+  serviceKey: WorkServiceKey,
+  heading: string,
+  scopeItems: string[],
+  posts: AreaPost[]
+) {
+  const workItems = getServiceWorkItems(posts, serviceKey);
+
+  return [
+    section(heading, list(scopeItems)),
+    section(
+      "실제 작업사례",
+      workItems.length > 0
+        ? linkList(workItems)
+        : paragraph("해당 서비스 작업사례는 현장 사진과 내용을 정리하는 순서대로 추가합니다.")
+    ),
+    section(
+      "지역별 상담 연결",
+      linkList([
+        { href: "/areas", label: "이천 관리 가능 지역 보기" },
+        { href: "/area/daewol", label: "대월면 관리지역 안내" },
+        { href: "/area/majang", label: "마장면 관리지역 안내" },
+        { href: "/area/gwango", label: "관고동 관리지역 안내" },
+      ])
+    ),
+  ].join("");
+}
+
 function getGeneralStaticSections(route: string, posts: AreaPost[]) {
   const recentWorkItems = posts.slice(0, 6).map((post) => ({
     href: `/work/${getWorkSlug(post)}`,
@@ -465,28 +504,17 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
 
   if (route === "/services/stair") {
     return [
-      section(
+      getServiceStaticSections(
+        "stair",
         "계단청소 관리 범위",
-        list(["계단 바닥과 모서리 먼지 관리", "난간·손잡이·창틀 관리", "공동현관 유리와 출입부 관리", "거미줄과 복도 오염 확인"])
+        ["계단 바닥과 모서리 먼지 관리", "난간·손잡이·창틀 관리", "공동현관 유리와 출입부 관리", "거미줄과 복도 오염 확인"],
+        posts
       ),
       section(
         "정기관리 주기와 비용 기준",
         paragraph(
           "월 2회 또는 월 4회 방문을 기본으로 상담하며, 층수·오염도·공용부 범위에 따라 현장 확인 후 비용을 안내합니다."
         )
-      ),
-      section(
-        "관련 작업 사례",
-        recentWorkItems.length > 0 ? linkList(recentWorkItems) : paragraph("작업 사례는 지역과 현장 상태별로 정리해 안내합니다.")
-      ),
-      section(
-        "지역별 계단청소 안내",
-        linkList([
-          { href: "/areas", label: "이천 관리 가능 지역 보기" },
-          { href: "/area/sindun", label: "신둔면 계단청소 안내" },
-          { href: "/area/majang", label: "마장면 계단청소 안내" },
-          { href: "/area/daewol", label: "대월면 계단청소 안내" },
-        ])
       ),
     ].join("");
   }
@@ -511,23 +539,29 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
   }
 
   if (route === "/services/glass") {
-    return section(
+    return getServiceStaticSections(
+      "glass",
       "유리청소 상담 범위",
-      list(["상가 출입문과 전면 유리", "공동현관 유리", "손자국·먼지·부분 얼룩 관리", "계단청소와 함께 정기관리 상담 가능"])
+      ["상가 출입문과 전면 유리", "공동현관 유리", "손자국·먼지·부분 얼룩 관리", "계단청소와 함께 정기관리 상담 가능"],
+      posts
     );
   }
 
   if (route === "/services/bathroom") {
-    return section(
+    return getServiceStaticSections(
+      "bathroom",
       "화장실청소 상담 범위",
-      list(["상가·사무실 공용화장실", "세면대·변기·바닥 위생관리", "악취와 물때 상태 확인", "정기 방문 주기 상담"])
+      ["상가·사무실 공용화장실", "세면대·변기·바닥 위생관리", "악취와 물때 상태 확인", "정기 방문 주기 상담"],
+      posts
     );
   }
 
   if (route === "/services/office") {
-    return section(
+    return getServiceStaticSections(
+      "office",
       "사무실·상가 정기청소 상담 범위",
-      list(["소형 사무실 바닥과 책상 주변", "상가 공용부와 출입부", "화장실·유리 포함 여부 상담", "업무 시간 전후 방문 일정 조율"])
+      ["소형 사무실 바닥과 책상 주변", "상가 공용부와 출입부", "화장실·유리 포함 여부 상담", "업무 시간 전후 방문 일정 조율"],
+      posts
     );
   }
 

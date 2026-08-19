@@ -1,39 +1,14 @@
-import { useMemo } from "react";
 import { Link, useParams } from "wouter";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, CalendarDays, Images, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Seo from "@/components/Seo";
 import { Skeleton } from "@/components/ui/skeleton";
-import { daewolPosts } from "@/data/areas/daewol";
-import { downtownPosts } from "@/data/areas/downtown";
-import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
+import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
 import { getWorkSeo, workAreaLabels as areaLabels, workAreaRoutes as areaRoutes } from "@/lib/workSeo";
 import { getWorkSlug } from "@/lib/workSlug";
 import { getWorkRelatedLinks } from "@shared/workRelatedLinks";
-
-const fallbackPosts: AreaPost[] = [
-  ...majangPosts.map((post) => ({ ...post, area: "majang" })),
-  ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
-  ...downtownPosts,
-].sort((a, b) => b.date.localeCompare(a.date));
-
-function useAllAreaPosts() {
-  return useQuery({
-    queryKey: ["area-posts", "work-detail"],
-    queryFn: async () => {
-      const response = await fetch("/api/area-posts?limit=50", { cache: "no-store" });
-      if (!response.ok) return [];
-      return (await response.json()) as AreaPost[];
-    },
-    staleTime: 0,
-    refetchOnMount: "always",
-    refetchOnWindowFocus: true,
-    retry: 1,
-  });
-}
 
 function getDefaultBuildingType(title: string) {
   if (/상가/.test(title)) return "상가 건물";
@@ -150,16 +125,7 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
 
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { data, isLoading } = useAllAreaPosts();
-
-  const posts = useMemo(() => {
-    const notionPosts = data ?? [];
-    const seenSlugs = new Set(notionPosts.map(getWorkSlug));
-    const missingFallbackPosts = fallbackPosts.filter((fallbackPost) => !seenSlugs.has(getWorkSlug(fallbackPost)));
-
-    return [...notionPosts, ...missingFallbackPosts];
-  }, [data]);
-
+  const { posts, isLoading } = useAllWorkPosts("work-detail");
   const post = posts.find((item) => getWorkSlug(item) === slug);
   // 노션 설명은 빈 줄 기준으로 문단을 나눠, 첫 문단은 상단 소개로 쓰고 나머지는 본문 섹션에 표시
   const descriptionParagraphs = (post?.description ?? "")
