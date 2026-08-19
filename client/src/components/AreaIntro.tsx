@@ -38,7 +38,7 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
     <div className="relative mb-12 md:mb-16">
       {/* ① 헤더 밴드 */}
       <motion.div
-        className="rounded-[1.75rem] bg-[#1b2f57] px-6 pb-24 pt-6 md:px-14 md:pb-28 md:pt-8"
+        className="rounded-[1.5rem] bg-[#1b2f57] px-5 pb-20 pt-5 md:rounded-[1.75rem] md:px-14 md:pb-28 md:pt-8"
         {...rise(0)}
       >
         <Link href="/areas">
@@ -63,16 +63,16 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
 
       {/* ② 요약 카드 (밴드 위에 겹침) */}
       <motion.div
-        className="relative z-10 mx-3 -mt-16 rounded-3xl border border-[#e4ecfb] bg-white p-6 shadow-[0_16px_42px_rgba(15,76,169,0.08)] md:mx-10 md:-mt-20 md:p-9"
+        className="relative z-10 mx-3 -mt-14 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-[0_16px_42px_rgba(15,76,169,0.08)] md:mx-10 md:-mt-20 md:rounded-3xl md:p-9"
         {...rise(0.08)}
       >
-        <div className="grid gap-7 md:grid-cols-2 md:gap-9">
+        <div className="grid gap-5 md:grid-cols-2 md:gap-9">
           {/* ②-좌 : 상담 전 확인할 내용 */}
           <div>
             <p className="text-xs font-bold text-muted-foreground">상담 전 확인할 내용</p>
-            <ul className="mt-4 space-y-[13px]">
+            <ul className="mt-3 space-y-2 md:mt-4 md:space-y-[13px]">
               {CHECKS.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm font-medium leading-6 text-foreground">
+                <li key={item} className="flex items-start gap-2 text-[13.5px] font-medium leading-[1.45] text-foreground md:gap-2.5 md:text-sm md:leading-6">
                   <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" strokeWidth={2.5} />
                   <span className="break-keep">{item}</span>
                 </li>
@@ -81,9 +81,9 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
           </div>
 
           {/* ②-우 : 주요 상담 구역 + CTA */}
-          <div className="border-t border-[#e4ecfb] pt-7 md:border-l md:border-t-0 md:pl-9 md:pt-0">
+          <div className="border-t border-[#e4ecfb] pt-5 md:border-l md:border-t-0 md:pl-9 md:pt-0">
             <p className="text-xs font-bold text-muted-foreground">주요 상담 구역</p>
-            <div className="mt-3.5 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap gap-1.5 md:mt-3.5 md:gap-2">
               {zones.map((zone) => (
                 <span
                   key={zone}
@@ -94,17 +94,17 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
               ))}
             </div>
 
-            <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
+            <div className="mt-5 grid grid-cols-2 gap-2 md:mt-6 md:flex md:gap-2.5">
               <a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-extrabold text-white shadow-sm transition hover:-translate-y-0.5 hover:opacity-95 active:scale-[0.98]"
+                className="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-full bg-primary px-3 text-[13px] font-extrabold text-white shadow-sm transition hover:-translate-y-0.5 hover:opacity-95 active:scale-[0.98] md:px-5 md:text-sm"
               >
                 카톡으로 요금 문의
               </a>
               <Link href="/quote">
-                <a className="inline-flex h-11 items-center justify-center rounded-full border border-[#e4ecfb] bg-white px-5 text-sm font-extrabold text-primary transition hover:-translate-y-0.5 hover:bg-[#f4f8ff] active:scale-[0.98]">
+                <a className="inline-flex h-11 w-full items-center justify-center whitespace-nowrap rounded-full border border-[#e4ecfb] bg-white px-3 text-[13px] font-extrabold text-primary transition hover:-translate-y-0.5 hover:bg-[#f4f8ff] active:scale-[0.98] md:w-auto md:px-5 md:text-sm">
                   무료 방문 견적
                 </a>
               </Link>
