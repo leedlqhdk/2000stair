@@ -62,6 +62,8 @@ jspm_packages/
 
 # Optional npm cache directory
 .npm
+.npm-cache/
+.corepack/
 
 # Optional eslint cache
 .eslintcache
