@@ -6,6 +6,7 @@
 dist/
 build/
 *.dist
+.vercel/
 
 # Environment variables
 .env
