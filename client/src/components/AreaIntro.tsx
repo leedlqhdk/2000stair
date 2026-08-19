@@ -69,7 +69,7 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
         {...rise(0.08)}
       >
         <div className="grid gap-5 md:grid-cols-2 md:gap-9">
-          {/* ②-좌 : 상담 전 확인할 내용 */}
+          {/* ②-좌 : 상담 전 확인할 내용 (모바일·PC 공통) */}
           <div>
             <p className="text-xs font-bold text-muted-foreground">상담 전 확인할 내용</p>
             <ul className="mt-3 space-y-2 md:mt-4 md:space-y-[13px]">
@@ -82,10 +82,10 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
             </ul>
           </div>
 
-          {/* ②-우 : 주요 상담 구역 + CTA */}
-          <div className="border-t border-[#e4ecfb] pt-5 md:border-l md:border-t-0 md:pl-9 md:pt-0">
+          {/* ②-우 : 주요 상담 구역 + CTA (PC 전용 — 모바일 숨김) */}
+          <div className="hidden md:block md:border-l md:border-[#e4ecfb] md:pl-9">
             <p className="text-xs font-bold text-muted-foreground">주요 상담 구역</p>
-            <div className="mt-3 flex flex-wrap gap-1.5 md:mt-3.5 md:gap-2">
+            <div className="mt-3.5 flex flex-wrap gap-2">
               {zones.map((zone) => (
                 <span
                   key={zone}
@@ -96,20 +96,21 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
               ))}
             </div>
 
-            <div className="mt-5 grid grid-cols-2 gap-2 md:mt-6 md:flex md:gap-2.5">
+            <div className="mt-6 flex gap-2.5">
               <a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-full bg-primary px-3 text-[13px] font-extrabold text-white shadow-sm transition hover:-translate-y-0.5 hover:opacity-95 active:scale-[0.98] md:px-5 md:text-sm"
+                className="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-full bg-primary px-5 text-sm font-extrabold text-white shadow-sm transition hover:-translate-y-0.5 hover:opacity-95 active:scale-[0.98]"
               >
                 카톡으로 요금 문의
               </a>
-              <Link href="/quote">
-                <a className="inline-flex h-11 w-full items-center justify-center whitespace-nowrap rounded-full border border-[#e4ecfb] bg-white px-3 text-[13px] font-extrabold text-primary transition hover:-translate-y-0.5 hover:bg-[#f4f8ff] active:scale-[0.98] md:w-auto md:px-5 md:text-sm">
-                  무료 방문 견적
-                </a>
-              </Link>
+              <a
+                href="tel:01084381887"
+                className="inline-flex h-11 items-center justify-center whitespace-nowrap rounded-full border border-[#e4ecfb] bg-white px-5 text-sm font-extrabold text-primary transition hover:-translate-y-0.5 hover:bg-[#f4f8ff] active:scale-[0.98]"
+              >
+                전화문의
+              </a>
             </div>
           </div>
         </div>
