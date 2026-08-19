@@ -43,7 +43,7 @@ function getWorkSearchText(post: WorkPostLike) {
 }
 
 export function getPrimaryWorkService(post: WorkPostLike): WorkServiceKey {
-  const primaryText = [post.title, post.workType]
+  const primaryText = [post.title, post.workScope, post.workType]
     .filter(Boolean)
     .join(" ");
   const text = getWorkSearchText(post);
@@ -61,6 +61,10 @@ export function getPrimaryWorkService(post: WorkPostLike): WorkServiceKey {
   }
 
   if (/계단|복도|공동현관|정기관리|정기청소/.test(primaryText)) {
+    return "stair";
+  }
+
+  if (/견적/.test(primaryText)) {
     return "stair";
   }
 
