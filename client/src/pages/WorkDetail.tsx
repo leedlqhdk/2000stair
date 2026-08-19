@@ -12,6 +12,7 @@ import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import { getWorkSeo, workAreaLabels as areaLabels, workAreaRoutes as areaRoutes } from "@/lib/workSeo";
 import { getWorkSlug } from "@/lib/workSlug";
+import { getWorkRelatedLinks } from "@shared/workRelatedLinks";
 
 const fallbackPosts: AreaPost[] = [
   ...majangPosts.map((post) => ({ ...post, area: "majang" })),
@@ -169,11 +170,7 @@ export default function WorkDetail() {
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
   const backHref = post?.area ? areaRoutes[post.area] ?? "/records" : "/records";
   const blogAreaLabel = post ? getBlogAreaLabel(post, areaLabel) : areaLabel;
-  const relatedLinks = post ? [
-    { href: backHref, label: `${areaLabel} 계단청소 안내` },
-    { href: "/services/stair", label: "계단 정기관리 안내" },
-    { href: "/records", label: "전체 작업기록 보기" },
-  ] : [];
+  const relatedLinks = post ? getWorkRelatedLinks(post, { areaLabel, areaHref: backHref }) : [];
   const recommendedTargets = post ? getRecommendedTargets(post) : [];
   const detailRows = post ? [
     ["지역", areaLabel],
@@ -312,7 +309,7 @@ export default function WorkDetail() {
           <section className="mt-12 border-y border-blue-100 py-6 md:py-8">
             <p className="mb-2 text-xs font-bold tracking-[0.25em] text-primary">RELATED LINKS</p>
             <h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">
-              이 작업과 연결되는 안내
+              지역 안내와 서비스 안내로 이어보기
             </h2>
             <div className="flex flex-wrap gap-2">
               {relatedLinks.map((link) => (

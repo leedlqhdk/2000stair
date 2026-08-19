@@ -8,6 +8,7 @@ import { majangPosts } from "../client/src/data/areas/majang";
 import type { AreaPost } from "../client/src/hooks/useAreaPosts";
 import { getWorkSeo } from "../client/src/lib/workSeo";
 import { getWorkSlug } from "../client/src/lib/workSlug";
+import { getWorkRelatedLinks } from "../shared/workRelatedLinks";
 
 const SITE_URL = "https://2000stair.kr";
 
@@ -609,12 +610,8 @@ function getWorkStaticSections(post: AreaPost) {
     ),
     details.length > 0 ? section("작업 정보", list(details)) : "",
     section(
-      "관련 안내",
-      linkList([
-        { href: areaHref, label: `${areaName} 계단청소 안내` },
-        { href: "/services/stair", label: "계단청소 범위·주기·비용 안내" },
-        { href: "/records", label: "다른 작업 기록 보기" },
-      ])
+      "지역·서비스 연결 안내",
+      linkList(getWorkRelatedLinks(post, { areaLabel: areaName, areaHref }))
     ),
   ].join("");
 }

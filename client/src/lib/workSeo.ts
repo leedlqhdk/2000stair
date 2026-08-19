@@ -1,5 +1,6 @@
 import type { SeoProps } from "@/components/Seo";
 import type { AreaPost } from "@/hooks/useAreaPosts";
+import { getPrimaryWorkService, WORK_SERVICE_LINKS } from "@shared/workRelatedLinks";
 import { getWorkSlug } from "./workSlug";
 
 const SITE_URL = "https://2000stair.kr";
@@ -49,10 +50,11 @@ export function getWorkSeo(post: AreaPost): SeoProps {
   const slug = getWorkSlug(post);
   const areaLabel = getWorkAreaLabel(post.area);
   const canonical = `${SITE_URL}/work/${slug}`;
-  const title = `${post.title} | ${areaLabel} 계단청소 작업일지 | 이천계단지기`;
+  const service = WORK_SERVICE_LINKS[getPrimaryWorkService(post)];
+  const title = `${post.title} | ${areaLabel} ${service.breadcrumbName} 작업일지 | 이천계단지기`;
   const description =
     post.description ||
-    `${withAreaPrefix(areaLabel, post.title)} 현장 기록입니다. 이천계단지기가 직접 관리한 계단청소 작업 사진과 날짜를 확인할 수 있습니다.`;
+    `${withAreaPrefix(areaLabel, post.title)} 현장 기록입니다. 이천계단지기가 직접 관리한 ${service.breadcrumbName} 작업 사진과 날짜를 확인할 수 있습니다.`;
   const image = toAbsoluteUrl(post.image);
   const areaPath = post.area ? workAreaRoutes[post.area] : undefined;
 
@@ -61,14 +63,20 @@ export function getWorkSeo(post: AreaPost): SeoProps {
     ...(areaPath
       ? [{ "@type": "ListItem", position: 2, name: areaLabel, item: `${SITE_URL}${areaPath}` }]
       : []),
-    { "@type": "ListItem", position: areaPath ? 3 : 2, name: post.title, item: canonical },
+    {
+      "@type": "ListItem",
+      position: areaPath ? 3 : 2,
+      name: service.breadcrumbName,
+      item: `${SITE_URL}${service.href}`,
+    },
+    { "@type": "ListItem", position: areaPath ? 4 : 3, name: post.title, item: canonical },
   ];
 
   return {
     title,
     description,
     canonical,
-    keywords: `${areaLabel} 계단청소, ${post.title}, 이천계단청소, 빌라계단청소, 상가계단청소`,
+    keywords: `${areaLabel} ${service.breadcrumbName}, ${post.title}, 이천계단청소, 실제 작업일지, 청소 전후 사진`,
     image,
     jsonLd: [
       {
