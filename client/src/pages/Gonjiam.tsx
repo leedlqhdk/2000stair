@@ -1,6 +1,5 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
-import AreaLocalDetails from "@/components/AreaLocalDetails";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
@@ -27,8 +26,8 @@ export default function GonjiamAreaPage() {
           headline="신둔면과 가까운 곤지암읍 인근 지역을 관리합니다"
           description="곤지암읍 전체가 아닌 신둔면과 가까운 인접 지역을 중심으로 빌라·원룸·상가 공용공간 상담과 정기관리를 진행합니다."
           focus="주소와 현장 사진을 먼저 확인한 뒤 신둔면에서 이동하기 좋은 곤지암읍 인근 지역인지 확인하고 계단·복도·공동현관 관리 범위를 안내합니다."
-        />
-        <AreaLocalDetails areaSlug="gonjiam" />
+          areaSlug="gonjiam"
+/>
 
         <AreaTimeline areaName="곤지암" areaSlug="gonjiam" posts={posts} title="곤지암 작업 일지" description="신둔면 인접 곤지암 현장에서 진행한 작업 기록을 날짜순으로 확인해보세요." emptyMessage="곤지암 작업 기록은 노션 작업일지 등록 후 표시됩니다. 상담은 주소 확인 후 가능합니다." />
 

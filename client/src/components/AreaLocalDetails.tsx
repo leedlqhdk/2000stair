@@ -8,7 +8,7 @@ type AreaLocalDetailsData = {
   checks: string[];
 };
 
-const areaDetails: Record<string, AreaLocalDetailsData> = {
+export const areaDetails: Record<string, AreaLocalDetailsData> = {
   majang: {
     areaName: "마장면",
     summary: "오천리·양촌리·장암리처럼 주거지와 상가가 함께 있는 구역은 출입구 먼지와 계단 모서리 상태를 함께 확인합니다.",

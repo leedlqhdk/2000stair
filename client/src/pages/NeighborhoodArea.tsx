@@ -2,7 +2,6 @@ import { useParams } from "wouter";
 import { MessageCircle, Phone } from "lucide-react";
 import AreaTimeline from "@/components/AreaTimeline";
 import AreaIntro from "@/components/AreaIntro";
-import AreaLocalDetails from "@/components/AreaLocalDetails";
 import { downtownPosts } from "@/data/areas/downtown";
 import { trackConversion } from "@/lib/analytics";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
@@ -55,8 +54,7 @@ export default function NeighborhoodAreaPage({ areaSlug }: NeighborhoodAreaPageP
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-        <AreaIntro headline={data.headline} description={data.description} focus={data.focus} />
-        <AreaLocalDetails areaSlug={slug} />
+        <AreaIntro headline={data.headline} description={data.description} focus={data.focus} areaSlug={slug} />
 
         {isLoading ? (
           <section className="mb-12 md:mb-16">

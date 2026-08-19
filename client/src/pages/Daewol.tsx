@@ -1,6 +1,5 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
-import AreaLocalDetails from "@/components/AreaLocalDetails";
 import AreaTimeline from "@/components/AreaTimeline";
 import { daewolPosts, daewolReviews } from "@/data/areas/daewol";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
@@ -30,8 +29,8 @@ export default function DaewolAreaPage() {
           headline="대월면의 공용공간을 꾸준히 관리합니다"
           description="부부가 직접, 대월면 빌라·원룸·상가 공용공간을 관리합니다."
           focus="사동리·초지리·군량리 등 대월면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
-        />
-        <AreaLocalDetails areaSlug="daewol" />
+          areaSlug="daewol"
+/>
 
         <AreaTimeline
           areaName="대월면"

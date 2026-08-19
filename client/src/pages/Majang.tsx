@@ -1,6 +1,5 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
-import AreaLocalDetails from "@/components/AreaLocalDetails";
 import AreaTimeline from "@/components/AreaTimeline";
 import { majangPosts, majangReviews } from "@/data/areas/majang";
 import { useAreaPosts } from "@/hooks/useAreaPosts";
@@ -31,8 +30,8 @@ return (
 headline="마장면의 깨끗한 일상을 만들고 있습니다"
 description="부부가 직접, 마장면 빌라·원룸·상가 공용공간을 관리합니다."
 focus="오천리·양촌리·장암리 등 마장면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
+  areaSlug="majang"
 />
-<AreaLocalDetails areaSlug="majang" />
 
 <AreaTimeline
 areaName="마장면"

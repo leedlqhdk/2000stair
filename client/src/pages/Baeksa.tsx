@@ -1,6 +1,5 @@
 import { MessageCircle, Phone, Star } from "lucide-react";
 import AreaIntro from "@/components/AreaIntro";
-import AreaLocalDetails from "@/components/AreaLocalDetails";
 import AreaTimeline from "@/components/AreaTimeline";
 import { useAreaPosts, type AreaPost } from "@/hooks/useAreaPosts";
 
@@ -27,8 +26,8 @@ return (
 headline="백사면 작업 기록과 공용공간 관리를 준비하고 있습니다"
 description="백사면 빌라·원룸·상가 공용공간 관리 기록을 정리하고 있습니다. 작업 기록은 업데이트 중이며, 상담과 견적 안내는 바로 가능합니다."
 focus="모전리·조읍리·현방리 등 백사면 주요 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
+  areaSlug="baeksa"
 />
-<AreaLocalDetails areaSlug="baeksa" />
 <AreaTimeline areaName="백사면" areaSlug="baeksa" posts={posts} title="백사면 작업 일지" description="백사면 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="백사면 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
 
 <section className="mb-12 grid gap-4 md:grid-cols-2 md:mb-16">
