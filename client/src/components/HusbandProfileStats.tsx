@@ -2,9 +2,9 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "5년+", unit: "", label: "청소 경력" },
-  { value: "5.0", unit: "", label: "리뷰 평균" },
-  { value: "21600+", unit: "", label: "누적 관리 세대" },
+  { value: "직영", unit: "", label: "하청 없는 관리" },
+  { value: "사진", unit: "", label: "초도청소 후 공유" },
+  { value: "증빙", unit: "", label: "사업자 거래 상담" },
 ];
 
 export default function HusbandProfileStats() {

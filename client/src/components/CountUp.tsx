@@ -9,7 +9,7 @@ type CountUpProps = {
   duration?: number;
 };
 
-// "21,600+", "5.0", "90%", "5년+" 같은 문자열에서 숫자만 0→목표로 굴려주고
+// "120+", "5.0", "80%" 같은 문자열에서 숫자만 0->목표로 굴려주고
 // 앞뒤 텍스트(접두/접미)와 콤마·소수 자릿수는 그대로 유지합니다.
 export default function CountUp({ value, className, duration = 1.2 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);

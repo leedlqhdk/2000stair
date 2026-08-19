@@ -8,10 +8,10 @@ import AboutDetailHighlights from "@/components/AboutDetailHighlights";
 const floatTransition = { duration: 4.5, repeat: Infinity, ease: "easeInOut" as const };
 
 const stats = [
-  { value: "5년+", label: "청소 경력" },
-  { value: "5.0", label: "리뷰 평균" },
-  { value: "21,600+", label: "누적 관리 세대" },
-  { value: "90%", label: "계약률" },
+  { value: "직접", label: "하청 없는 관리" },
+  { value: "사진", label: "초도청소 후 공유" },
+  { value: "증빙", label: "사업자 거래 가능" },
+  { value: "계약", label: "관리 기준 안내" },
 ];
 
 const husbandRole = {

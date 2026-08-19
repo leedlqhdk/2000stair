@@ -344,6 +344,11 @@ function getPostListLabel(post: AreaPost) {
   return `${post.date ? `${post.date} ` : ""}${detail}`;
 }
 
+function getAreaPrefixedWorkLabel(post: AreaPost) {
+  const areaName = AREA_LABELS[post.area] ?? post.area;
+  return post.title.startsWith(areaName) ? post.title : `${areaName} ${post.title}`;
+}
+
 function getAreaStaticSections(area: string, posts: AreaPost[]) {
   const areaName = AREA_LABELS[area] ?? area;
   const detail = AREA_STATIC_DETAILS[area] ?? {
@@ -394,7 +399,7 @@ function getAreaStaticSections(area: string, posts: AreaPost[]) {
 function getGeneralStaticSections(route: string, posts: AreaPost[]) {
   const recentWorkItems = posts.slice(0, 6).map((post) => ({
     href: `/work/${getWorkSlug(post)}`,
-    label: `${AREA_LABELS[post.area] ?? post.area} ${post.title}`,
+    label: getAreaPrefixedWorkLabel(post),
   }));
 
   if (route === "/") {
@@ -473,6 +478,15 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
         "관련 작업 사례",
         recentWorkItems.length > 0 ? linkList(recentWorkItems) : paragraph("작업 사례는 지역과 현장 상태별로 정리해 안내합니다.")
       ),
+      section(
+        "지역별 계단청소 안내",
+        linkList([
+          { href: "/areas", label: "이천 관리 가능 지역 보기" },
+          { href: "/area/sindun", label: "신둔면 계단청소 안내" },
+          { href: "/area/majang", label: "마장면 계단청소 안내" },
+          { href: "/area/daewol", label: "대월면 계단청소 안내" },
+        ])
+      ),
     ].join("");
   }
 
@@ -489,6 +503,7 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
           { href: "/services/glass", label: "유리청소 안내" },
           { href: "/services/bathroom", label: "화장실청소 안내" },
           { href: "/services/office", label: "사무실·상가 정기청소 안내" },
+          { href: "/records", label: "실제 작업일지 보기" },
         ])
       ),
     ].join("");
