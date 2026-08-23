@@ -3,28 +3,28 @@ import { Link } from "wouter";
 
 const serviceCards = [
   {
-    title: "계단정기청소",
-    subtitle: "빌라·원룸·상가 공용계단",
+    title: "이천 계단청소",
+    subtitle: "빌라·상가 공용계단 정기관리",
     image: "/images/main-service-stair.webp",
     href: "/services/stair",
   },
   {
-    title: "유리청소",
-    subtitle: "상가·사무실·매장 유리관리",
-    image: "/images/main-service-glass.webp",
-    href: "/services/glass",
+    title: "이천 사무실청소",
+    subtitle: "사무공간 바닥·먼지 정기관리",
+    image: "/images/main-service-office.webp",
+    href: "/services/office",
   },
   {
-    title: "화장실청소",
-    subtitle: "상가·사무실 공용화장실",
+    title: "이천 화장실청소",
+    subtitle: "상가·사무실 공용화장실 관리",
     image: "/images/main-service-restroom.webp",
     href: "/services/bathroom",
   },
   {
-    title: "사무실청소",
-    subtitle: "사무실·상가 정기 방문관리",
-    image: "/images/main-service-office.webp",
-    href: "/services/office",
+    title: "이천 유리청소",
+    subtitle: "공동현관·상가 유리 손자국 관리",
+    image: "/images/main-service-glass.webp",
+    href: "/services/glass",
   },
 ];
 
@@ -38,10 +38,10 @@ export default function Services() {
               SERVICES
             </p>
             <h2 className="mb-2 text-2xl font-extrabold leading-[1.18] text-foreground md:mb-4 md:text-4xl">
-              이천계단지기 서비스
+              이천 건물 정기 청소관리 서비스
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-xs leading-6 text-muted-foreground md:mt-4 md:text-base md:leading-7">
-              이천 빌라·상가·원룸 공용공간을 부부가 직접 확인하고 관리합니다.
+              이천 계단청소, 사무실청소, 화장실청소, 유리청소를 건물 상태에 맞춰 정기관리합니다.
             </p>
           </div>
 

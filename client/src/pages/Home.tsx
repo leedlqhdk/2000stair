@@ -1,28 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
-import HusbandProfileStats from "@/components/HusbandProfileStats";
 import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
 import BlogReviews from "@/components/BlogReviews";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
-import FaqSection from "@/components/FaqSection";
 import MobileHome from "@/components/MobileHome";
 import IntroLoader, { shouldShowIntro } from "@/components/IntroLoader";
+import CustomerConcernsSection from "@/components/CustomerConcernsSection";
+import HusbandProfileStats from "@/components/HusbandProfileStats";
+import HomeAreaMapSection from "@/components/HomeAreaMapSection";
+import HomeFinalCta from "@/components/HomeFinalCta";
 
 export default function Home() {
   const [intro, setIntro] = useState<"loading" | "reveal" | "done">(() =>
     shouldShowIntro() ? "loading" : "done"
   );
-
-  useEffect(() => {
-    document.documentElement.classList.add("home-pc-snap");
-
-    return () => {
-      document.documentElement.classList.remove("home-pc-snap");
-    };
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -40,47 +34,18 @@ export default function Home() {
           <MobileHome />
 
           <div className="hidden md:block">
-            <div className="home-snap-section home-snap-hero">
-              <HeroSection
-                isAuthenticated={false}
-              />
+            <HeroSection isAuthenticated={false} />
+            <CustomerConcernsSection />
+            <HusbandProfileStats />
+            <HowItWorks />
+            <Services />
+            <BeforeAfterGallery />
+            <LatestBlogPosts variant="timeline" />
+            <div className="container max-w-6xl py-16 md:py-24">
+              <BlogReviews />
             </div>
-
-            <div>
-              {/* 대표 직접관리 */}
-              <div className="home-snap-section home-snap-profile md:flex md:items-center md:bg-white">
-                <HusbandProfileStats />
-              </div>
-
-              {/* 왜 이천계단지기인가 */}
-              <div className="home-snap-section home-snap-process md:flex md:items-center md:bg-white">
-                <HowItWorks />
-              </div>
-
-              {/* 제공 서비스 */}
-              <div className="md:snap-none">
-                <Services />
-              </div>
-
-              {/* 실제 작업 결과 */}
-              <div className="md:snap-none">
-                <BeforeAfterGallery />
-              </div>
-
-              {/* 실제 후기 요약 */}
-              <div className="container max-w-6xl py-16 md:snap-none md:py-24">
-                <BlogReviews />
-              </div>
-
-              {/* 블로그 최신 소식 (타임라인) */}
-              <div className="md:snap-none">
-                <LatestBlogPosts variant="timeline" />
-              </div>
-
-              <div className="md:snap-none">
-                <FaqSection />
-              </div>
-            </div>
+            <HomeAreaMapSection />
+            <HomeFinalCta />
           </div>
         </main>
       )}

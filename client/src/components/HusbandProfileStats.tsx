@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const stats = [
   { value: "직영", unit: "", label: "하청 없는 관리" },
-  { value: "사진", unit: "", label: "초도청소 후 공유" },
+  { value: "사진", unit: "", label: "초도청소 후 사진제공" },
   { value: "증빙", unit: "", label: "사업자 거래 상담" },
 ];
 
@@ -41,19 +41,19 @@ export default function HusbandProfileStats() {
             transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
             <h2 className="text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
-              이천계단지기 대표가
+              같은 사람이, 꾸준히
               <br />
-              직접 관리합니다
+              대표가 직접 관리합니다
             </h2>
 
             <p className="mt-5 text-sm leading-7 text-muted-foreground md:text-base">
-              계단청소는 단순히 바닥을 닦는 일이 아닙니다.
+              이천 계단청소와 건물 정기관리는 단순히 한 번 청소하고 끝나는 일이 아닙니다.
             </p>
 
             <p className="mx-auto mt-5 max-w-2xl text-sm font-semibold leading-7 text-foreground/90 md:text-[15px] lg:mx-0">
-              건물마다 오염 원인과 관리 방법이 다르기 때문에 직접 현장을 확인하고 관리하는 것이 중요합니다.
+              처음 본 건물의 계단, 공동현관, 창틀 상태를 기억하고 다음 방문도 이어서 관리하는 것이 중요합니다.
               <br className="hidden md:block" />
-              이천계단지기는 외주나 하청 없이 대표가 직접 방문하여 건물 상태를 확인하고, 관리 주기와 작업 범위를 안내해드립니다. 관리사무소와 법인 고객도 계약·증빙 기준에 맞춰 상담합니다.
+              이천계단지기는 외주나 하청 없이 대표가 직접 방문하여 건물 상태를 확인하고, 정기관리 주기와 작업 범위를 안내해드립니다. 관리사무소와 법인 고객도 계약·증빙 기준에 맞춰 상담합니다.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-2xl gap-5 sm:grid-cols-3 lg:mx-0">
