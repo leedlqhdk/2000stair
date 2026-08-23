@@ -162,19 +162,19 @@
     html.home-pc-snap {
       --home-snap-scale: 1;
       scroll-behavior: smooth;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: y proximity;
     }
 
     html.home-pc-snap .home-snap-section {
       --home-section-scale: var(--home-snap-scale);
       display: flex;
-      height: calc(100dvh - 4rem);
+      min-height: calc(100dvh - 4rem);
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow: visible;
       scroll-margin-top: 4rem;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
     }
 
     html.home-pc-snap .home-snap-section > section {
