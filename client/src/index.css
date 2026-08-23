@@ -158,6 +158,77 @@
     @apply bg-background text-foreground;
   }
 
+  @media (min-width: 768px) {
+    html.home-pc-snap {
+      --home-snap-scale: 1;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    html.home-pc-snap .home-snap-section {
+      --home-section-scale: var(--home-snap-scale);
+      display: flex;
+      height: calc(100dvh - 4rem);
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      scroll-margin-top: 4rem;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    html.home-pc-snap .home-snap-section > section {
+      width: calc(100% / var(--home-section-scale));
+      max-width: calc(100% / var(--home-section-scale));
+      transform: scale(var(--home-section-scale));
+      transform-origin: center center;
+    }
+  }
+
+  @media (min-width: 768px) and (max-height: 760px) {
+    html.home-pc-snap {
+      --home-snap-scale: 0.9;
+    }
+
+    html.home-pc-snap .home-snap-process {
+      --home-section-scale: 0.82;
+    }
+  }
+
+  @media (min-width: 768px) and (max-height: 680px) {
+    html.home-pc-snap {
+      --home-snap-scale: 0.84;
+    }
+
+    html.home-pc-snap .home-snap-process {
+      --home-section-scale: 0.76;
+    }
+  }
+
+  @media (min-width: 768px) and (min-height: 960px) {
+    html.home-pc-snap {
+      --home-snap-scale: 1.04;
+    }
+
+    html.home-pc-snap .home-snap-hero {
+      --home-section-scale: 1.14;
+    }
+
+    html.home-pc-snap .home-snap-profile {
+      --home-section-scale: 1.08;
+    }
+
+    html.home-pc-snap .home-snap-process {
+      --home-section-scale: 1.02;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.home-pc-snap {
+      scroll-behavior: auto;
+    }
+  }
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),

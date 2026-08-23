@@ -47,38 +47,40 @@ export default function Services() {
 
           <div className="grid gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-4">
             {serviceCards.map((card) => (
-              <Link key={card.title} href={card.href}>
-                <a className="group relative block h-[240px] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-[0_8px_24px_rgba(15,76,169,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(15,76,169,0.14)] sm:h-[280px] md:h-[520px] md:rounded-[1.8rem] md:shadow-[0_18px_45px_rgba(15,76,169,0.10)]">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
+              <Link
+                key={card.title}
+                href={card.href}
+                className="group relative block h-[240px] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-[0_8px_24px_rgba(15,76,169,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(15,76,169,0.14)] sm:h-[280px] md:h-[520px] md:rounded-[1.8rem] md:shadow-[0_18px_45px_rgba(15,76,169,0.10)]"
+              >
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/28 to-white/5" />
-                  <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/20 to-transparent md:h-28" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/28 to-white/5" />
+                <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/20 to-transparent md:h-28" />
 
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
-                    <p className="mb-1 text-xs font-bold text-white/75 md:mb-2 md:text-sm">
-                      {card.subtitle}
-                    </p>
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
+                  <p className="mb-1 text-xs font-bold text-white/75 md:mb-2 md:text-sm">
+                    {card.subtitle}
+                  </p>
 
-                    <h2 className="text-xl font-extrabold leading-tight tracking-tight text-white md:text-[2.15rem]">
-                      {card.title}
-                    </h2>
+                  <h2 className="text-xl font-extrabold leading-tight tracking-tight text-white md:text-[2.15rem]">
+                    {card.title}
+                  </h2>
 
-                    <div className="mt-3 flex items-center justify-between md:mt-8">
-                      <span className="text-[11px] font-bold tracking-[0.18em] text-white/65 md:text-xs">
-                        VIEW SERVICE
-                      </span>
+                  <div className="mt-3 flex items-center justify-between md:mt-8">
+                    <span className="text-[11px] font-bold tracking-[0.18em] text-white/65 md:text-xs">
+                      VIEW SERVICE
+                    </span>
 
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:text-primary md:h-11 md:w-11">
-                        <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
-                      </span>
-                    </div>
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:text-primary md:h-11 md:w-11">
+                      <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
+                    </span>
                   </div>
-                </a>
+                </div>
               </Link>
             ))}
           </div>

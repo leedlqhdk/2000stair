@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, MapPin } from "lucide-react";
-import { Link } from "wouter";
-import { trackConversion } from "@/lib/analytics";
+import { Check } from "lucide-react";
 import VisitorCounter from "@/components/VisitorCounter";
 import DesktopHomeConcerns from "@/components/DesktopHomeConcerns";
 
@@ -10,17 +8,6 @@ interface HeroSectionProps {
   isAuthenticated: boolean;
   onConcernsComplete?: () => void;
 }
-
-const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-
-const areaSectionItems = [
-  { src: "/images/icheon-sindun-stair-cleaning.webp", title: "신둔면", subtitle: "공동현관 관리", slug: "sindun" },
-  { src: "/images/icheon-bubal-store-cleaning.webp", title: "부발읍", subtitle: "상가 공용부 관리", slug: "bubal" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", title: "창전동", subtitle: "계단 · 복도 관리", slug: "changjeon" },
-  { src: "/images/icheon-majang-villa-cleaning.webp", title: "마장면", subtitle: "빌라 정기관리", slug: "majang" },
-  { src: "/images/icheon-gwango-building-cleaning.webp", title: "관고동", subtitle: "건물 공용부 관리", slug: "gwango" },
-  { src: "/images/before-after/stair-railing-after.webp", title: "중리동", subtitle: "현관 · 복도 관리", slug: "jungni" },
-];
 
 const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
 
@@ -120,61 +107,6 @@ export default function HeroSection({ isAuthenticated, onConcernsComplete }: Her
               <VisitorCounter />
             </div>
           </motion.div>
-
-          <div className="overflow-hidden border-y border-blue-100/60 bg-[#f4f8ff] py-9 md:py-12">
-            <div className="container max-w-7xl">
-              <div className="grid items-center gap-5 lg:grid-cols-[0.25fr_0.75fr] lg:gap-7">
-                <motion.div
-                  initial={{ opacity: 0, x: -18 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <h2 className="mb-3 text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
-                    같은 사람이, 꾸준히
-                  </h2>
-
-                  <p className="max-w-xs text-sm leading-relaxed text-gray-600 line-clamp-2 md:text-base md:line-clamp-none">
-                    처음 본 건물 상태를 기억하고 다음 방문도 이어서 관리합니다.
-                  </p>
-                </motion.div>
-
-                <div className="relative overflow-hidden pb-3 pt-1 md:pb-2 md:pt-0">
-                  <div className="flex w-max gap-3 md:gap-4" style={{ animation: "slideLeft 26s linear infinite" }}>
-                    {[...areaSectionItems, ...areaSectionItems].map((item, index) => (
-                      <motion.div
-                        key={`${item.src}-${index}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: (index % areaSectionItems.length) * 0.04 }}
-                      >
-                        <div className="relative block h-48 w-40 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.08)] md:h-52 md:w-44">
-                          <img
-                            src={item.src}
-                            alt={`${item.title} 관리 현장`}
-                            className="h-full w-full scale-[1.22] object-cover object-[center_96%] brightness-[1.05] contrast-[0.96] saturate-[0.88]"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-[#f5f9ff]/10" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/64 via-black/10 to-white/6" />
-                          <div className="absolute bottom-0 left-0 right-0 p-2.5 text-white">
-                            <MapPin className="mb-1 h-4 w-4 text-white drop-shadow" />
-                            <h3 className="text-sm font-extrabold leading-tight md:text-base">
-                              {item.title}
-                            </h3>
-                            <p className="mt-0.5 text-[0.62rem] font-semibold text-white/78 md:text-xs">
-                              {item.subtitle}
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

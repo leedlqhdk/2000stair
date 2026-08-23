@@ -21,11 +21,20 @@ const navGroups: NavGroup[] = [
     href: "/about",
     items: [],
   },
-   {
+  {
     label: "방문지역",
-     href: "/areas",
-    items: [],
-      
+    items: [
+      { label: "관고동", href: "/area/gwango" },
+      { label: "창전동", href: "/area/changjeon" },
+      { label: "중리동", href: "/area/jungni" },
+      { label: "증포동", href: "/area/jeungpo" },
+      { label: "부발읍", href: "/area/bubal" },
+      { label: "신둔면", href: "/area/sindun" },
+      { label: "백사면", href: "/area/baeksa" },
+      { label: "마장면", href: "/area/majang" },
+      { label: "대월면", href: "/area/daewol" },
+      { label: "곤지암읍", href: "/area/gonjiam" },
+    ],
   },
   {
     label: "청소서비스",
@@ -145,7 +154,11 @@ useEffect(() => {
                 {group.label}
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
               </button>
-              <div className={idx === navGroups.length - 1 ? dropdownPanelRightClass : dropdownPanelClass}>
+              <div
+                className={`${idx === navGroups.length - 1 ? dropdownPanelRightClass : dropdownPanelClass} ${
+                  group.label === "방문지역" ? "grid min-w-80 grid-cols-2 gap-1" : ""
+                }`}
+              >
                 {group.items.map((item) =>
                   item.sectionId ? (
                     <a key={item.label} href={item.href} className={dropdownItemClass} onClick={(e) => handleSectionClick(e, item.sectionId)}>
@@ -204,7 +217,7 @@ useEffect(() => {
                     <ChevronDown className={`h-4 w-4 transition-transform ${openMobileIndex === idx ? "rotate-180" : ""}`} />
                   </button>
                   {openMobileIndex === idx && (
-                    <div className="mt-2 grid gap-1">
+                    <div className={`mt-2 grid gap-1 ${group.label === "방문지역" ? "grid-cols-2" : ""}`}>
                       {group.items.map((item) =>
                         item.sectionId ? (
                           <a key={item.label} href={item.href} className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground" onClick={(e) => handleSectionClick(e, item.sectionId)}>
