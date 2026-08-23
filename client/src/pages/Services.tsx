@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "wouter";
 
 const serviceCards = [
@@ -29,6 +30,8 @@ const serviceCards = [
 ];
 
 export default function Services() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <div className="bg-gradient-to-b from-white via-blue-50/35 to-white">
       <main className="px-4 py-10 md:px-10 md:py-24">
@@ -49,38 +52,45 @@ export default function Services() {
           </div>
 
           <div className="grid gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-4">
-            {serviceCards.map((card) => (
-              <Link
+            {serviceCards.map((card, index) => (
+              <motion.div
                 key={card.title}
-                href={card.href}
-                aria-label={`이천 ${card.title} 정기관리 상세 안내`}
-                className="group relative block h-[240px] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-[0_8px_24px_rgba(15,76,169,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(15,76,169,0.14)] sm:h-[280px] md:h-[520px] md:rounded-[1.8rem] md:shadow-[0_18px_45px_rgba(15,76,169,0.10)]"
+                initial={reduceMotion ? false : { opacity: 0, y: 36, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.55, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
               >
-                <img
-                  src={card.image}
-                  alt={`이천 ${card.title} 정기관리 서비스`}
-                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
+                <Link
+                  href={card.href}
+                  aria-label={`이천 ${card.title} 정기관리 상세 안내`}
+                  className="group relative block h-[240px] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-[0_8px_24px_rgba(15,76,169,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(15,76,169,0.14)] sm:h-[280px] md:h-[520px] md:rounded-[1.8rem] md:shadow-[0_18px_45px_rgba(15,76,169,0.10)]"
+                >
+                  <img
+                    src={card.image}
+                    alt={`이천 ${card.title} 정기관리 서비스`}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/28 to-white/5" />
-                <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/20 to-transparent md:h-28" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/28 to-white/5" />
+                  <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/20 to-transparent md:h-28" />
 
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                  <p className="min-h-8 text-[10px] font-bold leading-4 text-white/70 md:text-[11px]">
-                    {card.subtitle}
-                  </p>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+                    <p className="min-h-8 text-[10px] font-bold leading-4 text-white/70 md:text-[11px]">
+                      {card.subtitle}
+                    </p>
 
-                  <div className="mt-2 flex items-center justify-between gap-3">
-                    <h2 className="whitespace-nowrap text-xl font-extrabold leading-tight tracking-normal text-white md:text-[clamp(1.45rem,2.1vw,2rem)]">
-                      {card.title}
-                    </h2>
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:text-primary md:h-11 md:w-11">
-                      <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
-                    </span>
+                    <div className="mt-2 flex items-center justify-between gap-3">
+                      <h2 className="whitespace-nowrap text-xl font-extrabold leading-tight tracking-normal text-white md:text-[clamp(1.45rem,2.1vw,2rem)]">
+                        {card.title}
+                      </h2>
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white group-hover:text-primary md:h-11 md:w-11">
+                        <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </section>
