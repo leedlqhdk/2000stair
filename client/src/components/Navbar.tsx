@@ -22,7 +22,7 @@ const navGroups: NavGroup[] = [
     items: [],
   },
   {
-    label: "방문지역",
+    label: "관리지역",
     items: [
       { label: "관고동", href: "/area/gwango" },
       { label: "창전동", href: "/area/changjeon" },
@@ -156,7 +156,7 @@ useEffect(() => {
               </button>
               <div
                 className={`${idx === navGroups.length - 1 ? dropdownPanelRightClass : dropdownPanelClass} ${
-                  group.label === "방문지역" ? "grid min-w-80 grid-cols-2 gap-1" : ""
+                  group.label === "관리지역" ? "grid min-w-80 grid-cols-2 gap-1" : ""
                 }`}
               >
                 {group.items.map((item) =>
@@ -217,7 +217,7 @@ useEffect(() => {
                     <ChevronDown className={`h-4 w-4 transition-transform ${openMobileIndex === idx ? "rotate-180" : ""}`} />
                   </button>
                   {openMobileIndex === idx && (
-                    <div className={`mt-2 grid gap-1 ${group.label === "방문지역" ? "grid-cols-2" : ""}`}>
+                    <div className={`mt-2 grid gap-1 ${group.label === "관리지역" ? "grid-cols-2" : ""}`}>
                       {group.items.map((item) =>
                         item.sectionId ? (
                           <a key={item.label} href={item.href} className="rounded-xl bg-white/70 px-4 py-2.5 text-sm font-bold text-muted-foreground" onClick={(e) => handleSectionClick(e, item.sectionId)}>

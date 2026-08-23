@@ -34,7 +34,7 @@ export default function HusbandProfileStats() {
           </motion.div>
 
           <motion.div
-            className="px-6 py-8 text-center md:px-10 md:py-10 lg:px-12 lg:py-14 lg:text-left"
+            className="flex flex-col px-6 py-8 text-center md:px-10 md:py-10 lg:px-12 lg:py-14 lg:text-left"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -46,21 +46,16 @@ export default function HusbandProfileStats() {
               대표가 직접 관리합니다
             </h2>
 
-            <p className="mt-5 text-sm leading-7 text-muted-foreground md:text-base">
-              이천 계단청소와 건물 정기관리는 단순히 한 번 청소하고 끝나는 일이 아닙니다.
-            </p>
-
-            <p className="mx-auto mt-5 max-w-2xl text-sm font-semibold leading-7 text-foreground/90 md:text-[15px] lg:mx-0">
-              처음 본 건물의 계단, 공동현관, 창틀 상태를 기억하고 다음 방문도 이어서 관리하는 것이 중요합니다.
-              <br className="hidden md:block" />
-              이천계단지기는 외주나 하청 없이 대표가 직접 방문하여 건물 상태를 확인하고, 정기관리 주기와 작업 범위를 안내해드립니다. 관리사무소와 법인 고객도 계약·증빙 기준에 맞춰 상담합니다.
+            <p className="mx-auto mt-6 max-w-xl break-keep text-sm font-medium leading-7 text-muted-foreground md:text-base md:leading-8 lg:mx-0">
+              처음 방문한 건물의 계단·공동현관·창틀 상태를 기록하고, 다음 방문에도 같은 기준으로 이어서 관리합니다.
+              관리 범위와 주기는 현장 확인 후 안내하며, 관리사무소와 법인 고객은 계약·증빙 기준에 맞춰 상담합니다.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-2xl gap-5 sm:grid-cols-3 lg:mx-0">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  className={`text-center lg:text-left ${index === 1 ? "lg:-ml-3" : ""}`}
+                  className="text-center lg:text-left"
                   initial={{ opacity: 0, y: 18, scale: 0.92 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
@@ -93,7 +88,7 @@ export default function HusbandProfileStats() {
               ))}
             </div>
 
-            <div className="mt-6 flex justify-center lg:max-w-2xl lg:justify-end">
+            <div className="mt-auto flex justify-center pt-10 lg:max-w-2xl lg:justify-end">
               <Link
                 href="/about"
                 className="inline-flex items-center justify-center rounded-full border border-primary/20 bg-blue-50 px-5 py-3 text-sm font-extrabold text-primary shadow-[0_10px_24px_rgba(15,76,169,0.08)] transition hover:-translate-y-0.5 hover:border-primary/35 hover:bg-white hover:shadow-[0_14px_30px_rgba(15,76,169,0.12)]"

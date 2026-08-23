@@ -18,9 +18,15 @@ const TYPING_MS = 950;
 
 type Props = {
   onComplete?: () => void;
+  showConclusion?: boolean;
+  startDelay?: number;
 };
 
-export default function DesktopHomeConcerns({ onComplete }: Props) {
+export default function DesktopHomeConcerns({
+  onComplete,
+  showConclusion = true,
+  startDelay = START_DELAY,
+}: Props) {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(0);
@@ -52,10 +58,10 @@ export default function DesktopHomeConcerns({ onComplete }: Props) {
         obs.disconnect();
 
         lines.forEach((_, index) => {
-          timers.push(setTimeout(() => setShown(index + 1), START_DELAY + index * STEP));
+          timers.push(setTimeout(() => setShown(index + 1), startDelay + index * STEP));
         });
 
-        const typingAt = START_DELAY + lines.length * STEP;
+        const typingAt = startDelay + lines.length * STEP;
         timers.push(setTimeout(() => setTyping(true), typingAt));
         timers.push(
           setTimeout(() => {
@@ -74,7 +80,7 @@ export default function DesktopHomeConcerns({ onComplete }: Props) {
       observer.disconnect();
       timers.forEach(clearTimeout);
     };
-  }, [reduce]);
+  }, [reduce, startDelay]);
 
   const anim = (visible: boolean) =>
     reduce
@@ -86,7 +92,7 @@ export default function DesktopHomeConcerns({ onComplete }: Props) {
         };
 
   return (
-    <div ref={sectionRef} className="relative mx-auto w-full max-w-[520px] px-2 py-2 lg:px-4">
+    <div ref={sectionRef} className="relative mx-auto w-full max-w-[680px] px-2 py-2 lg:px-4">
       <style>{`
         @keyframes desktop-home-concerns-blink {
           0%, 60%, 100% { opacity: .25; transform: translateY(0); }
@@ -100,14 +106,14 @@ export default function DesktopHomeConcerns({ onComplete }: Props) {
         }
       `}</style>
 
-      <div className="flex min-h-[360px] flex-col gap-3 lg:min-h-[390px]">
+      <div className={`flex flex-col gap-5 lg:gap-6 ${showConclusion ? "min-h-[390px] lg:min-h-[440px]" : "min-h-[330px]"}`}>
         {lines.map((line, index) => (
           <motion.div
             key={line.accent}
             className="flex justify-start pl-1"
             {...anim(shown > index)}
           >
-            <p className="max-w-[88%] break-keep rounded-[7px_18px_18px_18px] bg-[#f2f4f8] px-5 py-3.5 text-[14px] font-semibold leading-[1.6] text-foreground shadow-[0_5px_18px_rgba(15,23,42,0.04)] lg:text-[15px]">
+            <p className="max-w-[90%] break-keep rounded-[7px_18px_18px_18px] bg-[#f2f4f8] px-6 py-4 text-[15px] font-semibold leading-[1.6] text-foreground shadow-[0_5px_18px_rgba(15,23,42,0.04)] lg:text-[17px]">
               &ldquo;{line.lead}
               {line.breakAfterLead && <br />}
               <span className="font-extrabold text-primary">{line.accent}</span>
@@ -137,16 +143,18 @@ export default function DesktopHomeConcerns({ onComplete }: Props) {
           </motion.div>
         )}
 
-        <motion.div className="flex items-start justify-end gap-2 pr-1" {...anim(shown >= TOTAL)}>
-          <p className="max-w-[86%] break-keep rounded-[18px_7px_18px_18px] bg-primary px-5 py-3.5 text-[14px] font-extrabold leading-[1.6] text-white shadow-[0_10px_28px_rgba(15,76,169,0.2)] lg:text-[15px]">
-            문제는 청소보다 ‘관리의 지속성’이었습니다.
-          </p>
-          <img
-            src="/favicon-192.png"
-            alt="이천계단지기"
-            className="h-10 w-10 shrink-0 rounded-full bg-white p-1 shadow-sm ring-1 ring-blue-100"
-          />
-        </motion.div>
+        {showConclusion && (
+          <motion.div className="flex items-start justify-end gap-3 pr-1" {...anim(shown >= TOTAL)}>
+            <p className="max-w-[92%] break-keep rounded-[22px_8px_22px_22px] bg-primary px-7 py-5 text-[16px] font-extrabold leading-[1.6] text-white shadow-[0_12px_32px_rgba(15,76,169,0.24)] lg:text-[18px]">
+              문제는 청소보다 ‘관리의 지속성’이었습니다.
+            </p>
+            <img
+              src="/favicon-192.png"
+              alt="이천계단지기"
+              className="h-12 w-12 shrink-0 rounded-full bg-white p-1 shadow-sm ring-1 ring-blue-100"
+            />
+          </motion.div>
+        )}
       </div>
     </div>
   );

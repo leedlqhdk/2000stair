@@ -1,58 +1,49 @@
 import { motion } from "framer-motion";
-import { Camera, ClipboardCheck, FileText, MapPin, RotateCw } from "lucide-react";
+import { ChevronDown, ClipboardCheck, Home, MessageCircle, MessageSquareMore, Sparkles } from "lucide-react";
 
 const steps = [
-  { icon: MapPin, title: "방문 확인" },
-  { icon: Camera, title: "상태 기록" },
-  { icon: ClipboardCheck, title: "초도관리" },
-  { icon: RotateCw, title: "정기관리" },
-  { icon: FileText, title: "작업 기록" },
+  { number: "01", icon: MessageCircle, title: "문의하기", text: "카카오톡으로 건물 사진과 주소를 보내주시면 상담을 시작합니다.", mobileText: "사진과 주소를 보내주시면 상담을 시작합니다." },
+  { number: "02", icon: Home, title: "무료 방문 견적", text: "현장 상황과 오염 상태를 확인해 관리 범위와 주기를 안내드립니다.", mobileText: "현장을 확인하고 관리 범위를 안내드립니다." },
+  { number: "03", icon: ClipboardCheck, title: "관리 계획 안내", text: "방문 견적 후 관리 범위와 주기를 정리한 견적서를 제공해드립니다. 고객님 편의에 따라 대면 또는 비대면 계약이 가능합니다.", mobileText: "견적서 제공 후 대면·비대면 계약이 가능합니다." },
+  { number: "04", icon: Sparkles, title: "정기 관리 시작", text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다.", mobileText: "부부가 직접 방문해 꾸준히 관리합니다." },
+  { number: "05", icon: MessageSquareMore, title: "원활한 피드백", text: "초도청소 후 청소 전후 사진 제공과 함께 요청사항과 건의사항을 빠르게 반영해드립니다.", mobileText: "초도청소 후 청소 전후 사진 제공과 요청사항 반영을 함께 진행합니다." },
 ];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-white py-20 md:py-28">
-      <div className="container max-w-6xl">
-        <motion.div className="mx-auto mb-12 max-w-2xl text-center" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+    <section id="how-it-works" className="py-10 md:py-24 bg-white">
+      <div className="container max-w-4xl">
+        <motion.div className="mx-auto mb-6 max-w-2xl text-center md:mb-12" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
           <p className="mb-2 text-xs font-bold tracking-[0.25em] text-primary md:mb-4 md:text-sm">PROCESS</p>
-          <h2 className="text-3xl font-extrabold leading-[1.14] text-foreground md:text-5xl">
-            이천 건물 정기관리,
-            <br />
-            이렇게 진행합니다
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl break-keep text-lg font-semibold leading-relaxed text-muted-foreground">
-            방문 확인부터 작업 기록까지, 계단·공동현관·창틀 상태를 이어서 관리합니다.
-          </p>
+          <h2 className="mb-2 text-2xl font-extrabold leading-[1.14] text-foreground md:mb-4 md:text-4xl">이렇게 진행됩니다</h2>
+          <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground md:text-lg">복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리 범위를 안내드립니다.</p>
         </motion.div>
 
-        <motion.div
-          className="rounded-[2rem] border border-blue-100 bg-blue-50/45 p-5 shadow-[0_12px_36px_rgba(15,76,169,0.08)] md:p-8"
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.65 }}
-        >
-          <div className="grid grid-cols-5 items-stretch gap-3">
+        <motion.div className="mx-auto max-w-xl md:max-w-2xl" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.65 }}>
+          <div className="space-y-1.5 md:space-y-3">
             {steps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                className="relative flex min-h-[150px] flex-col items-center justify-center rounded-2xl border border-blue-100 bg-white px-4 py-6 text-center shadow-sm"
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: index * 0.06 }}
-              >
-                <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-primary">
-                  <step.icon className="h-6 w-6" />
-                </span>
-                <span className="text-sm font-extrabold text-primary">0{index + 1}</span>
-                <h3 className="mt-1 break-keep text-xl font-extrabold text-foreground">{step.title}</h3>
+              <div key={step.number}>
+                <motion.div className="flex min-h-[5.25rem] items-center rounded-2xl border border-blue-100 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md md:min-h-[8rem] md:p-5" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.08 }}>
+                  <div className="flex w-full items-center gap-2.5 md:gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-primary ring-1 ring-blue-100 md:h-12 md:w-12 md:rounded-2xl">
+                      <step.icon className="h-4 w-4 md:h-6 md:w-6" />
+                    </div>
+                    <div className="flex min-w-0 flex-1 items-start gap-2 md:gap-4">
+                      <span className="mt-0.5 text-[11px] font-extrabold text-primary md:text-sm">{step.number}</span>
+                      <div className="min-w-0">
+                        <h3 className="mb-0.5 text-sm font-extrabold text-foreground md:mb-1 md:text-lg">{step.title}</h3>
+                        <p className="text-xs leading-relaxed text-muted-foreground md:hidden">{step.mobileText}</p>
+                        <p className="hidden text-base leading-relaxed text-muted-foreground md:block">{step.text}</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
                 {index < steps.length - 1 && (
-                  <span className="absolute -right-3 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-xs font-extrabold text-white shadow">
-                    →
-                  </span>
+                  <div className="hidden justify-center py-1 text-primary/45 md:flex">
+                    <ChevronDown className="h-4 w-4 stroke-[2.5]" />
+                  </div>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>

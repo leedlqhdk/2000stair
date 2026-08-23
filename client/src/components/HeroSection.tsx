@@ -1,24 +1,15 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import VisitorCounter from "@/components/VisitorCounter";
-import DesktopHomeConcerns from "@/components/DesktopHomeConcerns";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
-  onConcernsComplete?: () => void;
 }
 
 const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
 
-export default function HeroSection({ isAuthenticated, onConcernsComplete }: HeroSectionProps) {
+export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   void isAuthenticated;
-  const [concernsDone, setConcernsDone] = useState(false);
-
-  const handleConcernsComplete = () => {
-    setConcernsDone(true);
-    onConcernsComplete?.();
-  };
 
   return (
     <section className="relative overflow-hidden bg-white">
@@ -82,31 +73,28 @@ export default function HeroSection({ isAuthenticated, onConcernsComplete }: Her
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <DesktopHomeConcerns onComplete={handleConcernsComplete} />
-          </motion.div>
-        </div>
-      </div>
-
-      <div
-        className={`grid transition-[grid-template-rows,opacity] delay-150 duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          concernsDone ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        <div className="overflow-hidden" key={concernsDone ? "desktop-hero-revealed" : "desktop-hero-hidden"}>
-          {/* 방문자 수 신뢰 바 (PC 전용 — 모바일은 MobileHome 히어로에 표시) */}
-          <motion.div
-            className="border-t border-blue-100/60 bg-white py-3.5"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="container flex max-w-6xl justify-center">
-              <VisitorCounter />
+            <div className="relative mx-auto aspect-[4/5] max-h-[520px] w-full max-w-[430px] overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+              <img
+                src="/images/couple-profile.jpg"
+                alt="하청 없이 직접 관리하는 이천계단지기 부부"
+                className="h-full w-full object-cover object-[50%_42%]"
+              />
             </div>
           </motion.div>
         </div>
       </div>
+
+      {/* 방문자 수 신뢰 바 (PC 전용 — 모바일은 MobileHome 히어로에 표시) */}
+      <motion.div
+        className="border-t border-blue-100/60 bg-white py-3.5"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        <div className="container flex max-w-6xl justify-center">
+          <VisitorCounter />
+        </div>
+      </motion.div>
     </section>
   );
 }

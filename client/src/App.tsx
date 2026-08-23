@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Spinner } from "@/components/ui/spinner";
@@ -50,27 +50,80 @@ const Card = lazy(() => import("@/pages/Card"));
 
 function ScrollToTop() {
   const [location] = useLocation();
+  const previousLocation = useRef(location);
+  const positions = useRef(new Map<string, number>());
+  const isBackOrForward = useRef(false);
 
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+
+    let frame = 0;
+    const saveHistoryPosition = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const state = window.history.state && typeof window.history.state === "object"
+          ? window.history.state
+          : {};
+        window.history.replaceState({ ...state, __scrollY: window.scrollY }, "");
+      });
+    };
+
+    const handlePopState = () => {
+      isBackOrForward.current = true;
+    };
+
+    window.addEventListener("popstate", handlePopState, true);
+    window.addEventListener("scroll", saveHistoryPosition, { passive: true });
+    saveHistoryPosition();
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState, true);
+      window.removeEventListener("scroll", saveHistoryPosition);
+      window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
-    if (location === "/") {
-      if (window.location.hash) {
-        window.history.replaceState(null, "", "/");
-      }
+    const previousPath = previousLocation.current;
 
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      return;
+    if (previousPath !== location) {
+      positions.current.set(previousPath, window.scrollY);
     }
 
+    previousLocation.current = location;
     const hash = window.location.hash;
+    const delay = hash && location !== "/" ? 120 : 0;
 
-    if (hash) {
-      setTimeout(() => {
+    const scrollTimer = window.setTimeout(() => {
+      const historyPosition = Number(window.history.state?.__scrollY);
+      const shouldRestoreHome = location === "/" && Number.isFinite(historyPosition) && historyPosition > 0;
+
+      if (isBackOrForward.current || shouldRestoreHome) {
+        isBackOrForward.current = false;
+        const savedPosition = shouldRestoreHome
+          ? historyPosition
+          : positions.current.get(location) ?? 0;
+
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            window.scrollTo({ top: savedPosition, left: 0, behavior: "auto" });
+          });
+        });
+        return;
+      }
+
+      if (location === "/") {
+        if (window.location.hash) {
+          window.history.replaceState(null, "", "/");
+        }
+
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        return;
+      }
+
+      if (hash) {
         const element = document.querySelector(hash);
 
         if (element) {
@@ -79,12 +132,13 @@ function ScrollToTop() {
             block: "start",
           });
         }
-      }, 120);
+        return;
+      }
 
-      return;
-    }
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }, delay);
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    return () => window.clearTimeout(scrollTimer);
   }, [location]);
 
   return null;
@@ -275,11 +329,12 @@ function AppChrome() {
   const isAdminRoute = location.startsWith("/admin");
   const isBareRoute = location === "/card";
   const hideChrome = isAdminRoute || isBareRoute;
+  const hideFooter = hideChrome || location === "/";
 
   return (
     <>
       <Router />
-      {!hideChrome && <Footer />}
+      {!hideFooter && <Footer />}
       {!hideChrome && <ScrollToTopButton />}
       {!hideChrome && <KakaoChat />}
     </>
