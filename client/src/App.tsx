@@ -36,6 +36,7 @@ const Baeksa = lazy(() => import("@/pages/Baeksa"));
 const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
 const About = lazy(() => import("@/pages/About"));
 const Qna = lazy(() => import("@/pages/Qna"));
+const BeforeAfter = lazy(() => import("@/pages/BeforeAfter"));
 const Reviews = lazy(() => import("./pages/Reviews"));
 const Services = lazy(() => import("./pages/Services"));
 const StairCleaning = lazy(() => import("./pages/StairCleaning"));
@@ -269,6 +270,7 @@ function Router() {
           <Route path={"/"} component={Home} />
           <Route path="/about" component={About} />
           <Route path="/qna" component={Qna} />
+          <Route path="/before-after" component={BeforeAfter} />
           <Route path="/reviews" component={Reviews} />
           <Route path="/services" component={Services} />
           <Route path="/services/stair" component={StairCleaning} />
@@ -329,7 +331,7 @@ function AppChrome() {
   const isAdminRoute = location.startsWith("/admin");
   const isBareRoute = location === "/card";
   const hideChrome = isAdminRoute || isBareRoute;
-  const hideFooter = hideChrome || location === "/";
+  const hideFooter = hideChrome;
 
   return (
     <>

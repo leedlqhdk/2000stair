@@ -49,7 +49,9 @@ const navGroups: NavGroup[] = [
   {
     label: "작업정보",
     items: [
-       { label: "정보글", href: "/guide" },
+      { label: "청소 전후", href: "/before-after" },
+      { label: "자주 묻는 질문", href: "/qna" },
+      { label: "정보글", href: "/guide" },
       { label: "공식블로그", href: "https://blog.naver.com/icheonstair" },
     ],
   },

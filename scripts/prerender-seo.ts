@@ -600,6 +600,27 @@ function getGeneralStaticSections(route: string, posts: AreaPost[]) {
     );
   }
 
+  if (route === "/before-after") {
+    return [
+      section(
+        "이천 청소 전후 사진",
+        paragraph("이천 빌라·상가의 계단, 공동현관 유리와 화장실을 직접 관리한 청소 전후 사진을 작업 부위별로 확인할 수 있습니다.")
+      ),
+      section(
+        "청소 전후 확인 항목",
+        list(["계단 바닥과 난간", "창틀과 공동현관 유리", "공용부 소화전", "화장실 수전과 공용화장실"])
+      ),
+      section(
+        "서비스별 관리 안내",
+        linkList([
+          { href: "/services/stair", label: "계단청소 정기관리 안내" },
+          { href: "/services/glass", label: "공동현관·상가 유리청소 안내" },
+          { href: "/services/bathroom", label: "공용화장실 청소 안내" },
+        ])
+      ),
+    ].join("");
+  }
+
   if (route === "/reviews") {
     return section(
       "후기 확인 포인트",

@@ -223,6 +223,14 @@ export const generalSeoByPath = {
     canonical: `${SITE_URL}/qna`,
     keywords: `이천계단청소 비용, 계단청소 견적, 계단청소 자주묻는질문, ${BASE_KEYWORDS}`,
   },
+  "/before-after": {
+    title: "이천 청소 전후 사진 | 계단·유리·화장실 실제 작업 – 이천계단지기",
+    description:
+      "이천 빌라·상가 계단, 공동현관 유리와 화장실의 실제 청소 전후 사진을 작업 부위별로 확인하세요.",
+    canonical: `${SITE_URL}/before-after`,
+    keywords: `이천 청소 전후, 계단청소 전후 사진, 유리청소 전후, 화장실청소 전후, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/images/before-after/majang-villa-stair-rust-removal-after.webp"),
+  },
   "/services": {
     title: "청소 서비스 안내 | 계단·유리·화장실·사무실 관리 – 이천계단지기",
     description:
