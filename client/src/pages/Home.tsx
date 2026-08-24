@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
@@ -17,6 +17,11 @@ export default function Home() {
   const [intro, setIntro] = useState<"loading" | "reveal" | "done">(() =>
     shouldShowIntro() ? "loading" : "done"
   );
+
+  useEffect(() => {
+    document.documentElement.classList.add("home-pc-scroll-snap");
+    return () => document.documentElement.classList.remove("home-pc-scroll-snap");
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">

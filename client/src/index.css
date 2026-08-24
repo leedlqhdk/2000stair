@@ -220,11 +220,18 @@
   }
 }
 @media (min-width: 768px) {
+  html.home-pc-scroll-snap {
+    scroll-padding-top: 5rem;
+    scroll-snap-type: y proximity;
+  }
+
   .home-scroll-section {
     align-items: center;
     display: flex;
     min-height: calc(100svh - 5rem);
     scroll-margin-top: 5rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
   }
 
   .home-scroll-section > * {
