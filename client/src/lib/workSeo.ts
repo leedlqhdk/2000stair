@@ -88,7 +88,11 @@ export function getWorkSeo(post: AreaPost): SeoProps {
         name: post.title,
         description,
         datePublished: post.date.replace(/\./g, "-"),
-        creator: { "@id": `${SITE_URL}/#business` },
+        creator: { "@type": "Organization", name: "이천계단지기", url: `${SITE_URL}/` },
+        creditText: "이천계단지기",
+        copyrightNotice: "이천계단지기",
+        license: `${SITE_URL}/about`,
+        acquireLicensePage: `${SITE_URL}/about`,
       },
       {
         "@context": "https://schema.org",
