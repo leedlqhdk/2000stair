@@ -52,9 +52,9 @@ export default function BathroomCleaning() {
           },
         ],
         pricingTiers: [
-          { badge: "월 2회", price: "40,000~", note: "소형 상가·공용화장실 기준" },
-          { badge: "월 4회", price: "70,000~", note: "가장 인기 있는 정기관리", highlight: true },
-          { badge: "일회성", price: "별도 견적", note: "오염이 심해 강도 높은 세척 필요시" },
+          { badge: "월 2회", price: "별도문의", note: "소형 상가·공용화장실 기준" },
+          { badge: "월 4회", price: "별도문의", note: "가장 인기 있는 정기관리", highlight: true },
+          { badge: "일회성", price: "별도문의", note: "오염이 심해 강도 높은 세척 필요시" },
         ],
         infoContent: {
           title: "공용화장실 정기청소가 필요한 이유",
