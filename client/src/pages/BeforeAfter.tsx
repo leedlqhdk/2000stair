@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MoveHorizontal } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { beforeAfterItems, type BeforeAfterItem } from "@/data/beforeAfter";
 
@@ -26,7 +25,7 @@ function ComparisonSlider({
         </div>
       </div>
 
-      <div className="relative aspect-[3/2] select-none overflow-hidden bg-slate-100 md:aspect-[16/9]">
+      <div className="relative aspect-[4/3] select-none overflow-hidden rounded-[2rem] border border-white/40 bg-white/20 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-xl md:aspect-[4/3]">
         <img
           src={item.before}
           alt={`${item.title} 청소 전`}
@@ -43,19 +42,19 @@ function ComparisonSlider({
           draggable={false}
         />
 
-        <span className="absolute left-3 top-3 z-10 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-bold tracking-wide text-white backdrop-blur md:left-4 md:top-4 md:px-3 md:py-1.5 md:text-xs">
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-black/55 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
           BEFORE
         </span>
-        <span className="absolute right-3 top-3 z-10 rounded-full bg-primary/85 px-2.5 py-1 text-[10px] font-bold tracking-wide text-white backdrop-blur md:right-4 md:top-4 md:px-3 md:py-1.5 md:text-xs">
+        <span className="absolute right-4 top-4 z-10 rounded-full bg-primary/85 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
           AFTER
         </span>
 
         <div
-          className="pointer-events-none absolute inset-y-0 z-20 w-0.5 -translate-x-1/2 bg-white shadow-[0_0_12px_rgba(15,23,42,0.35)]"
+          className="pointer-events-none absolute inset-y-0 z-20 w-1 cursor-col-resize bg-white shadow"
           style={{ left: `${position}%` }}
         >
-          <span className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-primary text-white shadow-lg md:h-11 md:w-11">
-            <MoveHorizontal className="h-4 w-4 md:h-5 md:w-5" strokeWidth={2.5} />
+          <span className="absolute top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white text-xs font-bold text-primary shadow-lg">
+            ↔
           </span>
         </div>
 

@@ -2,7 +2,7 @@ import { ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { Link } from "wouter";
 import { trackConversion } from "@/lib/analytics";
-import { AboutCarePhilosophy, AboutGreeting, wifeCharacterSrc } from "@/components/AboutDetailHighlights";
+import { AboutCarePhilosophy, AboutGreeting } from "@/components/AboutDetailHighlights";
 
 const husbandRole = {
   badge: "남편 · 현장",
@@ -108,74 +108,6 @@ export default function MobileAbout() {
 
       <CoupleRoles />
 
-      {/* 시작한 이유와 관리 철학 */}
-      <motion.section
-        className="px-5 py-7 md:px-10 md:py-14"
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white p-6 md:p-10">
-          <div className="grid items-center gap-4 md:grid-cols-[minmax(0,1fr)_150px] md:gap-8">
-            <div className="min-w-0">
-              <motion.h2
-                className="break-keep font-['GmarketSans'] text-xl font-extrabold leading-tight text-foreground md:text-3xl"
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.8 }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              >
-                우리가 <span className="text-primary">시작한 이유</span>
-              </motion.h2>
-              <motion.p
-                className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700 md:mt-4 md:text-base md:leading-8"
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.8 }}
-                transition={{ duration: 0.55, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              >
-                우리가 살던 빌라도 청소 상태가 좋지 않았습니다. 늘 지저분한 계단을 오르며 생각했습니다.
-              </motion.p>
-              <motion.p
-                className="mt-3 break-keep font-['GmarketSans'] text-base font-extrabold text-primary md:mt-4 md:text-xl"
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.8 }}
-                transition={{ duration: 0.55, delay: 0.44, ease: [0.22, 1, 0.36, 1] }}
-              >
-                "왜 계단청소는 항상 아쉬울까?"
-              </motion.p>
-              <motion.p
-                className="mt-3 break-keep text-sm font-medium leading-relaxed text-gray-700 md:text-base md:leading-8"
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.8 }}
-                transition={{ duration: 0.55, delay: 0.66, ease: [0.22, 1, 0.36, 1] }}
-              >
-                그래서 직접 시작했습니다. 계단청소는 한 번보다 꾸준함이 중요하기에, 처음 확인한 건물 상태를
-                기억하고 이어서 관리합니다.
-              </motion.p>
-            </div>
-
-            <motion.img
-              src={wifeCharacterSrc}
-              alt="이천계단지기가 시작한 이유를 소개하는 아내 단이 캐릭터"
-              className="mx-auto w-[110px] object-contain mix-blend-multiply md:w-[150px]"
-              loading="lazy"
-              initial={{ opacity: 0, scale: 0.94 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                opacity: { duration: 0.6 },
-                scale: { duration: 0.6 },
-              }}
-            />
-          </div>
-        </div>
-
-        <AboutCarePhilosophy />
-      </motion.section>
-
       {/* 관리 프로세스 */}
       <section className="my-8 px-5 py-8 md:my-14 md:py-10">
         <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">관리 프로세스</h2>
@@ -232,6 +164,10 @@ export default function MobileAbout() {
             ))}
           </div>
         </motion.div>
+      </section>
+
+      <section className="px-5 py-7 md:px-10 md:py-14">
+        <AboutCarePhilosophy />
       </section>
 
       {/* 사진 제공 */}

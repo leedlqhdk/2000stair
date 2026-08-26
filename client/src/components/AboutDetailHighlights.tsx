@@ -29,28 +29,66 @@ const careReasons = [
 
 export function AboutGreeting() {
   return (
-    <motion.div
-      className="relative rounded-2xl border-2 border-blue-100 bg-white px-4 py-5 shadow-[0_10px_30px_rgba(37,99,235,0.06)] md:rounded-3xl md:px-8 md:py-8"
-      initial={{ opacity: 0, y: 22, scale: 0.94 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: 0.7, type: "spring", stiffness: 190, damping: 15, mass: 0.85 }}
-    >
-      <span
-        aria-hidden="true"
-        className="absolute -bottom-[10px] left-1/2 h-5 w-5 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-blue-100 bg-white md:-bottom-[14px] md:h-7 md:w-7"
-      />
-      <p className="text-[8px] font-extrabold tracking-[0.18em] text-primary md:text-xs">HELLO</p>
-      <h1 className="mt-1.5 break-keep font-['GmarketSans'] text-[15px] font-extrabold leading-snug text-foreground md:mt-2 md:text-3xl">
-        우리는 <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">계단을 지키는</span> 부부입니다.
-      </h1>
-      <p className="mt-2.5 break-keep text-[10.5px] font-bold leading-[1.65] text-gray-700 md:mt-4 md:text-base md:leading-8">
-        깨끗한 계단은 건물의 첫인상입니다. 이천에서 하청 없이 직접 관리합니다.
-      </p>
-      <p className="mt-2 max-w-3xl break-keep text-[10.5px] font-medium leading-[1.65] text-gray-700 md:mt-4 md:text-base md:leading-8">
-        상담부터 현장 확인, 초도청소 후 청소 전후 사진 제공까지 부부가 직접 챙깁니다. 매번 같은 사람이 같은 기준으로 건물
-        상태를 이어서 살필 수 있습니다.
-      </p>
-    </motion.div>
+    <>
+      <motion.div
+        className="px-0 pb-6 pt-2 md:hidden"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.16, delayChildren: 0.12 } },
+        }}
+      >
+        <motion.p
+          className="text-[11px] font-extrabold tracking-[0.28em] text-primary"
+          variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          ABOUT
+        </motion.p>
+        <motion.h1
+          className="mt-7 break-keep font-['GmarketSans'] text-[2.85rem] font-extrabold leading-[1.18] text-foreground"
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+        >
+          하청 없이
+          <br />
+          부부가 직접
+          <br />
+          관리합니다.
+        </motion.h1>
+        <motion.p
+          className="mt-8 max-w-[22rem] break-keep text-[17px] font-medium leading-[1.75] text-slate-700"
+          variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        >
+          상담부터 현장 확인, 작업 후 사진까지 같은 담당자가 이어서 챙깁니다.
+        </motion.p>
+      </motion.div>
+
+      <motion.div
+        className="relative hidden rounded-2xl border-2 border-blue-100 bg-white px-4 py-5 shadow-[0_10px_30px_rgba(37,99,235,0.06)] md:block md:rounded-3xl md:px-8 md:py-8"
+        initial={{ opacity: 0, y: 22, scale: 0.94 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 0.7, type: "spring", stiffness: 190, damping: 15, mass: 0.85 }}
+      >
+        <span
+          aria-hidden="true"
+          className="absolute -bottom-[14px] left-1/2 h-7 w-7 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-blue-100 bg-white"
+        />
+        <p className="text-xs font-extrabold tracking-[0.18em] text-primary">HELLO</p>
+        <h1 className="mt-2 break-keep font-['GmarketSans'] text-3xl font-extrabold leading-snug text-foreground">
+          우리는 <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">계단을 지키는</span> 부부입니다.
+        </h1>
+        <p className="mt-4 break-keep text-base font-bold leading-8 text-gray-700">
+          깨끗한 계단은 건물의 첫인상입니다. 이천에서 하청 없이 직접 관리합니다.
+        </p>
+        <p className="mt-4 max-w-3xl break-keep text-base font-medium leading-8 text-gray-700">
+          상담부터 현장 확인, 초도청소 후 청소 전후 사진 제공까지 부부가 직접 챙깁니다. 매번 같은 사람이 같은 기준으로 건물
+          상태를 이어서 살필 수 있습니다.
+        </p>
+      </motion.div>
+    </>
   );
 }
 
