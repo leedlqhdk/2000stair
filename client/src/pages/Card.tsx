@@ -6,7 +6,7 @@ import { trackConversion } from "@/lib/analytics";
 const PHONE_NUMBER = "010-8438-1887";
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const BLOG_URL = "https://blog.naver.com/icheonstair";
-const INSTAGRAM_URL = "https://www.instagram.com/icheon_stair/";
+const INSTAGRAM_URL = "https://www.instagram.com/2000stair?igsh=MW9icHh5Nmg4YW01Mw==";
 const YOUTUBE_URL = "https://youtube.com/@2000stair?si=UxYmvQPywQSOj3DU";
 const NAVER_PLACE_URL = "https://map.naver.com/p/entry/place/2097250452";
 
@@ -16,7 +16,7 @@ const services = [
   { label: "화장실청소", href: "/services/bathroom" },
 ];
 
-const trustPoints = ["대표 직접 관리", "하청·용역 미사용", "전후 사진 제공", "세금계산서 발행"];
+const trustPoints = ["대표 직접 관리", "하청·용역 미사용", "초도청소 후 청소 전후 사진 제공", "세금계산서 발행"];
 
 const socials = [
   { label: "전화", href: `tel:${PHONE_NUMBER.replace(/-/g, "")}`, icon: Phone, external: false },

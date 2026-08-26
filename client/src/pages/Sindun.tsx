@@ -6,7 +6,7 @@ import { useAreaPosts } from "@/hooks/useAreaPosts";
 const fallbackPosts: never[] = [];
 
 const reviews = [
-  { text: "관리 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.", source: "신둔면 빌라 동대표님 후기" },
+  { text: "초도청소 후 청소 전후 사진을 보내주셔서 믿고 맡길 수 있었습니다.", source: "신둔면 빌라 동대표님 후기" },
   { text: "공용공간이 꾸준히 깔끔하게 유지돼서 만족합니다.", source: "신둔면 원룸 입주민 후기" },
 ];
 
@@ -35,6 +35,7 @@ return (
 headline="신둔면의 공용공간을 꾸준히 관리합니다"
 description="부부가 직접, 신둔면 빌라·원룸·상가 공용공간을 관리합니다."
 focus="수광리·도암리·남정리 등 신둔면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
+  areaSlug="sindun"
 />
 
 <AreaTimeline

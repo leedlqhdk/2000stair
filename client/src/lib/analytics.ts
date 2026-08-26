@@ -2,6 +2,7 @@ type ConversionEventName =
   | "kakao_click"
   | "phone_click"
   | "review_click"
+  | "cta_click"
   | "quote_form_view"
   | "quote_form_submit";
 

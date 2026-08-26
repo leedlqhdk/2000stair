@@ -10,9 +10,9 @@ export default function BathroomCleaning() {
         heroBgImage: "/images/services/restroom-cleaning/bathroom-02-after.webp",
         heroVideo: "/images/services/restroom-cleaning/bathroom-cleaning-video.mov",
         heroTitle: "쾌적한 화장실,\n건물 신뢰도를 높입니다",
-        heroSubtitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
-        heroBody: "이천 화장실청소 전문업체 | 공용화장실 정기관리",
-        seoTitle: "이천 화장실청소 전문업체 | 공용화장실 정기관리 – 이천계단지기",
+        heroSubtitle: "공용화장실 위생관리 범위·정기 방문 기준",
+        heroBody: "공용화장실 위생관리 범위·정기 방문 기준",
+        seoTitle: "공용화장실 청소 범위·정기관리 – 이천계단지기",
         features: [
           {
             title: "위생 전문 관리",
@@ -27,8 +27,8 @@ export default function BathroomCleaning() {
             description: "외주·하청 없이 대표가 직접 방문하여 품질을 보장합니다.",
           },
           {
-            title: "전후사진 제공",
-            description: "요청시 청소 전·후 사진을 카카오톡으로 전달해드립니다.",
+            title: "초도청소 후 청소 전후 사진 제공",
+            description: "요청시 초도청소 후 청소 전후 사진을 카카오톡으로 전달해드립니다.",
           },
         ],
         scopeItems: [
@@ -52,15 +52,15 @@ export default function BathroomCleaning() {
           },
         ],
         pricingTiers: [
-          { badge: "월 2회", price: "40,000~", note: "소형 상가·공용화장실 기준" },
-          { badge: "월 4회", price: "70,000~", note: "가장 인기 있는 정기관리", highlight: true },
-          { badge: "일회성", price: "별도 견적", note: "오염이 심해 강도 높은 세척 필요시" },
+          { badge: "월 2회", price: "별도문의", note: "소형 상가·공용화장실 기준" },
+          { badge: "월 4회", price: "별도문의", note: "가장 인기 있는 정기관리", highlight: true },
+          { badge: "일회성", price: "별도문의", note: "오염이 심해 강도 높은 세척 필요시" },
         ],
         infoContent: {
           title: "공용화장실 정기청소가 필요한 이유",
           body: `상가 건물, 사무실, 원룸 건물의 공용화장실은 하루에도 수십 명이 사용하는 공간입니다. 사용 빈도가 높을수록 세균, 악취, 오염이 빠르게 축적됩니다. 정기적인 전문 청소 없이는 일반 청소만으로 위생을 유지하기 어렵습니다.
 
-이천 화장실청소 전문업체 이천계단지기는 변기 내·외부 세척 및 소독, 세면대 물때 제거, 바닥 오염 제거, 악취 원인 차단까지 공용화장실 위생 관리의 전 과정을 담당합니다.
+이천계단지기는 변기 내·외부 세척 및 소독, 세면대 물때 제거, 바닥 오염 제거, 악취 원인 차단까지 공용화장실 위생 관리의 전 과정을 현장 상태에 맞춰 안내합니다.
 
 악취는 배수구, 변기 주변 오염, 벽면 타일 사이 곰팡이가 주요 원인입니다. 전문 약품과 장비를 사용하면 단순 청소로는 제거되지 않는 악취 원인을 근본적으로 해결할 수 있습니다.
 
@@ -92,8 +92,8 @@ export default function BathroomCleaning() {
             a: "네, 정기관리 시 휴지통 교체 및 비닐 처리, 주변 오염 제거도 기본 범위에 포함됩니다.",
           },
           {
-            q: "이천 전지역 가능한가요?",
-            a: "현재는 이천 시내와 신둔면, 마장면, 대월면, 부발읍 등 이천 북부 지역만 방문이 가능합니다.",
+            q: "어떤 지역까지 방문 가능한가요?",
+            a: "현재는 이천 시내권과 신둔면, 마장면, 대월면, 부발읍 등 주요 관리 지역을 중심으로 주소와 사진 확인 후 방문 가능 여부를 안내합니다.",
           },
         ],
         showReviews: true,

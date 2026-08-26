@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Link, useLocation } from "wouter";
 import {
   ArrowRight,
@@ -18,6 +18,8 @@ import { trackConversion } from "@/lib/analytics";
 import ChannelLinks from "@/components/ChannelLinks";
 import VisitorCounter from "@/components/VisitorCounter";
 import Reveal from "@/components/Reveal";
+import HomeConcerns from "@/components/HomeConcerns";
+import HomeWorkSlider from "@/components/HomeWorkSlider";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
@@ -67,7 +69,7 @@ const processSteps = [
   { icon: MessageCircle, title: "문의하기" },
   { icon: HomeIcon, title: "방문 견적" },
   { icon: Sparkles, title: "정기 관리" },
-  { icon: Camera, title: "사진 공유" },
+  { icon: Camera, title: "초도 전후사진" },
 ];
 
 const popularServices = [
@@ -109,34 +111,73 @@ const areaChips = [
 export default function MobileHome() {
   const [, setLocation] = useLocation();
   const goToQuote = () => setLocation("/quote");
+  const [chatDone, setChatDone] = useState(false);
 
   return (
     <div className="md:hidden">
       {/* HERO */}
       <section className="px-5 pb-7 pt-7">
-        <h1 className="break-keep font-['GmarketSans'] text-[clamp(1.5rem,8vw,2rem)] font-bold leading-[1.2] text-foreground">
-          <span className="block bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
-            이천계단지기
-          </span>
-          건물 정기 청소관리 전문
-        </h1>
-        <p className="mt-3 break-keep text-sm font-semibold leading-relaxed text-gray-700">
-          계단청소 · 사무실청소 · 화장실청소 · 유리청소
-          <br />
-          믿고 맡길 수 있는 <strong className="text-foreground">청소 파트너</strong>
-        </p>
-        <div className="mt-5 flex gap-2.5">
-          <button
-            type="button"
-            onClick={() => {
-              trackConversion("quote_form_view", { location: "mobile_hero", label: "무료 견적 문의" });
-              goToQuote();
+        <div className="flex items-center gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="break-keep font-['GmarketSans'] text-[1.5rem] font-bold leading-[1.22] text-foreground">
+              이천
+              <br />
+              <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
+                계단청소를
+              </span>
+              <br />
+              지키는 부부입니다
+              <span className="mt-2 block text-[0.63em] leading-snug">빌라·상가 공용공간 정기관리</span>
+            </h1>
+            <p className="mt-2.5 break-keep text-[13px] font-semibold leading-relaxed text-gray-700">
+              하청 없이 <strong className="text-foreground">부부가 직접</strong>, 주소와 사진 기준으로 상담합니다
+            </p>
+          </div>
+          <motion.div
+            className="w-[132px] shrink-0"
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
+            transition={{
+              opacity: { duration: 0.6 },
+              scale: { duration: 0.6 },
+              y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
             }}
+          >
+            <Link
+              href="/about"
+              aria-label="이천계단지기 부부 소개 페이지 보기"
+              onClick={() =>
+                trackConversion("cta_click", {
+                  location: "mobile_hero",
+                  label: "부부사진 → 소개 페이지",
+                })
+              }
+              className="relative block rounded-3xl transition active:scale-[0.97]"
+            >
+              <img
+                src="/images/couple-profile.jpg"
+                alt="이천계단지기 부부"
+                className="w-full rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
+                loading="eager"
+              />
+              <span className="absolute bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-black/65 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur-sm">
+                소개 보기
+                <ArrowRight className="h-3 w-3" />
+              </span>
+            </Link>
+          </motion.div>
+        </div>
+        <div className="mt-5 flex gap-2.5">
+          <a
+            href={KAKAO_CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackConversion("kakao_click", { location: "mobile_hero", label: "카카오톡 상담" })}
             className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-extrabold text-white shadow-lg shadow-primary/25"
           >
-            무료 견적 문의
-            <ArrowRight className="h-4 w-4" />
-          </button>
+            <MessageCircle className="h-4 w-4" />
+            카카오톡 상담
+          </a>
           <a
             href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
             onClick={() => trackConversion("phone_click", { location: "mobile_hero", label: "전화 상담" })}
@@ -150,6 +191,19 @@ export default function MobileHome() {
           <VisitorCounter />
         </div>
       </section>
+
+      <HomeConcerns onComplete={() => setChatDone(true)} />
+
+      <HomeWorkSlider revealed={chatDone} />
+
+      {/* 아래 본문 전체 — 대화가 끝난 뒤 이어서 펼쳐집니다 (하단 독은 항상 노출) */}
+      <div
+        className={`grid transition-[grid-template-rows,opacity] delay-300 duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          chatDone ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        {/* key: 펼쳐지는 순간 리마운트해서 각 섹션의 기존 등장 모션이 처음부터 재생되게 함 */}
+        <div className="overflow-hidden" key={chatDone ? "revealed" : "hidden"}>
 
       {/* PROCESS FLOW */}
       <section className="px-5 py-7">
@@ -213,27 +267,42 @@ export default function MobileHome() {
         <h2 className="mb-5 px-5 font-['GmarketSans'] text-lg font-extrabold text-foreground">
           작업 후기
         </h2>
-        <div className="flex gap-3 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {reviews.map((review) => (
-            <a
-              key={review.source}
-              href={review.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackConversion("review_click", { location: "mobile_reviews", label: review.source })}
-              className="block w-[230px] shrink-0 rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-bold tracking-wide text-amber-500">★★★★★</span>
-                <span className="text-[13px] font-extrabold text-foreground">5.0</span>
-              </div>
-              <p className="mt-2.5 text-[13.5px] font-semibold leading-relaxed text-foreground">{review.text}</p>
-              <span className="mt-3.5 inline-flex items-center gap-1 text-xs font-bold text-muted-foreground">
-                {review.source}
-                <ArrowRight className="h-3 w-3" />
-              </span>
-            </a>
-          ))}
+        <style>{`
+          @keyframes home-review-marquee {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-50%, 0, 0); }
+          }
+          .home-review-track { animation: home-review-marquee 28s linear infinite; width: max-content; }
+          @media (prefers-reduced-motion: reduce) { .home-review-track { animation: none; } }
+        `}</style>
+        <div className="flex overflow-hidden" aria-label="고객 후기">
+          <div className="home-review-track flex shrink-0">
+            {[...reviews, ...reviews].map((review, i) => {
+              const clone = i >= reviews.length;
+              return (
+                <a
+                  key={`${review.source}-${i}`}
+                  href={review.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-hidden={clone || undefined}
+                  tabIndex={clone ? -1 : undefined}
+                  onClick={() => trackConversion("review_click", { location: "mobile_reviews", label: review.source })}
+                  className="mr-3 block w-[230px] shrink-0 rounded-2xl border border-blue-100 bg-white p-4 shadow-[0_2px_10px_rgba(15,23,42,0.04)] transition active:scale-[0.99]"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold tracking-wide text-amber-500">★★★★★</span>
+                    <span className="text-[13px] font-extrabold text-foreground">5.0</span>
+                  </div>
+                  <p className="mt-2.5 text-[13.5px] font-semibold leading-relaxed text-foreground">{review.text}</p>
+                  <span className="mt-3.5 inline-flex items-center gap-1 text-xs font-bold text-muted-foreground">
+                    {review.source}
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
+                </a>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -305,6 +374,9 @@ export default function MobileHome() {
           </div>
         </div>
       </section>
+
+        </div>
+      </div>
 
       {/* BOTTOM DOCK */}
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[1.7fr_1fr_1fr] border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.06)]">

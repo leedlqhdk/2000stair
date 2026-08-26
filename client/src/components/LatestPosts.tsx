@@ -37,10 +37,10 @@ export default function LatestPosts() {
             <div>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mb-5">
                 실제 이천 지역 빌라·상가 계단청소 현장을 기록하고 있습니다.
-                작업 전후와 관리 포인트를 블로그에서 확인해보세요.
+                지역별 작업일지와 관리 포인트를 확인해보세요.
               </p>
 
-              <Link href="/blog">
+              <Link href="/records">
                 <Button variant="outline" className="rounded-xl bg-white">
                   전체 작업일지 보기
                   <ArrowRight className="w-4 h-4 ml-2" />

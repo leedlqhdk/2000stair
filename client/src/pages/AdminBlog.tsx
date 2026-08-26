@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { PenLine, Trash2, Eye, EyeOff, Plus, LogIn } from "lucide-react";
+import { PenLine, Trash2, Eye, EyeOff, Plus, LogIn, ClipboardList } from "lucide-react";
 
 export default function AdminBlog() {
   const [password, setPassword] = useState("");
@@ -122,6 +122,12 @@ export default function AdminBlog() {
           <p className="text-sm text-gray-400 mt-1">총 {posts?.length ?? 0}개의 게시글</p>
         </div>
         <div className="flex gap-2">
+          <Link href="/admin/field">
+            <Button className="bg-blue-600 text-white hover:bg-blue-700" size="sm">
+              <ClipboardList className="mr-1 h-4 w-4" />
+              현장관리
+            </Button>
+          </Link>
           <Link href="/admin/reviews">
             <Button variant="outline" size="sm">후기 관리</Button>
           </Link>

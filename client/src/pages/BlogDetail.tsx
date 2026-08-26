@@ -111,8 +111,8 @@ export default function BlogDetail() {
           <p className="text-muted-foreground text-lg mb-5">
             게시글을 찾을 수 없습니다.
           </p>
-          <Link href="/blog">
-            <Button variant="outline">작업일지 목록으로</Button>
+          <Link href="/records">
+            <Button variant="outline">작업기록 목록으로</Button>
           </Link>
         </div>
       </div>
@@ -135,14 +135,14 @@ export default function BlogDetail() {
         >
           {/* 헤더 내비 */}
           <div className="mb-7 flex items-center justify-between gap-4">
-            <Link href={isCareGuide ? "/guide" : "/blog"}>
+            <Link href={isCareGuide ? "/guide" : "/records"}>
               <Button
                 variant="ghost"
                 size="sm"
                 className="-ml-2 text-muted-foreground hover:text-primary"
               >
                 <ArrowLeft className="w-4 h-4 mr-1" />
-                {isCareGuide ? "관리정보 목록" : "작업일지 목록"}
+                {isCareGuide ? "관리정보 목록" : "작업기록 목록"}
               </Button>
             </Link>
 

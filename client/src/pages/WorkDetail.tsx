@@ -1,51 +1,14 @@
-import { useMemo } from "react";
 import { Link, useParams } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, CalendarDays, Images, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Images, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Seo from "@/components/Seo";
 import { Skeleton } from "@/components/ui/skeleton";
-import { daewolPosts } from "@/data/areas/daewol";
-import { downtownPosts } from "@/data/areas/downtown";
-import { majangPosts } from "@/data/areas/majang";
 import type { AreaPost } from "@/hooks/useAreaPosts";
-import { getWorkSeo, workAreaLabels as areaLabels } from "@/lib/workSeo";
+import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
+import { getWorkSeo, workAreaLabels as areaLabels, workAreaRoutes as areaRoutes } from "@/lib/workSeo";
 import { getWorkSlug } from "@/lib/workSlug";
-
-const areaRoutes: Record<string, string> = {
-  majang: "/area/majang",
-  daewol: "/area/daewol",
-  sindun: "/area/sindun",
-  downtown: "/areas",
-  gwango: "/area/gwango",
-  changjeon: "/area/changjeon",
-  jungni: "/area/jungni",
-  jeungpo: "/area/jeungpo",
-  bubal: "/area/bubal",
-  baeksa: "/area/baeksa",
-};
-
-const fallbackPosts: AreaPost[] = [
-  ...majangPosts.map((post) => ({ ...post, area: "majang" })),
-  ...daewolPosts.map((post) => ({ ...post, area: "daewol" })),
-  ...downtownPosts,
-].sort((a, b) => b.date.localeCompare(a.date));
-
-function useAllAreaPosts() {
-  return useQuery({
-    queryKey: ["area-posts", "work-detail"],
-    queryFn: async () => {
-      const response = await fetch("/api/area-posts?limit=50", { cache: "no-store" });
-      if (!response.ok) return [];
-      return (await response.json()) as AreaPost[];
-    },
-    staleTime: 0,
-    refetchOnMount: "always",
-    refetchOnWindowFocus: true,
-    retry: 1,
-  });
-}
+import { getWorkRelatedLinks } from "@shared/workRelatedLinks";
 
 function getDefaultBuildingType(title: string) {
   if (/상가/.test(title)) return "상가 건물";
@@ -67,15 +30,20 @@ function getDefaultWorkType(title: string) {
   return "계단청소";
 }
 
+function withAreaPrefix(areaLabel: string, title: string) {
+  return title.includes(areaLabel) ? title : `${areaLabel} ${title}`;
+}
+
 function getIntroText(post: AreaPost, areaLabel: string) {
   if (post.description) return post.description;
+  const titleWithArea = withAreaPrefix(areaLabel, post.title);
 
   if (/원룸|빌라/.test(post.title)) {
-    return `${areaLabel} ${post.title} 작업입니다. 비 오는 날 이후 흙먼지와 발자국 오염이 남기 쉬운 계단과 공동현관을 중심으로 관리했습니다.`;
+    return `${titleWithArea} 작업입니다. 비 오는 날 이후 흙먼지와 발자국 오염이 남기 쉬운 계단과 공동현관을 중심으로 관리했습니다.`;
   }
 
   if (/상가/.test(post.title)) {
-    return `${areaLabel} ${post.title} 작업입니다. 출입이 잦은 공용부의 먼지와 손이 닿는 구간을 중심으로 확인하고 정리했습니다.`;
+    return `${titleWithArea} 작업입니다. 출입이 잦은 공용부의 먼지와 손이 닿는 구간을 중심으로 확인하고 정리했습니다.`;
   }
 
   return `${areaLabel} 현장에서 직접 확인한 상태를 기준으로 관리 범위를 정리한 작업 기록입니다.`;
@@ -100,7 +68,7 @@ function getRecommendedTargets(post: AreaPost) {
     return ["물때와 얼룩이 눈에 띄는 화장실", "수전·타일 틈 오염을 정리하고 싶은 공간", "사진 기준으로 빠른 안내가 필요한 현장"];
   }
 
-  return ["공용공간 상태를 꾸준히 관리하고 싶은 건물", "사진 기록으로 관리 상태를 확인하고 싶은 현장", "계단·복도·공동현관을 함께 맡기고 싶은 곳"];
+  return ["공용공간 상태를 꾸준히 관리하고 싶은 건물", "초도청소 후 청소 전후 사진으로 관리 상태를 확인하고 싶은 현장", "계단·복도·공동현관을 함께 맡기고 싶은 곳"];
 }
 
 function getBlogAreaLabel(post: AreaPost, areaLabel: string) {
@@ -157,16 +125,7 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
 
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { data, isLoading } = useAllAreaPosts();
-
-  const posts = useMemo(() => {
-    const notionPosts = data ?? [];
-    const seenSlugs = new Set(notionPosts.map(getWorkSlug));
-    const missingFallbackPosts = fallbackPosts.filter((fallbackPost) => !seenSlugs.has(getWorkSlug(fallbackPost)));
-
-    return [...notionPosts, ...missingFallbackPosts];
-  }, [data]);
-
+  const { posts, isLoading } = useAllWorkPosts("work-detail");
   const post = posts.find((item) => getWorkSlug(item) === slug);
   // 노션 설명은 빈 줄 기준으로 문단을 나눠, 첫 문단은 상단 소개로 쓰고 나머지는 본문 섹션에 표시
   const descriptionParagraphs = (post?.description ?? "")
@@ -177,6 +136,7 @@ export default function WorkDetail() {
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
   const backHref = post?.area ? areaRoutes[post.area] ?? "/records" : "/records";
   const blogAreaLabel = post ? getBlogAreaLabel(post, areaLabel) : areaLabel;
+  const relatedLinks = post ? getWorkRelatedLinks(post, { areaLabel, areaHref: backHref }) : [];
   const recommendedTargets = post ? getRecommendedTargets(post) : [];
   const detailRows = post ? [
     ["지역", areaLabel],
@@ -310,6 +270,23 @@ export default function WorkDetail() {
           <section className="mt-12">
             <h2 className="mb-6 text-2xl font-extrabold text-foreground">현장 사진</h2>
             <WorkPhotoCollage images={images} title={post.title} />
+          </section>
+
+          <section className="mt-12 border-y border-blue-100 py-6 md:py-8">
+            <p className="mb-2 text-xs font-bold tracking-[0.25em] text-primary">RELATED LINKS</p>
+            <h2 className="mb-4 text-xl font-extrabold text-foreground md:text-2xl">
+              지역 안내와 서비스 안내로 이어보기
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {relatedLinks.map((link) => (
+                <Link key={link.href} href={link.href}>
+                  <a className="inline-flex items-center gap-1 rounded-full border border-blue-200 bg-white px-4 py-2.5 text-sm font-extrabold text-primary transition hover:bg-blue-50">
+                    {link.label}
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </a>
+                </Link>
+              ))}
+            </div>
           </section>
 
           <section className="mt-14 rounded-[1.5rem] bg-primary p-7 text-white md:p-9">

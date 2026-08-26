@@ -10,8 +10,8 @@ export default function GlassCleaning() {
         heroBgImage: "/images/services/glass-cleaning/glass-page01.webp",
         heroVideo: "/images/services/glass-cleaning/glass-cleaning-video.mov",
         heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
-        heroSubtitle: "이천 유리청소 전문업체 | 상가 유리·공동현관 유리·건물 유리관리",
-        seoTitle: "이천 유리청소 전문업체 | 상가·건물 유리관리 – 이천계단지기",
+        heroSubtitle: "상가 유리·공동현관 유리·건물 유리 관리방법",
+        seoTitle: "유리청소 범위·관리방법 – 이천계단지기",
 
         features: [
           {

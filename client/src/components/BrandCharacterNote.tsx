@@ -10,7 +10,7 @@ export default function BrandCharacterNote() {
             오늘도 직접 관리 다녀왔어요
           </h2>
           <p className="max-w-xl text-sm leading-6 text-muted-foreground md:text-base">
-            이천계단지기는 상담부터 현장 확인, 작업 후 사진 기록까지 부부가 직접 챙깁니다.
+            이천계단지기는 상담부터 현장 확인, 초도청소 후 청소 전후 사진 제공까지 부부가 직접 챙깁니다.
             작업일지는 실제 현장에서 확인한 내용을 기준으로 차곡차곡 쌓아가고 있어요.
           </p>
         </div>

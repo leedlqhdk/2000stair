@@ -15,6 +15,8 @@ const serviceLinks = [
 
 const archiveLinks = [
   { href: "/areas", label: "관리 가능 지역" },
+  { href: "/before-after", label: "청소 전후 사진" },
+  { href: "/qna", label: "자주 묻는 질문" },
   {
     href: "https://blog.naver.com/icheonstair",
     label: "네이버 블로그",

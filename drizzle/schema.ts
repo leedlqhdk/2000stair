@@ -1,9 +1,37 @@
-import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, real, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", ["user", "admin"]);
 export const serviceTypeEnum = pgEnum("serviceType", ["in_person", "non_contact"]);
 export const quoteStatusEnum = pgEnum("status", ["pending", "contacted", "confirmed", "canceled"]);
 export const publishedEnum = pgEnum("published", ["draft", "published"]);
+
+export const fieldSites = pgTable("field_sites", {
+  id: serial("id").primaryKey(), name: varchar("name", { length: 200 }).notNull(), address: text("address").notNull(),
+  phone: varchar("phone", { length: 30 }), status: varchar("status", { length: 30 }).default("inquiry").notNull(), note: text("note"),
+  latitude: real("latitude"), longitude: real("longitude"),
+  contractStartDate: varchar("contractStartDate", { length: 10 }), contractEndDate: varchar("contractEndDate", { length: 10 }),
+  weeklyFrequency: integer("weeklyFrequency").default(1).notNull(), visitWeekdays: text("visitWeekdays"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(), updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type FieldSite = typeof fieldSites.$inferSelect;
+export type InsertFieldSite = typeof fieldSites.$inferInsert;
+
+export const fieldSchedules = pgTable("field_schedules", {
+  id: serial("id").primaryKey(), siteId: integer("siteId"), startAt: timestamp("startAt").notNull(),
+  type: varchar("type", { length: 40 }).notNull(), status: varchar("status", { length: 30 }).default("scheduled").notNull(),
+  amount: integer("amount").default(0).notNull(), assignee: varchar("assignee", { length: 60 }), note: text("note"), checklist: text("checklist"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(), updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type FieldSchedule = typeof fieldSchedules.$inferSelect;
+export type InsertFieldSchedule = typeof fieldSchedules.$inferInsert;
+
+export const fieldRouteSettings = pgTable("field_route_settings", {
+  id: integer("id").primaryKey().default(1),
+  startAddress: text("startAddress"), startLatitude: real("startLatitude"), startLongitude: real("startLongitude"),
+  endAddress: text("endAddress"), endLatitude: real("endLatitude"), endLongitude: real("endLongitude"),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type FieldRouteSettings = typeof fieldRouteSettings.$inferSelect;
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),

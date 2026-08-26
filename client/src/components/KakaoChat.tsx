@@ -17,11 +17,13 @@ export default function KakaoChat() {
   const isAreas = location === "/areas";
   const [isScrolling, setIsScrolling] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [isNearBottom, setIsNearBottom] = useState(false);
   const scrollTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolling(true);
+      setIsNearBottom(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 360);
 
       if (scrollTimer.current) {
         window.clearTimeout(scrollTimer.current);
@@ -33,6 +35,7 @@ export default function KakaoChat() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -68,7 +71,7 @@ export default function KakaoChat() {
 
   return (
     <>
-      {!isFooterVisible && (
+      {!isFooterVisible && !isNearBottom && (
         <div
           className={`fixed bottom-4 right-4 z-50 flex-col items-end gap-1.5 md:bottom-6 md:right-6 md:gap-3 ${
             isHome || isAreas ? "hidden lg:flex" : "flex"

@@ -2,7 +2,7 @@ import type { SeoProps } from "@/components/Seo";
 
 const SITE_URL = "https://2000stair.kr";
 const SERVICE_TYPES = ["계단청소", "빌라청소", "상가청소", "공용공간 정기관리", "유리청소", "화장실청소"];
-const BASE_KEYWORDS = "이천계단청소, 계단청소, 빌라계단청소, 상가계단청소, 이천청소업체, 정기청소";
+const BASE_KEYWORDS = "정기청소, 공용공간 관리, 빌라 공용부 관리, 상가 공용부 관리";
 
 function toAbsoluteUrl(url: string) {
   return url.startsWith("http") ? url : `${SITE_URL}${url}`;
@@ -150,11 +150,11 @@ export const seoByAreaSlug = {
   }),
   gonjiam: areaSeo({
     slug: "gonjiam",
-    areaName: "곤지암",
-    title: "곤지암 계단청소·공용공간 정기관리 | 이천계단지기",
+    areaName: "곤지암읍",
+    title: "곤지암읍 신둔 인근 계단청소·공용공간 관리 | 이천계단지기",
     description:
-      "곤지암 빌라·상가 공용공간의 계단, 복도, 공동현관, 유리청소 상담을 현장 사진과 주소 확인 후 안내드립니다.",
-    localities: ["곤지암", "곤지암읍"],
+      "곤지암읍 전 지역이 아닌 신둔면과 가까운 인접 지역의 빌라·상가 공용공간을 주소와 현장 사진 확인 후 상담합니다.",
+    localities: ["곤지암읍 신둔면 인접 지역"],
   }),
 } satisfies Record<string, SeoProps>;
 
@@ -162,7 +162,7 @@ export const generalSeoByPath = {
   "/": {
     title: "이천계단청소 전문 이천계단지기 | 빌라·상가 계단청소·유리청소·화장실청소",
     description:
-      "이천계단청소 전문 이천계단지기. 이천 빌라·상가 공용공간, 계단·유리·화장실 청소를 하청 없이 부부가 직접 정기관리합니다. 세금계산서와 계약 기준 상담이 가능합니다.",
+      "이천 빌라·상가 계단청소 정기관리. 부부가 직접 관리하고 초도청소 후 청소 전후 사진을 제공합니다.",
     canonical: `${SITE_URL}/`,
     keywords: `이천계단청소, 이천계단청소업체, 이천빌라청소, 이천상가청소, 계단청소업체, 이천계단지기, ${BASE_KEYWORDS}`,
     image: toAbsoluteUrl("/og-image.png"),
@@ -209,11 +209,11 @@ export const generalSeoByPath = {
     ],
   },
   "/about": {
-    title: "부부가 직접 관리하는 이천 계단청소 업체 | 이천계단지기",
+    title: "이천계단지기 소개 | 부부 직영·하청 없는 청소관리",
     description:
-      "이천계단지기는 하청 없이 부부가 직접 빌라·상가 계단, 유리, 화장실 공용공간을 정기관리하는 이천 지역 청소 업체입니다. 같은 담당자가 꾸준히 관리하고 작업 전후 사진으로 결과를 확인하실 수 있습니다.",
+      "이천계단지기의 부부 직영 관리 방식, 상담 기준, 현장 확인과 초도청소 후 청소 전후 사진 제공 방식을 안내합니다.",
     canonical: `${SITE_URL}/about`,
-    keywords: `이천계단청소 업체, 부부 직영 청소업체, 이천계단지기 소개, ${BASE_KEYWORDS}`,
+    keywords: `이천계단지기 소개, 부부 직영 청소관리, 하청 없는 청소관리, 이천 공용공간 관리`,
     image: toAbsoluteUrl("/images/main-phone.webp"),
   },
   "/qna": {
@@ -223,19 +223,27 @@ export const generalSeoByPath = {
     canonical: `${SITE_URL}/qna`,
     keywords: `이천계단청소 비용, 계단청소 견적, 계단청소 자주묻는질문, ${BASE_KEYWORDS}`,
   },
-  "/services": {
-    title: "이천 계단청소·유리청소·화장실청소 서비스 안내 | 이천계단지기",
+  "/before-after": {
+    title: "이천 청소 전후 사진 | 계단·유리·화장실 실제 작업 – 이천계단지기",
     description:
-      "이천계단지기의 계단정기청소, 유리청소, 화장실청소 서비스를 한눈에 확인하세요. 빌라·상가·원룸 공용공간을 부부가 직접 방문해 정기관리합니다.",
+      "이천 빌라·상가 계단, 공동현관 유리와 화장실의 실제 청소 전후 사진을 작업 부위별로 확인하세요.",
+    canonical: `${SITE_URL}/before-after`,
+    keywords: `이천 청소 전후, 계단청소 전후 사진, 유리청소 전후, 화장실청소 전후, ${BASE_KEYWORDS}`,
+    image: toAbsoluteUrl("/images/before-after/majang-villa-stair-rust-removal-after.webp"),
+  },
+  "/services": {
+    title: "청소 서비스 안내 | 계단·유리·화장실·사무실 관리 – 이천계단지기",
+    description:
+      "계단정기청소, 유리청소, 화장실청소, 사무실청소의 관리 범위와 상담 기준을 서비스별로 확인하세요.",
     canonical: `${SITE_URL}/services`,
     keywords: `이천 청소 서비스, 계단청소 서비스, 유리청소 서비스, 화장실청소 서비스, ${BASE_KEYWORDS}`,
   },
   "/services/stair": {
-    title: "이천 계단청소 전문업체 | 빌라·상가 정기관리 – 이천계단지기",
+    title: "계단청소 범위·주기·비용 안내 | 이천계단지기",
     description:
-      "빌라·원룸·상가 계단 바닥, 난간·손잡이, 공동현관 유리, 거미줄 제거까지 월 2회·4회 정기관리합니다. 월 44,000원부터 현장 확인 후 견적을 안내드립니다.",
+      "이천 빌라·원룸·상가 계단청소의 관리 범위, 월 2회·4회 방문 주기, 비용 기준과 초도청소 후 청소 전후 사진 제공 방식을 안내합니다.",
     canonical: `${SITE_URL}/services/stair`,
-    keywords: `이천 계단청소, 계단정기청소, 빌라계단청소, 상가계단청소, 계단청소 비용, ${BASE_KEYWORDS}`,
+    keywords: `계단청소 범위, 계단청소 주기, 계단청소 비용, 빌라계단청소 관리방법, 상가계단청소 정기관리, ${BASE_KEYWORDS}`,
     image: toAbsoluteUrl("/images/services/stair-cleaning/icheon-stair-cleaning-service-main.webp"),
     jsonLd: serviceJsonLd({
       slug: "stair",
@@ -246,7 +254,7 @@ export const generalSeoByPath = {
     }),
   },
   "/services/glass": {
-    title: "이천 유리청소 전문업체 | 상가·건물 유리관리 – 이천계단지기",
+    title: "유리청소 범위·관리방법 | 상가·공동현관 유리 – 이천계단지기",
     description:
       "상가 출입문·전면 유리, 공동현관 유리, 얼룩·석회자국까지 이천계단지기가 직접 관리합니다. 계단청소와 함께 정기관리하면 더욱 효율적입니다.",
     canonical: `${SITE_URL}/services/glass`,
@@ -261,7 +269,7 @@ export const generalSeoByPath = {
     }),
   },
   "/services/bathroom": {
-    title: "이천 화장실청소 전문업체 | 공용화장실 정기관리 – 이천계단지기",
+    title: "공용화장실 청소 범위·정기관리 | 이천계단지기",
     description:
       "상가·사무실 공용화장실을 전문 약품과 장비로 위생 관리합니다. 정기 방문으로 세균과 악취 걱정 없이 항상 청결한 상태를 유지합니다.",
     canonical: `${SITE_URL}/services/bathroom`,
@@ -295,7 +303,7 @@ export const generalSeoByPath = {
     description:
       "네이버, 당근, 숨고에서 받은 이천계단지기의 실제 계단청소·유리청소·화장실청소 고객 후기를 확인하세요.",
     canonical: `${SITE_URL}/reviews`,
-    keywords: `이천계단청소 후기, 이천청소업체 후기, ${BASE_KEYWORDS}`,
+    keywords: `이천계단지기 후기, 청소관리 후기, 실제 청소 후기, ${BASE_KEYWORDS}`,
     // 평점·후기 데이터는 페이지에 노출되는 실제 후기(BlogReviews.tsx)와 일치해야 합니다.
     jsonLd: {
       "@context": "https://schema.org",
@@ -343,21 +351,14 @@ export const generalSeoByPath = {
     description:
       "신둔면, 마장면, 부발읍, 관고동, 창전동, 중리동, 증포동, 대월면 계단청소·빌라청소 가능 지역을 확인하세요.",
     canonical: `${SITE_URL}/areas`,
-    keywords: `이천 지역별 계단청소, 신둔면 계단청소, 마장면 계단청소, 부발읍 계단청소, 관고동 계단청소, 창전동 계단청소, 중리동 계단청소, 증포동 계단청소, 대월면 계단청소, ${BASE_KEYWORDS}`,
+    keywords: `이천 관리 가능 지역, 신둔면 계단청소, 마장면 계단청소, 부발읍 계단청소, 관고동 계단청소, 창전동 계단청소, 중리동 계단청소, 증포동 계단청소, 대월면 계단청소`,
   },
   "/records": {
     title: "이천계단지기 청소 기록 | 계단청소 현장 사례",
     description:
       "이천계단지기의 빌라·상가 계단청소, 유리청소, 화장실청소 현장 기록과 관리 사례를 확인하세요.",
     canonical: `${SITE_URL}/records`,
-    keywords: `이천계단청소 후기, 계단청소 기록, 청소 현장 사례, ${BASE_KEYWORDS}`,
-  },
-  "/blog": {
-    title: "이천계단지기 청소 기록 | 계단청소 현장 사례",
-    description:
-      "이천계단지기의 빌라·상가 계단청소, 유리청소, 화장실청소 현장 기록과 관리 사례를 확인하세요.",
-    canonical: `${SITE_URL}/blog`,
-    keywords: `이천계단청소 후기, 계단청소 기록, 청소 현장 사례, ${BASE_KEYWORDS}`,
+    keywords: `이천계단지기 작업일지, 계단청소 기록, 청소 현장 사례, 지역별 작업 사례`,
   },
   "/ops": {
     title: "운영 · 배포 상태 | 이천계단지기",
@@ -365,6 +366,7 @@ export const generalSeoByPath = {
       "현재 배포 SHA, 브랜치, 최근 반영한 변경 로그를 외부에서 확인할 수 있는 운영 상태 페이지입니다.",
     canonical: `${SITE_URL}/ops`,
     keywords: "이천계단지기 운영 상태, 배포 sha, 변경 로그, 사이트 업데이트",
+    robots: "noindex, follow",
   },
 } satisfies Record<string, SeoProps>;
 

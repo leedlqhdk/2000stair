@@ -8,6 +8,8 @@ import { majangPosts } from "../client/src/data/areas/majang";
 import type { AreaPost } from "../client/src/hooks/useAreaPosts";
 import { getWorkSeo } from "../client/src/lib/workSeo";
 import { getWorkSlug } from "../client/src/lib/workSlug";
+import { getPrimaryWorkService, getWorkRelatedLinks } from "../shared/workRelatedLinks";
+import type { WorkServiceKey } from "../shared/workRelatedLinks";
 
 const SITE_URL = "https://2000stair.kr";
 
@@ -75,6 +77,62 @@ const AREA_LABELS: Record<string, string> = {
   changjeon: "창전동",
   jungni: "중리동",
   jeungpo: "증포동",
+  bubal: "부발읍",
+  baeksa: "백사면",
+  gonjiam: "곤지암읍 인근",
+};
+
+const AREA_STATIC_DETAILS: Record<string, { intro: string; scopes: string[]; checks: string[] }> = {
+  majang: {
+    intro: "마장면 빌라·원룸·상가 공용공간을 부부가 직접 관리합니다. 오천리, 양촌리, 장암리, 덕평리 등은 주소와 사진을 먼저 확인한 뒤 방문 가능 여부와 관리 주기를 안내합니다.",
+    scopes: ["계단 바닥과 모서리 먼지", "원룸·빌라 복도 오염", "공동현관 유리와 손자국", "난간·손잡이", "출입구 주변 거미줄"],
+    checks: ["마장면 주소 확인", "건물 층수와 공용부 범위 확인", "초도청소 후 청소 전후 사진 제공", "정기관리 주기 상담"],
+  },
+  daewol: {
+    intro: "대월면 빌라·상가·원룸 공용공간을 현장 상태에 맞춰 관리합니다. 사동리, 초지리, 군량리, 장평리 주변은 계단과 창틀, 공동현관 상태를 함께 확인합니다.",
+    scopes: ["계단 바닥", "난간과 손잡이", "창틀 먼지", "공동현관 유리", "복도 모서리와 거미줄"],
+    checks: ["대월면 방문 가능 여부 확인", "4층 이상 빌라 공용부 범위 확인", "계단·창틀·공동현관 초도청소", "정기관리 계약 전 상담"],
+  },
+  sindun: {
+    intro: "신둔면 빌라·다세대·상가 공용공간을 정기관리합니다. 수광리, 도암리, 남정리, 지석리 등은 이동 동선과 현장 사진을 기준으로 상담합니다.",
+    scopes: ["빌라 계단 바닥", "공동현관 출입부", "복도 먼지", "난간·창틀", "외부 먼지 유입 구간"],
+    checks: ["신둔면 주소 확인", "방문 동선과 일정 확인", "정기청소 가능 주기 안내", "작업 후 사진 공유"],
+  },
+  gwango: {
+    intro: "관고동 상가·빌라·소형 건물 공용공간을 관리합니다. 관고시장, 설봉공원 인근처럼 방문객이 오가는 구역은 출입구와 공동현관 첫인상을 우선 확인합니다.",
+    scopes: ["상가 출입구", "공동현관 유리", "계단 난간", "복도 바닥", "화장실 포함 여부"],
+    checks: ["관고동 현장 사진 확인", "상가·빌라 공용부 범위 구분", "초도청소 후 청소 전후 사진 제공", "사업자 증빙 상담"],
+  },
+  changjeon: {
+    intro: "창전동 빌라·원룸·상가주택 공용공간을 정기 방문 기준으로 상담합니다. 입주민 이동이 잦은 계단과 복도, 공동현관 관리 주기를 먼저 정리합니다.",
+    scopes: ["빌라 계단", "원룸 복도", "공동현관 바닥", "출입문 유리", "상가주택 공용부"],
+    checks: ["창전동 건물 위치 확인", "입주민 이동 동선 확인", "월 2회·4회 관리 주기 상담", "작업 범위와 계약 조건 안내"],
+  },
+  jungni: {
+    intro: "중리동 빌라·상가 공용부를 사진 기준으로 확인하며 관리합니다. 건물주가 현장에 자주 오기 어려운 경우에도 초도청소 후 청소 전후 사진 제공으로 관리 상태를 공유합니다.",
+    scopes: ["공용계단", "복도와 현관", "출입부 바닥", "공동현관 유리", "난간·손잡이"],
+    checks: ["중리동과 인접 생활권 확인", "비대면 사진 상담", "정기관리 범위 정리", "작업 후 상태 공유"],
+  },
+  jeungpo: {
+    intro: "증포동·안흥동·갈산동·송정동 일대 빌라·원룸·상가주택 공용공간을 상담합니다. 주거 밀집 구역은 입주민이 매일 보는 계단, 복도, 공동현관 중심으로 관리합니다.",
+    scopes: ["빌라·원룸 계단", "공동현관 바닥", "복도 먼지", "출입문 유리", "난간과 모서리"],
+    checks: ["증포동 권역 주소 확인", "안흥동·갈산동 인근 상담", "정기관리 주기 안내", "초도청소 후 청소 전후 사진 제공"],
+  },
+  bubal: {
+    intro: "부발읍 빌라·상가·원룸 건물의 계단과 공동현관을 정기관리합니다. 아미리, 무촌리, 신하리 생활권은 상가 공용부와 주거지 공용부를 나눠 확인합니다.",
+    scopes: ["상가 출입부", "빌라 공용계단", "공동현관 유리", "복도 바닥", "화장실 포함 여부"],
+    checks: ["부발읍 주소 확인", "상가·주거 공용부 구분", "유리·화장실 포함 상담", "정기 방문 주기 안내"],
+  },
+  baeksa: {
+    intro: "백사면 빌라·상가 공용공간은 건물 위치와 외부 먼지 유입 정도를 함께 확인합니다. 모전리, 조읍리, 현방리 주변은 계단과 현관 상태를 기준으로 상담합니다.",
+    scopes: ["외부 먼지 유입 구간", "계단 바닥", "공동현관", "난간·손잡이", "복도 모서리"],
+    checks: ["백사면 방문 가능 여부 확인", "건물 주변 오염 요인 확인", "필요한 관리 범위 정리", "작업 기록 순차 안내"],
+  },
+  gonjiam: {
+    intro: "곤지암읍 인근은 전 지역이 아니라 신둔면과 가까운 구역 중심으로 방문 가능 여부를 확인합니다. 주소와 사진을 먼저 보고 이동 동선과 작업 범위를 안내합니다.",
+    scopes: ["계단·복도 상태", "공동현관 출입부", "유리 포함 여부", "방문 가능 동선", "정기관리 적합 여부"],
+    checks: ["곤지암읍 인접 지역 주소 확인", "신둔면 방향 동선 확인", "현장 사진 기준 상담", "가능 범위 우선 안내"],
+  },
 };
 
 function getProperty(properties: Record<string, NotionProperty | undefined>, names: readonly string[]) {
@@ -124,6 +182,9 @@ function normalizeArea(value: string) {
   if (["majang", "마장", "마장면"].some((keyword) => normalized.includes(keyword))) return "majang";
   if (["daewol", "대월", "대월면"].some((keyword) => normalized.includes(keyword))) return "daewol";
   if (["sindun", "신둔", "신둔면"].some((keyword) => normalized.includes(keyword))) return "sindun";
+  if (["bubal", "부발", "부발읍"].some((keyword) => normalized.includes(keyword))) return "bubal";
+  if (["baeksa", "백사", "백사면"].some((keyword) => normalized.includes(keyword))) return "baeksa";
+  if (["gonjiam", "곤지암", "곤지암읍"].some((keyword) => normalized.includes(keyword))) return "gonjiam";
   if (["gwango", "관고", "관고동", "사음", "사음동"].some((keyword) => normalized.includes(keyword))) return "gwango";
   if (["changjeon", "창전", "창전동"].some((keyword) => normalized.includes(keyword))) return "changjeon";
   if (["jungni", "중리", "중리동", "songjeong", "송정", "송정동"].some((keyword) => normalized.includes(keyword))) return "jungni";
@@ -247,46 +308,395 @@ function replaceOrThrow(html: string, pattern: RegExp, replacement: string, labe
   return html.replace(pattern, () => replacement);
 }
 
-// JS를 실행하지 않는 AI 검색·크롤러가 본문을 읽을 수 있도록
-// <div id="root"> 안에 정적 요약 본문을 넣는다 (React 마운트 시 교체됨).
-const STATIC_BODY_COMMON = `
-  <section>
-    <h2>서비스 및 시작 요금</h2>
-    <ul>
-      <li>계단청소 정기관리: 월 2회 40,000원~, 월 4회 70,000원~ (빌라 2~3층 공용계단 기준)</li>
-      <li>화장실청소 정기관리: 월 2회 20,000원~, 월 4회 40,000원~ (소형 상가·공용화장실 기준)</li>
-      <li>유리청소: 공동현관 30,000원~, 상가 전면 50,000원~ (일회성 가능)</li>
-      <li>사무실청소: 현장 방문 후 맞춤 견적, 주 1~2회 정기 방문</li>
-    </ul>
-  </section>
-  <section>
-    <h2>관리 지역</h2>
-    <p>경기도 이천시 신둔면, 마장면, 부발읍, 대월면, 백사면, 증포동, 중리동, 관고동, 창전동 일대를 부부가 직접 방문해 관리합니다.</p>
-  </section>
-  <section>
-    <h2>업체 정보</h2>
-    <p>이천계단지기는 이천 빌라·상가·원룸 공용공간(계단·사무실·화장실·유리) 정기 청소관리 전문 업체입니다. 대표 김규남이 하청 없이 직접 작업하며, 작업 전후 사진 제공과 세금계산서 발행이 가능합니다. 문의 010-8438-1887, 카카오톡 채널 상담 가능. 사업자등록번호 234-23-02318, 경기도 이천시 경충대로3160번길 21.</p>
-  </section>`;
+type StaticSeo = NonNullable<ReturnType<typeof getSeoForPath>>;
 
-function buildStaticBody(seo: NonNullable<ReturnType<typeof getSeoForPath>>) {
+type StaticBodyContext = {
+  route: string;
+  workPost?: AreaPost;
+  workPosts: AreaPost[];
+};
+
+function paragraph(value: string) {
+  return `<p>${escapeHtml(value)}</p>`;
+}
+
+function list(items: string[]) {
+  return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+}
+
+function linkList(items: Array<{ href: string; label: string }>) {
+  return `<ul>${items
+    .map(({ href, label }) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></li>`)
+    .join("")}</ul>`;
+}
+
+function section(title: string, body: string) {
+  return `<section><h2>${escapeHtml(title)}</h2>${body}</section>`;
+}
+
+function getAreaPosts(area: string, posts: AreaPost[]) {
+  return posts.filter((post) => post.area === area).slice(0, 6);
+}
+
+function getPostListLabel(post: AreaPost) {
+  const extras = [post.buildingType, post.workType, post.workScope]
+    .filter((value): value is string => Boolean(value?.trim()))
+    .filter((value) => !post.title.includes(value));
+  const detail = [post.title, ...extras.slice(0, 2)].join(" - ");
+  return `${post.date ? `${post.date} ` : ""}${detail}`;
+}
+
+function getAreaPrefixedWorkLabel(post: AreaPost) {
+  const areaName = AREA_LABELS[post.area] ?? post.area;
+  return post.title.startsWith(areaName) ? post.title : `${areaName} ${post.title}`;
+}
+
+function getAreaStaticSections(area: string, posts: AreaPost[]) {
+  const areaName = AREA_LABELS[area] ?? area;
+  const detail = AREA_STATIC_DETAILS[area] ?? {
+    intro: `${areaName} 빌라·원룸·상가 공용공간을 주소와 사진 기준으로 확인하고 관리 범위를 안내합니다.`,
+    scopes: ["계단 바닥", "난간·손잡이", "공동현관", "복도", "유리 포함 여부"],
+    checks: ["주소 확인", "현장 사진 확인", "정기관리 주기 상담", "작업 후 상태 공유"],
+  };
+  const areaPosts = getAreaPosts(area, posts);
+  const workItems = areaPosts.map((post) => ({
+    href: `/work/${getWorkSlug(post)}`,
+    label: getPostListLabel(post),
+  }));
+  const primaryWorkLink = workItems[0]
+    ? [{ href: workItems[0].href, label: `${areaName} 실제 작업사례 보기` }]
+    : [];
+
+  return [
+    section(
+      `${areaName} 계단청소`,
+      paragraph(detail.intro)
+    ),
+    section(
+      `최근 ${areaName} 작업`,
+      workItems.length > 0
+        ? linkList(workItems)
+        : paragraph(`${areaName} 작업 기록은 현장 사진 정리 후 순서대로 추가합니다.`)
+    ),
+    section(
+      "주요 관리범위",
+      list(detail.scopes)
+    ),
+    section(
+      `${areaName} 상담 기준`,
+      list(detail.checks)
+    ),
+    section(
+      `${areaName} 내부 연결`,
+      linkList([
+        ...primaryWorkLink,
+        { href: "/services/stair", label: "계단청소 범위·주기·비용 안내" },
+        { href: "/records", label: "이천계단지기 작업 기록 보기" },
+        { href: "/areas", label: "다른 이천 관리 가능 지역 보기" },
+      ])
+    ),
+  ].join("");
+}
+
+function getServiceWorkItems(posts: AreaPost[], serviceKey: WorkServiceKey) {
+  return posts
+    .filter((post) => getPrimaryWorkService(post) === serviceKey)
+    .slice(0, 6)
+    .map((post) => ({
+      href: `/work/${getWorkSlug(post)}`,
+      label: getAreaPrefixedWorkLabel(post),
+    }));
+}
+
+function getServiceStaticSections(
+  serviceKey: WorkServiceKey,
+  heading: string,
+  scopeItems: string[],
+  posts: AreaPost[]
+) {
+  const workItems = getServiceWorkItems(posts, serviceKey);
+
+  return [
+    section(heading, list(scopeItems)),
+    section(
+      "실제 작업사례",
+      workItems.length > 0
+        ? linkList(workItems)
+        : paragraph("해당 서비스 작업사례는 현장 사진과 내용을 정리하는 순서대로 추가합니다.")
+    ),
+    section(
+      "지역별 상담 연결",
+      linkList([
+        { href: "/areas", label: "이천 관리 가능 지역 보기" },
+        { href: "/area/daewol", label: "대월면 관리지역 안내" },
+        { href: "/area/majang", label: "마장면 관리지역 안내" },
+        { href: "/area/gwango", label: "관고동 관리지역 안내" },
+      ])
+    ),
+  ].join("");
+}
+
+function getGeneralStaticSections(route: string, posts: AreaPost[]) {
+  const recentWorkItems = posts.slice(0, 6).map((post) => ({
+    href: `/work/${getWorkSlug(post)}`,
+    label: getAreaPrefixedWorkLabel(post),
+  }));
+
+  if (route === "/") {
+    return [
+      section(
+        "이천 계단청소 상담 기준",
+        paragraph(
+          "이천 계단청소를 중심으로 빌라·상가·원룸의 계단, 복도, 공동현관을 하청 없이 직접 관리합니다. 주소와 사진을 기준으로 방문 가능 여부와 정기관리 주기를 안내합니다."
+        )
+      ),
+      section(
+        "주요 서비스",
+        list(["계단·복도·공동현관 정기관리", "상가 유리와 공용화장실 관리", "초도청소 후 청소 전후 사진 제공", "세금계산서와 계약 기준 상담"])
+      ),
+      section(
+        "서비스 안내",
+        linkList([
+          { href: "/services/stair", label: "계단청소 범위·주기·비용" },
+          { href: "/services/glass", label: "유리청소 안내" },
+          { href: "/services/bathroom", label: "화장실청소 안내" },
+          { href: "/services/office", label: "사무실·상가 정기청소 안내" },
+        ])
+      ),
+      section(
+        "지역별 안내",
+        linkList([
+          { href: "/areas", label: "이천 지역별 관리 가능 지역" },
+          { href: "/area/sindun", label: "신둔면 계단청소" },
+          { href: "/area/majang", label: "마장면 계단청소" },
+          { href: "/area/jeungpo", label: "증포동 계단청소" },
+        ])
+      ),
+      section(
+        "실제 작업일지",
+        recentWorkItems.length > 0 ? linkList(recentWorkItems.slice(0, 4)) : paragraph("지역별 작업 사례를 순서대로 정리하고 있습니다.")
+      ),
+    ].join("");
+  }
+
+  if (route === "/about") {
+    return [
+      section(
+        "부부 직영 관리 방식",
+        paragraph(
+          "이천계단지기는 상담, 현장 확인, 작업, 피드백까지 같은 담당자가 이어서 관리합니다. 현장 상태를 직접 보고 필요한 범위만 안내하는 것을 원칙으로 합니다."
+        )
+      ),
+      section(
+        "신뢰 기준",
+        list(["하청 없는 직접 관리", "초도청소 후 청소 전후 사진 제공", "사업자 증빙과 계약 기준 상담", "주소와 현장 상태 기준 견적 안내"])
+      ),
+      section(
+        "함께 확인할 페이지",
+        linkList([
+          { href: "/services/stair", label: "계단청소 관리방법 보기" },
+          { href: "/records", label: "실제 작업 기록 보기" },
+          { href: "/qna", label: "자주 묻는 질문 보기" },
+        ])
+      ),
+    ].join("");
+  }
+
+  if (route === "/services/stair") {
+    return [
+      getServiceStaticSections(
+        "stair",
+        "계단청소 관리 범위",
+        ["계단 바닥과 모서리 먼지 관리", "난간·손잡이·창틀 관리", "공동현관 유리와 출입부 관리", "거미줄과 복도 오염 확인"],
+        posts
+      ),
+      section(
+        "정기관리 주기와 비용 기준",
+        paragraph(
+          "월 2회 또는 월 4회 방문을 기본으로 상담하며, 층수·오염도·공용부 범위에 따라 현장 확인 후 비용을 안내합니다."
+        )
+      ),
+    ].join("");
+  }
+
+  if (route === "/services") {
+    return [
+      section(
+        "서비스 구성",
+        list(["계단청소 정기관리", "상가·공동현관 유리청소", "공용화장실 위생관리", "소형 사무실·상가 정기청소"])
+      ),
+      section(
+        "서비스별 상세 안내",
+        linkList([
+          { href: "/services/stair", label: "계단청소 범위·주기·비용" },
+          { href: "/services/glass", label: "유리청소 안내" },
+          { href: "/services/bathroom", label: "화장실청소 안내" },
+          { href: "/services/office", label: "사무실·상가 정기청소 안내" },
+          { href: "/records", label: "실제 작업일지 보기" },
+        ])
+      ),
+    ].join("");
+  }
+
+  if (route === "/services/glass") {
+    return getServiceStaticSections(
+      "glass",
+      "유리청소 상담 범위",
+      ["상가 출입문과 전면 유리", "공동현관 유리", "손자국·먼지·부분 얼룩 관리", "계단청소와 함께 정기관리 상담 가능"],
+      posts
+    );
+  }
+
+  if (route === "/services/bathroom") {
+    return getServiceStaticSections(
+      "bathroom",
+      "화장실청소 상담 범위",
+      ["상가·사무실 공용화장실", "세면대·변기·바닥 위생관리", "악취와 물때 상태 확인", "정기 방문 주기 상담"],
+      posts
+    );
+  }
+
+  if (route === "/services/office") {
+    return getServiceStaticSections(
+      "office",
+      "사무실·상가 정기청소 상담 범위",
+      ["소형 사무실 바닥과 책상 주변", "상가 공용부와 출입부", "화장실·유리 포함 여부 상담", "업무 시간 전후 방문 일정 조율"],
+      posts
+    );
+  }
+
+  if (route === "/areas") {
+    return [
+      section(
+        "이천 관리 가능 지역",
+        linkList(Object.entries(AREA_LABELS)
+          .filter(([slug]) => slug !== "downtown")
+          .map(([slug, label]) => ({ href: `/area/${slug}`, label: `${label} 계단청소 안내` })))
+      ),
+      section(
+        "지역 확인 방식",
+        paragraph("정확한 방문 가능 여부는 주소와 건물 사진을 기준으로 확인하며, 인접 지역은 이동 동선과 작업 범위를 함께 보고 안내합니다.")
+      ),
+    ].join("");
+  }
+
+  if (route === "/records") {
+    return [
+      section(
+        "작업 기록 확인",
+        paragraph("이천계단지기가 직접 관리한 빌라·상가 공용공간 작업 사례를 지역과 날짜 기준으로 확인할 수 있습니다.")
+      ),
+      section(
+        "최근 작업 사례",
+        recentWorkItems.length > 0 ? linkList(recentWorkItems) : paragraph("작업 사례를 순차적으로 정리하고 있습니다.")
+      ),
+    ].join("");
+  }
+
+  if (route === "/qna") {
+    return section(
+      "자주 묻는 상담 내용",
+      list(["세금계산서 발행 가능 여부", "계약 기준과 해지 상담", "월 2회·4회 정기관리 차이", "초도청소 후 청소 전후 사진 제공 방식"])
+    );
+  }
+
+  if (route === "/before-after") {
+    return [
+      section(
+        "이천 청소 전후 사진",
+        paragraph("이천 빌라·상가의 계단, 공동현관 유리와 화장실을 직접 관리한 청소 전후 사진을 작업 부위별로 확인할 수 있습니다.")
+      ),
+      section(
+        "청소 전후 확인 항목",
+        list(["계단 바닥과 난간", "창틀과 공동현관 유리", "공용부 소화전", "화장실 수전과 공용화장실"])
+      ),
+      section(
+        "서비스별 관리 안내",
+        linkList([
+          { href: "/services/stair", label: "계단청소 정기관리 안내" },
+          { href: "/services/glass", label: "공동현관·상가 유리청소 안내" },
+          { href: "/services/bathroom", label: "공용화장실 청소 안내" },
+        ])
+      ),
+    ].join("");
+  }
+
+  if (route === "/reviews") {
+    return section(
+      "후기 확인 포인트",
+      paragraph("실제 고객 후기는 상담 편의, 작업 결과, 정기관리 만족도 중심으로 정리해 안내합니다.")
+    );
+  }
+
+  if (route === "/guide") {
+    return section(
+      "공용공간 관리 가이드",
+      paragraph("빌라 계단 냄새, 먼지, 미끄럼, 공동현관 유리 오염처럼 자주 생기는 관리 문제를 정보성 글로 정리합니다.")
+    );
+  }
+
+  if (route === "/ops") {
+    return section(
+      "운영 상태",
+      paragraph("배포 상태 확인용 페이지이며 검색 결과 노출 대상이 아닙니다.")
+    );
+  }
+
+  return section(
+    "이천계단지기 안내",
+    paragraph("이천 지역 빌라·상가 공용공간 청소관리 내용을 페이지 목적에 맞춰 안내합니다.")
+  );
+}
+
+function getWorkStaticSections(post: AreaPost) {
+  const areaName = AREA_LABELS[post.area] ?? post.area;
+  const areaHref = post.area === "downtown" ? "/areas" : `/area/${post.area}`;
+  const details = [
+    post.date ? `작업일: ${post.date}` : "",
+    post.buildingType ? `건물 유형: ${post.buildingType}` : "",
+    post.workType ? `작업 형태: ${post.workType}` : "",
+    post.workScope ? `작업 범위: ${post.workScope}` : "",
+  ].filter(Boolean);
+
+  return [
+    section(
+      `${areaName} 작업 개요`,
+      paragraph(post.description || `${areaName} 공용공간 상태를 확인하고 필요한 청소 범위를 정리한 작업 기록입니다.`)
+    ),
+    details.length > 0 ? section("작업 정보", list(details)) : "",
+    section(
+      "지역·서비스 연결 안내",
+      linkList(getWorkRelatedLinks(post, { areaLabel: areaName, areaHref }))
+    ),
+  ].join("");
+}
+
+function buildStaticBody(seo: StaticSeo, context: StaticBodyContext) {
   const h1 = escapeHtml(seo.title.split("|")[0].trim());
   const description = escapeHtml(seo.description);
+  const body = context.workPost
+    ? getWorkStaticSections(context.workPost)
+    : context.route.startsWith("/area/")
+      ? getAreaStaticSections(context.route.split("/").pop() ?? "", context.workPosts)
+      : getGeneralStaticSections(context.route, context.workPosts);
 
   return `<div id="root"><main data-prerender="seo" style="max-width:720px;margin:0 auto;padding:48px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a2b4a">
   <h1 style="font-size:1.45rem">${h1}</h1>
-  <p>${description}</p>${STATIC_BODY_COMMON}
+  <p>${description}</p>${body}
 </main></div>`;
 }
 
-function applySeoToHtml(html: string, seo: NonNullable<ReturnType<typeof getSeoForPath>>) {
+function applySeoToHtml(html: string, seo: StaticSeo, context: StaticBodyContext) {
   const title = escapeHtml(seo.title);
   const description = escapeHtml(seo.description);
   const canonical = escapeHtml(seo.canonical);
+  const robots = escapeHtml(seo.robots ?? "index, follow");
 
   let result = html;
-  result = replaceOrThrow(result, /<div id="root"><\/div>/, buildStaticBody(seo), "root static body");
+  result = replaceOrThrow(result, /<div id="root"><\/div>/, buildStaticBody(seo, context), "root static body");
   result = replaceOrThrow(result, /<title>.*?<\/title>/s, `<title>${title}</title>`, "title");
   result = replaceOrThrow(result, /<meta name="description" content="[^"]*"/, `<meta name="description" content="${description}"`, "description");
+  result = replaceOrThrow(result, /<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${robots}"`, "robots");
 
   if (seo.keywords) {
     result = replaceOrThrow(result, /<meta name="keywords" content="[^"]*"/, `<meta name="keywords" content="${escapeHtml(seo.keywords)}"`, "keywords");
@@ -342,6 +752,7 @@ function appendWorkUrlsToSitemap(entries: Array<{ path: string; lastmod: string 
 
 async function main() {
   const baseHtml = readFileSync(indexHtmlPath, "utf-8");
+  const workPosts = await fetchWorkPosts();
   let count = 0;
 
   for (const route of routes) {
@@ -349,14 +760,13 @@ async function main() {
 
     if (!seo) continue;
 
-    const html = applySeoToHtml(baseHtml, seo);
+    const html = applySeoToHtml(baseHtml, seo, { route, workPosts });
     const outDir = path.join(distPublic, route);
     mkdirSync(outDir, { recursive: true });
     writeFileSync(path.join(outDir, "index.html"), html, "utf-8");
     count += 1;
   }
 
-  const workPosts = await fetchWorkPosts();
   const seenSlugs = new Set<string>();
   const sitemapEntries: Array<{ path: string; lastmod: string }> = [];
 
@@ -367,7 +777,7 @@ async function main() {
     seenSlugs.add(slug);
 
     const seo = getWorkSeo(post);
-    const html = applySeoToHtml(baseHtml, seo);
+    const html = applySeoToHtml(baseHtml, seo, { route: `/work/${slug}`, workPost: post, workPosts });
     const outDir = path.join(distPublic, "work", slug);
     mkdirSync(outDir, { recursive: true });
     writeFileSync(path.join(outDir, "index.html"), html, "utf-8");

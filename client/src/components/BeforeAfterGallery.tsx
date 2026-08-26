@@ -1,52 +1,18 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import {
+  featuredBeforeAfterItems,
+  type BeforeAfterItem,
+} from "@/data/beforeAfter";
 
-const galleryItems = [
-  {
-    id: 1,
-    title: "빌라 계단 바닥 녹",
-    before: "/images/before-after/majang-villa-stair-rust-removal-before.webp",
-    after: "/images/before-after/majang-villa-stair-rust-removal-after.webp",
-  },
-  {
-    id: 2,
-    title: "공동현관 유리청소",
-    before: "/images/before-after/glass-clean-before01.webp",
-    after: "/images/before-after/glass-clean-after01.webp",
-  },
-  {
-    id: 3,
-    title: "소화전 오염",
-    before: "/images/before-after/fire-extinguisher-before.webp",
-    after: "/images/before-after/fire-extinguisher-after.webp",
-  },
-  {
-    id: 4,
-    title: "창틀 오염",
-    before: "/images/before-after/railing-before.webp",
-    after: "/images/before-after/railing-after.webp",
-  },
-  {
-    id: 5,
-    title: "계단 난간 아래",
-    before: "/images/before-after/stair-railing-before.webp",
-    after: "/images/before-after/stair-railing-after.webp",
-  },
-  {
-    id: 6,
-    title: "샤워 수전",
-    before: "/images/before-after/bathroom-shower-cleaning-before.webp",
-    after: "/images/before-after/bathroom-shower-cleaning-after.webp",
-  },
-];
-
-function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
+export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
   return (
     <motion.article
       className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm"
       initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.35 }}
     >
       <div className="relative grid overflow-hidden bg-blue-50 md:aspect-[16/9] md:grid-cols-2">
@@ -84,7 +50,7 @@ function BeforeAfterCard({ item }: { item: (typeof galleryItems)[0] }) {
 
 export default function BeforeAfterGallery() {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const selectedItem = galleryItems[selectedIndex];
+  const selectedItem = featuredBeforeAfterItems[selectedIndex];
 
   return (
     <section id="gallery" className="bg-gradient-to-b from-white to-blue-50/30 py-16 md:py-28">
@@ -110,7 +76,7 @@ export default function BeforeAfterGallery() {
 
         <div className="mx-auto max-w-5xl space-y-5">
           <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:justify-center md:px-0">
-            {galleryItems.map((item, index) => (
+            {featuredBeforeAfterItems.map((item, index) => (
               <button
                 key={item.id}
                 type="button"

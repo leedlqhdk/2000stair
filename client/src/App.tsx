@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Spinner } from "@/components/ui/spinner";
@@ -11,6 +11,7 @@ import { getSeoForPath } from "@/data/areaSeo";
 import { initAnalytics, trackPageview } from "@/lib/analytics";
 import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -23,6 +24,8 @@ const LocationLanding = lazy(() => import("./pages/LocationLanding"));
 const NeighborhoodArea = lazy(() => import("./pages/NeighborhoodArea"));
 const AdminBlog = lazy(() => import("./pages/AdminBlog"));
 const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
+const AdminField = lazy(() => import("./pages/AdminField"));
+const AdminFieldArea = lazy(() => import("./pages/AdminFieldArea"));
 const AdminQuotes = lazy(() => import("./pages/AdminQuotes"));
 const AdminReviews = lazy(() => import("./pages/AdminReviews"));
 const Majang = lazy(() => import("@/pages/Majang"));
@@ -33,6 +36,7 @@ const Baeksa = lazy(() => import("@/pages/Baeksa"));
 const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
 const About = lazy(() => import("@/pages/About"));
 const Qna = lazy(() => import("@/pages/Qna"));
+const BeforeAfter = lazy(() => import("@/pages/BeforeAfter"));
 const Reviews = lazy(() => import("./pages/Reviews"));
 const Services = lazy(() => import("./pages/Services"));
 const StairCleaning = lazy(() => import("./pages/StairCleaning"));
@@ -45,30 +49,82 @@ const Areas = lazy(() => import("@/pages/Areas"));
 const MobileQuote = lazy(() => import("@/pages/MobileQuote"));
 const Card = lazy(() => import("@/pages/Card"));
 
-
 function ScrollToTop() {
   const [location] = useLocation();
+  const previousLocation = useRef(location);
+  const positions = useRef(new Map<string, number>());
+  const isBackOrForward = useRef(false);
 
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+
+    let frame = 0;
+    const saveHistoryPosition = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const state = window.history.state && typeof window.history.state === "object"
+          ? window.history.state
+          : {};
+        window.history.replaceState({ ...state, __scrollY: window.scrollY }, "");
+      });
+    };
+
+    const handlePopState = () => {
+      isBackOrForward.current = true;
+    };
+
+    window.addEventListener("popstate", handlePopState, true);
+    window.addEventListener("scroll", saveHistoryPosition, { passive: true });
+    saveHistoryPosition();
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState, true);
+      window.removeEventListener("scroll", saveHistoryPosition);
+      window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
-    if (location === "/") {
-      if (window.location.hash) {
-        window.history.replaceState(null, "", "/");
-      }
+    const previousPath = previousLocation.current;
 
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      return;
+    if (previousPath !== location) {
+      positions.current.set(previousPath, window.scrollY);
     }
 
+    previousLocation.current = location;
     const hash = window.location.hash;
+    const delay = hash && location !== "/" ? 120 : 0;
 
-    if (hash) {
-      setTimeout(() => {
+    const scrollTimer = window.setTimeout(() => {
+      const historyPosition = Number(window.history.state?.__scrollY);
+      const shouldRestoreHome = location === "/" && Number.isFinite(historyPosition) && historyPosition > 0;
+
+      if (isBackOrForward.current || shouldRestoreHome) {
+        isBackOrForward.current = false;
+        const savedPosition = shouldRestoreHome
+          ? historyPosition
+          : positions.current.get(location) ?? 0;
+
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            window.scrollTo({ top: savedPosition, left: 0, behavior: "auto" });
+          });
+        });
+        return;
+      }
+
+      if (location === "/") {
+        if (window.location.hash) {
+          window.history.replaceState(null, "", "/");
+        }
+
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        return;
+      }
+
+      if (hash) {
         const element = document.querySelector(hash);
 
         if (element) {
@@ -77,12 +133,13 @@ function ScrollToTop() {
             block: "start",
           });
         }
-      }, 120);
+        return;
+      }
 
-      return;
-    }
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }, delay);
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    return () => window.clearTimeout(scrollTimer);
   }, [location]);
 
   return null;
@@ -129,8 +186,6 @@ function AdminRedirect() {
   return null;
 }
 
-// "작업정보" 네임스페이스의 인덱스(/work)는 별도 페이지가 없으므로
-// 작업기록 목록(/records)으로 보내 404를 방지합니다. (개별 글은 /work/:slug)
 function WorkRedirect() {
   const [, setLocation] = useLocation();
 
@@ -178,6 +233,8 @@ function JeungpoArea() {
 function AdminNoIndex() {
   const [location] = useLocation();
   const isAdminRoute = location.startsWith("/admin");
+  const routeSeo = getSeoForPath(location);
+  const routeRobots = routeSeo && "robots" in routeSeo ? routeSeo.robots : undefined;
 
   useEffect(() => {
     let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
@@ -194,8 +251,8 @@ function AdminNoIndex() {
       return;
     }
 
-    robots.setAttribute("content", "index, follow");
-  }, [isAdminRoute]);
+    robots.setAttribute("content", routeRobots ?? "index, follow");
+  }, [isAdminRoute, routeRobots]);
 
   return null;
 }
@@ -213,6 +270,7 @@ function Router() {
           <Route path={"/"} component={Home} />
           <Route path="/about" component={About} />
           <Route path="/qna" component={Qna} />
+          <Route path="/before-after" component={BeforeAfter} />
           <Route path="/reviews" component={Reviews} />
           <Route path="/services" component={Services} />
           <Route path="/services/stair" component={StairCleaning} />
@@ -222,7 +280,9 @@ function Router() {
           <Route path="/ops" component={OpsStatus} />
           <Route path="/guide" component={Guide} />
           <Route path="/my-quotes" component={MyQuotes} />
-          <Route path="/blog" component={Records} />
+          <Route path="/blog">
+            <RouteRedirect to="/records" />
+          </Route>
           <Route path="/records" component={Records} />
           <Route path="/work" component={WorkRedirect} />
           <Route path="/work/:slug" component={WorkDetail} />
@@ -232,7 +292,9 @@ function Router() {
           <Route path="/blog/category/:slug" component={Blog} />
           <Route path="/blog/:id" component={BlogDetail} />
           <Route path="/area/majang" component={Majang} />
-          <Route path={"/area/Majang"} component={Majang} />
+          <Route path={"/area/Majang"}>
+            <RouteRedirect to="/area/majang" />
+          </Route>
           <Route path="/area/daewol" component={Daewol} />
           <Route path="/area/sindun" component={Sindun} />
           <Route path="/area/downtown">
@@ -252,6 +314,8 @@ function Router() {
           <Route path="/admin" component={AdminRedirect} />
           <Route path="/admin/quotes" component={AdminQuotes} />
           <Route path="/admin/blog" component={AdminBlog} />
+          <Route path="/admin/field/areas/:slug" component={AdminFieldArea} />
+          <Route path="/admin/field" component={AdminField} />
           <Route path="/admin/reviews" component={AdminReviews} />
           <Route path="/admin/blog/new" component={AdminBlogEdit} />
           <Route path="/admin/blog/:id/edit" component={AdminBlogEdit} />
@@ -267,11 +331,13 @@ function AppChrome() {
   const isAdminRoute = location.startsWith("/admin");
   const isBareRoute = location === "/card";
   const hideChrome = isAdminRoute || isBareRoute;
+  const hideFooter = hideChrome;
 
   return (
     <>
       <Router />
-      {!hideChrome && <Footer />}
+      {!hideFooter && <Footer />}
+      {!hideChrome && <ScrollToTopButton />}
       {!hideChrome && <KakaoChat />}
     </>
   );
