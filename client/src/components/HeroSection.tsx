@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { Link } from "wouter";
 import VisitorCounter from "@/components/VisitorCounter";
+import { trackConversion } from "@/lib/analytics";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
@@ -73,13 +75,27 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative mx-auto aspect-[4/5] max-h-[520px] w-full max-w-[430px] overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+            <Link
+              href="/about"
+              aria-label="이천계단지기 부부 소개 페이지 보기"
+              onClick={() =>
+                trackConversion("cta_click", {
+                  location: "desktop_hero",
+                  label: "부부사진 → 소개 페이지",
+                })
+              }
+              className="group relative mx-auto block aspect-[4/5] max-h-[520px] w-full max-w-[430px] overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-[0_24px_60px_rgba(15,23,42,0.14)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_64px_rgba(15,23,42,0.18)] active:scale-[0.99]"
+            >
               <img
                 src="/images/couple-profile.jpg"
                 alt="하청 없이 직접 관리하는 이천계단지기 부부"
                 className="h-full w-full object-cover object-[50%_42%]"
               />
-            </div>
+              <span className="absolute bottom-4 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full bg-black/60 px-3 py-1.5 text-xs font-extrabold text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+                소개 보기
+                <span aria-hidden="true">→</span>
+              </span>
+            </Link>
           </motion.div>
         </div>
       </div>

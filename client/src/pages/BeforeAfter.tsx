@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";
+import { MoveHorizontal } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { beforeAfterItems, type BeforeAfterItem } from "@/data/beforeAfter";
 
@@ -15,18 +15,18 @@ function ComparisonSlider({
 
   return (
     <article className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm">
-      <div className="flex items-end justify-between gap-4 px-5 py-5 md:px-7 md:py-6">
+      <div className="flex items-end justify-between gap-4 px-4 py-4 md:px-7 md:py-6">
         <div>
           <p className="mb-1.5 text-xs font-bold text-primary md:text-sm">
             {item.category}
           </p>
-          <h2 className="text-xl font-extrabold text-foreground md:text-3xl">
+          <h2 className="text-[17px] font-extrabold text-foreground md:text-3xl">
             {item.title}
           </h2>
         </div>
       </div>
 
-      <div className="relative aspect-[4/5] select-none overflow-hidden bg-slate-100 md:aspect-[16/9]">
+      <div className="relative aspect-[3/2] select-none overflow-hidden bg-slate-100 md:aspect-[16/9]">
         <img
           src={item.before}
           alt={`${item.title} 청소 전`}
@@ -43,10 +43,10 @@ function ComparisonSlider({
           draggable={false}
         />
 
-        <span className="absolute left-4 top-4 z-10 rounded-full bg-black/60 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-bold tracking-wide text-white backdrop-blur md:left-4 md:top-4 md:px-3 md:py-1.5 md:text-xs">
           BEFORE
         </span>
-        <span className="absolute right-4 top-4 z-10 rounded-full bg-primary/85 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur">
+        <span className="absolute right-3 top-3 z-10 rounded-full bg-primary/85 px-2.5 py-1 text-[10px] font-bold tracking-wide text-white backdrop-blur md:right-4 md:top-4 md:px-3 md:py-1.5 md:text-xs">
           AFTER
         </span>
 
@@ -54,8 +54,8 @@ function ComparisonSlider({
           className="pointer-events-none absolute inset-y-0 z-20 w-0.5 -translate-x-1/2 bg-white shadow-[0_0_12px_rgba(15,23,42,0.35)]"
           style={{ left: `${position}%` }}
         >
-          <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-primary text-white shadow-lg">
-            <MoveHorizontal className="h-5 w-5" strokeWidth={2.5} />
+          <span className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-primary text-white shadow-lg md:h-11 md:w-11">
+            <MoveHorizontal className="h-4 w-4 md:h-5 md:w-5" strokeWidth={2.5} />
           </span>
         </div>
 
@@ -76,75 +76,34 @@ function ComparisonSlider({
 }
 
 export default function BeforeAfter() {
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  const moveCarousel = (direction: -1 | 1) => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    carousel.scrollBy({
-      left: direction * carousel.clientWidth * 0.88,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
 
       <main>
         <section className="border-b border-blue-100 bg-blue-50/35">
-          <div className="container max-w-6xl py-14 md:py-20">
+          <div className="container max-w-6xl py-9 md:py-20">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <p className="mb-4 text-xs font-bold tracking-[0.25em] text-primary md:text-sm">
+              <p className="mb-3 text-xs font-bold tracking-[0.25em] text-primary md:mb-4 md:text-sm">
                 BEFORE &amp; AFTER
               </p>
-              <h1 className="text-4xl font-extrabold leading-tight text-foreground md:text-6xl">
+              <h1 className="text-[28px] font-extrabold leading-tight text-foreground md:text-6xl">
                 청소 전후 사진
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground md:mt-5 md:text-lg md:leading-8">
                 이천 빌라·상가의 계단, 공동현관 유리와 화장실을 직접 관리한 전후 사진을 모았습니다.
               </p>
             </motion.div>
           </div>
         </section>
 
-        <section className="py-12 md:py-20">
-          <div className="container max-w-6xl">
-            <div className="mb-5 flex items-center justify-between gap-4 md:mb-7">
-              <p className="text-sm font-bold text-muted-foreground">
-                {beforeAfterItems.length}개의 실제 작업 사례
-              </p>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => moveCarousel(-1)}
-                  aria-label="이전 청소 전후 사진"
-                  title="이전 사진"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-sm transition hover:border-primary/30 hover:bg-blue-50"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => moveCarousel(1)}
-                  aria-label="다음 청소 전후 사진"
-                  title="다음 사진"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-sm transition hover:border-primary/30 hover:bg-blue-50"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-
+        <section className="py-8 md:py-20">
           <motion.div
-            ref={carouselRef}
-            className="mx-auto flex max-w-[calc(100vw-2rem)] snap-x snap-mandatory gap-5 overflow-x-auto pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:max-w-[calc(100vw-4rem)] md:gap-6"
+            className="mx-auto flex max-w-[calc(100vw-2rem)] flex-col gap-5 pb-5 md:max-w-[min(920px,82vw)] md:gap-6"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.6 }}
@@ -152,7 +111,7 @@ export default function BeforeAfter() {
             {beforeAfterItems.map((item, index) => (
               <div
                 key={item.id}
-                className="min-w-full snap-start md:min-w-[min(920px,82vw)]"
+                className="w-full"
               >
                 <ComparisonSlider item={item} priority={index === 0} />
               </div>

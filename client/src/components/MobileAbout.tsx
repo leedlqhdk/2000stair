@@ -1,5 +1,6 @@
-import { Check, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import { Link } from "wouter";
 import { trackConversion } from "@/lib/analytics";
 import { AboutCarePhilosophy, AboutGreeting, wifeCharacterSrc } from "@/components/AboutDetailHighlights";
 
@@ -233,9 +234,24 @@ export default function MobileAbout() {
         </motion.div>
       </section>
 
-      {/* 초도청소 후 청소 전후 사진 제공 */}
+      {/* 사진 제공 */}
       <section className="px-5 py-7">
-        <h2 className="mb-5 font-['GmarketSans'] text-lg font-extrabold text-foreground md:mb-8 md:text-center md:text-2xl">초도청소 후 청소 전후 사진 제공</h2>
+        <div className="mb-5 flex items-center justify-between gap-4 md:mx-auto md:mb-8 md:max-w-3xl">
+          <h2 className="font-['GmarketSans'] text-lg font-extrabold text-foreground md:text-2xl">사진 제공</h2>
+          <Link
+            href="/before-after"
+            onClick={() =>
+              trackConversion("cta_click", {
+                location: "mobile_about_before_after",
+                label: "청소 전후 더보기",
+              })
+            }
+            className="inline-flex shrink-0 items-center gap-1 text-[13px] font-bold text-muted-foreground transition active:text-primary md:hover:text-primary"
+          >
+            더보기
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
         <div className="grid grid-cols-2 gap-2.5 md:mx-auto md:max-w-3xl md:gap-4">
           {[
             { src: "/images/before-after/majang-villa-stair-rust-removal-before.webp", label: "BEFORE" },

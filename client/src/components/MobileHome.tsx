@@ -133,11 +133,8 @@ export default function MobileHome() {
               하청 없이 <strong className="text-foreground">부부가 직접</strong>, 주소와 사진 기준으로 상담합니다
             </p>
           </div>
-          <motion.img
-            src="/images/couple-profile.jpg"
-            alt="이천계단지기 부부"
-            className="w-[132px] shrink-0 rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
-            loading="eager"
+          <motion.div
+            className="w-[132px] shrink-0"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
             transition={{
@@ -145,7 +142,30 @@ export default function MobileHome() {
               scale: { duration: 0.6 },
               y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
             }}
-          />
+          >
+            <Link
+              href="/about"
+              aria-label="이천계단지기 부부 소개 페이지 보기"
+              onClick={() =>
+                trackConversion("cta_click", {
+                  location: "mobile_hero",
+                  label: "부부사진 → 소개 페이지",
+                })
+              }
+              className="relative block rounded-3xl transition active:scale-[0.97]"
+            >
+              <img
+                src="/images/couple-profile.jpg"
+                alt="이천계단지기 부부"
+                className="w-full rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
+                loading="eager"
+              />
+              <span className="absolute bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-black/65 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur-sm">
+                소개 보기
+                <ArrowRight className="h-3 w-3" />
+              </span>
+            </Link>
+          </motion.div>
         </div>
         <div className="mt-5 flex gap-2.5">
           <a
