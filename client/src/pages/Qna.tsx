@@ -15,6 +15,7 @@ export default function Qna() {
             eyebrow="QNA"
             title={<>자주 묻는 질문을<br />먼저 정리해두었습니다</>}
             description="정기관리, 작업 범위, 초도청소 후 청소 전후 사진 제공, 세금계산서처럼 문의 전 많이 물어보시는 내용을 모았습니다."
+            variant="plain"
           />
           <div className="mt-6">
             <Link href="/">
