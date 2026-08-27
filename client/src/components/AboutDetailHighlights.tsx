@@ -95,27 +95,27 @@ export function AboutGreeting() {
 export function AboutCarePhilosophy() {
   return (
     <div className="pt-8 md:pt-12">
-        <div className="grid grid-cols-[150px_minmax(0,1fr)] items-center gap-4 md:grid-cols-[230px_minmax(0,1fr)] md:gap-8">
+        <div className="grid grid-cols-[minmax(0,1fr)_150px] items-center gap-4 md:grid-cols-[minmax(0,1fr)_230px] md:gap-8">
+          <div className="text-left">
+            <h2 className="break-keep font-['GmarketSans'] text-xl font-extrabold leading-tight text-foreground md:text-3xl">
+              한 번 청소로는 <span className="text-primary">오래 못 갑니다</span>
+            </h2>
+            <p className="mr-auto mt-4 max-w-2xl break-keep text-sm font-medium leading-relaxed text-gray-700 md:text-base md:leading-8">
+              계단과 공동현관은 매일 사람이 오가는 공간입니다. 깨끗함을 오래 유지하려면 오염이 쌓인 뒤가 아니라,
+              쌓이기 전부터 주기적으로 관리해야 합니다.
+            </p>
+          </div>
+
           <motion.img
             src="/images/about-husband-stairs.png"
             alt="계단을 직접 관리하는 이천계단지기 지기 캐릭터"
-            className="mx-auto w-[150px] object-contain md:w-[230px]"
+            className="ml-auto w-[150px] object-contain md:w-[230px]"
             loading="lazy"
             initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ opacity: { duration: 0.6 }, scale: { duration: 0.6 } }}
           />
-
-          <div className="text-right">
-            <h2 className="break-keep font-['GmarketSans'] text-xl font-extrabold leading-tight text-foreground md:text-3xl">
-              한 번 청소로는 <span className="text-primary">오래 못 갑니다</span>
-            </h2>
-            <p className="ml-auto mt-4 max-w-2xl break-keep text-sm font-medium leading-relaxed text-gray-700 md:text-base md:leading-8">
-              계단과 공동현관은 매일 사람이 오가는 공간입니다. 깨끗함을 오래 유지하려면 오염이 쌓인 뒤가 아니라,
-              쌓이기 전부터 주기적으로 관리해야 합니다.
-            </p>
-          </div>
         </div>
 
         <div className="mt-7 grid grid-cols-2 gap-3 md:mt-10 md:grid-cols-4 md:gap-4">
