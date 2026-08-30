@@ -591,7 +591,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                         </div>
                         <div>
                           {card.subtitle && (
-                            <p className="text-xs font-bold tracking-wide text-primary">
+                            <p className="text-xs font-extrabold tracking-wide text-sky-300">
                               {card.subtitle}
                             </p>
                           )}

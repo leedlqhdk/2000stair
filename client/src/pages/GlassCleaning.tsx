@@ -139,33 +139,6 @@ export default function GlassCleaning() {
           },
         ],
 
-        photoConsult: {
-          eyebrow: "PHOTO CONSULTING",
-          title: "사진으로 먼저 간편하게 상담받아보세요",
-          lines: [
-            "유리 전체 모습·오염 상태·창문 개폐 방식이 보이는 사진을 보내주시면 작업 가능 여부와 예상 견적을 안내드립니다.",
-            "상가·사무실은 물론 아파트·빌라 주거공간 상담도 가능합니다.",
-            "사진 확인이 어려운 현장은 무료 방문견적으로 도와드립니다.",
-          ],
-          buttons: [
-            {
-              label: "유리창청소 사진 상담하기",
-              href: "https://pf.kakao.com/_IiNfn/chat",
-              kind: "kakao",
-            },
-            {
-              label: "무료 방문견적 신청하기",
-              href: "/quote",
-              kind: "quote",
-            },
-            {
-              label: "전화로 작업 가능 여부 확인하기",
-              href: "tel:01084381887",
-              kind: "tel",
-            },
-          ],
-        },
-
         blogLink: {
           eyebrow: "BLOG",
           title: "이천 유리창청소 작업 이야기",
