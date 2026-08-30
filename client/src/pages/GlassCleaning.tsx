@@ -85,14 +85,6 @@ export default function GlassCleaning() {
           ],
         },
 
-        gallery: [
-          {
-            before: "/images/before-after/glass-clean-before01.webp",
-            after: "/images/before-after/glass-clean-after01.webp",
-            caption: "공동현관 유리청소 전후 — 슬라이더를 좌우로 움직여 비교해 보세요.",
-          },
-        ],
-
         pricingTiers: [
           {
             badge: "공동현관 유리",
@@ -133,7 +125,10 @@ export default function GlassCleaning() {
           {
             title: "결과를 솔직하게 안내드립니다",
             body: "오래 고착된 물때·스케일·부식 자국은 청소 후에도 흔적이 남을 수 있습니다. 작업 전에 현장 상태와 예상되는 결과를 미리 설명드려, 기대와 다른 결과가 나오지 않도록 안내드립니다. 실제 작업 가능 여부와 결과는 창호 구조·접근 조건·유리 상태에 따라 달라집니다.",
-            image: "/images/before-after/glass-clean-before01.webp",
+            beforeAfter: {
+              before: "/images/before-after/glass-clean-before01.webp",
+              after: "/images/before-after/glass-clean-after01.webp",
+            },
           },
         ],
 
