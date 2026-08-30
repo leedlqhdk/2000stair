@@ -133,17 +133,11 @@ export default function GlassCleaning() {
           {
             title: "결과를 솔직하게 안내드립니다",
             body: "오래 고착된 물때·스케일·부식 자국은 청소 후에도 흔적이 남을 수 있습니다. 작업 전에 현장 상태와 예상되는 결과를 미리 설명드려, 기대와 다른 결과가 나오지 않도록 안내드립니다. 실제 작업 가능 여부와 결과는 창호 구조·접근 조건·유리 상태에 따라 달라집니다.",
+            image: "/images/before-after/glass-clean-before01.webp",
           },
         ],
 
-        blogLink: {
-          eyebrow: "BLOG",
-          title: "이천 유리창청소 작업 이야기",
-          description:
-            "블로그에서 실제 유리창청소 작업 과정과 현장 사진을 더 자세히 보실 수 있습니다.",
-          href: "https://blog.naver.com/icheonstair",
-          label: "블로그에서 유리창청소 글 보기",
-        },
+        hideWorkExamples: true,
 
         faq: [
           {

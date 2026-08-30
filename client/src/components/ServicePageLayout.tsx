@@ -146,6 +146,7 @@ export interface ServicePageData {
   infoSections?: InfoSection[];
   faq?: FaqItem[];
   showReviews?: boolean;
+  hideWorkExamples?: boolean;
   photoGrid?: PhotoGridItem[];
   spaceCards?: SpaceCardsSection;
   processSection?: ProcessSection;
@@ -1033,7 +1034,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </section>
         )}
 
-        {serviceKey && <ServiceWorkExamples serviceKey={serviceKey} />}
+        {serviceKey && !data.hideWorkExamples && <ServiceWorkExamples serviceKey={serviceKey} />}
 
         {/* 블로그 연결 섹션 (선택) */}
         {data.blogLink && (
