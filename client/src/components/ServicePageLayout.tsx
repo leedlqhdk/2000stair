@@ -632,7 +632,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 {data.processSection.title}
               </motion.h2>
 
-              <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
                 {data.processSection.steps.map((step, i) => (
                   <motion.div
                     key={step}
@@ -640,14 +640,14 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08 }}
-                    className={`${glassCard} flex items-center gap-3 p-4`}
+                    className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.12] md:p-5"
                   >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/85 text-sm font-extrabold text-white ring-1 ring-white/25">
+                    <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(49,85,164,0.4)]">
                       {i + 1}
                     </span>
-                    <span className="text-[13px] font-bold leading-snug text-white/90 md:text-sm">
+                    <p className="text-[13px] font-bold leading-relaxed text-white/90 md:text-sm">
                       {step}
-                    </span>
+                    </p>
                   </motion.div>
                 ))}
               </div>

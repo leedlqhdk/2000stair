@@ -6,12 +6,11 @@ export default function GlassCleaning() {
       data={{
         serviceFolder: "glass-cleaning",
         heroStyle: "fullscreenVideo",
-        breadcrumbLabel: "유리창청소",
+        breadcrumbLabel: "유리청소",
         heroBgImage: "/images/services/glass-cleaning/glass-page01.webp",
         heroVideo: "/images/services/glass-cleaning/glass-cleaning-video.mov",
-        heroTitle: "상가부터 아파트·빌라까지,\n공간에 맞춘 유리창청소",
-        heroSubtitle:
-          "매장 전면 유리·출입문부터 사무실 내부 유리, 아파트·빌라 공동현관 유리문과 세대 내부 창문·베란다 유리까지. 상업공간과 주거공간 모두 상담 가능합니다.",
+        heroTitle: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
+        heroSubtitle: "상가 유리·공동현관 유리·건물 유리 관리방법",
         seoTitle: "유리창청소 – 상가·아파트·빌라 작업 범위와 상담 안내 – 이천계단지기",
 
         features: [
