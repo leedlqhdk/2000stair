@@ -561,7 +561,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                 className="mb-8 text-center md:mb-12"
               >
                 <h2 className="text-2xl font-extrabold text-white sm:text-3xl">
@@ -583,31 +584,31 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       key={card.title}
                       initial={{ opacity: 0, y: 22 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.55, delay: i * 0.12 }}
-                      className={`${glassCard} flex flex-col p-4 md:p-8`}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                      className={`${glassCard} flex min-h-full flex-col p-4 md:p-7`}
                     >
-                      <div className="mb-4 flex flex-col gap-2 md:mb-5 md:flex-row md:items-center md:gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white ring-1 ring-white/25 md:h-12 md:w-12 md:rounded-2xl">
+                      <div className="mb-4 flex items-center gap-3 md:mb-5">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15 text-white ring-1 ring-white/25 md:h-12 md:w-12 md:rounded-2xl">
                           <Icon className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
                         <div>
                           {card.subtitle && (
-                            <p className="text-[10px] font-extrabold tracking-wide text-sky-300 md:text-xs">
+                            <p className="text-[11px] font-extrabold tracking-wide text-sky-300 md:text-xs">
                               {card.subtitle}
                             </p>
                           )}
-                          <h3 className="text-base font-extrabold leading-tight text-white md:text-xl">
+                          <h3 className="text-[17px] font-extrabold leading-tight text-white md:text-xl">
                             {card.title}
                           </h3>
                         </div>
                       </div>
 
-                      <ul className="space-y-2 md:space-y-2.5">
+                      <ul className="flex-1 space-y-2.5 md:space-y-3">
                         {card.items.map((item) => (
-                          <li key={item} className="flex items-start gap-1.5 md:gap-2.5">
-                            <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary md:h-4 md:w-4" />
-                            <span className="text-xs leading-relaxed text-white/80 md:text-[15px]">
+                          <li key={item} className="flex items-start gap-2 md:gap-2.5">
+                            <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-sky-300 md:h-4 md:w-4" />
+                            <span className="text-[13px] leading-6 text-white/85 md:text-[15px] md:leading-7">
                               {item}
                             </span>
                           </li>
@@ -615,7 +616,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       </ul>
 
                       {card.note && (
-                        <span className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-2.5 py-1 text-[10px] font-bold text-sky-200 md:mt-5 md:px-3 md:py-1.5 md:text-xs">
+                        <span className="mt-auto inline-flex min-h-9 w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-2.5 py-1 text-[11px] font-bold leading-5 text-sky-200 md:mt-5 md:px-3 md:py-1.5 md:text-xs">
                           {card.note}
                         </span>
                       )}
@@ -634,23 +635,25 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                 className="mb-8 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-12"
               >
                 {data.processSection.title}
               </motion.h2>
 
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+              <div className="relative grid grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-4 md:gap-4">
+                <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-6 hidden h-px bg-gradient-to-r from-sky-300/20 via-sky-300/60 to-sky-300/20 md:block" />
                 {data.processSection.steps.map((step, i) => (
                   <motion.div
                     key={step}
                     initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                    className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.12] md:p-5"
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    className={`${glassCard} relative p-4 md:p-5`}
                   >
-                    <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(49,85,164,0.4)]">
+                    <span className="relative z-10 mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-extrabold text-white ring-4 ring-[#07152f] shadow-[0_8px_18px_rgba(49,85,164,0.4)]">
                       {i + 1}
                     </span>
                     <p className="text-[13px] font-bold leading-relaxed text-white/90 md:text-sm">
