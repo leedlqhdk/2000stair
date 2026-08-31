@@ -23,13 +23,10 @@ import {
   Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
-import AreaPostCard from "@/components/AreaPostCard";
 import Navbar from "@/components/Navbar";
 import BlogReviews from "@/components/BlogReviews";
-import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
-import { getPrimaryWorkService } from "@shared/workRelatedLinks";
 import type { WorkServiceKey } from "@shared/workRelatedLinks";
 
 export interface ServiceFeature {
@@ -167,13 +164,6 @@ const serviceKeyByFolder: Record<string, WorkServiceKey> = {
   "office-cleaning": "office",
 };
 
-const serviceExampleTitles: Record<WorkServiceKey, string> = {
-  stair: "계단청소 실제 작업사례",
-  glass: "유리청소 실제 작업사례",
-  bathroom: "화장실청소 실제 작업사례",
-  office: "사무실·상가 정기청소 실제 작업사례",
-};
-
 function BeforeAfterSlider({ before, after }: GalleryPair) {
   const [pos, setPos] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
@@ -280,60 +270,11 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
   );
 }
 
-function ServiceWorkExamples({ serviceKey }: { serviceKey: WorkServiceKey }) {
-  const { posts, isLoading } = useAllWorkPosts(`service-${serviceKey}`);
-  const servicePosts = useMemo(
-    () => posts.filter((post) => getPrimaryWorkService(post) === serviceKey).slice(0, 3),
-    [posts, serviceKey]
-  );
-
-  if (!isLoading && servicePosts.length === 0) {
-    return null;
-  }
-
+function ServiceWorkLinks() {
   return (
-    <section className="relative z-10 py-12 md:py-24">
-      <div className="container mx-auto max-w-6xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-7 text-center md:mb-9"
-        >
-          <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
-            FIELD RECORDS
-          </p>
-          <h2 className="text-xl font-extrabold text-white sm:text-3xl">
-            {serviceExampleTitles[serviceKey]}
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-white/70 md:text-base">
-            지역 페이지와 연결된 실제 작업일지 중 해당 서비스 사례만 모았습니다.
-          </p>
-        </motion.div>
-
-        {isLoading && servicePosts.length === 0 ? (
-          <div className="grid gap-4 md:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div
-                key={index}
-                className="h-[292px] animate-pulse rounded-[1.1rem] border border-white/14 bg-white/[0.12] backdrop-blur-xl"
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5">
-            {servicePosts.map((post, index) => (
-              <AreaPostCard
-                key={`${post.area}-${post.title}-${post.date}-${index}`}
-                post={post}
-                index={index}
-                compact
-              />
-            ))}
-          </div>
-        )}
-
-        <div className="mt-7 flex flex-wrap justify-center gap-3">
+    <section className="relative z-10 px-4 py-6 md:py-10">
+      <div className="container mx-auto max-w-4xl">
+        <div className="flex flex-wrap justify-center gap-3">
           <Link href="/records">
             <a className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-5 py-3 text-sm font-extrabold text-white transition-all hover:-translate-y-0.5 hover:bg-white/20">
               전체 작업일지 보기
@@ -1049,7 +990,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </section>
         )}
 
-        {serviceKey && !data.hideWorkExamples && <ServiceWorkExamples serviceKey={serviceKey} />}
+        {serviceKey && !data.hideWorkExamples && <ServiceWorkLinks />}
 
         {/* 블로그 연결 섹션 (선택) */}
         {data.blogLink && (
