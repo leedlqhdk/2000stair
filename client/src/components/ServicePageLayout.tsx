@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
@@ -363,7 +363,11 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
   }, [data.seoTitle]);
 
   return (
-    <>
+    <MotionConfig
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      reducedMotion="user"
+    >
+      <>
       <Navbar />
 
       <main className="relative min-h-screen overflow-x-hidden bg-[#07152f]">
@@ -574,17 +578,19 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 )}
               </motion.div>
 
-              <div className="grid grid-cols-2 gap-3 md:gap-5">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-2 gap-3 md:gap-5"
+              >
                 {data.spaceCards.cards.map((card, i) => {
                   const Icon = i === 0 ? Store : Building2;
 
                   return (
-                    <motion.div
+                    <div
                       key={card.title}
-                      initial={{ opacity: 0, y: 22 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.55, delay: i * 0.12 }}
                       className={`${glassCard} flex flex-col p-4 md:p-8`}
                     >
                       <div className="mb-4 flex flex-col gap-2 md:mb-5 md:flex-row md:items-center md:gap-3">
@@ -619,10 +625,10 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                           {card.note}
                         </span>
                       )}
-                    </motion.div>
+                    </div>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
           </section>
         )}
@@ -640,14 +646,16 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 {data.processSection.title}
               </motion.h2>
 
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4"
+              >
                 {data.processSection.steps.map((step, i) => (
-                  <motion.div
+                  <div
                     key={step}
-                    initial={{ opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
                     className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.12] md:p-5"
                   >
                     <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(49,85,164,0.4)]">
@@ -656,9 +664,9 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     <p className="text-[13px] font-bold leading-relaxed text-white/90 md:text-sm">
                       {step}
                     </p>
-                  </motion.div>
+                  </div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </section>
         )}
@@ -1145,6 +1153,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         </section>
       </main>
-    </>
+      </>
+    </MotionConfig>
   );
 }
