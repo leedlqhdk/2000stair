@@ -128,17 +128,8 @@ export default function GlassCleaning() {
             before: "/images/before-after/glass-residential-before01.jpeg",
             after: "/images/before-after/glass-residential-after01.jpeg",
             label: "거주공간 유리청소 전후 비교",
-          },
-        ],
-
-        photoGrid: [
-          {
-            src: "/images/services/glass-cleaning/glass-page01.webp",
-            alt: "상가 전면 유리청소 작업",
-          },
-          {
-            src: "/images/services/glass-cleaning/glass-page03.webp",
-            alt: "건물 외창 유리청소 작업",
+            beforeObjectPosition: "center 35%",
+            afterObjectPosition: "center 65%",
           },
         ],
 
@@ -146,11 +137,12 @@ export default function GlassCleaning() {
           {
             title: "세대 유리는 전문 파트너와 함께합니다",
             body: "상가·사무실 전면 유리와 빌라 공동현관·계단창은 저희 부부가 직접 작업합니다. 아파트·빌라 세대 안쪽 창문과 베란다·외창은 창호 구조와 접근 방식에 따라 작업 방법이 크게 달라져, 그 작업을 전문으로 하는 유리 파트너와 함께 진행합니다. 상담과 견적은 저희가 함께 봐드립니다.",
+            image: "/images/services/glass-cleaning/glass-page01.webp",
           },
           {
             title: "외창은 층수만으로 판단하지 않아요",
             body: "외부 유리(외창)는 창문이 어떻게 열리는지, 작업할 공간이 있는지, 안전하게 접근할 수 있는지를 먼저 확인합니다. 확인한 뒤 작업이 가능한 범위를 안내드리며, 어려운 현장은 솔직하게 말씀드립니다.",
-            image: "/images/services/glass-cleaning/glass-page02.webp",
+            image: "/images/services/glass-cleaning/glass-page03.webp",
           },
           {
             title: "결과를 솔직하게 안내드립니다",

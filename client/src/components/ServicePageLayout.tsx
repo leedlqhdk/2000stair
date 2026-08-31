@@ -47,6 +47,8 @@ export interface GalleryPair {
   after: string;
   label?: string;
   caption?: string;
+  beforeObjectPosition?: string;
+  afterObjectPosition?: string;
 }
 
 export interface FaqItem {
@@ -164,7 +166,12 @@ const serviceKeyByFolder: Record<string, WorkServiceKey> = {
   "office-cleaning": "office",
 };
 
-function BeforeAfterSlider({ before, after }: GalleryPair) {
+function BeforeAfterSlider({
+  before,
+  after,
+  beforeObjectPosition = "center",
+  afterObjectPosition = "center",
+}: GalleryPair) {
   const [pos, setPos] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
@@ -206,6 +213,7 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
           src={after}
           alt="청소 후"
           className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: afterObjectPosition }}
         />
 
         <div
@@ -216,7 +224,7 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
             src={before}
             alt="청소 전"
             className="absolute inset-0 h-full max-w-none object-cover"
-            style={{ width: ref.current?.clientWidth }}
+            style={{ width: ref.current?.clientWidth, objectPosition: beforeObjectPosition }}
           />
         </div>
 
