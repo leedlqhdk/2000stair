@@ -574,7 +574,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 )}
               </motion.div>
 
-              <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+              <div className="grid grid-cols-2 gap-3 md:gap-5">
                 {data.spaceCards.cards.map((card, i) => {
                   const Icon = i === 0 ? Store : Building2;
 
@@ -585,29 +585,29 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.55, delay: i * 0.12 }}
-                      className={`${glassCard} flex flex-col p-6 md:p-8`}
+                      className={`${glassCard} flex flex-col p-4 md:p-8`}
                     >
-                      <div className="mb-5 flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25">
-                          <Icon className="h-6 w-6" />
+                      <div className="mb-4 flex flex-col gap-2 md:mb-5 md:flex-row md:items-center md:gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white ring-1 ring-white/25 md:h-12 md:w-12 md:rounded-2xl">
+                          <Icon className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
                         <div>
                           {card.subtitle && (
-                            <p className="text-xs font-extrabold tracking-wide text-sky-300">
+                            <p className="text-[10px] font-extrabold tracking-wide text-sky-300 md:text-xs">
                               {card.subtitle}
                             </p>
                           )}
-                          <h3 className="text-lg font-extrabold text-white md:text-xl">
+                          <h3 className="text-base font-extrabold leading-tight text-white md:text-xl">
                             {card.title}
                           </h3>
                         </div>
                       </div>
 
-                      <ul className="space-y-2.5">
+                      <ul className="space-y-2 md:space-y-2.5">
                         {card.items.map((item) => (
-                          <li key={item} className="flex items-start gap-2.5">
-                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                            <span className="text-sm leading-relaxed text-white/80 md:text-[15px]">
+                          <li key={item} className="flex items-start gap-1.5 md:gap-2.5">
+                            <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary md:h-4 md:w-4" />
+                            <span className="text-xs leading-relaxed text-white/80 md:text-[15px]">
                               {item}
                             </span>
                           </li>
@@ -615,7 +615,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       </ul>
 
                       {card.note && (
-                        <span className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-3 py-1.5 text-xs font-bold text-sky-200">
+                        <span className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-2.5 py-1 text-[10px] font-bold text-sky-200 md:mt-5 md:px-3 md:py-1.5 md:text-xs">
                           {card.note}
                         </span>
                       )}

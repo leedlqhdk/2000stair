@@ -80,15 +80,11 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
           {reviewCards.map((review, i) => (
-            <motion.div
+            <div
               key={`${review.platform}-${i}`}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="flex flex-col"
+              className="flex w-[80%] shrink-0 snap-center flex-col md:w-auto md:shrink"
             >
               <div className={`flex flex-1 flex-col rounded-[1.5rem] border p-6 transition-all duration-200 md:p-7 ${cardClass}`}>
                 <div className="mb-5 flex items-center justify-between">
@@ -134,7 +130,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
