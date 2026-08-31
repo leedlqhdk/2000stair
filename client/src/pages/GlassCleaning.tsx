@@ -90,12 +90,12 @@ export default function GlassCleaning() {
         pricingTiers: [
           {
             badge: "공동현관 유리",
-            price: "30,000원~",
+            price: "50,000원~",
             note: "출입문 유리 · 고정창 기준",
           },
           {
             badge: "상가 유리청소",
-            price: "50,000원~",
+            price: "100,000원~",
             note: "소형 상가 · 전면 유리 기준",
             highlight: true,
           },
