@@ -238,3 +238,16 @@
     width: 100%;
   }
 }
+
+/* Backdrop filters can flicker while mobile browsers scroll a fixed background. */
+@media (max-width: 767px) {
+  .service-page [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .service-page [style*="transform"] {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}

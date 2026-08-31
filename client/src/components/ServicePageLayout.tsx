@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
@@ -23,13 +23,10 @@ import {
   Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
-import AreaPostCard from "@/components/AreaPostCard";
 import Navbar from "@/components/Navbar";
 import BlogReviews from "@/components/BlogReviews";
-import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
-import { getPrimaryWorkService } from "@shared/workRelatedLinks";
 import type { WorkServiceKey } from "@shared/workRelatedLinks";
 
 export interface ServiceFeature {
@@ -50,6 +47,8 @@ export interface GalleryPair {
   after: string;
   label?: string;
   caption?: string;
+  beforeObjectPosition?: string;
+  afterObjectPosition?: string;
 }
 
 export interface FaqItem {
@@ -85,6 +84,7 @@ export interface SpaceCard {
   title: string;
   subtitle?: string;
   items: string[];
+  note?: string;
 }
 
 export interface SpaceCardsSection {
@@ -166,14 +166,12 @@ const serviceKeyByFolder: Record<string, WorkServiceKey> = {
   "office-cleaning": "office",
 };
 
-const serviceExampleTitles: Record<WorkServiceKey, string> = {
-  stair: "계단청소 실제 작업사례",
-  glass: "유리청소 실제 작업사례",
-  bathroom: "화장실청소 실제 작업사례",
-  office: "사무실·상가 정기청소 실제 작업사례",
-};
-
-function BeforeAfterSlider({ before, after }: GalleryPair) {
+function BeforeAfterSlider({
+  before,
+  after,
+  beforeObjectPosition = "center",
+  afterObjectPosition = "center",
+}: GalleryPair) {
   const [pos, setPos] = useState(50);
   const ref = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
@@ -215,6 +213,7 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
           src={after}
           alt="청소 후"
           className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: afterObjectPosition }}
         />
 
         <div
@@ -225,7 +224,7 @@ function BeforeAfterSlider({ before, after }: GalleryPair) {
             src={before}
             alt="청소 전"
             className="absolute inset-0 h-full max-w-none object-cover"
-            style={{ width: ref.current?.clientWidth }}
+            style={{ width: ref.current?.clientWidth, objectPosition: beforeObjectPosition }}
           />
         </div>
 
@@ -279,60 +278,11 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
   );
 }
 
-function ServiceWorkExamples({ serviceKey }: { serviceKey: WorkServiceKey }) {
-  const { posts, isLoading } = useAllWorkPosts(`service-${serviceKey}`);
-  const servicePosts = useMemo(
-    () => posts.filter((post) => getPrimaryWorkService(post) === serviceKey).slice(0, 3),
-    [posts, serviceKey]
-  );
-
-  if (!isLoading && servicePosts.length === 0) {
-    return null;
-  }
-
+function ServiceWorkLinks() {
   return (
-    <section className="relative z-10 py-12 md:py-24">
-      <div className="container mx-auto max-w-6xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-7 text-center md:mb-9"
-        >
-          <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
-            FIELD RECORDS
-          </p>
-          <h2 className="text-xl font-extrabold text-white sm:text-3xl">
-            {serviceExampleTitles[serviceKey]}
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-white/70 md:text-base">
-            지역 페이지와 연결된 실제 작업일지 중 해당 서비스 사례만 모았습니다.
-          </p>
-        </motion.div>
-
-        {isLoading && servicePosts.length === 0 ? (
-          <div className="grid gap-4 md:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div
-                key={index}
-                className="h-[292px] animate-pulse rounded-[1.1rem] border border-white/14 bg-white/[0.12] backdrop-blur-xl"
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5">
-            {servicePosts.map((post, index) => (
-              <AreaPostCard
-                key={`${post.area}-${post.title}-${post.date}-${index}`}
-                post={post}
-                index={index}
-                compact
-              />
-            ))}
-          </div>
-        )}
-
-        <div className="mt-7 flex flex-wrap justify-center gap-3">
+    <section className="relative z-10 px-4 py-6 md:py-10">
+      <div className="container mx-auto max-w-4xl">
+        <div className="flex flex-wrap justify-center gap-3">
           <Link href="/records">
             <a className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-5 py-3 text-sm font-extrabold text-white transition-all hover:-translate-y-0.5 hover:bg-white/20">
               전체 작업일지 보기
@@ -362,10 +312,14 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
   }, [data.seoTitle]);
 
   return (
-    <>
+    <MotionConfig
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      reducedMotion="user"
+    >
+      <>
       <Navbar />
 
-      <main className="relative min-h-screen overflow-x-hidden bg-[#07152f]">
+      <main className="service-page relative min-h-screen overflow-x-hidden bg-[#07152f]">
         {data.heroVideo && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
             <video
@@ -573,55 +527,63 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 )}
               </motion.div>
 
-              <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-2 gap-3 md:gap-5"
+              >
                 {data.spaceCards.cards.map((card, i) => {
                   const Icon = i === 0 ? Store : Building2;
 
                   return (
-                    <motion.div
+                    <div
                       key={card.title}
-                      initial={{ opacity: 0, y: 22 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.55, delay: i * 0.12 }}
-                      className={`${glassCard} flex flex-col p-6 md:p-8`}
+                      className={`${glassCard} flex flex-col p-4 md:p-8`}
                     >
-                      <div className="mb-5 flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25">
-                          <Icon className="h-6 w-6" />
+                      <div className="mb-4 flex flex-row items-center gap-2 md:mb-5 md:gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white ring-1 ring-white/25 md:h-12 md:w-12 md:rounded-2xl">
+                          <Icon className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
                         <div>
                           {card.subtitle && (
-                            <p className="text-xs font-extrabold tracking-wide text-sky-300">
+                            <p className="text-[10px] font-extrabold tracking-wide text-sky-300 md:text-xs">
                               {card.subtitle}
                             </p>
                           )}
-                          <h3 className="text-lg font-extrabold text-white md:text-xl">
+                          <h3 className="text-base font-extrabold leading-tight text-white md:text-xl">
                             {card.title}
                           </h3>
                         </div>
                       </div>
 
-                      <ul className="space-y-2.5">
+                      <ul className="space-y-2 md:space-y-2.5">
                         {card.items.map((item) => (
-                          <li key={item} className="flex items-start gap-2.5">
-                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                            <span className="text-sm leading-relaxed text-white/80 md:text-[15px]">
+                          <li key={item} className="flex items-center gap-2 md:gap-2.5">
+                            <Check className="h-4 w-4 shrink-0 text-blue-500 md:h-[18px] md:w-[18px]" />
+                            <span className="text-[13px] leading-5 text-white/85 md:text-[15px] md:leading-6">
                               {item}
                             </span>
                           </li>
                         ))}
                       </ul>
-                    </motion.div>
+
+                      {card.note && (
+                        <span className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-2.5 py-1 text-[10px] font-bold text-sky-200 md:mt-5 md:px-3 md:py-1.5 md:text-xs">
+                          {card.note}
+                        </span>
+                      )}
+                    </div>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
           </section>
         )}
 
         {/* 작업 진행 과정 섹션 (선택) */}
-        {data.processSection && (
+        {data.processSection && serviceKey !== "glass" && (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-5xl px-4">
               <motion.h2
@@ -633,14 +595,16 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 {data.processSection.title}
               </motion.h2>
 
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4"
+              >
                 {data.processSection.steps.map((step, i) => (
-                  <motion.div
+                  <div
                     key={step}
-                    initial={{ opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
                     className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.12] md:p-5"
                   >
                     <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(49,85,164,0.4)]">
@@ -649,46 +613,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     <p className="text-[13px] font-bold leading-relaxed text-white/90 md:text-sm">
                       {step}
                     </p>
-                  </motion.div>
+                  </div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </section>
         )}
-
-        {/* 작업 비포 & 애프터 갤러리 섹션 */}
-        {data.gallery && data.gallery.length > 0 ? (
-          <section className="relative z-10 py-12 md:py-24">
-            <div className="container mx-auto max-w-4xl px-4">
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-6 text-center md:mb-9"
-              >
-                <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
-                  BEFORE & AFTER
-                </p>
-                <h2 className="text-xl font-extrabold text-white sm:text-3xl">
-                  작업 비포 & 애프터
-                </h2>
-              </motion.div>
-
-              <div className="space-y-6 md:space-y-8">
-                {data.gallery.map((pair, idx) => (
-                  <div key={idx}>
-                    <BeforeAfterSlider before={pair.before} after={pair.after} />
-                    {(pair.caption || pair.label) && (
-                      <p className="mt-3 text-center text-xs font-semibold text-white/70 md:mt-4 md:text-sm">
-                        {pair.caption || pair.label}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null}
 
         {/* 요금 안내 섹션 */}
         <section className="relative z-10 py-12 md:py-24">
@@ -1034,7 +964,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </section>
         )}
 
-        {serviceKey && !data.hideWorkExamples && <ServiceWorkExamples serviceKey={serviceKey} />}
+        {serviceKey && !data.hideWorkExamples && <ServiceWorkLinks />}
 
         {/* 블로그 연결 섹션 (선택) */}
         {data.blogLink && (
@@ -1073,6 +1003,40 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             </div>
           </section>
         )}
+
+        {/* 작업 비포 & 애프터 갤러리 섹션 */}
+        {data.gallery && data.gallery.length > 0 ? (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-4xl px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-6 text-center md:mb-9"
+              >
+                <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
+                  BEFORE & AFTER
+                </p>
+                <h2 className="text-xl font-extrabold text-white sm:text-3xl">
+                  작업 비포 & 애프터
+                </h2>
+              </motion.div>
+
+              <div className="space-y-6 md:space-y-8">
+                {data.gallery.map((pair, idx) => (
+                  <div key={idx}>
+                    <BeforeAfterSlider before={pair.before} after={pair.after} />
+                    {(pair.caption || pair.label) && (
+                      <p className="mt-3 text-center text-xs font-semibold text-white/70 md:mt-4 md:text-sm">
+                        {pair.caption || pair.label}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* FAQ 섹션 (선택) */}
         {data.faq && data.faq.length > 0 && (
@@ -1138,6 +1102,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         </section>
       </main>
-    </>
+      </>
+    </MotionConfig>
   );
 }
