@@ -575,7 +575,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         )}
 
         {/* 작업 진행 과정 섹션 (선택) */}
-        {data.processSection && (
+        {data.processSection && serviceKey !== "glass" && (
           <section className="relative z-10 py-12 md:py-24">
             <div className="container mx-auto max-w-5xl px-4">
               <motion.h2
