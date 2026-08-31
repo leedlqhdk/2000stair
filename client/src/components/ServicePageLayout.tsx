@@ -85,6 +85,7 @@ export interface SpaceCard {
   title: string;
   subtitle?: string;
   items: string[];
+  note?: string;
 }
 
 export interface SpaceCardsSection {
@@ -612,6 +613,12 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                           </li>
                         ))}
                       </ul>
+
+                      {card.note && (
+                        <span className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-3 py-1.5 text-xs font-bold text-sky-200">
+                          {card.note}
+                        </span>
+                      )}
                     </motion.div>
                   );
                 })}
