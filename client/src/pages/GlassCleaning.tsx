@@ -118,6 +118,30 @@ export default function GlassCleaning() {
           ],
         },
 
+        gallery: [
+          {
+            before: "/images/before-after/glass-clean-before01.webp",
+            after: "/images/before-after/glass-clean-after01.webp",
+            label: "상가·공용공간 유리청소 전후 비교",
+          },
+          {
+            before: "/images/before-after/glass-residential-before01.jpeg",
+            after: "/images/before-after/glass-residential-after01.jpeg",
+            label: "거주공간 유리청소 전후 비교",
+          },
+        ],
+
+        photoGrid: [
+          {
+            src: "/images/services/glass-cleaning/glass-page01.webp",
+            alt: "상가 전면 유리청소 작업",
+          },
+          {
+            src: "/images/services/glass-cleaning/glass-page03.webp",
+            alt: "건물 외창 유리청소 작업",
+          },
+        ],
+
         infoSections: [
           {
             title: "세대 유리는 전문 파트너와 함께합니다",
@@ -131,10 +155,6 @@ export default function GlassCleaning() {
           {
             title: "결과를 솔직하게 안내드립니다",
             body: "일반적인 빗물 자국이나 먼지는 잘 지워집니다. 다만 오래 방치된 스케일이나 유리 표면이 부식된 경우는 청소 후에도 흔적이 남을 수 있고, 몇 년씩 눌어붙은 물때는 완전히 새것처럼 되지는 않습니다. 유리 자체가 상한 것이라 청소로 되돌릴 수 있는 범위를 넘어서기 때문입니다. 이런 부분은 작업 전에 상태를 보고 미리 말씀드립니다.",
-            beforeAfter: {
-              before: "/images/before-after/glass-clean-before01.webp",
-              after: "/images/before-after/glass-clean-after01.webp",
-            },
           },
         ],
 

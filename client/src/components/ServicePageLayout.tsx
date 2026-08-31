@@ -524,7 +524,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.18 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="grid grid-cols-2 gap-3 md:gap-5"
+                className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5"
               >
                 {data.spaceCards.cards.map((card, i) => {
                   const Icon = i === 0 ? Store : Building2;
@@ -552,9 +552,9 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
 
                       <ul className="space-y-2 md:space-y-2.5">
                         {card.items.map((item) => (
-                          <li key={item} className="flex items-start gap-1.5 md:gap-2.5">
-                            <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary md:h-4 md:w-4" />
-                            <span className="text-xs leading-relaxed text-white/80 md:text-[15px]">
+                          <li key={item} className="flex items-center gap-2 md:gap-2.5">
+                            <Check className="h-4 w-4 shrink-0 text-blue-500 md:h-[18px] md:w-[18px]" />
+                            <span className="text-[13px] leading-5 text-white/85 md:text-[15px] md:leading-6">
                               {item}
                             </span>
                           </li>
