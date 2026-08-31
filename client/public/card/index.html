@@ -131,6 +131,19 @@ a{text-decoration:none}
 .btn-call{width:88px;background:#fff;color:var(--primary);border:1.5px solid var(--blue-100)}
 .btn-call:hover{background:var(--blue-50)}
 
+/* ── 데스크톱: 폰 목업 프레임 ── */
+@media (min-width:768px){
+  body{ background:#0b1730; align-items:center; }
+  .frame{
+    position:relative; width:402px; height:874px;
+    border-radius:54px; border:14px solid #0a1530;
+    box-shadow:0 40px 90px rgba(4,12,32,.55);
+    overflow:hidden;
+    background:linear-gradient(180deg,#16305c 0%,#24467d 62%,#2e5290 100%);
+  }
+  .screen{ min-height:100%; height:100%; }
+  .actions{ position:absolute; left:0; right:0; bottom:0; max-width:none; width:100%; }
+}
 @media (max-height:700px){
   .lanyard{height:74px}
   .card-wrap{height:454px}
@@ -140,6 +153,7 @@ a{text-decoration:none}
 </head>
 <body>
 
+<div class="frame">
 <div class="screen">
   <div class="lanyard"><span>2000STAIR</span></div>
   <div class="clip"></div>
@@ -223,6 +237,7 @@ a{text-decoration:none}
     <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
     전화
   </a>
+</div>
 </div>
 
 <script>
