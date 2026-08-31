@@ -524,7 +524,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.18 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5"
+                className="grid grid-cols-2 gap-3 md:gap-5"
               >
                 {data.spaceCards.cards.map((card, i) => {
                   const Icon = i === 0 ? Store : Building2;
@@ -534,7 +534,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       key={card.title}
                       className={`${glassCard} flex flex-col p-4 md:p-8`}
                     >
-                      <div className="mb-4 flex flex-col gap-2 md:mb-5 md:flex-row md:items-center md:gap-3">
+                      <div className="mb-4 flex flex-row items-center gap-2 md:mb-5 md:gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white ring-1 ring-white/25 md:h-12 md:w-12 md:rounded-2xl">
                           <Icon className="h-5 w-5 md:h-6 md:w-6" />
                         </div>
