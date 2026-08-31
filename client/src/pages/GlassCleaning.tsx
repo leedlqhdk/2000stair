@@ -100,7 +100,7 @@ export default function GlassCleaning() {
             highlight: true,
           },
           {
-            badge: "아파트·빌라 / 일회성",
+            badge: "아파트·빌라",
             price: "별도 견적",
             note: "세대 유리·묵은 오염 등 현장 확인 후 안내",
           },
