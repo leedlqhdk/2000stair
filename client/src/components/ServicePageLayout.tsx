@@ -620,40 +620,6 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </section>
         )}
 
-        {/* 작업 비포 & 애프터 갤러리 섹션 */}
-        {data.gallery && data.gallery.length > 0 ? (
-          <section className="relative z-10 py-12 md:py-24">
-            <div className="container mx-auto max-w-4xl px-4">
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-6 text-center md:mb-9"
-              >
-                <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
-                  BEFORE & AFTER
-                </p>
-                <h2 className="text-xl font-extrabold text-white sm:text-3xl">
-                  작업 비포 & 애프터
-                </h2>
-              </motion.div>
-
-              <div className="space-y-6 md:space-y-8">
-                {data.gallery.map((pair, idx) => (
-                  <div key={idx}>
-                    <BeforeAfterSlider before={pair.before} after={pair.after} />
-                    {(pair.caption || pair.label) && (
-                      <p className="mt-3 text-center text-xs font-semibold text-white/70 md:mt-4 md:text-sm">
-                        {pair.caption || pair.label}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null}
-
         {/* 요금 안내 섹션 */}
         <section className="relative z-10 py-12 md:py-24">
           <div className="container mx-auto max-w-5xl px-4">
@@ -1037,6 +1003,40 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             </div>
           </section>
         )}
+
+        {/* 작업 비포 & 애프터 갤러리 섹션 */}
+        {data.gallery && data.gallery.length > 0 ? (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-4xl px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-6 text-center md:mb-9"
+              >
+                <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
+                  BEFORE & AFTER
+                </p>
+                <h2 className="text-xl font-extrabold text-white sm:text-3xl">
+                  작업 비포 & 애프터
+                </h2>
+              </motion.div>
+
+              <div className="space-y-6 md:space-y-8">
+                {data.gallery.map((pair, idx) => (
+                  <div key={idx}>
+                    <BeforeAfterSlider before={pair.before} after={pair.after} />
+                    {(pair.caption || pair.label) && (
+                      <p className="mt-3 text-center text-xs font-semibold text-white/70 md:mt-4 md:text-sm">
+                        {pair.caption || pair.label}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* FAQ 섹션 (선택) */}
         {data.faq && data.faq.length > 0 && (
