@@ -93,8 +93,8 @@ a{text-decoration:none}
 .tags span{display:inline-flex;align-items:center;height:28px;padding:0 11px;border-radius:999px;background:var(--blue-50);border:1px solid var(--blue-100);color:var(--primary);font-size:12px;font-weight:700}
 .cardfoot{margin-top:auto;padding:14px 22px 20px;display:flex;align-items:flex-end;justify-content:space-between}
 .hint{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--muted-foreground)}
-.barcode{display:flex;gap:2px;align-items:flex-end;height:34px}
-.barcode i{height:34px;background:#111;display:block}
+.barcode{width:44px;height:44px;flex:none;border-radius:6px;overflow:hidden;background:#fff}
+.barcode img{width:100%;height:100%;display:block;image-rendering:pixelated}
 
 /* 뒷면 */
 .back{transform:rotateY(180deg) translateZ(1px);background:#fff;color:#0f1b33;padding:26px 24px;gap:14px}
@@ -186,9 +186,7 @@ a{text-decoration:none}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path><path d="M3 22v-6h6"></path><path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path></svg>
             탭해서 뒷면
           </div>
-          <div class="barcode">
-            <i style="width:2px"></i><i style="width:5px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:6px"></i><i style="width:1px"></i><i style="width:4px"></i><i style="width:2px"></i><i style="width:5px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:4px"></i><i style="width:1px"></i><i style="width:5px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:6px"></i>
-          </div>
+          <div class="barcode"><img src="/card/images/qr.png" alt="2000stair.kr QR코드"></div>
         </div>
       </div>
 
