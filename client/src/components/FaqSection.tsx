@@ -82,7 +82,7 @@ const faqJsonLd = {
 
 export default function FaqSection() {
   return (
-    <section className="border-y border-blue-100 bg-gradient-to-b from-blue-50/45 via-white to-blue-50/25 py-16 md:py-24">
+    <section className="border-y border-blue-100 bg-white py-16 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

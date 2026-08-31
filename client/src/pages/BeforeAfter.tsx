@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import InfoPageHero from "@/components/InfoPageHero";
 import { beforeAfterItems, type BeforeAfterItem } from "@/data/beforeAfter";
 
 function ComparisonSlider({
@@ -13,18 +14,7 @@ function ComparisonSlider({
   const [position, setPosition] = useState(50);
 
   return (
-    <article className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm">
-      <div className="flex items-end justify-between gap-4 px-4 py-4 md:px-7 md:py-6">
-        <div>
-          <p className="mb-1.5 text-xs font-bold text-primary md:text-sm">
-            {item.category}
-          </p>
-          <h2 className="text-[17px] font-extrabold text-foreground md:text-3xl">
-            {item.title}
-          </h2>
-        </div>
-      </div>
-
+    <article className="overflow-hidden">
       <div className="relative aspect-[4/3] select-none overflow-hidden rounded-[2rem] border border-white/40 bg-white/20 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-xl md:aspect-[4/3]">
         <img
           src={item.before}
@@ -80,27 +70,15 @@ export default function BeforeAfter() {
       <Navbar />
 
       <main>
-        <section className="border-b border-blue-100 bg-blue-50/35">
-          <div className="container max-w-6xl py-9 md:py-20">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="mb-3 text-xs font-bold tracking-[0.25em] text-primary md:mb-4 md:text-sm">
-                BEFORE &amp; AFTER
-              </p>
-              <h1 className="text-[28px] font-extrabold leading-tight text-foreground md:text-6xl">
-                청소 전후 사진
-              </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground md:mt-5 md:text-lg md:leading-8">
-                이천 빌라·상가의 계단, 공동현관 유리와 화장실을 직접 관리한 전후 사진을 모았습니다.
-              </p>
-            </motion.div>
-          </div>
+        <section className="container max-w-4xl px-5 pb-2 pt-8 md:pb-4 md:pt-12">
+          <InfoPageHero
+            eyebrow="BEFORE &amp; AFTER"
+            title="청소 전후 사진"
+            description="이천 빌라·상가의 계단, 공동현관 유리와 화장실을 직접 관리한 전후 사진을 모았습니다."
+          />
         </section>
 
-        <section className="py-8 md:py-20">
+        <section className="py-8 md:py-16">
           <motion.div
             className="mx-auto flex max-w-[calc(100vw-2rem)] flex-col gap-5 pb-5 md:max-w-[min(920px,82vw)] md:gap-6"
             initial={{ opacity: 0, y: 24 }}

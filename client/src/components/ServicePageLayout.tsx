@@ -2,18 +2,24 @@ import { motion } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
+  ArrowUpRight,
+  BookOpen,
   Brush,
   Bug,
+  Building2,
   CalendarClock,
   Camera,
+  Check,
   ChevronDown,
   DoorOpen,
   Hand,
   Leaf,
+  ListChecks,
   MessageCircle,
   Phone,
   ShieldCheck,
   Sparkles,
+  Store,
   Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -75,6 +81,49 @@ export interface PhotoGridItem {
   alt: string;
 }
 
+export interface SpaceCard {
+  title: string;
+  subtitle?: string;
+  items: string[];
+}
+
+export interface SpaceCardsSection {
+  title: string;
+  subtitle?: string;
+  cards: SpaceCard[];
+}
+
+export interface ProcessSection {
+  title: string;
+  steps: string[];
+}
+
+export interface PricingFactorsSection {
+  title: string;
+  items: string[];
+}
+
+export interface ConsultButton {
+  label: string;
+  href: string;
+  kind: "kakao" | "quote" | "tel";
+}
+
+export interface PhotoConsultSection {
+  eyebrow?: string;
+  title: string;
+  lines?: string[];
+  buttons: ConsultButton[];
+}
+
+export interface BlogLinkSection {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  href: string;
+  label: string;
+}
+
 export interface ServicePageData {
   heroTitle: string;
   heroSubtitle: string;
@@ -97,7 +146,13 @@ export interface ServicePageData {
   infoSections?: InfoSection[];
   faq?: FaqItem[];
   showReviews?: boolean;
+  hideWorkExamples?: boolean;
   photoGrid?: PhotoGridItem[];
+  spaceCards?: SpaceCardsSection;
+  processSection?: ProcessSection;
+  pricingFactors?: PricingFactorsSection;
+  photoConsult?: PhotoConsultSection;
+  blogLink?: BlogLinkSection;
 }
 
 const featureIcons = [Users, ShieldCheck, Camera, CalendarClock];
@@ -460,41 +515,146 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </div>
         </section>
 
-        {/* 관리 범위 섹션 */}
-        <section className="relative z-10 py-12 md:py-24">
-          <div className="container mx-auto max-w-5xl px-4">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-7 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-10"
-            >
-              관리 범위
-            </motion.h2>
+        {/* 관리 범위 섹션 (공간별 카드가 있으면 그쪽으로 대체) */}
+        {!data.spaceCards && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-5xl px-4">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-7 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-10"
+              >
+                관리 범위
+              </motion.h2>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              {data.scopeItems.map((item, i) => {
-                const Icon = scopeIcons[i % scopeIcons.length];
+              <div className="grid gap-3 sm:grid-cols-2">
+                {data.scopeItems.map((item, i) => {
+                  const Icon = scopeIcons[i % scopeIcons.length];
 
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.06 }}
-                    className="flex items-center gap-4 rounded-2xl border border-white/14 bg-white/[0.1] px-4 py-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.16] md:px-5"
-                  >
-                    <Icon className="h-5 w-5 shrink-0 text-white/85" />
-                    <span className="text-sm font-extrabold text-white/90 md:text-base">
-                      {item}
-                    </span>
-                  </motion.div>
-                );
-              })}
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.06 }}
+                      className="flex items-center gap-4 rounded-2xl border border-white/14 bg-white/[0.1] px-4 py-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.16] md:px-5"
+                    >
+                      <Icon className="h-5 w-5 shrink-0 text-white/85" />
+                      <span className="text-sm font-extrabold text-white/90 md:text-base">
+                        {item}
+                      </span>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
+
+        {/* 공간별 작업 범위 섹션 (상업/주거 카드 - 선택) */}
+        {data.spaceCards && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-5xl px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-8 text-center md:mb-12"
+              >
+                <h2 className="text-2xl font-extrabold text-white sm:text-3xl">
+                  {data.spaceCards.title}
+                </h2>
+                {data.spaceCards.subtitle && (
+                  <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-white/70 md:text-base">
+                    {data.spaceCards.subtitle}
+                  </p>
+                )}
+              </motion.div>
+
+              <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+                {data.spaceCards.cards.map((card, i) => {
+                  const Icon = i === 0 ? Store : Building2;
+
+                  return (
+                    <motion.div
+                      key={card.title}
+                      initial={{ opacity: 0, y: 22 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.55, delay: i * 0.12 }}
+                      className={`${glassCard} flex flex-col p-6 md:p-8`}
+                    >
+                      <div className="mb-5 flex items-center gap-3">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <div>
+                          {card.subtitle && (
+                            <p className="text-xs font-extrabold tracking-wide text-sky-300">
+                              {card.subtitle}
+                            </p>
+                          )}
+                          <h3 className="text-lg font-extrabold text-white md:text-xl">
+                            {card.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <ul className="space-y-2.5">
+                        {card.items.map((item) => (
+                          <li key={item} className="flex items-start gap-2.5">
+                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                            <span className="text-sm leading-relaxed text-white/80 md:text-[15px]">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 작업 진행 과정 섹션 (선택) */}
+        {data.processSection && (
+          <section className="relative z-10 py-12 md:py-24">
+            <div className="container mx-auto max-w-5xl px-4">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-8 text-center text-2xl font-extrabold text-white sm:text-3xl md:mb-12"
+              >
+                {data.processSection.title}
+              </motion.h2>
+
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+                {data.processSection.steps.map((step, i) => (
+                  <motion.div
+                    key={step}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.12] md:p-5"
+                  >
+                    <span className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(49,85,164,0.4)]">
+                      {i + 1}
+                    </span>
+                    <p className="text-[13px] font-bold leading-relaxed text-white/90 md:text-sm">
+                      {step}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* 작업 비포 & 애프터 갤러리 섹션 */}
         {data.gallery && data.gallery.length > 0 ? (
@@ -607,6 +767,33 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                     {line}
                   </p>
                 ))}
+              </motion.div>
+            )}
+
+            {data.pricingFactors && data.pricingFactors.items.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="mx-auto mt-6 max-w-2xl rounded-[1.6rem] border border-white/16 bg-white/[0.08] px-6 py-6 backdrop-blur-xl md:px-8 md:py-7"
+              >
+                <div className="mb-4 flex items-center justify-center gap-2 text-white">
+                  <ListChecks className="h-5 w-5 text-primary" />
+                  <h3 className="text-base font-extrabold md:text-lg">
+                    {data.pricingFactors.title}
+                  </h3>
+                </div>
+                <ul className="grid gap-2.5 sm:grid-cols-2">
+                  {data.pricingFactors.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2.5">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span className="text-[13px] leading-6 text-white/78 md:text-sm">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             )}
 
@@ -769,7 +956,123 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </section>
         )}
 
-        {serviceKey && <ServiceWorkExamples serviceKey={serviceKey} />}
+        {/* 사진 상담 유도 섹션 (선택) */}
+        {data.photoConsult && (
+          <section className="relative z-10 px-4 py-12 md:py-24">
+            <div className="container mx-auto max-w-4xl">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`${glassCard} px-5 py-8 text-center md:px-12 md:py-12`}
+              >
+                {data.photoConsult.eyebrow && (
+                  <p className="mb-2 text-xs font-extrabold tracking-[0.3em] text-primary">
+                    {data.photoConsult.eyebrow}
+                  </p>
+                )}
+                <h2 className="text-xl font-extrabold leading-snug text-white sm:text-2xl md:text-3xl">
+                  {data.photoConsult.title}
+                </h2>
+
+                {data.photoConsult.lines && data.photoConsult.lines.length > 0 && (
+                  <div className="mx-auto mt-4 max-w-xl space-y-1.5">
+                    {data.photoConsult.lines.map((line) => (
+                      <p key={line} className="text-sm leading-7 text-white/72 md:text-base">
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                <div className="mx-auto mt-7 flex max-w-md flex-col gap-3">
+                  {data.photoConsult.buttons.map((btn) => {
+                    const isExternal = btn.href.startsWith("http");
+                    const BtnIcon =
+                      btn.kind === "kakao" ? Camera : btn.kind === "tel" ? Phone : MessageCircle;
+                    const className =
+                      btn.kind === "kakao"
+                        ? "bg-[#FEE500] text-[#3a2929] hover:brightness-105"
+                        : btn.kind === "quote"
+                          ? "bg-primary text-white hover:brightness-110"
+                          : "border border-white/40 bg-white/12 text-white hover:bg-white/20";
+
+                    const content = (
+                      <>
+                        <BtnIcon className="h-4 w-4" />
+                        {btn.label}
+                      </>
+                    );
+
+                    if (isExternal) {
+                      return (
+                        <a
+                          key={btn.label}
+                          href={btn.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-extrabold shadow transition-all hover:-translate-y-0.5 ${className}`}
+                        >
+                          {content}
+                        </a>
+                      );
+                    }
+
+                    return (
+                      <Link key={btn.label} href={btn.href}>
+                        <a
+                          className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-extrabold shadow transition-all hover:-translate-y-0.5 ${className}`}
+                        >
+                          {content}
+                        </a>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </div>
+          </section>
+        )}
+
+        {serviceKey && !data.hideWorkExamples && <ServiceWorkExamples serviceKey={serviceKey} />}
+
+        {/* 블로그 연결 섹션 (선택) */}
+        {data.blogLink && (
+          <section className="relative z-10 px-4 pb-4 md:pb-8">
+            <div className="container mx-auto max-w-4xl">
+              <motion.a
+                href={data.blogLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`${glassCard} flex items-center gap-4 p-5 md:gap-6 md:p-7`}
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25 md:h-14 md:w-14">
+                  <BookOpen className="h-6 w-6" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  {data.blogLink.eyebrow && (
+                    <p className="text-[11px] font-extrabold tracking-[0.25em] text-primary">
+                      {data.blogLink.eyebrow}
+                    </p>
+                  )}
+                  <h3 className="mt-0.5 text-base font-extrabold text-white md:text-lg">
+                    {data.blogLink.title}
+                  </h3>
+                  <p className="mt-1 text-[13px] leading-6 text-white/70 md:text-sm">
+                    {data.blogLink.description}
+                  </p>
+                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-extrabold text-white/85 md:text-sm">
+                    {data.blogLink.label}
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </motion.a>
+            </div>
+          </section>
+        )}
 
         {/* FAQ 섹션 (선택) */}
         {data.faq && data.faq.length > 0 && (
