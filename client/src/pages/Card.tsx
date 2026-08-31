@@ -36,8 +36,9 @@ export default function Card() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-[#2a3f86] via-[#233571] to-[#1b2f57] px-5 pb-12 pt-10 text-white">
-      <div className="mx-auto flex w-full max-w-[420px] flex-col items-center">
+    <div className="flex min-h-screen w-full justify-center bg-[#0b1730] md:items-center md:py-10">
+      <div className="min-h-screen w-full bg-gradient-to-b from-[#2a3f86] via-[#233571] to-[#1b2f57] px-5 pb-12 pt-10 text-white md:min-h-0 md:w-[420px] md:overflow-hidden md:rounded-[44px] md:border-[10px] md:border-[#0a1530] md:shadow-[0_30px_80px_rgba(13,27,54,0.45)]">
+        <div className="mx-auto flex w-full max-w-[420px] flex-col items-center">
         {/* 프로필 */}
         <div className="relative">
           <img
@@ -141,6 +142,7 @@ export default function Card() {
           <p>이천계단지기 · 대표 김규남</p>
           <p className="mt-0.5">사업자등록번호 234-23-02318</p>
           <p className="mt-0.5">경기도 이천시 경충대로3160번길 21</p>
+        </div>
         </div>
       </div>
     </div>
