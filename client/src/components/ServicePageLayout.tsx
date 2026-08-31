@@ -311,7 +311,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
       <>
       <Navbar />
 
-      <main className="relative min-h-screen overflow-x-hidden bg-[#07152f]">
+      <main className="service-page relative min-h-screen overflow-x-hidden bg-[#07152f]">
         {data.heroVideo && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
             <video
