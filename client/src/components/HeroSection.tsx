@@ -25,7 +25,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           >
             <div className="flex items-center gap-3 md:block">
               <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-medium leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
-                이천 건물
+                이천 계단청소
                 <br />
                 <motion.span
                   className="inline-block font-bold text-primary"
@@ -33,10 +33,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  정기 청소관리
+                  부부가 직접
                 </motion.span>
                 <br />
-                전문입니다
+                관리합니다
               </h1>
               <div className="w-[45%] shrink-0 md:hidden">
                 <img
@@ -53,7 +53,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
-              하청 없이 같은 사람이 꾸준히 관리합니다.
+              이천 계단청소 비용·범위·관리주기 | 이천계단지기
             </motion.p>
 
             <div className="mt-5 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">

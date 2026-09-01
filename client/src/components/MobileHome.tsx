@@ -120,17 +120,16 @@ export default function MobileHome() {
         <div className="flex items-center gap-4">
           <div className="min-w-0 flex-1">
             <h1 className="break-keep font-['GmarketSans'] text-[1.5rem] font-bold leading-[1.22] text-foreground">
-              이천
+              이천 계단청소
               <br />
               <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
-                계단청소를
+                부부가 직접
               </span>
               <br />
-              지키는 부부입니다
-              <span className="mt-2 block text-[0.63em] leading-snug">빌라·상가 공용공간 정기관리</span>
+              관리합니다
             </h1>
             <p className="mt-2.5 break-keep text-[13px] font-semibold leading-relaxed text-gray-700">
-              하청 없이 <strong className="text-foreground">부부가 직접</strong>, 주소와 사진 기준으로 상담합니다
+              이천 계단청소 비용·범위·관리주기 | 이천계단지기
             </p>
           </div>
           <motion.div
