@@ -59,7 +59,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <a href="/" className="inline-flex items-center" aria-label="이천계단지기 홈으로 이동">
               <img
-                src="/images/icheon-logo-main.png"
+                src="/images/icheon-logo-main-1200.png"
                 alt="이천계단지기 로고"
                 className="h-12 w-auto max-w-[190px] object-contain brightness-0 invert"
               />

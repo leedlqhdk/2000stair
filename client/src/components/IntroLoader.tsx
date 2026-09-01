@@ -74,7 +74,7 @@ export default function IntroLoader({ onReveal, onDone }: IntroLoaderProps) {
         transition={{ duration: 0.7, ease: CURTAIN_EASE }}
       >
         <motion.img
-          src="/images/icheon-logo-white.png"
+          src="/images/icheon-logo-white-1200.png"
           alt="이천계단지기"
           className="h-10 w-auto md:h-12"
           initial={{ opacity: 0, y: 18 }}

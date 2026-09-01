@@ -213,6 +213,7 @@ function BeforeAfterSlider({
           src={after}
           alt="청소 후"
           className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
           style={{ objectPosition: afterObjectPosition }}
         />
 
@@ -224,6 +225,7 @@ function BeforeAfterSlider({
             src={before}
             alt="청소 전"
             className="absolute inset-0 h-full max-w-none object-cover"
+            loading="lazy"
             style={{ width: ref.current?.clientWidth, objectPosition: beforeObjectPosition }}
           />
         </div>
@@ -322,15 +324,21 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
       <main className="service-page relative min-h-screen overflow-x-hidden bg-[#07152f]">
         {data.heroVideo && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
+            <img
+              src={data.heroBgImage}
+              alt=""
+              loading="eager"
+              className="h-full w-full object-cover md:hidden"
+            />
             <video
               src={data.heroVideo}
               autoPlay
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               poster={data.heroBgImage}
-              className="h-full w-full object-cover"
+              className="hidden h-full w-full object-cover md:block"
             />
             <div className="absolute inset-0 bg-[#061226]/70" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-[#07152f]/45 to-[#07152f]/85" />
@@ -761,6 +769,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       <img
                         src={photo.src}
                         alt={photo.alt}
+                        loading="lazy"
                         className="aspect-[4/3] w-full object-cover"
                       />
                     </motion.div>
@@ -870,6 +879,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       <img
                         src={sec.image}
                         alt={sec.title}
+                        loading="lazy"
                         className="mb-5 h-48 w-full rounded-2xl object-cover md:h-64"
                       />
                     )

@@ -134,7 +134,7 @@ useEffect(() => {
 >
         <a href="/" className="flex items-center" aria-label="이천계단지기 홈으로 이동">
           <img
-            src="/images/icheon-logo-main.png"
+            src="/images/icheon-logo-main-1200.png"
             alt="이천계단지기"
             className={`w-auto max-w-[190px] object-contain transition-all duration-300 ${
   scrolled ? "h-9 md:h-10" : "h-10 md:h-11"
