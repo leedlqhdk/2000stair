@@ -269,11 +269,17 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
               className={`h-4 w-4 flex-shrink-0 text-white/70 transition-transform duration-200 ${open === i ? "rotate-180" : ""}`}
             />
           </button>
-          {open === i && (
-            <div className="border-t border-white/10 px-5 pb-5 pt-3 md:px-6">
-              <p className="text-sm leading-relaxed text-white/70">{item.a}</p>
+          <div
+            className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+              open === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            }`}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div className="border-t border-white/10 px-5 pb-5 pt-3 md:px-6">
+                <p className="whitespace-pre-line text-sm leading-relaxed text-white/70">{item.a}</p>
+              </div>
             </div>
-          )}
+          </div>
         </div>
       ))}
     </div>
@@ -1051,6 +1057,20 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {/* FAQ 섹션 (선택) */}
         {data.faq && data.faq.length > 0 && (
           <section className="relative z-10 py-12 md:py-24">
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: data.faq.map((item) => ({
+                    "@type": "Question",
+                    name: item.q,
+                    acceptedAnswer: { "@type": "Answer", text: item.a },
+                  })),
+                }),
+              }}
+            />
             <div className="container mx-auto max-w-4xl px-4">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}

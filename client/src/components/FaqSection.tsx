@@ -130,7 +130,7 @@ export default function FaqSection() {
                 <AccordionTrigger className="py-4 text-left text-[15px] font-extrabold leading-snug text-foreground hover:no-underline md:py-5 md:text-base">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="max-w-3xl pb-5 pr-3 text-sm leading-6 text-muted-foreground md:text-[15px] md:leading-7">
+                <AccordionContent forceMount className="max-w-3xl pb-5 pr-3 text-sm leading-6 text-muted-foreground md:text-[15px] md:leading-7">
                   {faq.answer}
                   {faq.image && (
                     <img

@@ -46,12 +46,31 @@ function setCanonical(url: string) {
   link.setAttribute("href", url);
 }
 
-function setJsonLd(jsonLd?: Record<string, unknown> | Record<string, unknown>[]) {
+function setJsonLd(
+  jsonLd: Record<string, unknown> | Record<string, unknown>[] | undefined,
+  page: Pick<SeoProps, "title" | "description" | "canonical" | "image">
+) {
   document.querySelectorAll('script[id^="route-seo-jsonld"]').forEach((el) => el.remove());
 
-  if (!jsonLd) return;
+  const webPage = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${page.canonical}#webpage`,
+    url: page.canonical,
+    name: page.title,
+    description: page.description,
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": "https://2000stair.kr/#website",
+      url: "https://2000stair.kr/",
+      name: "이천계단지기",
+    },
+    primaryImageOfPage: page.image
+      ? { "@type": "ImageObject", url: page.image }
+      : undefined,
+  };
 
-  const items = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+  const items = [webPage, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 
   items.forEach((item, index) => {
     const script = document.createElement("script");
@@ -76,7 +95,7 @@ function applySeo({ title, description, canonical, keywords, image, robots, json
   setMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description);
   setMeta('meta[name="twitter:image"]', { name: "twitter:image" }, image ?? DEFAULT_IMAGE);
   setCanonical(canonical);
-  setJsonLd(jsonLd);
+  setJsonLd(jsonLd, { title, description, canonical, image });
 }
 
 export default function Seo({ title, description, canonical, keywords, image, robots, jsonLd }: SeoProps) {
