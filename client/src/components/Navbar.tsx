@@ -33,6 +33,7 @@ const navGroups: NavGroup[] = [
       { label: "백사면", href: "/area/baeksa" },
       { label: "마장면", href: "/area/majang" },
       { label: "대월면", href: "/area/daewol" },
+      { label: "호법면", href: "/area/hobeop" },
       { label: "곤지암읍", href: "/area/gonjiam" },
     ],
   },
