@@ -28,6 +28,11 @@ const locationData: Record<string, {
     title: "부발읍 계단청소 · 원룸 빌라 정기관리",
     description: "부발읍 원룸, 빌라, 상가 공용계단과 현관을 정기적으로 관리합니다.",
   },
+  hobeop: {
+    name: "호법면",
+    title: "호법면 계단청소 · 상가·빌라 공용공간 관리",
+    description: "호법면 빌라, 상가, 소형 건물 공용계단과 공동현관, 유리를 정기적으로 관리합니다.",
+  },
 };
 
 export default function LocationLanding() {
