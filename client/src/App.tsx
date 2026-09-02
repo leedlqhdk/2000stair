@@ -34,6 +34,7 @@ const Sindun = lazy(() => import("@/pages/Sindun"));
 const Bubal = lazy(() => import("@/pages/Bubal"));
 const Baeksa = lazy(() => import("@/pages/Baeksa"));
 const Gonjiam = lazy(() => import("@/pages/Gonjiam"));
+const Hobeop = lazy(() => import("@/pages/Hobeop"));
 const About = lazy(() => import("@/pages/About"));
 const Qna = lazy(() => import("@/pages/Qna"));
 const BeforeAfter = lazy(() => import("@/pages/BeforeAfter"));
@@ -310,6 +311,7 @@ function Router() {
           <Route path="/area/bubal" component={Bubal} />
           <Route path="/area/baeksa" component={Baeksa} />
           <Route path="/area/gonjiam" component={Gonjiam} />
+          <Route path="/area/hobeop" component={Hobeop} />
           <Route path="/area/:slug" component={LocationLanding} />
           <Route path="/admin" component={AdminRedirect} />
           <Route path="/admin/quotes" component={AdminQuotes} />
