@@ -23,8 +23,8 @@ return (
 <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
 <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
 <AreaIntro
-headline="백사면 작업 기록과 공용공간 관리를 준비하고 있습니다"
-description="백사면 빌라·원룸·상가 공용공간 관리 기록을 정리하고 있습니다. 작업 기록은 업데이트 중이며, 상담과 견적 안내는 바로 가능합니다."
+headline="백사면 빌라·상가 공용공간을 관리합니다"
+description="백사면 빌라·원룸·상가의 계단, 복도, 공동현관을 건물 상태와 관리 주기에 맞춰 직접 관리합니다. 주소와 사진을 보내주시면 관리 가능 여부와 견적을 안내드립니다."
 focus="모전리·조읍리·현방리 등 백사면 주요 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
   areaSlug="baeksa"
 />
