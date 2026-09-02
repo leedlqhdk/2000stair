@@ -148,6 +148,15 @@ export const seoByAreaSlug = {
     localities: ["백사면", "모전리", "조읍리", "현방리"],
     image: "/images/main-service-stair.webp",
   }),
+  hobeop: areaSeo({
+    slug: "hobeop",
+    areaName: "호법면",
+    title: "호법면 계단청소·상가 빌라 공용공간 관리 | 이천계단지기",
+    description:
+      "호법면 빌라·상가·소형 건물의 계단, 복도, 공동현관, 유리청소를 건물 규모와 오염 상태에 맞춰 하청 없이 직접 관리합니다.",
+    localities: ["호법면", "안평리", "매곡리", "주박리"],
+    image: "/images/main-service-stair.webp",
+  }),
   gonjiam: areaSeo({
     slug: "gonjiam",
     areaName: "곤지암읍",

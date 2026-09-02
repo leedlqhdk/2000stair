@@ -12,6 +12,7 @@ const REGION_LINKS: Record<string, string> = {
   백사면: "/area/baeksa",
   마장면: "/area/majang",
   대월면: "/area/daewol",
+  호법면: "/area/hobeop",
 };
 
 export default function HomeAreaMapSection() {
