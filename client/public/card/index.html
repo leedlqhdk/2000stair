@@ -9,9 +9,9 @@
 <meta property="og:url" content="https://card.2000stair.kr">
 <meta property="og:title" content="김규남 | 이천계단지기 대표">
 <meta property="og:description" content="계단 정기청소 · 유리창 청소 · 사무실 청소 ｜ 하청 없는 부부 직영 ｜ 무료 방문견적">
-<meta property="og:image" content="https://card.2000stair.kr/card/images/logo2.png">
-<meta property="og:image:width" content="400">
-<meta property="og:image:height" content="400">
+<meta property="og:image" content="https://card.2000stair.kr/card/images/og-logo.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
 <meta property="og:site_name" content="이천계단지기">
 <link rel="icon" href="/card/images/logo2.png">
 <link rel="apple-touch-icon" href="/card/images/logo2.png">
@@ -62,8 +62,9 @@ a{text-decoration:none}
 .clip{width:38px;height:14px;margin-top:-2px;border-radius:4px;background:linear-gradient(180deg,#dbe4f2,#9fb2cf);flex:none}
 
 /* 카드 */
+.card-persp{width:318px;margin-top:2px;perspective:1400px;flex:none}
 .card-wrap{
-  width:318px;height:486px;margin-top:2px;perspective:1400px;cursor:pointer;flex:none;
+  width:318px;height:486px;cursor:pointer;flex:none;
   transform-origin:50% -14px;animation:om-sway 6.5s cubic-bezier(.22,1,.36,1) infinite;
   border:none;background:none;padding:0;
 }
@@ -148,7 +149,7 @@ a{text-decoration:none}
 }
 @media (max-height:760px){
   .lanyard{height:38px}
-  .card-wrap{margin-top:0}
+  .card-persp{margin-top:0}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
@@ -160,6 +161,7 @@ a{text-decoration:none}
   <div class="lanyard"><span>2000STAIR</span></div>
   <div class="clip"></div>
 
+  <div class="card-persp">
   <div class="card-wrap" id="cardWrap" role="button" tabindex="0" aria-label="명함 뒤집기">
     <div class="card">
 
@@ -225,6 +227,7 @@ a{text-decoration:none}
       </div>
 
     </div>
+  </div>
   </div>
 </div>
 
