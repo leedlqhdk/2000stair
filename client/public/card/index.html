@@ -48,7 +48,6 @@ a{text-decoration:none}
   position:relative;width:100%;max-width:430px;min-height:100dvh;
   display:flex;flex-direction:column;align-items:center;
   padding-bottom:calc(104px + env(safe-area-inset-bottom));
-  overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
 }
 
 /* 목걸이 */
@@ -66,7 +65,7 @@ a{text-decoration:none}
 .card-wrap{
   width:318px;height:486px;cursor:pointer;flex:none;
   transform-origin:50% -14px;animation:om-sway 6.5s cubic-bezier(.22,1,.36,1) infinite;
-  border:none;background:none;padding:0;
+  will-change:transform;border:none;background:none;padding:0;
 }
 @keyframes om-sway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
 .card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.22,1,.36,1)}
@@ -144,7 +143,7 @@ a{text-decoration:none}
     overflow:hidden;
     background:linear-gradient(180deg,#16305c 0%,#24467d 62%,#2e5290 100%);
   }
-  .screen{ min-height:100%; height:100%; }
+  .screen{ min-height:100%; height:100%; overflow-y:auto; }
   .actions{ position:absolute; left:0; right:0; bottom:0; max-width:none; width:100%; }
 }
 @media (max-height:760px){
