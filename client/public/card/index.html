@@ -62,7 +62,7 @@ a{text-decoration:none}
 .clip{width:38px;height:14px;margin-top:-2px;border-radius:4px;background:linear-gradient(180deg,#dbe4f2,#9fb2cf);flex:none}
 
 /* 카드 */
-.card-persp{width:318px;margin-top:2px;perspective:1400px;flex:none}
+.card-persp{width:318px;margin-top:2px;perspective:1400px;flex:none;border-radius:24px;box-shadow:0 10px 24px rgba(4,20,50,.16)}
 .card-wrap{
   width:318px;height:486px;cursor:pointer;flex:none;
   transform-origin:50% -14px;animation:om-sway 6.5s cubic-bezier(.22,1,.36,1) infinite;
@@ -71,7 +71,7 @@ a{text-decoration:none}
 @keyframes om-sway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
 .card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.22,1,.36,1)}
 .card-wrap.flipped .card{transform:rotateY(180deg)}
-.face{transform:translateZ(0);position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;box-shadow:0 4px 10px rgba(4,20,50,.10);overflow:hidden;display:flex;flex-direction:column}
+.face{transform:translateZ(0);position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;box-shadow:none;overflow:hidden;display:flex;flex-direction:column}
 
 /* 앞면 */
 .front{background:#fff;color:#0f1b33}
