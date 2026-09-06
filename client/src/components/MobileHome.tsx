@@ -154,7 +154,7 @@ export default function MobileHome() {
               className="relative block rounded-3xl transition active:scale-[0.97]"
             >
               <img
-                src="/images/couple-profile.jpg"
+                src="/images/couple-profile-202609.jpg"
                 alt="이천계단지기 부부"
                 className="w-full rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
                 loading="eager"

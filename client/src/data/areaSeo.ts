@@ -174,7 +174,7 @@ export const generalSeoByPath = {
       "이천 빌라·상가 계단청소 정기관리. 부부가 직접 관리하고 초도청소 후 청소 전후 사진을 제공합니다.",
     canonical: `${SITE_URL}/`,
     keywords: `이천계단청소, 이천계단청소업체, 이천빌라청소, 이천상가청소, 계단청소업체, 이천계단지기, ${BASE_KEYWORDS}`,
-    image: toAbsoluteUrl("/images/couple-profile.jpg"),
+    image: toAbsoluteUrl("/images/couple-profile-202609.jpg"),
     jsonLd: [
       {
         "@context": "https://schema.org",
@@ -207,7 +207,7 @@ export const generalSeoByPath = {
           opens: "09:00",
           closes: "18:00",
         },
-        image: toAbsoluteUrl("/images/couple-profile.jpg"),
+        image: toAbsoluteUrl("/images/couple-profile-202609.jpg"),
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: "5.0",

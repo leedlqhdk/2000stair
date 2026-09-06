@@ -87,7 +87,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               className="group relative mx-auto block aspect-[4/5] max-h-[520px] w-full max-w-[430px] overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-[0_24px_60px_rgba(15,23,42,0.14)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_64px_rgba(15,23,42,0.18)] active:scale-[0.99]"
             >
               <img
-                src="/images/couple-profile.jpg"
+                src="/images/couple-profile-202609.jpg"
                 alt="하청 없이 직접 관리하는 이천계단지기 부부"
                 className="h-full w-full object-cover object-[50%_42%]"
               />

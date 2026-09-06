@@ -6,7 +6,7 @@ const DEFAULT_DESCRIPTION =
 const DEFAULT_KEYWORDS =
   "이천계단청소, 이천계단청소업체, 이천계단청소비용, 계단청소, 이천빌라청소, 사무실청소, 이천사무실청소, 유리창청소, 이천유리창청소, 이천청소, 계단청소업체, 계단청소비용, 이천청소업체, 정기청소, 계단청소구독, 빌라계단청소, 유리청소, 이천유리청소";
 const DEFAULT_URL = "https://2000stair.kr/";
-const DEFAULT_IMAGE = "https://2000stair.kr/images/couple-profile.jpg";
+const DEFAULT_IMAGE = "https://2000stair.kr/images/couple-profile-202609.jpg";
 
 export type SeoProps = {
   title: string;
@@ -90,7 +90,11 @@ function applySeo({ title, description, canonical, keywords, image, robots, json
   setMeta('meta[property="og:description"]', { property: "og:description" }, description);
   setMeta('meta[property="og:url"]', { property: "og:url" }, canonical);
   setMeta('meta[property="og:image"]', { property: "og:image" }, image ?? DEFAULT_IMAGE);
-  setMeta('meta[property="og:image:type"]', { property: "og:image:type" }, "image/webp");
+  setMeta(
+    'meta[property="og:image:type"]',
+    { property: "og:image:type" },
+    (image ?? DEFAULT_IMAGE).endsWith(".jpg") || (image ?? DEFAULT_IMAGE).endsWith(".jpeg") ? "image/jpeg" : "image/webp"
+  );
   setMeta('meta[name="twitter:title"]', { name: "twitter:title" }, title);
   setMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description);
   setMeta('meta[name="twitter:image"]', { name: "twitter:image" }, image ?? DEFAULT_IMAGE);
