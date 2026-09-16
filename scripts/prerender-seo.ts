@@ -368,6 +368,14 @@ function getAreaStaticSections(area: string, posts: AreaPost[]) {
   const primaryWorkLink = workItems[0]
     ? [{ href: workItems[0].href, label: `${areaName} 실제 작업사례 보기` }]
     : [];
+  const faqSection = uniqueContent?.questions?.length
+    ? section(
+        `${areaName} 자주 묻는 질문`,
+        uniqueContent.questions
+          .map(({ question, answer }) => `<h3>${escapeHtml(question)}</h3>${paragraph(answer)}`)
+          .join("")
+      )
+    : "";
 
   return [
     section(
@@ -388,6 +396,7 @@ function getAreaStaticSections(area: string, posts: AreaPost[]) {
       `${areaName} 상담 기준`,
       list(detail.checks)
     ),
+    faqSection,
     section(
       `${areaName} 내부 연결`,
       linkList([

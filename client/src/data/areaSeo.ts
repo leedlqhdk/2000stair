@@ -1,4 +1,5 @@
 import type { SeoProps } from "@/components/Seo";
+import { getAreaSeoContent } from "@/data/areaSeoContent";
 
 const SITE_URL = "https://2000stair.kr";
 const SERVICE_TYPES = ["계단청소", "빌라청소", "상가청소", "공용공간 정기관리", "유리청소", "화장실청소"];
@@ -18,20 +19,54 @@ type AreaConfig = {
 };
 
 function areaJsonLd({ slug, areaName, title, description, localities = [areaName] }: AreaConfig) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${SITE_URL}/area/${slug}#service`,
-    name: title,
-    description,
-    url: `${SITE_URL}/area/${slug}`,
-    provider: { "@id": `${SITE_URL}/#business` },
-    serviceType: SERVICE_TYPES,
-    areaServed: localities.map((name) => ({
-      "@type": "AdministrativeArea",
-      name,
-    })),
-  };
+  const questions = getAreaSeoContent(slug)?.questions ?? [
+    {
+      question: `${areaName} 계단청소는 어떤 건물을 관리하나요?`,
+      answer: `${areaName} 빌라·원룸·상가의 계단, 복도, 공동현관 등 공용공간을 상담합니다.`,
+    },
+    {
+      question: `${areaName} 계단청소 견적은 어떻게 받을 수 있나요?`,
+      answer: "주소와 공용공간 사진을 보내주시면 관리 가능 범위와 견적을 안내합니다.",
+    },
+  ];
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": `${SITE_URL}/area/${slug}#service`,
+      name: title,
+      description,
+      url: `${SITE_URL}/area/${slug}`,
+      provider: { "@id": `${SITE_URL}/#business` },
+      serviceType: SERVICE_TYPES,
+      areaServed: localities.map((name) => ({
+        "@type": "AdministrativeArea",
+        name,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/area/${slug}#faq`,
+      url: `${SITE_URL}/area/${slug}`,
+      mainEntity: questions.map(({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": `${SITE_URL}/area/${slug}#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "홈", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "이천 관리지역", item: `${SITE_URL}/areas` },
+        { "@type": "ListItem", position: 3, name: areaName, item: `${SITE_URL}/area/${slug}` },
+      ],
+    },
+  ];
 }
 
 type ServiceConfig = {
