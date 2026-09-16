@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { generalSeoByPath, getSeoForPath, seoByAreaSlug } from "../client/src/data/areaSeo";
+import { getAreaSeoContent } from "../client/src/data/areaSeoContent";
 import { daewolPosts } from "../client/src/data/areas/daewol";
 import { downtownPosts } from "../client/src/data/areas/downtown";
 import { majangPosts } from "../client/src/data/areas/majang";
@@ -359,6 +360,7 @@ function getAreaStaticSections(area: string, posts: AreaPost[]) {
     checks: ["주소 확인", "현장 사진 확인", "정기관리 주기 상담", "작업 후 상태 공유"],
   };
   const areaPosts = getAreaPosts(area, posts);
+  const uniqueContent = getAreaSeoContent(area);
   const workItems = areaPosts.map((post) => ({
     href: `/work/${getWorkSlug(post)}`,
     label: getPostListLabel(post),
@@ -370,7 +372,7 @@ function getAreaStaticSections(area: string, posts: AreaPost[]) {
   return [
     section(
       `${areaName} 계단청소`,
-      paragraph(detail.intro)
+      paragraph(uniqueContent?.summary ?? detail.intro)
     ),
     section(
       `최근 ${areaName} 작업`,
@@ -380,7 +382,7 @@ function getAreaStaticSections(area: string, posts: AreaPost[]) {
     ),
     section(
       "주요 관리범위",
-      list(detail.scopes)
+      list(uniqueContent?.points ?? detail.scopes)
     ),
     section(
       `${areaName} 상담 기준`,

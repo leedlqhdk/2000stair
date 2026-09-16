@@ -70,7 +70,7 @@ export const seoByAreaSlug = {
   majang: areaSeo({
     slug: "majang",
     areaName: "마장면",
-    title: "마장면 계단청소·빌라청소 | 이천계단지기",
+    title: "이천 마장면 계단청소·빌라청소 | 이천계단지기",
     description:
       "마장면 빌라·원룸·상가 공용공간 계단청소, 공동현관, 복도, 유리청소 정기관리. 부부가 하청 없이 직접 관리합니다.",
     localities: ["마장면", "오천리", "양촌리", "장암리"],
@@ -79,7 +79,7 @@ export const seoByAreaSlug = {
   daewol: areaSeo({
     slug: "daewol",
     areaName: "대월면",
-    title: "대월면 계단청소·상가 정기청소 | 이천계단지기",
+    title: "이천 대월면 계단청소·상가 정기청소 | 이천계단지기",
     description:
       "대월면 빌라·상가·공용공간 계단청소와 유리·화장실 정기청소를 현장 상태에 맞춰 직접 관리합니다.",
     localities: ["대월면", "사동리", "초지리", "군량리"],
@@ -88,7 +88,7 @@ export const seoByAreaSlug = {
   sindun: areaSeo({
     slug: "sindun",
     areaName: "신둔면",
-    title: "신둔면 계단청소·빌라 공용공간 관리 | 이천계단지기",
+    title: "이천 신둔면 계단청소·빌라 공용공간 관리 | 이천계단지기",
     description:
       "신둔면 빌라, 다세대, 상가의 계단·복도·공동현관 청소를 하청 없이 직접 정기관리합니다.",
     localities: ["신둔면", "수광리", "도암리", "남정리"],
@@ -97,7 +97,7 @@ export const seoByAreaSlug = {
   gwango: areaSeo({
     slug: "gwango",
     areaName: "관고동",
-    title: "관고동 계단청소·상가 공용공간 관리 | 이천계단지기",
+    title: "이천 관고동 계단청소·상가 공용공간 관리 | 이천계단지기",
     description:
       "관고동 상가·빌라·소형 건물의 계단, 공동현관, 복도, 유리 등 공용공간을 현장 상태에 맞춰 직접 관리합니다.",
     localities: ["관고동", "설봉공원 인근", "관고시장 인근"],
@@ -106,7 +106,7 @@ export const seoByAreaSlug = {
   changjeon: areaSeo({
     slug: "changjeon",
     areaName: "창전동",
-    title: "창전동 계단청소·빌라 원룸 정기관리 | 이천계단지기",
+    title: "이천 창전동 계단청소·빌라 원룸 정기관리 | 이천계단지기",
     description:
       "창전동 빌라·원룸·상가주택의 계단, 복도, 공동현관을 월 2회·4회 정기 방문 기준으로 상담합니다.",
     localities: ["창전동", "시내 주거지", "상가주택 밀집 구역"],
@@ -115,7 +115,7 @@ export const seoByAreaSlug = {
   jungni: areaSeo({
     slug: "jungni",
     areaName: "중리동",
-    title: "중리동 계단청소·빌라 상가 공용부 관리 | 이천계단지기",
+    title: "이천 중리동 계단청소·빌라 상가 공용부 관리 | 이천계단지기",
     description:
       "중리동 빌라·상가 공용부의 현관, 계단, 복도 상태를 사진과 주소 기준으로 확인하고 관리 범위를 안내합니다.",
     localities: ["중리동", "이천 시내 생활권", "상가주택 주변"],
@@ -124,7 +124,7 @@ export const seoByAreaSlug = {
   jeungpo: areaSeo({
     slug: "jeungpo",
     areaName: "증포동",
-    title: "증포동 계단청소·빌라 상가 정기관리 | 이천계단지기",
+    title: "이천 증포동 계단청소·빌라 상가 정기관리 | 이천계단지기",
     description:
       "증포동 빌라·원룸·상가주택의 계단, 복도, 공동현관 등 공용공간을 주소와 사진 기준으로 확인하고 직접 관리합니다.",
     localities: ["증포동", "갈산동 인근", "중리동 방향 생활권"],
@@ -133,7 +133,7 @@ export const seoByAreaSlug = {
   bubal: areaSeo({
     slug: "bubal",
     areaName: "부발읍",
-    title: "부발읍 계단청소·빌라청소 | 이천계단지기",
+    title: "이천 부발읍 계단청소·빌라청소 | 이천계단지기",
     description:
       "부발읍 빌라·상가·원룸 건물의 계단, 복도, 공동현관, 유리청소를 정기 방문으로 깔끔하게 관리합니다.",
     localities: ["부발읍", "아미리", "무촌리", "신하리"],
@@ -142,7 +142,7 @@ export const seoByAreaSlug = {
   baeksa: areaSeo({
     slug: "baeksa",
     areaName: "백사면",
-    title: "백사면 계단청소·공용공간 정기관리 | 이천계단지기",
+    title: "이천 백사면 계단청소·공용공간 정기관리 | 이천계단지기",
     description:
       "백사면 빌라·상가 공용공간의 계단, 복도, 현관, 유리청소를 건물 규모와 오염도에 맞춰 직접 관리합니다.",
     localities: ["백사면", "모전리", "조읍리", "현방리"],
@@ -151,7 +151,7 @@ export const seoByAreaSlug = {
   hobeop: areaSeo({
     slug: "hobeop",
     areaName: "호법면",
-    title: "호법면 계단청소·상가 빌라 공용공간 관리 | 이천계단지기",
+    title: "이천 호법면 계단청소·상가 빌라 공용공간 관리 | 이천계단지기",
     description:
       "호법면 빌라·상가·소형 건물의 계단, 복도, 공동현관, 유리청소를 건물 규모와 오염 상태에 맞춰 하청 없이 직접 관리합니다.",
     localities: ["호법면", "안평리", "매곡리", "주박리"],
@@ -160,7 +160,7 @@ export const seoByAreaSlug = {
   gonjiam: areaSeo({
     slug: "gonjiam",
     areaName: "곤지암읍",
-    title: "곤지암읍 신둔 인근 계단청소·공용공간 관리 | 이천계단지기",
+    title: "이천 곤지암읍 신둔 인근 계단청소·공용공간 관리 | 이천계단지기",
     description:
       "곤지암읍 전 지역이 아닌 신둔면과 가까운 인접 지역의 빌라·상가 공용공간을 주소와 현장 사진 확인 후 상담합니다.",
     localities: ["곤지암읍 신둔면 인접 지역"],

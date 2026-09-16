@@ -2,12 +2,12 @@ import { Link } from "wouter";
 import { ArrowLeft, Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { areaDetails } from "@/components/AreaLocalDetails";
+import { getAreaSeoContent } from "@/data/areaSeoContent";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-// 전 지역 공통 — 상담 전 확인 4줄 (지역별로 다르게 쓰지 않음)
-const CHECKS = [
+const COMMON_CHECKS = [
   "주소와 사진으로 방문 가능 여부 확인",
   "초도청소 후 작업 전후 사진 제공",
   "세금계산서 · 현금영수증 발행",
@@ -21,9 +21,13 @@ type AreaIntroProps = {
   areaSlug?: string;
 };
 
-export default function AreaIntro({ headline, description, areaSlug }: AreaIntroProps) {
+export default function AreaIntro({ headline, description, focus, areaSlug }: AreaIntroProps) {
   const reduce = useReducedMotion();
   const zones = (areaSlug ? areaDetails[areaSlug]?.zones : undefined) ?? [];
+  const seoContent = getAreaSeoContent(areaSlug);
+  const checks = seoContent
+    ? [seoContent.points[0], ...COMMON_CHECKS.slice(1)]
+    : COMMON_CHECKS;
 
   const rise = (delay: number) =>
     reduce
@@ -36,7 +40,6 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
 
   return (
     <div className="relative mb-12 md:mb-16">
-      {/* ① 헤더 밴드 (화면 좌우 끝까지 풀블리드, 위 여백까지 채움) */}
       <div className="mx-[calc(50%-50vw)] -mt-16 bg-[#1b2f57] md:-mt-24">
         <motion.div
           className="mx-auto max-w-6xl px-5 pb-20 pt-24 md:px-8 md:pb-28 md:pt-36 lg:px-10"
@@ -57,23 +60,24 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
             {headline}
           </h1>
 
-          <p className="mt-4 max-w-[520px] break-keep text-[15px] leading-7 text-white/75 md:mt-5 md:text-base md:leading-8">
+          <p className="mt-4 max-w-[560px] break-keep text-[15px] leading-7 text-white/75 md:mt-5 md:text-base md:leading-8">
             {description}
           </p>
         </motion.div>
       </div>
 
-      {/* ② 요약 카드 (밴드 위에 겹침) */}
       <motion.div
         className="relative z-10 mx-3 -mt-14 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-[0_16px_42px_rgba(15,76,169,0.08)] md:mx-10 md:-mt-20 md:rounded-3xl md:p-9"
         {...rise(0.08)}
       >
         <div className="grid gap-5 md:grid-cols-2 md:gap-9">
-          {/* ②-좌 : 상담 전 확인할 내용 (모바일·PC 공통) */}
           <div>
-            <p className="text-xs font-bold text-muted-foreground">상담 전 확인할 내용</p>
-            <ul className="mt-3 space-y-2 md:mt-4 md:space-y-[13px]">
-              {CHECKS.map((item) => (
+            <p className="text-xs font-bold text-muted-foreground">이 지역에서 먼저 확인하는 부분</p>
+            <p className="mt-3 break-keep text-sm font-medium leading-6 text-foreground">
+              {seoContent?.summary ?? focus ?? "건물 주소와 사진을 기준으로 공용공간의 관리 범위를 확인합니다."}
+            </p>
+            <ul className="mt-4 space-y-2 md:space-y-[13px]">
+              {checks.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-[13.5px] font-medium leading-[1.45] text-foreground md:gap-2.5 md:text-sm md:leading-6">
                   <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" strokeWidth={2.5} />
                   <span className="break-keep">{item}</span>
@@ -82,8 +86,7 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
             </ul>
           </div>
 
-          {/* ②-우 : 주요 상담 구역 + CTA (PC 전용 — 모바일 숨김) */}
-          <div className="hidden md:block md:border-l md:border-[#e4ecfb] md:pl-9">
+          <div className="md:border-l md:border-[#e4ecfb] md:pl-9">
             <p className="text-xs font-bold text-muted-foreground">주요 상담 구역</p>
             <div className="mt-3.5 flex flex-wrap gap-2">
               {zones.map((zone) => (
@@ -95,6 +98,19 @@ export default function AreaIntro({ headline, description, areaSlug }: AreaIntro
                 </span>
               ))}
             </div>
+
+            {seoContent && (
+              <div className="mt-5 rounded-2xl bg-[#f4f8ff] p-4">
+                <p className="text-xs font-bold text-primary">현장별 관리 포인트</p>
+                <ul className="mt-2 space-y-1.5">
+                  {seoContent.points.slice(1).map((point) => (
+                    <li key={point} className="break-keep text-sm leading-6 text-foreground">
+                      · {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="mt-6 flex gap-2.5">
               <a
