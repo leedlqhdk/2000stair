@@ -131,6 +131,23 @@ export default function AreaIntro({ headline, description, focus, areaSlug }: Ar
           </div>
         </div>
       </motion.div>
+
+      {seoContent?.questions && (
+        <section className="mx-3 mt-6 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-sm md:mx-10 md:mt-8 md:rounded-3xl md:p-8" aria-labelledby="area-faq-title">
+          <p className="text-xs font-bold tracking-wide text-primary">빠른 답변</p>
+          <h2 id="area-faq-title" className="mt-2 text-xl font-extrabold text-foreground md:text-2xl">
+            {areaSlug ? `${areaDetails[areaSlug]?.name ?? ""} 계단청소 자주 묻는 질문` : "계단청소 자주 묻는 질문"}
+          </h2>
+          <dl className="mt-5 space-y-4">
+            {seoContent.questions.map(({ question, answer }) => (
+              <div key={question} className="border-b border-[#e4ecfb] pb-4 last:border-0 last:pb-0">
+                <dt className="break-keep text-sm font-extrabold leading-6 text-foreground">Q. {question}</dt>
+                <dd className="mt-1 break-keep text-sm leading-6 text-muted-foreground">A. {answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
     </div>
   );
 }
