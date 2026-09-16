@@ -136,7 +136,7 @@ export default function AreaIntro({ headline, description, focus, areaSlug }: Ar
         <section className="mx-3 mt-6 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-sm md:mx-10 md:mt-8 md:rounded-3xl md:p-8" aria-labelledby="area-faq-title">
           <p className="text-xs font-bold tracking-wide text-primary">빠른 답변</p>
           <h2 id="area-faq-title" className="mt-2 text-xl font-extrabold text-foreground md:text-2xl">
-            {areaSlug ? `${areaDetails[areaSlug]?.name ?? ""} 계단청소 자주 묻는 질문` : "계단청소 자주 묻는 질문"}
+            {areaSlug ? `${headline.split(" ")[0]} 계단청소 자주 묻는 질문` : "계단청소 자주 묻는 질문"}
           </h2>
           <dl className="mt-5 space-y-4">
             {seoContent.questions.map(({ question, answer }) => (
