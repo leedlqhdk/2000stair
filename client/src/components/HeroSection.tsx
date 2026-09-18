@@ -1,3 +1,4 @@
+import { useHomeMotion } from "@/components/HomeMotion";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Link } from "wouter";
@@ -12,6 +13,7 @@ const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "�
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   void isAuthenticated;
+  const { reduced } = useHomeMotion();
 
   return (
     <section className="relative overflow-hidden bg-white">
@@ -29,8 +31,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <br />
                 <motion.span
                   className="inline-block font-bold text-primary"
-                  initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  initial={reduced ? false : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 >
                   부부가 직접
@@ -86,7 +88,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               }
               className="group relative mx-auto block aspect-[4/5] max-h-[520px] w-full max-w-[430px] overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-[0_24px_60px_rgba(15,23,42,0.14)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_64px_rgba(15,23,42,0.18)] active:scale-[0.99]"
             >
-              <img
+              <motion.img
+                initial={reduced ? false : { scale: 1.075 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
                 src="/images/couple-profile-202609.jpg"
                 alt="하청 없이 직접 관리하는 이천계단지기 부부"
                 className="h-full w-full object-cover object-[50%_42%]"

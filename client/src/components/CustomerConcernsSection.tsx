@@ -22,7 +22,7 @@ export default function CustomerConcernsSection() {
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.55, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.55, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
             >
               왜 아쉬웠을까요?
             </motion.span>
@@ -30,7 +30,7 @@ export default function CustomerConcernsSection() {
         </div>
 
         <div className="mx-auto mt-7 max-w-3xl md:mt-8">
-          <DesktopHomeConcerns startDelay={1300} />
+          <DesktopHomeConcerns startDelay={350} />
         </div>
       </div>
     </section>

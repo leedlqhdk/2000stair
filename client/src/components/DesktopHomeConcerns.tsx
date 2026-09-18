@@ -13,8 +13,8 @@ const lines: Line[] = [
 const EASE = [0.22, 1, 0.36, 1] as const;
 const TOTAL = lines.length + 1;
 const START_DELAY = 300;
-const STEP = 760;
-const TYPING_MS = 950;
+const STEP = 220;
+const TYPING_MS = 380;
 
 type Props = {
   onComplete?: () => void;
@@ -71,7 +71,7 @@ export default function DesktopHomeConcerns({
         );
         timers.push(setTimeout(fire, typingAt + TYPING_MS + 350));
       },
-      { threshold: 0.35 },
+      { threshold: 0.12 },
     );
 
     observer.observe(node);

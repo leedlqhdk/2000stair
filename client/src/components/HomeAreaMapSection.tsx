@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { useHomeMotion } from "@/components/HomeMotion";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { InteractiveMap } from "@/pages/Areas";
@@ -16,6 +18,7 @@ const REGION_LINKS: Record<string, string> = {
 };
 
 export default function HomeAreaMapSection() {
+  const { reveal } = useHomeMotion();
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
   const [, setLocation] = useLocation();
 
@@ -27,23 +30,23 @@ export default function HomeAreaMapSection() {
   return (
     <section className="bg-gradient-to-b from-white via-blue-50/35 to-white py-20 md:py-28">
       <div className="container max-w-6xl">
-        <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+        <motion.div {...reveal()} className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
           <h2 className="text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
             관리 지역
           </h2>
           <p className="mt-5 break-keep text-lg font-semibold leading-relaxed text-muted-foreground">
             지역명을 누르면 해당 지역 전용 안내와 작업일지를 확인할 수 있습니다.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="mx-auto max-w-3xl">
+        <motion.div {...reveal(0.12, 32)} className="mx-auto max-w-3xl">
           <InteractiveMap
             activeRegion={activeRegion}
             onEnter={setActiveRegion}
             onLeave={() => setActiveRegion(null)}
             onClick={handleNavigate}
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

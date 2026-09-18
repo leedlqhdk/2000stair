@@ -56,7 +56,7 @@ export default function HusbandProfileStats() {
                 <motion.div
                   key={stat.label}
                   className="text-center lg:text-left"
-                  initial={{ opacity: 0, y: 18, scale: 0.92 }}
+                  initial={{ opacity: 0, y: 18, scale: 0.98 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{
@@ -67,8 +67,8 @@ export default function HusbandProfileStats() {
                 >
                   <motion.p
                     className="text-[2rem] font-extrabold leading-none tracking-tight text-primary md:text-[2.2rem]"
-                    initial={{ scale: 0.9 }}
-                    whileInView={{ scale: [0.9, 1.08, 1] }}
+                    initial={{ scale: 0.98 }}
+                    whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{
                       duration: 0.7,

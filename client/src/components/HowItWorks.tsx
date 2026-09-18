@@ -1,3 +1,4 @@
+import { useHomeMotion } from "@/components/HomeMotion";
 import { motion } from "framer-motion";
 import { ChevronDown, ClipboardCheck, Home, MessageCircle, MessageSquareMore, Sparkles } from "lucide-react";
 
@@ -10,6 +11,7 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  const { home, reveal } = useHomeMotion();
   return (
     <section id="how-it-works" className="py-10 md:py-24 bg-white">
       <div className="container max-w-4xl">
@@ -23,7 +25,7 @@ export default function HowItWorks() {
           <div className="space-y-1.5 md:space-y-3">
             {steps.map((step, index) => (
               <div key={step.number}>
-                <motion.div className="flex min-h-[5.25rem] items-center rounded-2xl border border-blue-100 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md md:min-h-[8rem] md:p-5" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.08 }}>
+                <motion.div className="flex min-h-[5.25rem] items-center rounded-2xl border border-blue-100 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md md:min-h-[8rem] md:p-5" {...(home ? reveal(0.06, 20) : { initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: index * 0.08 } })}>
                   <div className="flex w-full items-center gap-2.5 md:gap-4">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-primary ring-1 ring-blue-100 md:h-12 md:w-12 md:rounded-2xl">
                       <step.icon className="h-4 w-4 md:h-6 md:w-6" />

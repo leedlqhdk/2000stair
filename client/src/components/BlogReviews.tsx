@@ -1,3 +1,4 @@
+import { useHomeMotion } from "@/components/HomeMotion";
 import { Star, ShieldCheck, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { trpc } from "@/lib/trpc";
@@ -53,6 +54,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
   const detailClass = isDark ? "text-white/45" : "text-muted-foreground";
   const footerClass = isDark ? "text-white/38" : "text-gray-400";
 
+  const { home, reveal } = useHomeMotion();
   return (
     <div id="blog-reviews" className="space-y-14 md:space-y-20">
       <motion.div
@@ -82,7 +84,8 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
 
         <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
           {reviewCards.map((review, i) => (
-            <div
+            <motion.div
+              {...(home ? reveal(i * 0.1, 20) : {})}
               key={`${review.platform}-${i}`}
               className="flex w-[80%] shrink-0 snap-center flex-col md:w-auto md:shrink"
             >
@@ -130,7 +133,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

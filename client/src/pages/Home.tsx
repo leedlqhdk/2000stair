@@ -1,3 +1,4 @@
+import { HomeMotion } from "@/components/HomeMotion";
 import { useEffect, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
@@ -38,7 +39,8 @@ export default function Home() {
         <main className="flex-1">
           <MobileHome />
 
-          <div className="hidden md:block">
+          <HomeMotion>
+          <div className="home-motion hidden md:block">
             <HomeSectionNavigator />
             <div id="home-hero" className="home-scroll-section">
               <HeroSection isAuthenticated={false} />
@@ -70,6 +72,7 @@ export default function Home() {
               <HomeFinalCta />
             </div>
           </div>
+          </HomeMotion>
         </main>
       )}
     </div>

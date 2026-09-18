@@ -1,3 +1,4 @@
+import { useHomeMotion } from "@/components/HomeMotion";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
@@ -7,13 +8,16 @@ import {
 } from "@/data/beforeAfter";
 
 export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
+  const { home, reveal } = useHomeMotion();
   return (
     <motion.article
       className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-sm"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.35 }}
+      {...(home ? reveal(0, 12) : {
+        initial: { opacity: 0, y: 18 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.15 },
+        transition: { duration: 0.35 },
+      })}
     >
       <div className="relative grid overflow-hidden bg-blue-50 md:aspect-[16/9] md:grid-cols-2">
         <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto">

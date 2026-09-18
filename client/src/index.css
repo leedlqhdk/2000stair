@@ -222,7 +222,7 @@
 @media (min-width: 768px) {
   html.home-pc-scroll-snap {
     scroll-padding-top: 5rem;
-    scroll-snap-type: y proximity;
+    scroll-snap-type: none;
   }
 
   .home-scroll-section {
@@ -249,5 +249,21 @@
   .service-page [style*="transform"] {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+  }
+}
+
+/* Desktop home micro-interactions share one easing curve. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .home-motion a, .home-motion button {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .home-motion #home-services a:focus-visible img,
+  .home-motion #home-services a:hover img { transform: scale(1.035); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-motion *, .home-motion *::before, .home-motion *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }

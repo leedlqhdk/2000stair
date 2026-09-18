@@ -1,3 +1,4 @@
+import { useHomeMotion } from "@/components/HomeMotion";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "wouter";
@@ -30,6 +31,7 @@ const serviceCards = [
 ];
 
 export default function Services() {
+  const { home, reveal } = useHomeMotion();
   const reduceMotion = useReducedMotion();
 
   return (
@@ -55,10 +57,12 @@ export default function Services() {
             {serviceCards.map((card, index) => (
               <motion.div
                 key={card.title}
-                initial={reduceMotion ? false : { opacity: 0, y: 36, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={reduceMotion ? { duration: 0 } : { duration: 0.55, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
+                {...(home ? reveal(index * 0.085, 28) : {
+                  initial: reduceMotion ? false : { opacity: 0, y: 36, scale: 0.96 },
+                  whileInView: { opacity: 1, y: 0, scale: 1 },
+                  viewport: { once: true, amount: 0.25 },
+                  transition: reduceMotion ? { duration: 0 } : { duration: 0.55, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] },
+                })}
               >
                 <Link
                   href={card.href}

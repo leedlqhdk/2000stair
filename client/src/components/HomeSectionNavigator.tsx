@@ -81,7 +81,7 @@ export default function HomeSectionNavigator() {
               onMouseEnter={() => setPreviewIndex(index)}
               onFocus={() => setPreviewIndex(index)}
               onBlur={() => setPreviewIndex(null)}
-              onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" })}
             >
               <span
                 className={`block rounded-full transition-all duration-300 ${
