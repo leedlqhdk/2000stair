@@ -312,12 +312,49 @@ function ServiceWorkLinks() {
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
   const isFullscreenVideo = data.heroStyle === "fullscreenVideo";
   const serviceKey = serviceKeyByFolder[data.serviceFolder];
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
 
   useEffect(() => {
     if (data.seoTitle) {
       document.title = data.seoTitle;
     }
   }, [data.seoTitle]);
+
+  // 데스크톱 배경 영상은 용량이 커서(수십 MB) 첫 화면 로딩을 막지 않도록
+  // 초기 렌더는 포스터 이미지로 처리하고, 페이지 로드 후 유휴 시점에 지연 로드한다.
+  // 모바일·느린 연결·데이터 절약 모드에서는 영상을 아예 불러오지 않는다(포스터만 표시).
+  useEffect(() => {
+    if (!data.heroVideo || typeof window === "undefined") return;
+    if (!window.matchMedia("(min-width: 768px)").matches) return;
+
+    const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (conn && (conn.saveData || /(^|-)(2g|slow)/i.test(conn.effectiveType ?? ""))) return;
+
+    let cancelled = false;
+    const start = () => {
+      if (!cancelled) setShowHeroVideo(true);
+    };
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => void;
+    };
+    const schedule = () => {
+      if (typeof w.requestIdleCallback === "function") {
+        w.requestIdleCallback(start, { timeout: 3000 });
+      } else {
+        w.setTimeout(start, 1200);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      schedule();
+    } else {
+      window.addEventListener("load", schedule, { once: true });
+    }
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", schedule);
+    };
+  }, [data.heroVideo]);
 
   return (
     <MotionConfig
@@ -336,16 +373,25 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               loading="eager"
               className="h-full w-full object-cover md:hidden"
             />
-            <video
-              src={data.heroVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster={data.heroBgImage}
-              className="hidden h-full w-full object-cover md:block"
-            />
+            {showHeroVideo ? (
+              <video
+                src={data.heroVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                poster={data.heroBgImage}
+                className="hidden h-full w-full object-cover md:block"
+              />
+            ) : (
+              <img
+                src={data.heroBgImage}
+                alt=""
+                loading="eager"
+                className="hidden h-full w-full object-cover md:block"
+              />
+            )}
             <div className="absolute inset-0 bg-[#061226]/70" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-[#07152f]/45 to-[#07152f]/85" />
           </div>
