@@ -1,5 +1,6 @@
 import type { SeoProps } from "@/components/Seo";
 import { getAreaSeoContent } from "@/data/areaSeoContent";
+import { serviceFaqs } from "@/data/serviceFaqs";
 
 const SITE_URL = "https://2000stair.kr";
 const SERVICE_TYPES = ["계단청소", "빌라청소", "상가청소", "공용공간 정기관리", "유리청소", "화장실청소"];
@@ -77,7 +78,8 @@ type ServiceConfig = {
 };
 
 function serviceJsonLd({ slug, name, description, serviceType }: ServiceConfig) {
-  return [
+  const faqs = serviceFaqs[slug] ?? [];
+  const items: Record<string, unknown>[] = [
     {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -100,6 +102,22 @@ function serviceJsonLd({ slug, name, description, serviceType }: ServiceConfig) 
       ],
     },
   ];
+
+  if (faqs.length > 0) {
+    items.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/services/${slug}#faq`,
+      url: `${SITE_URL}/services/${slug}`,
+      mainEntity: faqs.map(({ q, a }) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    });
+  }
+
+  return items;
 }
 
 function areaSeo(config: AreaConfig): SeoProps {

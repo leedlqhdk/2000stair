@@ -1,5 +1,6 @@
 import { Building2, ClipboardCheck, Home, Store } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { serviceFaqs } from "@/data/serviceFaqs";
 
 export default function StairCleaning() {
   return (
@@ -79,28 +80,7 @@ export default function StairCleaning() {
             },
           ],
         },
-        faq: [
-          {
-            q: "계단청소 비용은 얼마인가요?",
-            a: "2-3층 기준 월 2회 40,000원~, 월 4회 70,000원~입니다. 4층은 50,000~80,000원, 5-6층은 60,000~90,000원이며 현장 확인 후 정확한 견적을 안내드립니다.",
-          },
-          {
-            q: "월 2회와 4회의 차이는 무엇인가요?",
-            a: "월 2회는 2주에 한 번 방문하는 기본 정기관리입니다. 월 4회는 매주 방문으로, 유동인구가 많은 상가나 다세대 건물에 적합합니다.",
-          },
-          {
-            q: "공동현관 유리도 포함되나요?",
-            a: "네, 계단청소 정기관리 시 공동현관 유리와 출입문 청소가 기본으로 포함됩니다.",
-          },
-          {
-            q: "어떤 지역까지 방문 가능한가요?",
-            a: "이천 전 지역은 아니며, 현재는 신둔면, 마장면, 부발읍, 증포동, 중리동, 관고동, 대월면을 중심으로 주소와 사진 확인 후 방문 가능 여부를 안내드립니다.",
-          },
-          {
-            q: "엘리베이터 건물도 가능한가요?",
-            a: "네, 엘리베이터가 있는 건물도 가능합니다. 엘리베이터 내부 청소는 별도 상담 후 진행합니다.",
-          },
-        ],
+        faq: serviceFaqs.stair,
         showReviews: true,
       }}
     />
