@@ -1054,23 +1054,9 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           </section>
         ) : null}
 
-        {/* FAQ 섹션 (선택) */}
+        {/* FAQ 섹션 (선택) — FAQPage 구조화데이터는 route SEO(generalSeoByPath)에서 정적/런타임으로 함께 주입됨 */}
         {data.faq && data.faq.length > 0 && (
           <section className="relative z-10 py-12 md:py-24">
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "FAQPage",
-                  mainEntity: data.faq.map((item) => ({
-                    "@type": "Question",
-                    name: item.q,
-                    acceptedAnswer: { "@type": "Answer", text: item.a },
-                  })),
-                }),
-              }}
-            />
             <div className="container mx-auto max-w-4xl px-4">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
