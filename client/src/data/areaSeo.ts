@@ -77,17 +77,29 @@ type ServiceConfig = {
 };
 
 function serviceJsonLd({ slug, name, description, serviceType }: ServiceConfig) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${SITE_URL}/services/${slug}#service`,
-    name,
-    description,
-    url: `${SITE_URL}/services/${slug}`,
-    provider: { "@id": `${SITE_URL}/#business` },
-    serviceType,
-    areaServed: { "@type": "City", name: "이천시" },
-  };
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": `${SITE_URL}/services/${slug}#service`,
+      name,
+      description,
+      url: `${SITE_URL}/services/${slug}`,
+      provider: { "@id": `${SITE_URL}/#business` },
+      serviceType,
+      areaServed: { "@type": "City", name: "이천시" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": `${SITE_URL}/services/${slug}#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "홈", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "청소 서비스", item: `${SITE_URL}/services` },
+        { "@type": "ListItem", position: 3, name, item: `${SITE_URL}/services/${slug}` },
+      ],
+    },
+  ];
 }
 
 function areaSeo(config: AreaConfig): SeoProps {
