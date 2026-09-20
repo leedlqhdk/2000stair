@@ -246,6 +246,16 @@
     backdrop-filter: none !important;
   }
 
+  /* position:fixed backgrounds repaint every scroll frame on mobile (esp. iOS).
+     Pin the hero background to the top of the page instead so it scrolls away
+     to the solid navy base — removes the per-frame repaint that caused jank. */
+  .service-page > .fixed {
+    position: absolute;
+    top: 0;
+    bottom: auto;
+    height: 100svh;
+  }
+
   .service-page [style*="transform"] {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
