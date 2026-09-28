@@ -1,5 +1,5 @@
 import { useHomeMotion } from "@/components/HomeMotion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ChevronsLeftRight } from "lucide-react";
 import {
@@ -9,6 +9,16 @@ import {
 
 export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
   const { home, reveal } = useHomeMotion();
+  const [pos, setPos] = useState(50);
+  const ref = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
+
+  const updatePos = (clientX: number) => {
+    if (!ref.current) return;
+    const { left, width } = ref.current.getBoundingClientRect();
+    setPos(Math.max(2, Math.min(98, ((clientX - left) / width) * 100)));
+  };
+
   return (
     <motion.article
       className="group overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.10)]"
@@ -19,33 +29,58 @@ export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
         transition: { duration: 0.35 },
       })}
     >
-      <div className="relative grid aspect-[3/2] grid-cols-2 overflow-hidden bg-blue-50 sm:aspect-[16/9]">
-        <div className="relative overflow-hidden border-r-2 border-white">
+      <div
+        ref={ref}
+        className="relative aspect-[3/2] w-full cursor-col-resize select-none overflow-hidden bg-blue-50 sm:aspect-[16/9]"
+        onMouseDown={(e) => {
+          dragging.current = true;
+          updatePos(e.clientX);
+        }}
+        onMouseMove={(e) => {
+          if (dragging.current) updatePos(e.clientX);
+        }}
+        onMouseUp={() => {
+          dragging.current = false;
+        }}
+        onMouseLeave={() => {
+          dragging.current = false;
+        }}
+        onTouchStart={(e) => updatePos(e.touches[0].clientX)}
+        onTouchMove={(e) => updatePos(e.touches[0].clientX)}
+      >
+        {/* AFTER (전체 배경) */}
+        <img
+          src={item.after}
+          alt={`${item.title} 청소 후`}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          draggable={false}
+        />
+
+        {/* BEFORE (왼쪽에서 pos% 만큼만 노출) */}
+        <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
           <img
             src={item.before}
             alt={`${item.title} 청소 전`}
-            className="h-full w-full object-cover"
+            className="pointer-events-none absolute inset-0 h-full max-w-none object-cover"
+            style={{ width: ref.current?.clientWidth }}
             loading="lazy"
+            draggable={false}
           />
-          <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1.5 text-[11px] font-bold tracking-wide text-white backdrop-blur sm:text-xs">
-            BEFORE
-          </span>
         </div>
 
-        <div className="relative overflow-hidden">
-          <img
-            src={item.after}
-            alt={`${item.title} 청소 후`}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-          <span className="absolute right-3 top-3 rounded-full bg-primary px-3 py-1.5 text-[11px] font-bold tracking-wide text-white backdrop-blur sm:text-xs">
-            AFTER
-          </span>
-        </div>
+        <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1.5 text-[11px] font-bold tracking-wide text-white backdrop-blur sm:text-xs">
+          BEFORE
+        </span>
+        <span className="absolute right-3 top-3 rounded-full bg-primary px-3 py-1.5 text-[11px] font-bold tracking-wide text-white backdrop-blur sm:text-xs">
+          AFTER
+        </span>
 
-        <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-[0_6px_16px_rgba(15,23,42,0.2)] sm:h-12 sm:w-12">
-          <ChevronsLeftRight className="h-5 w-5" strokeWidth={2.6} />
+        {/* 드래그 구분선 + 핸들 */}
+        <div className="absolute inset-y-0 z-10 w-0.5 -translate-x-1/2 bg-white/90 shadow-[0_0_0_1px_rgba(15,23,42,0.06)]" style={{ left: `${pos}%` }}>
+          <div className="absolute top-1/2 left-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-blue-100 bg-white text-primary shadow-[0_6px_16px_rgba(15,23,42,0.2)] sm:h-12 sm:w-12">
+            <ChevronsLeftRight className="h-5 w-5" strokeWidth={2.6} />
+          </div>
         </div>
       </div>
     </motion.article>
