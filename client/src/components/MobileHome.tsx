@@ -18,6 +18,7 @@ import { trackConversion } from "@/lib/analytics";
 import ChannelLinks from "@/components/ChannelLinks";
 import VisitorCounter from "@/components/VisitorCounter";
 import Reveal from "@/components/Reveal";
+import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import HomeConcerns from "@/components/HomeConcerns";
 import HomeWorkSlider from "@/components/HomeWorkSlider";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
@@ -260,6 +261,9 @@ export default function MobileHome() {
           ))}
         </div>
       </section>
+
+      {/* BEFORE & AFTER (PROOF) */}
+      <BeforeAfterGallery />
 
       {/* REVIEWS */}
       <section className="py-7">
