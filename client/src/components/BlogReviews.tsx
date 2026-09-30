@@ -68,7 +68,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
           <p className="mb-2 text-xs font-extrabold tracking-[0.28em] text-primary">
             REAL REVIEW
           </p>
-          <h3 className={`text-2xl font-extrabold leading-tight md:text-3xl ${titleClass}`}>
+          <h3 className={`font-['GmarketSans'] text-2xl font-extrabold leading-tight md:text-3xl ${titleClass}`}>
             고객이 <span className="text-primary">먼저 추천하는</span> 이유
           </h3>
           <div className="mt-4 flex items-center justify-center gap-1.5">

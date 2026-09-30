@@ -17,7 +17,7 @@ export default function HowItWorks() {
       <div className="container max-w-4xl">
         <motion.div className="mx-auto mb-6 max-w-2xl text-center md:mb-12" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
           <p className="mb-2 text-xs font-bold tracking-[0.25em] text-primary md:mb-4 md:text-sm">PROCESS</p>
-          <h2 className="mb-2 text-2xl font-extrabold leading-[1.14] text-foreground md:mb-4 md:text-4xl">이렇게 진행됩니다</h2>
+          <h2 className="font-['GmarketSans'] mb-2 text-2xl font-extrabold leading-[1.14] text-foreground md:mb-4 md:text-4xl">이렇게 진행됩니다</h2>
           <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground md:text-lg">복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리 범위를 안내드립니다.</p>
         </motion.div>
 
