@@ -19,6 +19,7 @@ import ChannelLinks from "@/components/ChannelLinks";
 import VisitorCounter from "@/components/VisitorCounter";
 import Reveal from "@/components/Reveal";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
+import HomeFaq from "@/components/HomeFaq";
 import HomeConcerns from "@/components/HomeConcerns";
 import HomeWorkSlider from "@/components/HomeWorkSlider";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
@@ -339,6 +340,9 @@ export default function MobileHome() {
         <h2 className="mb-4 font-['GmarketSans'] text-lg font-extrabold text-foreground">공식 채널</h2>
         <ChannelLinks location="mobile_home_channels" />
       </section>
+
+      {/* FAQ (요약) */}
+      <HomeFaq />
 
       {/* PROMO */}
       <section className="px-5 pb-9 pt-2">

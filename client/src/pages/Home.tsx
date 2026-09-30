@@ -12,6 +12,7 @@ import CustomerConcernsSection from "@/components/CustomerConcernsSection";
 import HusbandProfileStats from "@/components/HusbandProfileStats";
 import HomeAreaMapSection from "@/components/HomeAreaMapSection";
 import HomeFinalCta from "@/components/HomeFinalCta";
+import HomeFaq from "@/components/HomeFaq";
 import HomeSectionNavigator from "@/components/HomeSectionNavigator";
 
 export default function Home() {
@@ -67,6 +68,9 @@ export default function Home() {
               <div className="container max-w-6xl py-16 md:py-24">
                 <BlogReviews />
               </div>
+            </div>
+            <div id="home-faq" className="scroll-mt-20">
+              <HomeFaq />
             </div>
             <div id="home-contact" className="scroll-mt-20">
               <HomeFinalCta />
