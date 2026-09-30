@@ -64,7 +64,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </p>
             </motion.div>
 
-            <div className="mt-6 flex max-w-xl flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex max-w-xl flex-col gap-3 xl:flex-row">
               <a
                 href={KAKAO_CHANNEL_URL}
                 target="_blank"
