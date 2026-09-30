@@ -42,7 +42,7 @@ export default function Services() {
             <p className="text-xs font-extrabold tracking-[0.32em] text-primary md:text-sm">
               SERVICES
             </p>
-            <h2 className="mt-2 text-2xl font-extrabold leading-[1.18] text-foreground md:mt-3 md:text-4xl">
+            <h2 className="font-['GmarketSans'] mt-2 text-2xl font-extrabold leading-[1.18] text-foreground md:mt-3 md:text-4xl">
               청소 서비스
             </h2>
             <p className="mt-2 text-sm font-semibold text-muted-foreground md:mt-3 md:text-base">

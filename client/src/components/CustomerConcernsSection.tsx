@@ -7,7 +7,7 @@ export default function CustomerConcernsSection() {
       <div className="container max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-3 text-xs font-extrabold tracking-[0.3em] text-primary">CUSTOMER CONCERN</p>
-          <h2 className="break-keep text-3xl font-extrabold leading-tight text-foreground md:text-5xl">
+          <h2 className="font-['GmarketSans'] break-keep text-3xl font-extrabold leading-tight text-foreground md:text-5xl">
             <motion.span
               className="block"
               initial={{ opacity: 0, y: 22 }}

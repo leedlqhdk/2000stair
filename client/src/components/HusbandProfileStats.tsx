@@ -40,7 +40,7 @@ export default function HusbandProfileStats() {
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
+            <h2 className="font-['GmarketSans'] text-3xl font-extrabold leading-tight text-foreground md:text-4xl">
               같은 사람이, 꾸준히
               <br />
               대표가 직접 관리합니다

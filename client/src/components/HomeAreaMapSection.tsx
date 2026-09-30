@@ -31,7 +31,7 @@ export default function HomeAreaMapSection() {
     <section className="bg-gradient-to-b from-white via-blue-50/35 to-white py-20 md:py-28">
       <div className="container max-w-6xl">
         <motion.div {...reveal()} className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
-          <h2 className="text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
+          <h2 className="font-['GmarketSans'] text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
             관리 지역
           </h2>
           <p className="mt-5 break-keep text-lg font-semibold leading-relaxed text-muted-foreground">

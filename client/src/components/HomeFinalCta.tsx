@@ -12,7 +12,7 @@ export default function HomeFinalCta() {
     <section className="bg-primary py-14 text-white md:py-20">
       <motion.div {...reveal()} className="container max-w-4xl text-center">
         <p className="mb-3 text-xs font-extrabold tracking-[0.3em] text-white/65">CONTACT</p>
-        <h2 className="break-keep text-3xl font-extrabold leading-tight md:text-4xl">
+        <h2 className="font-['GmarketSans'] break-keep text-3xl font-extrabold leading-tight md:text-4xl">
           건물 주소만 보내주세요.
         </h2>
         <p className="mx-auto mt-4 max-w-2xl break-keep text-base font-semibold leading-relaxed text-white/82 md:text-lg">
