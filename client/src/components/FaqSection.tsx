@@ -9,26 +9,10 @@ import {
 } from "@/components/ui/accordion";
 import { faqs } from "@/data/faqs";
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
-  })),
-};
 
 export default function FaqSection() {
   return (
     <section className="border-y border-blue-100 bg-white py-16 md:py-24">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
 
       <div className="container max-w-5xl">
         <motion.div

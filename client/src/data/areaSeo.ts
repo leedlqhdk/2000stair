@@ -1,6 +1,7 @@
 import type { SeoProps } from "@/components/Seo";
 import { getAreaSeoContent } from "@/data/areaSeoContent";
 import { serviceFaqs } from "@/data/serviceFaqs";
+import { faqs, homeFaqs, type Faq } from "@/data/faqs";
 
 const SITE_URL = "https://2000stair.kr";
 const SERVICE_TYPES = ["계단청소", "빌라청소", "상가청소", "공용공간 정기관리", "유리청소", "화장실청소"];
@@ -76,6 +77,20 @@ type ServiceConfig = {
   description: string;
   serviceType: string | string[];
 };
+
+function faqPageJsonLd(items: Faq[], path: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${SITE_URL}${path}#faq`,
+    url: `${SITE_URL}${path}`,
+    mainEntity: items.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+}
 
 function serviceJsonLd({ slug, name, description, serviceType }: ServiceConfig) {
   const faqs = serviceFaqs[slug] ?? [];
@@ -264,6 +279,8 @@ export const generalSeoByPath = {
           { "@type": "AdministrativeArea", name: "관고동" },
           { "@type": "AdministrativeArea", name: "창전동" },
           { "@type": "AdministrativeArea", name: "대월면" },
+          { "@type": "AdministrativeArea", name: "백사면" },
+          { "@type": "AdministrativeArea", name: "호법면" },
         ],
         priceRange: "₩₩",
         openingHoursSpecification: {
@@ -280,6 +297,7 @@ export const generalSeoByPath = {
           reviewCount: 3,
         },
       },
+      faqPageJsonLd(homeFaqs, "/"),
     ],
   },
   "/about": {
@@ -296,6 +314,7 @@ export const generalSeoByPath = {
       "계단청소 비용, 견적 받는 방법, 월 2회·4회 정기관리 주기, 세금계산서 발행, 유리청소·화장실청소 포함 여부 등 이천계단지기에 자주 문의하시는 질문과 답변을 안내합니다.",
     canonical: `${SITE_URL}/qna`,
     keywords: `이천계단청소 비용, 계단청소 견적, 계단청소 자주묻는질문, ${BASE_KEYWORDS}`,
+    jsonLd: faqPageJsonLd(faqs, "/qna"),
   },
   "/before-after": {
     title: "이천 청소 전후 사진 | 계단·유리·화장실 실제 작업 – 이천계단지기",

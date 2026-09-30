@@ -9,39 +9,26 @@ import {
 } from "@/components/ui/accordion";
 import { homeFaqs } from "@/data/faqs";
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: homeFaqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: { "@type": "Answer", text: faq.answer },
-  })),
-};
 
 export default function HomeFaq() {
   if (homeFaqs.length === 0) return null;
 
   return (
     <section id="home-faq" className="bg-white py-14 md:py-24">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
 
       <div className="container max-w-4xl">
         <motion.div
-          className="mb-7 text-center md:mb-10"
+          className="mx-auto mb-7 max-w-3xl text-center md:mb-12"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
         >
-          <p className="mb-3 text-sm font-bold tracking-[0.3em] text-primary md:mb-4">FAQ</p>
-          <h2 className="text-2xl font-extrabold leading-tight text-foreground md:text-4xl">
+          <p className="mb-3 text-center text-sm font-bold tracking-[0.25em] text-primary md:mb-5">FAQ</p>
+          <h2 className="text-center font-['GmarketSans'] text-2xl font-extrabold leading-tight text-foreground md:text-5xl">
             자주 묻는 질문
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground md:mt-4 md:text-lg">
+          <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground md:mt-5 md:text-lg">
             문의 전에 많이 궁금해하시는 내용을 모았습니다.
           </p>
         </motion.div>

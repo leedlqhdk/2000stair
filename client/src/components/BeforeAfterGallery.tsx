@@ -107,7 +107,7 @@ export default function BeforeAfterGallery() {
           transition={{ duration: 0.7 }}
         >
           <p className="mb-3 text-center text-sm font-bold tracking-[0.25em] text-primary md:mb-5">PROOF</p>
-          <h2 className="text-center text-2xl font-extrabold leading-tight text-foreground md:text-5xl">
+          <h2 className="text-center font-['GmarketSans'] text-2xl font-extrabold leading-tight text-foreground md:text-5xl">
             눈으로 확인하는
             <br />
             관리 결과
