@@ -1,6 +1,6 @@
 import { useHomeMotion } from "@/components/HomeMotion";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, MessageCircle, Phone } from "lucide-react";
 import { Link } from "wouter";
 import VisitorCounter from "@/components/VisitorCounter";
 import { trackConversion } from "@/lib/analytics";
@@ -9,7 +9,10 @@ interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
-const heroBadges = ["하청 없이 부부가 직접", "무료 방문 견적", "세금계산서 발행", "계약서 제공"];
+const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
+const PHONE_NUMBER = "01084381887";
+
+const heroBadges = ["무료 방문 견적", "초도청소 전후 사진", "세금계산서 발행", "계약서 제공"];
 
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   void isAuthenticated;
@@ -26,19 +29,18 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="flex items-center gap-3 md:block">
-              <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-[clamp(2.15rem,5.2vw,4.45rem)] font-medium leading-[1.08] tracking-[0.02em] text-foreground sm:mb-4 md:mb-5 md:text-[clamp(2.5rem,4.8vw,4.2rem)]">
-                이천 계단청소
-                <br />
+              <h1 className="mb-3 min-w-0 flex-1 font-['GmarketSans'] text-foreground sm:mb-4 md:mb-5">
+                <span className="block text-2xl font-bold leading-tight lg:text-3xl">
+                  이천 빌라·원룸·상가
+                </span>
                 <motion.span
-                  className="inline-block font-bold text-primary"
+                  className="mt-2 inline-block text-[2.65rem] font-bold leading-none text-primary lg:text-[3.4rem]"
                   initial={reduced ? false : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  부부가 직접
+                  계단청소
                 </motion.span>
-                <br />
-                관리합니다
               </h1>
               <div className="w-[45%] shrink-0 md:hidden">
                 <img
@@ -49,14 +51,49 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
               </div>
             </div>
 
-            <motion.p
-              className="text-[clamp(0.95rem,2vw,1.22rem)] font-semibold leading-relaxed text-gray-700"
+            <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
-              이천 계단청소 비용·범위·관리주기 | 이천계단지기
-            </motion.p>
+              <p className="text-lg font-bold leading-relaxed text-gray-800">
+                하청 없이 부부가 직접 방문해 꾸준히 관리합니다.
+              </p>
+              <p className="mt-2 max-w-xl text-sm font-semibold leading-relaxed text-muted-foreground lg:text-base">
+                주소와 건물 사진을 보내주시면 관리 범위와 방문 가능 여부를 안내해드립니다.
+              </p>
+            </motion.div>
+
+            <div className="mt-6 flex max-w-xl flex-col gap-3 xl:flex-row">
+              <a
+                href={KAKAO_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackConversion("kakao_click", {
+                    location: "desktop_hero",
+                    label: "주소·사진 보내고 무료 견적받기",
+                  })
+                }
+                className="inline-flex min-h-14 flex-[1.35] items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary/90"
+              >
+                <MessageCircle className="h-5 w-5 shrink-0" />
+                주소·사진 보내고 무료 견적받기
+              </a>
+              <a
+                href={`tel:${PHONE_NUMBER}`}
+                onClick={() =>
+                  trackConversion("phone_click", {
+                    location: "desktop_hero",
+                    label: "전화로 방문견적 문의",
+                  })
+                }
+                className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-xl border border-blue-200 bg-white px-5 py-3.5 text-sm font-extrabold text-foreground transition hover:-translate-y-0.5 hover:bg-blue-50"
+              >
+                <Phone className="h-5 w-5 shrink-0 text-primary" />
+                전화로 방문견적 문의
+              </a>
+            </div>
 
             <div className="mt-5 grid max-w-xl grid-cols-2 gap-x-6 gap-y-2">
               {heroBadges.map((badge) => (

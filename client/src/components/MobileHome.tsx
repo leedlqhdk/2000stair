@@ -8,7 +8,6 @@ import {
   Check,
   ChevronRight,
   Home as HomeIcon,
-  MapPin,
   MessageCircle,
   Phone,
   Sparkles,
@@ -121,21 +120,23 @@ export default function MobileHome() {
       <section className="px-5 pb-7 pt-7">
         <div className="flex items-center gap-4">
           <div className="min-w-0 flex-1">
-            <h1 className="break-keep font-['GmarketSans'] text-[1.5rem] font-bold leading-[1.22] text-foreground">
-              이천 계단청소
-              <br />
-              <span className="bg-gradient-to-r from-blue-700 via-primary to-blue-400 bg-clip-text text-transparent">
-                부부가 직접
+            <h1 className="break-keep font-['GmarketSans'] font-bold text-foreground">
+              <span className="block text-[0.95rem] leading-tight text-gray-800">
+                이천 빌라·원룸·상가
               </span>
-              <br />
-              관리합니다
+              <span className="mt-1 block text-[1.55rem] leading-none text-primary">
+                계단청소
+              </span>
             </h1>
-            <p className="mt-2.5 break-keep text-[13px] font-semibold leading-relaxed text-gray-700">
-              이천 계단청소 비용·범위·관리주기 | 이천계단지기
+            <p className="mt-3 break-keep text-[13px] font-bold leading-relaxed text-gray-800">
+              하청 없이 부부가 직접 방문해 꾸준히 관리합니다.
+            </p>
+            <p className="mt-1.5 break-keep text-[12px] font-semibold leading-relaxed text-muted-foreground">
+              주소와 건물 사진을 보내주시면 관리 범위와 방문 가능 여부를 안내해드립니다.
             </p>
           </div>
           <motion.div
-            className="w-[132px] shrink-0"
+            className="w-[108px] shrink-0"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
             transition={{
@@ -168,24 +169,21 @@ export default function MobileHome() {
             </Link>
           </motion.div>
         </div>
-        <div className="mt-5 flex gap-2.5">
+        <div className="mt-5">
           <a
             href={KAKAO_CHANNEL_URL}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackConversion("kakao_click", { location: "mobile_hero", label: "카카오톡 상담" })}
-            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-extrabold text-white shadow-lg shadow-primary/25"
+            onClick={() =>
+              trackConversion("kakao_click", {
+                location: "mobile_hero",
+                label: "주소·사진 보내고 무료 견적받기",
+              })
+            }
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-sm font-extrabold text-white shadow-lg shadow-primary/25"
           >
-            <MessageCircle className="h-4 w-4" />
-            카카오톡 상담
-          </a>
-          <a
-            href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-            onClick={() => trackConversion("phone_click", { location: "mobile_hero", label: "전화 상담" })}
-            className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-blue-200 bg-white px-4 text-sm font-extrabold text-foreground"
-          >
-            <Phone className="h-4 w-4 text-primary" />
-            전화 상담
+            <MessageCircle className="h-4 w-4 shrink-0" />
+            주소·사진 보내고 무료 견적받기
           </a>
         </div>
         <div className="mt-4 flex justify-center">
@@ -386,43 +384,31 @@ export default function MobileHome() {
       </div>
 
       {/* BOTTOM DOCK */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[1.7fr_1fr_1fr] border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.06)]">
+      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.08)]">
         <a
           href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-          onClick={() => trackConversion("phone_click", { location: "mobile_dock", label: "전화상담" })}
-          className="flex flex-col items-start justify-center gap-0.5 py-2.5 pl-4"
+          onClick={() => trackConversion("phone_click", { location: "mobile_dock", label: "전화 방문견적" })}
+          className="flex min-h-14 items-center justify-center gap-2 px-3 py-2.5 text-sm font-extrabold text-primary"
+          aria-label="전화로 방문견적 문의"
         >
-          <span className="flex items-center gap-1.5 whitespace-nowrap text-[14px] font-extrabold text-primary">
-            <Phone className="h-4 w-4 shrink-0" />
-            {PHONE_NUMBER}
-          </span>
-          <span className="text-[10.5px] font-semibold text-muted-foreground">평일 09:00 - 18:00</span>
+          <Phone className="h-5 w-5 shrink-0" />
+          전화 방문견적
         </a>
         <a
           href={KAKAO_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackConversion("kakao_click", { location: "mobile_dock", label: "카카오톡" })}
-          className="flex flex-col items-center justify-center gap-0.5 border-l border-blue-100 py-2.5"
+          onClick={() => trackConversion("kakao_click", { location: "mobile_dock", label: "카카오톡 무료견적" })}
+          className="flex min-h-14 items-center justify-center gap-2 border-l border-blue-100 bg-[#FEE500] px-3 py-2.5 text-sm font-extrabold text-[#191919]"
+          aria-label="카카오톡으로 주소와 사진 보내고 무료 견적받기"
         >
-          <MessageCircle className="h-5 w-5 text-primary" />
-          <span className="text-[11.5px] font-bold text-foreground">카카오톡</span>
+          <MessageCircle className="h-5 w-5 shrink-0" />
+          카카오톡 무료견적
         </a>
-        <button
-          type="button"
-          onClick={() => {
-            trackConversion("quote_form_view", { location: "mobile_dock", label: "문의하기" });
-            goToQuote();
-          }}
-          className="flex flex-col items-center justify-center gap-0.5 border-l border-blue-100 py-2.5"
-        >
-          <MapPin className="h-5 w-5 text-primary" />
-          <span className="text-[11.5px] font-bold text-foreground">문의하기</span>
-        </button>
       </nav>
 
       {/* spacer so fixed dock doesn't cover content */}
-      <div className="h-[68px]" />
+      <div className="h-16" />
     </div>
   );
 }
