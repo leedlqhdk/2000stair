@@ -27,6 +27,7 @@ const AdminBlogEdit = lazy(() => import("./pages/AdminBlogEdit"));
 const AdminField = lazy(() => import("./pages/AdminField"));
 const AdminFieldArea = lazy(() => import("./pages/AdminFieldArea"));
 const AdminQuotes = lazy(() => import("./pages/AdminQuotes"));
+const AdminSettlements = lazy(() => import("./pages/AdminSettlements"));
 const AdminReviews = lazy(() => import("./pages/AdminReviews"));
 const Majang = lazy(() => import("@/pages/Majang"));
 const Daewol = lazy(() => import("@/pages/Daewol"));
@@ -314,6 +315,7 @@ function Router() {
           <Route path="/area/hobeop" component={Hobeop} />
           <Route path="/area/:slug" component={LocationLanding} />
           <Route path="/admin" component={AdminRedirect} />
+          <Route path="/admin/settlements" component={AdminSettlements} />
           <Route path="/admin/quotes" component={AdminQuotes} />
           <Route path="/admin/blog" component={AdminBlog} />
           <Route path="/admin/field/areas/:slug" component={AdminFieldArea} />

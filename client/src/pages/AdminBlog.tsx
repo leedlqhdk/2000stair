@@ -131,6 +131,7 @@ export default function AdminBlog() {
           <Link href="/admin/reviews">
             <Button variant="outline" size="sm">후기 관리</Button>
           </Link>
+          <Link href="/admin/settlements"><Button variant="outline" size="sm">정산리스트</Button></Link>
           <Link href="/admin/quotes">
             <Button variant="outline" size="sm">견적 관리</Button>
           </Link>

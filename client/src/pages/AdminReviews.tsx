@@ -179,6 +179,7 @@ export default function AdminReviews() {
           </p>
         </div>
         <div className="flex gap-2">
+          <Link href="/admin/settlements"><Button variant="outline" size="sm">정산리스트</Button></Link>
           <Link href="/admin/blog">
             <Button variant="outline" size="sm">글 관리</Button>
           </Link>

@@ -116,7 +116,8 @@ export default function AdminQuotes() {
             <h1 className="text-2xl font-extrabold text-foreground">견적 신청 목록</h1>
           </div>
           <div className="flex gap-2">
-            <Link href="/admin/blog">
+            <Link href="/admin/settlements"><Button variant="outline" size="sm">정산리스트</Button></Link>
+          <Link href="/admin/blog">
               <Button variant="outline" size="sm">블로그 관리</Button>
             </Link>
           </div>
