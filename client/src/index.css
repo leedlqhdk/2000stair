@@ -237,6 +237,12 @@
   .home-scroll-section > * {
     width: 100%;
   }
+
+  /* 전체화면 서비스 섹션은 상단 메뉴(3.5rem) 바로 아래에 맞춰 멈춘다.
+     html의 scroll-padding-top(5rem)과 더해지므로 그 차이만큼 당긴다. */
+  #home-services {
+    scroll-margin-top: calc(3.5rem - 5rem);
+  }
 }
 
 /* Backdrop filters can flicker while mobile browsers scroll a fixed background. */
@@ -267,8 +273,6 @@
   .home-motion a, .home-motion button {
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .home-motion #home-services a:focus-visible img,
-  .home-motion #home-services a:hover img { transform: scale(1.035); }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-motion *, .home-motion *::before, .home-motion *::after {
