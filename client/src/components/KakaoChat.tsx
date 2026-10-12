@@ -2,6 +2,7 @@ import { MessageCircle, Phone } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { trackConversion } from "@/lib/analytics";
+import { isQuietSectionBehind } from "@/lib/floatingQuiet";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -18,12 +19,14 @@ export default function KakaoChat() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(false);
+  const [isOverQuietSection, setIsOverQuietSection] = useState(false);
   const scrollTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolling(true);
       setIsNearBottom(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 360);
+      setIsOverQuietSection(isQuietSectionBehind(240));
 
       if (scrollTimer.current) {
         window.clearTimeout(scrollTimer.current);
@@ -65,9 +68,11 @@ export default function KakaoChat() {
     };
   }, []);
 
-  const buttonWidthClass = isScrolling ? collapsedButtonClass : expandedButtonClass;
-  const buttonTextClass = isScrolling ? collapsedTextClass : expandedTextClass;
-  const buttonGapClass = isScrolling ? "gap-0" : "gap-1 md:gap-2";
+  // 스크롤 중이거나 전체화면 섹션 위에 있을 때는 말풍선을 숨기고 아이콘 버튼으로 줄인다
+  const isCompact = isScrolling || isOverQuietSection;
+  const buttonWidthClass = isCompact ? collapsedButtonClass : expandedButtonClass;
+  const buttonTextClass = isCompact ? collapsedTextClass : expandedTextClass;
+  const buttonGapClass = isCompact ? "gap-0" : "gap-1 md:gap-2";
 
   return (
     <>
@@ -77,7 +82,7 @@ export default function KakaoChat() {
             isHome || isAreas ? "hidden lg:flex" : "flex"
           }`}
         >
-          {!isScrolling && (
+          {!isCompact && (
             <div className="pointer-events-none mb-1 mr-1 rounded-2xl bg-white/95 px-4 py-3 shadow-lg shadow-blue-900/8 ring-1 ring-blue-100 backdrop-blur">
               <p className="text-center text-xs font-extrabold leading-snug text-slate-700 md:text-sm">
                 주소 보내주시면

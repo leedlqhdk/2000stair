@@ -1,5 +1,6 @@
 import { ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
+import { isQuietSectionBehind } from "@/lib/floatingQuiet";
 
 const SHOW_AFTER_PX = 600;
 
@@ -17,12 +18,14 @@ function browserHasNativeScrollTop() {
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
   const [hasNativeButton, setHasNativeButton] = useState(false);
+  const [isOverQuietSection, setIsOverQuietSection] = useState(false);
 
   useEffect(() => {
     let frameId: number | null = null;
 
     const updateState = () => {
       setIsVisible(window.scrollY >= SHOW_AFTER_PX);
+      setIsOverQuietSection(isQuietSectionBehind(96));
       setHasNativeButton(browserHasNativeScrollTop());
       frameId = null;
     };
@@ -53,7 +56,8 @@ export default function ScrollToTopButton() {
     });
   };
 
-  const shouldShow = isVisible && !hasNativeButton;
+  // 전체화면 섹션 하단 글자 위에서는 잠시 숨긴다
+  const shouldShow = isVisible && !hasNativeButton && !isOverQuietSection;
 
   return (
     <button
