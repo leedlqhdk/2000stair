@@ -4,10 +4,9 @@ const homeSections = [
   { id: "home-hero", title: "이천 건물 정기 청소관리", description: "하청 없이 부부가 직접 꾸준히 관리합니다." },
   { id: "home-concerns", title: "기존 관리가 아쉬웠던 이유", description: "건물주가 자주 말하는 관리 고민을 확인합니다." },
   { id: "home-representative", title: "같은 사람이, 꾸준히", description: "처음 본 건물 상태를 기억하고 이어서 관리합니다." },
-  { id: "home-process", title: "관리 진행 방식", description: "방문 확인부터 작업 기록까지 한눈에 봅니다." },
+  { id: "home-process", title: "관리 지역·진행 방식", description: "방문 가능한 지역과 진행 순서를 한눈에 봅니다." },
   { id: "home-services", title: "청소 서비스", description: "계단·사무실·화장실·유리 정기관리 안내입니다." },
   { id: "home-before-after", title: "청소 전후 사진", description: "실제 현장의 작업 전후 모습을 확인합니다." },
-  { id: "home-areas", title: "관리지역", description: "이천에서 실제 방문 관리하는 지역을 안내합니다." },
   { id: "home-reviews", title: "실제 고객 후기", description: "고객이 남긴 후기를 출처와 함께 확인합니다." },
   { id: "home-contact", title: "방문견적 문의", description: "건물 주소를 보내주시면 방문 가능 여부를 안내합니다." },
 ] as const;
