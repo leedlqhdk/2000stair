@@ -1,4 +1,4 @@
-// 상단 메뉴(데스크톱 메가 메뉴·전체 메뉴·모바일 메뉴)가 함께 쓰는 메뉴 구성
+// 상단 메뉴(데스크톱 메뉴·전체 메뉴·모바일 메뉴)가 함께 쓰는 메뉴 구성
 export type DropdownItem = {
   label: string;
   href: string;
