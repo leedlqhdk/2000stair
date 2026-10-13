@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import FullScreenMenu from "@/components/FullScreenMenu";
 import { navGroups, type NavGroup } from "@/data/navMenu";
 
-// 데스크톱 메뉴는 홈을 맨 앞에 둔다 (모바일 메뉴는 홈을 따로 그린다)
+// 데스크톱 전체 메뉴는 홈을 맨 앞에 둔다 (모바일 메뉴는 홈을 따로 그린다)
 const desktopGroups: NavGroup[] = [{ label: "홈", href: "/", items: [] }, ...navGroups];
 
 export default function Navbar() {
@@ -67,9 +67,6 @@ useEffect(() => {
     window.history.replaceState(null, "", "/");
   };
 
-  const navItemClass =
-    "flex h-full items-center text-sm font-semibold text-muted-foreground transition-colors hover:text-primary";
-
   return (
     <header
   className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -93,28 +90,8 @@ useEffect(() => {
           />
         </a>
 
-        <div className="hidden h-full items-center gap-6 md:flex">
-          <nav aria-label="주요 메뉴" className="flex h-full items-stretch gap-12 lg:gap-14">
-            {desktopGroups.map((group) =>
-              group.href ? (
-                <Link key={group.label} href={group.href} className={navItemClass}>
-                  {group.label}
-                </Link>
-              ) : (
-                // 하위 메뉴는 전체 메뉴(☰)에서 보여준다
-                <button
-                  key={group.label}
-                  type="button"
-                  className={navItemClass}
-                  aria-haspopup="dialog"
-                  onClick={() => setFullMenuOpen(true)}
-                >
-                  {group.label}
-                </button>
-              )
-            )}
-          </nav>
-
+        {/* 데스크톱 상단에는 로고와 ☰ 버튼만 두고, 메뉴는 전체화면 메뉴에서 보여준다 */}
+        <div className="hidden md:flex">
           <FullScreenMenu open={fullMenuOpen} onOpenChange={setFullMenuOpen} groups={desktopGroups} compact={scrolled} />
         </div>
 
