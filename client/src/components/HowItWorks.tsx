@@ -1,64 +1,61 @@
 import { useHomeMotion } from "@/components/HomeMotion";
 import { motion } from "framer-motion";
-import { ChevronDown, ClipboardCheck, Home, MessageCircle, MessageSquareMore, Sparkles } from "lucide-react";
+import { ClipboardCheck, Home, MessageCircle, MessageSquareMore, Sparkles } from "lucide-react";
 import HomeAreaMap from "@/components/HomeAreaMap";
 
 const steps = [
-  { number: "01", icon: MessageCircle, title: "문의하기", text: "카카오톡으로 건물 사진과 주소를 보내주시면 상담을 시작합니다.", mobileText: "사진과 주소를 보내주시면 상담을 시작합니다." },
-  { number: "02", icon: Home, title: "무료 방문 견적", text: "현장 상황과 오염 상태를 확인해 관리 범위와 주기를 안내드립니다.", mobileText: "현장을 확인하고 관리 범위를 안내드립니다." },
-  { number: "03", icon: ClipboardCheck, title: "관리 계획 안내", text: "방문 견적 후 관리 범위와 주기를 정리한 견적서를 제공해드립니다. 고객님 편의에 따라 대면 또는 비대면 계약이 가능합니다.", mobileText: "견적서 제공 후 대면·비대면 계약이 가능합니다." },
-  { number: "04", icon: Sparkles, title: "정기 관리 시작", text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다.", mobileText: "부부가 직접 방문해 꾸준히 관리합니다." },
-  { number: "05", icon: MessageSquareMore, title: "원활한 피드백", text: "초도청소 후 청소 전후 사진 제공과 함께 요청사항과 건의사항을 빠르게 반영해드립니다.", mobileText: "초도청소 후 청소 전후 사진 제공과 요청사항 반영을 함께 진행합니다." },
+  { number: "01", icon: MessageCircle, title: "문의하기", text: "카카오톡으로 건물 사진과 주소를 보내주시면 상담을 시작합니다." },
+  { number: "02", icon: Home, title: "무료 방문 견적", text: "현장 상황과 오염 상태를 확인해 관리 범위와 주기를 안내드립니다." },
+  { number: "03", icon: ClipboardCheck, title: "관리 계획 안내", text: "방문 견적 후 관리 범위와 주기를 정리한 견적서를 제공해드립니다. 고객님 편의에 따라 대면 또는 비대면 계약이 가능합니다." },
+  { number: "04", icon: Sparkles, title: "정기 관리 시작", text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다." },
+  { number: "05", icon: MessageSquareMore, title: "원활한 피드백", text: "초도청소 후 청소 전후 사진 제공과 함께 요청사항과 건의사항을 빠르게 반영해드립니다." },
 ];
 
+// PC 홈 전용: 왼쪽 관리 지역 지도 + 오른쪽 진행 단계(박스 없이 세로선으로 잇는 목록)
 export default function HowItWorks() {
   const { home, reveal } = useHomeMotion();
   return (
-    <section id="how-it-works" className="py-10 md:py-24 bg-white">
+    <section id="how-it-works" className="bg-white py-10 md:py-20">
       <div className="container max-w-4xl lg:max-w-6xl">
-        <motion.div className="mx-auto mb-6 max-w-2xl text-center md:mb-12" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+        <motion.div className="mx-auto mb-8 max-w-2xl text-center md:mb-10" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
           <p className="mb-2 text-xs font-bold tracking-[0.25em] text-primary md:mb-4 md:text-sm">PROCESS</p>
           <h2 className="font-['GmarketSans'] mb-2 text-2xl font-extrabold leading-[1.14] text-foreground md:mb-4 md:text-4xl">이렇게 진행됩니다</h2>
           <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground md:text-lg">복잡한 신청서 없이 카카오톡으로 문의하고, 건물 상태에 맞는 관리 범위를 안내드립니다.</p>
         </motion.div>
 
-        {/* PC: 왼쪽에 관리 지역 지도(스크롤해도 고정), 오른쪽에 진행 단계 */}
-        <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-12">
+        {/* 1024px 이상: 왼쪽 관리 지역 지도, 오른쪽 진행 단계 */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center lg:gap-12">
           <motion.div
-            className="mx-auto mb-10 max-w-md lg:sticky lg:top-24 lg:mx-0 lg:mb-0 lg:max-w-none"
+            className="mx-auto mb-8 max-w-md lg:mx-0 lg:mb-0 lg:max-w-none"
             {...(home ? reveal(0.05, 24) : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.65 } })}
           >
             <HomeAreaMap />
           </motion.div>
 
-          <motion.div className="mx-auto max-w-xl md:max-w-2xl lg:max-w-none" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.65 }}>
-            <div className="space-y-1.5 md:space-y-3">
-              {steps.map((step, index) => (
-                <div key={step.number}>
-                  <motion.div className="flex min-h-[5.25rem] items-center rounded-2xl border border-blue-100 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md md:min-h-[8rem] md:p-5" {...(home ? reveal(0.06, 20) : { initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: index * 0.08 } })}>
-                    <div className="flex w-full items-center gap-2.5 md:gap-4">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-primary ring-1 ring-blue-100 md:h-12 md:w-12 md:rounded-2xl">
-                        <step.icon className="h-4 w-4 md:h-6 md:w-6" />
-                      </div>
-                      <div className="flex min-w-0 flex-1 items-start gap-2 md:gap-4">
-                        <span className="mt-0.5 text-[11px] font-extrabold text-primary md:text-sm">{step.number}</span>
-                        <div className="min-w-0">
-                          <h3 className="mb-0.5 text-sm font-extrabold text-foreground md:mb-1 md:text-lg">{step.title}</h3>
-                          <p className="text-xs leading-relaxed text-muted-foreground md:hidden">{step.mobileText}</p>
-                          <p className="hidden text-base leading-relaxed text-muted-foreground md:block">{step.text}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                  {index < steps.length - 1 && (
-                    <div className="hidden justify-center py-1 text-primary/45 md:flex">
-                      <ChevronDown className="h-4 w-4 stroke-[2.5]" />
-                    </div>
-                  )}
+          <ol className="mx-auto max-w-2xl lg:max-w-none">
+            {steps.map((step, index) => (
+              <motion.li
+                key={step.number}
+                className="relative flex gap-4 py-3"
+                {...(home ? reveal(0.06 + index * 0.05, 18) : { initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: index * 0.08 } })}
+              >
+                {/* 다음 단계 아이콘까지 잇는 세로선 */}
+                {index < steps.length - 1 && (
+                  <span aria-hidden="true" className="absolute -bottom-3 left-[23.5px] top-[60px] w-px bg-blue-100" />
+                )}
+                <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-50 text-primary ring-1 ring-blue-100">
+                  <step.icon className="h-5 w-5" />
                 </div>
-              ))}
-            </div>
-          </motion.div>
+                <div className="min-w-0 pt-1">
+                  <h3 className="flex items-baseline gap-2 text-lg font-extrabold text-foreground">
+                    <span className="text-sm font-extrabold text-primary">{step.number}</span>
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 break-keep text-base leading-relaxed text-muted-foreground">{step.text}</p>
+                </div>
+              </motion.li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
