@@ -268,6 +268,36 @@
   }
 }
 
+/* 전체 메뉴: 위에서 커튼처럼 내려오고, 닫을 때는 위로 걷힌다 */
+.full-menu[data-state="open"] {
+  animation: full-menu-drop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.full-menu[data-state="closed"] {
+  animation: full-menu-lift 0.4s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.full-menu[data-state="open"] .full-menu-body {
+  animation: full-menu-content 0.5s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes full-menu-drop {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes full-menu-lift {
+  from { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(0 0 100% 0); }
+}
+@keyframes full-menu-content {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .full-menu[data-state],
+  .full-menu[data-state="open"] .full-menu-body {
+    animation-duration: 1ms;
+    animation-delay: 0s;
+  }
+}
+
 /* Desktop home micro-interactions share one easing curve. */
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
   .home-motion a, .home-motion button {

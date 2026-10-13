@@ -1,63 +1,12 @@
 import { ChevronDown, Menu, MessageCircle, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import FullScreenMenu from "@/components/FullScreenMenu";
+import { navGroups, type DropdownItem, type NavGroup } from "@/data/navMenu";
 
-type DropdownItem = {
-  label: string;
-  href: string;
-  sectionId?: string;
-};
-
-type NavGroup = {
-  label: string;
-  href?: string;
-  items: DropdownItem[];
-};
-
-const navGroups: NavGroup[] = [
-  {
-    label: "소개",
-    href: "/about",
-    items: [],
-  },
-  {
-    label: "관리지역",
-    items: [
-      { label: "관고동", href: "/area/gwango" },
-      { label: "창전동", href: "/area/changjeon" },
-      { label: "중리동", href: "/area/jungni" },
-      { label: "증포동", href: "/area/jeungpo" },
-      { label: "부발읍", href: "/area/bubal" },
-      { label: "신둔면", href: "/area/sindun" },
-      { label: "백사면", href: "/area/baeksa" },
-      { label: "마장면", href: "/area/majang" },
-      { label: "대월면", href: "/area/daewol" },
-      { label: "호법면", href: "/area/hobeop" },
-      { label: "곤지암읍", href: "/area/gonjiam" },
-    ],
-  },
-  {
-    label: "청소서비스",
-    items: [
-      { label: "계단청소", href: "/services/stair" },
-      { label: "사무실청소", href: "/services/office" },
-      { label: "유리청소", href: "/services/glass" },
-      { label: "화장실청소", href: "/services/bathroom" },
-      
-    ],
-  },
-  {
-    label: "작업정보",
-    items: [
-      { label: "청소 전후", href: "/before-after" },
-      { label: "자주 묻는 질문", href: "/qna" },
-      { label: "정보글", href: "/guide" },
-      { label: "공식블로그", href: "https://blog.naver.com/icheonstair" },
-    ],
-  },
-  
-];
+// 데스크톱 메뉴는 홈을 맨 앞에 둔다 (모바일 메뉴는 홈을 따로 그린다)
+const desktopGroups: NavGroup[] = [{ label: "홈", href: "/", items: [] }, ...navGroups];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,6 +22,41 @@ useEffect(() => {
   window.addEventListener("scroll", handleScroll);
   return () => window.removeEventListener("scroll", handleScroll);
 }, []);
+
+  // 데스크톱 메가 메뉴: 상단 메뉴에 마우스를 올리면 모든 하위 메뉴가 메뉴 바로 아래에 한 번에 펼쳐진다
+  const [megaOpen, setMegaOpen] = useState(false);
+  const [megaHeight, setMegaHeight] = useState(0);
+  const [fullMenuOpen, setFullMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const subListRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const lastPointerType = useRef("mouse");
+
+  // 가장 긴 하위 메뉴에 맞춰 흰 패널 높이를 정한다
+  useLayoutEffect(() => {
+    // 하위 메뉴가 없는 칸은 배열이 비어 있으므로 Array.from으로 0을 채워 계산한다
+    const measure = () =>
+      setMegaHeight(Math.max(0, ...Array.from(subListRefs.current, (el) => el?.offsetHeight ?? 0)));
+    measure();
+    document.fonts?.ready.then(measure);
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  // 페이지가 바뀌면 열린 메뉴를 닫는다
+  useEffect(() => {
+    setMegaOpen(false);
+    setFullMenuOpen(false);
+  }, [location]);
+
+  // 터치로 연 메가 메뉴는 바깥을 누르면 닫는다
+  useEffect(() => {
+    if (!megaOpen) return;
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setMegaOpen(false);
+    };
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [megaOpen]);
   
   const openKakao = () => {
     window.open("https://pf.kakao.com/_IiNfn/chat", "_blank");
@@ -111,23 +95,57 @@ useEffect(() => {
     window.history.replaceState(null, "", "/");
   };
 
-  const linkClass = "text-sm font-semibold text-muted-foreground hover:text-primary transition-colors";
-  const dropdownButtonClass = "inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary";
-  const dropdownPanelBaseClass =
-  "invisible absolute top-full z-50 mt-4 min-w-52 rounded-3xl border border-blue-100/70 bg-white/95 p-3 opacity-0 backdrop-blur-xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-all duration-300 group-hover:visible group-hover:opacity-100";
-  // 마지막 메뉴는 화면 오른쪽 끝에 있어 중앙 정렬 패널이 화면 밖으로 넘쳐 가로 스크롤을 만들므로 오른쪽 정렬
-  const dropdownPanelClass = `${dropdownPanelBaseClass} left-1/2 -translate-x-1/2`;
-  const dropdownPanelRightClass = `${dropdownPanelBaseClass} right-0`;
-  const dropdownItemClass = "block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-blue-50 hover:text-primary";
+  const topItemClass =
+    "flex h-full items-center text-sm font-semibold text-muted-foreground transition-colors group-hover:text-primary";
+  const megaLinkClass = (href: string) =>
+    `block whitespace-nowrap px-1.5 py-1 text-[13.5px] leading-[18px] transition-colors hover:text-primary ${
+      location === href ? "font-bold text-primary" : "font-medium text-slate-500"
+    }`;
+
+  const renderMegaLink = (item: DropdownItem) =>
+    item.sectionId ? (
+      <a href={item.href} className={megaLinkClass(item.href)} onClick={(e) => { setMegaOpen(false); handleSectionClick(e, item.sectionId); }}>
+        {item.label}
+      </a>
+    ) : item.href.startsWith("http") ? (
+      <a href={item.href} target="_blank" rel="noopener noreferrer" className={megaLinkClass(item.href)} onClick={() => setMegaOpen(false)}>
+        {item.label}
+      </a>
+    ) : (
+      <Link href={item.href} className={megaLinkClass(item.href)} onClick={() => setMegaOpen(false)}>
+        {item.label}
+      </Link>
+    );
 
   return (
     <header
+  ref={headerRef}
+  onPointerLeave={(event) => {
+    if (event.pointerType === "mouse") setMegaOpen(false);
+  }}
+  onBlur={(event) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setMegaOpen(false);
+  }}
+  onKeyDown={(event) => {
+    if (event.key === "Escape") setMegaOpen(false);
+  }}
   className={`sticky top-0 z-50 transition-all duration-300 ${
     scrolled
       ? "border-b border-slate-200 bg-white shadow-[0_4px_24px_rgba(15,23,42,0.06)]"
       : "border-b border-slate-100 bg-white"
   }`}
 >
+      {/* 메가 메뉴 배경: 상단 메뉴 아래로 펼쳐지는 흰 패널 (하위 메뉴는 각 메뉴 바로 아래에 놓인다) */}
+      <div
+        aria-hidden="true"
+        className={`absolute inset-x-0 top-full hidden overflow-hidden bg-white transition-[height,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:block ${
+          megaOpen ? "shadow-[0_24px_48px_rgba(15,23,42,0.08)]" : ""
+        }`}
+        style={{ height: megaOpen ? megaHeight : 0 }}
+      >
+        <div className="h-px bg-slate-100" />
+      </div>
+
       <div
   className={`container max-w-7xl flex items-center justify-between transition-all duration-300 ${
     scrolled ? "h-14" : "h-16"
@@ -143,47 +161,81 @@ useEffect(() => {
           />
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <Link href="/" className={linkClass}>홈</Link>
+        <div className="hidden h-full items-center gap-6 md:flex">
+          <nav
+            aria-label="주요 메뉴"
+            className="flex h-full items-stretch gap-12 lg:gap-14"
+            onPointerEnter={(event) => {
+              if (event.pointerType === "mouse") setMegaOpen(true);
+            }}
+            onFocus={(event) => {
+              // 키보드로 메뉴에 들어오면 펼친다 (터치로 생긴 포커스는 제외)
+              if ((event.target as HTMLElement).matches(":focus-visible")) setMegaOpen(true);
+            }}
+          >
+            {desktopGroups.map((group, idx) => {
+              const label = (
+                <span className="relative">
+                  {group.label}
+                  <span className="absolute -bottom-2 left-0 h-0.5 w-full origin-center scale-x-0 rounded-full bg-primary transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 group-has-[:focus-visible]:scale-x-100" />
+                </span>
+              );
 
-          {navGroups.map((group, idx) =>
-            group.href ? (
-              <Link key={group.label} href={group.href} className={linkClass}>
-                {group.label}
-              </Link>
-            ) : (
-            <div key={group.label} className="group relative py-5">
-              <button type="button" className={dropdownButtonClass} aria-haspopup="true">
-                {group.label}
-                <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
-              </button>
-              <div
-                className={`${idx === navGroups.length - 1 ? dropdownPanelRightClass : dropdownPanelClass} ${
-                  group.label === "관리지역" ? "grid min-w-80 grid-cols-2 gap-1" : ""
-                }`}
-              >
-                {group.items.map((item) =>
-                  item.sectionId ? (
-                    <a key={item.label} href={item.href} className={dropdownItemClass} onClick={(e) => handleSectionClick(e, item.sectionId)}>
-                      {item.label}
-                    </a>
-                  ) : item.href.startsWith('http') ? (
-                    <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className={dropdownItemClass}>
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link key={item.label} href={item.href} className={dropdownItemClass}>
-                      {item.label}
+              return (
+                <div key={group.label} className="group relative flex items-stretch">
+                  {group.href ? (
+                    <Link href={group.href} className={topItemClass}>
+                      {label}
                     </Link>
-                  )
-                )}
-              </div>
-            </div>
-            )
-          )}
+                  ) : (
+                    <button
+                      type="button"
+                      className={topItemClass}
+                      aria-expanded={megaOpen}
+                      onPointerDown={(event) => {
+                        lastPointerType.current = event.pointerType;
+                      }}
+                      onClick={(event) => {
+                        // 마우스는 이미 펼쳐져 있으니 유지하고, 터치·키보드는 열고 닫는다
+                        const byMouse = event.detail > 0 && lastPointerType.current === "mouse";
+                        setMegaOpen((open) => (byMouse ? true : !open));
+                      }}
+                    >
+                      {label}
+                    </button>
+                  )}
 
+                  {group.items.length > 0 && (
+                    <div
+                      ref={(el) => {
+                        subListRefs.current[idx] = el;
+                      }}
+                      className={`absolute left-1/2 top-full z-10 -translate-x-1/2 pb-7 pt-5 transition-[opacity,translate,visibility] duration-300 ${
+                        megaOpen ? "visible translate-y-0 opacity-100 delay-150" : "invisible -translate-y-1 opacity-0"
+                      }`}
+                    >
+                      <ul className="flex flex-col items-center">
+                        {group.items.map((item) => (
+                          <li key={item.label}>{renderMegaLink(item)}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </nav>
 
-        </nav>
+          <FullScreenMenu
+            open={fullMenuOpen}
+            onOpenChange={(open) => {
+              setFullMenuOpen(open);
+              if (open) setMegaOpen(false);
+            }}
+            groups={desktopGroups}
+            compact={scrolled}
+          />
+        </div>
 
         <button
           className="md:hidden w-10 h-10 rounded-full border border-blue-100 bg-white flex items-center justify-center"
