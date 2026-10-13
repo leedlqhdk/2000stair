@@ -1,6 +1,6 @@
 import { ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
-import { isQuietSectionBehind } from "@/lib/floatingQuiet";
+import { FLOATING_QUIET_EVENT, isQuietSectionBehind } from "@/lib/floatingQuiet";
 
 const SHOW_AFTER_PX = 600;
 
@@ -38,10 +38,12 @@ export default function ScrollToTopButton() {
     updateState();
     window.addEventListener("scroll", handleUpdate, { passive: true });
     window.addEventListener("resize", handleUpdate);
+    window.addEventListener(FLOATING_QUIET_EVENT, handleUpdate);
 
     return () => {
       window.removeEventListener("scroll", handleUpdate);
       window.removeEventListener("resize", handleUpdate);
+      window.removeEventListener(FLOATING_QUIET_EVENT, handleUpdate);
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
   }, []);
