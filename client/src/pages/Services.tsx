@@ -9,7 +9,6 @@ const serviceCards: ColonnadeItem[] = [
     title: "계단청소",
     en: "STAIR",
     subtitle: "빌라·상가 공용계단 정기관리",
-    headline: "매일 오르는 계단,\n누가 관리하고 있나요?",
     image: "/images/main-service-stair.webp",
     href: "/services/stair",
   },
@@ -17,7 +16,6 @@ const serviceCards: ColonnadeItem[] = [
     title: "사무실청소",
     en: "OFFICE",
     subtitle: "사무공간 바닥·먼지 정기관리",
-    headline: "깨끗한 사무실이\n업무 효율을 높입니다",
     image: "/images/main-service-office.webp",
     href: "/services/office",
   },
@@ -25,7 +23,6 @@ const serviceCards: ColonnadeItem[] = [
     title: "화장실청소",
     en: "RESTROOM",
     subtitle: "상가·사무실 공용화장실 관리",
-    headline: "쾌적한 화장실,\n건물 신뢰도를 높입니다",
     image: "/images/main-service-restroom.webp",
     href: "/services/bathroom",
   },
@@ -33,7 +30,6 @@ const serviceCards: ColonnadeItem[] = [
     title: "유리청소",
     en: "GLASS",
     subtitle: "공동현관·상가 유리 손자국 관리",
-    headline: "깨끗한 유리,\n건물 첫인상을 바꿉니다",
     image: "/images/main-service-glass.webp",
     href: "/services/glass",
   },
@@ -59,19 +55,10 @@ export default function Services() {
                 transition: { duration: reduceMotion ? 0 : 0.6, ease: HOME_EASE },
               })}
         >
-          <ServiceColonnade
-            items={serviceCards}
-            className={home ? "h-[calc(100svh-3.5rem)]" : "h-svh"}
-            header={
-              <>
-                <p className="text-xs font-extrabold tracking-[0.32em] text-primary lg:text-sm">SERVICES</p>
-                <h2 className="font-['GmarketSans'] mt-2 text-base font-bold text-slate-500 lg:text-lg">
-                  청소 서비스
-                </h2>
-                <p className="sr-only">{srDescription}</p>
-              </>
-            }
-          />
+          {/* 화면에는 사진 기둥만 보이고, 제목은 스크린리더·검색엔진용으로 남긴다 */}
+          <h2 className="sr-only">청소 서비스</h2>
+          <p className="sr-only">{srDescription}</p>
+          <ServiceColonnade items={serviceCards} className={home ? "h-[calc(100svh-3.5rem)]" : "h-svh"} />
         </motion.section>
 
         {/* 모바일: 기존 카드 그리드 유지 */}

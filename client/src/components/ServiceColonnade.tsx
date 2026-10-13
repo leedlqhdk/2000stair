@@ -1,6 +1,6 @@
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { Link } from "wouter";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { HOME_EASE } from "@/components/HomeMotion";
 
@@ -11,34 +11,27 @@ export type ColonnadeItem = {
   en: string;
   /** 펼쳐진 기둥 상단의 짧은 설명 */
   subtitle: string;
-  /** 섹션 중앙 헤드라인, "\n"으로 줄을 나눈다 */
-  headline: string;
   image: string;
   href: string;
 };
 
 type ServiceColonnadeProps = {
   items: ColonnadeItem[];
-  /** 헤드라인 위에 놓이는 섹션 제목 영역 */
-  header?: ReactNode;
   /** 높이 지정용 클래스 */
   className?: string;
 };
 
 // 화면 전체를 채우는 열주(colonnade)형 서비스 섹션 (데스크톱 전용).
 // 세로 기둥 중 하나가 넓어지며 사진이 아래에서 차오르고, 이전 기둥의 사진은 위로 걷힌다.
-// 섹션 중앙 헤드라인은 기둥이 바뀔 때 위로 굴러 교체된다.
 const CANVAS = "#f7f9fc";
 const ACTIVE_GROW = 2.6;
 
-export default function ServiceColonnade({ items, header, className = "" }: ServiceColonnadeProps) {
+export default function ServiceColonnade({ items, className = "" }: ServiceColonnadeProps) {
   const reduced = useReducedMotion();
   const [active, setActive] = useState(0);
   const [exiting, setExiting] = useState<number[]>([]);
 
   const wipe = reduced ? 0 : 0.7;
-  const roll = reduced ? 0 : 0.6;
-  const current = items[active];
 
   const activate = (index: number) => {
     if (index === active) return;
@@ -108,10 +101,8 @@ export default function ServiceColonnade({ items, header, className = "" }: Serv
                 style={{ width: "max(100%, 47cqw)" }}
               />
               <div
-                className="absolute inset-x-0 top-0 h-[62%]"
-                style={{
-                  background: `linear-gradient(to bottom, ${CANVAS} 0%, ${CANVAS}eb 24%, ${CANVAS}99 46%, ${CANVAS}00 100%)`,
-                }}
+                className="absolute inset-x-0 top-0 h-[28%]"
+                style={{ background: `linear-gradient(to bottom, ${CANVAS} 0%, ${CANVAS}d9 30%, ${CANVAS}00 100%)` }}
               />
               <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-slate-950/55 via-slate-950/15 to-transparent" />
             </motion.div>
@@ -127,82 +118,35 @@ export default function ServiceColonnade({ items, header, className = "" }: Serv
               <span className="font-semibold text-muted-foreground">{item.subtitle}</span>
             </div>
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-6 lg:p-8">
-              <h3
-                className={`whitespace-nowrap font-['GmarketSans'] text-lg font-extrabold leading-snug transition-colors duration-500 lg:text-xl xl:text-2xl ${
-                  isActive ? "text-white" : "text-foreground"
-                }`}
-              >
-                {item.title}
-              </h3>
-              <p
-                className={`mt-1.5 text-[11px] font-bold tracking-[0.22em] transition-colors duration-500 lg:text-xs ${
-                  isActive ? "text-white/75" : "text-muted-foreground"
-                }`}
-              >
-                {item.en}
-              </p>
+            <div className="pointer-events-none absolute bottom-0 left-0 z-10 p-6 lg:p-8">
+              <div className="relative w-fit">
+                <h3
+                  className={`whitespace-nowrap font-['GmarketSans'] text-lg font-extrabold leading-snug transition-colors duration-500 lg:text-xl xl:text-2xl ${
+                    isActive ? "text-white" : "text-foreground"
+                  }`}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  className={`mt-1.5 text-[11px] font-bold tracking-[0.22em] transition-colors duration-500 lg:text-xs ${
+                    isActive ? "text-white/75" : "text-muted-foreground"
+                  }`}
+                >
+                  {item.en}
+                </p>
+                <span
+                  aria-hidden="true"
+                  className={`absolute left-full top-1/2 ml-4 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white backdrop-blur-md transition-all duration-500 lg:ml-5 lg:h-11 lg:w-11 ${
+                    isActive ? "translate-x-0 opacity-100 delay-300" : "-translate-x-2 opacity-0"
+                  }`}
+                >
+                  <ArrowRight className="h-4 w-4 lg:h-5 lg:w-5" />
+                </span>
+              </div>
             </div>
           </Link>
         );
       })}
-
-      {/* 섹션 제목 + 중앙 헤드라인 — 기둥이 바뀌면 헤드라인이 위로 굴러 교체 */}
-      <div className="pointer-events-none absolute inset-x-0 top-[10%] z-20 flex flex-col items-center px-6 text-center">
-        {header}
-        <div className="relative mt-5 w-full lg:mt-6">
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={active}
-              className="absolute inset-x-0 top-0 flex flex-col items-center"
-              initial="enter"
-              animate="center"
-              exit="leave"
-              variants={{ enter: {}, center: {}, leave: {} }}
-            >
-              {current.headline.split("\n").map((line, lineIndex) => (
-                <span key={lineIndex} className="block overflow-hidden py-[0.06em]">
-                  <motion.span
-                    className="block whitespace-nowrap font-['GmarketSans'] text-[clamp(2rem,3.9vw,3.75rem)] font-bold leading-[1.18] text-foreground"
-                    variants={{
-                      enter: { y: "110%", opacity: 0 },
-                      center: {
-                        y: "0%",
-                        opacity: 1,
-                        transition: { duration: roll, delay: reduced ? 0 : 0.08 + lineIndex * 0.07, ease: HOME_EASE },
-                      },
-                      leave: {
-                        y: "-110%",
-                        opacity: 0,
-                        transition: { duration: reduced ? 0 : 0.45, delay: reduced ? 0 : lineIndex * 0.04, ease: HOME_EASE },
-                      },
-                    }}
-                  >
-                    {line}
-                  </motion.span>
-                </span>
-              ))}
-
-              <motion.div
-                className="mt-6 lg:mt-8"
-                variants={{
-                  enter: { y: 10, opacity: 0 },
-                  center: { y: 0, opacity: 1, transition: { duration: roll, delay: reduced ? 0 : 0.22, ease: HOME_EASE } },
-                  leave: { opacity: 0, transition: { duration: reduced ? 0 : 0.25 } },
-                }}
-              >
-                <Link
-                  href={current.href}
-                  className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-white/85 px-5 py-2.5 text-sm font-bold text-foreground shadow-sm backdrop-blur-sm transition hover:border-primary/30 hover:bg-white hover:text-primary lg:px-6 lg:py-3 lg:text-[15px]"
-                >
-                  자세히 보기
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </motion.div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
     </div>
   );
 }
