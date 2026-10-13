@@ -77,6 +77,22 @@ export default function ServiceColonnade({ items, className = "" }: ServiceColon
             }`}
             style={{ flexGrow: isActive ? ACTIVE_GROW : 1, flexBasis: 0 }}
           >
+            {/* 펼쳐지지 않은 칸에도 사진을 흐리게 깔아 빈칸처럼 보이지 않게 한다 (선명한 사진은 그 위로 차오른다) */}
+            <div aria-hidden="true" className="absolute inset-0">
+              <img
+                src={item.image}
+                alt=""
+                loading="lazy"
+                draggable={false}
+                className="absolute inset-y-0 left-1/2 h-full max-w-none -translate-x-1/2 object-cover opacity-50 blur-[1.5px] grayscale-[35%]"
+                style={{ width: "max(100%, 47cqw)" }}
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: `linear-gradient(to bottom, ${CANVAS}e6 0%, ${CANVAS}59 32%, ${CANVAS}4d 62%, ${CANVAS}cc 100%)` }}
+              />
+            </div>
+
             <motion.div
               className="absolute inset-0"
               initial={false}
