@@ -2,7 +2,7 @@ import { MessageCircle, Phone } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { trackConversion } from "@/lib/analytics";
-import { isQuietSectionBehind } from "@/lib/floatingQuiet";
+import { FLOATING_QUIET_EVENT, isQuietSectionBehind } from "@/lib/floatingQuiet";
 
 const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
 const PHONE_NUMBER = "010-8438-1887";
@@ -37,11 +37,16 @@ export default function KakaoChat() {
       }, 650);
     };
 
+    // 전체화면 섹션이 나중에 나타나도(페이지 이동 등) 스크롤 없이 바로 반영한다
+    const updateQuiet = () => setIsOverQuietSection(isQuietSectionBehind(240));
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener(FLOATING_QUIET_EVENT, updateQuiet);
     handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(FLOATING_QUIET_EVENT, updateQuiet);
       if (scrollTimer.current) {
         window.clearTimeout(scrollTimer.current);
       }
