@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -19,15 +20,19 @@ type AreaIntroProps = {
   description: string;
   focus?: string;
   areaSlug?: string;
+  /** 작업일지. PC에서는 맨 위 소개 바로 아래에, 모바일에서는 안내 카드·빠른 답변 다음에 놓인다 */
+  records?: ReactNode;
 };
 
-export default function AreaIntro({ headline, description, focus, areaSlug }: AreaIntroProps) {
+export default function AreaIntro({ headline, description, focus, areaSlug, records }: AreaIntroProps) {
   const reduce = useReducedMotion();
   const zones = (areaSlug ? areaDetails[areaSlug]?.zones : undefined) ?? [];
   const seoContent = getAreaSeoContent(areaSlug);
   const checks = seoContent
     ? [seoContent.points[0], ...COMMON_CHECKS.slice(1)]
     : COMMON_CHECKS;
+  // 작업일지가 있으면 PC에서만 순서를 바꿔 작업일지를 위로 올린다 (모바일은 원래 순서 그대로)
+  const recordsFirst = Boolean(records);
 
   const rise = (delay: number) =>
     reduce
@@ -39,10 +44,10 @@ export default function AreaIntro({ headline, description, focus, areaSlug }: Ar
         };
 
   return (
-    <div className="relative mb-12 md:mb-16">
-      <div className="mx-[calc(50%-50vw)] -mt-16 bg-[#1b2f57] md:-mt-24">
+    <div className={`relative mb-12 md:mb-16 ${recordsFirst ? "md:flex md:flex-col" : ""}`}>
+      <div className="mx-[calc(50%-50vw)] -mt-16 bg-[#1b2f57] md:order-1 md:-mt-24">
         <motion.div
-          className="mx-auto max-w-6xl px-5 pb-20 pt-24 md:px-8 md:pb-28 md:pt-36 lg:px-10"
+          className={`mx-auto max-w-6xl px-5 pb-20 pt-24 md:px-8 md:pt-36 lg:px-10 ${recordsFirst ? "md:pb-16" : "md:pb-28"}`}
           {...rise(0)}
         >
           <Link href="/areas">
@@ -67,7 +72,9 @@ export default function AreaIntro({ headline, description, focus, areaSlug }: Ar
       </div>
 
       <motion.div
-        className="relative z-10 mx-3 -mt-14 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-[0_16px_42px_rgba(15,76,169,0.08)] md:mx-10 md:-mt-20 md:rounded-3xl md:p-9"
+        className={`relative z-10 mx-3 -mt-14 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-[0_16px_42px_rgba(15,76,169,0.08)] md:order-3 md:mx-10 md:rounded-3xl md:p-9 ${
+          recordsFirst ? "md:mt-0" : "md:-mt-20"
+        }`}
         {...rise(0.08)}
       >
         <div className="grid gap-5 md:grid-cols-2 md:gap-9">
@@ -133,7 +140,7 @@ export default function AreaIntro({ headline, description, focus, areaSlug }: Ar
       </motion.div>
 
       {seoContent?.questions && (
-        <section className="mx-3 mt-6 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-sm md:mx-10 md:mt-8 md:rounded-3xl md:p-8" aria-labelledby="area-faq-title">
+        <section className="mx-3 mt-6 rounded-[1.25rem] border border-[#e4ecfb] bg-white p-5 shadow-sm md:order-4 md:mx-10 md:mt-8 md:rounded-3xl md:p-8" aria-labelledby="area-faq-title">
           <p className="text-xs font-bold tracking-wide text-primary">빠른 답변</p>
           <h2 id="area-faq-title" className="mt-2 text-xl font-extrabold text-foreground md:text-2xl">
             {areaSlug ? `${headline.split(" ")[0]} 계단청소 자주 묻는 질문` : "계단청소 자주 묻는 질문"}
@@ -148,6 +155,9 @@ export default function AreaIntro({ headline, description, focus, areaSlug }: Ar
           </dl>
         </section>
       )}
+
+      {/* 모바일은 문서 순서대로 맨 아래, PC는 order로 소개 바로 아래 */}
+      {records && <div className="mt-12 md:order-2 md:mt-14">{records}</div>}
     </div>
   );
 }

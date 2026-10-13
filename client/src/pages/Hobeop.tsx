@@ -36,9 +36,10 @@ headline="호법면 계단청소와 공용공간 관리를 준비하고 있습�
 description="호법면 빌라·원룸·상가 공용공간을 하청 없이 직접 관리합니다. 작업 기록은 순차적으로 정리 중이며, 상담은 바로 가능합니다."
 focus="안평리·매곡리·주박리 등 호법면 생활권의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
   areaSlug="hobeop"
+  records={
+    <AreaTimeline areaName="호법면" areaSlug="hobeop" posts={posts} title="호법면 작업 일지" description="호법면 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="호법면 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
+  }
 />
-
-<AreaTimeline areaName="호법면" areaSlug="hobeop" posts={posts} title="호법면 작업 일지" description="호법면 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="호법면 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
 
 <section className="mb-12 grid gap-4 md:grid-cols-2 md:mb-16">
 {reviews.map((review) => (

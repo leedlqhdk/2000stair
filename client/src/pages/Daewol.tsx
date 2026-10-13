@@ -30,14 +30,15 @@ export default function DaewolAreaPage() {
           description="부부가 직접, 대월면 빌라·원룸·상가 공용공간을 관리합니다."
           focus="사동리·초지리·군량리 등 대월면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
           areaSlug="daewol"
-/>
-
-        <AreaTimeline
-          areaName="대월면"
-          areaSlug="daewol"
-          posts={posts}
-          title="대월면 작업일지"
-          description="대월면에서 진행한 작업들을 날짜순으로 확인해보세요."
+          records={
+            <AreaTimeline
+              areaName="대월면"
+              areaSlug="daewol"
+              posts={posts}
+              title="대월면 작업일지"
+              description="대월면에서 진행한 작업들을 날짜순으로 확인해보세요."
+            />
+          }
         />
 
         <section className="mb-12 md:mb-16">

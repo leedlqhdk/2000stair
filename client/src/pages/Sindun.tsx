@@ -36,15 +36,16 @@ headline="신둔면의 공용공간을 꾸준히 관리합니다"
 description="부부가 직접, 신둔면 빌라·원룸·상가 공용공간을 관리합니다."
 focus="수광리·도암리·남정리 등 신둔면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
   areaSlug="sindun"
-/>
-
-<AreaTimeline
-areaName="신둔면"
-areaSlug="sindun"
-posts={posts}
-title="신둔면 작업 일지"
-description="노션 작업일지 기준으로 업데이트됩니다."
-emptyMessage="신둔면 작업 기록은 노션 작업일지 등록 후 표시됩니다."
+  records={
+    <AreaTimeline
+      areaName="신둔면"
+      areaSlug="sindun"
+      posts={posts}
+      title="신둔면 작업 일지"
+      description="노션 작업일지 기준으로 업데이트됩니다."
+      emptyMessage="신둔면 작업 기록은 노션 작업일지 등록 후 표시됩니다."
+    />
+  }
 />
 
 <section className="mb-12 md:mb-16">
