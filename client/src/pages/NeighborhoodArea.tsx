@@ -54,24 +54,30 @@ export default function NeighborhoodAreaPage({ areaSlug }: NeighborhoodAreaPageP
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
       <section className="container max-w-6xl pt-24 pb-16 md:pt-32 md:pb-24">
-        <AreaIntro headline={data.headline} description={data.description} focus={data.focus} areaSlug={slug} />
-
-        {isLoading ? (
-          <section className="mb-12 md:mb-16">
-            <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 text-sm font-semibold text-muted-foreground shadow-sm">
-              작업 기록을 불러오는 중입니다.
-            </div>
-          </section>
-        ) : (
-          <AreaTimeline
-            areaName={data.name}
-            areaSlug={slug}
-            posts={posts}
-            title={`${data.name} 작업 일지`}
-            description={`${data.name}에서 진행한 작업들을 날짜순으로 확인해보세요.`}
-            emptyMessage={`${data.name} 작업 기록은 노션 작업일지 등록 후 표시됩니다.`}
-          />
-        )}
+        <AreaIntro
+          headline={data.headline}
+          description={data.description}
+          focus={data.focus}
+          areaSlug={slug}
+          records={
+            isLoading ? (
+              <section className="mb-12 md:mb-16">
+                <div className="rounded-[1.5rem] border border-blue-100 bg-white p-6 text-sm font-semibold text-muted-foreground shadow-sm">
+                  작업 기록을 불러오는 중입니다.
+                </div>
+              </section>
+            ) : (
+              <AreaTimeline
+                areaName={data.name}
+                areaSlug={slug}
+                posts={posts}
+                title={`${data.name} 작업 일지`}
+                description={`${data.name}에서 진행한 작업들을 날짜순으로 확인해보세요.`}
+                emptyMessage={`${data.name} 작업 기록은 노션 작업일지 등록 후 표시됩니다.`}
+              />
+            )
+          }
+        />
 
 
         <section className="overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 text-center shadow-sm md:p-12">

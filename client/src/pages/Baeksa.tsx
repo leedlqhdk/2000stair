@@ -27,8 +27,10 @@ headline="백사면 빌라·상가 공용공간을 관리합니다"
 description="백사면 빌라·원룸·상가의 계단, 복도, 공동현관을 건물 상태와 관리 주기에 맞춰 직접 관리합니다. 주소와 사진을 보내주시면 관리 가능 여부와 견적을 안내드립니다."
 focus="모전리·조읍리·현방리 등 백사면 주요 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
   areaSlug="baeksa"
+  records={
+    <AreaTimeline areaName="백사면" areaSlug="baeksa" posts={posts} title="백사면 작업 일지" description="백사면 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="백사면 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
+  }
 />
-<AreaTimeline areaName="백사면" areaSlug="baeksa" posts={posts} title="백사면 작업 일지" description="백사면 현장 사진은 정리되는 순서대로 작업 일지에 추가됩니다." emptyMessage="백사면 작업 기록은 사진 정리 후 순서대로 추가할게요. 상담과 견적 안내는 지금도 가능합니다." />
 
 <section className="mb-12 grid gap-4 md:grid-cols-2 md:mb-16">
 {reviews.map((review) => (

@@ -31,14 +31,15 @@ headline="마장면의 깨끗한 일상을 만들고 있습니다"
 description="부부가 직접, 마장면 빌라·원룸·상가 공용공간을 관리합니다."
 focus="오천리·양촌리·장암리 등 마장면 전 지역의 계단·복도·공동현관 상태를 확인하고 관리 주기를 안내합니다."
   areaSlug="majang"
-/>
-
-<AreaTimeline
-areaName="마장면"
-areaSlug="majang"
-posts={posts}
-title="마장면 작업 일지"
-description="마장면에서 진행한 작업들을 날짜순으로 확인해보세요."
+  records={
+    <AreaTimeline
+      areaName="마장면"
+      areaSlug="majang"
+      posts={posts}
+      title="마장면 작업 일지"
+      description="마장면에서 진행한 작업들을 날짜순으로 확인해보세요."
+    />
+  }
 />
 
 <section className="mb-12 md:mb-16">
