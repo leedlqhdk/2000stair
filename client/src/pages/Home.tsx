@@ -10,7 +10,6 @@ import MobileHome from "@/components/MobileHome";
 import IntroLoader, { shouldShowIntro } from "@/components/IntroLoader";
 import CustomerConcernsSection from "@/components/CustomerConcernsSection";
 import HusbandProfileStats from "@/components/HusbandProfileStats";
-import HomeAreaMapSection from "@/components/HomeAreaMapSection";
 import HomeFinalCta from "@/components/HomeFinalCta";
 import HomeFaq from "@/components/HomeFaq";
 import HomeSectionNavigator from "@/components/HomeSectionNavigator";
@@ -60,9 +59,6 @@ export default function Home() {
             </div>
             <div id="home-before-after" className="home-scroll-section">
               <BeforeAfterGallery />
-            </div>
-            <div id="home-areas" className="home-scroll-section">
-              <HomeAreaMapSection />
             </div>
             <div id="home-reviews" className="scroll-mt-20">
               <div className="container max-w-6xl py-16 md:py-24">
