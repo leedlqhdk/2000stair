@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { responsiveImage } from "@/lib/responsiveImage";
 import { Link } from "wouter";
 import { CalendarDays, ChevronDown, Home, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
@@ -96,7 +97,7 @@ export default function AreaTimeline({
                   setSelectedFilter(filter);
                   setExpanded(false);
                 }}
-                className={`flex-shrink-0 rounded-full px-4 py-2 text-xs font-extrabold transition-all md:text-sm ${
+                className={`relative flex-shrink-0 rounded-full px-4 py-2 text-xs font-extrabold transition-all before:absolute before:inset-x-0 before:-inset-y-1 before:content-[''] md:text-sm ${
                   isActive
                     ? "bg-primary text-white shadow-sm"
                     : "bg-blue-50 text-primary hover:bg-primary/10"
@@ -142,7 +143,8 @@ export default function AreaTimeline({
                     <a className="group grid h-[142px] grid-cols-[108px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-lg md:h-[150px] md:grid-cols-[168px_minmax(0,1fr)] md:hover:bg-primary">
                       <div className="relative h-[142px] overflow-hidden bg-blue-50 md:h-[150px] md:w-[168px]">
                         <img
-                          src={post.image}
+                          {...responsiveImage(post.image)}
+                          sizes="(min-width: 768px) 168px, 108px"
                           alt={post.title}
                           className="block h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                           loading="lazy"
@@ -151,10 +153,10 @@ export default function AreaTimeline({
 
                       <div className="flex h-[142px] min-w-0 flex-col justify-center overflow-hidden p-3.5 md:h-[150px] md:p-5">
                         <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
-                          <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-extrabold text-primary transition-colors duration-300 md:px-2.5 md:py-1 md:text-[11px] md:group-hover:bg-white md:group-hover:text-primary">
+                          <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-extrabold text-primary transition-colors duration-300 md:px-2.5 md:py-1 md:text-[11px] md:group-hover:bg-white md:group-hover:text-primary">
                             {type}
                           </span>
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-400 md:hidden">
+                          <span className="inline-flex items-center gap-1 text-xs font-bold text-slate-400 md:hidden">
                             <CalendarDays className="h-3 w-3" />
                             {post.date}
                           </span>

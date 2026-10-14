@@ -91,7 +91,7 @@ export default function HomeWorkSlider({ revealed = false }: Props) {
                 loading="lazy"
                 aria-hidden={i >= workPhotos.length}
               />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-2.5 pt-6 text-[11.5px] font-bold text-white">
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-2.5 pt-6 text-xs font-bold text-white">
                 {photo.caption}
               </figcaption>
             </figure>

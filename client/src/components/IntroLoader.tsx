@@ -6,6 +6,8 @@ const INTRO_FLAG = "introShown";
 
 export function shouldShowIntro() {
   if (typeof window === "undefined") return false;
+  // 모바일은 첫 화면과 상담 버튼을 바로 보여주기 위해 인트로를 건너뛴다 (PC만 첫 방문 인트로)
+  if (window.matchMedia("(max-width: 767px)").matches) return false;
   try {
     return !window.sessionStorage.getItem(INTRO_FLAG);
   } catch {

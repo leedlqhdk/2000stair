@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Link, useLocation } from "wouter";
 import {
   ArrowRight,
@@ -112,7 +112,6 @@ const areaChips = [
 export default function MobileHome() {
   const [, setLocation] = useLocation();
   const goToQuote = () => setLocation("/quote");
-  const [chatDone, setChatDone] = useState(false);
 
   return (
     <div className="md:hidden">
@@ -165,7 +164,7 @@ export default function MobileHome() {
                 loading="eager"
                 fetchPriority="high"
               />
-              <span className="absolute bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-black/65 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur-sm">
+              <span className="absolute bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-black/65 px-2.5 py-1 text-xs font-extrabold text-white backdrop-blur-sm">
                 소개 보기
                 <ArrowRight className="h-3 w-3" />
               </span>
@@ -194,18 +193,10 @@ export default function MobileHome() {
         </div>
       </section>
 
-      <HomeConcerns onComplete={() => setChatDone(true)} />
+      {/* 대화 애니메이션은 그대로 재생하고, 아래 본문은 처음부터 바로 스크롤해 볼 수 있게 펼쳐 둔다 */}
+      <HomeConcerns />
 
-      <HomeWorkSlider revealed={chatDone} />
-
-      {/* 아래 본문 전체 — 대화가 끝난 뒤 이어서 펼쳐집니다 (하단 독은 항상 노출) */}
-      <div
-        className={`grid transition-[grid-template-rows,opacity] delay-300 duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          chatDone ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        {/* key: 펼쳐지는 순간 리마운트해서 각 섹션의 기존 등장 모션이 처음부터 재생되게 함 */}
-        <div className="overflow-hidden" key={chatDone ? "revealed" : "hidden"}>
+      <HomeWorkSlider revealed />
 
       {/* PROCESS FLOW */}
       <section className="px-5 py-7">
@@ -227,7 +218,7 @@ export default function MobileHome() {
                 <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-primary">
                   <step.icon className="h-5 w-5" />
                 </span>
-                <span className="text-center text-[11.5px] font-bold leading-tight text-gray-700">
+                <span className="text-center text-xs font-bold leading-tight text-gray-700">
                   {step.title}
                 </span>
               </motion.div>
@@ -318,7 +309,7 @@ export default function MobileHome() {
       <section className="px-5 py-7">
         <div className="mb-5 flex items-center justify-between">
           <h2 className="font-['GmarketSans'] text-lg font-extrabold text-foreground">방문 지역</h2>
-          <Link href="/areas" className="text-[13px] font-bold text-muted-foreground">
+          <Link href="/areas" className="-my-2.5 inline-flex py-2.5 text-[13px] font-bold text-muted-foreground">
             전체보기 →
           </Link>
         </div>
@@ -382,9 +373,6 @@ export default function MobileHome() {
           </div>
         </div>
       </section>
-
-        </div>
-      </div>
 
       {/* BOTTOM DOCK */}
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.08)]">

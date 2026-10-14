@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Seo from "@/components/Seo";
 import { Skeleton } from "@/components/ui/skeleton";
+import { responsiveImage } from "@/lib/responsiveImage";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
 import { getWorkSeo, workAreaLabels as areaLabels, workAreaRoutes as areaRoutes } from "@/lib/workSeo";
@@ -83,7 +84,8 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
     return (
       <div className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-blue-50 shadow-sm">
         <img
-          src={visibleImages[0]}
+          {...responsiveImage(visibleImages[0])}
+          sizes="(min-width: 768px) 768px, 100vw"
           alt={`${title} 현장 사진`}
           loading="lazy"
           className="h-auto w-full object-cover"
@@ -106,7 +108,8 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
             } ${index === 1 && visibleImages.length === 2 ? "md:col-span-2 md:row-span-2" : ""}`}
           >
             <img
-              src={image}
+              {...responsiveImage(image)}
+              sizes="(min-width: 768px) 260px, 33vw"
               alt={`${title} 현장 사진 ${index + 1}`}
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
@@ -199,7 +202,8 @@ export default function WorkDetail() {
             <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
               <div className="relative min-h-[330px] overflow-hidden bg-blue-50 md:min-h-[520px]">
                 <img
-                  src={post.image}
+                  {...responsiveImage(post.image)}
+                  sizes="(min-width: 768px) 300px, 50vw"
                   alt={post.title}
                   className="absolute inset-0 h-full w-full object-cover brightness-[1.03] contrast-[1.03] saturate-[1.06]"
                 />

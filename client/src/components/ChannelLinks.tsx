@@ -107,7 +107,7 @@ export default function ChannelLinks({
           >
             <ChannelIcon channelKey={channel.key} />
           </span>
-          <span className="text-center text-[11.5px] font-bold text-foreground">{channel.label}</span>
+          <span className="text-center text-xs font-bold text-foreground">{channel.label}</span>
         </a>
       ))}
     </div>

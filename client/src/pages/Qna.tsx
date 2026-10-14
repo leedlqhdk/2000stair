@@ -18,7 +18,7 @@ export default function Qna() {
           />
           <div className="mt-6">
             <Link href="/">
-              <a className="inline-flex items-center gap-2 text-sm font-bold text-primary transition hover:translate-x-0.5">
+              <a className="-my-2.5 inline-flex items-center gap-2 py-2.5 text-sm font-bold text-primary transition hover:translate-x-0.5">
                 <ArrowLeft className="h-4 w-4" />
                 메인으로 돌아가기
               </a>

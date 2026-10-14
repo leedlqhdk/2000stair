@@ -89,7 +89,7 @@ useEffect(() => {
     scrolled ? "h-14" : "h-16"
   }`}
 >
-        <a href="/" className="relative flex items-center" aria-label="이천계단지기 홈으로 이동">
+        <a href="/" className="relative flex min-h-11 items-center" aria-label="이천계단지기 홈으로 이동">
           <img
             src="/images/icheon-logo-main-1200.png"
             alt="이천계단지기"
