@@ -190,8 +190,8 @@ export default function MobileAbout() {
         </div>
         <div className="grid grid-cols-2 gap-2.5 md:mx-auto md:max-w-3xl md:gap-4">
           {[
-            { src: "/images/before-after/majang-villa-stair-rust-removal-before.webp", label: "BEFORE" },
-            { src: "/images/before-after/majang-villa-stair-rust-removal-after.webp", label: "AFTER" },
+            { src: "/images/opt/before-after/majang-villa-stair-rust-removal-before-800.webp", label: "BEFORE" },
+            { src: "/images/opt/before-after/majang-villa-stair-rust-removal-after-800.webp", label: "AFTER" },
           ].map((photo) => (
             <div key={photo.label} className="relative overflow-hidden rounded-2xl border border-blue-100">
               <img src={photo.src} alt={`계단 관리 ${photo.label}`} className="aspect-[4/5] w-full object-cover" loading="lazy" />

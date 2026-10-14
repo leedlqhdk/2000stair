@@ -157,10 +157,13 @@ export default function MobileHome() {
               className="relative block rounded-3xl transition active:scale-[0.97]"
             >
               <img
-                src="/images/couple-profile-202609.jpg"
+                src="/images/opt/couple-profile-202609-640.webp"
                 alt="이천계단지기 부부"
-                className="w-full rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
+                width={640}
+                height={896}
+                className="h-auto w-full rounded-3xl object-cover ring-4 ring-blue-50 shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
                 loading="eager"
+                fetchPriority="high"
               />
               <span className="absolute bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full bg-black/65 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur-sm">
                 소개 보기

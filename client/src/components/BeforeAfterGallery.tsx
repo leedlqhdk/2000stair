@@ -3,9 +3,14 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ChevronsLeftRight } from "lucide-react";
 import {
+  beforeAfterSrcSet,
+  beforeAfterThumb,
   featuredBeforeAfterItems,
   type BeforeAfterItem,
 } from "@/data/beforeAfter";
+
+// 휴대폰은 800px, PC는 1600px 사진을 받는다
+const GALLERY_SIZES = "(min-width: 768px) 1100px, 60vw";
 
 export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
   const { home, reveal } = useHomeMotion();
@@ -51,6 +56,8 @@ export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
         {/* AFTER (전체 배경) */}
         <img
           src={item.after}
+          srcSet={beforeAfterSrcSet(item.after)}
+          sizes={GALLERY_SIZES}
           alt={`${item.title} 청소 후`}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           loading="lazy"
@@ -61,6 +68,8 @@ export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
         <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
           <img
             src={item.before}
+            srcSet={beforeAfterSrcSet(item.before)}
+            sizes={GALLERY_SIZES}
             alt={`${item.title} 청소 전`}
             className="pointer-events-none absolute inset-0 h-full max-w-none object-cover"
             style={{ width: ref.current?.clientWidth }}
@@ -137,7 +146,7 @@ export default function BeforeAfterGallery() {
                   }`}
                 >
                   <img
-                    src={item.after}
+                    src={beforeAfterThumb(item.after)}
                     alt={item.title}
                     className="h-full w-full object-cover"
                     loading="lazy"

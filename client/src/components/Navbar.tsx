@@ -103,6 +103,8 @@ useEffect(() => {
               src="/images/icheon-logo-white-1200.png"
               alt=""
               aria-hidden="true"
+              // 모바일에서는 숨겨져 있으므로 받지 않도록 lazy
+              loading="lazy"
               className={`absolute left-0 top-1/2 hidden w-auto max-w-[190px] -translate-y-1/2 object-contain transition-all duration-300 md:block ${
                 scrolled ? "h-10" : "h-11"
               } ${onDark ? "opacity-100" : "opacity-0"}`}

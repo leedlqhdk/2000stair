@@ -4,26 +4,27 @@ import Reveal from "@/components/Reveal";
 /**
  * 모바일 메인 — "관리비 불만" 공감 뒤에 놓이는 해결 선언 + 실제 작업 사진 마퀴.
  * 사진을 바꾸려면 아래 workPhotos 배열만 수정하면 됩니다.
+ * 사진은 카드 크기(168×224, 3:4)에 맞춰 줄인 public/images/opt/work 버전을 씁니다.
  *
  * revealed=false 이면 접힌 상태로 대기하다가, 위 고민 섹션의 대화가 끝나면 펼쳐집니다.
  * 콘텐츠 자체는 항상 DOM에 있으므로 검색엔진은 처음부터 읽을 수 있습니다.
  */
 
 const workPhotos = [
-  { src: "/images/icheon-majang-villa-cleaning.webp", caption: "마장면 빌라 계단" },
-  { src: "/images/services/stair-cleaning/stair-info-02.webp", caption: "난간·손잡이" },
-  { src: "/images/icheon-sindun-stair-cleaning.webp", caption: "신둔면 공동현관" },
-  { src: "/images/services/glass-cleaning/glass-page03.webp", caption: "공동현관 유리" },
-  { src: "/images/icheon-downtown-stair-cleaning.webp", caption: "시내권 공동현관" },
-  { src: "/images/services/stair-cleaning/stair-info-01.webp", caption: "계단 바닥" },
-  { src: "/images/icheon-bubal-store-cleaning.webp", caption: "부발읍 상가 유리" },
-  { src: "/images/icheon-songjeong-villa-cleaning.webp", caption: "송정동 빌라 공용공간" },
-  { src: "/images/services/stair-cleaning/stair-info-03.webp", caption: "복도·공용공간" },
-  { src: "/images/icheon-gwango-building-cleaning.webp", caption: "관고동 건물 화장실" },
-  { src: "/images/before-after/glass-clean-after01.webp", caption: "상가 통유리" },
-  { src: "/images/services/glass-cleaning/glass-page01.webp", caption: "대형 유리 작업" },
-  { src: "/images/areas/downtown/downtown-2.webp", caption: "손잡이 마무리" },
-  { src: "/images/husband-profile.webp", caption: "장비는 직접 챙깁니다" },
+  { src: "/images/opt/work/icheon-majang-villa-cleaning.webp", caption: "마장면 빌라 계단" },
+  { src: "/images/opt/work/stair-info-02.webp", caption: "난간·손잡이" },
+  { src: "/images/opt/work/icheon-sindun-stair-cleaning.webp", caption: "신둔면 공동현관" },
+  { src: "/images/opt/work/glass-page03.webp", caption: "공동현관 유리" },
+  { src: "/images/opt/work/icheon-downtown-stair-cleaning.webp", caption: "시내권 공동현관" },
+  { src: "/images/opt/work/stair-info-01.webp", caption: "계단 바닥" },
+  { src: "/images/opt/work/icheon-bubal-store-cleaning.webp", caption: "부발읍 상가 유리" },
+  { src: "/images/opt/work/icheon-songjeong-villa-cleaning.webp", caption: "송정동 빌라 공용공간" },
+  { src: "/images/opt/work/stair-info-03.webp", caption: "복도·공용공간" },
+  { src: "/images/opt/work/icheon-gwango-building-cleaning.webp", caption: "관고동 건물 화장실" },
+  { src: "/images/opt/work/glass-clean-after01.webp", caption: "상가 통유리" },
+  { src: "/images/opt/work/glass-page01.webp", caption: "대형 유리 작업" },
+  { src: "/images/opt/work/downtown-2.webp", caption: "손잡이 마무리" },
+  { src: "/images/opt/work/husband-profile.webp", caption: "장비는 직접 챙깁니다" },
 ];
 
 type Props = {
