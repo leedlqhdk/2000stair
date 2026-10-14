@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import InfoPageHero from "@/components/InfoPageHero";
-import { beforeAfterItems, type BeforeAfterItem } from "@/data/beforeAfter";
+import { beforeAfterItems, beforeAfterSrcSet, type BeforeAfterItem } from "@/data/beforeAfter";
 
 function ComparisonSlider({
   item,
@@ -18,6 +18,8 @@ function ComparisonSlider({
       <div className="relative aspect-[4/3] select-none overflow-hidden rounded-[2rem] border border-white/40 bg-white/20 shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur-xl md:aspect-[4/3]">
         <img
           src={item.before}
+          srcSet={beforeAfterSrcSet(item.before)}
+          sizes="(min-width: 768px) 50vw, 100vw"
           alt={`${item.title} 청소 전`}
           className="absolute inset-0 h-full w-full object-cover"
           loading={priority ? "eager" : "lazy"}
@@ -25,6 +27,8 @@ function ComparisonSlider({
         />
         <img
           src={item.after}
+          srcSet={beforeAfterSrcSet(item.after)}
+          sizes="(min-width: 768px) 50vw, 100vw"
           alt={`${item.title} 청소 후`}
           className="absolute inset-0 h-full w-full object-cover"
           style={{ clipPath: `inset(0 0 0 ${position}%)` }}
