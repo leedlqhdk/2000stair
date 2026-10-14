@@ -9,10 +9,12 @@ type FullScreenMenuProps = {
   groups: NavGroup[];
   /** 상단 메뉴가 스크롤로 줄어든 상태 — 로고·닫기 버튼 위치를 상단 메뉴와 맞춘다 */
   compact: boolean;
+  /** ☰ 버튼 색: 어두운 배경 위(투명 상단 바)에서는 흰색 */
+  tone?: "light" | "dark";
 };
 
 // 데스크톱 전체 메뉴: ☰ 버튼을 누르면 화면 전체를 덮는 어두운 메뉴가 위에서 내려온다.
-export default function FullScreenMenu({ open, onOpenChange, groups, compact }: FullScreenMenuProps) {
+export default function FullScreenMenu({ open, onOpenChange, groups, compact, tone = "light" }: FullScreenMenuProps) {
   const [location] = useLocation();
   const close = () => onOpenChange(false);
 
@@ -26,7 +28,9 @@ export default function FullScreenMenu({ open, onOpenChange, groups, compact }: 
       <DialogPrimitive.Trigger asChild>
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full text-slate-700 transition-colors hover:bg-blue-50 hover:text-primary"
+          className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-300 ${
+            tone === "dark" ? "text-white hover:bg-white/10" : "text-slate-700 hover:bg-blue-50 hover:text-primary"
+          }`}
           aria-label="전체 메뉴 열기"
         >
           <Menu className="h-6 w-6" />

@@ -33,7 +33,8 @@ export default function Home() {
         />
       )}
 
-      <Navbar />
+      {/* PC 홈은 첫 화면 사진 위로 상단 바를 투명하게 띄운다 */}
+      <Navbar overlay />
 
       {intro !== "loading" && (
         <main className="flex-1">

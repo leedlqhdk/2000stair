@@ -9,7 +9,7 @@ const PHONE_NUMBER = "01084381887";
 export default function HomeFinalCta() {
   const { reveal } = useHomeMotion();
   return (
-    <section className="bg-primary py-14 text-white md:py-20">
+    <section data-nav-theme="dark" className="bg-primary py-14 text-white md:py-20">
       <motion.div {...reveal()} className="container max-w-4xl text-center">
         <p className="mb-3 text-xs font-extrabold tracking-[0.3em] text-white/65">CONTACT</p>
         <h2 className="font-['GmarketSans'] break-keep text-3xl font-extrabold leading-tight md:text-4xl">

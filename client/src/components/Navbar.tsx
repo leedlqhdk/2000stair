@@ -4,11 +4,17 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import FullScreenMenu from "@/components/FullScreenMenu";
 import { navGroups, type NavGroup } from "@/data/navMenu";
+import { FLOATING_QUIET_EVENT } from "@/lib/floatingQuiet";
 
 // 데스크톱 전체 메뉴는 홈을 맨 앞에 둔다 (모바일 메뉴는 홈을 따로 그린다)
 const desktopGroups: NavGroup[] = [{ label: "홈", href: "/", items: [] }, ...navGroups];
 
-export default function Navbar() {
+type NavbarProps = {
+  /** PC에서 상단 바를 투명하게 띄우고, 뒤 배경(data-nav-theme="dark")에 따라 로고·버튼 색을 바꾼다 */
+  overlay?: boolean;
+};
+
+export default function Navbar({ overlay = false }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileIndex, setOpenMobileIndex] = useState<number | null>(null);
   const [location, setLocation] = useLocation();
@@ -24,6 +30,41 @@ useEffect(() => {
 }, []);
 
   const [fullMenuOpen, setFullMenuOpen] = useState(false);
+  // 투명 상단 바 바로 뒤가 어두운 섹션이면 흰 로고·흰 버튼으로 바꾼다 (첫 화면 사진이 어두우므로 처음엔 어둡게 시작)
+  const [onDark, setOnDark] = useState(overlay);
+
+  useEffect(() => {
+    if (!overlay) return;
+    let frame: number | null = null;
+    const update = () => {
+      frame = null;
+      const probeY = 28; // 상단 바 세로 가운데
+      const dark = Array.from(document.querySelectorAll('[data-nav-theme="dark"]')).some((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.height > 0 && rect.top <= probeY && rect.bottom >= probeY;
+      });
+      setOnDark(dark);
+    };
+    const schedule = () => {
+      if (frame === null) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    // 첫 화면이 늦게 그려져도(인트로 등) 바로 반영한다
+    window.addEventListener(FLOATING_QUIET_EVENT, schedule);
+    // 사진이 늦게 로드되며 페이지 길이가 바뀌면 스크롤 없이도 섹션 위치가 달라지므로 다시 확인한다
+    const resizeObserver = new ResizeObserver(schedule);
+    resizeObserver.observe(document.body);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener(FLOATING_QUIET_EVENT, schedule);
+      resizeObserver.disconnect();
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, [overlay]);
 
   // 페이지가 바뀌면 전체 메뉴를 닫는다
   useEffect(() => {
@@ -73,26 +114,43 @@ useEffect(() => {
     scrolled
       ? "border-b border-slate-200 bg-white shadow-[0_4px_24px_rgba(15,23,42,0.06)]"
       : "border-b border-slate-100 bg-white"
-  }`}
+  } ${overlay ? "md:fixed md:inset-x-0 md:border-transparent md:bg-transparent md:shadow-none" : ""}`}
 >
       <div
   className={`container max-w-7xl flex items-center justify-between transition-all duration-300 ${
     scrolled ? "h-14" : "h-16"
   }`}
 >
-        <a href="/" className="flex items-center" aria-label="이천계단지기 홈으로 이동">
+        <a href="/" className="relative flex items-center" aria-label="이천계단지기 홈으로 이동">
           <img
             src="/images/icheon-logo-main-1200.png"
             alt="이천계단지기"
             className={`w-auto max-w-[190px] object-contain transition-all duration-300 ${
   scrolled ? "h-9 md:h-10" : "h-10 md:h-11"
-}`}
+} ${overlay && onDark ? "md:opacity-0" : ""}`}
           />
+          {overlay && (
+            // 어두운 배경 위에서 보이는 흰 로고 (PC 전용)
+            <img
+              src="/images/icheon-logo-white-1200.png"
+              alt=""
+              aria-hidden="true"
+              className={`absolute left-0 top-1/2 hidden w-auto max-w-[190px] -translate-y-1/2 object-contain transition-all duration-300 md:block ${
+                scrolled ? "h-10" : "h-11"
+              } ${onDark ? "opacity-100" : "opacity-0"}`}
+            />
+          )}
         </a>
 
         {/* 데스크톱 상단에는 로고와 ☰ 버튼만 두고, 메뉴는 전체화면 메뉴에서 보여준다 */}
         <div className="hidden md:flex">
-          <FullScreenMenu open={fullMenuOpen} onOpenChange={setFullMenuOpen} groups={desktopGroups} compact={scrolled} />
+          <FullScreenMenu
+            open={fullMenuOpen}
+            onOpenChange={setFullMenuOpen}
+            groups={desktopGroups}
+            compact={scrolled}
+            tone={overlay && onDark ? "dark" : "light"}
+          />
         </div>
 
         <button
