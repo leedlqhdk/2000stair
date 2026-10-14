@@ -41,7 +41,8 @@ const heroSlides = [
 const REVEAL_QUERY = "(min-height: 640px)";
 // 이 첫 화면은 PC 전용이다. 모바일에서는 숨겨진 채 사진을 내려받지 않도록 사진 자체를 그리지 않는다
 const DESKTOP_QUERY = "(min-width: 768px)";
-const SLIDE_HEIGHT = "h-[calc(100svh-3.5rem)] min-h-[560px]";
+// 투명 상단 바 아래까지 사진이 화면 전체를 채운다
+const SLIDE_HEIGHT = "h-svh min-h-[560px]";
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
@@ -73,14 +74,16 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
     notifyFloatingQuietChange();
   }, [reveal]);
 
-  const slideLayer = reveal ? "fixed inset-x-0 bottom-0 top-14" : "absolute inset-0";
-  const ctaLayer = reveal ? "fixed inset-x-0 bottom-0 top-14" : `absolute inset-x-0 top-0 ${SLIDE_HEIGHT}`;
+  const slideLayer = reveal ? "fixed inset-0" : "absolute inset-0";
+  const ctaLayer = reveal ? "fixed inset-0" : `absolute inset-x-0 top-0 ${SLIDE_HEIGHT}`;
 
   return (
     <div>
       <section
         // 첫 화면에는 상담 버튼이 이미 있으므로, 오른쪽 아래 상담 버튼은 아이콘으로 줄여 사진을 가리지 않게 한다
         data-floating-quiet
+        // 투명 상단 바가 이 위에서는 흰 로고·흰 버튼으로 바뀐다
+        data-nav-theme="dark"
         className="relative bg-slate-950 [clip-path:inset(0)]"
       >
         {heroSlides.map((slide, index) => {
@@ -115,6 +118,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
                 {/* 사진 위 글자가 잘 읽히도록 왼쪽과 아래를 어둡게 */}
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/30 to-transparent" />
+                {/* 투명 상단 바의 흰 로고·버튼이 밝은 사진 위에서도 보이도록 위쪽을 살짝 어둡게 */}
+                <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-slate-950/55 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-slate-950/80 via-slate-950/35 to-transparent" />
 
                 <div className="container relative flex h-full max-w-6xl flex-col justify-end pb-[12.5rem]">
