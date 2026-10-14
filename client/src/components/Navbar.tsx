@@ -4,7 +4,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import FullScreenMenu from "@/components/FullScreenMenu";
 import { navGroups, type NavGroup } from "@/data/navMenu";
-import { FLOATING_QUIET_EVENT } from "@/lib/floatingQuiet";
+import { useDarkSectionBehind } from "@/hooks/useDarkSectionBehind";
 
 // 데스크톱 전체 메뉴는 홈을 맨 앞에 둔다 (모바일 메뉴는 홈을 따로 그린다)
 const desktopGroups: NavGroup[] = [{ label: "홈", href: "/", items: [] }, ...navGroups];
@@ -30,41 +30,9 @@ useEffect(() => {
 }, []);
 
   const [fullMenuOpen, setFullMenuOpen] = useState(false);
-  // 투명 상단 바 바로 뒤가 어두운 섹션이면 흰 로고·흰 버튼으로 바꾼다 (첫 화면 사진이 어두우므로 처음엔 어둡게 시작)
-  const [onDark, setOnDark] = useState(overlay);
-
-  useEffect(() => {
-    if (!overlay) return;
-    let frame: number | null = null;
-    const update = () => {
-      frame = null;
-      const probeY = 28; // 상단 바 세로 가운데
-      const dark = Array.from(document.querySelectorAll('[data-nav-theme="dark"]')).some((section) => {
-        const rect = section.getBoundingClientRect();
-        return rect.height > 0 && rect.top <= probeY && rect.bottom >= probeY;
-      });
-      setOnDark(dark);
-    };
-    const schedule = () => {
-      if (frame === null) frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    // 첫 화면이 늦게 그려져도(인트로 등) 바로 반영한다
-    window.addEventListener(FLOATING_QUIET_EVENT, schedule);
-    // 사진이 늦게 로드되며 페이지 길이가 바뀌면 스크롤 없이도 섹션 위치가 달라지므로 다시 확인한다
-    const resizeObserver = new ResizeObserver(schedule);
-    resizeObserver.observe(document.body);
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      window.removeEventListener(FLOATING_QUIET_EVENT, schedule);
-      resizeObserver.disconnect();
-      if (frame !== null) window.cancelAnimationFrame(frame);
-    };
-  }, [overlay]);
+  // 투명 상단 바 바로 뒤(상단 바 세로 가운데)가 어두운 섹션이면 흰 로고·흰 버튼으로 바꾼다
+  // 첫 화면 사진이 어두우므로 처음엔 어둡게 시작한다
+  const onDark = useDarkSectionBehind(() => 28, { enabled: overlay, initial: overlay });
 
   // 페이지가 바뀌면 전체 메뉴를 닫는다
   useEffect(() => {
