@@ -99,7 +99,7 @@ export default function Services() {
                   <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/20 to-transparent" />
 
                   <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <p className="min-h-8 text-[10px] font-bold leading-4 text-white/70">{card.subtitle}</p>
+                    <p className="min-h-8 text-xs font-bold leading-4 text-white/70">{card.subtitle}</p>
 
                     <div className="mt-2 flex items-center justify-between gap-3">
                       <h3 className="whitespace-nowrap text-xl font-extrabold leading-tight tracking-normal text-white">

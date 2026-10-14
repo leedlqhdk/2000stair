@@ -47,7 +47,7 @@ function CoupleRoles() {
       >
         <div className="mx-auto grid max-w-4xl grid-cols-[minmax(0,1fr)_170px_minmax(0,1fr)] items-center gap-3 md:grid-cols-[minmax(0,1fr)_340px_minmax(0,1fr)] md:gap-12">
           <div className="flex flex-col items-end">
-            <span className="whitespace-nowrap rounded-full bg-blue-50 px-3 py-1.5 text-[11px] font-extrabold text-primary md:px-4 md:py-2 md:text-[15px]">
+            <span className="whitespace-nowrap rounded-full bg-blue-50 px-3 py-1.5 text-xs font-extrabold text-primary md:px-4 md:py-2 md:text-[15px]">
               {husbandRole.badge}
             </span>
             <ul className="mt-4 space-y-3 md:mt-6 md:space-y-5">
@@ -74,7 +74,7 @@ function CoupleRoles() {
           />
 
           <div className="flex flex-col items-start">
-            <span className="whitespace-nowrap rounded-full bg-blue-50 px-3 py-1.5 text-[11px] font-extrabold text-primary md:px-4 md:py-2 md:text-[15px]">
+            <span className="whitespace-nowrap rounded-full bg-blue-50 px-3 py-1.5 text-xs font-extrabold text-primary md:px-4 md:py-2 md:text-[15px]">
               {wifeRole.badge}
             </span>
             <ul className="mt-4 space-y-3 md:mt-6 md:space-y-5">
@@ -124,7 +124,7 @@ export default function MobileAbout() {
               className="relative flex items-start gap-3.5"
               variants={processStepMotion}
             >
-              <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-extrabold text-white ring-4 ring-blue-50">
+              <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-extrabold text-white ring-4 ring-blue-50">
                 {step.step}
               </span>
               <div className="min-w-0 flex-1 rounded-2xl border border-blue-100 bg-white px-4 py-3 shadow-[0_2px_10px_rgba(15,23,42,0.04)]">
@@ -182,7 +182,7 @@ export default function MobileAbout() {
                 label: "청소 전후 더보기",
               })
             }
-            className="inline-flex shrink-0 items-center gap-1 text-[13px] font-bold text-muted-foreground transition active:text-primary md:hover:text-primary"
+            className="-my-2.5 inline-flex shrink-0 items-center gap-1 py-2.5 text-[13px] font-bold text-muted-foreground transition active:text-primary md:hover:text-primary"
           >
             더보기
             <ArrowRight className="h-3.5 w-3.5" />
@@ -196,7 +196,7 @@ export default function MobileAbout() {
             <div key={photo.label} className="relative overflow-hidden rounded-2xl border border-blue-100">
               <img src={photo.src} alt={`계단 관리 ${photo.label}`} className="aspect-[4/5] w-full object-cover" loading="lazy" />
               <span
-                className={`absolute bottom-2.5 left-2.5 rounded-lg px-2.5 py-1 text-[10.5px] font-extrabold ${
+                className={`absolute bottom-2.5 left-2.5 rounded-lg px-2.5 py-1 text-xs font-extrabold ${
                   photo.label === "AFTER" ? "bg-primary text-white" : "bg-black/60 text-white"
                 }`}
               >

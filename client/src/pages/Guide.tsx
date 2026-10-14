@@ -73,7 +73,7 @@ export default function Guide() {
                 type="button"
                 onClick={() => setSelected(category)}
                 aria-pressed={isActive}
-                className={`flex-shrink-0 rounded-full px-4 py-2 text-xs font-extrabold transition-all md:text-sm ${
+                className={`relative flex-shrink-0 rounded-full px-4 py-2 text-xs font-extrabold transition-all before:absolute before:inset-x-0 before:-inset-y-1 before:content-[''] md:text-sm ${
                   isActive ? "bg-primary text-white shadow-sm" : "bg-blue-50 text-primary hover:bg-primary/10"
                 }`}
               >

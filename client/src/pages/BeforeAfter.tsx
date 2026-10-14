@@ -19,7 +19,7 @@ function ComparisonSlider({
         <img
           src={item.before}
           srcSet={beforeAfterSrcSet(item.before)}
-          sizes="(min-width: 768px) 50vw, 100vw"
+          sizes="(min-width: 768px) 50vw, 60vw"
           alt={`${item.title} 청소 전`}
           className="absolute inset-0 h-full w-full object-cover"
           loading={priority ? "eager" : "lazy"}
@@ -28,7 +28,7 @@ function ComparisonSlider({
         <img
           src={item.after}
           srcSet={beforeAfterSrcSet(item.after)}
-          sizes="(min-width: 768px) 50vw, 100vw"
+          sizes="(min-width: 768px) 50vw, 60vw"
           alt={`${item.title} 청소 후`}
           className="absolute inset-0 h-full w-full object-cover"
           style={{ clipPath: `inset(0 0 0 ${position}%)` }}

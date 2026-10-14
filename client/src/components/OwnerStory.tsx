@@ -82,7 +82,7 @@ export default function OwnerStory() {
                     </div>
 
                     <div>
-                      <p className="text-[11px] md:text-xs font-bold tracking-[0.22em] text-primary mb-1.5">
+                      <p className="text-xs font-bold tracking-[0.22em] text-primary mb-1.5">
                         {item.label}
                       </p>
 

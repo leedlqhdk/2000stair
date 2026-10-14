@@ -26,6 +26,7 @@ import type { LucideIcon } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
+import { responsiveImage } from "@/lib/responsiveImage";
 import BlogReviews from "@/components/BlogReviews";
 import type { WorkServiceKey } from "@shared/workRelatedLinks";
 
@@ -210,7 +211,8 @@ function BeforeAfterSlider({
         onTouchStart={handleTouch}
       >
         <img
-          src={after}
+          {...responsiveImage(after)}
+          sizes="(min-width: 768px) 560px, 92vw"
           alt="청소 후"
           className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"
@@ -222,7 +224,8 @@ function BeforeAfterSlider({
           style={{ width: `${pos}%` }}
         >
           <img
-            src={before}
+            {...responsiveImage(before)}
+            sizes="(min-width: 768px) 560px, 92vw"
             alt="청소 전"
             className="absolute inset-0 h-full max-w-none object-cover"
             loading="lazy"
@@ -368,7 +371,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {data.heroVideo && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
             <img
-              src={data.heroBgImage}
+              {...responsiveImage(data.heroBgImage)}
+              sizes="100vw"
               alt=""
               loading="eager"
               className="h-full w-full object-cover md:hidden"
@@ -386,7 +390,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               />
             ) : (
               <img
-                src={data.heroBgImage}
+                {...responsiveImage(data.heroBgImage)}
+                sizes="100vw"
                 alt=""
                 loading="eager"
                 className="hidden h-full w-full object-cover md:block"
@@ -400,7 +405,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         {!data.heroVideo && data.heroBgImage && (
           <div className="fixed inset-0 z-0 bg-[#07152f]">
             <img
-              src={data.heroBgImage}
+              {...responsiveImage(data.heroBgImage)}
+              sizes="100vw"
               alt={data.heroTitle}
               className="h-full w-full object-cover"
             />
@@ -424,11 +430,11 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 className="mb-4 flex items-center justify-center gap-1.5 text-xs font-semibold text-white/55 md:mb-6 md:text-sm"
               >
                 <Link href="/">
-                  <a className="transition hover:text-white/80">홈</a>
+                  <a className="-my-3 inline-block px-1 py-3 transition hover:text-white/80">홈</a>
                 </Link>
                 <span>·</span>
                 <Link href="/services">
-                  <a className="transition hover:text-white/80">서비스</a>
+                  <a className="-my-3 inline-block px-1 py-3 transition hover:text-white/80">서비스</a>
                 </Link>
                 <span>·</span>
                 <span className="text-white/80">{data.breadcrumbLabel}</span>
@@ -467,7 +473,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               ].map((badge) => (
                 <span
                   key={badge}
-                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
+                  className="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-bold text-white/90 backdrop-blur-md sm:text-sm md:px-4 md:py-2"
                 >
                   {badge}
                 </span>
@@ -608,7 +614,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                         </div>
                         <div>
                           {card.subtitle && (
-                            <p className="text-[10px] font-extrabold tracking-wide text-sky-300 md:text-xs">
+                            <p className="text-xs font-extrabold tracking-wide text-sky-300">
                               {card.subtitle}
                             </p>
                           )}
@@ -630,7 +636,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       </ul>
 
                       {card.note && (
-                        <span className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-2.5 py-1 text-[10px] font-bold text-sky-200 md:mt-5 md:px-3 md:py-1.5 md:text-xs">
+                        <span className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-2.5 py-1 text-xs font-bold text-sky-200 md:mt-5 md:px-3 md:py-1.5 md:text-xs">
                           {card.note}
                         </span>
                       )}
@@ -788,7 +794,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             )}
 
             {data.pricingNote && (
-              <p className="mx-auto mt-4 max-w-3xl text-center text-[11px] text-white/45">
+              <p className="mx-auto mt-4 max-w-3xl text-center text-xs text-white/45">
                 {data.pricingNote}
               </p>
             )}
@@ -819,7 +825,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                       className="overflow-hidden rounded-2xl border border-white/10"
                     >
                       <img
-                        src={photo.src}
+                        {...responsiveImage(photo.src)}
+                        sizes="(min-width: 640px) 33vw, 92vw"
                         alt={photo.alt}
                         loading="lazy"
                         className="aspect-[4/3] w-full object-cover"
@@ -929,7 +936,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                   ) : (
                     sec.image && (
                       <img
-                        src={sec.image}
+                        {...responsiveImage(sec.image)}
+                        sizes="(min-width: 768px) 50vw, 92vw"
                         alt={sec.title}
                         loading="lazy"
                         className="mb-5 h-48 w-full rounded-2xl object-cover md:h-64"
@@ -1046,7 +1054,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 </div>
                 <div className="min-w-0 flex-1">
                   {data.blogLink.eyebrow && (
-                    <p className="text-[11px] font-extrabold tracking-[0.25em] text-primary">
+                    <p className="text-xs font-extrabold tracking-[0.25em] text-primary">
                       {data.blogLink.eyebrow}
                     </p>
                   )}

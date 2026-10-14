@@ -155,7 +155,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container mx-auto flex flex-col gap-1 px-4 py-5 text-[11px] text-white/35 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container mx-auto flex flex-col gap-1 px-4 py-5 text-xs text-white/35 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} 이천계단지기. All rights reserved.</p>
           <p>사업자등록번호 234-23-02318 · 대표 김규남</p>
         </div>

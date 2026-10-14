@@ -51,13 +51,13 @@ export default function AreaIntro({ headline, description, focus, areaSlug, reco
           {...rise(0)}
         >
           <Link href="/areas">
-            <a className="inline-flex items-center gap-2 text-sm font-bold text-white/70 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9db8ec]">
+            <a className="-my-2.5 inline-flex items-center gap-2 py-2.5 text-sm font-bold text-white/70 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9db8ec]">
               <ArrowLeft className="h-4 w-4" />
               관리지역으로 돌아가기
             </a>
           </Link>
 
-          <p className="mt-6 text-[11px] font-extrabold tracking-[0.28em] text-[#9db8ec] md:mt-7">
+          <p className="mt-6 text-xs font-extrabold tracking-[0.28em] text-[#9db8ec] md:mt-7">
             AREA ARCHIVE
           </p>
 

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { responsiveImage } from "@/lib/responsiveImage";
 import { ArrowRight, CalendarDays, Images } from "lucide-react";
 import { motion } from "framer-motion";
 import type { AreaPost } from "@/hooks/useAreaPosts";
@@ -92,24 +93,25 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
       >
         <div className={`relative overflow-hidden bg-blue-50 ${compact ? "h-[124px] sm:h-[142px] md:h-[166px] lg:h-[178px]" : "h-[220px] md:h-[300px]"}`}>
           <img
-            src={post.image}
+            {...responsiveImage(post.image)}
+            sizes="(min-width: 768px) 300px, 46vw"
             alt={post.title}
             className="absolute inset-0 h-full w-full object-cover object-center brightness-[1.04] contrast-[1.04] saturate-[1.08] transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
 
-          <div className="absolute left-2 top-2 flex flex-wrap gap-1.5 md:left-3 md:top-3">
-            <span className="rounded-full bg-white/92 px-2 py-1 text-[10px] font-extrabold text-primary shadow-sm backdrop-blur md:text-[11px]">
+          <div className="absolute left-2 right-12 top-2 flex flex-wrap gap-1.5 md:left-3 md:right-14 md:top-3">
+            <span className="whitespace-nowrap rounded-full bg-white/92 px-2 py-1 text-xs font-extrabold text-primary shadow-sm backdrop-blur">
               {workBadge}
             </span>
-            <span className="rounded-full bg-black/52 px-2 py-1 text-[10px] font-extrabold text-white shadow-sm backdrop-blur md:text-[11px]">
+            <span className="whitespace-nowrap rounded-full bg-black/52 px-2 py-1 text-xs font-extrabold text-white shadow-sm backdrop-blur">
               {locationBadge}
             </span>
           </div>
 
           <div className={`absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/50 font-bold text-white backdrop-blur md:right-3 md:top-3 ${
-            compact ? "px-1.5 py-0.5 text-[10px] md:px-2 md:text-[11px]" : "px-2 py-0.5 text-[11px] md:px-2.5 md:py-1 md:text-xs"
+            compact ? "px-1.5 py-0.5 text-xs md:px-2" : "px-2 py-0.5 text-[11px] md:px-2.5 md:py-1 md:text-xs"
           }`}>
             <Images className={compact ? "h-3 w-3" : "h-3 w-3 md:h-3.5 md:w-3.5"} />
             {images.length}
@@ -122,18 +124,19 @@ export default function AreaPostCard({ post, index, areaLabel, compact = false }
           }`}>
             {cardTitle}
           </h3>
-          <p className={`line-clamp-1 flex-1 text-muted-foreground ${
-            compact ? "text-[11px] leading-4 md:text-xs md:leading-5" : "text-sm leading-6"
+          <p className={`line-clamp-1 text-muted-foreground ${
+            compact ? "text-xs leading-5" : "text-sm leading-6"
           }`}>
             {cardDescription}
           </p>
-          <div className={`mt-3 flex items-center justify-between gap-2 ${compact ? "text-[11px] md:text-xs" : "text-sm"}`}>
-            <div className="inline-flex items-center gap-1 font-semibold text-slate-400">
+          {/* 남는 높이는 설명 대신 아래줄 위에 두어, 한 줄로 자른 설명의 두 번째 줄이 비치지 않게 한다 */}
+          <div className={`mt-auto flex items-center justify-between gap-2 pt-3 ${compact ? "text-xs" : "text-sm"}`}>
+            <div className="inline-flex items-center gap-1 whitespace-nowrap font-semibold text-slate-400">
               <CalendarDays className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-4 w-4"} />
               {post.date}
             </div>
-            <div className="inline-flex items-center gap-1 font-extrabold text-primary transition-transform duration-300 group-hover:translate-x-1">
-              자세히 보기
+            <div className="inline-flex items-center gap-1 whitespace-nowrap font-extrabold text-primary transition-transform duration-300 group-hover:translate-x-1">
+              <span className={compact ? "sr-only md:not-sr-only" : ""}>자세히 보기</span>
               <ArrowRight className={compact ? "h-3 w-3 md:h-3.5 md:w-3.5" : "h-4 w-4"} />
             </div>
           </div>

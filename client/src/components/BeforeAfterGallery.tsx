@@ -78,10 +78,10 @@ export function BeforeAfterCard({ item }: { item: BeforeAfterItem }) {
           />
         </div>
 
-        <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1.5 text-[11px] font-bold tracking-wide text-white backdrop-blur sm:text-xs">
+        <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur sm:text-xs">
           BEFORE
         </span>
-        <span className="absolute right-3 top-3 rounded-full bg-primary px-3 py-1.5 text-[11px] font-bold tracking-wide text-white backdrop-blur sm:text-xs">
+        <span className="absolute right-3 top-3 rounded-full bg-primary px-3 py-1.5 text-xs font-bold tracking-wide text-white backdrop-blur sm:text-xs">
           AFTER
         </span>
 

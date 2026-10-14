@@ -79,7 +79,7 @@ export default function Records() {
             transition={{ duration: 0.65 }}
           >
             <Link href="/areas">
-              <a className="mb-7 inline-flex items-center gap-2 text-sm font-bold text-primary transition hover:opacity-80">
+              <a className="-mt-2.5 mb-[1.125rem] inline-flex items-center gap-2 py-2.5 text-sm font-bold text-primary transition hover:opacity-80">
                 <ArrowLeft className="h-4 w-4" />
                 관리지역으로 돌아가기
               </a>
