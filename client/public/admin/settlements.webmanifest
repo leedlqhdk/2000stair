@@ -1,0 +1,15 @@
+{
+  "id": "/admin/settlements",
+  "name": "이천계단지기 정산관리",
+  "short_name": "정산관리",
+  "lang": "ko",
+  "start_url": "/admin/settlements",
+  "scope": "/admin/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#3155a4",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/admin/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

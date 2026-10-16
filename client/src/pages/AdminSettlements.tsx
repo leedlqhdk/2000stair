@@ -4,12 +4,17 @@ import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import SettlementAppInstall from "@/components/SettlementAppInstall";
+import "./settlements-app.css";
 
 const money = (value: number) => `${value.toLocaleString("ko-KR")}원`;
 const currentMonth = () => new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Seoul", year: "numeric", month: "2-digit" }).format(new Date());
 const emptyForm = (month: string) => ({ building: "", month, billed: "", paid: "0", paidAt: "", memo: "" });
 const inputClass = "w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500";
 export default function AdminSettlements() {
+  return <div className="settlements-app"><SettlementAppInstall /><SettlementContent /></div>;
+}
+function SettlementContent() {
   const { user, loading } = useAuth();
   const admin = user?.role === "admin";
   const [password, setPassword] = useState("");

@@ -1,0 +1,20 @@
+.settlements-app {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #f8fafc;
+}
+@media (max-width: 639px) {
+  .settlements-app input, .settlements-app select, .settlements-app textarea { font-size: 16px; }
+  .settlements-app table { min-width: 0; display: block; }
+  .settlements-app thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .settlements-app tbody { display: grid; gap: 12px; padding: 12px; }
+  .settlements-app tr { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; }
+  .settlements-app td { display: block; padding: 8px; overflow-wrap: anywhere; }
+  .settlements-app td:first-child, .settlements-app td:last-child { grid-column: 1 / -1; }
+  .settlements-app td::before { display: block; color: #64748b; font-size: 12px; margin-bottom: 4px; }
+  .settlements-app td:nth-child(2)::before { content: "청구금액"; }
+  .settlements-app td:nth-child(3)::before { content: "입금액"; }
+  .settlements-app td:nth-child(4)::before { content: "미수금"; }
+  .settlements-app td:nth-child(5)::before { content: "상태"; }
+  .settlements-app td:nth-child(6)::before { content: "입금일"; }
+}
