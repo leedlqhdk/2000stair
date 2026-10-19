@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12346a"><title>이천계단지기 운영</title>
+<style>
+:root{--navy:#12346a;--blue:#1757bd;--sky:#eaf2ff;--ink:#17243a;--muted:#78869b;--line:#e7ebf1;--bg:#f4f7fb;--white:#fff;--green:#16845b;--amber:#a46a08}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:15px;line-height:1.45}button,select,input{font:inherit}button{cursor:pointer}.app{max-width:520px;min-height:100dvh;margin:0 auto;background:var(--bg);padding-bottom:90px}.top{height:62px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}.brand{display:flex;align-items:center;gap:9px;color:var(--navy);font-size:14px;font-weight:800}.brand img{width:33px;height:33px;object-fit:contain}.avatar{width:34px;height:34px;border-radius:50%;background:var(--sky);color:var(--blue);display:grid;place-items:center;font-size:12px;font-weight:800}.main{padding:22px 17px 14px}.eyebrow{font-size:12px;color:var(--muted);font-weight:700}.title-row{display:flex;align-items:end;justify-content:space-between;margin:2px 0 17px}.title{font-size:25px;letter-spacing:-.6px;margin:0;color:var(--navy)}.date{font-size:12px;color:var(--muted)}.hero{background:var(--navy);color:white;padding:18px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 8px 20px #12346a20}.hero-label{font-size:12px;color:#c7d9f4}.hero-number{font-size:23px;font-weight:800;margin-top:4px}.hero-side{font-size:12px;color:#d8e6fb;text-align:right}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;margin-top:13px;box-shadow:0 2px 8px #192f4b05}.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.card-title{font-size:15px;font-weight:800;color:var(--navy)}.text-link{border:0;background:none;padding:4px;color:var(--blue);font-weight:700;font-size:12px}.job-name{font-size:17px;font-weight:800}.job-meta{color:var(--muted);font-size:13px;margin-top:3px}.pill{border-radius:999px;background:var(--sky);color:var(--blue);font-size:11px;padding:5px 9px;font-weight:700}.pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.progress-wrap{margin-top:17px}.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px}.bar{height:7px;background:#edf0f5;border-radius:8px;overflow:hidden}.bar span{height:100%;display:block;background:var(--blue);border-radius:8px;width:0;transition:width .25s}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}.btn{border:1px solid var(--line);background:white;color:var(--navy);border-radius:12px;min-height:45px;font-weight:750;font-size:13px}.btn.primary{background:var(--blue);color:white;border-color:var(--blue)}.btn.soft{background:var(--sky);color:var(--blue);border-color:var(--sky)}.section{margin-top:20px}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.section-head h2{font-size:16px;margin:0;color:var(--navy)}.section-head span{font-size:12px;color:var(--muted)}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px}.mini-icon{width:32px;height:32px;border-radius:10px;background:var(--sky);display:grid;place-items:center;color:var(--blue);font-weight:800}.mini-label{font-size:12px;color:var(--muted);margin-top:10px}.mini-value{font-size:14px;font-weight:800;margin-top:2px}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:520px;width:100%;height:76px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:5}.nav button{border:0;background:transparent;color:#8792a3;font-size:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:700}.nav button.active{color:var(--blue)}.nav-icon{font-size:18px;line-height:1}.page{display:none}.page.active{display:block}.category-list{display:flex;gap:8px;flex-wrap:wrap}.category{border:1px solid var(--line);background:#fff;border-radius:11px;padding:9px 12px;color:#526176;font-size:13px;font-weight:700}.category.selected{background:var(--sky);border-color:#8eb5f6;color:var(--blue)}.field-label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin:15px 0 7px}.select{width:100%;height:46px;border:1px solid var(--line);border-radius:11px;background:#fff;padding:0 12px;color:var(--ink)}.photo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-tile{border:1px dashed #c9d3e0;background:#fafcff;border-radius:13px;min-height:91px;position:relative;overflow:hidden}.photo-tile input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}.photo-in{height:100%;min-height:91px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);font-size:11px}.photo-in strong{font-size:20px;color:var(--blue)}.photo-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.check{position:absolute;right:5px;top:5px;background:var(--green);color:white;border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-size:12px}.notice{font-size:12px;color:var(--muted);background:#f6f8fb;border-radius:10px;padding:10px 12px;margin-top:12px}.blog-item{display:flex;gap:12px;align-items:center}.blog-thumb{width:62px;height:62px;border-radius:12px;background:linear-gradient(145deg,#dbe8f8,#f4f7fb);display:grid;place-items:center;color:var(--blue);font-size:22px}.blog-copy{flex:1}.blog-copy strong{display:block;font-size:14px}.blog-copy span{font-size:12px;color:var(--muted)}.status{font-size:11px;font-weight:800;color:var(--amber);background:#fff4d9;border-radius:20px;padding:5px 8px}.status.ok{color:var(--green);background:#e5f5ee}.list-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}.list-row:last-child{border:0;padding-bottom:0}.amount{font-weight:800;color:var(--navy)}.sample{font-size:10px;color:var(--muted);background:#f1f3f6;padding:3px 6px;border-radius:6px;margin-left:5px}.empty{padding:20px;text-align:center;color:var(--muted);font-size:13px}.toast{position:fixed;bottom:91px;left:50%;transform:translateX(-50%);background:#17243a;color:white;border-radius:12px;padding:10px 16px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:8;white-space:nowrap}.toast.show{opacity:1}.hidden{display:none!important}@media(min-width:600px){body{padding:18px 0}.app{border-radius:22px;overflow:hidden;min-height:calc(100dvh - 36px);box-shadow:0 10px 38px #10223d15}.nav{bottom:18px;border-radius:0 0 22px 22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><img src="https://2000stair.kr/images/icheon-logo-main-1200.png" alt="이천계단지기 로고" onerror="this.style.display='none'"><span>이천계단지기</span></div><div class="avatar">부부</div></header>
+<main class="main">
+<section class="page active" id="today">
+<div class="eyebrow">부부 운영 앱</div><div class="title-row"><h1 class="title">오늘</h1><span class="date" id="todayDate"></span></div>
+<div class="hero"><div><div class="hero-label">이번 달 미수금</div><div class="hero-number">확인할 항목 1건</div></div><div class="hero-side">샘플 내역<br>실제 입금 연동 전</div></div>
+<div class="card">
+<div class="card-head"><div class="card-title">오늘 촬영할 현장</div><button class="text-link" data-go="field">촬영 열기 ›</button></div>
+<div class="job-name">마장면 현장 <span class="pill">촬영 대기</span></div><div class="job-meta">이천시 마장면 · 고객 주소 비공개</div>
+<div class="pills"><span class="pill">계단</span><span class="pill">화장실</span></div>
+<div class="progress-wrap"><div class="progress-label"><span>사진 세트</span><span id="homeProgress">0 / 6</span></div><div class="bar"><span id="homeBar"></span></div></div>
+<div class="actions"><button class="btn primary" data-go="field">사진 찍기</button><button class="btn" data-go="blog">블로그 보기</button></div>
+</div>
+<div class="section"><div class="section-head"><h2>바로 확인</h2><span>이번 주</span></div><div class="mini-grid">
+<div class="mini-card"><div class="mini-icon">✎</div><div class="mini-label">블로그</div><div class="mini-value">초안 준비 1건</div></div>
+<div class="mini-card"><div class="mini-icon">₩</div><div class="mini-label">정산</div><div class="mini-value">확인 필요 1건</div></div>
+</div></div></section>
+<section class="page" id="field">
+<div class="eyebrow">현장 기록</div><div class="title-row"><h1 class="title">사진 촬영</h1><span class="date">남편 · 현장 담당</span></div>
+<div class="card"><div class="card-head"><div class="card-title">현장 정보</div><span class="pill">작업 중</span></div>
+<div class="job-name">마장면 현장</div>
+<label class="field-label" for="region">지역</label><select class="select" id="region"><option>이천시 마장면</option><option>이천시 부발읍</option><option>이천시 신둔면</option><option>이천시 증포동</option><option>이천시 중리동</option><option>이천시 창전동</option><option>이천시 백사면</option><option>직접 입력</option></select>
+<label class="field-label">작업 종류 · 여러 개 선택</label><div class="category-list" id="categories"><button class="category selected">계단</button><button class="category">사무실</button><button class="category">유리</button><button class="category selected">화장실</button></div>
+<div class="notice">촬영한 사진은 이 기기의 미리보기에서만 보입니다. 고객의 정확한 주소는 블로그에 표시하지 않아요.</div></div>
+<div class="card"><div class="card-head"><div class="card-title">필수 사진</div><span class="date">6장</span></div>
+<div class="field-label">작업 전</div><div class="photo-row">
+<label class="photo-tile"><span class="photo-in"><strong>＋</strong>계단 전체</span><input type="file" accept="image/*" capture="environment" data-photo><img class="hidden"><span class="check hidden">✓</span></label>
+<label class="photo-tile"><span class="photo-in"><strong>＋</strong>층별 상태</span><input type="file" accept="image/*" capture="environment" data-photo><img class="hidden"><span class="check hidden">✓</span></label>
+<label class="photo-tile"><span class="photo-in"><strong>＋</strong>화장실</span><input type="file" accept="image/*" capture="environment" data-photo><img class="hidden"><span class="check hidden">✓</span></label>
+</div><div class="field-label">작업 후</div><div class="photo-row">
+<label class="photo-tile"><span class="photo-in"><strong>＋</strong>계단 전체</span><input type="file" accept="image/*" capture="environment" data-photo><img class="hidden"><span class="check hidden">✓</span></label>
+<label class="photo-tile"><span class="photo-in"><strong>＋</strong>층별 완료</span><input type="file" accept="image/*" capture="environment" data-photo><img class="hidden"><span class="check hidden">✓</span></label>
+<label class="photo-tile"><span class="photo-in"><strong>＋</strong>화장실 완료</span><input type="file" accept="image/*" capture="environment" data-photo><img class="hidden"><span class="check hidden">✓</span></label>
+</div>
+<div class="progress-wrap"><div class="progress-label"><span>촬영 진행</span><span id="fieldProgress">0 / 6</span></div><div class="bar"><span id="fieldBar"></span></div></div>
+<button class="btn primary" style="width:100%;margin-top:14px" id="donePhoto">촬영 완료</button>
+</div></section>
+<section class="page" id="blog">
+<div class="eyebrow">글 발행 관리</div><div class="title-row"><h1 class="title">블로그</h1><span class="date">사진에서 글로</span></div>
+<div class="card"><div class="card-head"><div class="card-title">이번 주 초안</div><span class="status" id="blogStatus">사진 대기</span></div>
+<div class="blog-item"><div class="blog-thumb">✎</div><div class="blog-copy"><strong>마장면 계단·화장실 청소</strong><span>이천시 마장면 · 작업 종류 연결</span></div></div>
+<div class="notice">촬영 사진을 고른 뒤 글 초안에 연결하세요. 이 시제품은 블로그에 자동 발행하지 않습니다.</div>
+<button class="btn soft" style="width:100%;margin-top:13px" id="attachPhotos">사진 연결하기</button>
+</div>
+<div class="card"><div class="card-head"><div class="card-title">발행 메모</div></div><textarea id="blogNote" class="select" rows="4" placeholder="글에서 강조할 내용을 짧게 적어두세요" style="height:auto;padding:12px;resize:vertical"></textarea><button class="btn primary" id="saveNote" style="width:100%;margin-top:10px">메모 저장</button></div>
+</section>
+<section class="page" id="settlement">
+<div class="eyebrow">월별 정산</div><div class="title-row"><h1 class="title">정산</h1><span class="date">2026년 10월</span></div>
+<div class="hero"><div><div class="hero-label">이번 달 청구</div><div class="hero-number">내역 2건</div></div><div class="hero-side">샘플 자료<br>실제 금액 아님</div></div>
+<div class="card"><div class="card-head"><div class="card-title">확인 목록</div><button class="text-link" id="uploadBank">거래내역 파일</button><input type="file" id="bankFile" accept=".csv,.xlsx,.xls" class="hidden"></div>
+<div class="list-row"><span>마장면 현장 · 입금 확인</span><span class="status">대조 필요</span></div>
+<div class="list-row"><span>부발읍 현장 · 세금계산서</span><span class="status ok">발행 확인</span></div>
+<div class="notice">은행 입금 자동 조회와 전자세금계산서 발행은 아직 연결되지 않았어요. 파일 선택은 화면 시연용입니다.</div>
+</div>
+<div class="card"><div class="card-head"><div class="card-title">이번 달 흐름</div></div><div class="list-row"><span>청구 예정</span><span class="amount">1건 <i class="sample">샘플</i></span></div><div class="list-row"><span>입금 확인</span><span class="amount">1건 <i class="sample">샘플</i></span></div><div class="list-row"><span>미수 확인</span><span class="amount">1건 <i class="sample">샘플</i></span></div></div>
+</section>
+</main>
+<nav class="nav"><button class="active" data-page="today"><span class="nav-icon">⌂</span>오늘</button><button data-page="field"><span class="nav-icon">▣</span>현장</button><button data-page="blog"><span class="nav-icon">✎</span>블로그</button><button data-page="settlement"><span class="nav-icon">₩</span>정산</button></nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const state={photos:0,blogAttached:false};
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2100)}
+function refresh(){const p=state.photos;$("#homeProgress").textContent=p+" / 6";$("#fieldProgress").textContent=p+" / 6";$("#homeBar").style.width=(p/6*100)+"%";$("#fieldBar").style.width=(p/6*100)+"%";if(p===6)$("#blogStatus").textContent="사진 준비 완료";$("#blogStatus").classList.toggle("ok",p===6)}
+function go(id){$$(".page").forEach(x=>x.classList.toggle("active",x.id===id));$$(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
+$$(".nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+$$("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+$$(".category").forEach(b=>b.addEventListener("click",()=>b.classList.toggle("selected")));
+$$("[data-photo]").forEach(input=>input.addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const tile=e.target.closest(".photo-tile"),img=tile.querySelector("img");img.src=URL.createObjectURL(f);img.classList.remove("hidden");tile.querySelector(".photo-in").classList.add("hidden");tile.querySelector(".check").classList.remove("hidden");if(!tile.dataset.counted){tile.dataset.counted="1";state.photos++;refresh()}}));
+$("#donePhoto").addEventListener("click",()=>{if(state.photos<6){toast("필수 사진을 더 찍어주세요");return}toast("사진 세트를 확인했어요");go("blog")});
+$("#attachPhotos").addEventListener("click",()=>{if(state.photos===0){toast("현장 탭에서 사진을 먼저 찍어주세요");return}state.blogAttached=true;$("#blogStatus").textContent="초안 연결됨";$("#blogStatus").classList.add("ok");toast("사진을 블로그 초안에 연결했어요")});
+$("#saveNote").addEventListener("click",()=>{try{localStorage.setItem("ops-blog-note",$("#blogNote").value)}catch{}toast("이 기기에 메모를 저장했어요")});
+$("#uploadBank").addEventListener("click",()=>$("#bankFile").click());$("#bankFile").addEventListener("change",()=>{if($("#bankFile").files.length)toast("파일 선택 완료 · 대조는 시연용입니다")});
+$("#todayDate").textContent=new Intl.DateTimeFormat("ko-KR",{month:"long",day:"numeric",weekday:"short"}).format(new Date());
+try{$("#blogNote").value=localStorage.getItem("ops-blog-note")||""}catch{}refresh();
+</script>
+</body></html>
