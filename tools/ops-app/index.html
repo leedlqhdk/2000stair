@@ -29,10 +29,10 @@
 <section class="page" id="field">
 <div class="eyebrow">현장 기록</div><div class="title-row"><h1 class="title">사진 촬영</h1><span class="date">남편 · 현장 담당</span></div>
 <div class="card"><div class="card-head"><div class="card-title">현장 정보</div><span class="pill">작업 중</span></div>
-<div class="job-name">마장면 현장</div>
+<div class="job-name">마장면 현장</div><label class="field-label" for="photoClient">고객·현장 기록 대상</label><select class="select" id="photoClient"><option>마장면 A빌라 관리사무소 · 마장면</option><option>부발읍 사무실 고객 · 부발읍</option><option>직접 추가한 고객·현장</option></select>
 <label class="field-label" for="region">지역</label><select class="select" id="region"><optgroup label="이천시"><option>이천시 마장면</option><option>이천시 부발읍</option><option>이천시 신둔면</option><option>이천시 증포동</option><option>이천시 중리동</option><option>이천시 창전동</option><option>이천시 백사면</option><option>이천시 대월면</option></optgroup><optgroup label="광주시 (경기)"><option>광주시 경안동</option><option>광주시 오포읍</option><option>광주시 초월읍</option><option>광주시 곤지암읍</option><option>광주시 퇴촌면</option><option>광주시 능평동</option></optgroup></select><div class="custom-row"><input id="customRegion" placeholder="다른 지역 직접 추가"><button id="addRegion">추가</button></div>
 <label class="field-label">작업 종류 · 여러 개 선택</label><div class="category-list" id="categories"><button class="category selected">계단</button><button class="category">빌라 계단</button><button class="category">사무실</button><button class="category">유리</button><button class="category selected">화장실</button></div><div class="custom-row"><input id="customWork" placeholder="작업 종류 직접 추가"><button id="addWork">추가</button></div>
-<div class="notice">촬영한 사진은 이 기기의 미리보기에서만 보입니다. 고객의 정확한 주소는 블로그에 표시하지 않아요.</div></div>
+<div class="notice">사진은 선택한 고객·현장 기록에 연결됩니다. 현재 시제품에서는 이 기기에 저장되며, 두 분이 함께 보는 클라우드 저장은 다음 단계에서 연결해야 합니다.</div></div>
 <div class="card"><div class="card-head"><div class="card-title">필수 사진</div><span class="date">6장</span></div>
 <div class="field-label">작업 전</div><div class="photo-row">
 <label class="photo-tile"><span class="photo-in"><strong>＋</strong>계단 전체</span><input type="file" accept="image/*" capture="environment" data-photo><img class="hidden"><span class="check hidden">✓</span></label>
@@ -58,9 +58,10 @@
 <section class="page" id="settlement">
 <div class="eyebrow">월별 정산</div><div class="title-row"><h1 class="title">정산</h1><span class="date">2026년 10월</span></div>
 <div class="hero"><div><div class="hero-label">이번 달 청구</div><div class="hero-number">내역 2건</div></div><div class="hero-side">샘플 자료<br>실제 금액 아님</div></div>
-<div class="card"><div class="card-head"><div class="card-title">확인 목록</div><button class="text-link" id="uploadBank">거래내역 파일</button><input type="file" id="bankFile" accept=".csv,.xlsx,.xls" class="hidden"></div>
-<div class="list-row"><span>마장면 현장 · 입금 확인</span><span class="status">대조 필요</span></div>
-<div class="list-row"><span>부발읍 현장 · 세금계산서</span><span class="status ok">발행 확인</span></div>
+<div class="card"><div class="card-head"><div class="card-title">고객·현장별 정산</div><button class="text-link" id="uploadBank">거래내역 파일</button><input type="file" id="bankFile" accept=".csv,.xlsx,.xls" class="hidden"></div>
+<div class="list-row"><span><b>마장면 A빌라 관리사무소</b><br><small>담당자·연락처·주소 상세 입력 가능</small></span><span class="status">세금계산서 대상</span></div><div class="notice">사업자 정보와 청구 담당자 상세는 고객 카드에서 관리하도록 설계했어요. 이 화면의 고객은 모두 샘플입니다.</div>
+<div class="list-row"><span><b>부발읍 사무실 고객</b><br><small>현장 사진 · 입금 확인 필요</small></span><span class="status ok">개인 고객</span></div>
+<div class="list-row"><span>마장면 A빌라 · 계산서 발행 상태</span><span class="status">미발행</span></div>
 <div class="notice">은행 입금 자동 조회와 전자세금계산서 발행은 아직 연결되지 않았어요. 파일 선택은 화면 시연용입니다.</div>
 </div>
 <div class="card"><div class="card-head"><div class="card-title">이번 달 흐름</div></div><div class="list-row"><span>청구 예정</span><span class="amount">1건 <i class="sample">샘플</i></span></div><div class="list-row"><span>입금 확인</span><span class="amount">1건 <i class="sample">샘플</i></span></div><div class="list-row"><span>미수 확인</span><span class="amount">1건 <i class="sample">샘플</i></span></div></div>
