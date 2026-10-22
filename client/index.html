@@ -30,6 +30,28 @@
     <meta name="color-scheme" content="light" />
 <meta name="supported-color-schemes" content="light" />
 
+    <!-- 첫 화면 가림막: 빌드 때 #root 안에 넣는 검색엔진용 글자(scripts/prerender-seo.ts)가
+         사이트 화면이 뜨기 전에 잠깐 보이지 않도록 덮는다. 사이트 화면이 뜨면 #root 내용과 함께 사라진다. -->
+    <style>
+      .boot-cover { position: fixed; inset: 0; z-index: 2147483647; background: #ffffff; }
+      /* PC로 홈에 처음 들어오면 인트로와 같은 남색으로 시작해 인트로 화면으로 바로 이어지게 한다 */
+      .boot-intro .boot-cover { background: #101f3d; }
+    </style>
+    <noscript><style>.boot-cover { display: none; }</style></noscript>
+    <script>
+      // IntroLoader의 shouldShowIntro()와 같은 조건 (홈은 처음 렌더링부터 인트로를 띄운다)
+      try {
+        if (location.pathname === "/" && !matchMedia("(max-width: 767px)").matches && !sessionStorage.getItem("introShown")) {
+          document.documentElement.classList.add("boot-intro");
+        }
+      } catch (e) {}
+      // 사이트 파일을 끝내 받지 못하면(네트워크 오류 등) 검색엔진용 글자라도 보이도록 5초 뒤 가림막을 걷는다
+      setTimeout(function () {
+        var cover = document.querySelector("#root > .boot-cover");
+        if (cover) cover.remove();
+      }, 5000);
+    </script>
+
     <!-- Primary SEO -->
     <title>이천계단지기 | 이천 계단청소·유리창청소·사무실청소 전문</title>
     <meta name="description" content="이천 빌라·상가 계단청소 정기관리. 부부가 직접 관리하고 초도청소 후 청소 전후 사진을 제공합니다." />

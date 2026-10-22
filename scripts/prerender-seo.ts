@@ -691,7 +691,8 @@ function buildStaticBody(seo: StaticSeo, context: StaticBodyContext) {
       ? getAreaStaticSections(context.route.split("/").pop() ?? "", context.workPosts)
       : getGeneralStaticSections(context.route, context.workPosts);
 
-  return `<div id="root"><main data-prerender="seo" style="max-width:720px;margin:0 auto;padding:48px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a2b4a">
+  // boot-cover: 사이트 화면이 뜨기 전 이 글자들이 잠깐 보이지 않도록 덮는 가림막 (스타일은 client/index.html)
+  return `<div id="root"><div class="boot-cover" aria-hidden="true"></div><main data-prerender="seo" style="max-width:720px;margin:0 auto;padding:48px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a2b4a">
   <h1 style="font-size:1.45rem">${h1}</h1>
   <p>${description}</p>${body}
 </main></div>`;
