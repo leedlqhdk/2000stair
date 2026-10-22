@@ -21,18 +21,22 @@ const heroSlides = [
     title: "이천 계단청소 전문업체",
     text: "주소와 건물 사진을 보내주시면 관리 범위와 방문 가능 여부를 안내해드립니다.",
     image: "/images/hero-full-1",
+    // 원본이 1920px이라 큰 화면용 크기는 없다
+    widths: [1280, 1920],
     alt: "이천 빌라 계단 난간을 직접 청소하는 이천계단지기",
   },
   {
     title: "빌라·상가·원룸 정기관리",
     text: "현장 상황과 오염 상태를 확인해 관리 범위와 주기를 안내드립니다.",
     image: "/images/hero-full-2",
+    widths: [1280, 1920, 2560, 3840],
     alt: "이천 상가 출입문 유리를 청소하는 이천계단지기",
   },
   {
     title: "하청 없이 부부가 직접 방문",
     text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다.",
     image: "/images/hero-full-3",
+    widths: [1280, 1920, 2560, 3840],
     alt: "청소 장비를 챙겨 직접 방문하는 이천계단지기",
   },
 ];
@@ -94,7 +98,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 {isDesktop && (index === 0 || restReady) && (
                   <img
                     src={`${slide.image}-1920.webp`}
-                    srcSet={`${slide.image}-1280.webp 1280w, ${slide.image}-1920.webp 1920w`}
+                    // 큰 모니터·고해상도 노트북은 2560·3840px, 일반 화면은 1280·1920px를 고른다
+                    srcSet={slide.widths.map((width) => `${slide.image}-${width}.webp ${width}w`).join(", ")}
                     sizes="100vw"
                     alt={slide.alt}
                     width={1920}
