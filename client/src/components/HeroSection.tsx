@@ -1,7 +1,7 @@
 import { HOME_EASE, useHomeMotion } from "@/components/HomeMotion";
 import { motion } from "framer-motion";
 import { Check, MessageCircle, Phone } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import VisitorCounter from "@/components/VisitorCounter";
 import { notifyFloatingQuietChange } from "@/lib/floatingQuiet";
 import { trackConversion } from "@/lib/analytics";
@@ -47,6 +47,11 @@ const REVEAL_QUERY = "(min-height: 640px)";
 const DESKTOP_QUERY = "(min-width: 768px)";
 // 투명 상단 바 아래까지 사진이 화면 전체를 채운다
 const SLIDE_HEIGHT = "h-svh min-h-[560px]";
+// 상담 버튼·배지 묶음의 바닥 여백. 창이 세로로 길어질수록(창을 좁히거나 태블릿을 세로로 세우면)
+// 글자·버튼이 화면 맨 아래에 몰리지 않도록 묶음 전체를 위로 올린다. 보통 PC 화면(가로가 세로의 4/3배 이상)은 3rem 그대로다.
+const CTA_BOTTOM = "calc(3rem + max(0px, 100svh - 75vw) * 0.35)";
+// 장면 문구는 상담 버튼·배지 묶음(실제 높이는 --hero-cta-h) 위로 3.75rem 띄워 서로 겹치지 않게 한다
+const TEXT_BOTTOM = `calc(${CTA_BOTTOM} + var(--hero-cta-h, 5.75rem) + 3.75rem)`;
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
@@ -72,6 +77,20 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   const reveal = !reduced && tallEnough;
   // 첫 사진(LCP)을 먼저 받고 나서 나머지 두 장을 받는다
   const [restReady, setRestReady] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  // 상담 버튼·배지 묶음의 실제 높이를 재서 --hero-cta-h로 넘긴다 (창 너비에 따라 배지가 두 줄이 되어도 문구와 겹치지 않게)
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const cta = ctaRef.current;
+    if (!section || !cta) return;
+    const update = () => section.style.setProperty("--hero-cta-h", `${cta.offsetHeight}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(cta);
+    return () => observer.disconnect();
+  }, []);
 
   // 첫 화면이 그려지거나 효과 여부가 바뀌면 오른쪽 아래 상담 버튼이 다시 확인하도록 알린다
   useEffect(() => {
@@ -84,6 +103,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   return (
     <div>
       <section
+        ref={sectionRef}
         // 첫 화면에는 상담 버튼이 이미 있으므로, 오른쪽 아래 상담 버튼은 아이콘으로 줄여 사진을 가리지 않게 한다
         data-floating-quiet
         // 투명 상단 바가 이 위에서는 흰 로고·흰 버튼으로 바뀐다
@@ -127,7 +147,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                 <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-slate-950/55 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-slate-950/80 via-slate-950/35 to-transparent" />
 
-                <div className="container relative flex h-full max-w-6xl flex-col justify-end pb-[12.5rem]">
+                <div
+                  className="container relative flex h-full max-w-6xl flex-col justify-end"
+                  style={{ paddingBottom: TEXT_BOTTOM }}
+                >
                   <TitleTag className="break-keep font-['GmarketSans'] text-[clamp(2.25rem,4.6vw,4rem)] font-bold leading-[1.15] text-white drop-shadow-[0_2px_16px_rgba(2,6,23,0.35)]">
                     {index === 0 ? (
                       <span className="block overflow-hidden py-[0.06em]">
@@ -156,49 +179,53 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
         {/* 상담 버튼과 신뢰 배지는 세 장면 내내 같은 자리에 둔다 */}
         <div className={`${ctaLayer} pointer-events-none z-10`}>
           <motion.div
-            className="container flex h-full max-w-6xl flex-col justify-end pb-12"
+            className="container flex h-full max-w-6xl flex-col justify-end"
+            style={{ paddingBottom: CTA_BOTTOM }}
             initial={reduced ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: HOME_EASE }}
           >
-            <div className="pointer-events-auto flex max-w-xl flex-col gap-3 xl:flex-row">
-              <a
-                href={KAKAO_CHANNEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  trackConversion("kakao_click", {
-                    location: "desktop_hero",
-                    label: "주소·사진 보내고 무료 견적받기",
-                  })
-                }
-                className="inline-flex min-h-14 flex-[1.35] items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-slate-950/30 transition hover:-translate-y-0.5 hover:bg-primary/90"
-              >
-                <MessageCircle className="h-5 w-5 shrink-0" />
-                주소·사진 보내고 무료 견적받기
-              </a>
-              <a
-                href={`tel:${PHONE_NUMBER}`}
-                onClick={() =>
-                  trackConversion("phone_click", {
-                    location: "desktop_hero",
-                    label: "전화로 방문견적 문의",
-                  })
-                }
-                className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-extrabold text-foreground shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-blue-50"
-              >
-                <Phone className="h-5 w-5 shrink-0 text-primary" />
-                전화로 방문견적 문의
-              </a>
-            </div>
+            <div ref={ctaRef}>
+              {/* 좁은 창에서도 두 버튼을 한 줄로 둔다 (세로로 쌓으면 묶음이 높아져 문구를 가린다) */}
+              <div className="pointer-events-auto flex max-w-xl gap-3">
+                <a
+                  href={KAKAO_CHANNEL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackConversion("kakao_click", {
+                      location: "desktop_hero",
+                      label: "주소·사진 보내고 무료 견적받기",
+                    })
+                  }
+                  className="inline-flex min-h-14 flex-[1.35] items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-slate-950/30 transition hover:-translate-y-0.5 hover:bg-primary/90"
+                >
+                  <MessageCircle className="h-5 w-5 shrink-0" />
+                  주소·사진 보내고 무료 견적받기
+                </a>
+                <a
+                  href={`tel:${PHONE_NUMBER}`}
+                  onClick={() =>
+                    trackConversion("phone_click", {
+                      location: "desktop_hero",
+                      label: "전화로 방문견적 문의",
+                    })
+                  }
+                  className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-extrabold text-foreground shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-blue-50"
+                >
+                  <Phone className="h-5 w-5 shrink-0 text-primary" />
+                  전화로 방문견적 문의
+                </a>
+              </div>
 
-            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
-              {heroBadges.map((badge) => (
-                <span key={badge} className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/85">
-                  <Check className="h-3.5 w-3.5 flex-shrink-0 text-sky-300" />
-                  {badge}
-                </span>
-              ))}
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
+                {heroBadges.map((badge) => (
+                  <span key={badge} className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/85">
+                    <Check className="h-3.5 w-3.5 flex-shrink-0 text-sky-300" />
+                    {badge}
+                  </span>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
