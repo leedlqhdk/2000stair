@@ -3,17 +3,31 @@ import { Link } from "wouter";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useHomeMotion } from "@/components/HomeMotion";
+import { navGroups } from "@/data/navMenu";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
 import { getWorkPath } from "@/lib/workSlug";
+
+// 지역 이름은 상단 메뉴의 관리지역 목록(/area/<slug>)에서 가져온다
+const AREA_LABELS: Record<string, string> = {
+  downtown: "이천 시내권",
+  ...Object.fromEntries(
+    navGroups
+      .flatMap((group) => group.items)
+      .filter((item) => item.href.startsWith("/area/"))
+      .map((item) => [item.href.slice("/area/".length), item.label])
+  ),
+};
 
 // 타임라인에서 돌아가는 최신 작업일지 개수
 const POST_COUNT = 8;
 // 카드가 화면에 들어온 뒤 맨 위(가장 최신) 글을 읽을 시간을 두고 움직이기 시작한다
 const START_DELAY_MS = 1500;
 
-// 날짜와 제목만 보여준다 (제목에 지역 이름이 들어 있어 따로 적지 않는다)
 function WorkLogRow({ post, duplicate = false }: { post: AreaPost; duplicate?: boolean }) {
+  const areaLabel = post.area ? AREA_LABELS[post.area] : undefined;
+  const kind = post.workType || post.buildingType;
+
   return (
     <Link
       href={getWorkPath(post)}
@@ -22,8 +36,12 @@ function WorkLogRow({ post, duplicate = false }: { post: AreaPost; duplicate?: b
       tabIndex={duplicate ? -1 : undefined}
       className="group grid grid-cols-[116px_minmax(0,1fr)] gap-8 focus:outline-none"
     >
-      <p className="pt-0.5 text-base font-bold text-slate-500">{post.date}</p>
-      <div className="relative pb-8 pl-8 before:absolute before:left-[5px] before:top-3 before:h-full before:w-px before:bg-blue-100">
+      <div className="pt-0.5">
+        <p className="text-base font-bold text-slate-500">{post.date}</p>
+        {areaLabel ? <p className="mt-1.5 text-sm font-extrabold text-primary">{areaLabel}</p> : null}
+        {kind ? <p className="mt-0.5 text-xs font-semibold text-slate-400">{kind}</p> : null}
+      </div>
+      <div className="relative pb-9 pl-8 before:absolute before:left-[5px] before:top-3 before:h-full before:w-px before:bg-blue-100">
         <span className="absolute left-0 top-[5px] h-[11px] w-[11px] rounded-full bg-primary ring-4 ring-blue-50" />
         <h3 className="text-xl font-extrabold leading-snug text-foreground transition-colors group-hover:text-primary group-focus-visible:text-primary">
           {post.title}
@@ -33,6 +51,9 @@ function WorkLogRow({ post, duplicate = false }: { post: AreaPost; duplicate?: b
             className="ml-1.5 inline-block h-5 w-5 -translate-x-1 align-[-0.15em] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
           />
         </h3>
+        {post.description ? (
+          <p className="mt-2.5 line-clamp-2 text-[15px] leading-relaxed text-muted-foreground">{post.description}</p>
+        ) : null}
       </div>
     </Link>
   );
@@ -62,8 +83,7 @@ export default function HomeWorkLogTimeline() {
   // 같은 목록을 두 벌 이어 붙이고 -50%(목록 한 벌 높이)까지 올려 끊김 없이 반복한다.
   // 움직임 줄이기 설정이면 한 벌만 두고 직접 스크롤하게 한다.
   const sets = reduced ? [false] : [false, true];
-  // 제목만 있어 금방 읽히므로 글 하나가 지나가는 데 3초 정도
-  const scrollDuration = Math.max(latest.length * 3, 20);
+  const scrollDuration = Math.max(latest.length * 5, 20);
 
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
     if (event.currentTarget.contains(event.relatedTarget as Node | null)) return;

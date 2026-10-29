@@ -79,7 +79,7 @@ async function fetchWorkPosts(): Promise<WorkPost[]> {
   }
 
   try {
-    const response = await fetch(`${SITE_URL}/api/area-posts?limit=50`);
+    const response = await fetch(`${SITE_URL}/api/area-posts?limit=200`);
     if (!response.ok) throw new Error(`status ${response.status}`);
     const posts = (await response.json()) as WorkPost[];
     cachedPosts = { posts, fetchedAt: Date.now() };
