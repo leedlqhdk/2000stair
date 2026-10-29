@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, ArrowRight, CalendarDays, Images, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
@@ -128,8 +130,17 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
 
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { posts, isLoading } = useAllWorkPosts("work-detail");
-  const post = posts.find((item) => getWorkSlug(item) === slug);
+  const queryClient = useQueryClient();
+  const { posts, isLoading, isPlaceholderData } = useAllWorkPosts("work-detail");
+  // 홈·지역·작업일지 목록에서 이미 불러온 글이면 노션 응답을 기다리지 않고 바로 보여준다
+  const cachedPost = useMemo(() => {
+    for (const [, data] of queryClient.getQueriesData<AreaPost[]>({ queryKey: ["area-posts"] })) {
+      const found = data?.find((item) => getWorkSlug(item) === slug);
+      if (found) return found;
+    }
+    return undefined;
+  }, [queryClient, slug]);
+  const post = posts.find((item) => getWorkSlug(item) === slug) ?? cachedPost;
   // 노션 설명은 빈 줄 기준으로 문단을 나눠, 첫 문단은 상단 소개로 쓰고 나머지는 본문 섹션에 표시
   const descriptionParagraphs = (post?.description ?? "")
     .split(/\n{2,}/)
@@ -148,7 +159,8 @@ export default function WorkDetail() {
     ["작업 형태", post.workType || getDefaultWorkType(post.title)],
   ] : [];
 
-  if (isLoading) {
+  // 노션 응답 전(기본 작업 기록만 있는 상태)에는 '찾을 수 없습니다' 대신 로딩 화면을 보여준다
+  if (!post && (isLoading || isPlaceholderData)) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
         <Navbar />
