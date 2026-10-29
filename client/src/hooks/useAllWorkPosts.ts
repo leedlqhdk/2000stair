@@ -19,7 +19,11 @@ export function mergeWorkPosts(posts: AreaPost[] = []) {
   return [...posts, ...missingFallbackPosts].sort((a, b) => b.date.localeCompare(a.date));
 }
 
-export function useAllWorkPosts(queryScope = "all") {
+/**
+ * @param live true면 작업일지 페이지처럼 15초마다 다시 불러와 새 노션 글을 바로 보여준다.
+ *   홈처럼 방문자가 많은 곳은 false로 한 번만 불러와 노션 요청을 줄인다.
+ */
+export function useAllWorkPosts(queryScope = "all", { live = true }: { live?: boolean } = {}) {
   const query = useQuery({
     queryKey: ["area-posts", queryScope],
     queryFn: async () => {
@@ -28,10 +32,10 @@ export function useAllWorkPosts(queryScope = "all") {
       return (await response.json()) as AreaPost[];
     },
     placeholderData: fallbackWorkPosts,
-    staleTime: 0,
-    refetchOnMount: "always",
-    refetchOnWindowFocus: true,
-    refetchInterval: 15_000,
+    staleTime: live ? 0 : 5 * 60_000,
+    refetchOnMount: live ? "always" : true,
+    refetchOnWindowFocus: live,
+    refetchInterval: live ? 15_000 : false,
     retry: 1,
   });
 

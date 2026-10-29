@@ -9,6 +9,7 @@ const homeSections = [
   { id: "home-services", title: "청소 서비스" },
   { id: "home-before-after", title: "청소 전후 사진" },
   { id: "home-reviews", title: "실제 고객 후기" },
+  { id: "home-work-log", title: "최신 작업일지" },
   { id: "home-contact", title: "방문견적 문의" },
 ] as const;
 
