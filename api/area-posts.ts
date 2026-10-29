@@ -1,3 +1,5 @@
+import { getWorkSlug } from "../shared/workSlug.js";
+
 type ApiRequest = {
   query: Record<string, string | string[] | undefined>;
 };
@@ -192,51 +194,92 @@ function parsePage(page: NotionPage): AreaPost | null {
   };
 }
 
-async function fetchAreaPostsFromNotion() {
+// 노션은 한 번에 100개까지만 주므로, 다음 페이지가 있으면 이어서 받아 작업일지 전체를 모은다
+async function queryAllNotionPages(token: string, databaseId: string): Promise<NotionPage[] | null> {
+  const pages: NotionPage[] = [];
+  let cursor: string | undefined;
+
+  // 혹시 모를 무한 반복을 막는 상한 (100개 × 10번 = 1,000개)
+  for (let request = 0; request < 10; request += 1) {
+    const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Notion-Version": "2022-06-28",
+      },
+      body: JSON.stringify(cursor ? { page_size: 100, start_cursor: cursor } : { page_size: 100 }),
+    });
+
+    if (!response.ok) {
+      console.warn("[AreaPosts] Notion request failed", response.status, await response.text());
+      return null;
+    }
+
+    const data = (await response.json()) as { results?: NotionPage[]; has_more?: boolean; next_cursor?: string | null };
+    pages.push(...(data.results ?? []));
+    if (!data.has_more || !data.next_cursor) break;
+    cursor = data.next_cursor;
+  }
+
+  return pages;
+}
+
+/** ok가 false면 노션을 읽지 못해 목록이 비었거나 예전 것일 수 있다 */
+async function fetchAreaPostsFromNotion(): Promise<{ posts: AreaPost[]; ok: boolean }> {
   const token = process.env.NOTION_API_KEY || process.env.NOTION_TOKEN;
   const databaseId = process.env.NOTION_AREA_DATABASE_ID;
 
-  if (!token || !databaseId) return [];
-  if (cache && Date.now() - cache.fetchedAt < CACHE_TTL_MS) return cache.posts;
+  if (!token || !databaseId) return { posts: [], ok: false };
+  if (cache && Date.now() - cache.fetchedAt < CACHE_TTL_MS) return { posts: cache.posts, ok: true };
 
-  const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "Notion-Version": "2022-06-28",
-    },
-    body: JSON.stringify({ page_size: 100 }),
-  });
+  const pages = await queryAllNotionPages(token, databaseId);
+  if (!pages) return { posts: cache?.posts ?? [], ok: false };
 
-  if (!response.ok) {
-    console.warn("[AreaPosts] Notion request failed", response.status, await response.text());
-    return cache?.posts ?? [];
-  }
-
-  const data = (await response.json()) as { results?: NotionPage[] };
-  const posts = (data.results ?? [])
+  const posts = pages
     .map(parsePage)
     .filter((post): post is AreaPost => Boolean(post))
     .sort((a, b) => b.date.localeCompare(a.date));
 
   cache = { fetchedAt: Date.now(), posts };
-  return posts;
+  return { posts, ok: true };
+}
+
+function firstParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
 }
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
-  try {
-    const areaParam = Array.isArray(req.query.area) ? req.query.area[0] : req.query.area;
-    const limitParam = Array.isArray(req.query.limit) ? req.query.limit[0] : req.query.limit;
-    const area = areaParam ? normalizeArea(areaParam) : undefined;
-    const limit = Math.min(Math.max(Number(limitParam) || 24, 1), 50);
-    const posts = await fetchAreaPostsFromNotion();
-    const filtered = area ? posts.filter((post) => post.area === area) : posts;
+  const slug = firstParam(req.query.slug);
+  res.setHeader("Cache-Control", "no-store, max-age=0");
 
-    res.setHeader("Cache-Control", "no-store, max-age=0");
+  try {
+    const { posts, ok } = await fetchAreaPostsFromNotion();
+
+    // 작업일지 상세(/work/:slug): 개수 제한 없이 전체에서 주소에 맞는 글 하나를 찾는다
+    if (slug) {
+      const post = posts.find((item) => getWorkSlug(item) === slug);
+      if (post) {
+        res.status(200).json(post);
+        return;
+      }
+      // 정말 없는 글(404)과 노션을 잠시 못 읽은 경우(503)를 구분해, 화면이 '찾을 수 없습니다'를 잘못 띄우지 않게 한다
+      res.status(ok ? 404 : 503).json({ error: ok ? "not_found" : "unavailable" });
+      return;
+    }
+
+    const area = firstParam(req.query.area);
+    const normalizedArea = area ? normalizeArea(area) : undefined;
+    const limit = Math.min(Math.max(Number(firstParam(req.query.limit)) || 24, 1), 200);
+    const filtered = normalizedArea ? posts.filter((post) => post.area === normalizedArea) : posts;
+
     res.status(200).json(filtered.slice(0, limit));
   } catch (error) {
     console.error("[AreaPosts] Failed to load posts", error);
+    if (slug) {
+      res.status(503).json({ error: "unavailable" });
+      return;
+    }
     res.status(200).json([]);
   }
 }

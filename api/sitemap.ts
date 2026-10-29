@@ -62,7 +62,7 @@ async function fetchBlogEntries(): Promise<Array<{ id: number; lastmod: string }
 }
 
 async function fetchWorkEntries(): Promise<Array<{ path: string; lastmod: string }>> {
-  const response = await fetch(`${SITE_URL}/api/area-posts?limit=50`);
+  const response = await fetch(`${SITE_URL}/api/area-posts?limit=200`);
   if (!response.ok) return [];
 
   const posts = (await response.json()) as Array<{ title: string; area?: string; date: string }>;

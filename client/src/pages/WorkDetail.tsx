@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, ArrowRight, CalendarDays, Images, MessageCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
@@ -8,7 +8,7 @@ import Seo from "@/components/Seo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { responsiveImage } from "@/lib/responsiveImage";
 import type { AreaPost } from "@/hooks/useAreaPosts";
-import { useAllWorkPosts } from "@/hooks/useAllWorkPosts";
+import { fallbackWorkPosts } from "@/hooks/useAllWorkPosts";
 import { getWorkSeo, workAreaLabels as areaLabels, workAreaRoutes as areaRoutes } from "@/lib/workSeo";
 import { getWorkSlug } from "@/lib/workSlug";
 import { getWorkRelatedLinks } from "@shared/workRelatedLinks";
@@ -131,16 +131,28 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
   const queryClient = useQueryClient();
-  const { posts, isLoading, isPlaceholderData } = useAllWorkPosts("work-detail");
-  // 홈·지역·작업일지 목록에서 이미 불러온 글이면 노션 응답을 기다리지 않고 바로 보여준다
-  const cachedPost = useMemo(() => {
+  // 홈·지역·작업일지 목록에서 이미 불러온 글이나 기본 작업 기록에 있는 글이면 서버 응답을 기다리지 않고 바로 보여준다
+  const knownPost = useMemo(() => {
     for (const [, data] of queryClient.getQueriesData<AreaPost[]>({ queryKey: ["area-posts"] })) {
       const found = data?.find((item) => getWorkSlug(item) === slug);
       if (found) return found;
     }
-    return undefined;
+    return fallbackWorkPosts.find((item) => getWorkSlug(item) === slug);
   }, [queryClient, slug]);
-  const post = posts.find((item) => getWorkSlug(item) === slug) ?? cachedPost;
+  // 주소에 맞는 글 하나를 서버에서 직접 찾는다 (최신 몇십 개 목록에 없는 오래된 글도 열리도록)
+  const workPost = useQuery({
+    queryKey: ["work-post", slug],
+    queryFn: async () => {
+      const response = await fetch(`/api/area-posts?slug=${encodeURIComponent(slug)}`, { cache: "no-store" });
+      // 404는 정말 없는 글, 그 밖의 실패는 노션을 잠시 못 읽은 것이라 다시 시도한다
+      if (response.status === 404) return null;
+      if (!response.ok) throw new Error(`작업일지를 불러오지 못했습니다 (${response.status})`);
+      return (await response.json()) as AreaPost;
+    },
+    staleTime: 5 * 60_000,
+    retry: 2,
+  });
+  const post = workPost.data ?? knownPost;
   // 노션 설명은 빈 줄 기준으로 문단을 나눠, 첫 문단은 상단 소개로 쓰고 나머지는 본문 섹션에 표시
   const descriptionParagraphs = (post?.description ?? "")
     .split(/\n{2,}/)
@@ -159,8 +171,8 @@ export default function WorkDetail() {
     ["작업 형태", post.workType || getDefaultWorkType(post.title)],
   ] : [];
 
-  // 노션 응답 전(기본 작업 기록만 있는 상태)에는 '찾을 수 없습니다' 대신 로딩 화면을 보여준다
-  if (!post && (isLoading || isPlaceholderData)) {
+  // 서버 응답 전에는 '찾을 수 없습니다' 대신 로딩 화면을 보여준다
+  if (!post && workPost.isPending) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
         <Navbar />
@@ -171,6 +183,35 @@ export default function WorkDetail() {
           <div className="grid gap-4 md:grid-cols-2">
             <Skeleton className="aspect-[4/3] rounded-xl" />
             <Skeleton className="aspect-[4/3] rounded-xl" />
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  // 노션을 잠시 못 읽은 경우: 없는 글이라고 단정하지 않고 다시 시도하게 한다
+  if (!post && workPost.isError) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-white via-blue-50/20 to-white">
+        <Navbar />
+        <main className="container max-w-3xl pt-28 pb-16 text-center">
+          <p className="mb-2 text-lg font-bold text-foreground">작업일지를 불러오는 중 문제가 생겼습니다.</p>
+          <p className="mb-6 text-sm text-muted-foreground">잠시 후 다시 시도해 주세요.</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => workPost.refetch()}
+              disabled={workPost.isFetching}
+              className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-bold text-white transition hover:opacity-90 disabled:opacity-60"
+            >
+              {workPost.isFetching ? "다시 불러오는 중..." : "다시 시도"}
+            </button>
+            <Link
+              href="/records"
+              className="inline-flex rounded-full border border-blue-100 bg-white px-5 py-3 text-sm font-bold text-primary transition hover:bg-blue-50"
+            >
+              작업 기록으로 돌아가기
+            </Link>
           </div>
         </main>
       </div>
