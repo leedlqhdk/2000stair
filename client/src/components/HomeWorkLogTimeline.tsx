@@ -45,14 +45,15 @@ function WorkLogRow({ post, duplicate = false }: { post: AreaPost; duplicate?: b
         <span className="absolute left-0 top-[5px] h-[11px] w-[11px] rounded-full bg-primary ring-4 ring-blue-50" />
         <h3 className="text-xl font-extrabold leading-snug text-foreground transition-colors group-hover:text-primary group-focus-visible:text-primary">
           {post.title}
+          {/* 줄마다 '보기' 버튼을 두지 않고, 마우스를 올린 글에만 화살표를 띄워 누를 수 있음을 알린다 */}
+          <ArrowRight
+            aria-hidden="true"
+            className="ml-1.5 inline-block h-5 w-5 -translate-x-1 align-[-0.15em] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+          />
         </h3>
         {post.description ? (
           <p className="mt-2.5 line-clamp-2 text-[15px] leading-relaxed text-muted-foreground">{post.description}</p>
         ) : null}
-        <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-primary group-focus-visible:underline">
-          작업일지 보기
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-        </span>
       </div>
     </Link>
   );
