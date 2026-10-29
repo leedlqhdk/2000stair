@@ -6,6 +6,7 @@ import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
 import BlogReviews from "@/components/BlogReviews";
+import HomeWorkLogTimeline from "@/components/HomeWorkLogTimeline";
 import MobileHome from "@/components/MobileHome";
 import IntroLoader, { shouldShowIntro } from "@/components/IntroLoader";
 import CustomerConcernsSection from "@/components/CustomerConcernsSection";
@@ -65,6 +66,9 @@ export default function Home() {
               <div className="container max-w-6xl py-16 md:py-24">
                 <BlogReviews />
               </div>
+            </div>
+            <div id="home-work-log" className="scroll-mt-20">
+              <HomeWorkLogTimeline />
             </div>
             <div id="home-faq" className="scroll-mt-20">
               <HomeFaq />
