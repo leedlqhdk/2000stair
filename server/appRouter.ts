@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies.js";
 import { systemRouter } from "./_core/systemRouter.js";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc.js";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { PLANS } from "./products.js";
 import { getDb, upsertUser } from "./db.js";
 import { quoteRequests } from "../drizzle/schema.js";
@@ -20,6 +21,42 @@ import { settlementsRouter } from "./appSettlementsRouter.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
+
+// Best-effort local throttle. Production requires a shared limiter at the edge
+// or in a durable store because serverless instances do not share memory.
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const LOGIN_LOCK_MS = 15 * 60 * 1000;
+const LOGIN_MAX_FAILURES = 5;
+const loginAttempts = new Map<string, { failures: number; windowStart: number; lockedUntil: number }>();
+
+function loginThrottleKey(req: { socket?: { remoteAddress?: string }; headers?: Record<string, unknown> }) {
+  // Do not rely on user-controlled X-Forwarded-For for authentication throttling.
+  return req.socket?.remoteAddress || "unknown";
+}
+function checkLoginThrottle(key: string) {
+  const now = Date.now();
+  const entry = loginAttempts.get(key);
+  if (!entry) return;
+  if (entry.lockedUntil > now) {
+    throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "로그인 시도가 많습니다. 15분 후 다시 시도해주세요." });
+  }
+  if (now - entry.windowStart >= LOGIN_WINDOW_MS) loginAttempts.delete(key);
+}
+function recordLoginFailure(key: string) {
+  const now = Date.now();
+  const old = loginAttempts.get(key);
+  const entry = old && now - old.windowStart < LOGIN_WINDOW_MS ? old : { failures: 0, windowStart: now, lockedUntil: 0 };
+  entry.failures += 1;
+  if (entry.failures >= LOGIN_MAX_FAILURES) entry.lockedUntil = now + LOGIN_LOCK_MS;
+  loginAttempts.set(key, entry);
+  // Bound memory in long-running instances.
+  if (loginAttempts.size > 2000) {
+    for (const [k, v] of loginAttempts) {
+      if (now - v.windowStart > LOGIN_WINDOW_MS && v.lockedUntil <= now) loginAttempts.delete(k);
+    }
+    if (loginAttempts.size > 2000) loginAttempts.delete(loginAttempts.keys().next().value!);
+  }
+}
 function serializeCookie(
   name: string,
   value: string,
@@ -75,10 +112,13 @@ export const appRouter = router({
     passwordLogin: publicProcedure
       .input(z.object({ password: z.string().min(1, "비밀번호를 입력해주세요") }))
       .mutation(async ({ ctx, input }) => {
+        const throttleKey = loginThrottleKey(ctx.req);
+        checkLoginThrottle(throttleKey);
         if (!ENV.adminPassword) {
           throw new Error("관리자 비밀번호가 아직 설정되지 않았습니다.");
         }
         if (input.password !== ENV.adminPassword) {
+          recordLoginFailure(throttleKey);
           throw new Error("비밀번호가 올바르지 않습니다.");
         }
         await upsertUser({
@@ -106,8 +146,7 @@ export const appRouter = router({
           maxAge: Math.floor(ONE_YEAR_MS / 1000),
         });
         ctx.res.setHeader("Set-Cookie", cookieStr);
-        console.log("[LOGIN-DEBUG] Set-Cookie header:", cookieStr.substring(0, 120));
-        console.log("[LOGIN-DEBUG] secure:", cookieOptions.secure, "x-forwarded-proto:", ctx.req.headers?.["x-forwarded-proto"]);
+        loginAttempts.delete(throttleKey);
         return { success: true, user: createAdminUser() } as const;
       }),
     logout: publicProcedure.mutation(({ ctx }) => {
