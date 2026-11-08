@@ -45,5 +45,7 @@ export function useAllWorkPosts(queryScope = "all", { live = true }: { live?: bo
     posts,
     isLoading: query.isLoading,
     isFetching: query.isFetching,
+    // 노션 응답 전이라 기본 작업 기록(fallbackWorkPosts)만 보여주는 중인지
+    isPlaceholderData: query.isPlaceholderData,
   };
 }
