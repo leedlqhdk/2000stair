@@ -1,30 +1,9 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
 import { DaangnLogo, OFFICIAL_CHANNELS } from "@/components/ChannelLinks";
-
-type BlogPost = {
-  title: string;
-  link: string;
-  date: string;
-  summary: string;
-};
-
-function useLatestBlogPosts() {
-  return useQuery({
-    queryKey: ["blog-rss"],
-    queryFn: async () => {
-      const response = await fetch("/api/blog-rss?limit=8");
-      if (!response.ok) return [];
-      const data = (await response.json()) as { posts?: BlogPost[] };
-      return data.posts ?? [];
-    },
-    staleTime: 10 * 60 * 1000,
-    retry: 1,
-  });
-}
+import { useLatestBlogPosts, type BlogPost } from "@/hooks/useLatestBlogPosts";
 
 function PostCard({ post, location, fluid = false }: { post: BlogPost; location: string; fluid?: boolean }) {
   return (
