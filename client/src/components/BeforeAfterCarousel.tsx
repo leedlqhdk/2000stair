@@ -135,7 +135,6 @@ function CompareViewer({ item }: { item: BeforeAfterItem }) {
 export default function BeforeAfterCarousel({ items, className = "" }: BeforeAfterCarouselProps) {
   const reduced = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
   const slotRefs = useRef<Array<HTMLElement | null>>([]);
   const frameRefs = useRef<Array<HTMLDivElement | null>>([]);
   const clickedSlotRef = useRef<number | null>(null);
@@ -148,7 +147,6 @@ export default function BeforeAfterCarousel({ items, className = "" }: BeforeAft
   }));
   const { engineRef, suppressClickRef } = usePhotoCarousel({
     rootRef,
-    cursorRef,
     slotRefs,
     aspects: slots.map(({ item }) => aspectOf(item)),
     reduced,
@@ -256,7 +254,8 @@ export default function BeforeAfterCarousel({ items, className = "" }: BeforeAft
           ref={(el) => {
             slotRefs.current[index] = el;
           }}
-          data-carousel-card
+          // 사이트 공통 커서가 이 카드 위에서 원으로 바뀐다
+          data-cursor="card"
           draggable={false}
           // 끝없이 이어 보이려고 한 번 더 그린 카드는 화면에만 보이고, 스크린리더·키보드에서는 건너뛴다
           aria-hidden={duplicate || undefined}
@@ -280,7 +279,10 @@ export default function BeforeAfterCarousel({ items, className = "" }: BeforeAft
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: reduced ? 0 : 1, delay: reduced ? 0 : (index % items.length) * 0.08, ease: "easeOut" }}
           >
-            <SplitPhoto item={item} pos={50} sizes={CARD_SIZES} />
+            {/* 청소 서비스 카드와 같이, 마우스를 올리면 사진이 살짝 커진다 */}
+            <div className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]">
+              <SplitPhoto item={item} pos={50} sizes={CARD_SIZES} />
+            </div>
           </motion.div>
 
           {/* 사진 아래 제목: 글줄이 아래에서 올라오며 나타난다 */}
@@ -310,10 +312,6 @@ export default function BeforeAfterCarousel({ items, className = "" }: BeforeAft
           </div>
         </button>
       ))}
-
-      <div ref={cursorRef} aria-hidden="true" className="photo-carousel-cursor">
-        <span />
-      </div>
 
       <DialogPrimitive.Root
         open={current !== null}

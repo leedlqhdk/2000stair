@@ -39,7 +39,6 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const beforeRef = useRef<HTMLImageElement>(null);
   const afterRef = useRef<HTMLImageElement>(null);
-  const brushRef = useRef<HTMLDivElement>(null);
   const onReadyRef = useRef(onReady);
   onReadyRef.current = onReady;
   const [ready, setReady] = useState(false);
@@ -84,11 +83,8 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
       canvas.width = Math.round(wrap.clientWidth * dpr);
       canvas.height = Math.round(wrap.clientHeight * dpr);
       radius = Math.max(BRUSH_MIN, Math.min(BRUSH_MAX, wrap.clientWidth * BRUSH_RATIO)) * dpr;
-      if (brushRef.current) {
-        const size = (radius / dpr) * 2;
-        brushRef.current.style.width = `${size}px`;
-        brushRef.current.style.height = `${size}px`;
-      }
+      // 사이트 공통 커서가 이 위에서 붓 크기 원으로 바뀐다
+      wrap.dataset.cursorSize = String(Math.round((radius / dpr) * 2));
       if (drawn) drawBefore();
     };
 
@@ -167,10 +163,6 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
       const rect = canvas.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
-      if (brushRef.current && event.pointerType === "mouse") {
-        brushRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-        brushRef.current.style.opacity = "1";
-      }
       cancelAnimationFrame(demoRaf);
       stopRestore();
       const previous = last;
@@ -186,7 +178,6 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
     };
     const onPointerLeave = () => {
       last = null;
-      if (brushRef.current) brushRef.current.style.opacity = "0";
     };
 
     const start = async () => {
@@ -221,7 +212,8 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
   return (
     <div
       ref={wrapRef}
-      // 마우스 자리에는 둥근 붓 테두리를 보여준다. 터치는 세로 스크롤을 그대로 두고 옆으로 문지를 때만 닦인다
+      // 마우스 자리에는 사이트 공통 커서가 붓 크기 원으로 바뀐다. 터치는 세로 스크롤을 그대로 두고 옆으로 문지를 때만 닦인다
+      data-cursor="brush"
       className={`absolute inset-0 transition-opacity duration-700 pointer-fine:cursor-none ${ready ? "opacity-100" : "opacity-0"}`}
       style={{ touchAction: "pan-y" }}
     >
@@ -253,14 +245,6 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
         className="hidden"
       />
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
-
-      <div
-        ref={brushRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 z-20 flex items-center justify-center rounded-full border-2 border-white/80 opacity-0 shadow-[0_0_0_1px_rgba(15,23,42,0.15),0_8px_30px_rgba(15,23,42,0.25)] transition-opacity duration-200"
-      >
-        <span className="h-1.5 w-1.5 rounded-full bg-white/90" />
-      </div>
 
       <div
         aria-hidden="true"

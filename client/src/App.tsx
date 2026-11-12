@@ -12,6 +12,7 @@ import { initAnalytics, trackPageview } from "@/lib/analytics";
 import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import SiteCursor from "./components/SiteCursor";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -343,6 +344,8 @@ function AppChrome() {
       {!hideFooter && <Footer />}
       {!hideChrome && <ScrollToTopButton />}
       {!hideChrome && <KakaoChat />}
+      {/* PC 마우스에서만 보이는 사이트 공통 커서 (사진 카드·첫 화면 바닥 닦기에서 모양이 바뀐다). 관리자·명함 화면은 제외 */}
+      {!hideChrome && <SiteCursor />}
     </>
   );
 }

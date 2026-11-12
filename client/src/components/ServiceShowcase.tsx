@@ -4,7 +4,6 @@ import { Link, useLocation } from "wouter";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { HOME_EASE } from "@/components/HomeMotion";
-import { useFollowCursor } from "@/hooks/useFollowCursor";
 import { responsiveImage } from "@/lib/responsiveImage";
 
 export type ServiceCardItem = {
@@ -18,8 +17,6 @@ export type ServiceCardItem = {
   scope: string[];
   image: string;
   href: string;
-  /** 카드 사진 비율(가로/세로). 카드마다 달리해 세로·가로 사진이 번갈아 보이게 한다 */
-  aspect: number;
   /** 서비스 상세 페이지의 첫 화면 배경 사진. 카드에 마우스를 올리면 미리 받아 둔다 */
   heroImage: string;
 };
@@ -44,7 +41,7 @@ const PHOTO_TRANSITION_NAME = "service-photo";
 const TILT_PER_PX = 0.004;
 const TILT_MAX = 0.07;
 const TILT_LERP = 0.1;
-// 사진 자리는 가장 긴 세로 사진(2:3)에 맞춘다. 화면이 낮으면 제목·설명(약 23rem)을 뺀 높이에 맞춰 카드 줄 전체를 줄여
+// 사진은 네 장 모두 세로로 긴 2:3으로 맞춘다. 화면이 낮으면 제목·설명(약 23rem)을 뺀 높이에 맞춰 카드 줄 전체를 줄여
 // 네 장과 설명이 한 화면에 다 들어오게 한다. 7.5rem은 카드 사이 간격 3개(2.5rem)
 const ROW_WIDTH = "min(100%, calc((100svh - 3.5rem - 23rem) / 1.5 * 4 + 7.5rem))";
 
@@ -128,18 +125,16 @@ function useScrollTilt(rootRef: RefObject<HTMLElement | null>, tiltRefs: RefObje
 }
 
 // 데스크톱 전용 청소 서비스 섹션: 네 가지 서비스 사진을 한 줄에 모두 보여주고, 사진 아래에 무엇을 관리하는지 적는다.
-// 사진은 세로·가로가 섞여 아래쪽이 나란히 맞고, 스크롤하면 살짝 기울었다가 멈추면 평평해진다(참고: Codrops WebGPU 페이지 전환 데모).
+// 사진은 모두 세로로 긴 2:3으로 맞추고, 스크롤하면 살짝 기울었다가 멈추면 평평해진다(참고: Codrops WebGPU 페이지 전환 데모).
 // 카드를 누르면 그 사진이 화면 가득 커지며 서비스 상세 페이지의 배경으로 이어진다(View Transitions).
 export default function ServiceShowcase({ items, className = "" }: ServiceShowcaseProps) {
   const reduced = useReducedMotion();
   const [, navigate] = useLocation();
   const rootRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
   const tiltRefs = useRef<Array<HTMLDivElement | null>>([]);
   const frameRefs = useRef<Array<HTMLDivElement | null>>([]);
   const transitioningRef = useRef(false);
 
-  useFollowCursor(rootRef, cursorRef);
   useScrollTilt(rootRef, tiltRefs, reduced);
 
   const openService = async (
@@ -214,42 +209,38 @@ export default function ServiceShowcase({ items, className = "" }: ServiceShowca
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    data-carousel-card
+                    // 사이트 공통 커서가 이 카드 위에서 원으로 바뀐다
+                    data-cursor="card"
                     draggable={false}
                     aria-label={`이천 ${plainTitle} 정기관리 상세 안내`}
                     onPointerEnter={() => preloadService(item)}
                     onClick={(event) => openService(event, item, frameRefs.current[index])}
                     className="group block rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4"
                   >
-                    {/* 사진 자리는 가장 긴 세로 사진 높이로 두고 사진을 아래에 붙여, 서비스명 줄이 나란히 오게 한다 */}
-                    <div className="flex aspect-[2/3] items-end">
-                      <div
-                        ref={(el) => {
-                          tiltRefs.current[index] = el;
+                    <div
+                      ref={(el) => {
+                        tiltRefs.current[index] = el;
+                      }}
+                    >
+                      <motion.div
+                        ref={(el: HTMLDivElement | null) => {
+                          frameRefs.current[index] = el;
                         }}
-                        className="w-full"
+                        className="aspect-[2/3] overflow-hidden rounded-lg bg-slate-200"
+                        initial={reduced ? false : { opacity: 0, y: 28 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: reduced ? 0 : 0.9, delay: reduced ? 0 : index * 0.08, ease: HOME_EASE }}
                       >
-                        <motion.div
-                          ref={(el: HTMLDivElement | null) => {
-                            frameRefs.current[index] = el;
-                          }}
-                          className="overflow-hidden rounded-lg bg-slate-200"
-                          style={{ aspectRatio: item.aspect }}
-                          initial={reduced ? false : { opacity: 0, y: 28 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true, amount: 0.3 }}
-                          transition={{ duration: reduced ? 0 : 0.9, delay: reduced ? 0 : index * 0.08, ease: HOME_EASE }}
-                        >
-                          <img
-                            src={item.image}
-                            alt={`이천 ${plainTitle} 정기관리 서비스`}
-                            loading="lazy"
-                            decoding="async"
-                            draggable={false}
-                            className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                          />
-                        </motion.div>
-                      </div>
+                        <img
+                          src={item.image}
+                          alt={`이천 ${plainTitle} 정기관리 서비스`}
+                          loading="lazy"
+                          decoding="async"
+                          draggable={false}
+                          className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                        />
+                      </motion.div>
                     </div>
 
                     <motion.div
@@ -290,11 +281,6 @@ export default function ServiceShowcase({ items, className = "" }: ServiceShowca
             })}
           </ul>
         </div>
-      </div>
-
-      {/* 참고 데모처럼 마우스를 따라다니는 작은 사각 테두리, 사진 위에서는 원으로 커진다 (마우스가 있는 PC에서만) */}
-      <div ref={cursorRef} aria-hidden="true" className="photo-carousel-cursor">
-        <span />
       </div>
     </div>
   );

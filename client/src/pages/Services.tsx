@@ -5,7 +5,6 @@ import { Link } from "wouter";
 import ServiceShowcase, { type ServiceCardItem } from "@/components/ServiceShowcase";
 
 // scope: PC 카드 아래에 적는 주요 관리 범위 (각 서비스 상세 페이지의 관리 범위에서 고른 것)
-// aspect: PC 카드 사진 비율(가로/세로). 세로·가로 카드가 번갈아 오게 한다
 // heroImage: 각 서비스 상세 페이지의 첫 화면 배경 사진 (카드를 누르면 이 자리로 커진다)
 const serviceCards: ServiceCardItem[] = [
   {
@@ -15,7 +14,6 @@ const serviceCards: ServiceCardItem[] = [
     scope: ["계단 바닥 약품 청소", "난간·손잡이", "공동현관 유리", "거미줄·천장 먼지"],
     image: "/images/main-service-stair.webp",
     href: "/services/stair",
-    aspect: 2 / 3,
     heroImage: "/images/services/stair-cleaning/icheon-stair-cleaning-service-main.webp",
   },
   {
@@ -25,7 +23,6 @@ const serviceCards: ServiceCardItem[] = [
     scope: ["사무실 바닥", "책상·집기 먼지", "탕비실", "휴지통 비움"],
     image: "/images/main-service-office.webp",
     href: "/services/office",
-    aspect: 4 / 3,
     heroImage: "/images/main-service-office.webp",
   },
   {
@@ -35,7 +32,6 @@ const serviceCards: ServiceCardItem[] = [
     scope: ["변기 세척·소독", "세면대·거울 물때", "바닥·배수구", "악취 관리"],
     image: "/images/main-service-restroom.webp",
     href: "/services/bathroom",
-    aspect: 3 / 4,
     heroImage: "/images/services/restroom-cleaning/bathroom-02-after.webp",
   },
   {
@@ -45,7 +41,6 @@ const serviceCards: ServiceCardItem[] = [
     scope: ["상가 출입문·전면 유리", "공동현관 유리문", "칸막이 유리", "창틀·레일"],
     image: "/images/main-service-glass.webp",
     href: "/services/glass",
-    aspect: 5 / 4,
     heroImage: "/images/services/glass-cleaning/glass-page01.webp",
   },
 ];

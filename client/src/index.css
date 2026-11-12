@@ -313,16 +313,18 @@
   }
 }
 
-/* 사진 카드 줄(청소 서비스·전후 사진, usePhotoCarousel): 참고 데모처럼 마우스를 따라다니는 작은 사각 테두리.
-   사진 위에 올리면 원으로 커지고 안쪽에 작은 원이 하나 더 생긴다. 마우스가 있는 PC에서만 보인다. */
-.photo-carousel-cursor {
-  position: absolute;
+/* 사이트 전체에서 하나로 쓰는 따라다니는 커서(SiteCursor). 마우스가 있는 PC에서만 보인다.
+   평소: 작은 사각 테두리 → 사진 카드 위(.is-card): 원 + 안쪽 원 → 첫 화면 바닥 닦기(.is-brush): 붓 크기 원 + 가운데 점.
+   흰 테두리에 mix-blend-mode: difference를 써서 밝은 바탕에선 어둡게, 어두운 사진 위에선 밝게 보인다. */
+.site-cursor {
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 20;
+  z-index: 2147483646;
   width: 20px;
   height: 20px;
-  border: 1px solid rgb(15 23 42 / 0.75);
+  border: 1.5px solid #fff;
+  mix-blend-mode: difference;
   opacity: 0;
   pointer-events: none;
   will-change: transform;
@@ -332,35 +334,50 @@
     border-radius 0.3s cubic-bezier(0.65, 0, 0.35, 1),
     opacity 0.2s ease;
 }
-.photo-carousel-cursor > span {
+.site-cursor > span {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 20px;
   height: 20px;
-  border: 1px solid rgb(15 23 42 / 0.75);
+  border: 1.5px solid #fff;
   opacity: 0;
   transform: translate(-50%, -50%) scale(1);
   transition:
     opacity 0.35s cubic-bezier(0.65, 0, 0.35, 1),
     transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
-    border-radius 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+    border-radius 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    background-color 0.35s ease;
 }
-.photo-carousel-cursor.is-visible {
+.site-cursor.is-visible {
   opacity: 1;
 }
-.photo-carousel-cursor.is-hover {
+.site-cursor.is-card {
   width: 60px;
   height: 60px;
   border-radius: 50%;
 }
-.photo-carousel-cursor.is-hover > span {
+.site-cursor.is-card > span {
   border-radius: 50%;
   opacity: 1;
   transform: translate(-50%, -50%) scale(0.7);
 }
+.site-cursor.is-brush {
+  width: var(--cursor-brush, 200px);
+  height: var(--cursor-brush, 200px);
+  border-radius: 50%;
+  border-width: 2px;
+}
+.site-cursor.is-brush > span {
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 1;
+}
 @media (hover: none), (pointer: coarse) {
-  .photo-carousel-cursor {
+  .site-cursor {
     display: none;
   }
 }

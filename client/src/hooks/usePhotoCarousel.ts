@@ -1,5 +1,4 @@
 import { useEffect, useRef, type RefObject } from "react";
-import { useFollowCursor } from "@/hooks/useFollowCursor";
 
 const GAP_PX = 48;
 const LERP = 0.1;
@@ -22,8 +21,6 @@ function wrap(value: number, period: number) {
 
 type PhotoCarouselOptions = {
   rootRef: RefObject<HTMLDivElement | null>;
-  /** 마우스를 따라다니는 커서 요소 (클래스 photo-carousel-cursor) */
-  cursorRef: RefObject<HTMLDivElement | null>;
   /** 카드 요소들 (가로로 늘어설 순서대로) */
   slotRefs: RefObject<Array<HTMLElement | null>>;
   /** 카드 순서대로 사진 비율(가로/세로) */
@@ -37,15 +34,14 @@ type PhotoCarouselOptions = {
  * 가로로 끝없이 이어지는 사진 카드 줄의 움직임 (청소 서비스·전후 사진 카드 줄이 함께 쓴다).
  * 페이지를 스크롤한 만큼 옆으로 흐르고, 빠를수록 원근감 있게 기울었다가 멈추면 평평해진다.
  * 트랙패드로 옆으로 밀거나 끌어도 넘어가며, 끌고 놓을 때는 카드가 눌린 것으로 처리하지 않는다.
- * 마우스를 따라다니는 커서는 useFollowCursor가 맡는다.
+ * 마우스를 따라다니는 커서는 사이트 공통 SiteCursor가 맡는다 (카드에 data-cursor="card").
  * 카드 위치는 매 프레임 transform으로 직접 바꾸고(리렌더 없음), 움직임이 멈추면 다음 입력까지 쉰다.
  */
-export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduced, topInset = 0 }: PhotoCarouselOptions) {
+export function usePhotoCarousel({ rootRef, slotRefs, aspects, reduced, topInset = 0 }: PhotoCarouselOptions) {
   const engineRef = useRef<{ centerSlot: (index: number) => void } | null>(null);
   // 끌어서 넘긴 직후의 클릭은 무시한다
   const suppressClickRef = useRef(false);
   const aspectsKey = aspects.join(",");
-  useFollowCursor(rootRef, cursorRef);
 
   useEffect(() => {
     const root = rootRef.current;
