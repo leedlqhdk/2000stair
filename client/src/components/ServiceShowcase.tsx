@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, type MouseEvent as ReactMouseEvent, type RefObject } from "react";
+import { useEffect, useRef, type MouseEvent as ReactMouseEvent, type RefObject } from "react";
 import { flushSync } from "react-dom";
 import { Link, useLocation } from "wouter";
 import { motion, useReducedMotion } from "framer-motion";
@@ -11,10 +11,8 @@ export type ServiceCardItem = {
   title: string;
   /** 서비스명 옆 보조 영문 라벨 (예: "STAIR") */
   en: string;
-  /** 어떤 건물·공간을 관리하는지 한 줄 설명 */
+  /** 어떤 건물·공간을 관리하는지 한 줄 설명 (모바일 카드에 쓴다) */
   subtitle: string;
-  /** 주요 관리 범위 (서비스 상세 페이지의 관리 범위에서 고른 것) */
-  scope: string[];
   image: string;
   href: string;
   /** 서비스 상세 페이지의 첫 화면 배경 사진. 카드에 마우스를 올리면 미리 받아 둔다 */
@@ -41,9 +39,9 @@ const PHOTO_TRANSITION_NAME = "service-photo";
 const TILT_PER_PX = 0.004;
 const TILT_MAX = 0.07;
 const TILT_LERP = 0.1;
-// 사진은 네 장 모두 세로로 긴 2:3으로 맞춘다. 화면이 낮으면 제목·설명(약 23rem)을 뺀 높이에 맞춰 카드 줄 전체를 줄여
+// 사진은 네 장 모두 세로로 긴 2:3으로 맞춘다. 화면이 낮으면 섹션 제목·서비스명(약 19rem)을 뺀 높이에 맞춰 카드 줄 전체를 줄여
 // 네 장과 설명이 한 화면에 다 들어오게 한다. 7.5rem은 카드 사이 간격 3개(2.5rem)
-const ROW_WIDTH = "min(100%, calc((100svh - 3.5rem - 23rem) / 1.5 * 4 + 7.5rem))";
+const ROW_WIDTH = "min(100%, calc((100svh - 3.5rem - 19rem) / 1.5 * 4 + 7.5rem))";
 
 /** 새 페이지에서 표시가 끝났는지 기다린다. 전환 중에는 화면 그리기가 멈춰 requestAnimationFrame 대신 타이머로 확인한다 */
 function waitForElement(selector: string, timeoutMs: number) {
@@ -124,7 +122,7 @@ function useScrollTilt(rootRef: RefObject<HTMLElement | null>, tiltRefs: RefObje
   }, [rootRef, tiltRefs, reduced]);
 }
 
-// 데스크톱 전용 청소 서비스 섹션: 네 가지 서비스 사진을 한 줄에 모두 보여주고, 사진 아래에 무엇을 관리하는지 적는다.
+// 데스크톱 전용 청소 서비스 섹션: 네 가지 서비스 사진을 한 줄에 모두 보여주고, 사진 아래에 서비스명을 적는다.
 // 사진은 모두 세로로 긴 2:3으로 맞추고, 스크롤하면 살짝 기울었다가 멈추면 평평해진다(참고: Codrops WebGPU 페이지 전환 데모).
 // 카드를 누르면 그 사진이 화면 가득 커지며 서비스 상세 페이지의 배경으로 이어진다(View Transitions).
 export default function ServiceShowcase({ items, className = "" }: ServiceShowcaseProps) {
@@ -259,20 +257,6 @@ export default function ServiceShowcase({ items, className = "" }: ServiceShowca
                           aria-hidden="true"
                           className="ml-auto h-4 w-4 shrink-0 -translate-x-1 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
                         />
-                      </p>
-                      <p className="mt-1.5 break-keep text-[15px] font-semibold leading-snug text-slate-700">{item.subtitle}</p>
-                      {/* 관리 범위는 항목 단위로만 줄을 바꾼다 (단어 중간에서 끊기지 않게) */}
-                      <p className="mt-2 text-[13px] leading-relaxed text-slate-500">
-                        {item.scope.map((scopeItem, scopeIndex) => {
-                          const last = scopeIndex === item.scope.length - 1;
-                          // 항목 사이의 띄어쓰기는 nowrap 밖에 두어야 그 자리에서 줄이 바뀔 수 있다
-                          return (
-                            <Fragment key={scopeItem}>
-                              <span className="whitespace-nowrap">{last ? scopeItem : `${scopeItem} ·`}</span>
-                              {last ? null : " "}
-                            </Fragment>
-                          );
-                        })}
                       </p>
                     </motion.div>
                   </Link>
