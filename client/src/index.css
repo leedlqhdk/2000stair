@@ -238,9 +238,10 @@
     width: 100%;
   }
 
-  /* 전체화면 서비스 섹션은 상단 메뉴(3.5rem) 바로 아래에 맞춰 멈춘다.
+  /* 전체화면 사진 카드 섹션(청소 서비스·전후 사진)은 상단 메뉴(3.5rem) 바로 아래에 맞춰 멈춘다.
      html의 scroll-padding-top(5rem)과 더해지므로 그 차이만큼 당긴다. */
-  #home-services {
+  #home-services,
+  #home-before-after {
     scroll-margin-top: calc(3.5rem - 5rem);
   }
 }
@@ -310,4 +311,143 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* 사이트 전체에서 하나로 쓰는 따라다니는 커서(SiteCursor). 마우스가 있는 PC에서만 보인다.
+   평소: 작은 사각 테두리 → 사진 카드 위(.is-card): 원 + 안쪽 원 → 첫 화면 바닥 닦기(.is-brush): 붓 크기 원 + 가운데 점.
+   흰 테두리에 mix-blend-mode: difference를 써서 밝은 바탕에선 어둡게, 어두운 사진 위에선 밝게 보인다. */
+.site-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483646;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid #fff;
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+  transition:
+    width 0.3s cubic-bezier(0.65, 0, 0.35, 1),
+    height 0.3s cubic-bezier(0.65, 0, 0.35, 1),
+    border-radius 0.3s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.2s ease;
+}
+.site-cursor > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid #fff;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    opacity 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    border-radius 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    background-color 0.35s ease;
+}
+.site-cursor.is-visible {
+  opacity: 1;
+}
+.site-cursor.is-card {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.site-cursor.is-card > span {
+  border-radius: 50%;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(0.7);
+}
+.site-cursor.is-brush {
+  width: var(--cursor-brush, 200px);
+  height: var(--cursor-brush, 200px);
+  border-radius: 50%;
+  border-width: 2px;
+}
+.site-cursor.is-brush > span {
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 1;
+}
+@media (hover: none), (pointer: coarse) {
+  .site-cursor {
+    display: none;
+  }
+}
+
+/* 청소 서비스 카드를 누르면 그 사진이 화면 가득 커지며 서비스 상세 페이지 배경으로 이어지는 전환 (View Transitions).
+   이름은 카드(전환 직전에만)·상세 배경·상단 바·상세 제목에 붙고, html.vt-service는 이 전환 동안에만 붙는다. */
+.vt-service-photo {
+  view-transition-name: service-photo;
+}
+.vt-site-header {
+  view-transition-name: site-header;
+}
+.vt-service-hero-text {
+  view-transition-name: service-hero-text;
+}
+html.vt-service::view-transition-group(service-photo) {
+  animation-duration: 0.9s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* 카드(세로 사진)와 화면 전체(가로)의 비율이 달라도 찌그러지지 않게 채워서 자른다 */
+html.vt-service::view-transition-old(service-photo),
+html.vt-service::view-transition-new(service-photo) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+  animation-duration: 0.9s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* 홈은 사진이 커지는 동안 먼저 사라지고, 상세 페이지 제목은 사진이 거의 다 커진 뒤에 나타난다 */
+html.vt-service::view-transition-old(root) {
+  animation: vt-service-fade-out 0.45s cubic-bezier(0.4, 0, 1, 1) both;
+}
+html.vt-service::view-transition-new(root) {
+  animation: vt-service-fade-in 0.4s 0.5s cubic-bezier(0, 0, 0.2, 1) both;
+}
+html.vt-service::view-transition-new(service-hero-text) {
+  animation: vt-service-fade-in 0.5s 0.55s cubic-bezier(0, 0, 0.2, 1) both;
+}
+html.vt-service::view-transition-group(site-header) {
+  animation-duration: 0.9s;
+}
+@keyframes vt-service-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-service-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* 전후 사진 카드를 누르면 같은 모습 그대로 화면 가득 커지며 크게 보기 화면으로 이어지고, 닫으면 다시 카드로 줄어든다.
+   이름은 크게 보기 사진(.vt-ba-photo)과 누른 카드(전환 직전에만)에 붙고, html.vt-ba는 이 전환 동안에만 붙는다. */
+.vt-ba-photo {
+  view-transition-name: ba-photo;
+}
+html.vt-ba::view-transition-group(ba-photo) {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+html.vt-ba::view-transition-old(ba-photo),
+html.vt-ba::view-transition-new(ba-photo) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+html.vt-ba::view-transition-old(root),
+html.vt-ba::view-transition-new(root) {
+  animation-duration: 0.5s;
 }

@@ -5,6 +5,8 @@ export type BeforeAfterItem = {
   before: string;
   after: string;
   featured?: boolean;
+  /** 사진 비율(가로/세로). PC 홈 전후 카드와 크게 보기 화면이 같은 비율을 쓴다 (없으면 정사각형) */
+  aspect?: number;
 };
 
 export const beforeAfterItems: BeforeAfterItem[] = [
@@ -21,6 +23,7 @@ export const beforeAfterItems: BeforeAfterItem[] = [
     title: "공동현관 유리청소",
     category: "유리청소",
     before: "/images/opt/before-after/glass-clean-before01-1600.webp",
+    aspect: 1080 / 1350,
     after: "/images/opt/before-after/glass-clean-after01-1600.webp",
     featured: true,
   },
@@ -53,6 +56,7 @@ export const beforeAfterItems: BeforeAfterItem[] = [
     title: "화장실 샤워 수전 청소",
     category: "화장실청소",
     before: "/images/opt/before-after/bathroom-shower-cleaning-before-1600.webp",
+    aspect: 1600 / 2844,
     after: "/images/opt/before-after/bathroom-shower-cleaning-after-1600.webp",
     featured: true,
   },

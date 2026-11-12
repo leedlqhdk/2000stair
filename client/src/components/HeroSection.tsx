@@ -2,6 +2,7 @@ import { HOME_EASE, useHomeMotion } from "@/components/HomeMotion";
 import { motion } from "framer-motion";
 import { Check, MessageCircle, Phone } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import HeroWipe from "@/components/HeroWipe";
 import VisitorCounter from "@/components/VisitorCounter";
 import { notifyFloatingQuietChange } from "@/lib/floatingQuiet";
 import { trackConversion } from "@/lib/analytics";
@@ -15,29 +16,17 @@ const PHONE_NUMBER = "01084381887";
 
 const heroBadges = ["무료 방문 견적", "초도청소 전후 사진", "세금계산서 발행", "계약서 제공"];
 
-// 스크롤하면 한 장면씩 넘어가는 풀스크린 사진과 문구
+// 풀스크린 첫 화면 장면과 문구. 문질러 닦는 첫 장면이 인상적이도록 한 장면만 둔다
+// (예전 2·3번 장면 "빌라·상가·원룸 정기관리", "하청 없이 부부가 직접 방문"은 바로 아래 청소 서비스 소개 문구가 대신한다)
 const heroSlides = [
   {
     title: "이천 계단청소 전문업체",
     text: "주소와 건물 사진을 보내주시면 관리 범위와 방문 가능 여부를 안내해드립니다.",
-    // 사진 파일 번호와 장면 순서는 다르다 (1번 장면 = 유리 사진 hero-full-2, 2번 장면 = 계단 난간 사진 hero-full-1)
-    image: "/images/hero-full-2",
-    widths: [1280, 1920, 2560, 3840],
-    alt: "이천 상가 출입문 유리를 청소하는 이천계단지기",
-  },
-  {
-    title: "빌라·상가·원룸 정기관리",
-    text: "현장 상황과 오염 상태를 확인해 관리 범위와 주기를 안내드립니다.",
-    image: "/images/hero-full-1",
-    widths: [1280, 1920, 2560, 3840],
-    alt: "이천 빌라 계단 난간을 직접 청소하는 이천계단지기",
-  },
-  {
-    title: "하청 없이 부부가 직접 방문",
-    text: "약속한 일정에 맞춰 부부가 직접 방문해 꾸준히 관리합니다.",
-    image: "/images/hero-full-3",
-    widths: [1280, 1920, 2560, 3840],
-    alt: "청소 장비를 챙겨 직접 방문하는 이천계단지기",
+    // 1번 장면은 마우스로 문지르면 청소 전 사진이 닦여 청소 후 모습이 드러난다 (HeroWipe, -before/-after 사진 한 쌍)
+    image: "/images/hero-wipe",
+    wipe: true,
+    widths: [1280, 1920, 2560, 2992],
+    alt: "녹 얼룩을 지워 깨끗해진 이천 빌라 계단 바닥",
   },
 ];
 
@@ -115,7 +104,16 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
           return (
             <div key={slide.image} className={`relative ${SLIDE_HEIGHT} [clip-path:inset(0)]`}>
               <div className={slideLayer}>
-                {isDesktop && (index === 0 || restReady) && (
+                {isDesktop && slide.wipe && (
+                  <HeroWipe
+                    base={slide.image}
+                    widths={slide.widths}
+                    alt={slide.alt}
+                    reduced={Boolean(reduced)}
+                    onReady={() => setRestReady(true)}
+                  />
+                )}
+                {isDesktop && !slide.wipe && (index === 0 || restReady) && (
                   <img
                     src={`${slide.image}-1920.webp`}
                     // 큰 모니터·고해상도 노트북은 2560·3840px, 일반 화면은 1280·1920px를 고른다
@@ -141,14 +139,14 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   />
                 )}
 
-                {/* 사진 위 글자가 잘 읽히도록 왼쪽과 아래를 어둡게 */}
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/30 to-transparent" />
+                {/* 사진 위 글자가 잘 읽히도록 왼쪽과 아래를 어둡게. 어둡게 덮는 층과 글자는 마우스를 통과시켜 1번 장면에서 바닥을 문지를 수 있게 한다 */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/30 to-transparent" />
                 {/* 투명 상단 바의 흰 로고·버튼이 밝은 사진 위에서도 보이도록 위쪽을 살짝 어둡게 */}
-                <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-slate-950/55 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-slate-950/80 via-slate-950/35 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-slate-950/55 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-slate-950/80 via-slate-950/35 to-transparent" />
 
                 <div
-                  className="container relative flex h-full max-w-6xl flex-col justify-end"
+                  className="pointer-events-none container relative flex h-full max-w-6xl flex-col justify-end"
                   style={{ paddingBottom: TEXT_BOTTOM }}
                 >
                   <TitleTag className="break-keep font-['GmarketSans'] text-[clamp(2.25rem,4.6vw,4rem)] font-bold leading-[1.15] text-white drop-shadow-[0_2px_16px_rgba(2,6,23,0.35)]">

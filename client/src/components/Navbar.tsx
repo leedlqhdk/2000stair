@@ -78,7 +78,8 @@ useEffect(() => {
 
   return (
     <header
-  className={`sticky top-0 z-50 transition-all duration-300 ${
+  // vt-site-header: 청소 서비스 카드 → 상세 페이지 전환 동안 상단 바가 커지는 사진 위에 그대로 남게 한다
+  className={`vt-site-header sticky top-0 z-50 transition-all duration-300 ${
     scrolled
       ? "border-b border-slate-200 bg-white shadow-[0_4px_24px_rgba(15,23,42,0.06)]"
       : "border-b border-slate-100 bg-white"

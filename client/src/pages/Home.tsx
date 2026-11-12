@@ -2,7 +2,8 @@ import { HomeMotion } from "@/components/HomeMotion";
 import { useEffect, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
-import BeforeAfterGallery from "@/components/BeforeAfterGallery";
+import BeforeAfterCarousel from "@/components/BeforeAfterCarousel";
+import { featuredBeforeAfterItems } from "@/data/beforeAfter";
 import Navbar from "@/components/Navbar";
 import Services from "@/pages/Services";
 import BlogReviews from "@/components/BlogReviews";
@@ -47,6 +48,10 @@ export default function Home() {
             <div id="home-hero" className="home-scroll-section">
               <HeroSection isAuthenticated={false} />
             </div>
+            {/* 첫 화면 바로 아래: 무엇을 맡길 수 있는지 사진 카드로 먼저 보여준다 */}
+            <div id="home-services" className="home-scroll-section">
+              <Services />
+            </div>
             <div id="home-concerns" className="home-scroll-section">
               <CustomerConcernsSection />
             </div>
@@ -56,11 +61,8 @@ export default function Home() {
             <div id="home-process" className="home-scroll-section">
               <HowItWorks />
             </div>
-            <div id="home-services" className="home-scroll-section">
-              <Services />
-            </div>
             <div id="home-before-after" className="home-scroll-section">
-              <BeforeAfterGallery />
+              <BeforeAfterCarousel items={featuredBeforeAfterItems} className="h-[calc(100svh-3.5rem)]" />
             </div>
             <div id="home-reviews" className="scroll-mt-20">
               <div className="container max-w-6xl py-16 md:py-24">

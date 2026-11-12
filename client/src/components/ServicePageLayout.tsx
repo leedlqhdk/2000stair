@@ -368,8 +368,9 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
       <Navbar />
 
       <main className="service-page relative min-h-screen overflow-x-hidden bg-[#07152f]">
+        {/* vt-service-photo: 홈 청소 서비스 카드를 누르면 그 사진이 이 배경 자리로 커지며 이어진다 */}
         {data.heroVideo && (
-          <div className="fixed inset-0 z-0 bg-[#07152f]">
+          <div className="vt-service-photo fixed inset-0 z-0 bg-[#07152f]">
             <img
               {...responsiveImage(data.heroBgImage)}
               sizes="100vw"
@@ -403,7 +404,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         )}
 
         {!data.heroVideo && data.heroBgImage && (
-          <div className="fixed inset-0 z-0 bg-[#07152f]">
+          <div className="vt-service-photo fixed inset-0 z-0 bg-[#07152f]">
             <img
               {...responsiveImage(data.heroBgImage)}
               sizes="100vw"
@@ -421,7 +422,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
               : "min-h-[540px] py-16 md:min-h-[620px] md:py-24"
           }`}
         >
-          <div className="container mx-auto max-w-5xl text-center">
+          <div className="vt-service-hero-text container mx-auto max-w-5xl text-center">
             {isFullscreenVideo && data.breadcrumbLabel && (
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
