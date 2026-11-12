@@ -2,8 +2,9 @@ import { HOME_EASE, useHomeMotion } from "@/components/HomeMotion";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "wouter";
-import ServiceCarousel, { type ServiceCardItem } from "@/components/ServiceCarousel";
+import ServiceShowcase, { type ServiceCardItem } from "@/components/ServiceShowcase";
 
+// scope: PC 카드 아래에 적는 주요 관리 범위 (각 서비스 상세 페이지의 관리 범위에서 고른 것)
 // aspect: PC 카드 사진 비율(가로/세로). 세로·가로 카드가 번갈아 오게 한다
 // heroImage: 각 서비스 상세 페이지의 첫 화면 배경 사진 (카드를 누르면 이 자리로 커진다)
 const serviceCards: ServiceCardItem[] = [
@@ -11,6 +12,7 @@ const serviceCards: ServiceCardItem[] = [
     title: "계단청소",
     en: "STAIR",
     subtitle: "빌라·상가 공용계단 정기관리",
+    scope: ["계단 바닥 약품 청소", "난간·손잡이", "공동현관 유리", "거미줄·천장 먼지"],
     image: "/images/main-service-stair.webp",
     href: "/services/stair",
     aspect: 2 / 3,
@@ -20,6 +22,7 @@ const serviceCards: ServiceCardItem[] = [
     title: "사무실청소",
     en: "OFFICE",
     subtitle: "사무공간 바닥·먼지 정기관리",
+    scope: ["사무실 바닥", "책상·집기 먼지", "탕비실", "휴지통 비움"],
     image: "/images/main-service-office.webp",
     href: "/services/office",
     aspect: 4 / 3,
@@ -29,6 +32,7 @@ const serviceCards: ServiceCardItem[] = [
     title: "화장실청소",
     en: "RESTROOM",
     subtitle: "상가·사무실 공용화장실 관리",
+    scope: ["변기 세척·소독", "세면대·거울 물때", "바닥·배수구", "악취 관리"],
     image: "/images/main-service-restroom.webp",
     href: "/services/bathroom",
     aspect: 3 / 4,
@@ -38,6 +42,7 @@ const serviceCards: ServiceCardItem[] = [
     title: "유리청소",
     en: "GLASS",
     subtitle: "공동현관·상가 유리 손자국 관리",
+    scope: ["상가 출입문·전면 유리", "공동현관 유리문", "칸막이 유리", "창틀·레일"],
     image: "/images/main-service-glass.webp",
     href: "/services/glass",
     aspect: 5 / 4,
@@ -54,7 +59,7 @@ export default function Services() {
   return (
     <div className="bg-gradient-to-b from-white via-blue-50/35 to-white">
       <main>
-        {/* 데스크톱: 화면 전체를 채우는 가로 사진 카드 줄 (홈에서는 상단 메뉴 높이만큼 뺀다) */}
+        {/* 데스크톱: 네 가지 서비스 사진과 관리 범위를 한 화면에 보여준다 (홈에서는 상단 메뉴 높이만큼 뺀다) */}
         <motion.section
           className="hidden md:block"
           {...(home
@@ -65,10 +70,7 @@ export default function Services() {
                 transition: { duration: reduceMotion ? 0 : 0.6, ease: HOME_EASE },
               })}
         >
-          {/* 화면에는 사진 카드만 보이고, 제목은 스크린리더·검색엔진용으로 남긴다 */}
-          <h2 className="sr-only">청소 서비스</h2>
-          <p className="sr-only">{srDescription}</p>
-          <ServiceCarousel items={serviceCards} className={home ? "h-[calc(100svh-3.5rem)]" : "h-svh"} />
+          <ServiceShowcase items={serviceCards} className={home ? "min-h-[calc(100svh-3.5rem)]" : "min-h-svh"} />
         </motion.section>
 
         {/* 모바일: 기존 카드 그리드 유지 */}

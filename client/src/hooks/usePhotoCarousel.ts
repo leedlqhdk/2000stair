@@ -1,4 +1,5 @@
 import { useEffect, useRef, type RefObject } from "react";
+import { useFollowCursor } from "@/hooks/useFollowCursor";
 
 const GAP_PX = 48;
 const LERP = 0.1;
@@ -8,7 +9,6 @@ const SCROLL_TO_X = 0.9;
 const TILT_PER_PX = 0.006;
 const TILT_MAX = 0.12;
 const TILT_LERP = 0.09;
-const CURSOR_LERP = 0.2;
 const DRAG_THRESHOLD = 6;
 // 사진 아래 글줄 높이만큼 사진을 살짝 올려 카드 전체가 가운데에 오게 한다
 const CAPTION_OFFSET = 24;
@@ -37,6 +37,7 @@ type PhotoCarouselOptions = {
  * 가로로 끝없이 이어지는 사진 카드 줄의 움직임 (청소 서비스·전후 사진 카드 줄이 함께 쓴다).
  * 페이지를 스크롤한 만큼 옆으로 흐르고, 빠를수록 원근감 있게 기울었다가 멈추면 평평해진다.
  * 트랙패드로 옆으로 밀거나 끌어도 넘어가며, 끌고 놓을 때는 카드가 눌린 것으로 처리하지 않는다.
+ * 마우스를 따라다니는 커서는 useFollowCursor가 맡는다.
  * 카드 위치는 매 프레임 transform으로 직접 바꾸고(리렌더 없음), 움직임이 멈추면 다음 입력까지 쉰다.
  */
 export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduced, topInset = 0 }: PhotoCarouselOptions) {
@@ -44,6 +45,7 @@ export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduce
   // 끌어서 넘긴 직후의 클릭은 무시한다
   const suppressClickRef = useRef(false);
   const aspectsKey = aspects.join(",");
+  useFollowCursor(rootRef, cursorRef);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -51,9 +53,7 @@ export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduce
     if (!root || count === 0) return;
 
     const center = Math.floor(count / 2);
-    const fineHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const state = { scrollX: 0, targetX: 0, tilt: 0 };
-    const cursor = { x: 0, y: 0, tx: 0, ty: 0, visible: false };
     let cellW = 0;
     let step = 0;
     let period = 0;
@@ -91,16 +91,7 @@ export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduce
       state.tilt += (tiltTarget - state.tilt) * TILT_LERP;
       apply();
 
-      if (cursorRef.current && cursor.visible) {
-        cursor.x += (cursor.tx - cursor.x) * CURSOR_LERP;
-        cursor.y += (cursor.ty - cursor.y) * CURSOR_LERP;
-        cursorRef.current.style.transform = `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%)`;
-      }
-
-      const settled =
-        Math.abs(state.targetX - state.scrollX) < 0.05 &&
-        Math.abs(state.tilt) < 0.0005 &&
-        (!cursor.visible || (Math.abs(cursor.tx - cursor.x) < 0.3 && Math.abs(cursor.ty - cursor.y) < 0.3));
+      const settled = Math.abs(state.targetX - state.scrollX) < 0.05 && Math.abs(state.tilt) < 0.0005;
       if (settled) {
         running = false;
         return;
@@ -144,20 +135,6 @@ export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduce
       drag = { x: event.clientX, startTarget: state.targetX, moved: false, pointerId: event.pointerId };
     };
     const onPointerMove = (event: PointerEvent) => {
-      if (fineHover && event.pointerType === "mouse") {
-        const rect = root.getBoundingClientRect();
-        cursor.tx = event.clientX - rect.left;
-        cursor.ty = event.clientY - rect.top;
-        if (!cursor.visible) {
-          cursor.visible = true;
-          cursor.x = cursor.tx;
-          cursor.y = cursor.ty;
-          cursorRef.current?.classList.add("is-visible");
-        }
-        const overCard = Boolean((event.target as Element | null)?.closest?.("[data-carousel-card]"));
-        cursorRef.current?.classList.toggle("is-hover", overCard);
-        wake();
-      }
       if (!drag) return;
       const dx = event.clientX - drag.x;
       if (!drag.moved && Math.abs(dx) > DRAG_THRESHOLD) {
@@ -177,10 +154,6 @@ export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduce
         }, 0);
       }
       drag = null;
-    };
-    const onPointerLeave = () => {
-      cursor.visible = false;
-      cursorRef.current?.classList.remove("is-visible", "is-hover");
     };
 
     const io = new IntersectionObserver(
@@ -205,7 +178,6 @@ export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduce
     root.addEventListener("pointermove", onPointerMove);
     root.addEventListener("pointerup", onPointerUp);
     root.addEventListener("pointercancel", onPointerUp);
-    root.addEventListener("pointerleave", onPointerLeave);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -218,10 +190,9 @@ export function usePhotoCarousel({ rootRef, cursorRef, slotRefs, aspects, reduce
       root.removeEventListener("pointermove", onPointerMove);
       root.removeEventListener("pointerup", onPointerUp);
       root.removeEventListener("pointercancel", onPointerUp);
-      root.removeEventListener("pointerleave", onPointerLeave);
     };
     // aspects는 배열이 새로 만들어져도 내용(aspectsKey)이 같으면 다시 설정하지 않는다
-  }, [aspectsKey, reduced, topInset, rootRef, cursorRef, slotRefs]);
+  }, [aspectsKey, reduced, topInset, rootRef, slotRefs]);
 
   return { engineRef, suppressClickRef };
 }
