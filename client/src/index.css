@@ -238,9 +238,10 @@
     width: 100%;
   }
 
-  /* 전체화면 서비스 섹션은 상단 메뉴(3.5rem) 바로 아래에 맞춰 멈춘다.
+  /* 전체화면 사진 카드 섹션(청소 서비스·전후 사진)은 상단 메뉴(3.5rem) 바로 아래에 맞춰 멈춘다.
      html의 scroll-padding-top(5rem)과 더해지므로 그 차이만큼 당긴다. */
-  #home-services {
+  #home-services,
+  #home-before-after {
     scroll-margin-top: calc(3.5rem - 5rem);
   }
 }
@@ -312,9 +313,9 @@
   }
 }
 
-/* 청소 서비스 카드 줄(ServiceCarousel): 참고 데모처럼 마우스를 따라다니는 작은 사각 테두리.
+/* 사진 카드 줄(청소 서비스·전후 사진, usePhotoCarousel): 참고 데모처럼 마우스를 따라다니는 작은 사각 테두리.
    사진 위에 올리면 원으로 커지고 안쪽에 작은 원이 하나 더 생긴다. 마우스가 있는 PC에서만 보인다. */
-.service-carousel-cursor {
+.photo-carousel-cursor {
   position: absolute;
   top: 0;
   left: 0;
@@ -331,7 +332,7 @@
     border-radius 0.3s cubic-bezier(0.65, 0, 0.35, 1),
     opacity 0.2s ease;
 }
-.service-carousel-cursor > span {
+.photo-carousel-cursor > span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -345,21 +346,21 @@
     transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
     border-radius 0.35s cubic-bezier(0.65, 0, 0.35, 1);
 }
-.service-carousel-cursor.is-visible {
+.photo-carousel-cursor.is-visible {
   opacity: 1;
 }
-.service-carousel-cursor.is-hover {
+.photo-carousel-cursor.is-hover {
   width: 60px;
   height: 60px;
   border-radius: 50%;
 }
-.service-carousel-cursor.is-hover > span {
+.photo-carousel-cursor.is-hover > span {
   border-radius: 50%;
   opacity: 1;
   transform: translate(-50%, -50%) scale(0.7);
 }
 @media (hover: none), (pointer: coarse) {
-  .service-carousel-cursor {
+  .photo-carousel-cursor {
     display: none;
   }
 }
@@ -410,4 +411,26 @@ html.vt-service::view-transition-group(site-header) {
   from {
     opacity: 0;
   }
+}
+
+/* 전후 사진 카드를 누르면 같은 모습 그대로 화면 가득 커지며 크게 보기 화면으로 이어지고, 닫으면 다시 카드로 줄어든다.
+   이름은 크게 보기 사진(.vt-ba-photo)과 누른 카드(전환 직전에만)에 붙고, html.vt-ba는 이 전환 동안에만 붙는다. */
+.vt-ba-photo {
+  view-transition-name: ba-photo;
+}
+html.vt-ba::view-transition-group(ba-photo) {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+html.vt-ba::view-transition-old(ba-photo),
+html.vt-ba::view-transition-new(ba-photo) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+html.vt-ba::view-transition-old(root),
+html.vt-ba::view-transition-new(root) {
+  animation-duration: 0.5s;
 }

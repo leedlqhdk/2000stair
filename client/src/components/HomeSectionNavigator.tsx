@@ -3,10 +3,10 @@ import { useDarkSectionBehind } from "@/hooks/useDarkSectionBehind";
 
 const homeSections = [
   { id: "home-hero", title: "이천 건물 정기 청소관리" },
+  { id: "home-services", title: "청소 서비스" },
   { id: "home-concerns", title: "기존 관리가 아쉬웠던 이유" },
   { id: "home-representative", title: "같은 사람이, 꾸준히" },
   { id: "home-process", title: "관리 지역·진행 방식" },
-  { id: "home-services", title: "청소 서비스" },
   { id: "home-before-after", title: "청소 전후 사진" },
   { id: "home-reviews", title: "실제 고객 후기" },
   { id: "home-work-log", title: "최신 작업일지" },
