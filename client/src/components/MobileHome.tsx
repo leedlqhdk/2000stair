@@ -15,16 +15,13 @@ import {
 import { motion } from "framer-motion";
 import { trackConversion } from "@/lib/analytics";
 import ChannelLinks from "@/components/ChannelLinks";
-import VisitorCounter from "@/components/VisitorCounter";
 import Reveal from "@/components/Reveal";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import HomeFaq from "@/components/HomeFaq";
 import HomeConcerns from "@/components/HomeConcerns";
 import HomeWorkSlider from "@/components/HomeWorkSlider";
 import LatestBlogPosts from "@/components/LatestBlogPosts";
-
-const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-const PHONE_NUMBER = "010-8438-1887";
+import { KAKAO_CHANNEL_URL, PHONE_HREF, PRICE_ANCHOR } from "@/lib/contact";
 
 function StairsIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -70,14 +67,15 @@ const processSteps = [
   { icon: MessageCircle, title: "문의하기" },
   { icon: HomeIcon, title: "방문 견적" },
   { icon: Sparkles, title: "정기 관리" },
-  { icon: Camera, title: "초도 전후사진" },
+  { icon: Camera, title: "전후 사진" },
 ];
 
+// price가 true면 subtitle을 파란색으로 보여준다. 가격은 각 서비스 상세 페이지 요금표에 있는 값만 쓴다
 const popularServices = [
-  { title: "계단 청소", subtitle: "빌라/상가 건물", icon: StairsIcon, free: false, href: "/services/stair" },
-  { title: "사무실 청소", subtitle: "정기 방문관리", icon: Building2, free: false, href: "/services/office" },
-  { title: "유리창 청소", subtitle: "무료 방문 견적", icon: GlassSparkleIcon, free: true, href: "/services/glass" },
-  { title: "화장실 청소", subtitle: "친환경 약품 사용", icon: Bath, free: false, href: "/services/bathroom" },
+  { title: "계단 청소", subtitle: "2~3층 월 2회 4만 원부터", price: true, icon: StairsIcon, href: "/services/stair" },
+  { title: "사무실 청소", subtitle: "면적 확인 후 맞춤 견적", price: false, icon: Building2, href: "/services/office" },
+  { title: "유리창 청소", subtitle: "공동현관 유리 3만 원부터", price: true, icon: GlassSparkleIcon, href: "/services/glass" },
+  { title: "화장실 청소", subtitle: "친환경 약품 · 방문 견적", price: false, icon: Bath, href: "/services/bathroom" },
 ];
 
 const reviews = [
@@ -188,9 +186,15 @@ export default function MobileHome() {
             주소·사진 보내고 무료 견적받기
           </a>
         </div>
-        <div className="mt-4 flex justify-center">
-          <VisitorCounter />
-        </div>
+        {/* 버튼 바로 아래에 가격 기준과 약속을 둔다 (확인할 수 없는 방문자 수 대신 실제 조건) */}
+        <ul className="mt-3.5 flex flex-wrap justify-center gap-x-3.5 gap-y-1 text-[12px] font-bold text-gray-700">
+          {[PRICE_ANCHOR, "방문 견적 무료", "초도청소 전후 사진"].map((item) => (
+            <li key={item} className="inline-flex items-center gap-1">
+              <Check className="h-3 w-3 shrink-0 text-primary" strokeWidth={3} />
+              {item}
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* 대화 애니메이션은 그대로 재생하고, 아래 본문은 처음부터 바로 스크롤해 볼 수 있게 펼쳐 둔다 */}
@@ -244,7 +248,7 @@ export default function MobileHome() {
                 </span>
                 <span className="min-w-0 flex-1">
                   <h3 className="text-[15px] font-extrabold text-foreground">{service.title}</h3>
-                  <p className={`mt-0.5 text-[12.5px] font-semibold ${service.free ? "text-primary" : "text-muted-foreground"}`}>
+                  <p className={`mt-0.5 text-[12.5px] font-semibold ${service.price ? "text-primary" : "text-muted-foreground"}`}>
                     {service.subtitle}
                   </p>
                 </span>
@@ -350,7 +354,7 @@ export default function MobileHome() {
           <button
             type="button"
             onClick={() => {
-              trackConversion("quote_form_view", { location: "mobile_promo", label: "견적 문의하기" });
+              trackConversion("cta_click", { location: "mobile_promo", label: "견적 문의하기" });
               goToQuote();
             }}
             className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-white px-5 py-2.5 text-sm font-extrabold text-primary shadow-lg"
@@ -377,7 +381,7 @@ export default function MobileHome() {
       {/* BOTTOM DOCK */}
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-blue-100 bg-white shadow-[0_-6px_18px_rgba(15,40,80,0.08)]">
         <a
-          href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
+          href={PHONE_HREF}
           onClick={() => trackConversion("phone_click", { location: "mobile_dock", label: "전화 방문견적" })}
           className="flex min-h-14 items-center justify-center gap-2 px-3 py-2.5 text-sm font-extrabold text-primary"
           aria-label="전화로 방문견적 문의"

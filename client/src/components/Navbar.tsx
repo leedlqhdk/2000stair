@@ -1,10 +1,12 @@
-import { ChevronDown, Menu, MessageCircle, X } from "lucide-react";
+import { ChevronDown, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import FullScreenMenu from "@/components/FullScreenMenu";
 import { navGroups, type NavGroup } from "@/data/navMenu";
 import { useDarkSectionBehind } from "@/hooks/useDarkSectionBehind";
+import { useDesktopPointer } from "@/hooks/useMediaQuery";
+import { PHONE_DISPLAY, PHONE_HREF, onPhoneLinkClick } from "@/lib/contact";
 
 // 데스크톱 전체 메뉴는 홈을 맨 앞에 둔다 (모바일 메뉴는 홈을 따로 그린다)
 const desktopGroups: NavGroup[] = [{ label: "홈", href: "/", items: [] }, ...navGroups];
@@ -33,6 +35,7 @@ useEffect(() => {
   // 투명 상단 바 바로 뒤(상단 바 세로 가운데)가 어두운 섹션이면 흰 로고·흰 버튼으로 바꾼다
   // 첫 화면 사진이 어두우므로 처음엔 어둡게 시작한다
   const onDark = useDarkSectionBehind(() => 28, { enabled: overlay, initial: overlay });
+  const desktopPointer = useDesktopPointer();
 
   // 페이지가 바뀌면 전체 메뉴를 닫는다
   useEffect(() => {
@@ -113,8 +116,21 @@ useEffect(() => {
           )}
         </a>
 
-        {/* 데스크톱 상단에는 로고와 ☰ 버튼만 두고, 메뉴는 전체화면 메뉴에서 보여준다 */}
-        <div className="hidden md:flex">
+        {/* 데스크톱 상단: 전화번호(PC는 누르면 복사)와 ☰ 버튼. 메뉴는 전체화면 메뉴에서 보여준다 */}
+        <div className="hidden md:flex md:items-center md:gap-2">
+          <a
+            href={PHONE_HREF}
+            onClick={onPhoneLinkClick}
+            title={desktopPointer ? "누르면 전화번호가 복사됩니다" : undefined}
+            className={`hidden items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-extrabold tabular-nums tracking-wide transition-colors duration-300 lg:inline-flex ${
+              overlay && onDark
+                ? "border-white/35 text-white hover:bg-white/10"
+                : "border-slate-200 text-slate-800 hover:border-primary hover:text-primary"
+            }`}
+          >
+            <Phone className="h-3.5 w-3.5" />
+            {PHONE_DISPLAY}
+          </a>
           <FullScreenMenu
             open={fullMenuOpen}
             onOpenChange={setFullMenuOpen}

@@ -8,7 +8,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Seo from "./components/Seo";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { getSeoForPath } from "@/data/areaSeo";
-import { initAnalytics, trackPageview } from "@/lib/analytics";
+import { initAnalytics, installConversionTracking, trackPageview } from "@/lib/analytics";
+import { installDesktopPhoneCopy } from "@/lib/contact";
 import Home from "./pages/Home";
 import KakaoChat from "./components/KakaoChat";
 import ScrollToTopButton from "./components/ScrollToTopButton";
@@ -153,6 +154,13 @@ function AnalyticsTracker() {
 
   useEffect(() => {
     initAnalytics();
+    // 사이트 전체의 전화·카톡 링크 클릭을 한 곳에서 전환으로 기록하고, PC에서는 전화 링크가 번호를 복사하게 한다
+    const stopTracking = installConversionTracking();
+    const stopPhoneCopy = installDesktopPhoneCopy();
+    return () => {
+      stopTracking();
+      stopPhoneCopy();
+    };
   }, []);
 
   useEffect(() => {

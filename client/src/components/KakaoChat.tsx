@@ -3,17 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { trackConversion } from "@/lib/analytics";
 import { FLOATING_QUIET_EVENT, isQuietSectionBehind } from "@/lib/floatingQuiet";
+import { KAKAO_CHANNEL_URL, PHONE_DISPLAY, PHONE_HREF, onPhoneLinkClick } from "@/lib/contact";
+import { useDesktopPointer } from "@/hooks/useMediaQuery";
 
-const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-const PHONE_NUMBER = "010-8438-1887";
-
-const expandedButtonClass = "w-[120px] px-3 md:w-[168px] md:px-5";
+// PC(md 이상)에서는 전화 버튼에 번호를 그대로 보여주므로 조금 더 넓다
+const expandedButtonClass = "w-[120px] px-3 md:w-[188px] md:px-5";
 const collapsedButtonClass = "w-11 px-0 md:w-14 md:px-0";
-const expandedTextClass = "max-w-[72px] opacity-100 md:max-w-[80px]";
+const expandedTextClass = "max-w-[72px] opacity-100 md:max-w-[124px]";
 const collapsedTextClass = "max-w-0 opacity-0";
 
 export default function KakaoChat() {
   const [location] = useLocation();
+  const desktopPointer = useDesktopPointer();
   const isHome = location === "/";
   const isAreas = location === "/areas";
   const [isScrolling, setIsScrolling] = useState(false);
@@ -97,14 +98,21 @@ export default function KakaoChat() {
             </div>
           )}
 
+          {/* PC에서는 번호를 보여주고 누르면 복사한다. 휴대폰에서는 바로 전화 */}
           <a
-            href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`}
-            onClick={() => trackConversion("phone_click", { location: "floating_cta", label: "전화문의" })}
-            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-primary text-xs font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
-            aria-label="전화 문의하기"
+            href={PHONE_HREF}
+            onClick={(event) => {
+              trackConversion("phone_click", { location: "floating_cta", label: desktopPointer ? "번호 복사" : "전화문의" });
+              onPhoneLinkClick(event);
+            }}
+            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-primary text-xs font-extrabold text-white shadow-md shadow-blue-900/10 transition-all duration-300 hover:bg-primary/90 md:h-14 md:text-[15px] ${buttonGapClass} ${buttonWidthClass}`}
+            aria-label={desktopPointer ? `전화번호 ${PHONE_DISPLAY} 복사하기` : "전화 문의하기"}
+            title={desktopPointer ? "누르면 전화번호가 복사됩니다" : undefined}
           >
             <Phone className="h-4 w-4 shrink-0 translate-x-[0.5px] translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
-            <span className={`whitespace-nowrap transition-all duration-300 ${buttonTextClass}`}>전화문의</span>
+            <span className={`whitespace-nowrap tabular-nums transition-all duration-300 ${buttonTextClass}`}>
+              {desktopPointer ? PHONE_DISPLAY : "전화문의"}
+            </span>
           </a>
 
           <a
@@ -112,7 +120,7 @@ export default function KakaoChat() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackConversion("kakao_click", { location: "floating_cta", label: "카톡상담" })}
-            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-xs font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-base ${buttonGapClass} ${buttonWidthClass}`}
+            className={`flex h-11 items-center justify-center overflow-hidden rounded-full bg-[#FEE500] text-xs font-extrabold text-[#191919] shadow-md shadow-yellow-900/5 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#F4DC00] md:h-14 md:text-[15px] ${buttonGapClass} ${buttonWidthClass}`}
             aria-label="카카오톡 상담하기"
           >
             <MessageCircle className="h-4 w-4 shrink-0 translate-y-[0.5px] stroke-[2.8] md:h-5 md:w-5" />
