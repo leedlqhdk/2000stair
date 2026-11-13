@@ -115,6 +115,14 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
       last = { x, y };
     };
 
+    // 처음 저절로 닦인 자국을 한 번에 다시 찍는다 (먼지가 다시 덮여도 이 자국은 남겨, 가만히 둔 화면에도 '닦기 전·후'가 함께 보이게)
+    const stampDemoPath = () => {
+      const saved = last;
+      last = null;
+      for (const [px, py] of DEMO_PATH) wipeTo(px * canvas.width, py * canvas.height);
+      last = saved;
+    };
+
     const stopRestore = () => {
       window.clearTimeout(restoreTimer);
       cancelAnimationFrame(restoreRaf);
@@ -126,10 +134,10 @@ export default function HeroWipe({ base, widths, alt, reduced, onReady }: HeroWi
         let frames = 0;
         const step = () => {
           if (disposed) return;
-          drawBefore(0.06);
+          drawBefore(frames < RESTORE_FRAMES - 1 ? 0.06 : 1);
+          stampDemoPath();
           frames += 1;
           if (frames < RESTORE_FRAMES) restoreRaf = requestAnimationFrame(step);
-          else drawBefore(1);
         };
         restoreRaf = requestAnimationFrame(step);
       }, RESTORE_DELAY_MS);

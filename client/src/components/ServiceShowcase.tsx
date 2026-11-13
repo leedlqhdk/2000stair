@@ -195,7 +195,7 @@ export default function ServiceShowcase({ items, className = "" }: ServiceShowca
                 빌라·상가·사무실 공용공간을 하청 없이 부부가 직접 방문해 정기관리합니다.
               </p>
             </div>
-            <p className="hidden shrink-0 pb-1 text-sm font-semibold text-slate-400 xl:block">
+            <p className="hidden shrink-0 pb-1 text-sm font-semibold text-slate-500 xl:block">
               사진을 누르면 서비스별 자세한 안내로 이어져요
             </p>
           </motion.div>
@@ -252,7 +252,7 @@ export default function ServiceShowcase({ items, className = "" }: ServiceShowca
                         <span className="font-['GmarketSans'] text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                           {item.title}
                         </span>
-                        <span className="text-[11px] font-bold tracking-[0.22em] text-slate-400">{item.en}</span>
+                        <span className="text-[11px] font-bold tracking-[0.22em] text-slate-500">{item.en}</span>
                         <ArrowRight
                           aria-hidden="true"
                           className="ml-auto h-4 w-4 shrink-0 -translate-x-1 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"

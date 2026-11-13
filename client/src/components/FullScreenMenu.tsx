@@ -1,7 +1,8 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import type { NavGroup } from "@/data/navMenu";
+import { BUSINESS_HOURS, KAKAO_CHANNEL_URL, PHONE_DISPLAY, PHONE_HREF, QUOTE_PATH, onPhoneLinkClick } from "@/lib/contact";
 
 type FullScreenMenuProps = {
   open: boolean;
@@ -65,7 +66,7 @@ export default function FullScreenMenu({ open, onOpenChange, groups, compact, to
               </DialogPrimitive.Close>
             </div>
 
-            <nav aria-label="전체 메뉴" className="grid grid-cols-5 gap-x-8 pb-20 pt-[9vh] lg:gap-x-12">
+            <nav aria-label="전체 메뉴" className="grid grid-cols-5 gap-x-8 pb-12 pt-[9vh] lg:gap-x-12">
               {groups.map((group) => (
                 <div key={group.label} className="min-w-0">
                   {group.href ? (
@@ -118,6 +119,35 @@ export default function FullScreenMenu({ open, onOpenChange, groups, compact, to
                 </div>
               ))}
             </nav>
+
+            {/* 메뉴 어디서든 바로 문의할 수 있게 연락처를 아래에 둔다 (PC는 번호를 누르면 복사) */}
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pb-16 pt-7">
+              <a
+                href={PHONE_HREF}
+                onClick={onPhoneLinkClick}
+                className="inline-flex items-center gap-2 font-['GmarketSans'] text-xl font-bold tabular-nums text-white transition-colors hover:text-white/75"
+              >
+                <Phone className="h-5 w-5" />
+                {PHONE_DISPLAY}
+              </a>
+              <span className="text-sm font-medium text-white/55">{BUSINESS_HOURS}</span>
+              <a
+                href={KAKAO_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={close}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#FEE500] px-5 text-sm font-extrabold text-[#191919] transition hover:bg-[#F4DC00]"
+              >
+                카톡으로 사진 보내기
+              </a>
+              <Link
+                href={QUOTE_PATH}
+                onClick={close}
+                className="text-sm font-bold text-white/75 underline decoration-white/35 underline-offset-4 transition hover:text-white"
+              >
+                1분 견적 신청
+              </Link>
+            </div>
           </div>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>

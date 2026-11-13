@@ -9,7 +9,8 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-ZJQ4RCD4E1');
+      // 화면 전환마다 앱이 page_view를 직접 보내므로 자동 전송은 끈다 (첫 화면이 두 번 집계되지 않게)
+      gtag('config', 'G-ZJQ4RCD4E1', { send_page_view: false });
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png?v=4" />

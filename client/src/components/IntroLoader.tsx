@@ -33,7 +33,8 @@ export default function IntroLoader({ onReveal, onDone }: IntroLoaderProps) {
     }
 
     const start = performance.now();
-    const DURATION = 1200;
+    // 짧게 보여주고 바로 첫 화면으로 넘어간다 (검색으로 처음 온 분이 기다리지 않게, 커튼까지 약 1.4초)
+    const DURATION = 600;
     let raf = 0;
 
     const tick = (now: number) => {
@@ -42,7 +43,7 @@ export default function IntroLoader({ onReveal, onDone }: IntroLoaderProps) {
       if (value < 100) {
         raf = requestAnimationFrame(tick);
       } else {
-        window.setTimeout(() => setExiting(true), 250);
+        window.setTimeout(() => setExiting(true), 120);
       }
     };
 

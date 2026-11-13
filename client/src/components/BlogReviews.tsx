@@ -52,7 +52,7 @@ export default function BlogReviews({ variant = "light" }: BlogReviewsProps) {
   const quoteClass = isDark ? "text-white/85" : "text-slate-800";
   const platformTextClass = isDark ? "text-white/80" : "text-gray-700";
   const detailClass = isDark ? "text-white/45" : "text-muted-foreground";
-  const footerClass = isDark ? "text-white/38" : "text-gray-400";
+  const footerClass = isDark ? "text-white/60" : "text-gray-500";
 
   const { home, reveal } = useHomeMotion();
   return (

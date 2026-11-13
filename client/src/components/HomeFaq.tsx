@@ -14,7 +14,7 @@ export default function HomeFaq() {
   if (homeFaqs.length === 0) return null;
 
   return (
-    <section id="home-faq" className="bg-white py-14 md:py-24">
+    <section id="home-faq" className="scroll-mt-20 bg-white py-14 md:py-24">
 
       <div className="container max-w-4xl">
         <motion.div

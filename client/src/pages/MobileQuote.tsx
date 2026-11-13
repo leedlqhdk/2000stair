@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { ArrowLeft, Check, MessageCircle, Send } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { trackConversion } from "@/lib/analytics";
+import {
+  BUSINESS_HOURS,
+  KAKAO_CHANNEL_URL,
+  PHONE_DISPLAY,
+  PHONE_HREF,
+  PRICE_ANCHOR,
+  onPhoneLinkClick,
+} from "@/lib/contact";
 import ChannelLinks from "@/components/ChannelLinks";
 import Navbar from "@/components/Navbar";
 
-const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-const PHONE_NUMBER = "010-8438-1887";
-
 const buildingTypes = ["빌라", "상가", "오피스텔", "주택", "기타"];
+const floorOptions = ["2~3층", "4층", "5층 이상", "잘 모름"];
 const serviceItems = ["계단청소", "유리청소", "화장실청소", "정기관리"];
+
+const chipClass = (active: boolean) =>
+  `rounded-[11px] border-[1.5px] px-4 py-2.5 text-[13.5px] font-bold transition ${
+    active ? "border-primary bg-primary text-white shadow-md shadow-primary/20" : "border-blue-200 bg-white text-gray-700"
+  }`;
 
 function formatPhone(raw: string) {
   const digits = raw.replace(/\D/g, "").slice(0, 11);
@@ -22,7 +33,9 @@ function formatPhone(raw: string) {
 export default function MobileQuote() {
   const [, setLocation] = useLocation();
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [buildingType, setBuildingType] = useState("");
+  const [floors, setFloors] = useState("");
   const [services, setServices] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const [agree, setAgree] = useState(false);
@@ -30,6 +43,11 @@ export default function MobileQuote() {
   const [done, setDone] = useState(false);
 
   const submitQuote = trpc.quote.submit.useMutation();
+
+  // 폼을 본 사람 대비 실제로 보낸 사람 비율을 볼 수 있게 한 번 기록한다
+  useEffect(() => {
+    trackConversion("quote_form_view", { location: "quote_page" });
+  }, []);
 
   function toggleService(item: string) {
     setServices((prev) => (prev.includes(item) ? prev.filter((s) => s !== item) : [...prev, item]));
@@ -46,26 +64,28 @@ export default function MobileQuote() {
 
     const extraNote = [
       buildingType ? `건물유형: ${buildingType}` : null,
+      floors ? `층수: ${floors}` : null,
       services.length ? `청소항목: ${services.join(", ")}` : null,
       message.trim() || null,
     ]
       .filter(Boolean)
       .join("\n");
 
-    trackConversion("quote_form_submit", { location: "mobile_quote_page", label: "무료 견적 신청하기" });
-
     try {
       await submitQuote.mutateAsync({
-        name: "모바일 간편문의",
+        name: "간편 견적 문의",
         phone: phone.trim(),
-        address: "전화 상담 요청",
+        address: address.trim() || "주소 미입력 (전화 상담 요청)",
         serviceType: "in_person",
         planId: services.length ? services.join(",") : "상담 후 결정",
         message: extraNote || undefined,
       });
+      // 실제로 접수된 것만 전환으로 센다
+      trackConversion("quote_form_submit", { location: "quote_page", label: "견적 문의 보내기" });
       setDone(true);
     } catch {
-      // toast/error feedback is handled globally by trpc error link
+      // 오류 안내는 trpc 오류 링크가 공통으로 띄운다. 실패 횟수만 따로 기록한다
+      trackConversion("quote_form_error", { location: "quote_page" });
     }
   }
 
@@ -89,10 +109,16 @@ export default function MobileQuote() {
             <span className="w-16 shrink-0 font-bold text-muted-foreground">연락처</span>
             <span className="font-semibold text-foreground">{phone}</span>
           </div>
-          {buildingType && (
+          {address.trim() && (
+            <div className="flex gap-2 py-1 text-[13px]">
+              <span className="w-16 shrink-0 font-bold text-muted-foreground">주소</span>
+              <span className="font-semibold text-foreground">{address.trim()}</span>
+            </div>
+          )}
+          {(buildingType || floors) && (
             <div className="flex gap-2 py-1 text-[13px]">
               <span className="w-16 shrink-0 font-bold text-muted-foreground">건물</span>
-              <span className="font-semibold text-foreground">{buildingType}</span>
+              <span className="font-semibold text-foreground">{[buildingType, floors].filter(Boolean).join(" · ")}</span>
             </div>
           )}
         </div>
@@ -126,7 +152,13 @@ export default function MobileQuote() {
               1분이면 신청 끝. 평일 기준 빠르게 연락드립니다. 건물 사진이 있다면 카카오톡으로 함께 보내주세요.
             </p>
             <ul className="mt-7 space-y-3">
-              {["하청 없이 부부가 직접 방문합니다", "방문 견적은 무료입니다", "세금계산서·현금영수증 발행 가능", "연락처는 응대 완료 후 파기합니다"].map((item) => (
+              {[
+                PRICE_ANCHOR,
+                "하청 없이 부부가 직접 방문합니다",
+                "방문 견적은 무료입니다",
+                "세금계산서·현금영수증 발행 가능",
+                "연락처는 응대 완료 후 파기합니다",
+              ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm font-semibold text-slate-700">
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-primary">
                     <Check className="h-3 w-3" strokeWidth={3} />
@@ -137,10 +169,15 @@ export default function MobileQuote() {
             </ul>
             <div className="mt-8 rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
               <p className="text-xs font-bold text-muted-foreground">전화가 더 편하시다면</p>
-              <a href={`tel:${PHONE_NUMBER.replace(/-/g, "")}`} className="mt-1 block text-xl font-extrabold text-primary">
-                {PHONE_NUMBER}
+              <a
+                href={PHONE_HREF}
+                onClick={onPhoneLinkClick}
+                title="누르면 전화번호가 복사됩니다"
+                className="mt-1 block text-xl font-extrabold tabular-nums text-primary"
+              >
+                {PHONE_DISPLAY}
               </a>
-              <p className="mt-0.5 text-xs font-semibold text-muted-foreground">평일 09:00 - 18:00</p>
+              <p className="mt-0.5 text-xs font-semibold text-muted-foreground">{BUSINESS_HOURS}</p>
             </div>
           </aside>
 
@@ -174,35 +211,53 @@ export default function MobileQuote() {
 
       <div className="flex flex-col gap-5 px-5 py-4">
         <div className="flex flex-col gap-2">
-          <label className="text-[13.5px] font-bold text-foreground">
+          <label htmlFor="quote-phone" className="text-[13.5px] font-bold text-foreground">
             연락처 <span className="text-primary">*</span>
           </label>
           <input
+            id="quote-phone"
+            type="tel"
+            autoComplete="tel"
             value={phone}
             onChange={(e) => setPhone(formatPhone(e.target.value))}
             inputMode="numeric"
             placeholder="010-0000-0000"
             maxLength={13}
+            aria-invalid={errors.phone || undefined}
             className={`h-[52px] rounded-xl border-[1.5px] px-4 text-[15px] font-medium outline-none focus:border-primary ${errors.phone ? "border-destructive" : "border-blue-200"}`}
           />
           {errors.phone && <span className="text-xs font-bold text-destructive">연락처를 정확히 입력해 주세요.</span>}
         </div>
 
+        {/* 주소가 있어야 방문 가능 여부와 대략의 견적을 바로 답할 수 있다 (없어도 보낼 수는 있다) */}
         <div className="flex flex-col gap-2">
-          <label className="text-[13.5px] font-bold text-foreground">
-            건물 유형 <span className="text-muted-foreground">(선택)</span>
+          <label htmlFor="quote-address" className="text-[13.5px] font-bold text-foreground">
+            건물 주소 <span className="text-muted-foreground">(선택 · 적어주시면 답변이 빨라져요)</span>
           </label>
+          <input
+            id="quote-address"
+            type="text"
+            autoComplete="street-address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="예) 이천시 마장면 ○○리 ○○빌라"
+            maxLength={120}
+            className="h-[52px] rounded-xl border-[1.5px] border-blue-200 px-4 text-[15px] font-medium outline-none focus:border-primary"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-[13.5px] font-bold text-foreground">
+            건물 유형 <span className="text-muted-foreground">(선택)</span>
+          </p>
           <div className="flex flex-wrap gap-2">
             {buildingTypes.map((type) => (
               <button
                 key={type}
                 type="button"
+                aria-pressed={buildingType === type}
                 onClick={() => setBuildingType(type)}
-                className={`rounded-[11px] border-[1.5px] px-4 py-2.5 text-[13.5px] font-bold transition ${
-                  buildingType === type
-                    ? "border-primary bg-primary text-white shadow-md shadow-primary/20"
-                    : "border-blue-200 bg-white text-gray-700"
-                }`}
+                className={chipClass(buildingType === type)}
               >
                 {type}
               </button>
@@ -211,9 +266,28 @@ export default function MobileQuote() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-[13.5px] font-bold text-foreground">
+          <p className="text-[13.5px] font-bold text-foreground">
+            층수 <span className="text-muted-foreground">(선택)</span>
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {floorOptions.map((option) => (
+              <button
+                key={option}
+                type="button"
+                aria-pressed={floors === option}
+                onClick={() => setFloors(option)}
+                className={chipClass(floors === option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-[13.5px] font-bold text-foreground">
             청소 항목 <span className="text-muted-foreground">(중복 선택)</span>
-          </label>
+          </p>
           <div className="flex flex-wrap gap-2">
             {serviceItems.map((item) => {
               const active = services.includes(item);
@@ -221,12 +295,9 @@ export default function MobileQuote() {
                 <button
                   key={item}
                   type="button"
+                  aria-pressed={active}
                   onClick={() => toggleService(item)}
-                  className={`inline-flex items-center gap-1.5 rounded-[11px] border-[1.5px] px-4 py-2.5 text-[13.5px] font-bold transition ${
-                    active
-                      ? "border-primary bg-primary text-white shadow-md shadow-primary/20"
-                      : "border-blue-200 bg-white text-gray-700"
-                  }`}
+                  className={`inline-flex items-center gap-1.5 ${chipClass(active)}`}
                 >
                   {active && <Check className="h-3 w-3" strokeWidth={3} />}
                   {item}
@@ -237,10 +308,11 @@ export default function MobileQuote() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-[13.5px] font-bold text-foreground">
+          <label htmlFor="quote-message" className="text-[13.5px] font-bold text-foreground">
             요청 내용 <span className="text-muted-foreground">(선택)</span>
           </label>
           <textarea
+            id="quote-message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="층수, 평수, 오염 상태, 희망 일정 등을 자유롭게 적어주세요."
@@ -288,7 +360,11 @@ export default function MobileQuote() {
         </a>
       </div>
       <p className="px-5 pt-3.5 text-center text-xs font-semibold text-muted-foreground">
-        전화 상담 <b className="text-foreground">{PHONE_NUMBER}</b> · 평일 09:00 - 18:00
+        전화 상담{" "}
+        <a href={PHONE_HREF} onClick={onPhoneLinkClick} className="font-extrabold tabular-nums text-foreground">
+          {PHONE_DISPLAY}
+        </a>{" "}
+        · {BUSINESS_HOURS}
       </p>
 
       <div className="px-5 pb-9 pt-6">

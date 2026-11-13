@@ -72,9 +72,8 @@ export default function Home() {
             <div id="home-work-log" className="scroll-mt-20">
               <HomeWorkLogTimeline />
             </div>
-            <div id="home-faq" className="scroll-mt-20">
-              <HomeFaq />
-            </div>
+            {/* id="home-faq"는 HomeFaq 섹션 자체에 있다 (같은 id가 두 번 생기지 않게 여기엔 두지 않는다) */}
+            <HomeFaq />
             <div id="home-contact" className="scroll-mt-20">
               <HomeFinalCta />
             </div>

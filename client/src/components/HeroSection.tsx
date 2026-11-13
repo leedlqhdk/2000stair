@@ -1,25 +1,27 @@
 import { HOME_EASE, useHomeMotion } from "@/components/HomeMotion";
 import { motion } from "framer-motion";
-import { Check, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Check, MessageCircle, Phone } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Link } from "wouter";
 import HeroWipe from "@/components/HeroWipe";
-import VisitorCounter from "@/components/VisitorCounter";
 import { notifyFloatingQuietChange } from "@/lib/floatingQuiet";
 import { trackConversion } from "@/lib/analytics";
+import { KAKAO_CHANNEL_URL, PHONE_DISPLAY, PHONE_HREF, PRICE_ANCHOR, QUOTE_PATH, onPhoneLinkClick } from "@/lib/contact";
+import { useDesktopPointer, useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface HeroSectionProps {
   isAuthenticated: boolean;
 }
 
-const KAKAO_CHANNEL_URL = "https://pf.kakao.com/_IiNfn/chat";
-const PHONE_NUMBER = "01084381887";
-
-const heroBadges = ["무료 방문 견적", "초도청소 전후 사진", "세금계산서 발행", "계약서 제공"];
+// 첫 화면 배지: 가격 기준을 맨 앞에 두어 "대략 얼마"를 바로 짐작할 수 있게 한다
+const heroBadges = [PRICE_ANCHOR, "무료 방문 견적", "초도청소 전후 사진", "세금계산서·계약서 제공"];
 
 // 풀스크린 첫 화면 장면과 문구. 문질러 닦는 첫 장면이 인상적이도록 한 장면만 둔다
 // (예전 2·3번 장면 "빌라·상가·원룸 정기관리", "하청 없이 부부가 직접 방문"은 바로 아래 청소 서비스 소개 문구가 대신한다)
 const heroSlides = [
   {
+    // 가장 큰 차별점(하청 없는 부부 직영)을 제목 위 한 줄로 먼저 보여준다
+    eyebrow: "하청 없이 부부가 직접 방문하는 정기관리",
     title: "이천 계단청소 전문업체",
     text: "주소와 건물 사진을 보내주시면 관리 범위와 방문 가능 여부를 안내해드립니다.",
     // 1번 장면은 마우스로 문지르면 청소 전 사진이 닦여 청소 후 모습이 드러난다 (HeroWipe, -before/-after 사진 한 쌍)
@@ -42,20 +44,6 @@ const CTA_BOTTOM = "calc(3rem + max(0px, 100svh - 75vw) * 0.35)";
 // 장면 문구는 상담 버튼·배지 묶음(실제 높이는 --hero-cta-h) 위로 3.75rem 띄워 서로 겹치지 않게 한다
 const TEXT_BOTTOM = `calc(${CTA_BOTTOM} + var(--hero-cta-h, 5.75rem) + 3.75rem)`;
 
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
-
-  useEffect(() => {
-    const list = window.matchMedia(query);
-    const update = () => setMatches(list.matches);
-    update();
-    list.addEventListener("change", update);
-    return () => list.removeEventListener("change", update);
-  }, [query]);
-
-  return matches;
-}
-
 // 데스크톱 첫 화면: 사진은 제자리에 고정되어 있고, 스크롤하면 다음 장면이 아래에서 위로 드러난다.
 // 각 장면은 자기 영역만큼만 보이도록 잘라내고(clip-path), 그 안의 사진·문구는 화면에 고정한다.
 export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
@@ -63,6 +51,8 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
   const { reduced } = useHomeMotion();
   const isDesktop = useMediaQuery(DESKTOP_QUERY);
   const tallEnough = useMediaQuery(REVEAL_QUERY);
+  // 마우스로 쓰는 PC: 전화 버튼에 번호를 보여주고 누르면 복사한다 (터치 기기는 바로 전화)
+  const desktopPointer = useDesktopPointer();
   const reveal = !reduced && tallEnough;
   // 첫 사진(LCP)을 먼저 받고 나서 나머지 두 장을 받는다
   const [restReady, setRestReady] = useState(false);
@@ -149,6 +139,17 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   className="pointer-events-none container relative flex h-full max-w-6xl flex-col justify-end"
                   style={{ paddingBottom: TEXT_BOTTOM }}
                 >
+                  {slide.eyebrow && (
+                    <motion.p
+                      className="mb-3 flex items-center gap-2.5 text-sm font-bold text-sky-200 lg:text-[15px]"
+                      initial={reduced ? false : { opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.05, ease: HOME_EASE }}
+                    >
+                      <span className="h-px w-7 shrink-0 bg-sky-300" aria-hidden="true" />
+                      {slide.eyebrow}
+                    </motion.p>
+                  )}
                   <TitleTag className="break-keep font-['GmarketSans'] text-[clamp(2.25rem,4.6vw,4rem)] font-bold leading-[1.15] text-white drop-shadow-[0_2px_16px_rgba(2,6,23,0.35)]">
                     {index === 0 ? (
                       <span className="block overflow-hidden py-[0.06em]">
@@ -201,18 +202,25 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   <MessageCircle className="h-5 w-5 shrink-0" />
                   주소·사진 보내고 무료 견적받기
                 </a>
+                {/* PC에서는 전화 앱 선택 창 대신 번호를 보여주고, 누르면 복사해 준다 (휴대폰·태블릿은 바로 전화) */}
                 <a
-                  href={`tel:${PHONE_NUMBER}`}
-                  onClick={() =>
+                  href={PHONE_HREF}
+                  onClick={(event) => {
                     trackConversion("phone_click", {
                       location: "desktop_hero",
-                      label: "전화로 방문견적 문의",
-                    })
-                  }
+                      label: desktopPointer ? "번호 복사" : "전화로 방문견적 문의",
+                    });
+                    onPhoneLinkClick(event);
+                  }}
+                  title={desktopPointer ? "누르면 전화번호가 복사됩니다" : undefined}
                   className="inline-flex min-h-14 flex-1 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-extrabold text-foreground shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-blue-50"
                 >
                   <Phone className="h-5 w-5 shrink-0 text-primary" />
-                  전화로 방문견적 문의
+                  {desktopPointer ? (
+                    <span className="tabular-nums tracking-wide">{PHONE_DISPLAY}</span>
+                  ) : (
+                    "전화로 방문견적 문의"
+                  )}
                 </a>
               </div>
 
@@ -224,17 +232,20 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
                   </span>
                 ))}
               </div>
+
+              {/* 전화·카톡이 번거로운 분(근무 중인 관리 담당자 등)을 위한 세 번째 길 */}
+              <Link
+                href={QUOTE_PATH}
+                onClick={() => trackConversion("cta_click", { location: "desktop_hero", label: "1분 견적 신청" })}
+                className="pointer-events-auto mt-3.5 inline-flex items-center gap-1 text-sm font-semibold text-white/75 underline decoration-white/35 underline-offset-4 transition hover:text-white hover:decoration-white"
+              >
+                전화·카톡이 어려우시면 1분 견적 신청
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </motion.div>
         </div>
       </section>
-
-      {/* 방문자 수 신뢰 바 (PC 전용 — 모바일은 MobileHome 히어로에 표시) */}
-      <div className="border-b border-blue-100/60 bg-white py-3.5">
-        <div className="container flex max-w-6xl justify-center">
-          <VisitorCounter />
-        </div>
-      </div>
     </div>
   );
 }
