@@ -3,7 +3,6 @@ import { flushSync } from "react-dom";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ChevronsLeftRight, X } from "lucide-react";
-import { HOME_EASE } from "@/components/HomeMotion";
 import { beforeAfterSrcSet, type BeforeAfterItem } from "@/data/beforeAfter";
 import { usePhotoCarousel } from "@/hooks/usePhotoCarousel";
 
@@ -23,7 +22,10 @@ const VIEWER_SIZES = "(min-width: 768px) 70vw, 100vw";
 // 카드를 누르면 같은 비율·같은 반반 모습의 크게 보기 화면으로 사진이 커지며 이어진다
 const PHOTO_TRANSITION_NAME = "ba-photo";
 
-const aspectOf = (item: BeforeAfterItem) => item.aspect ?? 1;
+// 아주 긴 세로 사진(화장실 샤워 수전 9:16)은 4:5까지만 세로로 늘려 카드끼리 크기가 조화롭게 한다.
+// 카드와 크게 보기 화면이 같은 비율로 가운데를 잘라 써서, 사진이 커지는 전환도 그대로 이어진다
+const MIN_ASPECT = 4 / 5;
+const aspectOf = (item: BeforeAfterItem) => Math.max(item.aspect ?? 1, MIN_ASPECT);
 
 /** 크게 보기용 1600px 사진을 미리 받아 둔다. 전환 전에 잠깐(최대 0.4초) 기다려 커지는 동안 사진이 비어 보이지 않게 한다 */
 function preloadLarge(item: BeforeAfterItem) {
@@ -285,31 +287,6 @@ export default function BeforeAfterCarousel({ items, className = "" }: BeforeAft
             </div>
           </motion.div>
 
-          {/* 사진 아래 제목: 글줄이 아래에서 올라오며 나타난다 */}
-          <div className="absolute inset-x-0 top-full pt-3">
-            <div className="overflow-hidden">
-              <motion.p
-                className="whitespace-nowrap font-['GmarketSans'] text-[15px] font-bold text-foreground"
-                initial={reduced ? false : { y: "105%" }}
-                whileInView={{ y: "0%" }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.7, delay: reduced ? 0 : 0.15 + (index % items.length) * 0.06, ease: HOME_EASE }}
-              >
-                {item.title}
-              </motion.p>
-            </div>
-            <div className="overflow-hidden">
-              <motion.p
-                className="mt-1 whitespace-nowrap text-xs font-semibold text-slate-500"
-                initial={reduced ? false : { y: "105%" }}
-                whileInView={{ y: "0%" }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.7, delay: reduced ? 0 : 0.21 + (index % items.length) * 0.06, ease: HOME_EASE }}
-              >
-                {item.category}
-              </motion.p>
-            </div>
-          </div>
         </button>
       ))}
 

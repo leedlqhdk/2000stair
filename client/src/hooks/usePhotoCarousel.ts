@@ -9,8 +9,6 @@ const TILT_PER_PX = 0.006;
 const TILT_MAX = 0.12;
 const TILT_LERP = 0.09;
 const DRAG_THRESHOLD = 6;
-// 사진 아래 글줄 높이만큼 사진을 살짝 올려 카드 전체가 가운데에 오게 한다
-const CAPTION_OFFSET = 24;
 
 function wrap(value: number, period: number) {
   const half = period / 2;
@@ -74,7 +72,7 @@ export function usePhotoCarousel({ rootRef, slotRefs, aspects, reduced, topInset
         if (!slot) continue;
         const relX = wrap((i - center) * step - state.scrollX, period);
         const x = width / 2 + relX - cellW / 2;
-        const y = topInset + (height - topInset) / 2 - cellW / aspects[i] / 2 - CAPTION_OFFSET;
+        const y = topInset + (height - topInset) / 2 - cellW / aspects[i] / 2;
         slot.style.transform = `translate3d(${x}px, ${y}px, 0) rotateY(${state.tilt}rad)`;
       }
     };
