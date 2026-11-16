@@ -1,6 +1,7 @@
 import type { SeoProps } from "@/components/Seo";
 import type { AreaPost } from "@/hooks/useAreaPosts";
 import { getPrimaryWorkService, WORK_SERVICE_LINKS } from "@shared/workRelatedLinks";
+import { stableWorkImages } from "@shared/workImage";
 import { getWorkSlug } from "./workSlug";
 
 const SITE_URL = "https://2000stair.kr";
@@ -55,7 +56,8 @@ export function getWorkSeo(post: AreaPost): SeoProps {
   const description =
     post.description ||
     `${withAreaPrefix(areaLabel, post.title)} 현장 기록입니다. 이천계단지기가 직접 관리한 ${service.breadcrumbName} 작업 사진과 날짜를 확인할 수 있습니다.`;
-  const image = toAbsoluteUrl(post.image);
+  // 노션 사진은 1시간 뒤 만료되는 주소라, og:image·구조화 데이터에는 사이트의 고정 주소(/api/work-image)를 쓴다
+  const image = toAbsoluteUrl(stableWorkImages(post, slug, SITE_URL)[0] ?? post.image);
   const areaPath = post.area ? workAreaRoutes[post.area] : undefined;
 
   const breadcrumbItems = [

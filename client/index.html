@@ -32,13 +32,13 @@
 <meta name="supported-color-schemes" content="light" />
 
     <!-- 첫 화면 가림막: 빌드 때 #root 안에 넣는 검색엔진용 글자(scripts/prerender-seo.ts)가
-         사이트 화면이 뜨기 전에 잠깐 보이지 않도록 덮는다. 사이트 화면이 뜨면 #root 내용과 함께 사라진다. -->
+         사이트 화면이 뜨기 전에 잠깐 보이지 않도록 덮는다. 사이트 화면이 뜨면 #root 내용과 함께 사라진다.
+         가림막 요소는 HTML에 넣지 않고 브라우저에서 JS로만 끼워 넣으므로, HTML만 읽는 검색 로봇에게는 본문이 가려지지 않는다. -->
     <style>
       .boot-cover { position: fixed; inset: 0; z-index: 2147483647; background: #ffffff; }
       /* PC로 홈에 처음 들어오면 인트로와 같은 남색으로 시작해 인트로 화면으로 바로 이어지게 한다 */
       .boot-intro .boot-cover { background: #101f3d; }
     </style>
-    <noscript><style>.boot-cover { display: none; }</style></noscript>
     <script>
       // IntroLoader의 shouldShowIntro()와 같은 조건 (홈은 처음 렌더링부터 인트로를 띄운다)
       try {
@@ -46,11 +46,11 @@
           document.documentElement.classList.add("boot-intro");
         }
       } catch (e) {}
-      // 사이트 파일을 끝내 받지 못하면(네트워크 오류 등) 검색엔진용 글자라도 보이도록 5초 뒤 가림막을 걷는다
+      // 사이트 파일을 끝내 받지 못하면(네트워크 오류 등) 검색엔진용 글자라도 보이도록 2.5초 뒤 가림막을 걷는다
       setTimeout(function () {
         var cover = document.querySelector("#root > .boot-cover");
         if (cover) cover.remove();
-      }, 5000);
+      }, 2500);
     </script>
 
     <!-- Primary SEO -->
