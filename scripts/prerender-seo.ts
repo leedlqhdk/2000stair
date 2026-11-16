@@ -9,6 +9,7 @@ import { majangPosts } from "../client/src/data/areas/majang";
 import type { AreaPost } from "../client/src/hooks/useAreaPosts";
 import { getWorkSeo } from "../client/src/lib/workSeo";
 import { getWorkSlug } from "../client/src/lib/workSlug";
+import { stableWorkImages } from "../shared/workImage";
 import { getPrimaryWorkService, getWorkRelatedLinks } from "../shared/workRelatedLinks";
 import type { WorkServiceKey } from "../shared/workRelatedLinks";
 
@@ -691,8 +692,9 @@ function buildStaticBody(seo: StaticSeo, context: StaticBodyContext) {
       ? getAreaStaticSections(context.route.split("/").pop() ?? "", context.workPosts)
       : getGeneralStaticSections(context.route, context.workPosts);
 
-  // boot-cover: 사이트 화면이 뜨기 전 이 글자들이 잠깐 보이지 않도록 덮는 가림막 (스타일은 client/index.html)
-  return `<div id="root"><div class="boot-cover" aria-hidden="true"></div><main data-prerender="seo" style="max-width:720px;margin:0 auto;padding:48px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a2b4a">
+  // boot-cover: 사이트 화면이 뜨기 전 이 글자들이 잠깐 보이지 않도록 덮는 가림막 (스타일은 client/index.html).
+  // HTML에 요소로 넣지 않고 브라우저에서 JS로 끼워 넣어, HTML만 읽는 검색 로봇에게는 본문이 가려진 것으로 보이지 않게 한다.
+  return `<div id="root"><script>document.currentScript.insertAdjacentHTML("afterend",'<div class="boot-cover" aria-hidden="true"></div>')</script><main data-prerender="seo" style="max-width:720px;margin:0 auto;padding:48px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a2b4a">
   <h1 style="font-size:1.45rem">${h1}</h1>
   <p>${description}</p>${body}
 </main></div>`;
@@ -737,6 +739,20 @@ function applySeoToHtml(html: string, seo: StaticSeo, context: StaticBodyContext
       })
       .join("\n  ");
     result = replaceOrThrow(result, /<\/head>/, `${scripts}\n  </head>`, "jsonld");
+  }
+
+  // 작업일지 글 내용을 HTML에 함께 실어, 화면(WorkDetail)이 서버 응답을 기다리지 않고 바로 그리게 한다.
+  // 사진은 만료되지 않는 고정 주소로 바꿔 둔다 (노션 서명 주소는 1시간 뒤 깨진다)
+  if (context.workPost) {
+    const slug = getWorkSlug(context.workPost);
+    const images = stableWorkImages(context.workPost, slug);
+    const embedded = { ...context.workPost, image: images[0] ?? context.workPost.image, images };
+    result = replaceOrThrow(
+      result,
+      /<\/head>/,
+      `<script id="work-post-data" type="application/json">${escapeJsonForScriptTag(embedded)}</script>\n  </head>`,
+      "work post data"
+    );
   }
 
   return result;

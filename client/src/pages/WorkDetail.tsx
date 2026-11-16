@@ -12,6 +12,7 @@ import { fallbackWorkPosts } from "@/hooks/useAllWorkPosts";
 import { getWorkSeo, workAreaLabels as areaLabels, workAreaRoutes as areaRoutes } from "@/lib/workSeo";
 import { getWorkSlug } from "@/lib/workSlug";
 import { getWorkRelatedLinks } from "@shared/workRelatedLinks";
+import { stableWorkImages } from "@shared/workImage";
 
 function getDefaultBuildingType(title: string) {
   if (/상가/.test(title)) return "상가 건물";
@@ -128,6 +129,19 @@ function WorkPhotoCollage({ images, title }: { images: string[]; title: string }
   );
 }
 
+/** 빌드 때 작업일지 HTML <head>에 실어 둔 글 내용(scripts/prerender-seo.ts). 이 글의 주소와 맞을 때만 쓴다 */
+function readEmbeddedPost(slug: string): AreaPost | undefined {
+  if (typeof document === "undefined") return undefined;
+  const raw = document.getElementById("work-post-data")?.textContent;
+  if (!raw) return undefined;
+  try {
+    const post = JSON.parse(raw) as AreaPost;
+    return getWorkSlug(post) === slug ? post : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export default function WorkDetail() {
   const { slug } = useParams<{ slug: string }>();
   const queryClient = useQueryClient();
@@ -149,6 +163,9 @@ export default function WorkDetail() {
       if (!response.ok) throw new Error(`작업일지를 불러오지 못했습니다 (${response.status})`);
       return (await response.json()) as AreaPost;
     },
+    // 빌드 때 HTML에 실어 둔 글 내용(prerender)이 있으면 서버 응답 전에 바로 그리고, 최신 내용은 뒤에서 받아 바꾼다
+    initialData: () => readEmbeddedPost(slug),
+    initialDataUpdatedAt: 0,
     staleTime: 5 * 60_000,
     retry: 2,
   });
@@ -158,7 +175,9 @@ export default function WorkDetail() {
     .split(/\n{2,}/)
     .map((paragraph) => paragraph.trim())
     .filter(Boolean);
-  const images = post?.images?.length ? post.images : post ? [post.image] : [];
+  // 노션 사진 주소는 1시간 뒤 만료되므로 사이트의 고정 주소(/api/work-image, 1600px 이하로 줄인 사진)로 바꿔 보여준다
+  const images = post ? stableWorkImages(post, slug) : [];
+  const heroImage = images[0] ?? post?.image;
   const areaLabel = post?.area ? areaLabels[post.area] ?? post.area : "이천";
   const backHref = post?.area ? areaRoutes[post.area] ?? "/records" : "/records";
   const blogAreaLabel = post ? getBlogAreaLabel(post, areaLabel) : areaLabel;
@@ -255,7 +274,7 @@ export default function WorkDetail() {
             <div className="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
               <div className="relative min-h-[330px] overflow-hidden bg-blue-50 md:min-h-[520px]">
                 <img
-                  {...responsiveImage(post.image)}
+                  {...responsiveImage(heroImage)}
                   sizes="(min-width: 768px) 300px, 50vw"
                   alt={post.title}
                   className="absolute inset-0 h-full w-full object-cover brightness-[1.03] contrast-[1.03] saturate-[1.06]"
