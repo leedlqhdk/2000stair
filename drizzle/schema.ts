@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, real, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, real, serial, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", ["user", "admin"]);
 export const serviceTypeEnum = pgEnum("serviceType", ["in_person", "non_contact"]);
@@ -107,3 +107,31 @@ export const posts = pgTable("posts", {
 });
 export type Post = typeof posts.$inferSelect;
 export type InsertPost = typeof posts.$inferInsert;
+
+// 정산 달력: 고객 정보는 노션 정기청소 계약관리에서 동기화하고,
+// 월별 입금·세금계산서 상태는 이 DB에서만 관리한다(노션에 쓰지 않음).
+export const billingCustomers = pgTable("billing_customers", {
+  id: serial("id").primaryKey(),
+  notionPageId: varchar("notionPageId", { length: 64 }).unique(),
+  name: varchar("name", { length: 200 }).notNull(),
+  monthlyFee: integer("monthlyFee").default(0).notNull(),
+  dueDay: integer("dueDay"),
+  memo: text("memo"),
+  active: boolean("active").default(true).notNull(),
+  inactiveReason: text("inactiveReason"),
+  lastSyncedAt: timestamp("lastSyncedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type BillingCustomer = typeof billingCustomers.$inferSelect;
+
+export const billingMonths = pgTable("billing_months", {
+  id: serial("id").primaryKey(),
+  customerId: integer("customerId").notNull(),
+  month: varchar("month", { length: 7 }).notNull(),
+  paid: boolean("paid").default(false).notNull(),
+  paidAt: varchar("paidAt", { length: 10 }),
+  invoiceIssued: boolean("invoiceIssued").default(false).notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+}, t => [uniqueIndex("billing_months_customer_month").on(t.customerId, t.month)]);
+export type BillingMonth = typeof billingMonths.$inferSelect;

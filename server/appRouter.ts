@@ -17,6 +17,7 @@ import { sdk } from "./_core/sdk.js";
 import { fieldRouter } from "./appFieldRouter.js";
 
 import { settlementsRouter } from "./appSettlementsRouter.js";
+import { billingRouter } from "./appBillingRouter.js";
 
 const ADMIN_OPEN_ID = "admin-password:leedlqhdk@gmail.com";
 const PASSWORD_ADMIN_APP_ID = "2000stair-admin";
@@ -65,6 +66,7 @@ const createAdminUser = () => {
 export const appRouter = router({
   system: systemRouter,
   settlements: settlementsRouter,
+  billing: billingRouter,
   blog: blogRouter,
   areaPosts: areaPostsRouter,
   contentPosts: contentPostsRouter,

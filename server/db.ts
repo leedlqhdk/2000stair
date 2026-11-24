@@ -98,6 +98,11 @@ async function ensureSchema(db: ReturnType<typeof drizzle>) {
     )
   `);
 
+  // 정산 달력 (additive only: never drops or rewrites existing rows)
+  await db.execute(sql`CREATE TABLE IF NOT EXISTS "billing_customers" ("id" serial PRIMARY KEY, "notionPageId" varchar(64) UNIQUE, "name" varchar(200) NOT NULL, "monthlyFee" integer NOT NULL DEFAULT 0, "dueDay" integer, "memo" text, "active" boolean NOT NULL DEFAULT true, "inactiveReason" text, "lastSyncedAt" timestamp, "createdAt" timestamp NOT NULL DEFAULT now(), "updatedAt" timestamp NOT NULL DEFAULT now())`);
+  await db.execute(sql`CREATE TABLE IF NOT EXISTS "billing_months" ("id" serial PRIMARY KEY, "customerId" integer NOT NULL REFERENCES "billing_customers"("id") ON DELETE RESTRICT, "month" varchar(7) NOT NULL, "paid" boolean NOT NULL DEFAULT false, "paidAt" varchar(10), "invoiceIssued" boolean NOT NULL DEFAULT false, "updatedAt" timestamp NOT NULL DEFAULT now())`);
+  await db.execute(sql`CREATE UNIQUE INDEX IF NOT EXISTS "billing_months_customer_month" ON "billing_months" ("customerId", "month")`);
+
   _schemaReady = true;
 }
 
