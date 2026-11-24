@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { asc, eq } from "drizzle-orm";
+import { asc, eq, max } from "drizzle-orm";
 import { z } from "zod";
 import { adminProcedure, router } from "./_core/trpc.js";
 import { getDb } from "./db.js";
@@ -71,7 +71,11 @@ async function fetchAllContracts(): Promise<NotionPage[]> {
 }
 
 export const billingRouter = router({
-  status: adminProcedure.query(() => ({ notionConfigured: Boolean(notionToken()) })),
+  status: adminProcedure.query(async () => {
+    const db = await getDb();
+    const [row] = db ? await db.select({ last: max(billingCustomers.lastSyncedAt) }).from(billingCustomers) : [];
+    return { notionConfigured: Boolean(notionToken()), lastSyncedAt: row?.last ? new Date(row.last).toISOString() : null };
+  }),
 
   customers: adminProcedure.query(async () => {
     const db = await requireDb();
@@ -135,6 +139,8 @@ export const billingRouter = router({
     for (const d of plan.deactivate) {
       await db.update(billingCustomers).set({ active: false, inactiveReason: d.reason, lastSyncedAt: now, updatedAt: now }).where(eq(billingCustomers.id, d.id));
     }
+    // Record the sync time even if no row changed, so auto-sync can throttle.
+    await db.update(billingCustomers).set({ lastSyncedAt: now }).where(eq(billingCustomers.active, true));
     return {
       read: pages.length,
       added: plan.inserts.map(r => r.name),
