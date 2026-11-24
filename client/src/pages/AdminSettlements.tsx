@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -15,6 +15,7 @@ const shiftMonth = (month: string, delta: number) => {
   return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
 };
 const inputClass = "w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500";
+const AUTO_SYNC_MS = 10 * 60 * 1000;
 const WEEK = ["일", "월", "화", "수", "목", "금", "토"];
 
 type SyncResult = {
@@ -58,11 +59,29 @@ function Calendar() {
   const status = trpc.billing.status.useQuery(undefined, { retry: false });
   const query = trpc.billing.month.useQuery({ month }, { retry: false, refetchOnWindowFocus: true });
   const customers = trpc.billing.customers.useQuery(undefined, { enabled: showCustomers, retry: false });
+  const autoRef = useRef(false);
+  const [auto, setAuto] = useState(false);
   const sync = trpc.billing.syncFromNotion.useMutation({
     retry: false,
-    onSuccess: async result => { setSyncResult(result); toast.success("노션 고객 동기화를 마쳤습니다."); await Promise.all([utils.billing.month.invalidate(), utils.billing.customers.invalidate()]); },
-    onError: e => toast.error(e.message),
+    onSuccess: async result => {
+      const notable = result.added.length + result.linked.length + result.deactivated.length + result.conflicts.length + result.skipped.length > 0;
+      // Auto-sync stays quiet unless something changed or needs attention.
+      if (!autoRef.current || notable) setSyncResult(result);
+      if (!autoRef.current) toast.success("노션 고객 동기화를 마쳤습니다.");
+      autoRef.current = false; setAuto(false);
+      await Promise.all([utils.billing.month.invalidate(), utils.billing.customers.invalidate(), utils.billing.status.invalidate()]);
+    },
+    onError: e => { toast.error(autoRef.current ? `자동 동기화 실패: ${e.message}` : e.message); autoRef.current = false; setAuto(false); },
   });
+  const triedAuto = useRef(false);
+  useEffect(() => {
+    if (triedAuto.current || !status.data?.notionConfigured) return;
+    triedAuto.current = true;
+    const last = status.data.lastSyncedAt ? new Date(status.data.lastSyncedAt).getTime() : 0;
+    if (Date.now() - last < AUTO_SYNC_MS) return;
+    autoRef.current = true; setAuto(true);
+    sync.mutate();
+  }, [status.data]); // eslint-disable-line react-hooks/exhaustive-deps
   const setStatus = trpc.billing.setStatus.useMutation({
     retry: false,
     onSuccess: () => utils.billing.month.invalidate({ month }),
@@ -102,9 +121,10 @@ function Calendar() {
         <section className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-4">
           <div className="text-sm text-slate-600">
             고객 정보는 노션 <b>정기청소 계약관리</b>에서 가져옵니다. 입금·세금계산서 체크는 이 화면에만 저장되고 노션은 바꾸지 않습니다.
+            {status.data?.lastSyncedAt && <p className="mt-1 text-xs text-slate-500">화면을 열면 10분마다 자동으로 맞춰요 · 마지막 동기화 {new Date(status.data.lastSyncedAt).toLocaleString("ko-KR", { timeZone: "Asia/Seoul", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}</p>}
             {status.data && !status.data.notionConfigured && <p className="mt-1 font-medium text-amber-700">노션 연결 키가 아직 설정되지 않아 동기화할 수 없습니다.</p>}
           </div>
-          <Button disabled={sync.isPending || !status.data?.notionConfigured} onClick={() => sync.mutate()}>{sync.isPending ? "노션에서 가져오는 중…" : "노션 고객 동기화"}</Button>
+          <Button disabled={sync.isPending || !status.data?.notionConfigured} onClick={() => sync.mutate()}>{sync.isPending ? (auto ? "자동 동기화 중…" : "노션에서 가져오는 중…") : "지금 동기화"}</Button>
         </section>
 
         {syncResult && <SyncSummary result={syncResult} onClose={() => setSyncResult(null)} />}
